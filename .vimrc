@@ -1,15 +1,12 @@
 " todolist:
 " [ ] cleanup
 " [ ] wtf with my clipboard when i'm yanking?
-" [ ] what is ns9tks/vim-fuzzyfinder
 " [ ] what is airblade/vim-gitgutter | http://vimawesome.com/plugin/vim-gitgutter
 " [ ] that's may make my life better. Lokaltog/vim-easymotion
-
 set nocompatible
-
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
+call vundle#begin()
     Plugin 'gmarik/Vundle.vim'
 
     Plugin 'Shougo/vimproc.vim'
@@ -28,17 +25,19 @@ call vundle#begin()
     Plugin 'fatih/vim-go'
     Plugin 'elzr/vim-json'
 
-
-    Plugin 'airblade/vim-gitgutter'
+    " why this plugin do ^[0B in insert mode?
+    " Plugin 'airblade/vim-gitgutter'
 
     Plugin 'l9'
     Plugin 'fuzzyfinder'
 
     Plugin 'Lokaltog/vim-easymotion'
+    Plugin 'haya14busa/vim-easyoperator-line'
 
     Plugin 'sudo.vim'
 
 call vundle#end()
+
 filetype plugin indent on
 
 syntax on
@@ -146,15 +145,46 @@ au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
 au FileType go nmap <Leader>e <Plug>(go-rename)
 
+augroup syntax_hacks
+    au!
+    au FileType diff syn match DiffComment "^#.*"
+    au FileType diff syn match DiffCommentIgnore "^###.*"
+    au FileType diff call g:ApplySyntaxForDiffComments()
+augroup end
+
+
+fun! g:ApplySyntaxForDiffComments()
+    if &background == 'light'
+        hi DiffCommentIgnore ctermfg=249 ctermbg=none
+        hi DiffComment ctermfg=16 ctermbg=254
+    else
+        hi DiffCommentIgnore ctermfg=249 ctermbg=none
+        hi DiffComment ctermfg=15 ctermbg=237
+    endif
+endfun
+
 " au FileType php set omnifunc=phpcomplete#CompletePHP
 
 nmap <F8> :TagbarToggle<CR>
 
+
 nmap ,a :Unite ash<CR>
-nmap ,q :UniteResume<CR>
+nmap ,r :UniteResume<CR>
+nmap ,w :w<CR>
 nmap ,s :bdelete<CR>
 
 inoremap jk <esc>
 
 map <C-n> :NERDTreeToggle<CR>
+
+nnoremap \q :q<CR>
+inoremap \q <Esc>:q<CR>a
+
+inoremap \f <Esc>:FufFile<CR>a
+inoremap \b <Esc>:FufBuffer<CR>a
+nnoremap \c <Esc>:FufCoverageFile<CR>a
+
+nnoremap `f :FufFile<CR>
+nnoremap `<Tab> :FufBuffer<CR>
+nnoremap `` :FufCoverageFile<CR>
 
