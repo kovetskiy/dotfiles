@@ -4,6 +4,17 @@
 " [ ] what is airblade/vim-gitgutter | http://vimawesome.com/plugin/vim-gitgutter
 " [ ] that's may make my life better. Lokaltog/vim-easymotion
 set nocompatible
+
+imap <UP> <NOP>
+imap <DOWN> <NOP>
+imap <LEFT> <NOP>
+imap <RIGHT> <NOP>
+imap <HOME> <NOP>
+imap <END> <NOP>
+imap <PageUp> <NOP>
+imap <PageDown> <NOP>
+imap <Del> <NOP>
+
 set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
@@ -20,10 +31,12 @@ call vundle#begin()
     Plugin 'majutsushi/tagbar'
     Plugin 'Yggdroot/indentLine'
 
-    Plugin 'Valloric/YouCompleteMe'
+    "Plugin 'Valloric/YouCompleteMe'
     Plugin '2072/PHP-Indenting-for-VIm'
     Plugin 'fatih/vim-go'
     Plugin 'elzr/vim-json'
+    Plugin 'mhinz/vim-startify'
+    Plugin 'kana/vim-smartinput'
 
     " why this plugin do ^[0B in insert mode?
     " Plugin 'airblade/vim-gitgutter'
@@ -126,6 +139,8 @@ let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 1
 
+au BufRead,BufNewFile *.go set filetype=go
+
 au FileType go nmap <Leader>s <Plug>(go-implements)
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
@@ -167,24 +182,31 @@ endfun
 
 nmap <F8> :TagbarToggle<CR>
 
-
 nmap ,a :Unite ash<CR>
 nmap ,r :UniteResume<CR>
-nmap ,w :w<CR>
 nmap ,s :bdelete<CR>
-
-inoremap jk <esc>
 
 map <C-n> :NERDTreeToggle<CR>
 
-nnoremap \q :q<CR>
-inoremap \q <Esc>:q<CR>a
+nnoremap <Leader>d :bdelete<CR>
+inoremap <Leader>d <Esc>:bdelete<CR>
 
-inoremap \f <Esc>:FufFile<CR>a
-inoremap \b <Esc>:FufBuffer<CR>a
-nnoremap \c <Esc>:FufCoverageFile<CR>a
+nnoremap <Leader>e :e! 
+inoremap <Leader>e <Esc>:e! 
 
-nnoremap `f :FufFile<CR>
-nnoremap `<Tab> :FufBuffer<CR>
+nnoremap <Leader>w :w<CR>
+inoremap <Leader>w :w<CR>
+
+nnoremap <Leader>q :q!<CR>
+inoremap <Leader>q <Esc>:q!<CR>
+
+inoremap <C-o> <Esc>:FufFile<CR>a
+inoremap <Tab><Tab> <Esc>:FufBuffer<CR>a
+nnoremap `` <Esc>:FufCoverageFile<CR>a
+
+nnoremap <C-o> :FufFile<CR>
+nnoremap <Tab><Tab> :FufBuffer<CR>
 nnoremap `` :FufCoverageFile<CR>
+
+nnoremap <Space> viw<CR>
 
