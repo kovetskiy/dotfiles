@@ -1,12 +1,9 @@
-" todolist:
 " [ ] cleanup
 " [ ] wtf with my clipboard when i'm yanking?
 " [ ] what is airblade/vim-gitgutter | http://vimawesome.com/plugin/vim-gitgutter
 " [ ] that's may make my life better. Lokaltog/vim-easymotion
 set nocompatible
 
-imap <UP> <NOP>
-imap <DOWN> <NOP>
 imap <LEFT> <NOP>
 imap <RIGHT> <NOP>
 imap <HOME> <NOP>
@@ -24,31 +21,34 @@ call vundle#begin()
     Plugin 'Shougo/unite.vim'
 
     Plugin 'junegunn/seoul256.vim'
+    "Plugin 'jpo/vim-railscasts-theme'
     Plugin 'bling/vim-airline'
 
     Plugin 'scrooloose/nerdtree'
     Plugin 'scrooloose/nerdcommenter'
     Plugin 'majutsushi/tagbar'
     Plugin 'Yggdroot/indentLine'
-
-    "Plugin 'Valloric/YouCompleteMe'
+    Plugin 'jamis/fuzzyfinder_textmate'
+    Plugin 'Valloric/YouCompleteMe'
     Plugin '2072/PHP-Indenting-for-VIm'
     Plugin 'fatih/vim-go'
     Plugin 'elzr/vim-json'
     Plugin 'mhinz/vim-startify'
-    Plugin 'kana/vim-smartinput'
-
+    Plugin 'vim-php/tagbar-phpctags.vim'
+    Plugin 'vim-scripts/smarty-syntax'
     " why this plugin do ^[0B in insert mode?
     " Plugin 'airblade/vim-gitgutter'
-
+    Plugin 'Align'
     Plugin 'l9'
     Plugin 'fuzzyfinder'
-
+    Plugin 'lyokha/vim-xkbswitch'
     Plugin 'Lokaltog/vim-easymotion'
     Plugin 'haya14busa/vim-easyoperator-line'
 
     Plugin 'sudo.vim'
-
+    Plugin 'SirVer/ultisnips'
+    Plugin 'ash.vim'
+    Plugin 'honza/vim-snippets'
 call vundle#end()
 
 filetype plugin indent on
@@ -106,8 +106,7 @@ set lcs=eol:¶,trail:·,tab:··
 "let g:airline#extensions#whitespace#symbol = '☼'
 
 colorscheme seoul256
-set background=dark
-let g:seoul256_background = 234
+
 hi! link WildMenu PmenuSel
 hi SPM1 ctermbg=1 ctermfg=7
 hi SPM2 ctermbg=2 ctermfg=7
@@ -139,6 +138,8 @@ let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 1
 
+au BufRead,BufNewFile *.tpl set filetype=smarty
+
 au BufRead,BufNewFile *.go set filetype=go
 
 au FileType go nmap <Leader>s <Plug>(go-implements)
@@ -160,11 +161,17 @@ au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
 au FileType go nmap <Leader>e <Plug>(go-rename)
 
+let g:tagbar_phpctags_bin = '/usr/bin/phpctags'
+let g:tagbar_phpctags_memory_limit = '512M'
+
+au FileType php,go,tpl,yml autocmd BufWritePre <buffer> :%s/\s\+$//e
+
 augroup syntax_hacks
     au!
     au FileType diff syn match DiffComment "^#.*"
     au FileType diff syn match DiffCommentIgnore "^###.*"
     au FileType diff call g:ApplySyntaxForDiffComments()
+    au FileType diff nnoremap o o# 
 augroup end
 
 
@@ -181,10 +188,15 @@ endfun
 " au FileType php set omnifunc=phpcomplete#CompletePHP
 
 nmap <F8> :TagbarToggle<CR>
+nmap <F12> :set nohlsearch<CR>
+nmap <F1> <ESC>
+imap <F1> <ESC>
 
 nmap ,a :Unite ash<CR>
 nmap ,r :UniteResume<CR>
 nmap ,s :bdelete<CR>
+
+nmap <Leader>` :tabedit ~/.vimrc<CR>
 
 map <C-n> :NERDTreeToggle<CR>
 
@@ -195,18 +207,78 @@ nnoremap <Leader>e :e!
 inoremap <Leader>e <Esc>:e! 
 
 nnoremap <Leader>w :w<CR>
-inoremap <Leader>w :w<CR>
+inoremap <Leader>w <Esc>:w<CR>
 
 nnoremap <Leader>q :q!<CR>
 inoremap <Leader>q <Esc>:q!<CR>
 
-inoremap <C-o> <Esc>:FufFile<CR>a
-inoremap <Tab><Tab> <Esc>:FufBuffer<CR>a
+"inoremap <Tab><Tab> <Esc>:FufBuffer<CR>a
 nnoremap `` <Esc>:FufCoverageFile<CR>a
 
-nnoremap <C-o> :FufFile<CR>
+nnoremap `o :FufFile<CR>
 nnoremap <Tab><Tab> :FufBuffer<CR>
 nnoremap `` :FufCoverageFile<CR>
 
-nnoremap <Space> viw<CR>
+nnoremap <Space> viw
 
+nnoremap <leader>d V"_d<Esc>
+vnoremap <leader>d "_d
+
+vnoremap <C-c> "+yy
+
+inoremap <C-d> <C-[>diwi
+
+function! AddEmptyLineBelow()
+  call append(line("."), "")
+endfunction
+
+function! AddEmptyLineAbove()
+  let l:scrolloffsave = &scrolloff
+  " Avoid jerky scrolling with ^E at top of window
+  set scrolloff=0
+  call append(line(".") - 1, "")
+  if winline() != winheight(0)
+    silent normal! <C-e>
+  end
+  let &scrolloff = l:scrolloffsave
+endfunction
+
+function! DelEmptyLineBelow()
+  if line(".") == line("$")
+    return
+  end
+  let l:line = getline(line(".") + 1)
+  if l:line =~ '^\s*$'
+    let l:colsave = col(".")
+    .+1d
+    ''
+    call cursor(line("."), l:colsave)
+  end
+endfunction
+
+function! DelEmptyLineAbove()
+  if line(".") == 1
+    return
+  end
+  let l:line = getline(line(".") - 1)
+  if l:line =~ '^\s*$'
+    let l:colsave = col(".")
+    .-1d
+    silent normal! <C-y>
+    call cursor(line("."), l:colsave)
+  end
+endfunction
+
+nnoremap <Leader><Leader>j :call DelEmptyLineBelow()<CR>
+nnoremap <Leader><Leader>k :call DelEmptyLineAbove()<CR>
+nnoremap <Leader>j :call AddEmptyLineBelow()<CR>
+nnoremap <Leader>k :call AddEmptyLineAbove()<CR>
+
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+let g:XkbSwitchEnabled = 1
+let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
+let g:XkbSwitchIMappings = ['ru']
+let g:XkbSwitchNMappings = ['ru']
