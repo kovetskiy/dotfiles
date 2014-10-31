@@ -21,6 +21,7 @@ call vundle#begin()
     Plugin 'Shougo/unite.vim'
 
     Plugin 'junegunn/seoul256.vim'
+    Plugin 'sickill/vim-monokai'
     "Plugin 'jpo/vim-railscasts-theme'
     Plugin 'bling/vim-airline'
 
@@ -32,13 +33,13 @@ call vundle#begin()
     Plugin 'Valloric/YouCompleteMe'
     Plugin '2072/PHP-Indenting-for-VIm'
     Plugin 'fatih/vim-go'
-    Plugin 'elzr/vim-json'
+    "Plugin 'elzr/vim-json'
     Plugin 'mhinz/vim-startify'
     Plugin 'vim-php/tagbar-phpctags.vim'
     Plugin 'vim-scripts/smarty-syntax'
     " why this plugin do ^[0B in insert mode?
     " Plugin 'airblade/vim-gitgutter'
-    Plugin 'Align'
+    "Plugin 'Align'
     Plugin 'l9'
     Plugin 'fuzzyfinder'
     Plugin 'lyokha/vim-xkbswitch'
@@ -47,8 +48,10 @@ call vundle#begin()
 
     Plugin 'sudo.vim'
     Plugin 'SirVer/ultisnips'
-    Plugin 'ash.vim'
+    Plugin 'SchwarzeSonne/ash.vim'
     Plugin 'honza/vim-snippets'
+    Plugin 'tobyS/pdv'
+    Plugin 'tobyS/vmustache'
 call vundle#end()
 
 filetype plugin indent on
@@ -62,6 +65,7 @@ set rtp^=~/.vim
 
 set encoding=utf-8
 set printencoding=cp1251
+set fileformat=unix
 
 set timeoutlen=400
 set wildmenu
@@ -100,12 +104,11 @@ set cino=(s,m1,+0
 set list
 set lcs=eol:¶,trail:·,tab:··
 
-
 "let g:airline_powerline_fonts = 1
 "let g:airline_theme = 'lucius'
 "let g:airline#extensions#whitespace#symbol = '☼'
 
-colorscheme seoul256
+colorscheme monokai
 
 hi! link WildMenu PmenuSel
 hi SPM1 ctermbg=1 ctermfg=7
@@ -192,16 +195,16 @@ nmap <F12> :set nohlsearch<CR>
 nmap <F1> <ESC>
 imap <F1> <ESC>
 
-nmap ,a :Unite ash<CR>
+nmap ,i :Unite ash_inbox<CR>
+nmap ,l :Unite ash_lsreviews:ngs/auto<CR>
 nmap ,r :UniteResume<CR>
-nmap ,s :bdelete<CR>
 
 nmap <Leader>` :tabedit ~/.vimrc<CR>
 
 map <C-n> :NERDTreeToggle<CR>
 
-nnoremap <Leader>d :bdelete<CR>
-inoremap <Leader>d <Esc>:bdelete<CR>
+nnoremap <Leader><Leader>q :bdelete!<CR>
+nnoremap <Leader><Leader>q <Esc>:bdelete!<CR>
 
 nnoremap <Leader>e :e! 
 inoremap <Leader>e <Esc>:e! 
@@ -274,11 +277,15 @@ nnoremap <Leader><Leader>k :call DelEmptyLineAbove()<CR>
 nnoremap <Leader>j :call AddEmptyLineBelow()<CR>
 nnoremap <Leader>k :call AddEmptyLineAbove()<CR>
 
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsEditSplit="vertical"
 
 let g:XkbSwitchEnabled = 1
 let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
 let g:XkbSwitchIMappings = ['ru']
 let g:XkbSwitchNMappings = ['ru']
+
+let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
+nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
