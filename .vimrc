@@ -20,8 +20,9 @@ call vundle#begin()
     Plugin 'Shougo/vimproc.vim'
     Plugin 'Shougo/unite.vim'
 
-    Plugin 'junegunn/seoul256.vim'
-    Plugin 'sickill/vim-monokai'
+    "Plugin 'junegunn/seoul256.vim'
+    "Plugin 'sickill/vim-monokai'
+    Plugin 'morhetz/gruvbox'
     "Plugin 'jpo/vim-railscasts-theme'
     Plugin 'bling/vim-airline'
 
@@ -29,7 +30,6 @@ call vundle#begin()
     Plugin 'scrooloose/nerdcommenter'
     Plugin 'majutsushi/tagbar'
     Plugin 'Yggdroot/indentLine'
-    Plugin 'jamis/fuzzyfinder_textmate'
     Plugin 'Valloric/YouCompleteMe'
     Plugin '2072/PHP-Indenting-for-VIm'
     Plugin 'fatih/vim-go'
@@ -37,21 +37,24 @@ call vundle#begin()
     Plugin 'mhinz/vim-startify'
     Plugin 'vim-php/tagbar-phpctags.vim'
     Plugin 'vim-scripts/smarty-syntax'
+
     " why this plugin do ^[0B in insert mode?
     " Plugin 'airblade/vim-gitgutter'
     "Plugin 'Align'
+
     Plugin 'l9'
     Plugin 'fuzzyfinder'
     Plugin 'lyokha/vim-xkbswitch'
     Plugin 'Lokaltog/vim-easymotion'
     Plugin 'haya14busa/vim-easyoperator-line'
 
-    Plugin 'sudo.vim'
     Plugin 'SirVer/ultisnips'
     Plugin 'SchwarzeSonne/ash.vim'
     Plugin 'honza/vim-snippets'
-    Plugin 'tobyS/pdv'
-    Plugin 'tobyS/vmustache'
+    "Plugin 'tobyS/pdv'
+    "Plugin 'tobyS/vmustache'
+    Plugin 'm2mdas/phpcomplete-extended'
+    Plugin 'vim-php/vim-php-refactoring'
 call vundle#end()
 
 filetype plugin indent on
@@ -107,8 +110,8 @@ set lcs=eol:¶,trail:·,tab:··
 "let g:airline_powerline_fonts = 1
 "let g:airline_theme = 'lucius'
 "let g:airline#extensions#whitespace#symbol = '☼'
-
-colorscheme monokai
+colorscheme gruvbox
+set background=dark
 
 hi! link WildMenu PmenuSel
 hi SPM1 ctermbg=1 ctermfg=7
@@ -164,7 +167,9 @@ au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
 au FileType go nmap <Leader>e <Plug>(go-rename)
 
-let g:tagbar_phpctags_bin = '/usr/bin/phpctags'
+au FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+let g:php_refactor_command='php ~/.vim/php/refactor.phar'
+let g:tagbar_phpctags_bin = '~/.vim/php/phpctags/phpctags'
 let g:tagbar_phpctags_memory_limit = '512M'
 
 au FileType php,go,tpl,yml autocmd BufWritePre <buffer> :%s/\s\+$//e
