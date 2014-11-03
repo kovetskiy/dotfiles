@@ -1,3 +1,4 @@
+" 
 " [ ] cleanup
 " [ ] wtf with my clipboard when i'm yanking?
 " [ ] what is airblade/vim-gitgutter | http://vimawesome.com/plugin/vim-gitgutter
@@ -49,12 +50,14 @@ call vundle#begin()
     Plugin 'haya14busa/vim-easyoperator-line'
 
     Plugin 'SirVer/ultisnips'
-    Plugin 'SchwarzeSonne/ash.vim'
+    Plugin 'kovetskiy/ash.vim'
+    Plugin 'kovetskiy/xkb2en.vim'
     Plugin 'honza/vim-snippets'
     "Plugin 'tobyS/pdv'
     "Plugin 'tobyS/vmustache'
     Plugin 'm2mdas/phpcomplete-extended'
     Plugin 'vim-php/vim-php-refactoring'
+    Plugin 'tpope/vim-fugitive'
 call vundle#end()
 
 filetype plugin indent on
@@ -70,6 +73,7 @@ set encoding=utf-8
 set printencoding=cp1251
 set fileformat=unix
 
+let mapleader=" "
 set timeoutlen=400
 set wildmenu
 
@@ -167,7 +171,7 @@ au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
 au FileType go nmap <Leader>e <Plug>(go-rename)
 
-au FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+au FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 let g:php_refactor_command='php ~/.vim/php/refactor.phar'
 let g:tagbar_phpctags_bin = '~/.vim/php/phpctags/phpctags'
 let g:tagbar_phpctags_memory_limit = '512M'
@@ -193,18 +197,19 @@ fun! g:ApplySyntaxForDiffComments()
     endif
 endfun
 
-" au FileType php set omnifunc=phpcomplete#CompletePHP
-
 nmap <F8> :TagbarToggle<CR>
 nmap <F12> :set nohlsearch<CR>
 nmap <F1> <ESC>
 imap <F1> <ESC>
+nnoremap <F1> <ESC>:call xkb2en#change_layout()<CR>
+inoremap <F1> <ESC>:call xkb2en#change_layout()<CR><ESC>
 
 nmap ,i :Unite ash_inbox<CR>
 nmap ,l :Unite ash_lsreviews:ngs/auto<CR>
 nmap ,r :UniteResume<CR>
 
 nmap <Leader>` :tabedit ~/.vimrc<CR>
+nmap <Leader>% :so ~/.vimrc<CR>
 
 map <C-n> :NERDTreeToggle<CR>
 
@@ -226,6 +231,7 @@ nnoremap `` <Esc>:FufCoverageFile<CR>a
 nnoremap `o :FufFile<CR>
 nnoremap <Tab><Tab> :FufBuffer<CR>
 nnoremap `` :FufCoverageFile<CR>
+nnoremap <Leader>`` :FufFileWithCurrentBufferDir<CR>
 
 nnoremap <Space> viw
 
