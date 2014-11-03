@@ -8,7 +8,7 @@ URxvt.keysym.Control-Down: \033[1;5B
 URxvt.keysym.Control-Left: \033[1;5D
 URxvt.keysym.Control-Right: \033[1;5C
 
-URxvt.perl-ext-common: autocomplete-ALL-the-things,clipboard,default,keyboard-select
+URxvt.perl-ext-common: autocomplete-ALL-the-things,clipboard,default,keyboard-select,vim-scrollback
 
 URxvt.clipboard.copycmd:  xsel --input  --clipboard
 URxvt.clipboard.pastecmd: xsel --output --clipboard
@@ -44,7 +44,8 @@ URxvt.title: rxvt-unicode
 URxvt.saveLines: 5000
 URxvt.font: xft:Monaco:pixelsize=13:antialias=false
 URxvt.boldFont: xft:Monaco:bold:pixelsize=13:antialias=false
-URxvt*background: #232323
+URxvt*background: #000000
+!232323
 URxvt*foreground: #BBBBBB
 URxvt.underlineColor: blue
 URxvt.cursorColor: #BBBBBB
@@ -61,4 +62,11 @@ URxvt.matcher.button: 1
 URxvt.transparent: false
 URxvt.shading: 0
 URxvt.fading: 0
+
+URxvt.vim-scrollback: M-s
+URxvt.vim-scrollback-paste: M-p
+URxvt.vim-scrollback-bg: 16
+URxvt.vim-scrollback-fg: 10
+URxvt.vim-scrollback.pattern.1: \\B(/\\S+?):(\\d+)(?=:|$)
+URxvt.vim-scrollback.launcher.1: gvim +$2 $1
 
