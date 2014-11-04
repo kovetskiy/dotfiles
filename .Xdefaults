@@ -23,32 +23,32 @@ URxvt.keysym.M-C-slash:   perl:aAtt:WORD-complete
 URxvt.keysym.M-question:  perl:aAtt:fuzzy-complete
 URxvt.keysym.M-quotedbl:  perl:aAtt:undo
 
-URxvt.color0:  #000000
-URxvt.color1:  #cd0000
-URxvt.color2:  #00cd00
-URxvt.color3:  #cdcd00
-URxvt.color4:  #1e90ff
-URxvt.color5:  #cd00cd
-URxvt.color6:  #00cdcd
-URxvt.color7:  #e5e5e5
-URxvt.color8:  #4c4c4c
-URxvt.color9:  #ff0000
-URxvt.color10: #00ff00
-URxvt.color11: #ffff00
-URxvt.color12: #4682b4
-URxvt.color13: #ff00ff
-URxvt.color14: #00ffff
-URxvt.color15: #ffffff
+! like gruvbox :)
+URxvt.background: #282828
+URxvt.foreground: #ebdbb2
+URxvt.color0:  #282828
+URxvt.color8:  #928374
+URxvt.color1:  #cc241d
+URxvt.color9:  #fb4934
+URxvt.color2:  #98971a
+URxvt.color10: #b8bb26
+URxvt.color3:  #d79921
+URxvt.color11: #fabd2f
+URxvt.color4:  #458588
+URxvt.color12: #83a598
+URxvt.color5:  #b16286
+URxvt.color13: #d3869b
+URxvt.color6:  #689d6a
+URxvt.color14: #8ec07c
+URxvt.color7:  #a89984
+URxvt.color15: #ebdbb2
+URxvt.cursorColor: #ffffff
 
 URxvt.title: rxvt-unicode
 URxvt.saveLines: 5000
 URxvt.font: xft:Monaco:pixelsize=13:antialias=false
 URxvt.boldFont: xft:Monaco:bold:pixelsize=13:antialias=false
-URxvt*background: #000000
-!232323
-URxvt*foreground: #BBBBBB
 URxvt.underlineColor: blue
-URxvt.cursorColor: #BBBBBB
 URxvt.cursorBlink: true
 URxvt*scrollBar: true
 URxvt*scrollBar_right: true
