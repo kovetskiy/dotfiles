@@ -1,10 +1,8 @@
-" 
-" [ ] cleanup
 " [ ] wtf with my clipboard when i'm yanking?
-" [ ] what is airblade/vim-gitgutter | http://vimawesome.com/plugin/vim-gitgutter
-" [ ] that's may make my life better. Lokaltog/vim-easymotion
 set nocompatible
 
+imap <UP> <NOP>
+imap <DOWN> <NOP>
 imap <LEFT> <NOP>
 imap <RIGHT> <NOP>
 imap <HOME> <NOP>
@@ -14,20 +12,15 @@ imap <PageDown> <NOP>
 imap <Del> <NOP>
 
 set rtp+=~/.vim/bundle/Vundle.vim
-
 call vundle#begin()
     Plugin 'gmarik/Vundle.vim'
 
     Plugin 'Shougo/vimproc.vim'
     Plugin 'Shougo/unite.vim'
 
-    "Plugin 'junegunn/seoul256.vim'
-    "Plugin 'sickill/vim-monokai'
     Plugin 'morhetz/gruvbox'
-    "Plugin 'jpo/vim-railscasts-theme'
     Plugin 'bling/vim-airline'
 
-    Plugin 'scrooloose/nerdtree'
     Plugin 'scrooloose/nerdcommenter'
     Plugin 'majutsushi/tagbar'
     Plugin 'Yggdroot/indentLine'
@@ -41,14 +34,12 @@ call vundle#begin()
 
     " why this plugin do ^[0B in insert mode?
     " Plugin 'airblade/vim-gitgutter'
-    "Plugin 'Align'
 
     Plugin 'l9'
     Plugin 'fuzzyfinder'
     Plugin 'lyokha/vim-xkbswitch'
     Plugin 'Lokaltog/vim-easymotion'
     Plugin 'haya14busa/vim-easyoperator-line'
-
     Plugin 'SirVer/ultisnips'
     Plugin 'kovetskiy/ash.vim'
     Plugin 'kovetskiy/xkb2en.vim'
@@ -58,6 +49,8 @@ call vundle#begin()
     Plugin 'm2mdas/phpcomplete-extended'
     Plugin 'vim-php/vim-php-refactoring'
     Plugin 'tpope/vim-fugitive'
+    Plugin 'tpope/vim-surround'
+    Plugin 'terryma/vim-multiple-cursors'
 call vundle#end()
 
 filetype plugin indent on
@@ -73,7 +66,6 @@ set encoding=utf-8
 set printencoding=cp1251
 set fileformat=unix
 
-let mapleader=" "
 set timeoutlen=400
 set wildmenu
 
@@ -82,8 +74,7 @@ set undodir=$HOME/.vim/tmp/
 set directory=$HOME/.vim/tmp/
 
 set ttyfast
-"set autowrite
-"
+
 set number
 set relativenumber
 
@@ -111,11 +102,11 @@ set cino=(s,m1,+0
 set list
 set lcs=eol:¶,trail:·,tab:··
 
-"let g:airline_powerline_fonts = 1
-"let g:airline_theme = 'lucius'
-"let g:airline#extensions#whitespace#symbol = '☼'
-colorscheme gruvbox
 set background=dark
+colorscheme gruvbox
+
+let mapleader=" "
+let g:airline#extensions#whitespace#symbol = '☼'
 
 hi! link WildMenu PmenuSel
 hi SPM1 ctermbg=1 ctermfg=7
@@ -125,7 +116,6 @@ hi SPM4 ctermbg=4 ctermfg=7
 hi SPM5 ctermbg=5 ctermfg=7
 hi SPM6 ctermbg=6 ctermfg=7
 
-" disable weird standout mode
 hi ErrorMsg term=none
 hi Todo term=none
 hi SignColumn term=none
@@ -144,42 +134,51 @@ hi SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
 hi NonText ctermfg=235 cterm=none term=none
 hi IncSearch cterm=none ctermfg=238 ctermbg=220
 
-let g:go_fmt_fail_silently = 1
-let g:go_fmt_command = "goimports"
-let g:go_fmt_autosave = 1
+augroup filetype_go
+    au!
 
-au BufRead,BufNewFile *.tpl set filetype=smarty
+    au BufRead,BufNewFile *.go set filetype=go
+    au FileType go nmap <Leader>s <Plug>(go-implements)
+    au FileType go nmap <Leader>i <Plug>(go-info)
+    au FileType go nmap <Leader>gd <Plug>(go-doc)
+    au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+    au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
 
-au BufRead,BufNewFile *.go set filetype=go
+    au FileType go nmap <leader>r <Plug>(go-run)
+    au FileType go nmap <leader>b <Plug>(go-build)
+    au FileType go nmap <leader>t <Plug>(go-test)
+    au FileType go nmap <leader>c <Plug>(go-coverage)
 
-au FileType go nmap <Leader>s <Plug>(go-implements)
-au FileType go nmap <Leader>i <Plug>(go-info)
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+    au FileType go nmap gd <Plug>(go-def)
 
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
+    au FileType go nmap <Leader>ds <Plug>(go-def-split)
+    au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+    au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
-au FileType go nmap gd <Plug>(go-def)
+    au FileType go nmap <Leader>e <Plug>(go-rename)
+augroup END
 
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+augroup filetype_tpl
+    au!
 
-au FileType go nmap <Leader>e <Plug>(go-rename)
+    au BufRead,BufNewFile *.tpl set filetype=smarty
+augroup END
 
-au FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
-let g:php_refactor_command='php ~/.vim/php/refactor.phar'
-let g:tagbar_phpctags_bin = '~/.vim/php/phpctags/phpctags'
-let g:tagbar_phpctags_memory_limit = '512M'
+augroup filetype_php
+    au!
 
-au FileType php,go,tpl,yml autocmd BufWritePre <buffer> :%s/\s\+$//e
+    au FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
+augroup END
+
+augroup whitespace_hacks
+    au!
+
+    au FileType php,go,tpl,yml autocmd BufWritePre <buffer> :%s/\s\+$//e
+augroup END
 
 augroup syntax_hacks
     au!
+
     au FileType diff syn match DiffComment "^#.*"
     au FileType diff syn match DiffCommentIgnore "^###.*"
     au FileType diff call g:ApplySyntaxForDiffComments()
@@ -197,59 +196,14 @@ fun! g:ApplySyntaxForDiffComments()
     endif
 endfun
 
-nmap <F8> :TagbarToggle<CR>
-nmap <F12> :set nohlsearch<CR>
-nmap <F1> <ESC>
-imap <F1> <ESC>
-nnoremap <F1> <ESC>:call xkb2en#change_layout()<CR>
-inoremap <F1> <ESC>:call xkb2en#change_layout()<CR><ESC>
-
-nmap ,i :Unite ash_inbox<CR>
-nmap ,l :Unite ash_lsreviews:ngs/auto<CR>
-nmap ,r :UniteResume<CR>
-
-nmap <Leader>` :tabedit ~/.vimrc<CR>
-nmap <Leader>% :so ~/.vimrc<CR>
-
-map <C-n> :NERDTreeToggle<CR>
-
-nnoremap <Leader><Leader>q :bdelete!<CR>
-nnoremap <Leader><Leader>q <Esc>:bdelete!<CR>
-
-nnoremap <Leader>e :e! 
-inoremap <Leader>e <Esc>:e! 
-
-nnoremap <Leader>w :w<CR>
-inoremap <Leader>w <Esc>:w<CR>
-
-nnoremap <Leader>q :q!<CR>
-inoremap <Leader>q <Esc>:q!<CR>
-
-"inoremap <Tab><Tab> <Esc>:FufBuffer<CR>a
-nnoremap `` <Esc>:FufCoverageFile<CR>a
-
-nnoremap `o :FufFile<CR>
-nnoremap <Tab><Tab> :FufBuffer<CR>
-nnoremap `` :FufCoverageFile<CR>
-nnoremap <Leader>`` :FufFileWithCurrentBufferDir<CR>
-
-nnoremap <Space> viw
-
-nnoremap <leader>d V"_d<Esc>
-vnoremap <leader>d "_d
-
-vnoremap <C-c> "+yy
-
-inoremap <C-d> <C-[>diwi
-
 function! AddEmptyLineBelow()
   call append(line("."), "")
 endfunction
 
 function! AddEmptyLineAbove()
   let l:scrolloffsave = &scrolloff
-  " Avoid jerky scrolling with ^E at top of window
   set scrolloff=0
+
   call append(line(".") - 1, "")
   if winline() != winheight(0)
     silent normal! <C-e>
@@ -283,20 +237,56 @@ function! DelEmptyLineAbove()
   end
 endfunction
 
-nnoremap <Leader><Leader>j :call DelEmptyLineBelow()<CR>
-nnoremap <Leader><Leader>k :call DelEmptyLineAbove()<CR>
-nnoremap <Leader>j :call AddEmptyLineBelow()<CR>
-nnoremap <Leader>k :call AddEmptyLineAbove()<CR>
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 1
+
+let g:php_refactor_command='php ~/.vim/php/refactor.phar'
+let g:tagbar_phpctags_bin = '~/.vim/php/phpctags/phpctags'
+let g:tagbar_phpctags_memory_limit = '512M'
 
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsEditSplit="vertical"
 
-let g:XkbSwitchEnabled = 1
-let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
-let g:XkbSwitchIMappings = ['ru']
-let g:XkbSwitchNMappings = ['ru']
+nmap <F8> :TagbarToggle<CR>
 
-let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
-nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
+nmap <F12> :set nohlsearch<CR>
+
+nnoremap <F1> <ESC>:call xkb2en#change_layout()<CR>
+inoremap <F1> <ESC>:call xkb2en#change_layout()<CR><ESC>
+
+nmap ,i :Unite ash_inbox<CR>
+nmap ,l :Unite ash_lsreviews:ngs/auto<CR>
+nmap ,r :UniteResume<CR>
+
+nmap <Leader>` :tabedit ~/.vimrc<CR>
+nmap <Leader>% :so ~/.vimrc<CR>
+
+nnoremap <Leader><Leader>q :bdelete!<CR>
+nnoremap <Leader><Leader>q <Esc>:bdelete!<CR>
+
+nnoremap <Leader>e :e! 
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>q :q!<CR>
+
+nnoremap `` <Esc>:FufCoverageFile<CR>a
+nnoremap `o :FufFile<CR>
+nnoremap <Tab><Tab> :FufBuffer<CR>
+nnoremap `` :FufCoverageFile<CR>
+nnoremap <Leader>`` :FufFileWithCurrentBufferDir<CR>
+
+nnoremap <Space> viw
+
+nnoremap <Leader>d V"_d<Esc>
+vnoremap <Leader>d "_d
+
+vnoremap <C-c> "+yy
+inoremap <C-d> <C-[>diwi
+
+nnoremap <Leader><Leader>j :call DelEmptyLineBelow()<CR>
+nnoremap <Leader><Leader>k :call DelEmptyLineAbove()<CR>
+nnoremap <Leader>j :call AddEmptyLineBelow()<CR>
+nnoremap <Leader>k :call AddEmptyLineAbove()<CR>
+
