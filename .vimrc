@@ -82,6 +82,8 @@ set history=500
 
 set hlsearch
 set incsearch
+
+set ignorecase
 set smartcase
 
 set expandtab
@@ -106,6 +108,8 @@ set background=dark
 colorscheme gruvbox
 
 let mapleader=" "
+let g:mapleader=mapleader
+
 let g:airline#extensions#whitespace#symbol = '☼'
 
 hi! link WildMenu PmenuSel
@@ -237,6 +241,26 @@ function! DelEmptyLineAbove()
   end
 endfunction
 
+" my magic function :))
+function! MakeZaebis()
+    let startLine = line(".")
+    let content = getline(startLine)
+
+    let content = substitute(content, "[,\(]", "&\r", "g")
+    let content = substitute(content, "[\)]", "\r&", "g")
+    let content = substitute(content, "\(\r\r\)", "()", "g")
+
+    execute 'normal S'
+    execute 'normal i' . content
+
+    let currentLine = line(".")
+    let cow = currentLine - startLine + 2
+
+    execute 'normal ' . (startLine - 1) . 'gg'
+    execute 'normal ' . cow . '=='
+    execute 'normal ' . startLine . 'gg^'
+endfunction
+
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 1
@@ -252,7 +276,7 @@ let g:UltiSnipsEditSplit="vertical"
 
 nmap <F8> :TagbarToggle<CR>
 
-nmap <F12> :set nohlsearch<CR>
+nmap <F12> :noh<CR>
 
 nnoremap <F1> <ESC>:call xkb2en#change_layout()<CR>
 inoremap <F1> <ESC>:call xkb2en#change_layout()<CR><ESC>
@@ -266,6 +290,10 @@ nmap <Leader>% :so ~/.vimrc<CR>
 
 nnoremap <Leader><Leader>q :bdelete!<CR>
 nnoremap <Leader><Leader>q <Esc>:bdelete!<CR>
+
+nnoremap <Leader>ue :UltiSnipsEdit<CR>
+
+nnoremap <Leader>vs :vsp<CR>
 
 nnoremap <Leader>e :e! 
 nnoremap <Leader>w :w<CR>
@@ -289,4 +317,8 @@ nnoremap <Leader><Leader>j :call DelEmptyLineBelow()<CR>
 nnoremap <Leader><Leader>k :call DelEmptyLineAbove()<CR>
 nnoremap <Leader>j :call AddEmptyLineBelow()<CR>
 nnoremap <Leader>k :call AddEmptyLineAbove()<CR>
+
+nnoremap <Leader>m :call MakeZaebis()<CR>
+
+noh
 
