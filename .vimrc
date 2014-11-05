@@ -110,8 +110,6 @@ colorscheme gruvbox
 let mapleader=" "
 let g:mapleader=mapleader
 
-let g:airline#extensions#whitespace#symbol = '☼'
-
 hi! link WildMenu PmenuSel
 hi SPM1 ctermbg=1 ctermfg=7
 hi SPM2 ctermbg=2 ctermfg=7
