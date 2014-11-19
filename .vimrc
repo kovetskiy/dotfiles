@@ -20,10 +20,11 @@ call vundle#begin()
 
     Plugin 'morhetz/gruvbox'
     Plugin 'bling/vim-airline'
-
     Plugin 'scrooloose/nerdcommenter'
     Plugin 'majutsushi/tagbar'
-    Plugin 'Yggdroot/indentLine'
+  " тормозит в :Unite
+  " Plugin 'Yggdroot/indentLine'
+
     Plugin 'Valloric/YouCompleteMe'
     Plugin '2072/PHP-Indenting-for-VIm'
     Plugin 'fatih/vim-go'
@@ -32,12 +33,12 @@ call vundle#begin()
     Plugin 'vim-php/tagbar-phpctags.vim'
     Plugin 'vim-scripts/smarty-syntax'
 
-    " why this plugin do ^[0B in insert mode?
-    " Plugin 'airblade/vim-gitgutter'
+  "  " why this plugin do ^[0B in insert mode?
+  "  " Plugin 'airblade/vim-gitgutter'
 
     Plugin 'l9'
     Plugin 'fuzzyfinder'
-    Plugin 'lyokha/vim-xkbswitch'
+  "  Plugin 'lyokha/vim-xkbswitch'
     Plugin 'Lokaltog/vim-easymotion'
     Plugin 'haya14busa/vim-easyoperator-line'
     Plugin 'SirVer/ultisnips'
@@ -51,6 +52,8 @@ call vundle#begin()
     Plugin 'tpope/vim-fugitive'
     Plugin 'tpope/vim-surround'
     Plugin 'terryma/vim-multiple-cursors'
+    Plugin 'tsukkee/unite-tag'
+    Plugin 'kien/ctrlp.vim'
 call vundle#end()
 
 filetype plugin indent on
@@ -104,8 +107,8 @@ set cino=(s,m1,+0
 set list
 set lcs=eol:¶,trail:·,tab:··
 
-set background=dark
 colorscheme gruvbox
+set background=dark
 
 let mapleader=" "
 let g:mapleader=mapleader
@@ -190,11 +193,11 @@ augroup end
 
 fun! g:ApplySyntaxForDiffComments()
     if &background == 'light'
-        hi DiffCommentIgnore ctermfg=249 ctermbg=none
-        hi DiffComment ctermfg=16 ctermbg=254
+	hi DiffCommentIgnore ctermfg=249 ctermbg=none
+	hi DiffComment ctermfg=16 ctermbg=254
     else
-        hi DiffCommentIgnore ctermfg=249 ctermbg=none
-        hi DiffComment ctermfg=15 ctermbg=237
+	hi DiffCommentIgnore ctermfg=249 ctermbg=none
+	hi DiffComment ctermfg=15 ctermbg=237
     endif
 endfun
 
@@ -272,6 +275,16 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsEditSplit="vertical"
 
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\vtags$',
+  \ }
+
+set pastetoggle=<F11>
+
 nmap <F8> :TagbarToggle<CR>
 
 nmap <F12> :noh<CR>
@@ -282,6 +295,8 @@ inoremap <F1> <ESC>:call xkb2en#change_layout()<CR><ESC>
 nmap ,i :Unite ash_inbox<CR>
 nmap ,l :Unite ash_lsreviews:ngs/auto<CR>
 nmap ,r :UniteResume<CR>
+
+nmap ,g :Unite grep<CR>
 
 nmap <Leader>` :tabedit ~/.vimrc<CR>
 nmap <Leader>% :so ~/.vimrc<CR>
@@ -318,5 +333,7 @@ nnoremap <Leader>k :call AddEmptyLineAbove()<CR>
 
 nnoremap <Leader>m :call MakeZaebis()<CR>
 
+nnoremap <Leader>] :tnext<CR>
 noh
+set background=dark
 

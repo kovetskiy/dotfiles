@@ -3,6 +3,8 @@ URxvt.iso14755_52: off
 
 URxvt.perl-lib: /home/vxw/.urxvt/ext/perl
 
+URxvt.buffered: false
+
 URxvt.keysym.Control-Up: \033[1;5A
 URxvt.keysym.Control-Down: \033[1;5B
 URxvt.keysym.Control-Left: \033[1;5D
@@ -25,7 +27,7 @@ URxvt.keysym.M-quotedbl:  perl:aAtt:undo
 
 ! like gruvbox :)
 URxvt.background: #282828
-URxvt.foreground: #ebdbb2
+URxvt.foreground: #ffffff
 URxvt.color0:  #282828
 URxvt.color8:  #928374
 URxvt.color1:  #cc241d
