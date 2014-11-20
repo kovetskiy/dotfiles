@@ -1,4 +1,3 @@
-" [ ] wtf with my clipboard when i'm yanking?
 set nocompatible
 
 imap <UP> <NOP>
@@ -310,6 +309,7 @@ nmap ,g :Unite grep<CR>
 nmap <Leader>` :tabedit ~/.vimrc<CR>
 nmap <Leader>% :so ~/.vimrc<CR>
 
+nnoremap <F4> :let &scrolloff=999-&scrolloff<CR>
 nnoremap <Leader><Leader>q :bdelete!<CR>
 nnoremap <Leader><Leader>q <Esc>:bdelete!<CR>
 

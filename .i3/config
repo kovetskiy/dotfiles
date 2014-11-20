@@ -23,7 +23,7 @@ bindsym Mod4+h split h
 bindsym Mod4+v split v
 
 bindsym Mod4+Shift+f fullscreen
-bindsym Mod4+Shift+s layout toggle stacking
+bindsym Mod4+Shift+s layout stacking
 bindsym Mod4+Shift+t layout tabbed
 
 bindsym Mod4+1 workspace 1

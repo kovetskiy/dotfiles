@@ -1,6 +1,6 @@
 export GOROOT=""
 export GOPATH="$HOME/go"
-export PATH="$HOME/bin/:$HOME/repos/git-scripts/:$PATH"
+export PATH="$HOME/bin/:$HOME/go/bin/:$HOME/repos/git-scripts/:$PATH"
 export EDITOR=vim
 export TERM=rxvt-unicode-256color
 
