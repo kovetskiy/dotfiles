@@ -1,91 +1,82 @@
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 font pango:Monaco for Powerline 9
 focus_follows_mouse off
-floating_modifier Mod1
+floating_modifier Mod4
 
-bindsym Mod1+Return exec i3-sensible-terminal
+bindsym Mod4+Return exec i3-sensible-terminal
+
 bindsym Mod1+Shift+q kill
-bindsym Mod1+d exec dmenu_run
-bindsym Mod1+j focus left
-bindsym Mod1+k focus down
-bindsym Mod1+l focus up
-bindsym Mod1+semicolon focus right
-bindsym Mod1+Left focus left
-bindsym Mod1+Down focus down
-bindsym Mod1+Up focus up
-bindsym Mod1+Right focus right
-bindsym Mod1+Shift+j move left
-bindsym Mod1+Shift+k move down
-bindsym Mod1+Shift+l move up
-bindsym Mod1+Shift+semicolon move right
-bindsym Mod1+Shift+Left move left
-bindsym Mod1+Shift+Down move down
-bindsym Mod1+Shift+Up move up
-bindsym Mod1+Shift+Right move right
-bindsym Mod1+h split h
-bindsym Mod1+v split v
-bindsym Mod1+f fullscreen
-bindsym Mod1+s layout stacking
-bindsym Mod1+w layout tabbed
-bindsym Mod1+e layout toggle split
-bindsym Mod1+Shift+space floating toggle
-bindsym Mod1+space focus mode_toggle
-bindsym Mod1+a focus parent
-bindsym Mod1+Shift+minus move scratchpad
-bindsym Mod1+minus scratchpad show
-bindsym Mod1+1 workspace 1
-bindsym Mod1+2 workspace 2
-bindsym Mod1+3 workspace 3
-bindsym Mod1+4 workspace 4
-bindsym Mod1+5 workspace 5
-bindsym Mod1+6 workspace 6
-bindsym Mod1+7 workspace 7
-bindsym Mod1+8 workspace 8
-bindsym Mod1+9 workspace 9
-bindsym Mod1+0 workspace 10
-bindsym Mod1+Shift+1 move container to workspace 1
-bindsym Mod1+Shift+2 move container to workspace 2
-bindsym Mod1+Shift+3 move container to workspace 3
-bindsym Mod1+Shift+4 move container to workspace 4
-bindsym Mod1+Shift+5 move container to workspace 5
-bindsym Mod1+Shift+6 move container to workspace 6
-bindsym Mod1+Shift+7 move container to workspace 7
-bindsym Mod1+Shift+8 move container to workspace 8
-bindsym Mod1+Shift+9 move container to workspace 9
-bindsym Mod1+Shift+0 move container to workspace 10
-bindsym Mod1+Shift+c reload
-bindsym Mod1+Shift+r restart
-bindsym Mod1+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+bindsym Mod4+d exec dmenu_run
+
+bindsym Mod4+u focus left
+bindsym Mod4+i focus down
+bindsym Mod4+o focus up
+bindsym Mod4+p focus right
+
+bindsym Mod4+Shift+u move left
+bindsym Mod4+Shift+i move down
+bindsym Mod4+Shift+o move up
+bindsym Mod4+Shift+p move right
+
+bindsym Mod4+h split h
+bindsym Mod4+v split v
+
+bindsym Mod4+Shift+f fullscreen
+bindsym Mod4+Shift+s layout toggle stacking
+bindsym Mod4+Shift+t layout tabbed
+
+bindsym Mod4+1 workspace 1
+bindsym Mod4+2 workspace 2
+bindsym Mod4+3 workspace 3
+bindsym Mod4+q workspace q
+bindsym Mod4+w workspace w
+bindsym Mod4+e workspace e
+bindsym Mod4+z workspace z
+bindsym Mod4+x workspace x
+bindsym Mod4+c workspace c
+
+bindsym Mod4+Shift+1 move container to workspace 1
+bindsym Mod4+Shift+2 move container to workspace 2
+bindsym Mod4+Shift+3 move container to workspace 3
+bindsym Mod4+Shift+q move container to workspace q
+bindsym Mod4+Shift+w move container to workspace w
+bindsym Mod4+Shift+e move container to workspace e
+bindsym Mod4+Shift+z move container to workspace z
+bindsym Mod4+Shift+x move container to workspace x
+bindsym Mod4+Shift+c move container to workspace c
+
+bindsym Mod4+Shift+r restart
+
 mode "resize" {
         bindsym j           resize shrink width 10 px or 10 ppt
         bindsym k           resize grow height 10 px or 10 ppt
         bindsym l           resize shrink height 10 px or 10 ppt
         bindsym semicolon   resize grow width 10 px or 10 ppt
-        
+
         bindsym Left        resize shrink width 2 px or 2 ppt
         bindsym Down        resize grow height 2 px or 2 ppt
         bindsym Up          resize shrink height 2 px or 2 ppt
         bindsym Right       resize grow width 2 px or 2 ppt
-        
+
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
 
-bindsym Mod1+r mode "resize"
+bindsym Mod4+r mode "resize"
 
 bar {
         status_command i3status 
 }
 
 exec i3-config-wizard
-bindsym Mod1+Control+l exec i3lock -c 000000
-bindsym Mod1+Control+p exec "~/bin/screenshot"
-bindsym Mod1+Control+Right workspace next
-bindsym Mod1+Control+Left workspace prev
 
-bindsym Mod1+Control+minus exec "pactl set-sink-volume 0 -- -2500"
-bindsym Mod1+Control+equal exec "pactl set-sink-volume 0 -- +2500"
+bindsym Mod4+Control+l exec i3lock -c 000000
+bindsym Mod4+Control+p exec "~/bin/screenshot"
 
-bindsym Mod1+~ exec "setxkbmap us"
+# lol
+bindsym Mod4+Control+minus exec "pactl set-sink-volume 0 -- -2500"
+bindsym Mod4+Control+equal exec "pactl set-sink-volume 0 -- +2500"
+
+bindsym Mod4+~ exec "setxkbmap us"
 bindsym shift+lock exec "setxkbmap ru"
-
