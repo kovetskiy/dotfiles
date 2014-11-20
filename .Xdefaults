@@ -48,8 +48,8 @@ URxvt.cursorColor: #ffffff
 
 URxvt.title: rxvt-unicode
 URxvt.saveLines: 5000
-URxvt.font: xft:Monaco:pixelsize=13:antialias=false
-URxvt.boldFont: xft:Monaco:bold:pixelsize=13:antialias=false
+URxvt.font: xft:Monaco:pixelsize=12:antialias=false
+URxvt.boldFont: xft:Monaco:bold:pixelsize=12:antialias=false
 URxvt.underlineColor: blue
 URxvt.cursorBlink: true
 URxvt*scrollBar: true

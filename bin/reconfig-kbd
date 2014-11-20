@@ -1,0 +1,16 @@
+#!/bin/bash
+
+export XAUTHORITY=/home/vxw/.Xauthority
+export DISPLAY=${DISPLAY:-:0.0}
+
+exec setxkbmap -layout us,ru -variant ,winkeys -option grp:caps_toggle,grp_led:scroll,terminate:ctrl_alt_bksp,compose:ralt &
+
+xset r rate 150 80
+
+setxkbmap \
+    -keycodes \
+        "evdev+aliases(qwerty)" \
+    -symbols \
+        "pc+us+ru:2+hjkl-ru+level3(lwin_switch)+mod4-lvl3+terminate(ctrl_alt_bksp)+capslock-groupshift" \
+    -compat \
+        "complete+hjkl"

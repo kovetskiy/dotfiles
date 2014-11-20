@@ -1,0 +1,8 @@
+#!/bin/bash
+#depends imagemagick
+
+FILEPATH=~/screenshots
+FILENAME=`date --rfc-3339=seconds | tr ' ' '_'`.png
+
+import -trim $FILEPATH/$FILENAME
+

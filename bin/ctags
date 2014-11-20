@@ -1,0 +1,13 @@
+#!/bin/bash
+
+/usr/local/bin/ctags -f tags \
+  -h ".php" -R \
+  --exclude="\.git" \
+  --totals=yes \
+  --tag-relative=yes \
+  --language-force=PHP \
+  --PHP-kinds=+cfiv \
+  --regex-PHP='/abstract\s+class\s+([^ ]+)/\1/c/' \
+  --regex-PHP='/interface\s+([^ ]+)/\1/i/' \
+  --regex-PHP='/(public|static|abstract|protected|private)+\s+function\s+([^ (]+)/\2/f/' \
+  --regex-PHP='/\$([a-zA-Z_][a-zA-Z0-9_]*)/\1/v/' \

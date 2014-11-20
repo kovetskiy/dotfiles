@@ -76,6 +76,7 @@ set undofile
 set undodir=$HOME/.vim/tmp/
 set directory=$HOME/.vim/tmp/
 
+set lazyredraw
 set ttyfast
 
 set number
@@ -112,6 +113,8 @@ set background=dark
 
 let mapleader=" "
 let g:mapleader=mapleader
+
+let g:airline#extensions#whitespace#symbol = '☼'
 
 hi! link WildMenu PmenuSel
 hi SPM1 ctermbg=1 ctermfg=7
@@ -288,6 +291,12 @@ set pastetoggle=<F11>
 nmap <F8> :TagbarToggle<CR>
 
 nmap <F12> :noh<CR>
+
+nnoremap / /\v
+vnoremap / \v
+
+nnoremap > >>
+nnoremap < <<
 
 nnoremap <F1> <ESC>:call xkb2en#change_layout()<CR>
 inoremap <F1> <ESC>:call xkb2en#change_layout()<CR><ESC>
