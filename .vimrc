@@ -29,7 +29,7 @@ call vundle#begin()
     Plugin 'fatih/vim-go'
     "Plugin 'elzr/vim-json'
     Plugin 'mhinz/vim-startify'
-    Plugin 'vim-php/tagbar-phpctags.vim'
+    "Plugin 'vim-php/tagbar-phpctags.vim'
     Plugin 'vim-scripts/smarty-syntax'
 
   "  " why this plugin do ^[0B in insert mode?
@@ -145,7 +145,6 @@ augroup filetype_go
     au!
 
     au BufRead,BufNewFile *.go set filetype=go
-    au FileType go nmap <Leader>s <Plug>(go-implements)
     au FileType go nmap <Leader>i <Plug>(go-info)
     au FileType go nmap <Leader>gd <Plug>(go-doc)
     au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
@@ -297,6 +296,8 @@ vnoremap / \v
 nnoremap > >>
 nnoremap < <<
 
+nnoremap <F7> <ESC>:!time phptags-scripts<CR>
+
 nnoremap <F1> <ESC>:call xkb2en#change_layout()<CR>
 inoremap <F1> <ESC>:call xkb2en#change_layout()<CR><ESC>
 
@@ -304,6 +305,7 @@ nmap ,i :Unite ash_inbox<CR>
 nmap ,l :Unite ash_lsreviews:ngs/auto<CR>
 nmap ,r :UniteResume<CR>
 
+nmap ,f :Unite file<CR>
 nmap ,g :Unite grep<CR>
 
 nmap <Leader>` :tabedit ~/.vimrc<CR>
@@ -343,6 +345,6 @@ nnoremap <Leader>k :call AddEmptyLineAbove()<CR>
 nnoremap <Leader>m :call MakeZaebis()<CR>
 
 nnoremap <Leader>] :tnext<CR>
+
 noh
 set background=dark
-
