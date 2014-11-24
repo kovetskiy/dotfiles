@@ -3,50 +3,51 @@ font pango:Monaco for Powerline 9
 focus_follows_mouse off
 floating_modifier Mod4
 
-bindsym Mod4+Return exec i3-sensible-terminal
+bindsym Mod1+Return exec i3-sensible-terminal
 
-bindsym Mod1+Shift+q kill
+bindsym Mod4+Shift+q kill
 
-bindsym Mod4+d exec dmenu_run
+bindsym Mod1+d exec dmenu_run
 
-bindsym Mod4+u focus left
-bindsym Mod4+i focus down
-bindsym Mod4+o focus up
-bindsym Mod4+p focus right
+bindsym Mod1+u focus left
+bindsym Mod1+i focus down
+bindsym Mod1+o focus up
+bindsym Mod1+p focus right
 
-bindsym Mod4+Shift+u move left
-bindsym Mod4+Shift+i move down
-bindsym Mod4+Shift+o move up
-bindsym Mod4+Shift+p move right
+bindsym Mod1+Shift+u move left
+bindsym Mod1+Shift+i move down
+bindsym Mod1+Shift+o move up
+bindsym Mod1+Shift+p move right
 
-bindsym Mod4+h split h
-bindsym Mod4+v split v
+bindsym Mod1+b split h
+bindsym Mod1+v split v
 
-bindsym Mod4+Shift+f fullscreen
-bindsym Mod4+Shift+s layout stacking
-bindsym Mod4+Shift+t layout tabbed
+bindsym Mod1+Shift+f fullscreen
+bindsym Mod1+Shift+s layout stacking
+bindsym Mod1+Shift+t layout tabbed
+bindsym Mod1+Shift+n layout toggle split
 
-bindsym Mod4+1 workspace 1
-bindsym Mod4+2 workspace 2
-bindsym Mod4+3 workspace 3
-bindsym Mod4+q workspace q
-bindsym Mod4+w workspace w
-bindsym Mod4+e workspace e
-bindsym Mod4+z workspace z
-bindsym Mod4+x workspace x
-bindsym Mod4+c workspace c
+bindsym Mod1+1 workspace 1
+bindsym Mod1+2 workspace 2
+bindsym Mod1+3 workspace 3
+bindsym Mod1+q workspace q
+bindsym Mod1+w workspace w
+bindsym Mod1+e workspace e
+bindsym Mod1+z workspace z
+bindsym Mod1+x workspace x
+bindsym Mod1+c workspace c
 
-bindsym Mod4+Shift+1 move container to workspace 1
-bindsym Mod4+Shift+2 move container to workspace 2
-bindsym Mod4+Shift+3 move container to workspace 3
-bindsym Mod4+Shift+q move container to workspace q
-bindsym Mod4+Shift+w move container to workspace w
-bindsym Mod4+Shift+e move container to workspace e
-bindsym Mod4+Shift+z move container to workspace z
-bindsym Mod4+Shift+x move container to workspace x
-bindsym Mod4+Shift+c move container to workspace c
+bindsym Mod1+Shift+1 move container to workspace 1
+bindsym Mod1+Shift+2 move container to workspace 2
+bindsym Mod1+Shift+3 move container to workspace 3
+bindsym Mod1+Shift+q move container to workspace q
+bindsym Mod1+Shift+w move container to workspace w
+bindsym Mod1+Shift+e move container to workspace e
+bindsym Mod1+Shift+z move container to workspace z
+bindsym Mod1+Shift+x move container to workspace x
+bindsym Mod1+Shift+c move container to workspace c
 
-bindsym Mod4+Shift+r restart
+bindsym Mod1+Shift+r restart
 
 mode "resize" {
         bindsym j           resize shrink width 10 px or 10 ppt
@@ -63,7 +64,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym Mod4+r mode "resize"
+bindsym Mod1+Control+r mode "resize"
 
 bar {
         status_command i3status 
@@ -71,12 +72,11 @@ bar {
 
 exec i3-config-wizard
 
-bindsym Mod4+Control+l exec i3lock -c 000000
-bindsym Mod4+Control+p exec "~/bin/screenshot"
+bindsym Mod1+Control+l exec i3lock -c 000000
 
 # lol
-bindsym Mod4+Control+minus exec "pactl set-sink-volume 0 -- -2500"
-bindsym Mod4+Control+equal exec "pactl set-sink-volume 0 -- +2500"
+bindsym Mod1+Control+minus exec "pactl set-sink-volume 0 -- -2500"
+bindsym Mod1+Control+equal exec "pactl set-sink-volume 0 -- +2500"
 
-bindsym Mod4+~ exec "setxkbmap us"
+bindsym Mod1+~ exec "setxkbmap us"
 bindsym shift+lock exec "setxkbmap ru"

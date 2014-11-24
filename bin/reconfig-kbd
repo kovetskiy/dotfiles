@@ -7,10 +7,10 @@ exec setxkbmap -layout us,ru -variant ,winkeys -option grp:caps_toggle,grp_led:s
 
 xset r rate 160 80
 
-#setxkbmap \
-    #-keycodes \
-        #"evdev+aliases(qwerty)" \
-    #-symbols \
-        #"pc+us+ru:2+hjkl-ru+level3(lwin_switch)+mod4-lvl3+terminate(ctrl_alt_bksp)+capslock-groupshift" \
-    #-compat \
-        #"complete+hjkl"
+setxkbmap \
+    -keycodes \
+        "evdev+aliases(qwerty)" \
+    -symbols \
+        "pc+us+ru:2+hjkl-ru+level3(lwin_switch)+mod4-lvl3+terminate(ctrl_alt_bksp)+capslock-groupshift+altwin(swap_alt_win)" \
+    -compat \
+        "complete+hjkl"

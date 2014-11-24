@@ -52,7 +52,6 @@ call vundle#begin()
     Plugin 'tpope/vim-surround'
     Plugin 'terryma/vim-multiple-cursors'
     Plugin 'tsukkee/unite-tag'
-    Plugin 'kien/ctrlp.vim'
 call vundle#end()
 
 filetype plugin indent on
@@ -191,6 +190,25 @@ augroup syntax_hacks
     au FileType diff nnoremap o o# 
 augroup end
 
+augroup dir_autocreate
+    au!
+
+    au BufWritePre * if !isdirectory(expand('%:h')) | call mkdir(expand('%:h'),'p') | endif
+augroup end
+
+let s:prev_line = 0
+augroup rnu_nu
+    au!
+
+    au CursorMoved * if &rnu && line('.') != s:prev_line | set nornu nu | endif
+    au CursorHold  * if &nu | set rnu | let s:prev_line = line('.') | endif
+augroup end
+
+augroup vimrc
+    au!
+
+    au BufWritePost ~/.vimrc source % | AirlineRefresh
+augroup end
 
 fun! g:ApplySyntaxForDiffComments()
     if &background == 'light'
@@ -279,10 +297,9 @@ let g:UltiSnipsEditSplit="vertical"
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\vtags$',
-  \ }
+let g:unite_split_rule = "botright"
+let g:unite_force_overwrite_statusline = 0
+let g:unite_enable_start_insert = 1
 
 set pastetoggle=<F11>
 
@@ -305,6 +322,7 @@ nmap ,i :Unite ash_inbox<CR>
 nmap ,l :Unite ash_lsreviews:ngs/auto<CR>
 nmap ,r :UniteResume<CR>
 
+nmap <C-P> :Unite -buffer-name=files -start-insert buffer file_rec/async:!<CR>
 nmap ,f :Unite file<CR>
 nmap ,g :Unite grep<CR>
 
