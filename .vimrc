@@ -197,6 +197,11 @@ augroup dir_autocreate
     au BufWritePre * if !isdirectory(expand('%:h')) | call mkdir(expand('%:h'),'p') | endif
 augroup end
 
+augroup filetype_json
+    au!
+    au BufNewFile,BufRead *.json set filetype=json
+augroup end
+
 let s:prev_line = 0
 augroup rnu_nu
     au!

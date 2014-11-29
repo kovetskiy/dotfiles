@@ -1,0 +1,2 @@
+#!/bin/bash
+notify-send -u low -t 1000 "Current date" "`date`"

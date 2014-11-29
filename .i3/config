@@ -74,3 +74,5 @@ bindsym Mod1+Control+l exec i3lock -c 000000
 bindsym Mod1+Control+0 exec "pactl set-sink-volume 0 -- -25000"
 bindsym Mod1+Control+minus exec "pactl set-sink-volume 0 -- -2500"
 bindsym Mod1+Control+equal exec "pactl set-sink-volume 0 -- +2500"
+
+bindsym Mod1+Control+d exec "show-date"

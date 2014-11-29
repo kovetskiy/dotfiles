@@ -15,17 +15,17 @@ URxvt.perl-ext-common: autocomplete-ALL-the-things,clipboard,default,keyboard-se
 URxvt.clipboard.copycmd:  xsel --input  --clipboard
 URxvt.clipboard.pastecmd: xsel --output --clipboard
 
-URxvt.keysym.Control-Shift-C: perl:clipboard:copy
-URxvt.keysym.Control-Shift-V: perl:clipboard:paste
+URxvt.keysym.Mod4-c: perl:clipboard:copy
+URxvt.keysym.Mod4-v: perl:clipboard:paste
  
-URxvt.keysym.M-Escape: perl:keyboard-select:activate
-URxvt.keysym.M-Shift-S: perl:keyboard-select:search
+URxvt.keysym.Mod4-Escape: perl:keyboard-select:activate
+URxvt.keysym.Mod4-Shift-S: perl:keyboard-select:search
 
-URxvt.keysym.M-C-slash:   perl:aAtt:WORD-complete
-URxvt.keysym.M-question:  perl:aAtt:fuzzy-complete
-URxvt.keysym.M-quotedbl:  perl:aAtt:undo
+URxvt.keysym.Mod4-C-slash:   perl:aAtt:WORD-complete
+URxvt.keysym.Mod4-question:  perl:aAtt:fuzzy-complete
+URxvt.keysym.Mod4-quotedbl:  perl:aAtt:undo
 
-URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.keysym.Mod4-u: perl:url-select:select_next
 URxvt.url-select.launcher: x-www-browser
 
 ! like gruvbox :)
@@ -55,11 +55,7 @@ URxvt.font: xft:Monaco:pixelsize=12:antialias=false
 URxvt.boldFont: xft:Monaco:bold:pixelsize=12:antialias=false
 URxvt.underlineColor: blue
 URxvt.cursorBlink: true
-URxvt*scrollBar: true
-URxvt*scrollBar_right: true
-URxvt.scrollBar_floating: false
-URxvt.scrollstyle: plain
-URxvt.scrollColor: #BBBBBB
+URxvt*scrollBar: false
 URxvt.troughColor: #000000
 
 URxvt.urlLauncher: i3-sensible-browser
