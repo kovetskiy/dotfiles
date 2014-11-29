@@ -1,0 +1,271 @@
+snippet f "func"
+func ${1:FuncName}($2)${3: }{
+	$0
+}
+endsnippet
+
+snippet tf "func (type)"
+func (${1/^\*?(.).*/\l$1/} ${1:Type}) ${2:FuncName}($3)${4: }{
+	$0
+}
+endsnippet
+
+snippet s "type struct"
+type ${1:TypeName} struct {
+	$0
+}
+endsnippet
+
+snippet t "type"
+type ${1:TypeName} ${2:description}
+endsnippet
+
+snippet p "package"
+package ${1:`!v expand('%:p:h:t')`}
+endsnippet
+
+snippet te "func Test"
+func Test${1:FuncName}(t *testing.T) {
+	$0
+}
+endsnippet
+
+snippet ti "interface"
+type ${1:SmthDoer} interface {
+	$0
+}
+endsnippet
+
+snippet todo "@TODO"
+// @TODO $0
+endsnippet
+
+snippet i "if "
+if $1 {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet ifer "if err != nil"
+if err != nil {
+	return err
+}
+endsnippet
+
+snippet if2er "if err != nil"
+if err != nil {
+	return ${1:nil}, err
+}
+endsnippet
+
+
+snippet iferp "if err != nil panic"
+if err != nil {
+	panic(err)
+}
+endsnippet
+
+snippet ifn "if ... == nil"
+if ${1:value} == nil {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet r "return"
+return $0
+endsnippet
+
+snippet fs "... string" i
+${1:Name} string$0
+endsnippet
+
+snippet exp "test expected"
+actual := ${1:"Something"}
+if actual != ${2:"Actual"} {
+	t.Fatalf("unexpected %#v", actual)
+}
+endsnippet
+
+snippet e "else" w
+ else {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet stat "temp snippet"
+actual := (Status{Severity: $1, Message: \`${2:blah}\`}).String()$0
+endsnippet
+
+snippet ci "const iota"
+const (
+	${1:CONSTANT} = iota$0
+)
+endsnippet
+
+snippet ass "anon struct with fields" w
+struct {
+	$1
+}{
+	$0
+}
+endsnippet
+
+global !p
+def to_undercase(name):
+	s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+	return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+endglobal
+
+snippet "((\w+)\s*(\w+)) js$" "json annotation" br
+`!p snip.rv=match.group(1)` \`json:"`!p snip.rv=to_undercase(match.group(2))`"\`
+endsnippet
+
+snippet fm "func main"
+func main() {
+	$0
+}
+endsnippet
+
+snippet fas "anon struct"
+${1:Name} struct {
+	$0
+}
+endsnippet
+
+snippet fi "field int" i
+${1:Name} int
+endsnippet
+
+snippet fb "field bool" i
+${1:Name} bool
+endsnippet
+
+snippet mp "map" i
+map[${1:string}]${2:interface}
+endsnippet
+
+snippet msi "map[string]interface"
+map[string]interface{}
+endsnippet
+
+snippet sw "switch"
+switch ${1:name} {
+case ${2:true}:
+	$0
+}
+endsnippet
+
+snippet swt "switch true"
+switch {
+case ${1}:
+	$0
+}
+endsnippet
+
+snippet fr "for range"
+for ${1:_}, ${2:val} := range ${3:Slice} {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet dbg "fmt.Printf(%#v" i
+fmt.Printf("%#v\n", $1)
+endsnippet
+
+snippet play "package main"
+package main
+
+import "fmt"
+
+func main() {
+	$0
+}
+endsnippet
+
+snippet omit "omit section"
+// OMIT
+${0:${VISUAL}}
+// END OMIT
+endsnippet
+
+snippet af "anon func" i
+func($1) $2{
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet vr "var"
+var (
+	$0
+)
+endsnippet
+
+snippet cs "case"
+case $1:
+	$0
+endsnippet
+
+snippet rn "return nil"
+return nil
+endsnippet
+
+snippet ap "append" i
+${1:slice} = append($1, $2)
+endsnippet
+
+snippet ms "make slice" i
+make([]$1, ${2:0})
+endsnippet
+
+snippet mc "make chan" i
+make(chan $1, ${2:0})
+endsnippet
+
+snippet mm "make map" i
+make(map[${1:string}]${2:interface\{\}})
+endsnippet
+
+snippet nn "!= nil" i
+${1:${VISUAL}} != nil
+endsnippet
+
+snippet if "interface" i
+interface{}
+endsnippet
+
+snippet ts "type switch"
+switch ${1:newVar} := ${2:checkVar}.(type) {
+case ${3:Type}:
+	$0
+}
+endsnippet
+
+snippet ,n ", nil" i
+, nil
+endsnippet
+
+snippet n, ", nil" i
+nil, 
+endsnippet
+
+snippet frr "forever"
+for {
+	$1
+}
+endsnippet
+
+snippet := "blah, err := "
+${1:data}, err := 
+endsnippet
+
+snippet iferf
+if err != nil {
+	t.Fatal(err)
+}
+endsnippet
+
+snippet fweb "web handler"
+func ${1:HandleSmthing}(w http.ResponseWriter, req *http.Request) {
+	$0
+}
+endsnippet
