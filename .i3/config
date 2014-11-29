@@ -1,5 +1,5 @@
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font pango:Monaco for Powerline 9
+font pango:Monaco for Powerline 7
 focus_follows_mouse off
 floating_modifier Mod4
 
@@ -66,17 +66,11 @@ mode "resize" {
 
 bindsym Mod1+Control+r mode "resize"
 
-bar {
-        status_command i3status 
-}
-
 exec i3-config-wizard
 
 bindsym Mod1+Control+l exec i3lock -c 000000
 
 # lol
+bindsym Mod1+Control+0 exec "pactl set-sink-volume 0 -- -25000"
 bindsym Mod1+Control+minus exec "pactl set-sink-volume 0 -- -2500"
 bindsym Mod1+Control+equal exec "pactl set-sink-volume 0 -- +2500"
-
-bindsym Mod1+~ exec "setxkbmap us"
-bindsym shift+lock exec "setxkbmap ru"

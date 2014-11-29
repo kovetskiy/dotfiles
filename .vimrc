@@ -27,7 +27,7 @@ call vundle#begin()
     Plugin 'Valloric/YouCompleteMe'
     Plugin '2072/PHP-Indenting-for-VIm'
     Plugin 'fatih/vim-go'
-    "Plugin 'elzr/vim-json'
+    Plugin 'elzr/vim-json'
     Plugin 'mhinz/vim-startify'
     "Plugin 'vim-php/tagbar-phpctags.vim'
     Plugin 'vim-scripts/smarty-syntax'
@@ -37,12 +37,11 @@ call vundle#begin()
 
     Plugin 'l9'
     Plugin 'fuzzyfinder'
-  "  Plugin 'lyokha/vim-xkbswitch'
+    Plugin 'lyokha/vim-xkbswitch'
     Plugin 'Lokaltog/vim-easymotion'
     Plugin 'haya14busa/vim-easyoperator-line'
     Plugin 'SirVer/ultisnips'
     Plugin 'kovetskiy/ash.vim'
-    Plugin 'kovetskiy/xkb2en.vim'
     Plugin 'honza/vim-snippets'
     "Plugin 'tobyS/pdv'
     "Plugin 'tobyS/vmustache'
@@ -52,6 +51,7 @@ call vundle#begin()
     Plugin 'tpope/vim-surround'
     Plugin 'terryma/vim-multiple-cursors'
     Plugin 'tsukkee/unite-tag'
+    Plugin 'joonty/vim-phpqa'
 call vundle#end()
 
 filetype plugin indent on
@@ -112,6 +112,7 @@ set background=dark
 let mapleader=" "
 let g:mapleader=mapleader
 
+let g:airline_theme = 'base16'
 let g:airline#extensions#whitespace#symbol = '☼'
 
 hi! link WildMenu PmenuSel
@@ -178,7 +179,7 @@ augroup END
 augroup whitespace_hacks
     au!
 
-    au FileType php,go,tpl,yml autocmd BufWritePre <buffer> :%s/\s\+$//e
+    au FileType php,go,tpl,yml,json autocmd BufWritePre <buffer> :%s/\s\+$//e
 augroup END
 
 augroup syntax_hacks
@@ -301,11 +302,19 @@ let g:unite_split_rule = "botright"
 let g:unite_force_overwrite_statusline = 0
 let g:unite_enable_start_insert = 1
 
+let g:phpqa_php_cmd='php'
+let g:phpqa_codesniffer_cmd='phpcs'
+let g:phpqa_codesniffer_args="--standard='" . expand('~') . "/php_standarts.cs/Standards/NGS/ruleset.xml'"
+
+let g:phpqa_codesniffer_autorun=0
+let g:phpqa_messdetector_autorun=0
+
 set pastetoggle=<F11>
 
 nmap <F8> :TagbarToggle<CR>
 
 nmap <F12> :noh<CR>
+nmap <F2> :Phpcs<CR>
 
 nnoremap / /\v
 vnoremap / \v
@@ -315,8 +324,8 @@ nnoremap < <<
 
 nnoremap <F7> <ESC>:!time phptags-scripts<CR>
 
-nnoremap <F1> <ESC>:call xkb2en#change_layout()<CR>
-inoremap <F1> <ESC>:call xkb2en#change_layout()<CR><ESC>
+let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
+let g:XkbSwitchEnabled = 1
 
 nmap ,i :Unite ash_inbox<CR>
 nmap ,l :Unite ash_lsreviews:ngs/auto<CR>
@@ -328,6 +337,12 @@ nmap ,g :Unite grep<CR>
 
 nmap <Leader>` :tabedit ~/.vimrc<CR>
 nmap <Leader>% :so ~/.vimrc<CR>
+
+vmap <silent> > >gv
+vmap <silent> < <gv
+
+nnoremap g< '<
+nnoremap g> '>
 
 nnoremap <F4> :let &scrolloff=999-&scrolloff<CR>
 nnoremap <Leader><Leader>q :bdelete!<CR>
