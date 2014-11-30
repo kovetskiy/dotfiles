@@ -52,6 +52,7 @@ call vundle#begin()
     Plugin 'terryma/vim-multiple-cursors'
     Plugin 'tsukkee/unite-tag'
     Plugin 'joonty/vim-phpqa'
+    Plugin 'junegunn/seoul256.vim' 
 call vundle#end()
 
 filetype plugin indent on
@@ -228,44 +229,59 @@ fun! g:ApplySyntaxForDiffComments()
 endfun
 
 function! AddEmptyLineBelow()
-  call append(line("."), "")
+  let l:scrolloffsave = &scrolloff
+  set scrolloff=0
+
+  let l:linesave = line(".")
+  let l:colsave = col(".")
+
+  silent normal o
+
+  call cursor(l:linesave, l:colsave)
+
+  let &scrolloff = l:scrolloffsave
 endfunction
 
 function! AddEmptyLineAbove()
   let l:scrolloffsave = &scrolloff
   set scrolloff=0
 
-  call append(line(".") - 1, "")
-  if winline() != winheight(0)
-    silent normal! <C-e>
-  end
+  let l:linesave = line(".")
+  let l:colsave = col(".")
+
+  silent normal O
+
+  call cursor(l:linesave+1, l:colsave)
+
   let &scrolloff = l:scrolloffsave
 endfunction
 
 function! DelEmptyLineBelow()
-  if line(".") == line("$")
-    return
-  end
-  let l:line = getline(line(".") + 1)
-  if l:line =~ '^\s*$'
-    let l:colsave = col(".")
-    .+1d
-    ''
-    call cursor(line("."), l:colsave)
-  end
+  let l:scrolloffsave = &scrolloff
+  set scrolloff=0
+
+  let l:linesave = line(".")
+  let l:colsave = col(".")
+
+  silent normal jdd
+
+  call cursor(l:linesave, l:colsave)
+
+  let &scrolloff = l:scrolloffsave
 endfunction
 
 function! DelEmptyLineAbove()
-  if line(".") == 1
-    return
-  end
-  let l:line = getline(line(".") - 1)
-  if l:line =~ '^\s*$'
-    let l:colsave = col(".")
-    .-1d
-    silent normal! <C-y>
-    call cursor(line("."), l:colsave)
-  end
+  let l:scrolloffsave = &scrolloff
+  set scrolloff=0
+
+  let l:linesave = line(".")
+  let l:colsave = col(".")
+
+  silent normal kdd
+
+  call cursor(l:linesave-1, l:colsave)
+
+  let &scrolloff = l:scrolloffsave
 endfunction
 
 " my magic function :))
