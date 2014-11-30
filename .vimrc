@@ -114,6 +114,7 @@ let g:mapleader=mapleader
 
 let g:airline_theme = 'base16'
 let g:airline#extensions#whitespace#symbol = '☼'
+let g:airline_powerline_fonts = 1
 
 hi! link WildMenu PmenuSel
 hi SPM1 ctermbg=1 ctermfg=7

@@ -1,5 +1,5 @@
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font pango:Monaco for Powerline 7
+font pango:DejaVu Sans Mono 7
 focus_follows_mouse off
 floating_modifier Mod4
 
