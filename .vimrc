@@ -13,38 +13,26 @@ imap <Del> <NOP>
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
     Plugin 'gmarik/Vundle.vim'
-
+    Plugin 'kovetskiy/ash.vim'
     Plugin 'Shougo/vimproc.vim'
     Plugin 'Shougo/unite.vim'
-
     Plugin 'morhetz/gruvbox'
     Plugin 'bling/vim-airline'
     Plugin 'scrooloose/nerdcommenter'
     Plugin 'majutsushi/tagbar'
-  " тормозит в :Unite
-  " Plugin 'Yggdroot/indentLine'
-
     Plugin 'Valloric/YouCompleteMe'
     Plugin '2072/PHP-Indenting-for-VIm'
     Plugin 'fatih/vim-go'
     Plugin 'elzr/vim-json'
     Plugin 'mhinz/vim-startify'
-    "Plugin 'vim-php/tagbar-phpctags.vim'
     Plugin 'vim-scripts/smarty-syntax'
-
-  "  " why this plugin do ^[0B in insert mode?
-  "  " Plugin 'airblade/vim-gitgutter'
-
     Plugin 'l9'
     Plugin 'fuzzyfinder'
     Plugin 'lyokha/vim-xkbswitch'
     Plugin 'Lokaltog/vim-easymotion'
     Plugin 'haya14busa/vim-easyoperator-line'
     Plugin 'SirVer/ultisnips'
-    Plugin 'kovetskiy/ash.vim'
     Plugin 'honza/vim-snippets'
-    "Plugin 'tobyS/pdv'
-    "Plugin 'tobyS/vmustache'
     Plugin 'm2mdas/phpcomplete-extended'
     Plugin 'vim-php/vim-php-refactoring'
     Plugin 'tpope/vim-fugitive'
@@ -218,13 +206,25 @@ augroup vimrc
     au BufWritePost ~/.vimrc source % | AirlineRefresh
 augroup end
 
+fu! SkeletonGitCommit()
+    let l:issue=system("git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3 | grep -oP '([A-Z]{1,}\-[0-9]{1,})'")
+
+    execute 'normal "0i' . l:issue . ': '
+endfu!
+
+augroup skeletons
+    au!
+
+    au BufRead,BufNewFile *COMMIT_EDITMSG exec "call SkeletonGitCommit()"
+augroup END
+
 fun! g:ApplySyntaxForDiffComments()
     if &background == 'light'
-	hi DiffCommentIgnore ctermfg=249 ctermbg=none
-	hi DiffComment ctermfg=16 ctermbg=254
+        hi DiffCommentIgnore ctermfg=249 ctermbg=none
+        hi DiffComment ctermfg=16 ctermbg=254
     else
-	hi DiffCommentIgnore ctermfg=249 ctermbg=none
-	hi DiffComment ctermfg=15 ctermbg=237
+        hi DiffCommentIgnore ctermfg=249 ctermbg=none
+        hi DiffComment ctermfg=15 ctermbg=237
     endif
 endfun
 
@@ -403,3 +403,4 @@ nnoremap <Leader>] :tnext<CR>
 
 noh
 set background=dark
+
