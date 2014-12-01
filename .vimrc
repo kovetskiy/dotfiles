@@ -207,9 +207,14 @@ augroup vimrc
 augroup end
 
 fu! SkeletonGitCommit()
-    let l:issue=system("git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3 | grep -oP '([A-Z]{1,}\-[0-9]{1,})'")
+    let l:line = getline(".")
+    if l:line == "" 
+        let l:issue = system("git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3 | grep -oP '([A-Z]{1,}\-[0-9]{1,})'")
 
-    execute 'normal "0i' . l:issue . ': '
+        if l:issue != '' 
+            execute 'normal "0i' . l:issue . ': '
+        endif
+    endif
 endfu!
 
 augroup skeletons
