@@ -131,6 +131,11 @@ sub key_press {
 				$self->selection_end($er, $ec);
 				$self->selection_make($event->{time});
 			}
+
+			my $pid = open( pout, "| xsel -ibp" ) or die "fork";
+			print pout $self->selection;
+			close(pout) or die "close";
+
 			if ($key eq 'y') {
 				if ($self->{select} ne 'b') {
 					$self->selection_beg(1, 0);
