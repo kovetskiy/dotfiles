@@ -208,7 +208,7 @@ endfu!
 
 augroup skeletons
     au!
-    au BufRead,BufNewFile *COMMIT_EDITMSG exec "call SkeletonGitCommit()"
+    au FileType gitcommit exec "call SkeletonGitCommit()"
 augroup END
 
 augroup unite_setting  
@@ -343,7 +343,6 @@ set pastetoggle=<F11>
 
 nmap <F8> :TagbarToggle<CR>
 
-nmap <Leader><Leader> :noh<CR>
 nmap <F2> :Phpcs<CR>
 
 nnoremap / /\v
@@ -411,4 +410,3 @@ nnoremap <Leader>] :tnext<CR>
 
 noh
 set background=dark
-

@@ -7,7 +7,6 @@ export TERM=rxvt-unicode-256color
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 
 setopt autocd
-#setopt extendedglob
 setopt auto_name_dirs
 setopt auto_pushd
 setopt pushd_ignore_dups
@@ -55,12 +54,114 @@ zstyle ':completion::complete:*' cache-path $HOME/.zsh/cache/
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 zstyle ':completion:*:*:*:*:processes' command "ps -u `whoami` -o pid,user,comm -w -w"
 
-source ~/.zsh/functions.zsh
-source ~/.zsh/aliases.zsh
-source ~/.zsh/git/functions.zsh
-source ~/.zsh/git/aliases.zsh
-source ~/.zsh/go/common.zsh
-source ~/.zsh/go/aliases.zsh
+compress () {
+  if [ $1 ] ; then
+    case $1 in
+      tbz)  tar cjvf $2.tar.bz2 $2   ;;
+      tgz)  tar czvf $2.tar.gz  $2   ;;
+      tar)  tar cpvf $2.tar  $2      ;;
+      bz2)  bzip $2                  ;;
+      gz)   gzip -c -9 -n $2 > $2.gz ;;
+      zip)  zip -r $2.zip $2         ;;
+      7z)   7z a $2.7z $2            ;;
+      *)    echo "'$1' cannot be packed via >compress<" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+extract () {
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2) tar xvjf $1   ;;
+            *.tar.gz)  tar xvzf $1   ;;
+            *.bz2)     bunzip2 $1    ;;
+            *.rar)     unrar x $1    ;;
+            *.gz)      gunzip $1     ;;
+            *.tar)     tar xvf $1    ;;
+            *.tbz2)    tar xvjf $1   ;;
+            *.tgz)     tar xvzf $1   ;;
+            *.zip)     unzip $1      ;;
+            *.Z)       uncompress $1 ;;
+            *.7z)      7z x $1       ;;
+            *)         echo "'$1' cannot be extracted via >extract<" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+alias agi='apt-get install'
+alias ags='apt-cache search'
+alias agu='apt-get update'
+
+alias v='vim'
+alias vi='vim'
+alias vimm='vim'
+
+alias -g G='| grep'
+alias ls='ls --color=always'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias zr='source ~/.zshrc && print "zsh config has been reloaded"'
+alias ssh='TERM=xterm ssh'
+alias chrome='google-chrome'
+alias volume='pactl set-sink-volume 0 '
+alias ashi='ash inbox'
+
+ASH_LAST_PR=""
+ashr () {
+    url=$1
+    vim -c ":Unite ash_review:$url"
+    ASH_LAST_PR=$url
+}
+
+asha () {
+    url=$ASH_LAST_PR
+    ash $url approve
+}
+
+autoload -U add-zsh-hook
+
+function gdi()
+{
+	eval "git diff $1"
+}
+
+compctl -K git_diff_complete gdi
+
+alias gd='git diff'
+alias gs='git status --short'
+alias ga='git add '
+alias gp='git push'
+alias gpo='git push origin'
+alias gpl='git pull'
+alias gpr='git pull --rebase'
+alias gf='git fetch'
+alias gc='git commit'
+alias gc!='git commit --amend'
+alias gcm='git commit -m'
+alias gcm!='git commit --amend -m'
+alias gco='git checkout'
+alias gb='git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3'
+alias gpot='git push origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
+alias gpot!='git push origin +`git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
+alias gput='git pull --rebase origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
+alias gfr='git-forest --all --sha | less -XR'
+alias -g gcbr='`git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
+alias ggc='git gc --prune --aggressive'
+alias gpor='git pull --rebase origin master'
+alias gsh='git stash'
+alias gshp='git stash pop'
+alias gr='git reset'
+alias gcom='git checkout origin/master'
+alias gl='git log'
+alias gd='git diff'
+
+alias gob='go build'
+alias goi='go install'
+alias gobi='go build && go install'
 
 function preexec()
 {
