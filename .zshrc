@@ -92,9 +92,9 @@ extract () {
     fi
 }
 
-alias agi='apt-get install'
-alias ags='apt-cache search'
-alias agu='apt-get update'
+alias agi='sudo apt-get install'
+alias ags='sudo apt-cache search'
+alias agu='sudo apt-get update'
 
 alias v='vim'
 alias vi='vim'

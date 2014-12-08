@@ -11,7 +11,7 @@ imap <PageDown> <NOP>
 imap <Del> <NOP>
 
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call vundle#rc()
 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'kovetskiy/ash.vim'
@@ -41,8 +41,8 @@ Plugin 'tpope/vim-surround'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tsukkee/unite-tag'
 Plugin 'joonty/vim-phpqa'
-
-call vundle#end()
+Plugin 'takac/vim-hardtime'
+Plugin 'wikitopian/hardmode'
 
 filetype plugin indent on
 
