@@ -1,0 +1,13 @@
+#!/bin/bash
+
+MCABBER_FIFO=~/.mcabber/mcabber.fifo
+
+echo "/status away" > $MCABBER_FIFO
+
+file1=$(mktemp --tmpdir i3lock-XXXXXXXXXX.png)
+file2=$(mktemp --tmpdir i3lock-XXXXXXXXXX.png)
+scrot -d0 "$file1"
+convert "$file1" -blur 0x5 "$file2"
+i3lock -i "$file2" -u
+
+echo "/status online" > $MCABBER_FIFO
