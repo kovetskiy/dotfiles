@@ -1,5 +1,8 @@
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font pango:DejaVu Sans Mono 7
+
+# hack for removing title, but rendering ~2px titlebar (get an indication of the active window)
+font pango:Monaco 0
+new_window normal 0 px
 focus_follows_mouse off
 floating_modifier Mod4
 
