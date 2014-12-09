@@ -339,22 +339,23 @@ let g:phpqa_codesniffer_args="--standard='" . expand('~') . "/php_standarts.cs/S
 let g:phpqa_codesniffer_autorun=0
 let g:phpqa_messdetector_autorun=0
 
+let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
+let g:XkbSwitchEnabled = 1
+
 set pastetoggle=<F11>
 
-nmap <F8> :TagbarToggle<CR>
+nmap <F2>  :Phpcs<CR>
+nmap <F7>  :!time tags_php<CR>
+nmap <F8>  :TagbarToggle<CR>
+nmap <F12> :noh<CR>
 
-nmap <F2> :Phpcs<CR>
+nmap <F10> :Gstatus<CR>
 
 nnoremap / /\v
 vnoremap / \v
 
 nnoremap > >>
 nnoremap < <<
-
-nnoremap <F7> <ESC>:!time phptags-scripts<CR>
-
-let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
-let g:XkbSwitchEnabled = 1
 
 nmap ,i :Unite ash_inbox<CR>
 nmap ,l :Unite ash_lsreviews:ngs/auto<CR>

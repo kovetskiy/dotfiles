@@ -3,7 +3,8 @@ font pango:DejaVu Sans Mono 7
 focus_follows_mouse off
 floating_modifier Mod4
 
-bindsym Mod1+Return exec i3-sensible-terminal
+bindsym Mod1+Return exec urxvt
+bindsym Mod1+Shift+Return exec "urxvt -e vim"
 
 bindsym Mod4+Shift+q kill
 
