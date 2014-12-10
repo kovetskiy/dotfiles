@@ -63,6 +63,7 @@ set wildmenu
 set undofile
 set undodir=$HOME/.vim/tmp/
 set directory=$HOME/.vim/tmp/
+set backupdir=$HOME/.vim/tmp
 
 set lazyredraw
 set ttyfast
@@ -325,8 +326,7 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsEditSplit="vertical"
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 let g:unite_split_rule = "botright"
 let g:unite_force_overwrite_statusline = 0

@@ -170,7 +170,7 @@ function preexec()
 
 function precmd()
 {
-	export PROMPT="[%n@%m]─[%~] %# "
+	export PROMPT="%# "
 }
 
 source ~/.zsh/local.zsh
@@ -178,6 +178,3 @@ source ~/.zsh/local.zsh
 bindkey '5D' emacs-backward-word
 bindkey '5C' emacs-forward-word
 bindkey '^[[1;5C' emacs-forward-word
-bindkey '^[[1;5D' emacs-backward-word
-
-export WORDCHARS=''
