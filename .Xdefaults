@@ -26,7 +26,10 @@ URxvt.keysym.Mod4-question:  perl:aAtt:fuzzy-complete
 URxvt.keysym.Mod4-quotedbl:  perl:aAtt:undo
 
 URxvt.keysym.Mod4-C-y: perl:url-select:select_next
-URxvt.url-select.launcher: x-www-browser
+URxvt.url-select.launcher: /home/vxw/bin/x-www-browser
+
+!URxvt.matcher.pattern.0: https?\:\/\/git\.rn[\\w./?&@#-]*[\\w/-]
+!URxvt.matcher.pattern.1: (\\bwww\\.|https?\:\/\/|ftp\:\/\/|file\:\/\/)[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
 
 ! like gruvbox :)
 URxvt.background: #282828

@@ -79,3 +79,4 @@ bindsym Mod1+Control+minus exec "pactl set-sink-volume 0 -- -2500"
 bindsym Mod1+Control+equal exec "pactl set-sink-volume 0 -- +2500"
 
 bindsym Mod1+Control+d exec "show-date"
+bindsym Mod1+Mod4+Return exec "xdotool click 1"
