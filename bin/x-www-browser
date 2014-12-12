@@ -1,8 +1,4 @@
 #!/bin/bash
 
 URL=$1
-if [[ $URL == *"git.rn"* ]]; then
-    exec urxvt -e ash "$URL" review
-else
-    exec google-chrome $URL
-fi
+exec firefox $URL

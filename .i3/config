@@ -34,6 +34,13 @@ bindsym Mod1+Shift+n layout toggle split
 bindsym Mod1+1 workspace 1
 bindsym Mod1+2 workspace 2
 bindsym Mod1+3 workspace 3
+bindsym Mod1+4 workspace 4
+bindsym Mod1+5 workspace 5
+bindsym Mod1+6 workspace 6
+bindsym Mod1+7 workspace 7
+bindsym Mod1+8 workspace 8
+bindsym Mod1+9 workspace 9
+
 bindsym Mod1+q workspace q
 bindsym Mod1+w workspace w
 bindsym Mod1+e workspace e
@@ -44,6 +51,13 @@ bindsym Mod1+c workspace c
 bindsym Mod1+Shift+1 move container to workspace 1
 bindsym Mod1+Shift+2 move container to workspace 2
 bindsym Mod1+Shift+3 move container to workspace 3
+bindsym Mod1+Shift+4 move container to workspace 4
+bindsym Mod1+Shift+5 move container to workspace 5
+bindsym Mod1+Shift+6 move container to workspace 6
+bindsym Mod1+Shift+7 move container to workspace 7
+bindsym Mod1+Shift+8 move container to workspace 8
+bindsym Mod1+Shift+9 move container to workspace 9
+
 bindsym Mod1+Shift+q move container to workspace q
 bindsym Mod1+Shift+w move container to workspace w
 bindsym Mod1+Shift+e move container to workspace e
