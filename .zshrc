@@ -4,6 +4,9 @@ export PATH="$HOME/bin/:$HOME/go/bin/:$HOME/repos/git-scripts/:$PATH"
 export EDITOR=vim
 export TERM=rxvt-unicode-256color
 
+export DOTFILES="$HOME/dotfiles/"
+export DF="$HOME/dotfiles/"
+
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 
 setopt autocd
