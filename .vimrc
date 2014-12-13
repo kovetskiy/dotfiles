@@ -43,6 +43,7 @@ Plugin 'tsukkee/unite-tag'
 Plugin 'joonty/vim-phpqa'
 Plugin 'takac/vim-hardtime'
 Plugin 'wikitopian/hardmode'
+Plugin 'aserebryakov/filestyle'
 
 filetype plugin indent on
 
@@ -57,6 +58,7 @@ set encoding=utf-8
 set printencoding=cp1251
 set fileformat=unix
 
+set textwidth=120
 set timeoutlen=400
 set wildmenu
 
@@ -171,7 +173,6 @@ augroup syntax_hacks
     au FileType diff syn match DiffComment "^#.*"
     au FileType diff syn match DiffCommentIgnore "^###.*"
     au FileType diff call g:ApplySyntaxForDiffComments()
-    au FileType diff nnoremap o o# 
 augroup end
 
 augroup dir_autocreate
@@ -343,6 +344,9 @@ let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
 let g:XkbSwitchEnabled = 1
 
 set pastetoggle=<F11>
+
+nnoremap <Leader><Leader>i :PluginInstall<CR>
+nnoremap <Leader><Leader>u :PluginUpdate<CR>
 
 nmap <F2>  :Phpcs<CR>
 nmap <F7>  :!time tags_php<CR>

@@ -1,6 +1,6 @@
 
 set hintchars=qweasdiopjkl
-set gui=none
+set gui=tabs
 
 hi CompResult -append font-family: Monaco; font-size: 12px;
 hi CompDesc -append font-family: Monaco; font-size: 12px;
@@ -14,6 +14,7 @@ map b :buffer<space>
 nnoremap j 5j
 nnoremap k 5k
 nnoremap `` :buffer<space>
+nnoremap % :source ~/.vimperatorrc
 
 set cpt=l
 set showstatuslinks=2
