@@ -197,12 +197,17 @@ augroup vimrc
     au BufWritePost ~/.vimrc source % | AirlineRefresh
 augroup end
 
+augroup mcabber
+    au!
+    au BufWritePost ~/.mcabber/mcabberrc !echo "/source ~/.mcabber/mcabberrc" > ~/.mcabber/mcabber.fifo
+augroup end
+
 fu! SkeletonGitCommit()
     let l:line = getline(".")
-    if l:line == "" 
-        let l:issue = system("git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3 | grep -oP '([A-Z]{1,}\-[0-9]{1,})'")
+    if l:line == ""
+        let l:issue = system("git symbolic-ref HEAD 2>/dev/null | grep -oP '([A-Z]{1,}\-[0-9]{1,})'")
 
-        if l:issue != '' 
+        if l:issue != ''
             execute 'normal I' . l:issue . ': '
         endif
     endif
@@ -211,16 +216,17 @@ endfu!
 augroup skeletons
     au!
     au FileType gitcommit exec "call SkeletonGitCommit()"
+    au BufNewFile *.php exec "normal I<?php\r\rcl"
 augroup END
 
-augroup unite_setting  
+augroup unite_setting
     au!
 
     au FileType unite call s:unite_my_settings()
 augroup end
 
-function! s:unite_my_settings()   
-    imap <buffer> <C-R> <Plug>(unite_redraw) 
+function! s:unite_my_settings()
+    imap <buffer> <C-R> <Plug>(unite_redraw)
 
     imap <silent><buffer><expr> <C-T> unite#do_action('split')
     call unite#custom#alias('ash_review', 'split', 'ls')
@@ -334,8 +340,9 @@ let g:unite_force_overwrite_statusline = 0
 let g:unite_enable_start_insert = 1
 
 let g:phpqa_php_cmd='php'
+let g:phpqa_run_on_write=0
 let g:phpqa_codesniffer_cmd='phpcs'
-let g:phpqa_codesniffer_args="--standard='" . expand('~') . "/php_standarts.cs/Standards/NGS/ruleset.xml'"
+let g:phpqa_codesniffer_args="--encoding=utf8 --standard='" . expand('~') . "/php_standarts.cs/Standards/NGS/ruleset.xml'"
 
 let g:phpqa_codesniffer_autorun=0
 let g:phpqa_messdetector_autorun=0
@@ -354,6 +361,10 @@ nmap <F8>  :TagbarToggle<CR>
 nmap <F12> :noh<CR>
 
 nmap <F10> :Gstatus<CR>
+
+nnoremap ; :
+nnoremap X S<ESC>
+vnoremap $ $h
 
 nnoremap / /\v
 vnoremap / \v

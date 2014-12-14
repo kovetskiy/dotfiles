@@ -44,7 +44,7 @@ bindkey -s "\C-h" "history\r!"
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
 
-autoload -U colors && colors
+autoload -U colors
 zstyle ':completion:*:processes' command 'ps -ax'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;32'
 zstyle ':completion:*:*:kill:*' menu yes select
@@ -168,7 +168,10 @@ alias gobi='go build && go install'
 
 alias pdw='date; pwd'
 
-export PROMPT="${bg_bold[red]}%#${reset_color} "
+function precmd()
+{
+    export PROMPT="${bg_bold[red]}%#${reset_color} "
+}
 
 source ~/.zsh/local.zsh
 
