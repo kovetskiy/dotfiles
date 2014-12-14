@@ -4,9 +4,6 @@ export PATH="$HOME/bin/:$HOME/go/bin/:$HOME/repos/git-scripts/:$PATH"
 export EDITOR=vim
 export TERM=rxvt-unicode-256color
 
-export DOTFILES="$HOME/dotfiles/"
-export DF="$HOME/dotfiles/"
-
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 
 setopt autocd
@@ -47,15 +44,15 @@ bindkey -s "\C-h" "history\r!"
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
 
-#autoload -Uz compinit
-#compinit -C
-zstyle ':completion:*' menu select
-zstyle ':completion:*' list-colors ''
+autoload -U colors && colors
+zstyle ':completion:*:processes' command 'ps -ax'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;32'
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*'   force-list always
 
-zstyle ':completion::complete:*' cache-path $HOME/.zsh/cache/
-
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-zstyle ':completion:*:*:*:*:processes' command "ps -u `whoami` -o pid,user,comm -w -w"
+zstyle ':completion:*:processes-names' command 'ps -e -o comm='
+zstyle ':completion:*:*:killall:*' menu yes select
+zstyle ':completion:*:killall:*'   force-list always
 
 compress () {
   if [ $1 ] ; then
@@ -104,7 +101,10 @@ alias vi='vim'
 alias vimm='vim'
 
 alias -g G='| grep'
-alias ls='ls --color=always'
+alias -g L='| less'
+alias ls='ls -a --color=always'
+hash -d dotfiles=~/repos/dotfiles/
+hash -d df=~/repos/dotfiles/
 alias ..='cd ..'
 alias ...='cd ../..'
 alias zr='source ~/.zshrc && print "zsh config has been reloaded"'
@@ -129,14 +129,14 @@ autoload -U add-zsh-hook
 
 function gdi()
 {
-	eval "git diff $1"
+    eval "git diff $1"
 }
 
 compctl -K git_diff_complete gdi
 
 alias gd='git diff'
 alias gs='git status --short'
-alias ga='git add '
+alias ga='git add -u '
 alias gp='git push'
 alias gpo='git push origin'
 alias gpl='git pull'
@@ -166,15 +166,9 @@ alias gob='go build'
 alias goi='go install'
 alias gobi='go build && go install'
 
-function preexec()
-{
-	print -Pn "\e]0;[`whoami`@`hostname`] $1\a" 
-}
+alias pdw='date; pwd'
 
-function precmd()
-{
-	export PROMPT="%# "
-}
+export PROMPT="${bg_bold[red]}%#${reset_color} "
 
 source ~/.zsh/local.zsh
 

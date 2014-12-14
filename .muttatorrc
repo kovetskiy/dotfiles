@@ -1,5 +1,7 @@
 set gui=none
 set hintchars=qweasdiopjkl
+set showstatuslinks=2
+set editor="urxvt -e vim "
 
 hi CompResult -append font-family: Monaco; font-size: 12px;
 hi CompDesc -append font-family: Monaco; font-size: 12px;
@@ -9,8 +11,8 @@ hi Hint font-size: 12px; font-weight: bold; text-transform: uppercase; color: wh
 
 " disable stupid 'forward message'...
 nnoremap f mf
-
-nnoremap % :source ~/.muttatorrc
-
-set showstatuslinks=2
-set editor="urxvt -e vim "
+nnoremap ,a :set gui=all<CR>
+nnoremap ,n :set gui=none<CR>
+nnoremap ,s :emenu Message.Create Filter From Message…<CR>
+nnoremap % :source ~/.muttatorrc<CR>
+nnoremap @ <F5>
