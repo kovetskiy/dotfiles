@@ -44,7 +44,7 @@ bindkey -s "\C-h" "history\r!"
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
 
-autoload -U colors
+autoload -U colors && colors
 zstyle ':completion:*:processes' command 'ps -ax'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;32'
 zstyle ':completion:*:*:kill:*' menu yes select
@@ -170,11 +170,13 @@ alias pdw='date; pwd'
 
 function precmd()
 {
-    export PROMPT="${bg_bold[red]}%#${reset_color} "
+    export PROMPT="[%m:%#] "
 }
 
 source ~/.zsh/local.zsh
 
 bindkey '5D' emacs-backward-word
 bindkey '5C' emacs-forward-word
+
 bindkey '^[[1;5C' emacs-forward-word
+bindkey '^[[1;' emacs-backward-word
