@@ -5,6 +5,7 @@ export EDITOR=vim
 export TERM=rxvt-unicode-256color
 
 ssh-add ~/.ssh/id_rsa 2>/dev/null
+stty -ixon
 
 setopt autocd
 setopt auto_name_dirs
@@ -180,3 +181,14 @@ bindkey '5C' emacs-forward-word
 
 bindkey '^[[1;5C' emacs-forward-word
 bindkey '^[[1;' emacs-backward-word
+
+function prepend-sudo() {
+    if [[ "$BUFFER" != su(do|)\ * ]]; then
+        BUFFER="sudo $BUFFER"
+        (( CURSOR += 5 ))
+    fi
+}
+
+zle -N prepend-sudo
+
+bindkey '^s' prepend-sudo
