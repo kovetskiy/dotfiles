@@ -1,6 +1,5 @@
 
 set hintchars=qweasdiopjkl
-set gui=tabs
 
 hi CompResult -append font-family: Monaco; font-size: 12px;
 hi CompDesc -append font-family: Monaco; font-size: 12px;
@@ -22,3 +21,8 @@ set showstatuslinks=2
 set! javascript.options.jit.chrome=true
 
 set editor="urxvt -e vim "
+
+" removing 'addons bar'
+set gui=all
+set gui=none
+set gui=tabs

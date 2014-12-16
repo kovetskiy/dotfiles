@@ -1,4 +1,5 @@
 .zsh/locals/
+.zsh/local.zsh
 .mcabber/account
 .mcabber/aliases
 .mcabber/mcabber.fifo
