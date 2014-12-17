@@ -1,0 +1,27 @@
+#!/bin/bash
+
+battery=`upower -e | grep BAT`
+timeout=0.10
+iter=0
+while true; do
+    state=`upower -i $battery | grep state | awk {'print $2'}`
+
+    if [[ "$state" != "charging" ]] && [[ "$state" != "fully-charged" ]]; then
+        setleds -D -num < /dev/console
+        setleds -D -caps < /dev/console
+        sleep 0.20
+        setleds -D +num < /dev/console
+        setleds -D +caps < /dev/console
+        sleep 0.20
+        iter=$((iter+1))
+        if [[ "$iter" == "20" ]]; then
+            notify-send "CHARGE!"
+            iter=0
+        fi
+    else
+        setleds -D -num < /dev/console
+        setleds -D -caps < /dev/console
+    fi
+
+    sleep $timeout
+done
