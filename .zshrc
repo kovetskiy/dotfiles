@@ -30,6 +30,7 @@ HISTFILE=$HOME/.history
 HISTSIZE=10000
 SAVEHIST=100000
 
+setopt rmstarsilent
 setopt append_history
 setopt extended_history
 setopt hist_expire_dups_first
