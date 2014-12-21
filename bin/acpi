@@ -1,0 +1,16 @@
+#!/bin/bash
+
+acpi_listen |
+while read -r line 
+do
+    action=`echo $line | awk {'print \$1'}`
+
+    case "$action" in 
+        "button/volumeup")
+            pactl set-sink-volume 0 -- +500
+            ;;
+        "button/volumedown")
+            pactl set-sink-volume 0 -- -500
+            ;;
+    esac
+done
