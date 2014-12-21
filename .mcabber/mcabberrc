@@ -7,7 +7,7 @@ set ssl_ignore_checks = 1
 
 set cmdhistory_lines = 512
 
-set roster_display_filter = ofdna
+set roster_display_filter = ofdnax
 
 set lang = en
 set logging = 1

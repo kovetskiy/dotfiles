@@ -137,7 +137,7 @@ compctl -K git_diff_complete gdi
 
 alias gd='git diff'
 alias gs='git status --short'
-alias ga='git add -u '
+alias ga='git add'
 alias gp='git push'
 alias gpo='git push origin'
 alias gpl='git pull'

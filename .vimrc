@@ -41,9 +41,9 @@ Plugin 'tpope/vim-surround'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tsukkee/unite-tag'
 Plugin 'joonty/vim-phpqa'
-Plugin 'takac/vim-hardtime'
-Plugin 'wikitopian/hardmode'
-Plugin 'aserebryakov/filestyle'
+Plugin 'rhysd/clever-f.vim'
+Plugin 'kovetskiy/filestyle'
+Plugin 'pangloss/vim-javascript'
 
 filetype plugin indent on
 
@@ -58,7 +58,7 @@ set encoding=utf-8
 set printencoding=cp1251
 set fileformat=unix
 
-set textwidth=120
+set textwidth=80
 set timeoutlen=400
 set wildmenu
 
@@ -165,7 +165,10 @@ augroup END
 
 augroup whitespace_hacks
     au!
-    au FileType php,go,tpl,yml,json autocmd BufWritePre <buffer> :%s/\s\+$//e
+    fu! Whitespaces()
+        execute 'normal :%s/\s\+$//e'
+    endfu!
+    au FileType php,go,tpl,yml,json,js autocmd BufWritePre <buffer> :%s/\s\+$//e
 augroup END
 
 augroup syntax_hacks
@@ -342,7 +345,7 @@ let g:unite_enable_start_insert = 1
 let g:phpqa_php_cmd='php'
 let g:phpqa_run_on_write=0
 let g:phpqa_codesniffer_cmd='phpcs'
-let g:phpqa_codesniffer_args="--encoding=utf8 --standard='" . expand('~') . "/php_standarts.cs/Standards/NGS/ruleset.xml'"
+let g:phpqa_codesniffer_args="--encoding=utf8 --standard='" . expand('~') . "/repos/standards/CodeSniffer/Standards/NGS/ruleset.xml'"
 
 let g:phpqa_codesniffer_autorun=0
 let g:phpqa_messdetector_autorun=0
@@ -362,7 +365,6 @@ nmap <F12> :noh<CR>
 
 nmap <F10> :Gstatus<CR>
 
-nnoremap ; :
 nnoremap X S<ESC>
 vnoremap $ $h
 
@@ -412,9 +414,18 @@ nnoremap <Space> viw
 nnoremap <Leader>d V"_d<Esc>
 vnoremap <Leader>d "_d
 
-vnoremap <C-c> "+yy
-inoremap <C-d> <C-[>diwi
+vnoremap <C-y> "kyy
+vnoremap <C-d> "kdgvd
+vnoremap <C-x> "kygvx
+vnoremap <C-p> "kp
+vnoremap <C-P> "kP
+vnoremap <C-s> "ks
 
+nnoremap <C-x> v"kx
+nnoremap <C-p> "kp
+nnoremap <C-P> "kP
+
+vnoremap / y/<C-r>"
 nnoremap <Leader><Leader>j :call DelEmptyLineBelow()<CR>
 nnoremap <Leader><Leader>k :call DelEmptyLineAbove()<CR>
 nnoremap <Leader>j :call AddEmptyLineBelow()<CR>
