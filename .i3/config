@@ -4,68 +4,72 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 font pango:Monaco 0
 new_window normal 0 px
 focus_follows_mouse off
-floating_modifier Mod4
+floating_modifier $alt
 
-bindsym Mod1+Return exec urxvt
-bindsym Mod1+Shift+Return exec "urxvt -e vim"
+set $win Mod1
+set $alt Mod4
 
-bindsym Mod4+Shift+q kill
+bindsym $win+Return exec urxvt
+bindsym $win+Shift+Return exec "urxvt -e vim"
 
-bindsym Mod1+d exec dmenu_run
+bindsym $alt+Shift+q kill
 
-bindsym Mod1+u focus left
-bindsym Mod1+i focus down
-bindsym Mod1+o focus up
-bindsym Mod1+p focus right
+bindsym $alt+d exec dmenu_run
 
-bindsym Mod1+Shift+u move left
-bindsym Mod1+Shift+i move down
-bindsym Mod1+Shift+o move up
-bindsym Mod1+Shift+p move right
+bindsym $win+u focus left
+bindsym $win+i focus down
+bindsym $win+o focus up
+bindsym $win+p focus right
 
-bindsym Mod1+b split h
-bindsym Mod1+v split v
+bindsym $win+Shift+u move left
+bindsym $win+Shift+i move down
+bindsym $win+Shift+o move up
+bindsym $win+Shift+p move right
 
-bindsym Mod1+Shift+f fullscreen
-bindsym Mod1+Shift+s layout stacking
-bindsym Mod1+Shift+t layout tabbed
-bindsym Mod1+Shift+n layout toggle split
+bindsym $alt+f fullscreen
+bindsym $alt+s layout toggle split
 
-bindsym Mod1+1 workspace 1
-bindsym Mod1+2 workspace 2
-bindsym Mod1+3 workspace 3
-bindsym Mod1+4 workspace 4
-bindsym Mod1+5 workspace 5
-bindsym Mod1+6 workspace 6
-bindsym Mod1+7 workspace 7
-bindsym Mod1+8 workspace 8
-bindsym Mod1+9 workspace 9
+bindsym $win+1 workspace 1
+bindsym $win+2 workspace 2
+bindsym $win+3 workspace 3
+bindsym $win+4 workspace 4
+bindsym $win+5 workspace 5
+bindsym $win+6 workspace 6
+bindsym $win+7 workspace 7
+bindsym $win+8 workspace 8
+bindsym $win+9 workspace 9
 
-bindsym Mod1+q workspace q
-bindsym Mod1+w workspace w
-bindsym Mod1+e workspace e
-bindsym Mod1+z workspace z
-bindsym Mod1+x workspace x
-bindsym Mod1+c workspace c
+bindsym $win+q workspace q
+bindsym $win+w workspace w
+bindsym $win+e workspace e
+bindsym $win+a workspace a
+bindsym $win+s workspace s
+bindsym $win+d workspace d
+bindsym $win+z workspace z
+bindsym $win+x workspace x
+bindsym $win+c workspace c
 
-bindsym Mod1+Shift+1 move container to workspace 1
-bindsym Mod1+Shift+2 move container to workspace 2
-bindsym Mod1+Shift+3 move container to workspace 3
-bindsym Mod1+Shift+4 move container to workspace 4
-bindsym Mod1+Shift+5 move container to workspace 5
-bindsym Mod1+Shift+6 move container to workspace 6
-bindsym Mod1+Shift+7 move container to workspace 7
-bindsym Mod1+Shift+8 move container to workspace 8
-bindsym Mod1+Shift+9 move container to workspace 9
+bindsym $win+Shift+1 move container to workspace 1
+bindsym $win+Shift+2 move container to workspace 2
+bindsym $win+Shift+3 move container to workspace 3
+bindsym $win+Shift+4 move container to workspace 4
+bindsym $win+Shift+5 move container to workspace 5
+bindsym $win+Shift+6 move container to workspace 6
+bindsym $win+Shift+7 move container to workspace 7
+bindsym $win+Shift+8 move container to workspace 8
+bindsym $win+Shift+9 move container to workspace 9
 
-bindsym Mod1+Shift+q move container to workspace q
-bindsym Mod1+Shift+w move container to workspace w
-bindsym Mod1+Shift+e move container to workspace e
-bindsym Mod1+Shift+z move container to workspace z
-bindsym Mod1+Shift+x move container to workspace x
-bindsym Mod1+Shift+c move container to workspace c
+bindsym $win+Shift+q move container to workspace q
+bindsym $win+Shift+w move container to workspace w
+bindsym $win+Shift+e move container to workspace e
+bindsym $win+Shift+a move container to workspace a
+bindsym $win+Shift+s move container to workspace s
+bindsym $win+Shift+d move container to workspace d
+bindsym $win+Shift+z move container to workspace z
+bindsym $win+Shift+x move container to workspace x
+bindsym $win+Shift+c move container to workspace c
 
-bindsym Mod1+Shift+r restart
+bindsym $win+Shift+r restart
 
 mode "resize" {
         bindsym j           resize shrink width 10 px or 10 ppt
@@ -73,24 +77,32 @@ mode "resize" {
         bindsym l           resize shrink height 10 px or 10 ppt
         bindsym semicolon   resize grow width 10 px or 10 ppt
 
-        bindsym Left        resize shrink width 2 px or 2 ppt
-        bindsym Down        resize grow height 2 px or 2 ppt
-        bindsym Up          resize shrink height 2 px or 2 ppt
-        bindsym Right       resize grow width 2 px or 2 ppt
-
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
 
-bindsym Mod1+Control+r mode "resize"
+bindsym $win+Control+r mode "resize"
 
-exec i3-config-wizard
+bindsym $win+Control+l exec lockscreen
 
-bindsym Mod1+Control+l exec lockscreen
+bindsym $win+Control+0 exec "pactl set-sink-volume 0 -- -25000"
+bindsym $win+Control+minus exec "pactl set-sink-volume 0 -- -2500"
+bindsym $win+Control+equal exec "pactl set-sink-volume 0 -- +2500"
 
-bindsym Mod1+Control+0 exec "pactl set-sink-volume 0 -- -25000"
-bindsym Mod1+Control+minus exec "pactl set-sink-volume 0 -- -2500"
-bindsym Mod1+Control+equal exec "pactl set-sink-volume 0 -- +2500"
+bindsym $win+Control+d exec "show-date"
+bindsym $win+$alt+Return exec "xdotool click 1"
 
-bindsym Mod1+Control+d exec "show-date"
-bindsym Mod1+Mod4+Return exec "xdotool click 1"
+set $leftM VGA1
+set $rightM HDMI1
+
+workspace 1 output $leftM # VIM
+workspace 2 output $leftM # terminal
+workspace 3 output $leftM # terminal
+
+workspace q output $rightM # firefox
+workspace w output $rightM # terminal
+workspace e output $rightM # email
+
+workspace z output $leftM # mcabber
+workspace x output $rightM # tmp
+workspace c output $rightM # gui shit - skype

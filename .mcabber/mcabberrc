@@ -56,3 +56,17 @@ bind 17 = roster unread_next
 bind 276 = roster toggle
 
 source ~/.mcabber/aliases
+
+set color_background = 234
+set color_general = 244
+set color_info = 240
+set color_msgin = 166
+set color_msgout = 64
+set color_msghl = 136
+set color_bgstatus = 235
+set color_status = 166
+set color_roster = 240
+set color_bgrostersel = 235
+set color_rostersel = 166
+set color_rosterselmsg = 136
+set color_rosternewmsg = 136

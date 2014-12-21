@@ -17,7 +17,7 @@ URxvt.clipboard.pastecmd: xsel --output --clipboard
 
 URxvt.keysym.Mod4-c: perl:clipboard:copy
 URxvt.keysym.Mod4-v: perl:clipboard:paste
- 
+
 URxvt.keysym.Mod4-Escape: perl:keyboard-select:activate
 URxvt.keysym.Mod4-Shift-S: perl:keyboard-select:search
 

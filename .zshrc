@@ -93,6 +93,7 @@ extract () {
     fi
 }
 
+alias rf='rm -rf' # like russiahhhhh
 alias agi='sudo apt-get install'
 alias ags='sudo apt-cache search'
 alias agu='sudo apt-get update'
