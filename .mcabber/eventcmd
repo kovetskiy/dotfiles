@@ -17,6 +17,7 @@ if [ "$1" == "UNREAD" ]; then
             led_off ; sleep $TIMEOUT
         done
         led_on
+        notify-send -u normal -t 1000 "mcabber" "new message"
     else
         lock
         led_off
