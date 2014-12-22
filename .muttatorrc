@@ -17,4 +17,4 @@ nnoremap ,s :emenu Message.Create Filter From Message…<CR>
 nnoremap % :source ~/.muttatorrc<CR>
 nnoremap @ <F5>
 
-source ~/.muttator/aliases
+/*source ~/.muttator/aliases*/

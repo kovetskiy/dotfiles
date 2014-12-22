@@ -4,57 +4,61 @@ export PATH="$HOME/bin/:$HOME/go/bin/:$HOME/repos/git-scripts/:$PATH"
 export EDITOR=vim
 export TERM=rxvt-unicode-256color
 
+export GREP_OPTIONS='--color=auto'
+export GREP_COLOR='1;32'
+
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
-setopt autocd
-setopt auto_name_dirs
-setopt auto_pushd
-setopt pushd_ignore_dups
-
-bindkey "^[OB" down-line-or-search
-bindkey "^[OC" forward-char
-bindkey "^[OD" backward-char
-bindkey "^[OF" end-of-line
-bindkey "^[OH" beginning-of-line
-bindkey "^[[1~" beginning-of-line
-bindkey "^[[3~" delete-char
-bindkey "^[[4~" end-of-line
-bindkey "^[[5~" up-line-or-history
-bindkey "^[OB" down-line-or-history
-bindkey "^?" backward-delete-char
-bindkey '5D' emacs-backward-word
-bindkey '5C' emacs-forward-word
+source ~/.zpreztorc
 
 HISTFILE=$HOME/.history
 HISTSIZE=10000
 SAVEHIST=100000
 
+unsetopt correct
+unsetopt correct_all
+
+setopt autocd
+setopt auto_name_dirs
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt interactivecomments
 setopt rmstarsilent
 setopt append_history
 setopt extended_history
 setopt hist_expire_dups_first
-setopt hist_ignore_dups # ignore duplication command history list
+setopt hist_ignore_dups 
 setopt hist_ignore_space
 setopt hist_verify
 setopt inc_append_history
-setopt share_history # share command history data
+setopt share_history
 
-bindkey '^r' history-incremental-search-backward
+export KEYTIMEOUT=1
+
+bindkey -v '^P' history-incremental-search-backward
 bindkey -s "\C-h" "history\r!"
+bindkey -v
 
-export GREP_OPTIONS='--color=auto'
-export GREP_COLOR='1;32'
+bindkey -v "^P" history-substring-search-up
+bindkey -v "^N" history-substring-search-down
+bindkey -v "^A" beginning-of-line
+bindkey -v "$terminfo[kcuu1]" history-substring-search-up
+bindkey -v "$terminfo[kcud1]" history-substring-search-down
+bindkey -v "^R" history-incremental-search-backward
+bindkey -v "$terminfo[kdch1]" delete-char
+bindkey -v "^Q" push-line
+bindkey -v '^A' beginning-of-line
+bindkey -v '^E' end-of-line
+bindkey -v '^?' backward-delete-char
+bindkey -v '^H' backward-delete-char
+bindkey -v '^W' backward-kill-word
+bindkey -v '^K' vi-kill-eol
+bindkey -v '^[[Z' reverse-menu-complete
+bindkey -v '^[d' delete-word
 
-autoload -U colors && colors
-zstyle ':completion:*:processes' command 'ps -ax'
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;32'
-zstyle ':completion:*:*:kill:*' menu yes select
-zstyle ':completion:*:kill:*'   force-list always
-
-zstyle ':completion:*:processes-names' command 'ps -e -o comm='
-zstyle ':completion:*:*:killall:*' menu yes select
-zstyle ':completion:*:killall:*'   force-list always
+bindkey -a '^[' vi-insert
+bindkey -a '^[d' delete-word
 
 compress () {
   if [ $1 ] ; then
@@ -94,20 +98,27 @@ extract () {
     fi
 }
 
+ashr () {
+    vim -c ":Unite ash_review:$1"
+}
+
+autoload -U add-zsh-hook
+autoload -U colors && colors
+
+hash -d dotfiles=~/repos/dotfiles/
+hash -d df=~/repos/dotfiles/
+
+alias -g G='| grep'
+alias -g L='| less'
+alias l='ls'
+alias ls='ls -lah --color=always'
+alias v='vim'
+alias vi='vim'
+alias vimm='vim'
 alias rf='rm -rf' # like russiahhhhh
 alias agi='sudo apt-get install'
 alias ags='sudo apt-cache search'
 alias agu='sudo apt-get update'
-
-alias v='vim'
-alias vi='vim'
-alias vimm='vim'
-
-alias -g G='| grep'
-alias -g L='| less'
-alias ls='ls -a --color=always'
-hash -d dotfiles=~/repos/dotfiles/
-hash -d df=~/repos/dotfiles/
 alias ..='cd ..'
 alias ...='cd ../..'
 alias zr='source ~/.zshrc && print "zsh config has been reloaded"'
@@ -115,28 +126,7 @@ alias ssh='TERM=xterm ssh'
 alias chrome='google-chrome'
 alias volume='pactl set-sink-volume 0 '
 alias ashi='ash inbox'
-
-ASH_LAST_PR=""
-ashr () {
-    url=$1
-    vim -c ":Unite ash_review:$url"
-    ASH_LAST_PR=$url
-}
-
-asha () {
-    url=$ASH_LAST_PR
-    ash $url approve
-}
-
-autoload -U add-zsh-hook
-
-function gdi()
-{
-    eval "git diff $1"
-}
-
-compctl -K git_diff_complete gdi
-
+alias gcl='git clone'
 alias gd='git diff'
 alias gs='git status --short'
 alias ga='git add'
@@ -164,25 +154,11 @@ alias gr='git reset'
 alias gcom='git checkout origin/master'
 alias gl='git log'
 alias gd='git diff'
-
 alias gob='go build'
 alias goi='go install'
 alias gobi='go build && go install'
-
 alias pdw='date; pwd'
-
-function precmd()
-{
-    export PROMPT="[%m:%#] "
-}
-
-source ~/.zsh/local.zsh
-
-bindkey '5D' emacs-backward-word
-bindkey '5C' emacs-forward-word
-
-bindkey '^[[1;5C' emacs-forward-word
-bindkey '^[[1;' emacs-backward-word
+alias srn='php stat.php | sort | sort -nr'
 
 function prepend-sudo() {
     if [[ "$BUFFER" != su(do|)\ * ]]; then
@@ -190,7 +166,11 @@ function prepend-sudo() {
         (( CURSOR += 5 ))
     fi
 }
-
 zle -N prepend-sudo
-
 bindkey '^s' prepend-sudo
+
+function gdi()
+{
+    eval "git diff $1"
+}
+compctl -K git_diff_complete gdi
