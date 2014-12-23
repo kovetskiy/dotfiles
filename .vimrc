@@ -415,16 +415,16 @@ nnoremap <Space> viw
 nnoremap <Leader>d V"_d<Esc>
 vnoremap <Leader>d "_d
 
-vnoremap <C-y> "kyy
-vnoremap <C-d> "kdgvd
-vnoremap <C-x> "kygvx
-vnoremap <C-p> "kp
-vnoremap <C-P> "kP
-vnoremap <C-s> "ks
+vnoremap <Leader><C-y> "kyy
+vnoremap <Leader><C-d> "kdgvd
+vnoremap <Leader><C-x> "kygvx
+vnoremap <Leader><C-p> "kp
+vnoremap <Leader><C-P> "kP
+vnoremap <Leader><C-s> "ks
 
-nnoremap <C-x> v"kx
-nnoremap <C-p> "kp
-nnoremap <C-P> "kP
+nnoremap <Leader><C-x> v"kx
+nnoremap <Leader><C-p> "kp
+nnoremap <Leader><C-P> "kP
 
 vnoremap / y/<C-r>"
 nnoremap <Leader><Leader>j :call DelEmptyLineBelow()<CR>
