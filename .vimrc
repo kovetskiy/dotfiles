@@ -44,6 +44,7 @@ Plugin 'joonty/vim-phpqa'
 Plugin 'rhysd/clever-f.vim'
 Plugin 'kovetskiy/filestyle'
 Plugin 'pangloss/vim-javascript'
+Plugin 'rename'
 
 filetype plugin indent on
 
