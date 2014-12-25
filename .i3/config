@@ -83,14 +83,12 @@ mode "resize" {
 
 bindsym $win+Control+r mode "resize"
 
-bindsym $win+Control+l exec lockscreen
-
-bindsym $win+Control+0 exec "pactl set-sink-volume 0 -- -25000"
-bindsym $win+Control+minus exec "pactl set-sink-volume 0 -- -2500"
-bindsym $win+Control+equal exec "pactl set-sink-volume 0 -- +2500"
-
-bindsym $win+Control+d exec "show-date"
-bindsym $win+$alt+Return exec "xdotool click 1"
+bindsym $win+Control+l      exec "~/bin/lockscreen"
+bindsym $win+Control+0      exec "~/bin/volume toogle"
+bindsym $win+Control+minus  exec "~/bin/volume down"
+bindsym $win+Control+equal  exec "~/bin/volume up"
+bindsym $win+Control+d      exec "~/bin/show-date"
+bindsym $win+$alt+Return    exec "xdotool click 1"
 
 set $leftM VGA1
 set $rightM HDMI1

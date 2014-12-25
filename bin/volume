@@ -1,0 +1,28 @@
+#!/bin/bash
+
+ACTION=$1
+
+CARD=$(pactl list sinks | grep Sink | tail -n 1 | cut -d# -f2)
+
+COUNT=2500
+if [[ "$CARD" == "3" ]]; then
+    COUNT=100
+fi
+
+case $ACTION in
+    "toggle")
+        pactl set-sink-mute $CARD toggle
+        ;;
+
+    "up")
+        pactl set-sink-volume $CARD -- +$COUNT
+        ;;
+
+    "down")
+        pactl set-sink-volume $CARD -- -$COUNT
+        ;;
+
+    *)
+        echo "panic"
+        :;
+esac
