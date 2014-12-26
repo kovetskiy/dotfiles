@@ -1,14 +1,14 @@
 set nocompatible
 
-imap <UP> <NOP>
-imap <DOWN> <NOP>
-imap <LEFT> <NOP>
-imap <RIGHT> <NOP>
-imap <HOME> <NOP>
-imap <END> <NOP>
-imap <PageUp> <NOP>
-imap <PageDown> <NOP>
-imap <Del> <NOP>
+inoremap <UP> <NOP>
+inoremap <DOWN> <NOP>
+inoremap <LEFT> <NOP>
+inoremap <RIGHT> <NOP>
+inoremap <HOME> <NOP>
+inoremap <END> <NOP>
+inoremap <PageUp> <NOP>
+inoremap <PageDown> <NOP>
+inoremap <Del> <NOP>
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
@@ -143,15 +143,17 @@ augroup filetype_go
     au FileType go nmap <Leader>gd <Plug>(go-doc)
     au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
     au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-    au FileType go nmap <leader>r <Plug>(go-run)
-    au FileType go nmap <leader>b <Plug>(go-build)
-    au FileType go nmap <leader>t <Plug>(go-test)
-    au FileType go nmap <leader>c <Plug>(go-coverage)
+    au FileType go nmap <Leader>r <Plug>(go-run)
+    au FileType go nmap <Leader>b <Plug>(go-build)
+    au FileType go nmap <Leader>t <Plug>(go-test)
+    au FileType go nmap <Leader>c <Plug>(go-coverage)
     au FileType go nmap gd <Plug>(go-def)
     au FileType go nmap <Leader>ds <Plug>(go-def-split)
     au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
     au FileType go nmap <Leader>dt <Plug>(go-def-tab)
     au FileType go nmap <Leader>e <Plug>(go-rename)
+    au FileType go nmap <Leader>i :GoImports<CR>
+    au FileType go nmap <Leader>f :GoFmt<CR>
 augroup END
 
 augroup filetype_tpl
@@ -359,12 +361,12 @@ set pastetoggle=<F11>
 nnoremap <Leader><Leader>i :PluginInstall<CR>
 nnoremap <Leader><Leader>u :PluginUpdate<CR>
 
-nmap <F2>  :Phpcs<CR>
-nmap <F7>  :!time tags_php<CR>
-nmap <F8>  :TagbarToggle<CR>
-nmap <F12> :noh<CR>
+nnoremap <F2>  :Phpcs<CR>
+nnoremap <F7>  :!time tags_php<CR>
+nnoremap <F8>  :TagbarToggle<CR>
+nnoremap <F12> :noh<CR>
 
-nmap <F10> :Gstatus<CR>
+nnoremap <F10> :Gstatus<CR>
 
 nnoremap X S<ESC>
 vnoremap $ $h
@@ -375,19 +377,19 @@ vnoremap / \v
 nnoremap > >>
 nnoremap < <<
 
-nmap ,i :Unite ash_inbox<CR>
-nmap ,l :Unite ash_lsreviews:ngs/auto<CR>
-nmap ,r :UniteResume<CR>
+nnoremap ,i :Unite ash_inbox<CR>
+nnoremap ,l :Unite ash_lsreviews:ngs/auto<CR>
+nnoremap ,r :UniteResume<CR>
 
-nmap <C-P> :Unite -buffer-name=files -start-insert buffer file_rec/async:!<CR>
-nmap ,f :Unite file<CR>
-nmap ,g :Unite grep<CR>
+nnoremap <C-P> :Unite -buffer-name=files -start-insert buffer file_rec/async:!<CR>
+nnoremap ,f :Unite file<CR>
+nnoremap ,g :Unite grep<CR>
 
-nmap <Leader>` :tabedit ~/.vimrc<CR>
-nmap <Leader>% :so ~/.vimrc<CR>
+nnoremap <Leader>` :tabedit ~/.vimrc<CR>
+nnoremap <Leader>% :so ~/.vimrc<CR>
 
-vmap <silent> > >gv
-vmap <silent> < <gv
+vnoremap <silent> > >gv
+vnoremap <silent> < <gv
 
 nnoremap g< '<
 nnoremap g> '>
