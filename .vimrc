@@ -356,6 +356,13 @@ let g:phpqa_messdetector_autorun=0
 let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
 let g:XkbSwitchEnabled = 1
 
+let g:startify_session_dir = '~/.vim/sessions'
+let g:startify_enable_special = 1
+let g:startify_list_order = ['sessions', 'dir', 'files']
+let g:startify_files_number = 20
+let g:startify_session_persistence = 1
+let g:startify_session_delete_buffers = 1
+
 set pastetoggle=<F11>
 
 nnoremap <Leader><Leader>i :PluginInstall<CR>
