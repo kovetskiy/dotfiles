@@ -28,7 +28,7 @@ Plugin 'elzr/vim-json'
 Plugin 'mhinz/vim-startify'
 Plugin 'vim-scripts/smarty-syntax'
 Plugin 'l9'
-Plugin 'fuzzyfinder'
+Plugin 'kien/ctrlp.vim'
 Plugin 'lyokha/vim-xkbswitch'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'haya14busa/vim-easyoperator-line'
@@ -363,6 +363,7 @@ let g:startify_files_number = 20
 let g:startify_session_persistence = 1
 let g:startify_session_delete_buffers = 1
 
+let g:ctrlp_map = '<nop>'
 set pastetoggle=<F11>
 
 nnoremap <Leader><Leader>i :PluginInstall<CR>
@@ -413,11 +414,10 @@ nnoremap <Leader>e :e!
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q!<CR>
 
-nnoremap `` <Esc>:FufCoverageFile<CR>a
-nnoremap `o :FufFile<CR>
-nnoremap <Tab><Tab> :FufBuffer<CR>
-nnoremap `` :FufCoverageFile<CR>
-nnoremap <Leader>`` :FufFileWithCurrentBufferDir<CR>
+nnoremap `o :CtrlP .<CR>
+nnoremap <Tab><Tab> :Unite buffer<CR>
+nnoremap `` :CtrlP<CR>
+nnoremap <Leader>`` :CtrlP .<CR>
 
 nnoremap <Space> viw
 
