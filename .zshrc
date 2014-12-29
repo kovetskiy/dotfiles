@@ -3,14 +3,17 @@ export GOPATH="$HOME/go"
 export PATH="$HOME/bin/:$HOME/go/bin/:$HOME/repos/git-scripts/:$PATH"
 export EDITOR=vim
 export TERM=rxvt-unicode-256color
-
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
+export ZSH=~/.oh-my-zsh/
 
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
 source ~/.zpreztorc
+
+plugins=(git history-substring-search)
+source ~/.oh-my-zsh/oh-my-zsh.sh
 
 HISTFILE=$HOME/.history
 HISTSIZE=10000
@@ -36,29 +39,25 @@ setopt share_history
 
 export KEYTIMEOUT=1
 
-bindkey -v '^P' history-incremental-search-backward
 bindkey -s "\C-h" "history\r!"
 bindkey -v
 
+bindkey -v "^R" history-incremental-search-backward
 bindkey -v "^P" history-substring-search-up
 bindkey -v "^N" history-substring-search-down
 bindkey -v "^A" beginning-of-line
-bindkey -v "$terminfo[kcuu1]" history-substring-search-up
-bindkey -v "$terminfo[kcud1]" history-substring-search-down
-bindkey -v "^R" history-incremental-search-backward
-bindkey -v "$terminfo[kdch1]" delete-char
 bindkey -v "^Q" push-line
 bindkey -v '^A' beginning-of-line
 bindkey -v '^E' end-of-line
 bindkey -v '^?' backward-delete-char
 bindkey -v '^H' backward-delete-char
+bindkey -v '^L' delete-char
 bindkey -v '^W' backward-kill-word
 bindkey -v '^K' vi-kill-eol
-bindkey -v '^[[Z' reverse-menu-complete
-bindkey -v '^[d' delete-word
+bindkey -v '^[[1;5D' vi-backward-word #ctrl+alt+H
+bindkey -v '^[[1;5C' vi-backward-word #ctrl+alt+L
 
 bindkey -a '^[' vi-insert
-bindkey -a '^[d' delete-word
 
 compress () {
   if [ $1 ] ; then
@@ -110,6 +109,8 @@ hash -d df=~/repos/dotfiles/
 
 alias -g G='| grep'
 alias -g L='| less'
+alias -g H='| head -n'
+alias -g T='| tail -n'
 alias l='ls'
 alias ls='ls -lah --color=always'
 alias v='vim'
@@ -124,7 +125,6 @@ alias ...='cd ../..'
 alias zr='source ~/.zshrc && print "zsh config has been reloaded"'
 alias ssh='TERM=xterm ssh'
 alias chrome='google-chrome'
-alias volume='pactl set-sink-volume 0 '
 alias ashi='ash inbox'
 alias gcl='git clone'
 alias gd='git diff'
@@ -140,6 +140,7 @@ alias gc!='git commit --amend'
 alias gcm='git commit -m'
 alias gcm!='git commit --amend -m'
 alias gco='git checkout'
+alias gcob='git checkout -b'
 alias gb='git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3'
 alias gpot='git push origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
 alias gpot!='git push origin +`git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
@@ -174,3 +175,18 @@ function gdi()
     eval "git diff $1"
 }
 compctl -K git_diff_complete gdi
+
+function gcof() {
+    if [ ! -z $1 ]; then
+        git checkout -b `jira-now print`-$1
+    else
+        git checkout `jira-now branch`
+    fi
+}
+
+function gocd() {
+    cd `find $GOPATH/src/ -name "$1*" -type d | head -n 1`
+}
+
+source ~/zsh-migrations/migrations.zsh
+
