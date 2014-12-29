@@ -106,6 +106,7 @@ autoload -U colors && colors
 
 hash -d dotfiles=~/repos/dotfiles/
 hash -d df=~/repos/dotfiles/
+hash -d src=~/sources/
 
 alias -g G='| grep'
 alias -g L='| less'
@@ -169,6 +170,20 @@ function prepend-sudo() {
 }
 zle -N prepend-sudo
 bindkey '^s' prepend-sudo
+
+
+# oh shi... i love this magic :3
+home() {
+    if [[ $LBUFFER = *// ]]; then
+        LBUFFER=${LBUFFER%/*/}
+        LBUFFER+="~"
+    else
+        LBUFFER+=/
+    fi
+}
+autoload -U home
+zle -N home
+bindkey / home
 
 function gdi()
 {
