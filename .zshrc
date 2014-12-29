@@ -189,4 +189,3 @@ function gocd() {
 }
 
 source ~/zsh-migrations/migrations.zsh
-
