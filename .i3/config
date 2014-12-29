@@ -83,6 +83,7 @@ mode "resize" {
 
 bindsym $win+Control+r mode "resize"
 
+bindsym $win+Control+e      exec "~/bin/engrus"
 bindsym $win+Control+l      exec "~/bin/lockscreen"
 bindsym $win+Control+0      exec "~/bin/volume toogle"
 bindsym $win+Control+minus  exec "~/bin/volume down"
