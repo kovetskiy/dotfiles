@@ -173,17 +173,17 @@ bindkey '^s' prepend-sudo
 
 
 # oh shi... i love this magic :3
-home() {
-    if [[ $LBUFFER = *// ]]; then
-        LBUFFER=${LBUFFER%/*/}
-        LBUFFER+="~"
-    else
-        LBUFFER+=/
-    fi
-}
-autoload -U home
-zle -N home
-bindkey / home
+#home() {
+    #if [[ $LBUFFER = *// ]]; then
+        #LBUFFER=${LBUFFER%/*/}
+        #LBUFFER+="~"
+    #else
+        #LBUFFER+=/
+    #fi
+#}
+#autoload -U home
+#zle -N home
+#bindkey / home
 
 function gdi()
 {
