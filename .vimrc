@@ -424,6 +424,8 @@ nnoremap <Space> viw
 nnoremap <Leader>d V"_d<Esc>
 vnoremap <Leader>d "_d
 
+vnoremap <Leader>s y<ESC>:%s/<C-r>"/
+
 vnoremap <Leader><C-y> "kyy
 vnoremap <Leader><C-d> "kdgvd
 vnoremap <Leader><C-x> "kygvx
