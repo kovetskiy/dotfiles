@@ -1,0 +1,5 @@
+#!/bin/bash
+
+word=$(xclip -o)
+notify-send "translate: $word"
+notify-send "$(~/go/bin/runki <<< "$word")" -t 2000
