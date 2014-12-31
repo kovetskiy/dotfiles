@@ -46,11 +46,9 @@ Plugin 'kovetskiy/filestyle'
 Plugin 'pangloss/vim-javascript'
 Plugin 'rename'
 
-filetype plugin indent on
 
 syntax on
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 
 set rtp-=~/.vim
 set rtp^=~/.vim
