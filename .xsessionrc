@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export PATH="~/bin/:~/go/bin/:$PATH"
 export SHELL=/bin/zsh
 export TERMINAL=urxvt
 export EDITOR=vim
