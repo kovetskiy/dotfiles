@@ -85,7 +85,7 @@ bindsym $win+Control+r mode "resize"
 
 bindsym $win+Control+e      exec engrus
 bindsym $win+Control+l      exec lockscreen
-bindsym $win+Control+0      exec volume toogle
+bindsym $win+Control+0      exec volume toggle
 bindsym $win+Control+minus  exec volume down
 bindsym $win+Control+equal  exec volume up
 bindsym $win+Control+d      exec show-date
