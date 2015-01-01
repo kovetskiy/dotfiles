@@ -45,6 +45,7 @@ Plugin 'rhysd/clever-f.vim'
 Plugin 'kovetskiy/filestyle'
 Plugin 'pangloss/vim-javascript'
 Plugin 'rename'
+Plugin 't9md/vim-choosewin'
 
 
 syntax on
@@ -199,6 +200,11 @@ augroup end
 augroup vimrc
     au!
     au BufWritePost ~/.vimrc source % | AirlineRefresh
+augroup end
+
+augroup stupid_fold
+    au!
+    au BufRead * exec "normal zR"
 augroup end
 
 augroup mcabber
@@ -362,7 +368,15 @@ let g:startify_session_persistence = 1
 let g:startify_session_delete_buffers = 1
 
 let g:ctrlp_map = '<nop>'
+
+let g:choosewin_overlay_enable = 1
+let g:choosewin_overlay_clear_multibyte = 1
+let g:choosewin_label = 'QWEASDIOPJKL'
+
 set pastetoggle=<F11>
+
+nnoremap <C-W> :ChooseWin<CR>
+nnoremap <C-S> :ChooseWinSwap<CR>
 
 nnoremap <Leader><Leader>i :PluginInstall<CR>
 nnoremap <Leader><Leader>u :PluginUpdate<CR>
