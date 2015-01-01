@@ -6,7 +6,7 @@ CARD=$(pactl list sinks | grep Sink | tail -n 1 | cut -d# -f2)
 
 COUNT=2500
 if [[ "$CARD" == "3" ]]; then
-    COUNT=100
+    COUNT=500
 fi
 
 case $ACTION in
@@ -23,6 +23,7 @@ case $ACTION in
         ;;
 
     *)
-        echo "panic"
+        echo "unknown action"
+        exit 1
         :;
 esac
