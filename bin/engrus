@@ -1,15 +1,21 @@
 #!/bin/bash
 
 function prompt() {
-    i3-input -F '# %s' | tail -n 3 | grep output | cut -d'=' -f2
+    local sel=$(xclip -o)
+    if [[ -z $sel ]]; then
+        i3-input -F '# %s' | tail -n 3 | grep output | cut -d'=' -f2
+    else
+        echo $sel
+    fi
 }
 
 function translate() {
-    local url="http://translate.yandex.net/api/v1/tr.json/translate?lang=en-ru&text=$1&srv=tr-text"
-    curl -s $url | jq .text[0] | sed 's/"//g'
+    local text=$(tr -s ' ' '+' <<< "$1")
+    local url="http://translate.yandex.net/api/v1/tr.json/translate?lang=en-ru&text=$text&srv=tr-text"
+    curl -s "$url" | jq .text[0] | sed 's/"//g'
 }
 
 input=$(prompt)
-result=$(translate $input)
+result=$(translate "$input")
 
-notify-send -t 1000 "eng-rus" $result
+notify-send -t 1000 "$result"

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+SYS=/sys/class/backlight/acpi_video0
+CUR=$(cat $SYS/brightness)
+STEP=1
+
+if [ $# -eq 0 ]; then
+	echo $CUR
+elif [ $1 == "up" ]; then
+	echo $(($CUR+$STEP)) > $SYS/brightness
+elif [ $1 == "down" ]; then
+	echo $(($CUR-$STEP)) > $SYS/brightness
+fi

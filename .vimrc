@@ -46,6 +46,7 @@ Plugin 'kovetskiy/filestyle'
 Plugin 'pangloss/vim-javascript'
 Plugin 'rename'
 Plugin 't9md/vim-choosewin'
+Plugin 'osyo-manga/vim-over'
 
 
 syntax on

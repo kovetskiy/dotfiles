@@ -81,6 +81,11 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
+bindsym $alt+a exec "sudo ~/bin/brightness down"
+bindsym $alt+q exec "sudo ~/bin/brightness up"
+bindsym $alt+c exec sh -c 'xsel | xclip -selection clipboard'
+bindsym --release $alt+v exec sh -c 'xdotool type --clearmodifiers --delay 0 "`xsel --output --clipboard`"'
+
 bindsym $win+Control+r mode "resize"
 
 bindsym $win+Control+e      exec engrus
