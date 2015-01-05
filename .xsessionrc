@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 export PATH="~/bin/:~/go/bin/:$PATH"
 export SHELL=/bin/zsh

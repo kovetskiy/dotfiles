@@ -6,10 +6,10 @@ do
 
     case "$action" in 
         "button/volumeup")
-            volume up
+            ~/bin/volume up
             ;;
         "button/volumedown")
-            volume down
+            ~/bin/volume down
             ;;
     esac
 done
