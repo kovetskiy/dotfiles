@@ -1,68 +1,68 @@
 snippet f "func"
-func ${1:FuncName}($2)${3: }{
-	$0
+func ${1}(${2})${3: }{
+	${4}
 }
+$0
 endsnippet
 
-snippet tf "func (type)"
-func (${1/^\*?(.).*/\l$1/} ${1:Type}) ${2:FuncName}($3)${4: }{
-	$0
+snippet ft "func (type)"
+func (${1}) ${2}(${3})${4: }{
+	${5}
 }
+$0
 endsnippet
 
 snippet s "type struct"
-type ${1:TypeName} struct {
-	$0
+struct {
+	${1}
 }
+$0
 endsnippet
 
 snippet t "type"
-type ${1:TypeName} ${2:description}
+type ${1}
 endsnippet
 
 snippet p "package"
-package ${1:`!v expand('%:p:h:t')`}
+package ${1}
 endsnippet
 
-snippet te "func Test"
-func Test${1:FuncName}(t *testing.T) {
-	$0
+snippet i "interface"
+interface {
+	${1}
 }
-endsnippet
-
-snippet ti "interface"
-type ${1:SmthDoer} interface {
-	$0
-}
+$0
 endsnippet
 
 snippet todo "@TODO"
-// @TODO $0
+// todo: $0
 endsnippet
 
-snippet i "if "
-if $1 {
-	${0:${VISUAL}}
+snippet if "if "
+if ${1} {
+	${2}
 }
 endsnippet
 
 snippet ifer "if err != nil"
 if err != nil {
-	return err
+	${1}
 }
+$0
 endsnippet
 
 snippet if2er "if err != nil"
 if err != nil {
 	return ${1:nil}, err
 }
+$0
 endsnippet
-
 
 snippet iferp "if err != nil panic"
 if err != nil {
 	panic(err)
 }
+$0
 endsnippet
 
 snippet ifn "if ... == nil"
@@ -79,27 +79,9 @@ snippet fs "... string" i
 ${1:Name} string$0
 endsnippet
 
-snippet exp "test expected"
-actual := ${1:"Something"}
-if actual != ${2:"Actual"} {
-	t.Fatalf("unexpected %#v", actual)
-}
-endsnippet
-
 snippet e "else" w
- else {
+} else {
 	${0:${VISUAL}}
-}
-endsnippet
-
-snippet stat "temp snippet"
-actual := (Status{Severity: $1, Message: \`${2:blah}\`}).String()$0
-endsnippet
-
-snippet ci "const iota"
-const (
-	${1:CONSTANT} = iota$0
-)
 endsnippet
 
 snippet ass "anon struct with fields" w
