@@ -51,11 +51,12 @@ bindkey -v '^A' beginning-of-line
 bindkey -v '^E' end-of-line
 bindkey -v '^?' backward-delete-char
 bindkey -v '^H' backward-delete-char
-bindkey -v '^L' delete-char
+bindkey -v '^B' delete-char
 bindkey -v '^W' backward-kill-word
 bindkey -v '^K' vi-kill-eol
 bindkey -v '^[[1;5D' vi-backward-word #ctrl+alt+H
 bindkey -v '^[[1;5C' vi-backward-word #ctrl+alt+L
+bindkey -v "^L" clear-screen
 
 bindkey -a '^[' vi-insert
 

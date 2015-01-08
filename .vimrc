@@ -1,15 +1,5 @@
 set nocompatible
 
-inoremap <UP> <NOP>
-inoremap <DOWN> <NOP>
-inoremap <LEFT> <NOP>
-inoremap <RIGHT> <NOP>
-inoremap <HOME> <NOP>
-inoremap <END> <NOP>
-inoremap <PageUp> <NOP>
-inoremap <PageDown> <NOP>
-inoremap <Del> <NOP>
-
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
