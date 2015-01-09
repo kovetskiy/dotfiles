@@ -1,43 +1,47 @@
 set nocompatible
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !mkdir -p ~/.vim/autoload
+  silent !curl -fLo ~/.vim/autoload/plug.vim
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
 
-Plugin 'gmarik/Vundle.vim'
-Plugin 'kovetskiy/ash.vim'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'Shougo/unite.vim'
-Plugin 'morhetz/gruvbox'
-Plugin 'bling/vim-airline'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'majutsushi/tagbar'
-Plugin 'Valloric/YouCompleteMe'
-Plugin '2072/PHP-Indenting-for-VIm'
-Plugin 'fatih/vim-go'
-Plugin 'elzr/vim-json'
-Plugin 'mhinz/vim-startify'
-Plugin 'vim-scripts/smarty-syntax'
-Plugin 'l9'
-Plugin 'kien/ctrlp.vim'
-Plugin 'lyokha/vim-xkbswitch'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'haya14busa/vim-easyoperator-line'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'm2mdas/phpcomplete-extended'
-Plugin 'vim-php/vim-php-refactoring'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tsukkee/unite-tag'
-Plugin 'joonty/vim-phpqa'
-Plugin 'rhysd/clever-f.vim'
-Plugin 'kovetskiy/filestyle'
-Plugin 'pangloss/vim-javascript'
-Plugin 'rename'
-Plugin 't9md/vim-choosewin'
-Plugin 'osyo-manga/vim-over'
+call plug#begin('~/.vim/bundle')
 
+Plug 'kovetskiy/ash.vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/unite.vim'
+Plug 'morhetz/gruvbox'
+Plug 'bling/vim-airline'
+Plug 'scrooloose/nerdcommenter'
+Plug 'Valloric/YouCompleteMe'
+Plug '2072/PHP-Indenting-for-VIm'
+Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'elzr/vim-json', {'for': 'json'}
+Plug 'mhinz/vim-startify'
+Plug 'l9'
+Plug 'kien/ctrlp.vim', {'on': 'CtrlP'}
+Plug 'lyokha/vim-xkbswitch'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'haya14busa/vim-easyoperator-line'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'm2mdas/phpcomplete-extended', {'for': 'php'}
+Plug 'vim-php/vim-php-refactoring', {'for': 'php'}
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'terryma/vim-multiple-cursors'
+"Plug 'tsukkee/unite-tag'
+Plug 'joonty/vim-phpqa', {'for': 'php'}
+Plug 'rhysd/clever-f.vim'
+Plug 'kovetskiy/filestyle'
+Plug 'pangloss/vim-javascript', {'for': 'js'}
+Plug 'rename', {'on': 'Rename'}
+Plug 't9md/vim-choosewin', {'on': ['ChooseWin', 'ChooseWinSwap']}
+Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
+
+call plug#end()
 
 syntax on
 filetype plugin indent on
