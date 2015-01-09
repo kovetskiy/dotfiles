@@ -17,34 +17,37 @@ Plug 'bling/vim-airline'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Valloric/YouCompleteMe'
 Plug '2072/PHP-Indenting-for-VIm'
-Plug 'fatih/vim-go', {'for': 'go'}
-Plug 'elzr/vim-json', {'for': 'json'}
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'mhinz/vim-startify'
 Plug 'l9'
-Plug 'kien/ctrlp.vim', {'on': 'CtrlP'}
+Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
 Plug 'lyokha/vim-xkbswitch'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'haya14busa/vim-easyoperator-line'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'm2mdas/phpcomplete-extended', {'for': 'php'}
-Plug 'vim-php/vim-php-refactoring', {'for': 'php'}
+Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
+Plug 'vim-php/vim-php-refactoring', { 'for': 'php' }
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-git'
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
 "Plug 'tsukkee/unite-tag'
-Plug 'joonty/vim-phpqa', {'for': 'php'}
+Plug 'joonty/vim-phpqa', { 'for': 'php' }
 Plug 'rhysd/clever-f.vim'
 Plug 'kovetskiy/filestyle'
-Plug 'pangloss/vim-javascript', {'for': 'js'}
-Plug 'rename', {'on': 'Rename'}
-Plug 't9md/vim-choosewin', {'on': ['ChooseWin', 'ChooseWinSwap']}
+Plug 'pangloss/vim-javascript', { 'for': 'js' }
+Plug 'rename', { 'on': 'Rename' }
+Plug 't9md/vim-choosewin', { 'on': [ 'ChooseWin', 'ChooseWinSwap' ] }
 Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'edsono/vim-matchit', { 'for': 'html'}
 
+filetype plugin indent on
 call plug#end()
 
 syntax on
-filetype plugin indent on
 
 set rtp-=~/.vim
 set rtp^=~/.vim
@@ -373,8 +376,8 @@ set pastetoggle=<F11>
 nnoremap <C-W> :ChooseWin<CR>
 nnoremap <C-S> :ChooseWinSwap<CR>
 
-nnoremap <Leader><Leader>i :PluginInstall<CR>
-nnoremap <Leader><Leader>u :PluginUpdate<CR>
+nnoremap <Leader><Leader>i :PlugInstall<CR>
+nnoremap <Leader><Leader>u :PlugUpdate<CR>
 
 nnoremap <F2>  :Phpcs<CR>
 nnoremap <F7>  :!time tags_php<CR>
