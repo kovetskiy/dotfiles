@@ -9,7 +9,6 @@ endif
 
 call plug#begin('~/.vim/bundle')
 
-Plug 'kovetskiy/ash.vim'
 Plug 'Shougo/vimproc.vim'
 Plug 'Shougo/unite.vim'
 Plug 'morhetz/gruvbox'
@@ -24,7 +23,6 @@ Plug 'l9'
 Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
 Plug 'lyokha/vim-xkbswitch'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'haya14busa/vim-easyoperator-line'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
@@ -43,6 +41,11 @@ Plug 't9md/vim-choosewin', { 'on': [ 'ChooseWin', 'ChooseWinSwap' ] }
 Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'edsono/vim-matchit', { 'for': 'html'}
+Plug 'AndrewRadev/sideways.vim'
+Plug 'gorkunov/smartpairs.vim'
+
+Plug 'kovetskiy/urxvt.vim'
+Plug 'kovetskiy/ash.vim'
 
 filetype plugin indent on
 call plug#end()
@@ -97,11 +100,12 @@ set cino=(s,m1,+0
 set list
 set lcs=eol:¶,trail:·,tab:··
 
+set pastetoggle=<F11>
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+
 colorscheme gruvbox
 set background=dark
-
-let mapleader=" "
-let g:mapleader=mapleader
 
 let g:airline_theme = 'base16'
 let g:airline#extensions#whitespace#symbol = '☼'
@@ -133,24 +137,22 @@ hi SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
 hi NonText ctermfg=235 cterm=none term=none
 hi IncSearch cterm=none ctermfg=238 ctermbg=220
 
+augroup filetype_markdown
+    au!
+
+    au BufRead,BufNewFile *.md set filetype=markdown
+augroup end
+
 augroup filetype_go
     au!
+
     au BufRead,BufNewFile *.go set filetype=go
-    au FileType go nmap <Leader>i <Plug>(go-info)
-    au FileType go nmap <Leader>gd <Plug>(go-doc)
-    au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-    au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-    au FileType go nmap <Leader>r <Plug>(go-run)
-    au FileType go nmap <Leader>b <Plug>(go-build)
+
     au FileType go nmap <Leader>t <Plug>(go-test)
-    au FileType go nmap <Leader>c <Plug>(go-coverage)
-    au FileType go nmap gd <Plug>(go-def)
-    au FileType go nmap <Leader>ds <Plug>(go-def-split)
-    au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-    au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-    au FileType go nmap <Leader>e <Plug>(go-rename)
     au FileType go nmap <Leader>i :GoImports<CR>
     au FileType go nmap <Leader>f :GoFmt<CR>
+    au FileType go nmap <Leader>r :call urxvt#put('go run ' . expand('%:p:t'))<CR>
+    au FileType go nmap <Leader>b :call urxvt#put('go build')<CR>
 augroup END
 
 augroup filetype_tpl
@@ -231,6 +233,11 @@ augroup unite_setting
     au!
 
     au FileType unite call s:unite_my_settings()
+augroup end
+
+augroup urxvt
+    au!
+    au BufRead,BufNewFile * UrxvtChangeDir
 augroup end
 
 function! s:unite_my_settings()
@@ -328,6 +335,9 @@ function! MakeZaebis()
     execute 'normal ' . startLine . 'gg^'
 endfunction
 
+let mapleader=" "
+let g:mapleader=mapleader
+
 let g:go_fmt_fail_silently = 0
 let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 0
@@ -341,7 +351,6 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsEditSplit="vertical"
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 let g:unite_split_rule = "botright"
 let g:unite_force_overwrite_statusline = 0
@@ -371,13 +380,12 @@ let g:choosewin_overlay_enable = 1
 let g:choosewin_overlay_clear_multibyte = 1
 let g:choosewin_label = 'QWEASDIOPJKL'
 
-set pastetoggle=<F11>
-
 nnoremap <C-W> :ChooseWin<CR>
 nnoremap <C-S> :ChooseWinSwap<CR>
 
 nnoremap <Leader><Leader>i :PlugInstall<CR>
 nnoremap <Leader><Leader>u :PlugUpdate<CR>
+nnoremap <Leader><Leader>a 0v3f/sPlug '<ESC>A'<ESC>
 
 nnoremap <F2>  :Phpcs<CR>
 nnoremap <F7>  :!time tags_php<CR>
