@@ -47,8 +47,9 @@ Plug 'gorkunov/smartpairs.vim'
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
 
-filetype plugin indent on
 call plug#end()
+
+filetype plugin indent on
 
 syntax on
 
@@ -148,7 +149,8 @@ augroup filetype_go
 
     au BufRead,BufNewFile *.go set filetype=go
 
-    au FileType go nmap <Leader>t <Plug>(go-test)
+    au FileType go nmap <Leader>t :call urxvt#put('go test')<CR>
+    au FileType go nmap <Leader>e :GoRename<CR>
     au FileType go nmap <Leader>i :GoImports<CR>
     au FileType go nmap <Leader>f :GoFmt<CR>
     au FileType go nmap <Leader>r :call urxvt#put('./' . expand('%:p:h:t'))<CR>
@@ -173,10 +175,10 @@ augroup whitespace_hacks
     au FileType php,go,tpl,yml,json,js autocmd BufWritePre <buffer> :%s/\s\+$//e
 augroup END
 
-augroup my_syntax_hacks
-    au!
-    au FileType diff call g:MyApplySyntaxForDiffComments()
-augroup end
+"augroup my_syntax_hacks
+    "au!
+    "au FileType diff call g:MyApplySyntaxForDiffComments()
+"augroup end
 
 augroup dir_autocreate
     au!
@@ -238,14 +240,9 @@ augroup urxvt
     au BufRead,BufNewFile * UrxvtChangeDir
 augroup end
 
-augroup hilight_over_80
+augroup hilight_over
     au!
-    au VimResized,VimEnter * set cc= | for i in range(80, &columns > 80 ? &columns : 80) | exec "set cc+=" . i | endfor
-augroup end
-
-augroup hilight_over_120
-    au!
-    au VimResized,VimEnter * set cc= | for i in range(120, &columns > 120 ? &columns : 120) | exec "set cc+=" . i | endfor
+    au VimResized,VimEnter * set cc=80,120
 augroup end
 
 function! s:unite_my_settings()
@@ -255,15 +252,15 @@ function! s:unite_my_settings()
     call unite#custom#alias('ash_review', 'split', 'ls')
 endfunction
 
-fun! g:MyApplySyntaxForDiffComments()
-    if &background == 'light'
-        hi DiffCommentIgnore ctermfg=249 ctermbg=none
-        hi DiffComment ctermfg=16 ctermbg=254
-    else
-        hi DiffCommentIgnore ctermfg=249 ctermbg=none
-        hi DiffComment ctermfg=15 ctermbg=237
-    endif
-endfun
+"fun! g:MyApplySyntaxForDiffComments()
+    "if &background == 'light'
+        "hi DiffCommentIgnore ctermfg=249 ctermbg=none
+        "hi DiffComment ctermfg=16 ctermbg=254
+    "else
+        "hi DiffCommentIgnore ctermfg=249 ctermbg=none
+        "hi DiffComment ctermfg=15 ctermbg=237
+    "endif
+"endfun
 
 function! AddEmptyLineBelow()
   let l:scrolloffsave = &scrolloff
