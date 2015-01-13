@@ -34,7 +34,7 @@ Plug 'terryma/vim-multiple-cursors'
 "Plug 'tsukkee/unite-tag'
 Plug 'joonty/vim-phpqa', { 'for': 'php' }
 Plug 'rhysd/clever-f.vim'
-Plug 'kovetskiy/filestyle'
+"Plug 'kovetskiy/filestyle'
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
 Plug 'rename', { 'on': 'Rename' }
 Plug 't9md/vim-choosewin', { 'on': [ 'ChooseWin', 'ChooseWinSwap' ] }
@@ -151,7 +151,7 @@ augroup filetype_go
     au FileType go nmap <Leader>t <Plug>(go-test)
     au FileType go nmap <Leader>i :GoImports<CR>
     au FileType go nmap <Leader>f :GoFmt<CR>
-    au FileType go nmap <Leader>r :call urxvt#put('go run ' . expand('%:p:t'))<CR>
+    au FileType go nmap <Leader>r :call urxvt#put('./' . expand('%:p:h:t'))<CR>
     au FileType go nmap <Leader>b :call urxvt#put('go build')<CR>
 augroup END
 
@@ -173,11 +173,9 @@ augroup whitespace_hacks
     au FileType php,go,tpl,yml,json,js autocmd BufWritePre <buffer> :%s/\s\+$//e
 augroup END
 
-augroup syntax_hacks
+augroup my_syntax_hacks
     au!
-    au FileType diff syn match DiffComment "^#.*"
-    au FileType diff syn match DiffCommentIgnore "^###.*"
-    au FileType diff call g:ApplySyntaxForDiffComments()
+    au FileType diff call g:MyApplySyntaxForDiffComments()
 augroup end
 
 augroup dir_autocreate
@@ -240,6 +238,16 @@ augroup urxvt
     au BufRead,BufNewFile * UrxvtChangeDir
 augroup end
 
+augroup hilight_over_80
+    au!
+    au VimResized,VimEnter * set cc= | for i in range(80, &columns > 80 ? &columns : 80) | exec "set cc+=" . i | endfor
+augroup end
+
+augroup hilight_over_120
+    au!
+    au VimResized,VimEnter * set cc= | for i in range(120, &columns > 120 ? &columns : 120) | exec "set cc+=" . i | endfor
+augroup end
+
 function! s:unite_my_settings()
     imap <buffer> <C-R> <Plug>(unite_redraw)
 
@@ -247,7 +255,7 @@ function! s:unite_my_settings()
     call unite#custom#alias('ash_review', 'split', 'ls')
 endfunction
 
-fun! g:ApplySyntaxForDiffComments()
+fun! g:MyApplySyntaxForDiffComments()
     if &background == 'light'
         hi DiffCommentIgnore ctermfg=249 ctermbg=none
         hi DiffComment ctermfg=16 ctermbg=254

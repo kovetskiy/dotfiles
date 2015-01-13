@@ -84,7 +84,7 @@ mode "resize" {
 bindsym $alt+a exec "sudo ~/bin/brightness down"
 bindsym $alt+q exec "sudo ~/bin/brightness up"
 bindsym $alt+c exec sh -c 'xsel | xclip -selection clipboard'
-bindsym --release $alt+v exec sh -c 'xdotool type --clearmodifiers --delay 0 "`xsel --output --clipboard`"'
+#bindsym --release $alt+v exec sh -c 'xdotool type --clearmodifiers --delay 0 "`xsel --output --clipboard`"'
 bindsym --release $alt+n exec sh -c 'xdotool key Escape'
 bindsym --release $alt+m exec sh -c 'xdotool key Return'
 

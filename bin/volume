@@ -2,13 +2,14 @@
 
 ACTION=$1
 
-CARD=$(pactl list sinks | grep Sink | tail -n 1 | cut -d# -f2)
+CARD=$(pactl list sinks | grep Sink | head -n 1 | cut -d# -f2)
 
 COUNT=2500
-if [[ "$CARD" == "3" ]]; then
+if [[ "$CARD" == "0" ]]; then
     COUNT=500
 fi
 
+echo $CARD > /tmp/volume.txt
 case $ACTION in
     "toggle")
         pactl set-sink-mute $CARD toggle
