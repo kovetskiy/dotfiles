@@ -12,6 +12,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'Shougo/vimproc.vim'
 Plug 'Shougo/unite.vim'
 Plug 'morhetz/gruvbox'
+Plug 'junegunn/seoul256.vim'
 Plug 'bling/vim-airline'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Valloric/YouCompleteMe'
@@ -105,9 +106,6 @@ set pastetoggle=<F11>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
-colorscheme gruvbox
-set background=dark
-
 let g:airline_theme = 'base16'
 let g:airline#extensions#whitespace#symbol = '☼'
 let g:airline_powerline_fonts = 1
@@ -119,24 +117,6 @@ hi SPM3 ctermbg=3 ctermfg=7
 hi SPM4 ctermbg=4 ctermfg=7
 hi SPM5 ctermbg=5 ctermfg=7
 hi SPM6 ctermbg=6 ctermfg=7
-
-hi ErrorMsg term=none
-hi Todo term=none
-hi SignColumn term=none
-hi FoldColumn term=none
-hi Folded term=none
-hi WildMenu term=none
-hi WarningMsg term=none
-hi Question term=none
-hi ErrorMsg term=none
-hi underlined cterm=underline
-hi CursorLineNr ctermfg=242 ctermbg=none
-hi LineNr ctermfg=248 ctermbg=none
-hi SignColumn ctermfg=none ctermbg=none
-hi ColorColumn ctermbg=233
-hi SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
-hi NonText ctermfg=235 cterm=none term=none
-hi IncSearch cterm=none ctermfg=238 ctermbg=220
 
 augroup filetype_markdown
     au!
@@ -469,4 +449,54 @@ nnoremap <Leader>m :call MakeZaebis()<CR>
 nnoremap <Leader>] :tnext<CR>
 
 noh
-set background=dark
+
+fu! Background(val)
+    if a:val == "light"
+        let g:colorscheme='seoul256'
+    else
+        let g:colorscheme='gruvbox'
+    endif
+
+    execute "colorscheme " . g:colorscheme
+    execute "set background=" . a:val
+
+    if &background == "light"
+        hi ErrorMsg term=none
+        hi Todo term=none
+        hi SignColumn term=none
+        hi FoldColumn term=none
+        hi Folded term=none
+        hi WildMenu term=none
+        hi WarningMsg term=none
+        hi Question term=none
+        hi ErrorMsg term=none
+        hi underlined cterm=underline
+        hi CursorLineNr ctermfg=7 ctermbg=242
+        hi LineNr ctermfg=241 ctermbg=7
+        hi SignColumn ctermfg=none ctermbg=220
+        hi ColorColumn ctermbg=251
+        hi SpecialKey term=bold cterm=bold ctermfg=255 ctermbg=none
+        hi NonText ctermfg=247 cterm=none term=none
+        hi IncSearch cterm=none ctermfg=238 ctermbg=220
+    else
+        hi ErrorMsg term=none
+        hi Todo term=none
+        hi SignColumn term=none
+        hi FoldColumn term=none
+        hi Folded term=none
+        hi WildMenu term=none
+        hi WarningMsg term=none
+        hi Question term=none
+        hi ErrorMsg term=none
+        hi underlined cterm=underline
+        hi CursorLineNr ctermfg=242 ctermbg=none
+        hi LineNr ctermfg=248 ctermbg=none
+        hi SignColumn ctermfg=none ctermbg=none
+        hi ColorColumn ctermbg=233
+        hi SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
+        hi NonText ctermfg=235 cterm=none term=none
+        hi IncSearch cterm=none ctermfg=238 ctermbg=220
+    endif
+endfu!
+
+call Background('light')
