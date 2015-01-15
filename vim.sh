@@ -4,16 +4,8 @@ mkdir -p ~/.vim/{tmp,bundle}/
 
 cd ~/.vim/bundle/
 
-if [ ! -d "Vundle.vim" ]; then
-    git clone https://github.com/gmarik/Vundle.vim.git
-fi
-
 if [ ! -d "unite.vim" ]; then
     git clone https://github.com/Shougo/unite.vim.git
-fi
-
-if [ ! -d "vim" ]; then
-    git clone https://github.com/airblade/vim-gitgutter.git
 fi
 
 if [ ! -d "vim-fuzzyfinder" ]; then
