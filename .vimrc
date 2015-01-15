@@ -202,11 +202,6 @@ augroup vimrc
     au BufWritePost ~/.vimrc source % | AirlineRefresh
 augroup end
 
-augroup stupid_fold
-    au!
-    au BufRead * exec "normal zR"
-augroup end
-
 augroup mcabber
     au!
     au BufWritePost ~/.mcabber/mcabberrc !echo "/source ~/.mcabber/mcabberrc" > ~/.mcabber/mcabber.fifo
