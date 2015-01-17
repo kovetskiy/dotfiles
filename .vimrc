@@ -479,24 +479,8 @@ fu! Background(val)
         hi NonText ctermfg=247 cterm=none term=none
         hi IncSearch cterm=none ctermfg=238 ctermbg=220
     else
-        hi ErrorMsg term=none
-        hi Todo term=none
-        hi SignColumn term=none
-        hi FoldColumn term=none
-        hi Folded term=none
-        hi WildMenu term=none
-        hi WarningMsg term=none
-        hi Question term=none
-        hi ErrorMsg term=none
-        hi underlined cterm=underline
-        hi CursorLineNr ctermfg=242 ctermbg=none
-        hi LineNr ctermfg=248 ctermbg=none
-        hi SignColumn ctermfg=none ctermbg=none
-        hi ColorColumn ctermbg=233
-        hi SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
-        hi NonText ctermfg=235 cterm=none term=none
-        hi IncSearch cterm=none ctermfg=238 ctermbg=220
+
     endif
 endfu!
 
-call Background('light')
+call Background('dark')
