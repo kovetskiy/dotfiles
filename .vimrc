@@ -21,7 +21,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'mhinz/vim-startify'
 Plug 'l9'
-Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
+Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
 Plug 'lyokha/vim-xkbswitch'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'SirVer/ultisnips'
@@ -478,9 +478,8 @@ fu! Background(val)
         hi SpecialKey term=bold cterm=bold ctermfg=255 ctermbg=none
         hi NonText ctermfg=247 cterm=none term=none
         hi IncSearch cterm=none ctermfg=238 ctermbg=220
-    else
-
     endif
+
 endfu!
 
 call Background('dark')
