@@ -70,3 +70,5 @@ set color_bgrostersel = 235
 set color_rostersel = 166
 set color_rosterselmsg = 136
 set color_rosternewmsg = 136
+
+module load editor
