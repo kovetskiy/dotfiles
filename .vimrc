@@ -353,12 +353,14 @@ let g:startify_list_order = ['sessions', 'dir', 'files']
 let g:startify_files_number = 20
 let g:startify_session_persistence = 1
 let g:startify_session_delete_buffers = 1
+let g:startify_change_to_dir = 0
 
 let g:ctrlp_map = '<nop>'
 
 let g:choosewin_overlay_enable = 1
 let g:choosewin_overlay_clear_multibyte = 1
 let g:choosewin_label = 'QWEASDIOPJKL'
+
 
 nnoremap <C-W> :ChooseWin<CR>
 nnoremap <C-S> :ChooseWinSwap<CR>
