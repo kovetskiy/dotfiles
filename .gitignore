@@ -3,4 +3,5 @@
 .mcabber/account
 .mcabber/aliases
 .mcabber/mcabber.fifo
+.mcabber/mcabberrc.theme
 .muttator/aliases
