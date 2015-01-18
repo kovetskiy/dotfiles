@@ -71,4 +71,5 @@ set color_rostersel = 166
 set color_rosterselmsg = 136
 set color_rosternewmsg = 136
 
+set external_editor = /usr/bin/vim
 module load editor
