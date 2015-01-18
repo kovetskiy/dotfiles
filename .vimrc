@@ -331,7 +331,6 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsEditSplit="vertical"
 
-
 let g:unite_split_rule = "botright"
 let g:unite_force_overwrite_statusline = 0
 let g:unite_enable_start_insert = 1
@@ -360,7 +359,6 @@ let g:ctrlp_map = '<nop>'
 let g:choosewin_overlay_enable = 1
 let g:choosewin_overlay_clear_multibyte = 1
 let g:choosewin_label = 'QWEASDIOPJKL'
-
 
 nnoremap <C-W> :ChooseWin<CR>
 nnoremap <C-S> :ChooseWinSwap<CR>
