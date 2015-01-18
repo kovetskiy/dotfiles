@@ -18,6 +18,7 @@ POINTS=(
     ".vim/UltiSnips"
     ".vimperatorrc"
     ".vimrc"
+    ".Xdefaults"
     ".Xdefaults.dark"
     ".Xdefaults.light"
     ".xsessionrc"
