@@ -6,7 +6,7 @@ files = [
 ]
 
 commands = [
-    "xrdb -load ~/.Xdefaults",
+    "xrdb -merge ~/.Xdefaults.theme",
     "echo '/source ~/.mcabber/mcabberrc' > ~/.mcabber/mcabber.fifo",
 ]
 
