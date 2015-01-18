@@ -12,4 +12,4 @@ xrandr --output VGA1 --mode 1920x1080 --pos 0x0 --output HDMI1 --mode 1920x1080 
 ~/bin/reconfig-kbd &
 sudo ~/bin/charge &
 sudo ~/bin/acpi & # why dat shi doesn't running?
-sudo ~/bin/background $BACKGROUND
+~/bin/background $BACKGROUND
