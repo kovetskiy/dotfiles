@@ -3,10 +3,13 @@
 export PATH="$HOME/bin/:$HOME/go/bin/:$PATH"
 export SHELL=/bin/zsh
 export TERMINAL=urxvt
-export EDITOR=vim
+export EDITOR="/usr/bin/vim"
+
+export BACKGROUND="light"
 
 xrandr --output VGA1 --mode 1920x1080 --pos 0x0 --output HDMI1 --mode 1920x1080 --pos 1920x0 &
 
 ~/bin/reconfig-kbd &
 sudo ~/bin/charge &
 sudo ~/bin/acpi & # why dat shi doesn't running?
+sudo ~/bin/background $BACKGROUND
