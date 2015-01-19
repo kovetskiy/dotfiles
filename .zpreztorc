@@ -18,4 +18,4 @@ zstyle ':prezto:module:editor' key-bindings 'vi'
 source /usr/share/zsh/functions/Prompts/promptinit
 promptinit
 
-prompt agnoster
+prompt minimal

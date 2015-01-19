@@ -7,6 +7,8 @@ export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
 export ZSH=~/.oh-my-zsh/
 
+export BACKGROUND=$(cat ~/background)
+
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
@@ -198,4 +200,4 @@ function gocd() {
     cd `find $GOPATH/src/ -name "$1*" -type d | head -n 1`
 }
 
-source ~/zsh-migrations/migrations.zsh
+eval $(dircolors ~/.dircolors.$BACKGROUND)
