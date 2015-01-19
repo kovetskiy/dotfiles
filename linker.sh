@@ -5,6 +5,8 @@ POINTS=(
     ".config/dunst"
     ".config/redshift.conf"
     ".config/fontconfig"
+    ".dircolors.dark"
+    ".dircolors.light"
     ".fonts"
     ".gitconfig"
     ".gitignore"
