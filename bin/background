@@ -32,3 +32,5 @@ commands.each do|command|
     puts command
     system(command)
 end
+
+system("echo '" + background + "' > ~/background")
