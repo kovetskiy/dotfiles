@@ -482,4 +482,4 @@ fu! Background(val)
 
 endfu!
 
-call Background('dark')
+call Background($BACKGROUND)
