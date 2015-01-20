@@ -20,6 +20,6 @@ source ~/.zprezto/modules/helper/init.zsh
 source ~/.zprezto/modules/git/functions/git-info
 
 source /usr/share/zsh/functions/Prompts/promptinit
+autoload -Uz promptinit
 promptinit
-
 prompt lambda17

@@ -13,3 +13,4 @@ $HOME/bin/reconfig-kbd &
 sudo $HOME/bin/charge &
 sudo $HOME/bin/acpi & # why dat shi doesn't running?
 $HOME/bin/background $BACKGROUND &
+feh --bg-scale ~/wallpaper.jpg &

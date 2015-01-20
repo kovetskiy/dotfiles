@@ -12,7 +12,6 @@ export BACKGROUND=$(cat ~/background)
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
-source ~/.zpreztorc
 
 plugins=(git history-substring-search)
 source ~/.oh-my-zsh/oh-my-zsh.sh
@@ -201,3 +200,5 @@ function gocd() {
 }
 
 eval $(dircolors ~/.dircolors.$BACKGROUND)
+
+source ~/.zpreztorc
