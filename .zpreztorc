@@ -15,7 +15,11 @@ zstyle ':prezto:load' pmodule \
 
 zstyle ':prezto:module:editor' key-bindings 'vi'
 
+# fix me
+source ~/.zprezto/modules/helper/init.zsh
+source ~/.zprezto/modules/git/functions/git-info
+
 source /usr/share/zsh/functions/Prompts/promptinit
 promptinit
 
-prompt minimal
+prompt lambda17
