@@ -1,0 +1,15 @@
+#!/bin/bash
+
+XWININFO=$(xwininfo)
+
+read X < <(awk -F: '/Absolute upper-left X/{print $2}' <<< "$XWININFO")
+read Y < <(awk -F: '/Absolute upper-left Y/{print $2}' <<< "$XWININFO")
+read W < <(awk -F: '/Width/{print $2}' <<< "$XWININFO")
+read H < <(awk -F: '/Height/{print $2}' <<< "$XWININFO")
+
+for (( i=5; i>0; --i )) ; do
+    echo $i
+    sleep 1
+done
+
+byzanz-record --verbose --delay=0 --x=$X --y=$Y --width=$W --height=$H --duration=$1 $2
