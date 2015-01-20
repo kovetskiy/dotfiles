@@ -1,0 +1,20 @@
+set color_background = white
+set color_general = black
+set color_info = black
+set color_msgin = cyan
+set color_msgout = cyan
+set color_msghl = yellow
+set color_bgstatus = 251
+set color_status = 232
+set color_log = 241
+set color_roster = 241
+set color_bgrostersel = 251
+set color_rostersel = 124
+set color_rosterselmsg = 52
+set color_rosternewmsg = red
+set color_readmark = red
+color roster * * 232
+color roster of * 233
+color roster * *@conference* 232
+color roster an * 10
+color roster d * 244
