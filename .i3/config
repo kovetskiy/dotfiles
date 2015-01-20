@@ -72,10 +72,10 @@ bindsym $win+Shift+c move container to workspace c
 bindsym $win+Shift+r restart
 
 mode "resize" {
-        bindsym j           resize shrink width 10 px or 10 ppt
-        bindsym k           resize grow height 10 px or 10 ppt
-        bindsym l           resize shrink height 10 px or 10 ppt
-        bindsym semicolon   resize grow width 10 px or 10 ppt
+        bindsym j resize shrink width 1 px or 1 ppt
+        bindsym h resize grow height 1 px or 1 ppt
+        bindsym l resize shrink height 1 px or 1 ppt
+        jindsym k resize grow width 1 px or 1 ppt
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
