@@ -139,7 +139,7 @@ augroup END
 
 augroup filetype_tpl
     au!
-    au BufRead,BufNewFile *.tpl set filetype=smarty
+    au BufRead,BufNewFile *.tpl set filetype=html
 augroup END
 
 augroup filetype_php
@@ -360,8 +360,8 @@ let g:choosewin_overlay_enable = 1
 let g:choosewin_overlay_clear_multibyte = 1
 let g:choosewin_label = 'QWEASDIOPJKL'
 
-nnoremap <C-W> :ChooseWin<CR>
-nnoremap <C-S> :ChooseWinSwap<CR>
+nnoremap <C-W><C-E> :ChooseWin<CR>
+nnoremap <C-W><C-S> :ChooseWinSwap<CR>
 
 nnoremap <Leader><Leader>i :PlugInstall<CR>
 nnoremap <Leader><Leader>u :PlugUpdate<CR>
@@ -447,6 +447,8 @@ nnoremap <Leader>k :call AddEmptyLineAbove()<CR>
 nnoremap <Leader>m :call MakeZaebis()<CR>
 
 nnoremap <Leader>] :tnext<CR>
+
+nnoremap <C-T><C-T> :retab<CR>
 
 noh
 
