@@ -1,15 +1,25 @@
 #!/bin/bash
 
+DURATION="$1"
+OUTPUT="$2"
+
+if [[ "$OUTPUT" == "" ]]; then
+    echo "usage: $0 <duration> <output.gif>"
+    exit 1
+fi
+
 XWININFO=$(xwininfo)
 
-read X < <(awk -F: '/Absolute upper-left X/{print $2}' <<< "$XWININFO")
-read Y < <(awk -F: '/Absolute upper-left Y/{print $2}' <<< "$XWININFO")
-read W < <(awk -F: '/Width/{print $2}' <<< "$XWININFO")
-read H < <(awk -F: '/Height/{print $2}' <<< "$XWININFO")
+ID=$(awk '/Window id/{print $4}' <<< "$XWININFO")
 
-for (( i=5; i>0; --i )) ; do
-    echo $i
-    sleep 1
-done
+X=$(awk '/Absolute upper-left X/{print $4}' <<< "$XWININFO")
+Y=$(awk '/Absolute upper-left Y/{print $4}' <<< "$XWININFO")
+W=$(awk '/Width/{print $2}' <<< "$XWININFO")
+H=$(awk '/Height/{print $2}' <<< "$XWININFO")
 
-byzanz-record --verbose --delay=0 --x=$X --y=$Y --width=$W --height=$H --duration=$1 $2
+echo "Are you ready? Press ENTER to start recording"
+read
+xdotool windowfocus $ID
+
+byzanz-record --verbose --delay=0 --x=$X --y=$Y --width=$W --height=$H \
+    --duration=$DURATION $OUTPUT
