@@ -44,6 +44,7 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'edsono/vim-matchit', { 'for': 'html'}
 Plug 'AndrewRadev/sideways.vim'
 Plug 'gorkunov/smartpairs.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
 
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
