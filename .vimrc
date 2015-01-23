@@ -45,6 +45,7 @@ Plug 'edsono/vim-matchit', { 'for': 'html'}
 Plug 'AndrewRadev/sideways.vim'
 Plug 'gorkunov/smartpairs.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'StanAngeloff/php.vim'
 
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
@@ -227,6 +228,16 @@ function! s:unite_my_settings()
     imap <silent><buffer><expr> <C-T> unite#do_action('split')
     call unite#custom#alias('ash_review', 'split', 'ls')
 endfunction
+
+function! PhpSyntaxOverride()
+  hi! def link phpDocTags  phpDefine
+  hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
 
 "fun! g:MyApplySyntaxForDiffComments()
     "if &background == 'light'
