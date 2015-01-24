@@ -7,6 +7,8 @@ export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
 export ZSH=~/.oh-my-zsh/
 
+export PATH=$PATH:/opt/android-ndk:/opt/android-sdk/platfrom-tools/
+
 export BACKGROUND=$(cat ~/background)
 
 ssh-add ~/.ssh/id_rsa 2>/dev/null
@@ -157,6 +159,9 @@ alias gd='git diff'
 alias ashi='ash inbox'
 alias pdw='date; pwd'
 alias srn='php stat.php | sort | sort -nr'
+alias adbd='adb devices'
+alias adbl='adb logcat'
+alias adblg='adbg logcat | grep Go'
 
 function prepend-sudo() {
     if [[ "$BUFFER" != su(do|)\ * ]]; then
