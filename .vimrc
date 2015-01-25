@@ -136,7 +136,7 @@ augroup filetype_go
     au FileType go nmap <Leader>i :GoImports<CR>
     au FileType go nmap <Leader>f :GoFmt<CR>
     au FileType go nmap <Leader>r :call urxvt#put('./' . expand('%:p:h:t'))<CR>
-    au FileType go nmap <Leader>b :call urxvt#put('go build')<CR>
+    au FileType go nmap <Leader>b :call urxvt#put('setup-android-env-go ./all.bash')<CR>
 augroup END
 
 augroup filetype_tpl
@@ -371,6 +371,8 @@ let g:ctrlp_map = '<nop>'
 let g:choosewin_overlay_enable = 1
 let g:choosewin_overlay_clear_multibyte = 1
 let g:choosewin_label = 'QWEASDIOPJKL'
+
+let g:go_bin_path=$GOPATH . "/bin"
 
 nnoremap <C-W><C-E> :ChooseWin<CR>
 nnoremap <C-W><C-S> :ChooseWinSwap<CR>

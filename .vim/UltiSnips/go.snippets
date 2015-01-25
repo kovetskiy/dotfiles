@@ -157,8 +157,12 @@ for ${1:_}, ${2:val} := range ${3:Slice} {
 }
 endsnippet
 
-snippet dbg "fmt.Printf(%#v" i
+snippet fdbg "fmt.Printf(%#v" i
 fmt.Printf("%#v\n", $1)
+endsnippet
+
+snippet dbg "log.Printf(%#v" i
+log.Printf("%#v\n", $1)
 endsnippet
 
 snippet play "package main"
