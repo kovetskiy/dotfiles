@@ -33,6 +33,7 @@ Plug 'tpope/vim-git'
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
 "Plug 'tsukkee/unite-tag'
+Plug 'yuku-t/unite-git'
 Plug 'joonty/vim-phpqa', { 'for': 'php' }
 Plug 'rhysd/clever-f.vim'
 "Plug 'kovetskiy/filestyle'
@@ -46,6 +47,7 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'gorkunov/smartpairs.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'StanAngeloff/php.vim'
+Plug 'terryma/vim-multiple-cursors'
 
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
@@ -366,8 +368,6 @@ let g:startify_session_persistence = 1
 let g:startify_session_delete_buffers = 1
 let g:startify_change_to_dir = 0
 
-let g:ctrlp_map = '<nop>'
-
 let g:choosewin_overlay_enable = 1
 let g:choosewin_overlay_clear_multibyte = 1
 let g:choosewin_label = 'QWEASDIOPJKL'
@@ -429,11 +429,22 @@ nnoremap <Leader>e :e!
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q!<CR>
 
-nnoremap `o :CtrlP .<CR>
-nnoremap <Tab><Tab> :Unite buffer<CR>
-nnoremap `` :CtrlP<CR>
-nnoremap <Leader>`` :CtrlP .<CR>
+call unite#custom#source(
+    \ 'file,file/new,buffer,file_rec,file_rec/async,git_cached,git_untracked,directory',
+    \ 'matchers', 'matcher_fuzzy')
 
+call unite#custom#default_action(
+    \ 'directory', 'cd')
+
+call unite#filters#sorter_default#use(['sorter_selecta'])
+
+nnoremap <C-P> :Unite -hide-source-names buffer git_cached git_untracked<CR>
+nnoremap <C-Y> :Unite -hide-source-names history/yank<CR>
+nnoremap `` :Unite -hide-source-names buffer file_rec/async<CR>
+nnoremap <C-E><C-G> :Unite -hide-source-names grep:.<CR>
+
+nnoremap <C-D> <C-F>
+nnoremap <C-U> <C-B>
 nnoremap <Space> viw
 
 nnoremap <Leader>d V"_d<Esc>
@@ -463,6 +474,12 @@ nnoremap <Leader>m :call MakeZaebis()<CR>
 nnoremap <Leader>] :tnext<CR>
 
 nnoremap <C-T><C-T> :retab<CR>
+
+nnoremap <C-S><C-E> :UltiSnipsEdit<CR>
+
+nnoremap J :OverCommandLine %s/<CR>
+vnoremap J y:OverCommandLine %s/<C-R>"/<CR>
+map L *:OverCommandLine s//<CR>
 
 noh
 
