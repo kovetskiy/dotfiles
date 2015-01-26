@@ -30,7 +30,7 @@ class ${1:someClass}
 }
 endsnippet
 
-snippet else "else"
+snippet e "else"
 else {
 	${1:// code...}
 }
@@ -48,9 +48,9 @@ foreach ($${1:variable} as $${2:key} => $${3:value}){
 }
 endsnippet
 
-snippet if "if"
-if (${1:/* condition */}) {
-	${2:// code...}
+snippet i "if"
+if ($1) {
+	$2
 }
 endsnippet
 
@@ -58,9 +58,9 @@ snippet log "log"
 error_log(print_r(['$1' => ${1}], true));${2}
 endsnippet
 
-snippet getter "PHP Class Getter" !b
+snippet get "PHP Class Getter" !b
 /*
- * Возвращает ${2}
+ * Возвращает $3
  */
 public function get${1/[a-zA-Z]/\u$0/}() 
 {
@@ -69,9 +69,9 @@ public function get${1/[a-zA-Z]/\u$0/}()
 $4
 endsnippet
 
-snippet setter "PHP Class Setter" !b
+snippet set "PHP Class Setter" !b
 /*
- * Setter for $1
+ * Устанавливает $5
  */
 public function set${1/\w+\s*/\u$0/}($$1)
 {
@@ -160,6 +160,9 @@ if (${1:/* condition */}) {
 $0
 endsnippet
 
+snippet r "return"
+return $1;
+endsnippet
 
 # :vim:ft=snippets:
 

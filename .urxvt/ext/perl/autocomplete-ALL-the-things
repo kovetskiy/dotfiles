@@ -1,5 +1,4 @@
 #!/usr/bin/perl
-open (MYFILE, '>>/tmp/data.txt'); print MYFILE "Bob\n"; close (MYFILE);
 #########################################################################
 # Copyright (C) 2012-2014  Wojciech Siewierski                          #
 #                                                                       #
@@ -17,6 +16,11 @@ open (MYFILE, '>>/tmp/data.txt'); print MYFILE "Bob\n"; close (MYFILE);
 # along with this program.  If not, see <http://www.gnu.org/licenses/>. #
 #########################################################################
 
+sub on_action {
+    my ($self, $action) = @_;
+
+    on_user_command($self, "aAtt:" . $action);
+}
 
 sub on_user_command {
     my ($self, $cmd) = @_;
@@ -133,15 +137,26 @@ sub on_user_command {
     ()
 }
 
-sub on_key_press {
+######################################################################
+
+sub conditional_leave {
     my ($self, $event, $keysym) = @_;
 
     my $keyname = $self->XKeysymToString($keysym);
-    if ($keysym <= 127 ||       # if ASCII, ignore ctrl etc.
-        $keyname eq "Return" ||
-        $keyname eq "BackSpace") {
+    # if ASCII, ignore ctrl etc.
+    if ($event->{'state'} < 2 &&
+        ($keysym <= 127 ||
+         $keyname eq "Return" ||
+         $keyname eq "BackSpace" ||
+         $keyname eq "Delete" ||
+         $keyname eq "Tab" ||
+         $keyname eq "Up" ||
+         $keyname eq "Down" ||
+         $keyname eq "Left" ||
+         $keyname eq "Right")) {
 
         leave($self);
+        $self->disable("key_press");
     }
 
     ()
@@ -162,12 +177,16 @@ sub highlight_match {
     my ($beg_row, $beg_col) = $line->coord_of($-[0]);
     my ($end_row, $end_col) = $line->coord_of($+[0]);
 
-    $self->{highlight} = [$beg_row, $beg_col, $end_row, $end_col];
     $self->enable(refresh_begin => sub {
+                      if (exists $self->{highlight}) {
+                          clear_highlight($self);
+                      }
+                      $self->{highlight} = [$beg_row, $beg_col, $end_row, $end_col];
                       $self->scr_xor_span(@{$self->{highlight}}, urxvt::RS_RVid);
                       $self->{pty_ev_events} = $self->pty_ev_events(urxvt::EV_NONE);
                       $self->enable(refresh_begin => \&clear_highlight);
-                  });
+                  },
+                  key_press => \&conditional_leave);
 }
 
 ######################################################################

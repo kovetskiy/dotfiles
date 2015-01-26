@@ -404,7 +404,6 @@ nnoremap ,i :Unite ash_inbox<CR>
 nnoremap ,l :Unite ash_lsreviews:ngs/auto<CR>
 nnoremap ,r :UniteResume<CR>
 
-nnoremap <C-P> :Unite -buffer-name=files -start-insert buffer file_rec/async:!<CR>
 nnoremap ,f :Unite file<CR>
 nnoremap ,g :Unite grep<CR>
 
@@ -477,8 +476,8 @@ nnoremap <C-T><C-T> :retab<CR>
 
 nnoremap <C-S><C-E> :UltiSnipsEdit<CR>
 
-nnoremap J :OverCommandLine %s/<CR>
-vnoremap J y:OverCommandLine %s/<C-R>"/<CR>
+nnoremap H :OverCommandLine %s/<CR>
+vnoremap H :OverCommandLine s/<CR>
 map L *:OverCommandLine s//<CR>
 
 noh

@@ -1,0 +1,48 @@
+snippet f "function"
+$1: function($2) {
+	$3
+}$0
+endsnippet
+
+snippet tt "that this"
+var that = this;
+$0
+endsnippet
+
+snippet r "return"
+return $1;
+endsnippet
+
+snippet af "anon func"
+function($1) {
+	$2
+}
+endsnippet
+
+snippet ev "event handler"
+.${1:onClick}($2) {
+	$3
+}
+endsnippet
+
+snippet el "that.$el"
+that.$el('$1')$2
+endsnippet
+
+snippet i "if"
+if ($1) {
+	$2
+} $3
+endsnippet
+
+snippet e "else"
+else {
+	$1
+}
+endsnippet
+
+snippet ei "else if"
+else if ($1) {
+	$2
+} $3
+endsnippet
