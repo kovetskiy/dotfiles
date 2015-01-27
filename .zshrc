@@ -58,7 +58,7 @@ bindkey -v '^B' delete-char
 bindkey -v '^W' backward-kill-word
 bindkey -v '^K' vi-kill-eol
 bindkey -v '^[[1;5D' vi-backward-word #ctrl+alt+H
-bindkey -v '^[[1;5C' vi-backward-word #ctrl+alt+L
+bindkey -v '^[[1;5C' vi-forward-word #ctrl+alt+L
 bindkey -v "^L" clear-screen
 
 bindkey -a '^[' vi-insert

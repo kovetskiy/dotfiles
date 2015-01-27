@@ -32,7 +32,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
-"Plug 'tsukkee/unite-tag'
+Plug 'yuku-t/unite-git'
 Plug 'joonty/vim-phpqa', { 'for': 'php' }
 Plug 'rhysd/clever-f.vim'
 "Plug 'kovetskiy/filestyle'
@@ -44,14 +44,13 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'edsono/vim-matchit', { 'for': 'html'}
 Plug 'AndrewRadev/sideways.vim'
 Plug 'gorkunov/smartpairs.vim'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'StanAngeloff/php.vim'
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 Plug 'terryma/vim-multiple-cursors'
 
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
 
-Plug 'yuku-t/unite-git'
 call plug#end()
 
 syntax on
@@ -242,7 +241,7 @@ if !exists('g:unite_loaded')
 endif
 
 function! s:unite_my_settings()
-    if g:unite_loaded == 0 
+    if g:unite_loaded == 0
         let g:unite_loaded = 1
 
         call unite#custom#source(
