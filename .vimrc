@@ -10,7 +10,7 @@ endif
 call plug#begin('~/.vim/bundle')
 
 Plug 'Shougo/vimproc.vim'
-Plug 'Shougo/unite.vim'
+Plug 'Shougo/unite.vim', {'on': 'Unite'}
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
 Plug 'bling/vim-airline'
@@ -33,7 +33,6 @@ Plug 'tpope/vim-git'
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
 "Plug 'tsukkee/unite-tag'
-Plug 'yuku-t/unite-git'
 Plug 'joonty/vim-phpqa', { 'for': 'php' }
 Plug 'rhysd/clever-f.vim'
 "Plug 'kovetskiy/filestyle'
@@ -52,11 +51,11 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
 
+Plug 'yuku-t/unite-git'
 call plug#end()
 
-filetype plugin indent on
-
 syntax on
+filetype plugin indent on
 
 set rtp-=~/.vim
 set rtp^=~/.vim
@@ -224,12 +223,45 @@ augroup hilight_over
     au VimResized,VimEnter * set cc=80,120
 augroup end
 
+if executable('ag')
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts =
+        \ '--nocolor --nogroup --hidden --ignore-dir vendor/cache ' .
+        \ '--ignore-dir .git --ignore *.log --ignore *.bundle.* ' .
+        \ '--ignore-dir .jhw-cache'
+    let g:unite_source_grep_recursive_opt = ''
+elseif executable('ack-grep')
+    let g:unite_source_grep_command = 'ack-grep'
+    let g:unite_source_grep_default_opts =
+        \ '--no-heading --no-color -a -H'
+    let g:unite_source_grep_recursive_opt = ''
+endif
+
+if !exists('g:unite_loaded')
+    let g:unite_loaded = 0
+endif
+
 function! s:unite_my_settings()
+    if g:unite_loaded == 0 
+        let g:unite_loaded = 1
+
+        call unite#custom#source(
+            \ 'file,file/new,buffer,file_rec,file_rec/async,git_cached,git_untracked,directory',
+            \ 'matchers', 'matcher_fuzzy')
+
+        call unite#custom#default_action(
+            \ 'directory', 'cd')
+
+        call unite#force_redraw()
+    endif
+
     imap <buffer> <C-R> <Plug>(unite_redraw)
 
     imap <silent><buffer><expr> <C-T> unite#do_action('split')
+    imap <silent><buffer><expr> <C-V><C-T> unite#do_action('vsplit')
     call unite#custom#alias('ash_review', 'split', 'ls')
 endfunction
+
 
 function! PhpSyntaxOverride()
   hi! def link phpDocTags  phpDefine
@@ -428,16 +460,8 @@ nnoremap <Leader>e :e!
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q!<CR>
 
-call unite#custom#source(
-    \ 'file,file/new,buffer,file_rec,file_rec/async,git_cached,git_untracked,directory',
-    \ 'matchers', 'matcher_fuzzy')
-
-call unite#custom#default_action(
-    \ 'directory', 'cd')
-
-call unite#filters#sorter_default#use(['sorter_selecta'])
-
 nnoremap <C-P> :Unite -hide-source-names buffer git_cached git_untracked<CR>
+nnoremap <C-B> :Unite -hide-source-names buffer<CR>
 nnoremap <C-Y> :Unite -hide-source-names history/yank<CR>
 nnoremap `` :Unite -hide-source-names buffer file_rec/async<CR>
 nnoremap <C-E><C-G> :Unite -hide-source-names grep:.<CR>
