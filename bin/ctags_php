@@ -1,0 +1,9 @@
+#!/bin/bash
+
+/usr/local/bin/ctags -f tags \
+  -h ".php" -R \
+  --exclude="\.git" \
+  --totals=yes \
+  --tag-relative=yes \
+  --language-force=PHP \
+  --PHP-kinds=+cfiv \
