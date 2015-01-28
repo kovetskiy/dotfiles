@@ -496,6 +496,7 @@ nnoremap H :OverCommandLine %s/<CR>
 vnoremap H :OverCommandLine s/<CR>
 map L *:OverCommandLine s//<CR>
 
+map <C-_> <C-W>_
 noh
 
 fu! Background(val)
