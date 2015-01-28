@@ -10,7 +10,7 @@ endif
 call plug#begin('~/.vim/bundle')
 
 Plug 'Shougo/vimproc.vim'
-Plug 'Shougo/unite.vim', {'on': 'Unite'}
+Plug 'Shougo/unite.vim'
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
 Plug 'bling/vim-airline'
@@ -236,28 +236,19 @@ elseif executable('ack-grep')
     let g:unite_source_grep_recursive_opt = ''
 endif
 
-if !exists('g:unite_loaded')
-    let g:unite_loaded = 0
-endif
+
+call unite#custom#source(
+    \ 'file,file/new,buffer,file_rec,file_rec/async,git_cached,git_untracked,directory',
+    \ 'matchers', 'matcher_fuzzy')
+call unite#custom#default_action(
+    \ 'directory', 'cd')
+call unite#filters#sorter_default#use(['sorter_selecta'])
 
 function! s:unite_my_settings()
-    if g:unite_loaded == 0
-        let g:unite_loaded = 1
-
-        call unite#custom#source(
-            \ 'file,file/new,buffer,file_rec,file_rec/async,git_cached,git_untracked,directory',
-            \ 'matchers', 'matcher_fuzzy')
-
-        call unite#custom#default_action(
-            \ 'directory', 'cd')
-
-        call unite#force_redraw()
-    endif
-
     imap <buffer> <C-R> <Plug>(unite_redraw)
 
     imap <silent><buffer><expr> <C-T> unite#do_action('split')
-    imap <silent><buffer><expr> <C-V><C-T> unite#do_action('vsplit')
+    imap <silent><buffer><expr> <C-V> unite#do_action('vsplit')
     call unite#custom#alias('ash_review', 'split', 'ls')
 endfunction
 
@@ -405,6 +396,9 @@ let g:choosewin_label = 'QWEASDIOPJKL'
 
 let g:go_bin_path=$GOPATH . "/bin"
 
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
+
 nnoremap <C-W><C-E> :ChooseWin<CR>
 nnoremap <C-W><C-S> :ChooseWinSwap<CR>
 
@@ -462,7 +456,6 @@ nnoremap <Leader>q :q!<CR>
 nnoremap <C-P> :Unite -hide-source-names buffer git_cached git_untracked<CR>
 nnoremap <C-B> :Unite -hide-source-names buffer<CR>
 nnoremap <C-Y> :Unite -hide-source-names history/yank<CR>
-nnoremap `` :Unite -hide-source-names buffer file_rec/async<CR>
 nnoremap <C-E><C-G> :Unite -hide-source-names grep:.<CR>
 
 nnoremap <C-D> <C-F>
