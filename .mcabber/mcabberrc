@@ -1,3 +1,4 @@
+# credentials
 source ~/.mcabber/account
 
 set ignore_self_presence = 1
@@ -5,9 +6,9 @@ set ignore_self_presence = 1
 set tls = 1
 set ssl_ignore_checks = 1
 
-set cmdhistory_lines = 512
+set cmdhistory_lines = 64
 
-set roster_display_filter = ofdnax
+set roster_display_filter = ofdna
 
 set lang = en
 set logging = 1
@@ -28,11 +29,10 @@ set muc_print_status = 1
 set roster_width=40
 set log_win_height=1
 
+# ctrl+j
 bind 10 = roster down
+# ctrl+k
 bind 11 = roster up
-
-bind 9 = buffer down
-bind 15 = buffer up 
 
 alias s = roster search
 
@@ -44,14 +44,16 @@ set fifo_name = ~/.mcabber/mcabber.fifo
 set fifo_hide_commands = 0
 module load fifo
 
-# ctrl+q
-bind 17 = roster unread_next
+# ctrl+]
+bind 29 = roster unread_next
 
 # F12 (276) bound to /roster toggle
 bind 276 = roster toggle
 
-source ~/.mcabber/aliases
-source ~/.mcabber/mcabberrc.theme
-
-set external_editor = /usr/bin/vim
 module load editor
+
+# aliases for friends
+source ~/.mcabber/aliases
+
+# symlink on colors
+source ~/.mcabber/mcabberrc.theme
