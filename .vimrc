@@ -108,8 +108,9 @@ set pastetoggle=<F11>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
-py import go
 py import util
+py import go
+py import php
 
 let g:airline_theme = 'base16'
 let g:airline#extensions#whitespace#symbol = '☼'
@@ -152,13 +153,20 @@ augroup END
 augroup filetype_php
     au!
     au FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
+    au FileType php nnoremap <F2>  :Phpcs<CR>
+    au FileType php nnoremap <F7>  :!time tags_php<CR>
+    au FileType php hi! def link phpDocTags  phpDefine
+    au FileType php hi! def link phpDocParam phpType
+    au FileType php inoremap <C-L> <C-\><C-O>:py print(php.guess_class_name_underscore_namespaces(""))<CR>
 augroup END
 
 augroup whitespace_hacks
     au!
+
     fu! Whitespaces()
         execute 'normal :%s/\s\+$//e'
     endfu!
+
     au FileType php,go,tpl,yml,json,js autocmd BufWritePre <buffer> :%s/\s\+$//e
 augroup END
 
@@ -256,17 +264,6 @@ function! s:unite_my_settings()
     imap <silent><buffer><expr> <C-V> unite#do_action('vsplit')
     call unite#custom#alias('ash_review', 'split', 'ls')
 endfunction
-
-
-function! PhpSyntaxOverride()
-  hi! def link phpDocTags  phpDefine
-  hi! def link phpDocParam phpType
-endfunction
-
-augroup phpSyntaxOverride
-  autocmd!
-  autocmd FileType php call PhpSyntaxOverride()
-augroup END
 
 "fun! g:MyApplySyntaxForDiffComments()
     "if &background == 'light'
@@ -399,7 +396,6 @@ let g:choosewin_overlay_enable = 1
 let g:choosewin_overlay_clear_multibyte = 1
 let g:choosewin_label = 'QWEASDIOPJKL'
 
-let g:go_bin_path=$GOPATH . "/bin"
 
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
@@ -411,8 +407,6 @@ nnoremap <Leader><Leader>i :PlugInstall<CR>
 nnoremap <Leader><Leader>u :PlugUpdate<CR>
 nnoremap <Leader><Leader>a 0v3f/sPlug '<ESC>A'<ESC>
 
-nnoremap <F2>  :Phpcs<CR>
-nnoremap <F7>  :!time tags_php<CR>
 nnoremap <F8>  :TagbarToggle<CR>
 nnoremap <F12> :noh<CR>
 
