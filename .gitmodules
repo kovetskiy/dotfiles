@@ -1,0 +1,9 @@
+[submodule ".fonts"]
+	path = .fonts
+	url = git://github.com/seletskiy/monaco-font
+[submodule ".zprezto/modules/prompt/functions"]
+	path = .zprezto/modules/prompt/functions
+	url = git://github.com/seletskiy/zsh-prompt-lambda17
+[submodule ".vim/pythonx"]
+	path = .vim/pythonx
+	url = git://github.com/seletskiy/vim-pythonx
