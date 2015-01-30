@@ -166,3 +166,17 @@ endsnippet
 
 # :vim:ft=snippets:
 
+
+snippet t "$this"
+$this->$1
+endsnippet
+
+snippet ld "log debug"
+$this->_di->getLogger()->debug("$1");
+$0
+endsnippet
+
+snippet li "log info"
+$this->_di->getLogger()->info("$1");
+$0
+endsnippet
