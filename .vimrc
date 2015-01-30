@@ -137,6 +137,8 @@ augroup filetype_go
     au FileType go nmap <Leader>f :GoFmt<CR>
     au FileType go nmap <Leader>r :call urxvt#put('./' . expand('%:p:h:t'))<CR>
     au FileType go nmap <Leader>b :call urxvt#put('setup-android-env-go ./all.bash')<CR>
+    au FileType go inoremap <C-L> <C-\><C-O>:py go.cycle_by_var_name()<CR>
+    au FileType go smap <C-L> <BS><C-L>
 augroup END
 
 augroup filetype_tpl
