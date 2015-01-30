@@ -1,20 +1,18 @@
 global !p
-# see ~/.vim/pythonx/go_helpers.py
-from go_helpers import *
+# see ~/.vim/pythonx/go.py
+from go import *
 endglobal
 
 snippet n "func"
 func $1($2) $3${3/.+/ /}{
 	$4
 }
-$0
 endsnippet
 
 snippet s "type struct"
 type $1 struct {
 	$2
 }
-$0
 endsnippet
 
 snippet t "type"
@@ -22,30 +20,30 @@ type ${1:TypeName} ${2:description}
 endsnippet
 
 snippet p "package"
-package ${1:`!p snip.rv=go_guess_package_name_from_file_name(snip.fn)`}
+package ${1:`!p snip.rv=guess_package_name_from_file_name(snip.fn)`}
 endsnippet
 
 snippet te "func Test"
 func Test$1(t *testing.T) {
-	$0
+	$2
 }
 endsnippet
 
 snippet ti "interface"
 type $1 interface {
-	$0
+	$2
 }
 endsnippet
 
 snippet i "if "
-if $1 {
-	${0:${VISUAL}}
+if ${1:`!p snip.rv=go.get_last_var_for_snippet()`} {
+        ${2:${VISUAL}}
 }
 endsnippet
 
 snippet ii "if <VISUAL>"
 if ${VISUAL} {
-	$0
+	$1
 }
 endsnippet
 
@@ -75,11 +73,11 @@ if ${1:value} == nil {
 endsnippet
 
 snippet r "return"
-return $0
+return $1
 endsnippet
 
 snippet fs "... string" i
-$1 string$0
+$1 string$2
 endsnippet
 
 snippet exp "test expected"
@@ -91,13 +89,13 @@ endsnippet
 
 snippet e "else" w
  else {
-	${0:${VISUAL}}
+	${1:${VISUAL}}
 }
 endsnippet
 
 snippet ci "const iota"
 const (
-	${1:CONSTANT} = iota$0
+	${1:CONSTANT} = iota$2
 )
 endsnippet
 
@@ -105,24 +103,24 @@ snippet ass "anon struct with fields" w
 struct {
 	$1
 }{
-	$0
+	$2
 }
 endsnippet
 
 snippet "((\w+)\s*(\w+)) js$" "json annotation" br
 `!p snip.rv=match.group(1)` \`json:"`!p
-	snip.rv=go_convert_camelcase_to_snakecase(match.group(2))`"\`
+	snip.rv=convert_camelcase_to_snakecase(match.group(2))`"\`
 endsnippet
 
 snippet fm "func main"
 func main() {
-	$0
+	$1
 }
 endsnippet
 
 snippet fas "anon struct"
 ${1:Name} struct {
-	$0
+	$2
 }
 endsnippet
 
@@ -145,20 +143,22 @@ endsnippet
 snippet sw "switch"
 switch ${1:name} {
 case ${2:true}:
-	$0
+	$3
+$4
 }
 endsnippet
 
 snippet swt "switch true"
 switch {
 case ${1}:
-	$0
+	$2
+$3
 }
 endsnippet
 
 snippet f "for range"
 for ${1:_}, ${2:val} := range ${3:Slice} {
-	${0:${VISUAL}}
+	${4:${VISUAL}}
 }
 endsnippet
 
@@ -190,13 +190,13 @@ endsnippet
 
 snippet vr "var"
 var (
-	$0
+	$1
 )
 endsnippet
 
 snippet cs "case"
 case $1:
-	$0
+	$2
 endsnippet
 
 snippet rn "return nil"
@@ -230,7 +230,7 @@ endsnippet
 snippet ts "type switch"
 switch ${1:newVar} := ${2:checkVar}.(type) {
 case ${3:Type}:
-	$0
+	$4
 }
 endsnippet
 
@@ -269,12 +269,6 @@ if err != nil {
 }
 endsnippet
 
-snippet fweb "web handler"
-func ${1:HandleSmthing}(w http.ResponseWriter, req *http.Request) {
-	$0
-}
-endsnippet
-
 snippet rt "return true"
 return true
 endsnippet
@@ -284,17 +278,15 @@ return false
 endsnippet
 
 snippet d "define method"
-func (`!p snip.rv=' '.join(go_extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
+func (`!p snip.rv=' '.join(extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
 	$5
 }
-$0
 endsnippet
 
 snippet dp "define method on pointer"
-func (`!p snip.rv=' *'.join(go_extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
+func (`!p snip.rv=' *'.join(extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
 	$5
 }
-$0
 endsnippet
 
 snippet re "return errors.New"
@@ -314,5 +306,5 @@ snippet td "todo"
 endsnippet
 
 snippet l "last slice usage" i
-${1:`!p snip.rv=go_get_previous_slice_usage()`}[$2]
+${1:`!p snip.rv=get_previous_slice_usage()`}[$2]
 endsnippet

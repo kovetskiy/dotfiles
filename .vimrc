@@ -108,6 +108,9 @@ set pastetoggle=<F11>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
+py import go
+py import util
+
 let g:airline_theme = 'base16'
 let g:airline#extensions#whitespace#symbol = '☼'
 let g:airline_powerline_fonts = 1
