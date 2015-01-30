@@ -6,4 +6,4 @@
 	url = git://github.com/seletskiy/zsh-prompt-lambda17
 [submodule ".vim/pythonx"]
 	path = .vim/pythonx
-	url = git://github.com/seletskiy/vim-pythonx
+	url = git://github.com/kovetskiy/vim-pythonx
