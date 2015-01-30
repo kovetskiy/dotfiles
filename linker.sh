@@ -18,6 +18,7 @@ POINTS=(
     ".muttatorrc"
     ".urxvt"
     ".vim/UltiSnips"
+    ".vim/pythonx"
     ".vimperatorrc"
     ".vimrc"
     ".Xdefaults"
@@ -25,6 +26,7 @@ POINTS=(
     ".Xdefaults.light"
     ".xsessionrc"
     ".zpreztorc"
+    ".zprezto/modules/prompt/functions"
     ".zshrc"
 )
 
