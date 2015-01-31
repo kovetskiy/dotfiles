@@ -69,4 +69,8 @@ xkb_compatibility "hjkl" {
         repeat= True;
         action= RedirectKey(keycode=<RTRN>, clearmods=Super);
     };
+    interpret Escape {
+        repeat= True;
+        action= RedirectKey(keycode=<ESC>, clearmods=Super);
+    };
 };
