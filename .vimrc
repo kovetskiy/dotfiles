@@ -143,6 +143,8 @@ augroup filetype_go
     au FileType go nmap <Leader>b :call urxvt#put('setup-android-env-go ./all.bash')<CR>
     au FileType go inoremap <C-L> <C-\><C-O>:py go.cycle_by_var_name()<CR>
     au FileType go smap <C-L> <BS><C-L>
+    au FileType go inoremap <C-K> <ESC>:call go#import#SwitchImport(1, '', expand("<cword>"))<CR>a.
+    au FileType go smap <C-K> <BS><C-I>
 augroup END
 
 augroup filetype_tpl
@@ -371,6 +373,7 @@ let g:mapleader=mapleader
 let g:go_fmt_fail_silently = 0
 let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 0
+let g:go_bin_path = $GOPATH . "/bin"
 
 let g:php_refactor_command='php ~/.vim/php/refactor.phar'
 let g:tagbar_phpctags_bin = '~/.vim/php/phpctags/phpctags'
