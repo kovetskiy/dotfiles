@@ -17,6 +17,8 @@ nnoremap k 5k
 nnoremap `` :buffer<space>
 nnoremap % :source ~/.vimperatorrc
 
+imap jk <ESC>
+
 set cpt=l
 set showstatuslinks=2
 
@@ -28,6 +30,7 @@ set editor="urxvt -e vim "
 set gui=all
 set gui=none
 set gui=tabs
+
 
 let mapleader=","
 
