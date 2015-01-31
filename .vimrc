@@ -411,6 +411,13 @@ let g:choosewin_overlay_enable = 1
 let g:choosewin_overlay_clear_multibyte = 1
 let g:choosewin_label = 'QWEASDIOPJKL'
 
+let g:EasyMotion_keys = "hjkluiopqweasd"
+
+hi link EasyMotionTarget ErrorMsg
+"hi link EasyMotionShade  Comment
+
+hi link EasyMotionTarget2First ErrorMsg
+hi link EasyMotionTarget2Second ErrorMsg
 
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
