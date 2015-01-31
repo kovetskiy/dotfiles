@@ -109,8 +109,6 @@ set pastetoggle=<F11>
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 py import util
-py import go
-py import php
 
 let g:airline_theme = 'base16'
 let g:airline#extensions#whitespace#symbol = '☼'
@@ -135,6 +133,8 @@ augroup filetype_go
 
     au BufRead,BufNewFile *.go set filetype=go
 
+    au FileType go py import go
+
     au FileType go nmap <Leader>t :call urxvt#put('go test')<CR>
     au FileType go nmap <Leader>e :GoRename<CR>
     au FileType go nmap <Leader>i :GoImports<CR>
@@ -152,12 +152,24 @@ augroup END
 
 augroup filetype_php
     au!
+
+    au BufRead,BufNewFile *.php set filetype=php
+
+    au FileType php py import php
+
     au FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
     au FileType php nnoremap <F2>  :Phpcs<CR>
     au FileType php nnoremap <F7>  :!time tags_php<CR>
     au FileType php hi! def link phpDocTags  phpDefine
     au FileType php hi! def link phpDocParam phpType
-    au FileType php inoremap <C-L> <C-\><C-O>:py print(php.guess_class_name_underscore_namespaces(""))<CR>
+    au FileType php inoremap <C-L> <C-\><C-O>:py php.cycle_by_var_name()<CR>
+    au FileType php smap <C-L> <BS><C-L>
+    au FileType php nnoremap <C-S><C-P> :py php.make_protected_setter()<CR>
+    au FileType php nnoremap <C-G><C-P> :py php.make_protected_getter()<CR>
+    au FileType php nnoremap <C-S><C-V> :py php.make_private_setter()<CR>
+    au FileType php nnoremap <C-G><C-V> :py php.make_private_getter()<CR>
+    au FileType php nnoremap <C-S><C-U> :py php.make_public_setter()<CR>
+    au FileType php nnoremap <C-G><C-U> :py php.make_public_getter()<CR>
 augroup END
 
 augroup whitespace_hacks

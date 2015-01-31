@@ -6,7 +6,7 @@ endglobal
 snippet cl "class"
 class ${1:`!p snip.rv=get_class_name_with_underscored_namespaces()`}$2
 {
-        $3
+    $3
 }
 endsnippet
 
@@ -32,6 +32,10 @@ endsnippet
 
 snippet rn "return null"
 return null;
+endsnippet
+
+snippet (t "$this"
+($this->$1
 endsnippet
 
 snippet t "$this"
