@@ -34,11 +34,7 @@ snippet rn "return null"
 return null;
 endsnippet
 
-snippet (t "$this"
-($this->$1
-endsnippet
-
-snippet t "$this"
+snippet t "$this" !w
 $this->$1
 endsnippet
 
@@ -163,7 +159,7 @@ snippet p= "protected variable with variable"
 protected $_$1 = $2;
 endsnippet
 
-snippet a "array"
+snippet a "array" !w
 array($1)
 endsnippet
 
@@ -171,19 +167,11 @@ snippet = "variable declaration"
 $$1 = $2;
 endsnippet
 
-snippet (em "empty"
-(empty($1)
-endsnippet
-
-snippet (is "isset"
-(isset($1)
-endsnippet
-
-snippet em "empty"
+snippet em "empty" !w
 empty($1)
 endsnippet
 
-snippet is "isset"
+snippet is "isset" !w
 isset($1)
 endsnippet
 
