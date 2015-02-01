@@ -1,12 +1,12 @@
 #!/usr/bin/ruby
 
 files = [
-    "~/.Xdefaults",
+    "~/.Xresources",
     "~/.mcabber/mcabberrc",
 ]
 
 commands = [
-    "xrdb -merge ~/.Xdefaults.theme",
+    "xrdb -merge ~/.Xresources.theme",
     "echo '/source ~/.mcabber/mcabberrc' > ~/.mcabber/mcabber.fifo",
 ]
 

@@ -1,6 +1,6 @@
 export GOROOT=""
 export GOPATH="$HOME/go"
-export PATH="$HOME/bin/:$HOME/go/bin/:$HOME/repos/git-scripts/:$PATH"
+export PATH="$HOME/bin/:$HOME/go/bin/:$HOME/sources/git-scripts/:$PATH"
 export EDITOR=vim
 export TERM=rxvt-unicode-256color
 export GREP_OPTIONS='--color=auto'
@@ -108,8 +108,8 @@ ashr () {
 autoload -U add-zsh-hook
 autoload -U colors && colors
 
-hash -d dotfiles=~/repos/dotfiles/
-hash -d df=~/repos/dotfiles/
+hash -d dotfiles=~/sources/dotfiles/
+hash -d df=~/sources/dotfiles/
 hash -d src=~/sources/
 
 alias -g G='| grep'

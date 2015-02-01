@@ -21,9 +21,9 @@ POINTS=(
     ".vim/pythonx"
     ".vimperatorrc"
     ".vimrc"
-    ".Xdefaults"
-    ".Xdefaults.dark"
-    ".Xdefaults.light"
+    ".Xresources"
+    ".Xresources.dark"
+    ".Xresources.light"
     ".xsessionrc"
     ".zpreztorc"
     ".zprezto/modules/prompt/functions"
@@ -36,7 +36,7 @@ for POINT in "${POINTS[@]}"; do
     echo "$COMMAND"
     eval $COMMAND
 
-    COMMAND="ln -sf ~/repos/dotfiles/$POINT ~/$POINT"
+    COMMAND="ln -sf ~/sources/dotfiles/$POINT ~/$POINT"
     echo "$COMMAND"
     eval $COMMAND
 done
