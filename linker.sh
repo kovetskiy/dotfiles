@@ -28,6 +28,7 @@ POINTS=(
     ".zpreztorc"
     ".zprezto/modules/prompt/functions"
     ".zshrc"
+    ".keynavrc"
 )
 
 for POINT in "${POINTS[@]}"; do

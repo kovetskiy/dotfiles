@@ -1,0 +1,8 @@
+space warp,click 1
+semicolon warp
+
+w windowzoom
+c cursorzoom 150 150
+
+f sh "xdotool windowactivate $(xdotool search -title -- '- Mozilla Firefox')", end
+v sh "xdotool key shift+Insert"
