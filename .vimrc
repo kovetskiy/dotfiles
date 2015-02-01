@@ -532,25 +532,25 @@ fu! Background(val)
     execute "colorscheme " . g:colorscheme
     execute "set background=" . a:val
 
-    if &background == "light"
-        hi ErrorMsg term=none
-        hi Todo term=none
-        hi SignColumn term=none
-        hi FoldColumn term=none
-        hi Folded term=none
-        hi WildMenu term=none
-        hi WarningMsg term=none
-        hi Question term=none
-        hi ErrorMsg term=none
-        hi underlined cterm=underline
-        hi CursorLineNr ctermfg=7 ctermbg=242
-        hi LineNr ctermfg=241 ctermbg=7
-        hi SignColumn ctermfg=none ctermbg=220
-        hi ColorColumn ctermbg=251
-        hi SpecialKey term=bold cterm=bold ctermfg=255 ctermbg=none
-        hi NonText ctermfg=247 cterm=none term=none
-        hi IncSearch cterm=none ctermfg=238 ctermbg=220
-    endif
+    "if &background == "light"
+        "hi ErrorMsg term=none
+        "hi Todo term=none
+        "hi SignColumn term=none
+        "hi FoldColumn term=none
+        "hi Folded term=none
+        "hi WildMenu term=none
+        "hi WarningMsg term=none
+        "hi Question term=none
+        "hi ErrorMsg term=none
+        "hi underlined cterm=underline
+        "hi CursorLineNr ctermfg=7 ctermbg=242
+        "hi LineNr ctermfg=241 ctermbg=7
+        "hi SignColumn ctermfg=none ctermbg=220
+        "hi ColorColumn ctermbg=251
+        "hi SpecialKey term=bold cterm=bold ctermfg=255 ctermbg=none
+        "hi NonText ctermfg=247 cterm=none term=none
+        "hi IncSearch cterm=none ctermfg=238 ctermbg=220
+    "endif
 
 endfu!
 
