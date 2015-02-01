@@ -47,6 +47,8 @@ Plug 'gorkunov/smartpairs.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 Plug 'terryma/vim-multiple-cursors'
+Plug 'raichoo/haskell-vim'
+Plug 'eagletmt/neco-ghc'
 
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
