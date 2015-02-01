@@ -1,5 +1,17 @@
-
 set hintchars=qweasdiopjkl
+
+" removing 'addons bar'
+set gui=all
+set gui=none
+set gui=tabs
+
+set editor="urxvt -e vim "
+set cpt=l
+set showstatuslinks=2
+
+set! javascript.options.jit.chrome=true
+
+let mapleader=","
 
 hi CompResult -append font-family: Monaco; font-size: 12px;
 hi CompDesc -append font-family: Monaco; font-size: 12px;
@@ -12,26 +24,13 @@ map g :tabopen http://github.com/
 map s :tabopen<space>
 map b :buffer<space>
 
+map <Leader>gh :tabopen http://github.com/<CR>
+
 nnoremap j 5j
 nnoremap k 5k
 nnoremap `` :buffer<space>
 nnoremap % :source ~/.vimperatorrc
 
 imap jk <ESC>
-
-set cpt=l
-set showstatuslinks=2
-
-set! javascript.options.jit.chrome=true
-
-set editor="urxvt -e vim "
-
-" removing 'addons bar'
-set gui=all
-set gui=none
-set gui=tabs
-
-
-let mapleader=","
 
 source ~/.vimperator/aliases
