@@ -42,6 +42,9 @@ snippet td "$this->_di->get"
 $this->_di->get$1()${2:->}
 endsnippet
 
+snippet pr "log debug"
+$this->_di->getLogger()->debug($1);
+endsnippet
 
 snippet ld "log debug"
 $this->_di->getLogger()->debug("$1");
