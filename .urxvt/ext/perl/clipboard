@@ -20,6 +20,12 @@ sub paste {
    $self->tt_write ($content);
 }
 
+sub on_action {
+    my ($self, $action) = @_;
+
+    on_user_command($self, "clipboard:" . $action);
+}
+
 sub on_user_command {
    my ($self, $cmd) = @_;
    if ($cmd eq "clipboard:copy") {
