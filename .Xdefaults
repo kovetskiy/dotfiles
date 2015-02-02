@@ -15,19 +15,19 @@ URxvt.perl-ext-common: autocomplete-ALL-the-things,clipboard,default,keyboard-se
 URxvt.clipboard.copycmd:  xsel --input  --clipboard
 URxvt.clipboard.pastecmd: xsel --output --clipboard
 
-URxvt.keysym.Mod4-C-f: perl:fifo:start
+URxvt.keysym.M-C-f: perl:fifo:start
 
-URxvt.keysym.Mod4-c: perl:clipboard:copy
-URxvt.keysym.Mod4-v: perl:clipboard:paste
+URxvt.keysym.M-c: perl:clipboard:copy
+URxvt.keysym.M-v: perl:clipboard:paste
 
-URxvt.keysym.Mod4-Escape: perl:keyboard-select:activate
-URxvt.keysym.Mod4-Shift-S: perl:keyboard-select:search
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.keysym.M-Shift-S: perl:keyboard-select:search
 
-URxvt.keysym.Mod4-C-slash:   perl:aAtt:WORD-complete
-URxvt.keysym.Mod4-question:  perl:aAtt:fuzzy-complete
-URxvt.keysym.Mod4-quotedbl:  perl:aAtt:undo
+URxvt.keysym.M-C-slash:   perl:aAtt:WORD-complete
+URxvt.keysym.M-question:  perl:aAtt:fuzzy-complete
+URxvt.keysym.M-quotedbl:  perl:aAtt:undo
 
-URxvt.keysym.Mod4-C-y: perl:url-select:select_next
+URxvt.keysym.M-C-y: perl:url-select:select_next
 URxvt.url-select.launcher: /home/vxw/bin/x-www-browser
 
 !URxvt.matcher.pattern.0: https?\:\/\/git\.rn[\\w./?&@#-]*[\\w/-]
