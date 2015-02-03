@@ -189,3 +189,123 @@ try {
 	${3:te }
 }
 endsnippet
+
+snippet "(protected \$([\w.]+);?)" "protected setter" r
+`!p 
+_line=match.group(1)
+_cid = get_camelcase_identifier_from_string(_line, False)
+_id = get_identifier_from_string(_line, False)
+snip.rv=_line`$0
+
+
+/**
+ * $1
+ *
+ * @return $this
+ */
+protected _set`!p snip.rv=_cid`($2)
+{
+    $this->`!p snip.rv=_id` = $2;
+
+    return $this;
+}
+endsnippet
+
+snippet "(protected \$([\w.]+);?)" "protected getter" r
+`!p 
+_line=match.group(1)
+_cid = get_camelcase_identifier_from_string(_line, False)
+_id = get_identifier_from_string(_line, False)
+snip.rv=_line`$0
+
+
+/**
+ * $1
+ *
+ * @return $2
+ */
+protected _get`!p snip.rv=_cid`()
+{
+    return $this->`!p snip.rv=_id`;
+}
+endsnippet
+
+snippet "(private \$([\w.]+);?)" "private setter" r
+`!p 
+_line=match.group(1)
+_cid = get_camelcase_identifier_from_string(_line, False)
+_id = get_identifier_from_string(_line, False)
+snip.rv=_line`$0
+
+
+/**
+ * $1
+ *
+ * @return $this
+ */
+private _set`!p snip.rv=_cid`($2)
+{
+    $this->`!p snip.rv=_id` = $2;
+
+    return $this;
+}
+endsnippet
+
+snippet "(private \$([\w.]+);?)" "private getter" r
+`!p 
+_line=match.group(1)
+_cid = get_camelcase_identifier_from_string(_line, False)
+_id = get_identifier_from_string(_line, False)
+snip.rv=_line`$0
+
+
+/**
+ * $1
+ *
+ * @return $2
+ */
+private _get`!p snip.rv=_cid`()
+{
+    return $this->`!p snip.rv=_id`;
+}
+endsnippet
+
+snippet "(public \$([\w.]+);?)" "public setter" r
+`!p 
+_line=match.group(1)
+_cid = get_camelcase_identifier_from_string(_line, False)
+_id = get_identifier_from_string(_line, False)
+snip.rv=_line`$0
+
+
+/**
+ * $1
+ *
+ * @return $this
+ */
+public set`!p snip.rv=_cid`($2)
+{
+    $this->`!p snip.rv=_id` = $2;
+
+    return $this;
+}
+endsnippet
+
+snippet "(public \$([\w.]+);?)" "public getter" r
+`!p 
+_line=match.group(1)
+_cid = get_camelcase_identifier_from_string(_line, False)
+_id = get_identifier_from_string(_line, False)
+snip.rv=_line`$0
+
+
+/**
+ * $1
+ *
+ * @return $2
+ */
+public get`!p snip.rv=_cid`()
+{
+    return $this->`!p snip.rv=_id`;
+}
+endsnippet
