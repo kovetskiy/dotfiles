@@ -1,8 +1,8 @@
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
 # hack for removing title, but rendering ~2px titlebar (get an indication of the active window)
-font pango:Monaco 0
-new_window normal 0 px
+font pango:Monaco 1
+new_window 1pixel
 focus_follows_mouse off
 floating_modifier $alt
 
