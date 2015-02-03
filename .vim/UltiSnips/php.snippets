@@ -190,79 +190,97 @@ try {
 }
 endsnippet
 
-snippet "(protected \$([\w.]+);?)" "protected setter" r
+snippet "(protected \$([\w.]+).*ps)" "protected setter" r
 `!p 
-_line=match.group(1)
+_line = match.group(1)[:-2]
 _cid = get_camelcase_identifier_from_string(_line, False)
 _id = get_identifier_from_string(_line, False)
+_phpdoc = get_phpdoc_variables_after_cursor()
+_var = '$2'
+if 'var' in _phpdoc:
+	_var = _phpdoc['var']
 snip.rv=_line`$0
 
 
 /**
  * $1
  *
+ * @param `!p snip.rv=_var` $$3
  * @return $this
  */
-protected _set`!p snip.rv=_cid`($2)
+protected function _set`!p snip.rv=_cid`($$3)
 {
-    $this->`!p snip.rv=_id` = $2;
+    $this->`!p snip.rv=_id` = $$3;
 
     return $this;
 }
 endsnippet
 
-snippet "(protected \$([\w.]+);?)" "protected getter" r
+snippet "((protected|public|private) \$([\w.]+).*pg)" "protected getter" r
 `!p 
-_line=match.group(1)
+_line = match.group(1)[:-2]
 _cid = get_camelcase_identifier_from_string(_line, False)
 _id = get_identifier_from_string(_line, False)
+_phpdoc = get_phpdoc_variables_after_cursor()
+_var = '$2'
+if 'var' in _phpdoc:
+	_var = _phpdoc['var']
 snip.rv=_line`$0
 
 
 /**
  * $1
  *
- * @return $2
+ * @return `!p snip.rv=_var`
  */
-protected _get`!p snip.rv=_cid`()
+protected function _get`!p snip.rv=_cid`()
 {
     return $this->`!p snip.rv=_id`;
 }
 endsnippet
 
-snippet "(private \$([\w.]+);?)" "private setter" r
+snippet "((protected|public|private) \$([\w.]+).*vs)" "private setter" r
 `!p 
-_line=match.group(1)
+_line = match.group(1)[:-2]
 _cid = get_camelcase_identifier_from_string(_line, False)
 _id = get_identifier_from_string(_line, False)
+_phpdoc = get_phpdoc_variables_after_cursor()
+_var = '$2'
+if 'var' in _phpdoc:
+	_var = _phpdoc['var']
 snip.rv=_line`$0
 
 
 /**
  * $1
  *
+ * @param `!p snip.rv=_var` $$3
  * @return $this
  */
-private _set`!p snip.rv=_cid`($2)
+private _set`!p snip.rv=_cid`($$3)
 {
-    $this->`!p snip.rv=_id` = $2;
+    $this->`!p snip.rv=_id` = $$3;
 
     return $this;
 }
 endsnippet
 
-snippet "(private \$([\w.]+);?)" "private getter" r
+snippet "((protected|public|private) \$([\w.]+).*vg)" "private getter" r
 `!p 
-_line=match.group(1)
+_line = match.group(1)[:-2]
 _cid = get_camelcase_identifier_from_string(_line, False)
 _id = get_identifier_from_string(_line, False)
+_phpdoc = get_phpdoc_variables_after_cursor()
+_var = '$2'
+if 'var' in _phpdoc:
+	_var = _phpdoc['var']
 snip.rv=_line`$0
 
 
 /**
  * $1
  *
- * @return $2
+ * @return `!p snip.rv=_var`
  */
 private _get`!p snip.rv=_cid`()
 {
@@ -270,41 +288,50 @@ private _get`!p snip.rv=_cid`()
 }
 endsnippet
 
-snippet "(public \$([\w.]+);?)" "public setter" r
+snippet "((protected|public|private) \$([\w.]+).*us)" "public setter" r
 `!p 
-_line=match.group(1)
+_line = match.group(1)[:-2]
 _cid = get_camelcase_identifier_from_string(_line, False)
 _id = get_identifier_from_string(_line, False)
+_phpdoc = get_phpdoc_variables_after_cursor()
+_var = '$2'
+if 'var' in _phpdoc:
+	_var = _phpdoc['var']
 snip.rv=_line`$0
 
 
 /**
  * $1
  *
+ * @param `!p snip.rv=_var` $$3
  * @return $this
  */
-public set`!p snip.rv=_cid`($2)
+public function set`!p snip.rv=_cid`($$3)
 {
-    $this->`!p snip.rv=_id` = $2;
+    $this->`!p snip.rv=_id` = $$3;
 
     return $this;
 }
 endsnippet
 
-snippet "(public \$([\w.]+);?)" "public getter" r
+snippet "((protected|public|private) \$([\w.]+).*ug)" "public getter" r
 `!p 
-_line=match.group(1)
+_line = match.group(1)[:-2]
 _cid = get_camelcase_identifier_from_string(_line, False)
 _id = get_identifier_from_string(_line, False)
+_phpdoc = get_phpdoc_variables_after_cursor()
+_var = '$2'
+if 'var' in _phpdoc:
+	_var = _phpdoc['var']
 snip.rv=_line`$0
 
 
 /**
  * $1
  *
- * @return $2
+ * @return `!p snip.rv=_var`
  */
-public get`!p snip.rv=_cid`()
+public function get`!p snip.rv=_cid`()
 {
     return $this->`!p snip.rv=_id`;
 }
