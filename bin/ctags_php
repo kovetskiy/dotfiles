@@ -1,8 +1,7 @@
 #!/bin/bash
 
-(
-    cd $1
-    ctags-exuberant -f $1/tags \
+cd $1
+ctags-exuberant -f $1/tags \
     -h \".php\" -R \
     --exclude=\"\.svn\" \
     --totals=yes \
@@ -12,4 +11,3 @@
     --regex-PHP='/interface ([^ ]*)/\1/c/' \
     --regex-PHP='/(public |static |abstract |protected |private )+function ([^ (]*)/\2/f/' \
     --fields=+l
-)
