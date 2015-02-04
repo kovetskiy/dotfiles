@@ -1,9 +1,15 @@
 #!/bin/bash
 
-/usr/local/bin/ctags -f tags \
-  -h ".php" -R \
-  --exclude="\.git" \
-  --totals=yes \
-  --tag-relative=yes \
-  --language-force=PHP \
-  --PHP-kinds=+cfiv \
+(
+    cd $1
+    ctags-exuberant -f $1/tags \
+    -h \".php\" -R \
+    --exclude=\"\.svn\" \
+    --totals=yes \
+    --tag-relative=yes \
+    --PHP-kinds=+cfl \
+    --regex-PHP='/abstract class ([^ ]*)/\1/c/' \
+    --regex-PHP='/interface ([^ ]*)/\1/c/' \
+    --regex-PHP='/(public |static |abstract |protected |private )+function ([^ (]*)/\2/f/' \
+    --fields=+l
+)
