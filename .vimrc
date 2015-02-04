@@ -110,6 +110,8 @@ set pastetoggle=<F11>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
+set tags=tags,./tags,../tags,../tags,../../tags,../../../tags,../../../../tags,../../../../../tags,../../../../../../tags
+
 py import util
 
 let g:airline_theme = 'base16'
@@ -180,10 +182,14 @@ augroup whitespace_hacks
     au!
 
     fu! Whitespaces()
-        execute 'normal :%s/\s\+$//e'
+        let l=line('.')
+        let c=virtcol('.')
+        %s/\s\+$//e
+        execute "normal " . l . "gg"
+        execute "normal" . c . "|"
     endfu!
 
-    au FileType php,go,tpl,yml,json,js autocmd BufWritePre <buffer> :%s/\s\+$//e
+    au FileType php,go,tpl,yml,json,js autocmd BufWritePre <buffer> :call Whitespaces()
 augroup END
 
 "augroup my_syntax_hacks
