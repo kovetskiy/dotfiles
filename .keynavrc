@@ -1,30 +1,36 @@
+ctrl+semicolon start,grid 4x4
+
+1 cell-select 1,warp
+q cell-select 2,warp
+a cell-select 3,warp
+z cell-select 4,warp
+2 cell-select 5,warp
+w cell-select 6,warp
+s cell-select 7,warp
+x cell-select 8,warp
+3 cell-select 9,warp
+e cell-select 10,warp
+d cell-select 11,warp
+c cell-select 12,warp
+4 cell-select 13,warp
+r cell-select 14,warp
+f cell-select 15,warp
+v cell-select 16,warp
+
+h move-left,warp
+j move-down,warp
+k move-up,warp
+l move-right,warp
+
+alt+h cut-left,warp
+alt+j cut-down,warp
+alt+k cut-up,warp
+alt+l cut-right,warp
+
+shift+space warp,drag 1
+shift+Return warp,drag 1
+
 space warp,click 1
-semicolon warp
+Return warp,click 1,end
 
-w windowzoom
-c cursorzoom 150 150
-
-f sh "xdotool windowactivate $(xdotool search -title -- '- Mozilla Firefox')", end
-v sh "xdotool key shift+Insert"
-ctrl+semicolon start, grid 4x4
-
-1 cell-select 1x1,warp
-2 cell-select 2x1,warp
-3 cell-select 3x1,warp
-4 cell-select 4x1,warp
-q cell-select 1x2,warp
-w cell-select 2x2,warp
-e cell-select 3x2,warp
-r cell-select 4x2,warp
-a cell-select 1x3,warp
-s cell-select 2x3,warp
-d cell-select 3x3,warp
-f cell-select 4x3,warp
-z cell-select 1x4,warp
-x cell-select 2x4,warp
-c cell-select 3x4,warp
-v cell-select 4x4,warp
-
-ctrl+z click 1
-ctrl+x click 2
-ctrl+c click 3
+BackSpace grid 1x1,warp
