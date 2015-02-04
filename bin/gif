@@ -1,10 +1,9 @@
 #!/bin/bash
 
-DURATION="$1"
-OUTPUT="$2"
+OUTPUT="$1"
 
 if [[ "$OUTPUT" == "" ]]; then
-    echo "usage: $0 <duration> <output.gif>"
+    echo "usage: $0 <output.gif>"
     exit 1
 fi
 
@@ -22,4 +21,13 @@ read
 xdotool windowfocus $ID
 
 byzanz-record --verbose --delay=0 --x=$X --y=$Y --width=$W --height=$H \
-    --duration=$DURATION $OUTPUT
+    --exec="ping ya.ru" $OUTPUT &
+PID=$!
+
+echo "Done? Press ENTER to stop recording"
+read
+pkill ping
+
+while kill -0 "$PID"; do
+    sleep 0.1
+done
