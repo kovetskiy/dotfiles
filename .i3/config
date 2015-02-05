@@ -72,10 +72,15 @@ bindsym $win+Shift+c move container to workspace c
 bindsym $win+Shift+r restart
 
 mode "resize" {
-        bindsym j resize shrink width 1 px or 1 ppt
-        bindsym h resize grow height 1 px or 1 ppt
-        bindsym l resize shrink height 1 px or 1 ppt
-        bindsym k resize grow width 1 px or 1 ppt
+        bindsym h resize grow width 1 px or 1 ppt
+        bindsym j resize shrink height 1 px or 1 ppt
+        bindsym k resize grow height 1 px or 1 ppt
+        bindsym l resize shrink width 1 px or 1 ppt
+
+        bindsym Control+h resize grow width 10 px or 10 ppt
+        bindsym Control+j resize shrink height 10 px or 10 ppt
+        bindsym Control+k resize grow height 10 px or 10 ppt
+        bindsym Control+l resize shrink width 10 px or 10 ppt
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -111,3 +116,5 @@ workspace e output $rightM # email
 workspace z output $leftM # mcabber
 workspace x output $rightM # tmp
 workspace c output $rightM # gui shit - skype
+
+for_window [instance="^screenkey$"] floating enable
