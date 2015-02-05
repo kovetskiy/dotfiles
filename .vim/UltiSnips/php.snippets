@@ -14,8 +14,8 @@ snippet ex "extends"
 extends $1
 endsnippet
 
-snippet new "New class instance" !b
-$$1 = new $1($2);
+snippet n "New class instance" !b
+$1 = new $2($3);
 endsnippet
 
 snippet r "return"
@@ -190,13 +190,13 @@ try {
 }
 endsnippet
 
-snippet "(protected \$([\w.]+).*ps)" "protected setter" r
+snippet "(protected \$([\w.]+).*ps)" "protected setter" rm
 `!p 
 _line = match.group(1)[:-2]
 _cid = get_camelcase_identifier_from_string(_line, False)
 _id = get_identifier_from_string(_line, False)
-_phpdoc = get_phpdoc_variables_after_cursor()
-_var = '$2'
+_phpdoc = get_phpdoc_variables_before_cursor()
+_var = ''
 if 'var' in _phpdoc:
 	_var = _phpdoc['var']
 snip.rv=_line`$0
@@ -205,7 +205,7 @@ snip.rv=_line`$0
 /**
  * $1
  *
- * @param `!p snip.rv=_var` $$3
+ * @param ${2:`!p snip.rv=_var`} $$3
  * @return $this
  */
 protected function _set`!p snip.rv=_cid`($$3)
@@ -216,13 +216,13 @@ protected function _set`!p snip.rv=_cid`($$3)
 }
 endsnippet
 
-snippet "((protected|public|private) \$([\w.]+).*pg)" "protected getter" r
+snippet "((protected|public|private) \$([\w.]+).*pg)" "protected getter" rm
 `!p 
 _line = match.group(1)[:-2]
 _cid = get_camelcase_identifier_from_string(_line, False)
 _id = get_identifier_from_string(_line, False)
-_phpdoc = get_phpdoc_variables_after_cursor()
-_var = '$2'
+_phpdoc = get_phpdoc_variables_before_cursor()
+_var = ''
 if 'var' in _phpdoc:
 	_var = _phpdoc['var']
 snip.rv=_line`$0
@@ -231,7 +231,7 @@ snip.rv=_line`$0
 /**
  * $1
  *
- * @return `!p snip.rv=_var`
+ * @return ${2:`!p snip.rv=_var`}
  */
 protected function _get`!p snip.rv=_cid`()
 {
@@ -239,13 +239,13 @@ protected function _get`!p snip.rv=_cid`()
 }
 endsnippet
 
-snippet "((protected|public|private) \$([\w.]+).*vs)" "private setter" r
+snippet "((protected|public|private) \$([\w.]+).*vs)" "private setter" rm
 `!p 
 _line = match.group(1)[:-2]
 _cid = get_camelcase_identifier_from_string(_line, False)
 _id = get_identifier_from_string(_line, False)
-_phpdoc = get_phpdoc_variables_after_cursor()
-_var = '$2'
+_phpdoc = get_phpdoc_variables_before_cursor()
+_var = ''
 if 'var' in _phpdoc:
 	_var = _phpdoc['var']
 snip.rv=_line`$0
@@ -254,7 +254,7 @@ snip.rv=_line`$0
 /**
  * $1
  *
- * @param `!p snip.rv=_var` $$3
+ * @param ${2:`!p snip.rv=_var`} $$3
  * @return $this
  */
 private _set`!p snip.rv=_cid`($$3)
@@ -265,13 +265,13 @@ private _set`!p snip.rv=_cid`($$3)
 }
 endsnippet
 
-snippet "((protected|public|private) \$([\w.]+).*vg)" "private getter" r
+snippet "((protected|public|private) \$([\w.]+).*vg)" "private getter" rm
 `!p 
 _line = match.group(1)[:-2]
 _cid = get_camelcase_identifier_from_string(_line, False)
 _id = get_identifier_from_string(_line, False)
-_phpdoc = get_phpdoc_variables_after_cursor()
-_var = '$2'
+_phpdoc = get_phpdoc_variables_before_cursor()
+_var = ''
 if 'var' in _phpdoc:
 	_var = _phpdoc['var']
 snip.rv=_line`$0
@@ -280,7 +280,7 @@ snip.rv=_line`$0
 /**
  * $1
  *
- * @return `!p snip.rv=_var`
+ * @return ${2:`!p snip.rv=_var`}
  */
 private _get`!p snip.rv=_cid`()
 {
@@ -288,13 +288,13 @@ private _get`!p snip.rv=_cid`()
 }
 endsnippet
 
-snippet "((protected|public|private) \$([\w.]+).*us)" "public setter" r
+snippet "((protected|public|private) \$([\w.]+).*us)" "public setter" rm
 `!p 
 _line = match.group(1)[:-2]
 _cid = get_camelcase_identifier_from_string(_line, False)
 _id = get_identifier_from_string(_line, False)
-_phpdoc = get_phpdoc_variables_after_cursor()
-_var = '$2'
+_phpdoc = get_phpdoc_variables_before_cursor()
+_var = ''
 if 'var' in _phpdoc:
 	_var = _phpdoc['var']
 snip.rv=_line`$0
@@ -303,7 +303,7 @@ snip.rv=_line`$0
 /**
  * $1
  *
- * @param `!p snip.rv=_var` $$3
+ * @param ${2:`!p snip.rv=_var`} $$3
  * @return $this
  */
 public function set`!p snip.rv=_cid`($$3)
@@ -314,13 +314,13 @@ public function set`!p snip.rv=_cid`($$3)
 }
 endsnippet
 
-snippet "((protected|public|private) \$([\w.]+).*ug)" "public getter" r
+snippet "((protected|public|private) \$([\w.]+).*ug)" "public getter" rm
 `!p 
 _line = match.group(1)[:-2]
 _cid = get_camelcase_identifier_from_string(_line, False)
 _id = get_identifier_from_string(_line, False)
-_phpdoc = get_phpdoc_variables_after_cursor()
-_var = '$2'
+_phpdoc = get_phpdoc_variables_before_cursor()
+_var = ''
 if 'var' in _phpdoc:
 	_var = _phpdoc['var']
 snip.rv=_line`$0
@@ -329,10 +329,14 @@ snip.rv=_line`$0
 /**
  * $1
  *
- * @return `!p snip.rv=_var`
+ * @return ${2:`!p snip.rv=_var`}
  */
 public function get`!p snip.rv=_cid`()
 {
     return $this->`!p snip.rv=_id`;
 }
+endsnippet
+
+snippet "^(.*?class\s+[\w_]+)\s([\w+]+)" "expand extends" rm
+`!p snip.rv=match.group(1) + " extends " + match.group(2)`
 endsnippet
