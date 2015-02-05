@@ -1,0 +1,161 @@
+global !p
+from php import *
+endglobal
+
+snippet cl "class"
+class ${1:`!p snip.rv=get_class_name_with_underscored_namespaces()`}$2
+{
+    $3
+}
+endsnippet
+
+snippet "(protected \$([\w.]+).*ps)" "protected setter" rm
+`!p 
+_line = match.group(1)[:-2]
+_cid = get_camelcase_identifier_from_string(_line, False)
+_id = get_identifier_from_string(_line, False)
+_phpdoc = get_phpdoc_variables_before_cursor()
+_var = ''
+if 'var' in _phpdoc:
+	_var = _phpdoc['var']
+snip.rv=_line`$0
+
+
+/**
+ * $1
+ *
+ * @param ${2:`!p snip.rv=_var`} $$3
+ * @return $this
+ */
+protected function _set`!p snip.rv=_cid`($$3)
+{
+    $this->`!p snip.rv=_id` = $$3;
+
+    return $this;
+}
+endsnippet
+
+snippet "((protected|public|private) \$([\w.]+).*pg)" "protected getter" rm
+`!p 
+_line = match.group(1)[:-2]
+_cid = get_camelcase_identifier_from_string(_line, False)
+_id = get_identifier_from_string(_line, False)
+_phpdoc = get_phpdoc_variables_before_cursor()
+_var = ''
+if 'var' in _phpdoc:
+	_var = _phpdoc['var']
+snip.rv=_line`$0
+
+
+/**
+ * $1
+ *
+ * @return ${2:`!p snip.rv=_var`}
+ */
+protected function _get`!p snip.rv=_cid`()
+{
+    return $this->`!p snip.rv=_id`;
+}
+endsnippet
+
+snippet "((protected|public|private) \$([\w.]+).*vs)" "private setter" rm
+`!p 
+_line = match.group(1)[:-2]
+_cid = get_camelcase_identifier_from_string(_line, False)
+_id = get_identifier_from_string(_line, False)
+_phpdoc = get_phpdoc_variables_before_cursor()
+_var = ''
+if 'var' in _phpdoc:
+	_var = _phpdoc['var']
+snip.rv=_line`$0
+
+
+/**
+ * $1
+ *
+ * @param ${2:`!p snip.rv=_var`} $$3
+ * @return $this
+ */
+private _set`!p snip.rv=_cid`($$3)
+{
+    $this->`!p snip.rv=_id` = $$3;
+
+    return $this;
+}
+endsnippet
+
+snippet "((protected|public|private) \$([\w.]+).*vg)" "private getter" rm
+`!p 
+_line = match.group(1)[:-2]
+_cid = get_camelcase_identifier_from_string(_line, False)
+_id = get_identifier_from_string(_line, False)
+_phpdoc = get_phpdoc_variables_before_cursor()
+_var = ''
+if 'var' in _phpdoc:
+	_var = _phpdoc['var']
+snip.rv=_line`$0
+
+
+/**
+ * $1
+ *
+ * @return ${2:`!p snip.rv=_var`}
+ */
+private _get`!p snip.rv=_cid`()
+{
+    return $this->`!p snip.rv=_id`;
+}
+endsnippet
+
+snippet "((protected|public|private) \$([\w.]+).*us)" "public setter" rm
+`!p 
+_line = match.group(1)[:-2]
+_cid = get_camelcase_identifier_from_string(_line, False)
+_id = get_identifier_from_string(_line, False)
+_phpdoc = get_phpdoc_variables_before_cursor()
+_var = ''
+if 'var' in _phpdoc:
+	_var = _phpdoc['var']
+snip.rv=_line`$0
+
+
+/**
+ * $1
+ *
+ * @param ${2:`!p snip.rv=_var`} $$3
+ * @return $this
+ */
+public function set`!p snip.rv=_cid`($$3)
+{
+    $this->`!p snip.rv=_id` = $$3;
+
+    return $this;
+}
+endsnippet
+
+snippet "((protected|public|private) \$([\w.]+).*ug)" "public getter" rm
+`!p 
+_line = match.group(1)[:-2]
+_cid = get_camelcase_identifier_from_string(_line, False)
+_id = get_identifier_from_string(_line, False)
+_phpdoc = get_phpdoc_variables_before_cursor()
+_var = ''
+if 'var' in _phpdoc:
+	_var = _phpdoc['var']
+snip.rv=_line`$0
+
+
+/**
+ * $1
+ *
+ * @return ${2:`!p snip.rv=_var`}
+ */
+public function get`!p snip.rv=_cid`()
+{
+    return $this->`!p snip.rv=_id`;
+}
+endsnippet
+
+snippet "^(.*?class\s+[\w_]+)\s([\w+]+)" "expand extends" rm
+`!p snip.rv=match.group(1) + " extends " + match.group(2)`
+endsnippet
