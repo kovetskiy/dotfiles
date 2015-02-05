@@ -52,6 +52,7 @@ Plug 'eagletmt/neco-ghc'
 
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
+Plug 'kovetskiy/vim-pythonx'
 
 call plug#end()
 
@@ -112,7 +113,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 set tags=tags,./tags,../tags,../tags,../../tags,../../../tags,../../../../tags,../../../../../tags,../../../../../../tags
 
-py import util
+"py import util
 
 let g:airline_theme = 'base16'
 let g:airline#extensions#whitespace#symbol = '☼'
@@ -137,7 +138,7 @@ augroup filetype_go
 
     au BufRead,BufNewFile *.go set filetype=go
 
-    au FileType go py import go
+    "au FileType go py import go
 
     au FileType go nmap <Leader>t :call urxvt#put('go test')<CR>
     au FileType go nmap <Leader>e :GoRename<CR>
@@ -161,7 +162,7 @@ augroup filetype_php
 
     au BufRead,BufNewFile *.php set filetype=php
 
-    au FileType php py import php
+    "au FileType php py import php
 
     au FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
     au FileType php nnoremap <F2>  :Phpcs<CR>
@@ -170,12 +171,12 @@ augroup filetype_php
     au FileType php hi! def link phpDocParam phpType
     au FileType php inoremap <C-L> <C-\><C-O>:py php.cycle_by_var_name()<CR>
     au FileType php smap <C-L> <BS><C-L>
-    au FileType php nnoremap <C-S><C-P> :py php.make_protected_setter()<CR>
-    au FileType php nnoremap <C-G><C-P> :py php.make_protected_getter()<CR>
-    au FileType php nnoremap <C-S><C-V> :py php.make_private_setter()<CR>
-    au FileType php nnoremap <C-G><C-V> :py php.make_private_getter()<CR>
-    au FileType php nnoremap <C-S><C-U> :py php.make_public_setter()<CR>
-    au FileType php nnoremap <C-G><C-U> :py php.make_public_getter()<CR>
+    au FileType php imap <C-S><C-P> ps<C-J>
+    au FileType php imap <C-G><C-P> pg<C-J>
+    au FileType php imap <C-S><C-V> vs<C-J>
+    au FileType php imap <C-G><C-V> vg<C-J>
+    au FileType php imap <C-S><C-U> us<C-J>
+    au FileType php imap <C-G><C-U> ug<C-J>
 augroup END
 
 augroup whitespace_hacks
