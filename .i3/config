@@ -16,6 +16,8 @@ bindsym $alt+Shift+q kill
 
 bindsym $alt+d exec dmenu_run
 
+bindsym Shift+$alt+Control+f floating toggle
+
 bindsym $win+u focus left
 bindsym $win+i focus down
 bindsym $win+o focus up
