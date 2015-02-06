@@ -23,7 +23,7 @@ URxvt.keysym.M-v: perl:clipboard:paste
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-Shift-S: perl:keyboard-select:search
 
-URxvt.keysym.M-C-slash:   perl:aAtt:WORD-complete
+URxvt.keysym.M-slash: autocomplete-ALL-the-things:WORD-complete
 URxvt.keysym.M-question:  perl:aAtt:fuzzy-complete
 URxvt.keysym.M-quotedbl:  perl:aAtt:undo
 
