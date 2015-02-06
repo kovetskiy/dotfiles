@@ -539,7 +539,7 @@ fu! Background(val)
     execute "colorscheme " . g:colorscheme
     execute "set background=" . a:val
 
-    "if &background == "light"
+    if &background == "light"
         "hi ErrorMsg term=none
         "hi Todo term=none
         "hi SignColumn term=none
@@ -555,9 +555,9 @@ fu! Background(val)
         "hi SignColumn ctermfg=none ctermbg=220
         "hi ColorColumn ctermbg=251
         "hi SpecialKey term=bold cterm=bold ctermfg=255 ctermbg=none
-        "hi NonText ctermfg=247 cterm=none term=none
+        hi NonText ctermfg=251 cterm=none term=none
         "hi IncSearch cterm=none ctermfg=238 ctermbg=220
-    "endif
+    endif
 
 endfu!
 
