@@ -429,7 +429,7 @@ hi link EasyMotionTarget2First ErrorMsg
 hi link EasyMotionTarget2Second ErrorMsg
 
 let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
 nnoremap <C-W><C-E> :ChooseWin<CR>
 nnoremap <C-W><C-S> :ChooseWinSwap<CR>
