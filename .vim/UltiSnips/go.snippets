@@ -207,15 +207,15 @@ snippet ap "append" i
 ${1:slice} = append($1, $2)
 endsnippet
 
-snippet ms "make slice" i
+snippet ms "make slice" w
 make([]$1, ${2:0})
 endsnippet
 
-snippet mc "make chan" i
+snippet mc "make chan" w
 make(chan $1, ${2:0})
 endsnippet
 
-snippet mm "make map" i
+snippet mm "make map" w
 make(map[${1:string}]${2:interface\{\}})
 endsnippet
 
