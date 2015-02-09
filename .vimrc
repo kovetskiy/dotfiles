@@ -45,7 +45,6 @@ Plug 'edsono/vim-matchit', { 'for': 'html'}
 Plug 'AndrewRadev/sideways.vim'
 Plug 'gorkunov/smartpairs.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
-Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'raichoo/haskell-vim'
 Plug 'eagletmt/neco-ghc'
@@ -161,8 +160,6 @@ augroup filetype_php
     au!
 
     au BufRead,BufNewFile *.php set filetype=php
-
-    "au FileType php py import php
 
     au FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
     au FileType php nnoremap <F2>  :Phpcs<CR>
