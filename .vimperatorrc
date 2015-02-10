@@ -33,6 +33,5 @@ nnoremap % :source ~/.vimperatorrc
 
 imap jk <ESC>
 vmap c <ESC><ESC>c
-cmap i viw
 
 source ~/.vimperator/aliases

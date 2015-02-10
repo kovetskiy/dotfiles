@@ -48,10 +48,11 @@ Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'raichoo/haskell-vim'
 Plug 'eagletmt/neco-ghc'
+Plug 'Raimondi/delimitMate'
 
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
-Plug 'kovetskiy/vim-pythonx'
+Plug 'seletskiy/vim-pythonx'
 
 call plug#end()
 
@@ -110,9 +111,7 @@ set pastetoggle=<F11>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
-set tags=tags,./tags,../tags,../tags,../../tags,../../../tags,../../../../tags,../../../../../tags,../../../../../../tags
-
-"py import util
+set tags=./tags,tags
 
 let g:airline_theme = 'base16'
 let g:airline#extensions#whitespace#symbol = '☼'
@@ -524,6 +523,13 @@ vnoremap H :OverCommandLine s/<CR>
 map L *:OverCommandLine s//<CR>
 
 map <C-_> <C-W>_
+map <C-H> <C-W>h
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+map <C-L> <C-W>l
+
+imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
+
 noh
 
 fu! Background(val)
