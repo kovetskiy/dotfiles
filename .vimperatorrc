@@ -1,9 +1,5 @@
 set hintchars=qweasdiopjkl
-
-" removing 'addons bar'
-set gui=all
 set gui=none
-set gui=tabs
 
 set editor="urxvt -e vim "
 set cpt=l
@@ -29,9 +25,19 @@ map <Leader>gh :tabopen http://github.com/<CR>
 nnoremap j 5j
 nnoremap k 5k
 nnoremap `` :buffer<space>
-nnoremap % :source ~/.vimperatorrc
+nnoremap % :source ~/.vimperatorrc<CR>
 
-imap jk <ESC>
 vmap c <ESC><ESC>c
+imap jk <ESC>
+
+map e1 :buffer 1<CR>
+map e2 :buffer 2<CR>
+map e3 :buffer 3<CR>
+map e4 :buffer 4<CR>
+map e5 :buffer 5<CR>
+map e6 :buffer 6<CR>
+map e7 :buffer 7<CR>
+map e8 :buffer 8<CR>
+map e9 :buffer 9<CR>
 
 source ~/.vimperator/aliases
