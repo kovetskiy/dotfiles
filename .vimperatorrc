@@ -24,7 +24,7 @@ map <Leader>gh :tabopen http://github.com/<CR>
 
 nnoremap j 5j
 nnoremap k 5k
-nnoremap `` :buffer<space>
+nnoremap ee :buffer<space>
 nnoremap % :source ~/.vimperatorrc<CR>
 
 vmap c <ESC><ESC>c
