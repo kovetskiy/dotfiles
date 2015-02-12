@@ -3,8 +3,8 @@ export GOPATH="$HOME/go"
 export PATH="$HOME/bin/:$HOME/go/bin/:$HOME/sources/git-scripts/:$PATH"
 export EDITOR=vim
 export TERM=rxvt-unicode-256color
-export GREP_OPTIONS='--color=auto'
-export GREP_COLOR='1;32'
+#export GREP_OPTIONS='--color=auto'
+#export GREP_COLOR='1;32'
 export ZSH=~/.oh-my-zsh/
 
 export PATH=$PATH:/opt/android-ndk:/opt/android-sdk/platfrom-tools/
@@ -48,10 +48,9 @@ bindkey -v
 bindkey -v "^R" history-incremental-search-backward
 bindkey -v "^P" history-substring-search-up
 bindkey -v "^N" history-substring-search-down
-bindkey -v "^A" beginning-of-line
+bindkey -v "^[[7~" beginning-of-line
 bindkey -v "^Q" push-line
-bindkey -v '^A' beginning-of-line
-bindkey -v '^E' end-of-line
+bindkey -v "^[[8~" end-of-line
 bindkey -v '^?' backward-delete-char
 bindkey -v '^H' backward-delete-char
 bindkey -v '^B' delete-char
