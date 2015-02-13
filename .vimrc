@@ -49,6 +49,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'raichoo/haskell-vim'
 Plug 'eagletmt/neco-ghc'
 Plug 'Raimondi/delimitMate'
+Plug 'vim-php/vim-php-refactoring'
 
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
@@ -160,6 +161,7 @@ augroup filetype_php
 
     au BufRead,BufNewFile *.php set filetype=php
 
+    au FileType php nmap <Leader>e :call PhpRefactorRenameLocalVariable()<CR>
     au FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
     au FileType php nnoremap <F2>  :Phpcs<CR>
     au FileType php nnoremap <F7>  :!time tags_php<CR>
