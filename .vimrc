@@ -535,6 +535,10 @@ imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 noh
 
 fu! Background(val)
+    if a:val == ""
+        let a:val = "light"
+    endif
+
     if a:val == "light"
         let g:colorscheme='seoul256'
     else
