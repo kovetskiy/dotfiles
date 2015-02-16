@@ -527,7 +527,8 @@ nnoremap <C-S><C-E> :UltiSnipsEdit<CR>
 
 nnoremap H :OverCommandLine %s/<CR>
 vnoremap H :OverCommandLine s/<CR>
-map L *:OverCommandLine s//<CR>
+map K *:OverCommandLine s//<CR>
+nmap L VH
 
 map <C-_> <C-W>_
 map <C-H> <C-W>h
