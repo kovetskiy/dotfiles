@@ -274,9 +274,14 @@ endif
 call unite#custom#source(
     \ 'file,file/new,buffer,file_rec,file_rec/async,git_cached,git_untracked,directory',
     \ 'matchers', 'matcher_fuzzy')
+
 call unite#custom#default_action(
     \ 'directory', 'cd')
+
 call unite#filters#sorter_default#use(['sorter_selecta'])
+
+call unite#custom#source('file,file_rec,file_rec/async,git_cached,git_untracked', 'ignore_globs',
+    \ split('*.png,*.zip,*.tar,*.gz,*.jpg,*.jpeg,*.chunks', ','))
 
 function! s:unite_my_settings()
     imap <buffer> <C-R> <Plug>(unite_redraw)
