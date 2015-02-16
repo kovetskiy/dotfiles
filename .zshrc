@@ -64,6 +64,8 @@ bindkey -v "^L" clear-screen
 
 bindkey -a '^[' vi-insert
 
+bindkey -s "\C-f" "fg\r"
+
 compress () {
   if [ $1 ] ; then
     case $1 in
