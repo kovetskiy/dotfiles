@@ -29,6 +29,7 @@ nnoremap % :source ~/.vimperatorrc<CR>
 
 vmap c <ESC><ESC>c
 imap jk <ESC>
+nmap v cv
 
 map e1 :buffer 1<CR>
 map e2 :buffer 2<CR>
