@@ -106,7 +106,7 @@ set showtabline=0
 set cino=(s,m1,+0
 
 set list
-set lcs=eol:¶,trail:·,tab:··
+set lcs=eol:¶,trail:·,tab:\ \ "t
 
 set pastetoggle=<F11>
 
