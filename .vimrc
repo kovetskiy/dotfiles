@@ -146,7 +146,7 @@ augroup filetype_go
     au FileType go nmap <Leader>i :GoImports<CR>
     au FileType go nmap <Leader>f :GoFmt<CR>
     au FileType go nmap <Leader>r :call urxvt#put('./' . expand('%:p:h:t'))<CR>
-    au FileType go nmap <Leader>b :call urxvt#put('setup-android-env-go ./all.bash')<CR>
+    au FileType go nmap <Leader>b :call urxvt#put('go build')<CR>
     au FileType go inoremap <C-L> <C-\><C-O>:py go.cycle_by_var_name()<CR>
     au FileType go smap <C-L> <BS><C-L>
     au FileType go inoremap <C-K> <ESC>:call go#import#SwitchImport(1, '', expand("<cword>"))<CR>a.
@@ -576,15 +576,15 @@ fu! Background(val)
 
     if &background == "light"
         set background=light
-        hi underlined cterm=underline
-        hi CursorLineNr ctermfg=241 ctermbg=none
-        hi LineNr ctermfg=249 ctermbg=none
-        hi SignColumn ctermfg=none ctermbg=none
-        hi SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
-        hi NonText ctermfg=254 cterm=none term=none
-        hi IncSearch cterm=none ctermfg=238 ctermbg=220
-        hi Cursor ctermbg=0 ctermfg=15
-        hi PmenuSel ctermbg=136 ctermfg=15 cterm=bold
+        hi! underlined cterm=underline
+        hi! CursorLineNr ctermfg=241 ctermbg=none
+        hi! LineNr ctermfg=249 ctermbg=none
+        hi! SignColumn ctermfg=none ctermbg=none
+        hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
+        hi! NonText ctermfg=254 cterm=none term=none
+        hi! IncSearch cterm=none ctermfg=238 ctermbg=220
+        hi! Cursor ctermbg=0 ctermfg=15
+        hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
     endif
 endfu!
 
