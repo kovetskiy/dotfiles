@@ -37,6 +37,8 @@ Plug 'joonty/vim-phpqa', { 'for': 'php' }
 Plug 'rhysd/clever-f.vim'
 "Plug 'kovetskiy/filestyle'
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
+Plug 'jelera/vim-javascript-syntax', { 'for': 'js' }
+Plug 'marijnh/tern_for_vim', { 'for': 'js' }
 Plug 'rename', { 'on': 'Rename' }
 Plug 't9md/vim-choosewin', { 'on': [ 'ChooseWin', 'ChooseWinSwap' ] }
 Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
@@ -474,11 +476,12 @@ vnoremap <silent> < <gv
 nnoremap g< '<
 nnoremap g> '>
 
+nnoremap g. '>
+nnoremap g, '<
+
 nnoremap <F4> :let &scrolloff=999-&scrolloff<CR>
 nnoremap <Leader><Leader>q :bdelete!<CR>
 nnoremap <Leader><Leader>q <Esc>:bdelete!<CR>
-
-nnoremap <Leader>ue :UltiSnipsEdit<CR>
 
 nnoremap <Leader>vs :vsp<CR>
 
