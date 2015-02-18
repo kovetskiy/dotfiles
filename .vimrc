@@ -283,7 +283,7 @@ call unite#custom#default_action(
 call unite#filters#sorter_default#use(['sorter_selecta'])
 
 call unite#custom#source('file,file_rec,file_rec/async,git_cached,git_untracked', 'ignore_globs',
-    \ split('*.png,*.zip,*.tar,*.gz,*.jpg,*.jpeg,*.chunks', ','))
+    \ split('*.png,*.zip,*.tar,*.gz,*.jpg,*.jpeg,*.chunks,*.gif', ','))
 
 function! s:unite_my_settings()
     imap <buffer> <C-R> <Plug>(unite_redraw)
@@ -558,8 +558,6 @@ fu! Background(val)
     execute "set background=" . a:val
 
     hi! link WildMenu PmenuSel
-    hi erlangEdocTag cterm=bold ctermfg=14
-    hi erlangFunHead cterm=bold ctermfg=4
     hi SPM1 ctermbg=1 ctermfg=7
     hi SPM2 ctermbg=2 ctermfg=7
     hi SPM3 ctermbg=3 ctermfg=7
@@ -589,5 +587,14 @@ fu! Background(val)
         hi PmenuSel ctermbg=136 ctermfg=15 cterm=bold
     endif
 endfu!
+
+augroup ash_my_settings
+    au!
+
+    au FileType diff syn match DiffAddedContent "^+.*" containedin=ALL
+    au FileType diff hi! DiffAddedContent ctermbg=65 guibg=#719872 ctermfg=232
+    au FileType diff syn match DiffRemovedContent "^-.*" containedin=ALL
+    au FileType diff hi! DiffRemovedContent ctermbg=131 guibg=#be7572 ctermfg=232
+augroup END
 
 call Background($BACKGROUND)
