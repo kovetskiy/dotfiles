@@ -30,6 +30,8 @@ vmap c <ESC><ESC>c
 imap jk <ESC>
 nmap v cv
 
+nmap `` :!jira-now<CR><ESC>
+
 map e1 :buffer 1<CR>
 map e2 :buffer 2<CR>
 map e3 :buffer 3<CR>
