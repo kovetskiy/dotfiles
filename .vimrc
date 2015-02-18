@@ -361,8 +361,7 @@ function! DelEmptyLineAbove()
   let &scrolloff = l:scrolloffsave
 endfunction
 
-" my magic function :))
-function! MakeZaebis()
+function! TryToReduce()
     let startLine = line(".")
     let content = getline(startLine)
 
@@ -520,7 +519,7 @@ nnoremap <Leader><Leader>k :call DelEmptyLineAbove()<CR>
 nnoremap <Leader>j :call AddEmptyLineBelow()<CR>
 nnoremap <Leader>k :call AddEmptyLineAbove()<CR>
 
-nnoremap <Leader>m :call MakeZaebis()<CR>
+nnoremap <Leader>m :call TryToReduce()<CR>
 
 nnoremap <Leader>] :tnext<CR>
 
