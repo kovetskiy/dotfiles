@@ -17,7 +17,7 @@ hi Hint font-size: 12px; font-weight: bold; text-transform: uppercase; color: wh
 
 map g :tabopen http://github.com/
 map s :tabopen<space>
-map b :buffer<space>
+nmap b :buffer<space>
 
 map <Leader>gh :tabopen http://github.com/<CR>
 
