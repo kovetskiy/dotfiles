@@ -27,8 +27,4 @@ if [ ! -f "refactor.phar" ]; then
     wget https://github.com/QafooLabs/php-refactoring-browser/releases/download/v0.0.4/refactor.phar
 fi
 
-#UltiSnips fix for autoloading.
-ln -s ~/.vim/bundle/UltiSnips/after/plugin/* ~/.vim/after/plugin
-ln -s ~/.vim/bundle/UltiSnips/ftdetect/* ~/.vim/ftdetect
-
 echo "Vim installed!"
