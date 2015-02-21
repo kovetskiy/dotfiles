@@ -33,4 +33,4 @@ shift+Return warp,drag 1
 space warp,click 1
 Return warp,click 1,end
 
-BackSpace grid 1x1,warp
+BackSpace end
