@@ -141,16 +141,16 @@ augroup filetype_go
 
     "au FileType go py import go
 
-    au FileType go nmap <Leader>t :call urxvt#put('go test')<CR>
-    au FileType go nmap <Leader>e :GoRename<CR>
-    au FileType go nmap <Leader>i :GoImports<CR>
-    au FileType go nmap <Leader>f :GoFmt<CR>
-    au FileType go nmap <Leader>r :call urxvt#put('./' . expand('%:p:h:t'))<CR>
-    au FileType go nmap <Leader>b :call urxvt#put('go build')<CR>
-    au FileType go inoremap <C-L> <C-\><C-O>:py go.cycle_by_var_name()<CR>
-    au FileType go smap <C-L> <BS><C-L>
-    au FileType go inoremap <C-K> <ESC>:call go#import#SwitchImport(1, '', expand("<cword>"))<CR>a.
-    au FileType go smap <C-K> <BS><C-I>
+    au FileType go nmap <buffer> <Leader>t :call urxvt#put('go test')<CR>
+    au FileType go nmap <buffer> <Leader>e :GoRename<CR>
+    au FileType go nmap <buffer> <Leader>i :GoImports<CR>
+    au FileType go nmap <buffer> <Leader>f :GoFmt<CR>
+    au FileType go nmap <buffer> <Leader>r :call urxvt#put('./' . expand('%:p:h:t'))<CR>
+    au FileType go nmap <buffer> <Leader>b :call urxvt#put('go build')<CR>
+    au FileType go inoremap <buffer> <C-L> <C-\><C-O>:py go.cycle_by_var_name()<CR>
+    au FileType go smap <buffer> <C-L> <BS><C-L>
+    au FileType go inoremap <buffer> . <C-\><C-O>:py go.autoimport()<CR>.
+    au FileType go smap <buffer> <C-K> <BS><C-I>
 augroup END
 
 augroup filetype_tpl
