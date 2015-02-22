@@ -3,15 +3,6 @@
 word=$(xclip -o)
 notify-send "translate: $word"
 
-# provided by https://github.com/seletskiy/runki/issues/4
-function translate() {
-    ~/go/bin/runki <<< "$word"
-}
-tr=$(translate)
-st=$?
-while [[ $st != 0 ]]; do
-    tr=$(translate)
-    st=$?
-done
+runki <<< "$word"
 
 notify-send "$tr" -t 2000
