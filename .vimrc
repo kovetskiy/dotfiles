@@ -116,7 +116,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 set tags=./tags,tags
 
-let g:airline_theme = 'jellybeans'
+let g:airline_theme = 'base16'
 let g:airline#extensions#whitespace#symbol = '☼'
 let g:airline_powerline_fonts = 1
 
@@ -155,6 +155,7 @@ augroup END
 
 augroup filetype_tpl
     au!
+
     au BufRead,BufNewFile *.tpl set filetype=html
 augroup END
 
@@ -228,10 +229,10 @@ augroup end
 fu! SkeletonGitCommit()
     let l:line = getline(".")
     if l:line == ""
-        let l:issue = system("git symbolic-ref HEAD 2>/dev/null | grep -oP '([A-Z]{1,}\-[0-9]{1,})'")
+        let l:issue = system("git symbolic-ref HEAD 2>/dev/null | grep -oP '([A-Za-z]{1,}\-[0-9]{1,})'")
 
         if l:issue != ''
-            execute 'normal I' . l:issue . ': '
+            execute 'normal I' . toupper(l:issue) . ': '
         endif
     endif
 endfu!
