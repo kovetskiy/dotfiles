@@ -494,7 +494,7 @@ nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q!<CR>
 
 nnoremap <C-P> :Unite -hide-source-names buffer git_cached git_untracked<CR>
-nnoremap <C-B> :Unite -hide-source-names buffer<CR>
+nnoremap <C-B> :Unite -hide-source-names -quick-match buffer<CR>
 nnoremap <C-Y> :Unite -hide-source-names history/yank<CR>
 nnoremap <C-E><C-G> :Unite -hide-source-names grep:.<CR>
 
