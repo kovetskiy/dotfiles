@@ -402,6 +402,10 @@ let g:unite_split_rule = "botright"
 let g:unite_force_overwrite_statusline = 0
 let g:unite_enable_start_insert = 1
 
+let g:unite_source_history_yank_enable = 1
+let g:unite_source_history_yank_limit = 10000
+let g:unite_source_history_yank_file=expand('~'). "/.vim/tmp/yank"
+
 let g:phpqa_php_cmd='php'
 let g:phpqa_run_on_write=0
 let g:phpqa_codesniffer_cmd='phpcs'
