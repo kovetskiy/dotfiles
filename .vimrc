@@ -544,11 +544,12 @@ imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 noh
 
 fu! Background(val)
-    if a:val == ""
-        let a:val = "light"
+    let bg = a:val
+    if bg == ""
+        let bg = "light"
     endif
 
-    if a:val == "light"
+    if bg == "light"
         let g:seoul256_background = 255
         let g:colorscheme='seoul256'
     else
@@ -556,7 +557,7 @@ fu! Background(val)
     endif
 
     execute "colorscheme " . g:colorscheme
-    execute "set background=" . a:val
+    execute "set background=" . bg
 
     hi! link WildMenu PmenuSel
     hi SPM1 ctermbg=1 ctermfg=7
