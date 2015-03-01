@@ -212,3 +212,6 @@ function gocd() {
 eval $(dircolors ~/.dircolors.$BACKGROUND)
 
 source ~/.zpreztorc
+
+unsetopt auto_cd
+unsetopt cdablevars
