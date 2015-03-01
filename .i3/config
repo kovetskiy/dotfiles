@@ -4,10 +4,11 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 font pango:Monaco 1
 new_window 1pixel
 focus_follows_mouse off
-floating_modifier $alt
 
 set $win Mod1
 set $alt Mod4
+
+floating_modifier $alt
 
 bindsym $win+Return exec urxvt
 bindsym $win+Shift+Return exec "urxvt -e vim"
@@ -120,6 +121,7 @@ workspace x output $rightM # tmp
 workspace c output $rightM # gui shit - skype
 
 for_window [instance="^screenkey$"] floating enable
+for_window [instance="^sxiv$"] floating enable
 
 client.focused #cb4b16 #dc322f #fdf6e3 #ffffff
 client.focused_inactive #586e75 #eee8d5 #657b83 #ffffff
