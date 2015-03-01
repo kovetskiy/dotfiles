@@ -143,8 +143,8 @@ augroup filetype_go
 
     au FileType go nmap <buffer> <Leader>t :call urxvt#put('go test')<CR>
     au FileType go nmap <buffer> <Leader>e :GoRename<CR>
-    au FileType go nmap <buffer> <Leader>i :GoImports<CR>
-    au FileType go nmap <buffer> <Leader>f :GoFmt<CR>
+    au FileType go nmap <buffer> <Leader>f :GoFmt<CR>:w<CR>
+    au FileType go nmap <buffer> <Leader>h :GoDoc<CR>
     au FileType go nmap <buffer> <Leader>r :call urxvt#put('./' . expand('%:p:h:t'))<CR>
     au FileType go nmap <buffer> <Leader>b :call urxvt#put('go build')<CR>
     au FileType go inoremap <buffer> <C-L> <C-\><C-O>:py go.cycle_by_var_name()<CR>
@@ -430,6 +430,8 @@ let g:choosewin_overlay_clear_multibyte = 1
 let g:choosewin_label = 'QWEASDIOPJKL'
 
 let g:EasyMotion_keys = "hjkluiopqweasd"
+
+let delimitMate_expand_cr=1
 
 hi link EasyMotionTarget ErrorMsg
 "hi link EasyMotionShade  Comment
