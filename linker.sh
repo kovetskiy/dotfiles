@@ -24,7 +24,7 @@ POINTS=(
     ".Xresources"
     ".Xresources.dark"
     ".Xresources.light"
-    ".xsessionrc"
+    ".xinitrc"
     ".zpreztorc"
     ".zprezto/modules/prompt/functions"
     ".zshrc"
