@@ -18,7 +18,6 @@ POINTS=(
     ".muttatorrc"
     ".urxvt"
     ".vim/UltiSnips"
-    ".vim/pythonx"
     ".vimperatorrc"
     ".vimrc"
     ".Xresources"
