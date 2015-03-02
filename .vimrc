@@ -27,7 +27,6 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
-Plug 'vim-php/vim-php-refactoring', { 'for': 'php' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-surround'
@@ -51,7 +50,6 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'raichoo/haskell-vim'
 Plug 'eagletmt/neco-ghc'
 Plug 'Raimondi/delimitMate'
-Plug 'vim-php/vim-php-refactoring'
 
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
@@ -479,6 +477,8 @@ nnoremap <Leader>% :so ~/.vimrc<CR>
 vnoremap <silent> > >gv
 vnoremap <silent> < <gv
 
+inoremap jk <ESC>
+
 nnoremap g< '<
 nnoremap g> '>
 
@@ -539,6 +539,8 @@ vnoremap H :OverCommandLine s/<CR>
 map K *:OverCommandLine s//<CR>
 nmap L VH
 
+inoremap <C-A> <C-O>A
+
 map <C-_> <C-W>_
 map <C-H> <C-W>h
 map <C-J> <C-W>j
@@ -546,6 +548,13 @@ map <C-K> <C-W>k
 map <C-L> <C-W>l
 
 imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
+
+fu! PowerReset()
+    call EasyMotion#reset()
+    noh
+endfu!
+
+nnoremap <Leader>r :call PowerReset()<CR>
 
 noh
 
