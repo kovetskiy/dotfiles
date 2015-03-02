@@ -314,3 +314,7 @@ endsnippet
 snippet l "last slice usage" iw
 ${1:`!p snip.rv=get_previous_slice_usage()`}[$2]
 endsnippet
+
+snippet "(func\s.*\)\s+)([\w\d_\s\{\}\[\]\*\.]+),\s?([\w\d_\s\{\}\[\]\*\.]+)" "return multiple" r
+`!p snip.rv=match.group(1)`(`!p snip.rv=match.group(2)`, `!p snip.rv=match.group(3)`)
+endsnippet
