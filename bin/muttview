@@ -1,3 +1,3 @@
 #!/bin/bash
 
-links -html-numbered-links 1 -html-images 1 -dump file://$1
+lynx -dump -force-html $1
