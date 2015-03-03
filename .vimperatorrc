@@ -20,11 +20,14 @@ map s :tabopen<space>
 nmap b :buffer<space>
 
 map <Leader>gh :tabopen http://github.com/<CR>
+map <Leader>rt :tabopen http://uprt.slack.com/<CR>
+map <Leader>hn :tabopen http://news.ycombinator.com/<CR>
 
 nnoremap j 5j
 nnoremap k 5k
 nnoremap ee :buffer<space>
 nnoremap % :source ~/.vimperatorrc<CR>
+
 
 vmap c <ESC><ESC>c
 imap jk <ESC>
@@ -42,4 +45,4 @@ map e7 :buffer 7<CR>
 map e8 :buffer 8<CR>
 map e9 :buffer 9<CR>
 
-source ~/.vimperator/aliases
+#source ~/.vimperator/aliases
