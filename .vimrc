@@ -50,6 +50,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'raichoo/haskell-vim'
 Plug 'eagletmt/neco-ghc'
 Plug 'Raimondi/delimitMate'
+Plug 'majutsushi/tagbar'
 
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
