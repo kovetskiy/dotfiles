@@ -168,6 +168,7 @@ alias srn='php stat.php | sort | sort -nr'
 alias adbd='adb devices'
 alias adbl='adb logcat'
 alias adblg='adbg logcat | grep Go'
+alias sudo='sudo env PATH=$PATH'
 
 function prepend-sudo() {
     if [[ "$BUFFER" != su(do|)\ * ]]; then
