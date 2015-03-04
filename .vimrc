@@ -457,7 +457,7 @@ nnoremap <Leader>o o<ESC>
 nnoremap <Leader>O O<ESC>
 
 nnoremap X S<ESC>
-vnoremap $ $h
+vnoremap $ g_
 
 nnoremap / /\v
 vnoremap / \v
