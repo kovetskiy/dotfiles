@@ -616,3 +616,64 @@ augroup ash_my_settings
 augroup END
 
 call Background($BACKGROUND)
+
+
+if !exists('g:php_handle_enter')
+    let g:php_handle_enter = 1
+endif
+
+fun! PhpHandleEnter()
+    if g:php_handle_enter == 0
+        return
+    endif
+
+    let currentLine = line(".")
+    let currentColumn = virtcol(".")
+
+    let maxStep = 5
+    let step = -1
+
+    while step <= maxStep
+        let step += 1
+
+        let stepLine = currentLine - step
+        let content = getline(stepLine)
+        let nextContent = getline(stepLine+1)
+
+        let contentWs = substitute(content, "\\s", "", "g")
+        if contentWs == ""
+            continue
+        endif
+
+        let nextContentWs = substitute(nextContent, "\\s", "", "g")
+
+        if content !~ '.*;'
+            if contentWs !~ '\/\/.*' && contentWs !~ '\*.*' && contentWs !~ '\#.*'
+                if contentWs !~ '.*\(function\|class\|interface\).*'
+                                \ && contentWs !~ '.*[\{\}\.\,\[\]]'
+                    if nextContentWs !~ '->.*' && nextContentWs !~ '[\.\"]'
+                        let content = content . ";"
+
+                        if stepLine == currentLine
+                            execute 'normal A;'
+                        else
+                            execute "normal " . stepLine . "gg0"
+                            execute "normal C" . content
+
+                            execute "normal " . currentLine . "gg"
+                            execute "normal" . currentColumn . "|"
+                        endif
+
+                        break
+                    endif
+                endif
+            endif
+        endif
+
+    endwhile
+endfun!
+
+augroup php_l
+    au!
+    au FileType php imap <buffer> <CR> <C-O>:call PhpHandleEnter()<CR><Plug>delimitMateCR
+augroup end
