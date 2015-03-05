@@ -26,6 +26,10 @@ if [ -z `pidof keynav` ]; then
     keynav &
 fi
 
+if [ -z `pidof redshift` ]; then
+    redshift -c ~/.config/redshift.conf &
+fi
+
 feh --bg-scale ~/wallpaper.jpg &
 
 xrdb -load ~/.Xresources

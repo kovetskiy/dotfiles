@@ -169,6 +169,7 @@ alias adbd='adb devices'
 alias adbl='adb logcat'
 alias adblg='adbg logcat | grep Go'
 alias sudo='sudo env PATH=$PATH'
+alias rsstop='pkill redshift'
 
 function prepend-sudo() {
     if [[ "$BUFFER" != su(do|)\ * ]]; then
