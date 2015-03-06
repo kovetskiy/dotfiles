@@ -194,6 +194,14 @@ bindkey '^s' prepend-sudo
 #zle -N home
 #bindkey / home
 
+# create a new branch from origin master
+function gcon()
+{
+    git fetch
+    git checkout origin/master
+    gcof $1
+}
+
 function gdi()
 {
     eval "git diff $1"
