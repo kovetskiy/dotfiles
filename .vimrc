@@ -32,7 +32,7 @@ Plug 'tpope/vim-git'
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'yuku-t/unite-git'
-Plug 'joonty/vim-phpqa', { 'for': 'php' }
+Plug 'joonty/vim-phpqa'
 Plug 'rhysd/clever-f.vim'
 "Plug 'kovetskiy/filestyle'
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
@@ -362,6 +362,7 @@ function! DelEmptyLineAbove()
 endfunction
 
 function! TryToReduce()
+    DelimitMateOff
     let startLine = line(".")
     let content = getline(startLine)
 
@@ -378,6 +379,7 @@ function! TryToReduce()
     execute 'normal ' . (startLine - 1) . 'gg'
     execute 'normal ' . cow . '=='
     execute 'normal ' . startLine . 'gg^'
+    DelimitMateOn
 endfunction
 
 let mapleader=" "
@@ -497,12 +499,9 @@ nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q!<CR>
 
 nnoremap <C-P> :Unite -hide-source-names buffer git_cached git_untracked<CR>
-nnoremap <C-B> :Unite -hide-source-names -quick-match buffer<CR>
 nnoremap <C-Y> :Unite -hide-source-names history/yank<CR>
 nnoremap <C-E><C-G> :Unite -hide-source-names grep:.<CR>
 
-nnoremap <C-D> <C-F>
-nnoremap <C-U> <C-B>
 nnoremap <Space> viw
 
 nnoremap <Leader>d V"_d<Esc>
@@ -619,7 +618,7 @@ call Background($BACKGROUND)
 
 
 if !exists('g:php_handle_enter')
-    let g:php_handle_enter = 1
+    let g:php_handle_enter = 0
 endif
 
 fun! PhpHandleEnter()
