@@ -4,6 +4,7 @@ set gui=none
 set editor="urxvt -e vim "
 set cpt=l
 set showstatuslinks=2
+set hto=170
 
 set! javascript.options.jit.chrome=true
 

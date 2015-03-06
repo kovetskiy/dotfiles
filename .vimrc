@@ -150,13 +150,13 @@ augroup filetype_go
     au FileType go smap <buffer> <C-L> <BS><C-L>
     au FileType go inoremap <buffer> . <C-\><C-O>:py go.autoimport()<CR>.
     au FileType go smap <buffer> <C-K> <BS><C-I>
-augroup END
+augroup end
 
 augroup filetype_tpl
     au!
 
     au BufRead,BufNewFile *.tpl set filetype=html
-augroup END
+augroup end
 
 augroup filetype_php
     au!
@@ -177,7 +177,7 @@ augroup filetype_php
     au FileType php imap <C-G><C-V> vg<C-J>
     au FileType php imap <C-S><C-U> us<C-J>
     au FileType php imap <C-G><C-U> ug<C-J>
-augroup END
+augroup end
 
 augroup whitespace_hacks
     au!
@@ -191,7 +191,7 @@ augroup whitespace_hacks
     endfu!
 
     au FileType php,go,tpl,yml,json,js autocmd BufWritePre <buffer> :call Whitespaces()
-augroup END
+augroup end
 
 "augroup my_syntax_hacks
     "au!
@@ -240,7 +240,7 @@ augroup skeletons
     au!
     au FileType gitcommit exec "call SkeletonGitCommit()"
     au BufNewFile *.php exec "normal I<?php\r\rcl"
-augroup END
+augroup end
 
 augroup unite_setting
     au!
@@ -613,7 +613,7 @@ augroup ash_my_settings
     au FileType diff hi! DiffAddedContent ctermbg=65 guibg=#719872 ctermfg=232
     au FileType diff syn match DiffRemovedContent "^-.*" containedin=ALL
     au FileType diff hi! DiffRemovedContent ctermbg=131 guibg=#be7572 ctermfg=232
-augroup END
+augroup end
 
 call Background($BACKGROUND)
 
