@@ -369,6 +369,7 @@ function! TryToReduce()
     let content = substitute(content, "[,\(]", "&\r", "g")
     let content = substitute(content, "[\)]", "\r&", "g")
     let content = substitute(content, "\(\r\r\)", "()", "g")
+    let content = substitute(content, "\rarray\r", "array", "g")
 
     execute 'normal S'
     execute 'normal i' . content
