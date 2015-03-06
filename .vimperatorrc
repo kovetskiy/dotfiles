@@ -27,8 +27,10 @@ map <Leader>hn :tabopen http://news.ycombinator.com/<CR>
 nnoremap j 5j
 nnoremap k 5k
 nnoremap ee :buffer<space>
-nnoremap % :source ~/.vimperatorrc<CR>
+nnoremap % :source ~/.vimperatorrc<CR>:echomsg "Great success!"<CR>
 
+nmap qd gTd
+nmap wd gtd
 
 vmap c <ESC><ESC>c
 imap jk <ESC>
@@ -46,4 +48,4 @@ map e7 :buffer 7<CR>
 map e8 :buffer 8<CR>
 map e9 :buffer 9<CR>
 
-#source ~/.vimperator/aliases
+"source ~/.vimperator/aliases
