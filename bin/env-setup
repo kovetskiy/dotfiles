@@ -1,10 +1,11 @@
 #!/bin/bash
 
-export PATH="$HOME/bin/:$HOME/go/bin/:$PATH"
-export SHELL="/bin/zsh"
-export TERMINAL="urxvt"
-export EDITOR="/usr/bin/vim"
-export LANG="en_US.UTF-8"
+export PATH=$HOME/bin/:$HOME/go/bin/:$PATH
+export SHELL=/bin/zsh
+export TERMINAL=urxvt
+export EDITOR=/usr/bin/vim
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 export BACKGROUND=$(cat $HOME/background)
 
