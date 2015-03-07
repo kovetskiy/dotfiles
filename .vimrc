@@ -148,7 +148,6 @@ augroup filetype_go
     au FileType go nmap <buffer> <Leader>b :call urxvt#put('go build')<CR>
     au FileType go inoremap <buffer> <C-L> <C-\><C-O>:py go.cycle_by_var_name()<CR>
     au FileType go smap <buffer> <C-L> <BS><C-L>
-    au FileType go inoremap <buffer> . <C-\><C-O>:py go.autoimport()<CR>.
     au FileType go smap <buffer> <C-K> <BS><C-I>
 augroup end
 
