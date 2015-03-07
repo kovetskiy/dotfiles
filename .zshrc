@@ -56,6 +56,7 @@ bindkey -v "^E" end-of-line
 bindkey -v '^?' backward-delete-char
 bindkey -v '^H' backward-delete-char
 bindkey -v '^B' delete-char
+bindkey -v '^[[3~' delete-char
 bindkey -v '^W' backward-kill-word
 bindkey -v '^K' vi-kill-eol
 bindkey -v '^[[1;5D' vi-backward-word #ctrl+alt+H
