@@ -221,6 +221,15 @@ function gocd() {
     cd `find $GOPATH/src/ -name "$1*" -type d | head -n 1`
 }
 
+function forked() {
+    origin=$(git remote show origin)
+    upstream_url=$(awk '/Fetch URL:/{print $3}' <<< "$origin")
+    upstream_user=$(cut -d/ -f4 <<< "$upstream_url")
+    new_origin=$(sed "s/$upstream_user/kovetskiy/" <<< $upstream_url)
+    git remote rename origin upstream
+    git remote add origin "$new_origin"
+}
+
 eval $(dircolors ~/.dircolors.$BACKGROUND)
 
 source ~/.zpreztorc
