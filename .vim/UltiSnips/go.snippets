@@ -53,12 +53,23 @@ if err != nil {
 }
 endsnippet
 
+snippet qe "if err != nil" w
+if err != nil {
+	return fmt.Errorf("$1: %s", err.Error())
+}
+endsnippet
+
 snippet qq "if err != nil" w
 if err != nil {
 	return ${1:nil}, err
 }
 endsnippet
 
+snippet qqe "if err != nil" w
+if err != nil {
+	return ${1:nil}, fmt.Errorf("$2: %s", err.Error())
+}
+endsnippet
 
 snippet qp "if err != nil panic" w
 if err != nil {
@@ -87,8 +98,12 @@ if actual != ${2:"Actual"} {
 }
 endsnippet
 
-snippet e "else" w
- else {
+snippet ,e ", err" i
+, err$0
+endsnippet
+
+snippet "} e" "else" w
+} else {
 	${1:${VISUAL}}
 }
 endsnippet
