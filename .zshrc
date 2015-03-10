@@ -221,13 +221,26 @@ function gocd() {
     cd `find $GOPATH/src/ -name "$1*" -type d | head -n 1`
 }
 
-function forked() {
-    origin=$(git remote show origin)
-    upstream_url=$(awk '/Fetch URL:/{print $3}' <<< "$origin")
-    upstream_user=$(cut -d/ -f4 <<< "$upstream_url")
-    new_origin=$(sed "s/$upstream_user/kovetskiy/" <<< $upstream_url)
+function github-forked() {
     git remote rename origin upstream
-    git remote add origin "$new_origin"
+    upstream_info=$(git remote show upstream)
+    upstream_url=$(awk '/Fetch URL:/{print $3}' <<< "$upstream_info")
+    upstream_user=$(cut -d/ -f4 <<< "$upstream_url")
+    origin_url=$(sed "s/$upstream_user/kovetskiy/" <<< $upstream_url)
+    git remote add origin "$origin_url"
+}
+
+function github-fix-host() {
+    name=$1
+    if [[ "$name" == "" ]]; then
+        name="origin"
+    fi
+
+    remote_info=$(git remote show $name)
+    remote_url=$(awk '/Fetch URL:/{print $3}' <<< "$remote_info")
+    remote_host=$(cut -d/ -f3 <<< "$upstream_url")
+    new_url=$(sed "s/$remote_host/github.com/" <<< "$remote_url")
+    git remote set-url $name $new_url
 }
 
 eval $(dircolors ~/.dircolors.$BACKGROUND)
