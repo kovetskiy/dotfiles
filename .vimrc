@@ -540,6 +540,8 @@ map K *:OverCommandLine s//<CR>
 " bullshit
 nmap <NOP> <Plug>Sneak_s
 vmap <NOP> <Plug>Sneak_s
+nmap <NOP><NOP> <Plug>Sneak_S
+vmap <NOP><NOP> <Plug>Sneak_S
 
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
