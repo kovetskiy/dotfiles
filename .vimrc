@@ -33,8 +33,6 @@ Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'yuku-t/unite-git'
 Plug 'joonty/vim-phpqa'
-Plug 'rhysd/clever-f.vim'
-"Plug 'kovetskiy/filestyle'
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
 Plug 'jelera/vim-javascript-syntax', { 'for': 'js' }
 Plug 'marijnh/tern_for_vim', { 'for': 'js' }
@@ -51,6 +49,7 @@ Plug 'raichoo/haskell-vim'
 Plug 'eagletmt/neco-ghc'
 Plug 'Raimondi/delimitMate'
 Plug 'majutsushi/tagbar'
+Plug 'justinmk/vim-sneak'
 
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
@@ -537,7 +536,20 @@ nnoremap <C-S><C-E> :UltiSnipsEdit<CR>
 nnoremap H :OverCommandLine %s/<CR>
 vnoremap H :OverCommandLine s/<CR>
 map K *:OverCommandLine s//<CR>
-nmap L VH
+
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+"replace 't' with 1-char Sneak
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
 
 inoremap <C-A> <C-O>A
 
@@ -548,13 +560,6 @@ map <C-K> <C-W>k
 map <C-L> <C-W>l
 
 imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
-
-fu! PowerReset()
-    call EasyMotion#reset()
-    noh
-endfu!
-
-nnoremap <Leader>r :call PowerReset()<CR>
 
 noh
 
