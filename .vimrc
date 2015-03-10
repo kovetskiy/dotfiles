@@ -537,6 +537,10 @@ nnoremap H :OverCommandLine %s/<CR>
 vnoremap H :OverCommandLine s/<CR>
 map K *:OverCommandLine s//<CR>
 
+" bullshit
+nmap <NOP> <Plug>Sneak_s
+vmap <NOP> <Plug>Sneak_s
+
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
 xmap f <Plug>Sneak_f
