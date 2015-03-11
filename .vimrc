@@ -536,7 +536,6 @@ nnoremap <C-S><C-E> :UltiSnipsEdit<CR>
 
 nnoremap H :OverCommandLine %s/<CR>
 vnoremap H :OverCommandLine s/<CR>
-map K *:OverCommandLine s//<CR>
 
 " bullshit
 nmap <NOP> <Plug>Sneak_s
@@ -683,6 +682,11 @@ fun! PhpHandleEnter()
 
     endwhile
 endfun!
+
+augroup filetype_help
+    au!
+    au FileType help setlocal number
+augroup end
 
 augroup php_l
     au!
