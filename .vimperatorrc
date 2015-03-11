@@ -16,13 +16,10 @@ hi CmdLine>* font-family: Monaco; font-size: 12px;
 hi StatusLine -append font-family: Monaco; font-size: 12px;
 hi Hint font-size: 12px; font-weight: bold; text-transform: uppercase; color: white; background-color: red; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px; font-family: Monaco
 
-map g :tabopen http://github.com/
-map s :tabopen<space>
-nmap b :buffer<space>
+nmap g :tabopen http://google.ru/search?q=
 
-map <Leader>gh :tabopen http://github.com/<CR>
-map <Leader>rt :tabopen http://uprt.slack.com/<CR>
-map <Leader>hn :tabopen http://news.ycombinator.com/<CR>
+nmap s :tabopen<space>
+nmap b :buffer<space>
 
 nnoremap j 5j
 nnoremap k 5k
@@ -48,4 +45,8 @@ map e7 :buffer 7<CR>
 map e8 :buffer 8<CR>
 map e9 :buffer 9<CR>
 
-"source ~/.vimperator/aliases
+qmark h http://news.ycombinator.com
+qmark g http://github.com
+qmark u http://uprt.slack.com
+qmark r http://reddit.com/
+qmark v http://reddit.com/r/vim
