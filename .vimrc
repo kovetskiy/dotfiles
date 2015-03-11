@@ -50,6 +50,7 @@ Plug 'eagletmt/neco-ghc'
 Plug 'Raimondi/delimitMate'
 Plug 'majutsushi/tagbar'
 Plug 'justinmk/vim-sneak'
+Plug 'alvan/vim-php-manual'
 
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
