@@ -48,6 +48,10 @@ snippet li "log info" bw
 $this->_di->getLogger()->info("$1");
 endsnippet
 
+snippet le "log exception" bw
+$this->_di->getLogger()->exception(`!p snip.rv=get_last_used_identifier()`);
+endsnippet
+
 snippet i "if" bw
 if ($1) {
 	$2
