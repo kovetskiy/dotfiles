@@ -238,7 +238,8 @@ function github-fix-host() {
 
     remote_info=$(git remote show $name)
     remote_url=$(awk '/Fetch URL:/{print $3}' <<< "$remote_info")
-    remote_host=$(cut -d/ -f3 <<< "$upstream_url")
+    remote_host=$(cut -d/ -f3 <<< "$remote_url")
+    remote_host=$(sed 's/\@/\\@/' <<< "$remote_host")
     new_url=$(sed "s/$remote_host/github.com/" <<< "$remote_url")
     git remote set-url $name $new_url
 }
