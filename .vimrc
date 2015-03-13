@@ -538,8 +538,8 @@ nnoremap <C-T><C-T> :retab<CR>
 
 nnoremap <C-S><C-E> :UltiSnipsEdit<CR>
 
-nnoremap H :OverCommandLine %s/<CR>
-vnoremap H :OverCommandLine s/<CR>
+nnoremap L :OverCommandLine %s/<CR>
+vnoremap L :OverCommandLine s/<CR>
 
 " bullshit
 nmap <NOP> <Plug>Sneak_s
