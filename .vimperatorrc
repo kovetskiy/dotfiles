@@ -45,8 +45,8 @@ map e7 :buffer 7<CR>
 map e8 :buffer 8<CR>
 map e9 :buffer 9<CR>
 
-qmark h http://news.ycombinator.com
-qmark g http://github.com
-qmark u http://uprt.slack.com
+qmark h http://news.ycombinator.com/
+qmark g http://github.com/
+qmark u http://uprt.slack.com/
 qmark r http://reddit.com/
-qmark v http://reddit.com/r/vim
+qmark v http://reddit.com/r/vim/new/
