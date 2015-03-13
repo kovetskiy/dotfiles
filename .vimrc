@@ -52,6 +52,7 @@ Plug 'majutsushi/tagbar'
 Plug 'justinmk/vim-sneak'
 Plug 'alvan/vim-php-manual'
 
+Plug 'kovetskiy/gocompletenote'
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
 Plug 'seletskiy/vim-pythonx'
@@ -170,12 +171,12 @@ augroup filetype_php
     au FileType php hi! def link phpDocParam phpType
     au FileType php inoremap <C-L> <C-\><C-O>:py php.cycle_by_var_name()<CR>
     au FileType php smap <C-L> <BS><C-L>
-    au FileType php imap <C-S><C-P> ps<C-J>
-    au FileType php imap <C-G><C-P> pg<C-J>
-    au FileType php imap <C-S><C-V> vs<C-J>
-    au FileType php imap <C-G><C-V> vg<C-J>
-    au FileType php imap <C-S><C-U> us<C-J>
-    au FileType php imap <C-G><C-U> ug<C-J>
+    au FileType php imap <C-S><C-P> ps<TAB>
+    au FileType php imap <C-G><C-P> pg<TAB>
+    au FileType php imap <C-S><C-V> vs<TAB>
+    au FileType php imap <C-G><C-V> vg<TAB>
+    au FileType php imap <C-S><C-U> us<TAB>
+    au FileType php imap <C-G><C-U> ug<TAB>
 augroup end
 
 augroup whitespace_hacks
@@ -394,9 +395,9 @@ let g:php_refactor_command='php ~/.vim/php/refactor.phar'
 let g:tagbar_phpctags_bin = '~/.vim/php/phpctags/phpctags'
 let g:tagbar_phpctags_memory_limit = '512M'
 
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsExpandTrigger="<TAB>"
+let g:UltiSnipsJumpForwardTrigger="<C-J>"
+let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 let g:UltiSnipsEditSplit="vertical"
 
 let g:unite_split_rule = "botright"
@@ -433,6 +434,9 @@ let g:choosewin_label = 'QWEASDIOPJKL'
 let g:EasyMotion_keys = "hjkluiopqweasd"
 
 let delimitMate_expand_cr=1
+
+let g:ycm_key_list_previous_completion=['<UP>']
+let g:ycm_key_list_select_completion=['<DOWN>']
 
 hi link EasyMotionTarget ErrorMsg
 "hi link EasyMotionShade  Comment
@@ -692,3 +696,5 @@ augroup php_l
     au!
     au FileType php imap <buffer> <CR> <C-O>:call PhpHandleEnter()<CR><Plug>delimitMateCR
 augroup end
+
+inoremap <C-E> <C-O>:call GoHelpSaveThat()<CR><C-O>a
