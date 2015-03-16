@@ -569,6 +569,8 @@ map <C-L> <C-W>l
 
 imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 
+inoremap <C-K> <C-O>A;<C-O>o
+
 noh
 
 fu! Background(val)
