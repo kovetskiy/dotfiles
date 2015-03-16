@@ -1,4 +1,6 @@
-ctrl+semicolon start,grid 4x4
+clear
+
+super+semicolon start,grid 4x4
 
 1 cell-select 1,warp
 q cell-select 2,warp
@@ -27,10 +29,15 @@ alt+j cut-down,warp
 alt+k cut-up,warp
 alt+l cut-right,warp
 
-shift+space warp,drag 1
-shift+Return warp,drag 1
+minus warp,click 1
+equal warp,click 3
 
-space warp,click 1
-Return warp,click 1,end
+shift+minus warp,drag 1
+shift+equal warp,drag 3
 
-BackSpace end
+BackSpace history-back
+
+slash grid 1x1,warp
+grave grid 1x1,cursorzoom 10 10
+
+Escape end
