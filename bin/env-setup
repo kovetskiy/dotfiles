@@ -31,6 +31,9 @@ if [ -z `pidof redshift` ]; then
     redshift -c ~/.config/redshift.conf &
 fi
 
+xset dpms 0 0 0
+xset s off
+
 feh --bg-scale ~/wallpaper.jpg &
 
 xrdb -load ~/.Xresources
