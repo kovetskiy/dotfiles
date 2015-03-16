@@ -114,7 +114,7 @@ set pastetoggle=<F11>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
-set tags=./tags,tags
+set tags=tags;/
 
 let g:airline_theme = 'base16'
 let g:airline#extensions#whitespace#symbol = '☼'
