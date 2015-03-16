@@ -47,7 +47,7 @@ Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'raichoo/haskell-vim'
 Plug 'eagletmt/neco-ghc'
-Plug 'Raimondi/delimitMate'
+Plug 'kana/vim-smartinput'
 Plug 'majutsushi/tagbar'
 Plug 'justinmk/vim-sneak'
 Plug 'alvan/vim-php-manual'
@@ -231,7 +231,8 @@ fu! SkeletonGitCommit()
         let l:issue = system("git symbolic-ref HEAD 2>/dev/null | grep -oP '([A-Za-z]{1,}\-[0-9]{1,})'")
 
         if l:issue != ''
-            execute 'normal I' . toupper(l:issue) . ': '
+            execute 'normal I' . toupper(l:issue)
+            execute 'normal gg$a: '
         endif
     endif
 endfu!
@@ -362,7 +363,6 @@ function! DelEmptyLineAbove()
 endfunction
 
 function! TryToReduce()
-    DelimitMateOff
     let startLine = line(".")
     let content = getline(startLine)
 
@@ -380,7 +380,6 @@ function! TryToReduce()
     execute 'normal ' . (startLine - 1) . 'gg'
     execute 'normal ' . cow . '=='
     execute 'normal ' . startLine . 'gg^'
-    DelimitMateOn
 endfunction
 
 let mapleader=" "
@@ -433,7 +432,6 @@ let g:choosewin_label = 'QWEASDIOPJKL'
 
 let g:EasyMotion_keys = "hjkluiopqweasd"
 
-let delimitMate_expand_cr=1
 
 let g:ycm_key_list_previous_completion=['<UP>']
 let g:ycm_key_list_select_completion=['<DOWN>']
@@ -636,65 +634,9 @@ if !exists('g:php_handle_enter')
     let g:php_handle_enter = 0
 endif
 
-fun! PhpHandleEnter()
-    if g:php_handle_enter == 0
-        return
-    endif
-
-    let currentLine = line(".")
-    let currentColumn = virtcol(".")
-
-    let maxStep = 5
-    let step = -1
-
-    while step <= maxStep
-        let step += 1
-
-        let stepLine = currentLine - step
-        let content = getline(stepLine)
-        let nextContent = getline(stepLine+1)
-
-        let contentWs = substitute(content, "\\s", "", "g")
-        if contentWs == ""
-            continue
-        endif
-
-        let nextContentWs = substitute(nextContent, "\\s", "", "g")
-
-        if content !~ '.*;'
-            if contentWs !~ '\/\/.*' && contentWs !~ '\*.*' && contentWs !~ '\#.*'
-                if contentWs !~ '.*\(function\|class\|interface\).*'
-                                \ && contentWs !~ '.*[\{\}\.\,\[\]]'
-                    if nextContentWs !~ '->.*' && nextContentWs !~ '[\.\"]'
-                        let content = content . ";"
-
-                        if stepLine == currentLine
-                            execute 'normal A;'
-                        else
-                            execute "normal " . stepLine . "gg0"
-                            execute "normal C" . content
-
-                            execute "normal " . currentLine . "gg"
-                            execute "normal" . currentColumn . "|"
-                        endif
-
-                        break
-                    endif
-                endif
-            endif
-        endif
-
-    endwhile
-endfun!
-
 augroup filetype_help
     au!
     au FileType help setlocal number
-augroup end
-
-augroup php_l
-    au!
-    au FileType php imap <buffer> <CR> <C-O>:call PhpHandleEnter()<CR><Plug>delimitMateCR
 augroup end
 
 inoremap <C-E> <C-O>:call GoHelpSaveThat()<CR><C-O>a
