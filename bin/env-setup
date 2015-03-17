@@ -31,11 +31,14 @@ if [ -z `pidof redshift` ]; then
     redshift -c ~/.config/redshift.conf &
 fi
 
+if [ -z `pidof mcabber-auto-esc` ]; then
+    mcabber-auto-esc &
+fi
+
 xset dpms 0 0 0
 xset s off
 
 feh --bg-scale ~/wallpaper.jpg &
 
 xrdb -load ~/.Xresources
-
 background $BACKGROUND &

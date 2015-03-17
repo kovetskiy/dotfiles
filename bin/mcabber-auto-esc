@@ -1,0 +1,33 @@
+#!/bin/bash
+# automatic send <ESC> to mcabber when you changing window focus
+TIMEOUT="1"
+
+function send_mcabber_escape() {
+    sleep $TIMEOUT
+    xdotool key --window $1 Escape
+}
+
+pid_mcabber_escape=""
+
+xdotool search . behave %@ focus getwindowname | while read -r window_name
+do
+    if [ "$window_name" == "mcabber" ]; then
+        window_id=$(xdotool search --name "^mcabber$")
+        active_window_id=$(xdotool getactivewindow)
+
+        state="blur"
+        if [ "$window_id" == "$active_window_id" ]; then
+            state="focus"
+        fi
+
+        if [[ "$state" == "blur" ]]; then
+            if [ "$pid_mcabber_escape" != "" ]; then
+                kill -9 $pid_mcabber_escape
+            fi
+
+            send_mcabber_escape $window_id &
+            pid_mcabber_escape=$!
+        fi
+    fi
+done
+
