@@ -6,6 +6,9 @@ set cpt=l
 set showstatuslinks=2
 set hto=170
 
+" try to stay in normal mode after page loading
+set focuscontent
+
 set! javascript.options.jit.chrome=true
 
 let mapleader=","
@@ -50,3 +53,4 @@ qmark g http://github.com/
 qmark u http://uprt.slack.com/
 qmark r http://reddit.com/
 qmark v http://reddit.com/r/vim/new/
+qmark d https://rdot.org/forum/
