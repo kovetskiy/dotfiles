@@ -3,17 +3,12 @@ export GOPATH="$HOME/go"
 export PATH="$HOME/bin/:$HOME/go/bin/:$HOME/sources/git-scripts/:$PATH"
 export EDITOR=vim
 export TERM=rxvt-unicode-256color
-#export GREP_OPTIONS='--color=auto'
-#export GREP_COLOR='1;32'
-export ZSH=~/.oh-my-zsh/
-
 export PATH=$PATH:/opt/android-ndk:/opt/android-sdk/platfrom-tools/
-
 export BACKGROUND=$(cat ~/background)
+export ZSH=~/.oh-my-zsh/
 
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
-
 
 plugins=(git history-substring-search)
 source ~/.oh-my-zsh/oh-my-zsh.sh
@@ -223,6 +218,20 @@ function gcof() {
 function gocd() {
     cd `find $GOPATH/src/ -name "$1*" -type d | head -n 1`
 }
+
+function gcf() {
+    amend=""
+    if [ "$1" = "!" ]; then
+        amend="--amend"
+        shift
+    fi
+
+    issue=$(jira-now print | grep -oP '([A-Za-z]{1,}\-[0-9]{1,})')
+    issue=$(awk '{print toupper($0)}' <<< "$issue")
+    eval "git commit $amend -m '$issue: ${@}'"
+}
+
+alias gcf!="gcf !"
 
 function github-forked() {
     git remote rename origin upstream
