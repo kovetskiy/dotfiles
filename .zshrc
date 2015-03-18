@@ -105,7 +105,7 @@ extract () {
     fi
 }
 
-ashr () {
+ashr() {
     vim -c ":Unite ash_review:$1"
 }
 
@@ -133,6 +133,9 @@ alias ...='cd ../..'
 alias zreload='source ~/.zshrc && print "zsh config has been reloaded"'
 alias ssh='TERM=xterm ssh'
 alias gcl='git clone'
+gclg() {
+    git clone "https://github.com/$1"
+}
 alias gd='git diff'
 alias gs='git status --short'
 alias ga='git add'
