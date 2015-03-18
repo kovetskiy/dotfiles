@@ -14,7 +14,7 @@ plugins=(git history-substring-search)
 source ~/.oh-my-zsh/oh-my-zsh.sh
 
 HISTFILE=$HOME/.history
-HISTSIZE=10000
+HISTSIZE=100
 SAVEHIST=100000
 
 unsetopt correct
