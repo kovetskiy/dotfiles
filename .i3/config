@@ -10,8 +10,7 @@ set $alt Mod4
 
 floating_modifier $alt
 
-bindsym $win+Return exec urxvt
-bindsym $win+Shift+Return exec "urxvt -e vim"
+bindsym $win+Return exec "urxvtc || urxvt"
 
 bindsym $alt+Shift+q kill
 

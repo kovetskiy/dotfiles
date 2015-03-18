@@ -35,6 +35,10 @@ if [ -z `pidof mcabber-auto-esc` ]; then
     mcabber-auto-esc &
 fi
 
+if [ -z `pidof urxvtd` ]; then
+    urxvtd &
+fi
+
 xset dpms 0 0 0
 xset s off
 
