@@ -111,6 +111,7 @@ hash -d dotfiles=~/sources/dotfiles/
 hash -d df=~/sources/dotfiles/
 hash -d src=~/sources/
 
+alias -g P='| perl -n -e'
 alias -g G='| grep'
 alias -g L='| less'
 alias -g H='| head -n'
