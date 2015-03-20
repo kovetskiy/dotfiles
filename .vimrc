@@ -32,7 +32,7 @@ Plug 'tpope/vim-git'
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'yuku-t/unite-git'
-Plug 'joonty/vim-phpqa'
+Plug 'joonty/vim-phpqa', { 'for': 'php' }
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
 Plug 'jelera/vim-javascript-syntax', { 'for': 'js' }
 Plug 'marijnh/tern_for_vim', { 'for': 'js' }
@@ -40,24 +40,22 @@ Plug 'rename', { 'on': 'Rename' }
 Plug 't9md/vim-choosewin', { 'on': [ 'ChooseWin', 'ChooseWinSwap' ] }
 Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'edsono/vim-matchit', { 'for': 'html'}
+Plug 'edsono/vim-matchit', { 'for': 'smarty'}
 Plug 'AndrewRadev/sideways.vim'
 Plug 'gorkunov/smartpairs.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'terryma/vim-multiple-cursors'
-Plug 'raichoo/haskell-vim'
-Plug 'eagletmt/neco-ghc'
 Plug 'kana/vim-smartinput'
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', { 'for': 'php' }
 Plug 'justinmk/vim-sneak'
-Plug 'alvan/vim-php-manual'
-Plug 'vim-scripts/smarty-syntax'
+Plug 'alvan/vim-php-manual', { 'for': 'php' }
+Plug 'vim-scripts/smarty-syntax', { 'for': 'smarty' }
 Plug 'SyntaxAttr.vim'
 
-Plug 'kovetskiy/gocompletenote'
+Plug 'kovetskiy/gocompletenote', { 'for': 'go' }
 Plug 'kovetskiy/urxvt.vim'
 Plug 'kovetskiy/ash.vim'
-Plug 'seletskiy/vim-pythonx'
+Plug 'seletskiy/vim-pythonx', { 'for': ['go', 'php']}
 
 call plug#end()
 
@@ -369,7 +367,7 @@ function! TryToReduce()
     let content = getline(startLine)
 
     let content = substitute(content, "[,\(]", "&\r", "g")
-    let content = substitute(content, "[\)]", "\r&", "g")
+    "let content = substitute(content, "[\)]", "\r&", "g")
     let content = substitute(content, "\(\r\r\)", "()", "g")
     let content = substitute(content, "\rarray\r", "array", "g")
 
@@ -396,6 +394,7 @@ let g:php_refactor_command='php ~/.vim/php/refactor.phar'
 let g:tagbar_phpctags_bin = '~/.vim/php/phpctags/phpctags'
 let g:tagbar_phpctags_memory_limit = '512M'
 
+let g:UltiSnipsSmippetDirectories = [$HOME . '/.vim/Ultisnips/']
 let g:UltiSnipsExpandTrigger="<TAB>"
 let g:UltiSnipsJumpForwardTrigger="<C-J>"
 let g:UltiSnipsJumpBackwardTrigger="<C-K>"
