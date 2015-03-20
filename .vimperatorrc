@@ -54,3 +54,5 @@ qmark u http://uprt.slack.com/
 qmark r http://reddit.com/
 qmark v http://reddit.com/r/vim/new/
 qmark d https://rdot.org/forum/
+
+command! Wipe js tabs.remove(tabs.getTab(0), tabs.count, 0, 0, false)
