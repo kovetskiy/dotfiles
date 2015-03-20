@@ -1,0 +1,37 @@
+snippet i "if condition" w
+{if $1}
+    $2
+{/if}
+endsnippet
+
+snippet ei "elseif" w
+{elseif $1}
+    $2
+endsnippet
+
+snippet e "else" w
+{else $1}
+    $2
+endsnippet
+
+snippet em "empty" w
+empty($0)
+endsnippet
+
+snippet is "isset" w
+isset($0)
+endsnippet
+
+snippet vd "var_dump" w
+{$1|@var_dump}
+endsnippet
+
+snippet d "die" w
+{php}die{/php}
+endsnippet
+
+snippet p "php" w
+{php}
+$1
+{/php}
+endsnippet

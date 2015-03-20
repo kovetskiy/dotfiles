@@ -51,6 +51,7 @@ Plug 'kana/vim-smartinput'
 Plug 'majutsushi/tagbar'
 Plug 'justinmk/vim-sneak'
 Plug 'alvan/vim-php-manual'
+Plug 'vim-scripts/smarty-syntax'
 
 Plug 'kovetskiy/gocompletenote'
 Plug 'kovetskiy/urxvt.vim'
@@ -155,7 +156,7 @@ augroup end
 augroup filetype_tpl
     au!
 
-    au BufRead,BufNewFile *.tpl set filetype=html
+    au BufRead,BufNewFile *.tpl set filetype=smarty
 augroup end
 
 augroup filetype_php
