@@ -52,6 +52,7 @@ Plug 'majutsushi/tagbar'
 Plug 'justinmk/vim-sneak'
 Plug 'alvan/vim-php-manual'
 Plug 'vim-scripts/smarty-syntax'
+Plug 'SyntaxAttr.vim'
 
 Plug 'kovetskiy/gocompletenote'
 Plug 'kovetskiy/urxvt.vim'
@@ -619,6 +620,9 @@ fu! Background(val)
         hi! Cursor ctermbg=0 ctermfg=15
         hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
     endif
+
+    " for smarty
+    hi htmlLink gui=none
 endfu!
 
 augroup ash_my_settings
