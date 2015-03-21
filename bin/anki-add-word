@@ -1,8 +1,11 @@
 #!/bin/bash
 
-word=$(xclip -o)
-notify-send "translate: $word"
+word=$(i3-input -F '# %s' | tail -n 3 | grep output | cut -d'=' -f2)
 
-runki <<< "$word"
+if [[ "$word" == "" ]]; then
+    exit 1
+fi
+
+tr=$(runki <<< "$word")
 
 notify-send "$tr" -t 2000
