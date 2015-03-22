@@ -251,10 +251,10 @@ augroup unite_setting
     au FileType unite call s:unite_my_settings()
 augroup end
 
-augroup urxvt
-    au!
-    au BufRead,BufNewFile * UrxvtChangeDir
-augroup end
+"augroup urxvt
+    "au!
+    "au BufRead,BufNewFile * UrxvtChangeDir
+"augroup end
 
 augroup hilight_over
     au!
