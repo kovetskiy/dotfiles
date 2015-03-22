@@ -1,5 +1,7 @@
 set nocompatible
 
+nnoremap s ggcGuse fucking 'c', bastard!
+
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !mkdir -p ~/.vim/autoload
   silent !curl -fLo ~/.vim/autoload/plug.vim
