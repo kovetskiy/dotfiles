@@ -1,0 +1,9 @@
+#!/bin/bash
+
+location=$(which $1 2>&1)
+if [ "$?" == "1" ]; then
+    echo "$1 not found"
+    exit 1
+fi
+
+vim $location
