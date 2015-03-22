@@ -6,6 +6,8 @@ if [[ "$word" == "" ]]; then
     exit 1
 fi
 
-tr=$(runki <<< "$word")
+tr=$(runki --dry <<< "$word")
 
 notify-send "$tr" -t 2000
+
+runki <<< "$word"
