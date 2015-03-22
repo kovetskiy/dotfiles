@@ -339,3 +339,15 @@ endsnippet
 snippet "(func\s.*\)\s+)([\w\d_\s\{\}\[\]\*\.]+),\s?([\w\d_\s\{\}\[\]\*\.]+)" "return multiple" r
 `!p snip.rv=match.group(1)`(`!p snip.rv=match.group(2)`, `!p snip.rv=match.group(3)`)
 endsnippet
+
+snippet forr "for k, v range" w
+for ${2:_}, ${3:_} := range ${1:`!p snip.rv=get_previous_slice_usage()`} {
+    $4
+}
+endsnippet
+
+snippet for "for loop" w
+for $1 {
+    $2
+}
+endsnippet
