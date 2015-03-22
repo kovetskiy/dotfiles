@@ -3,91 +3,95 @@ global !p
 from go import *
 endglobal
 
-snippet n "func" w
+snippet n "func" bw
 func $1($2) $3${3/.+/ /}{
 	$4
 }
 endsnippet
 
-snippet s "type struct" w
+snippet s "type struct" bw
 type $1 struct {
 	$2
 }
 endsnippet
 
-snippet t "type" w
+snippet t "type" bw
 type ${1:TypeName} ${2:description}
 endsnippet
 
-snippet p "package" w
+snippet p "package" bw
 package ${1:`!p snip.rv=guess_package_name_from_file_name(snip.fn)`}
 endsnippet
 
-snippet te "func Test" w
+snippet te "func Test" bw
 func Test$1(t *testing.T) {
 	$2
 }
 endsnippet
 
-snippet ti "interface" w
+snippet ti "interface" bw
 type $1 interface {
 	$2
 }
 endsnippet
 
-snippet i "if " w
+snippet i "if " bw
 if ${1:`!p snip.rv=get_last_var_for_snippet()`} {
-        ${2:${VISUAL}}
+    ${2:${VISUAL}}
 }
 endsnippet
 
-snippet ii "if <VISUAL>" w
+snippet ii "if <VISUAL>" bw
 if ${VISUAL} {
 	$1
 }
 endsnippet
 
-snippet q "if err != nil" w
+snippet q "if err != nil" bw
 if err != nil {
 	return err
 }
 endsnippet
 
-snippet qe "if err != nil" w
+snippet fe "fmt.Errorf" w
+fmt.Errorf($1)
+endsnippet
+
+snippet qe "if err != nil" bw
 if err != nil {
 	return fmt.Errorf("$1: %s", err.Error())
 }
 endsnippet
 
-snippet qq "if err != nil" w
+snippet qq "if err != nil" bw
 if err != nil {
 	return ${1:nil}, err
 }
 endsnippet
 
-snippet qqe "if err != nil" w
+snippet qqe "if err != nil" bw
 if err != nil {
 	return ${1:nil}, fmt.Errorf("$2: %s", err.Error())
 }
 endsnippet
 
-snippet qp "if err != nil panic" w
+snippet qp "if err != nil panic" bw
 if err != nil {
 	panic(err)
 }
 endsnippet
 
-snippet qn "if ... == nil" w
+snippet qn "if ... == nil" bw
 if ${1:value} == nil {
 	${0:${VISUAL}}
 }
 endsnippet
 
-snippet r "return" w
+snippet r "return" bw
 return $1
 endsnippet
 
-snippet fs "... string" iw
+snippet fs "... string" bw
 $1 string$2
 endsnippet
 
@@ -98,11 +102,11 @@ if actual != ${2:"Actual"} {
 }
 endsnippet
 
-snippet ,e ", err" i
+snippet ,e ", err"
 , err$0
 endsnippet
 
-snippet "} e" "else" w
+snippet "} e" "else" bw
 } else {
 	${1:${VISUAL}}
 }
@@ -133,7 +137,7 @@ snippet "((\w+)\s*(\w+)) js$" "json annotation" br
 	snip.rv=convert_camelcase_to_snakecase(match.group(2))`"\`
 endsnippet
 
-snippet fm "func main" w
+snippet fm "func main" bw
 func main() {
 	$1
 }
@@ -145,15 +149,15 @@ ${1:Name} struct {
 }
 endsnippet
 
-snippet fi "field int" iw
+snippet fi "field int" bw
 ${1:Name} int
 endsnippet
 
-snippet fb "field bool" iw
+snippet fb "field bool" bw
 ${1:Name} bool
 endsnippet
 
-snippet mp "map" iw
+snippet mp "map" w
 map[${1:string}]${2:interface}
 endsnippet
 
@@ -161,7 +165,7 @@ snippet msi "map[string]interface" w
 map[string]interface{}
 endsnippet
 
-snippet sw "switch" w
+snippet sw "switch" bw
 switch ${1:name} {
 case ${2:true}:
 	$3
@@ -169,7 +173,7 @@ $4
 }
 endsnippet
 
-snippet swt "switch true" w
+snippet swt "switch true" bw
 switch {
 case ${1}:
 	$2
@@ -177,17 +181,17 @@ $3
 }
 endsnippet
 
-snippet f "for range" w
+snippet f "for range" bw
 for ${1:_}, ${2:val} := range ${3:Slice} {
 	${4:${VISUAL}}
 }
 endsnippet
 
-snippet pr "log.Printf(%#v" iw
+snippet pr "log.Printf(%#v" bw
 log.Printf("%#v", $1)
 endsnippet
 
-snippet play "package main" w
+snippet play "package main" bw
 package main
 
 import "fmt"
@@ -209,22 +213,22 @@ func($1) $2{
 }
 endsnippet
 
-snippet vr "var" w
+snippet vr "var" bw
 var (
 	$1
 )
 endsnippet
 
-snippet cs "case" w
+snippet cs "case" bw
 case $1:
 	$2
 endsnippet
 
-snippet rn "return nil" w
+snippet rn "return nil" bw
 return nil
 endsnippet
 
-snippet ap "append" iw
+snippet ap "append" bw
 ${1:slice} = append($1, $2)
 endsnippet
 
@@ -240,83 +244,83 @@ snippet mm "make map" w
 make(map[${1:string}]${2:interface\{\}})
 endsnippet
 
-snippet nn "!= nil" iw
+snippet nn "!= nil" w
 ${1:${VISUAL}} != nil
 endsnippet
 
-snippet if "interface" iw
+snippet if "interface" w
 interface{}
 endsnippet
 
-snippet ts "type switch" w
+snippet ts "type switch" bw
 switch ${1:newVar} := ${2:checkVar}.(type) {
 case ${3:Type}:
 	$4
 }
 endsnippet
 
-snippet ,n ", nil" i
+snippet ,n ", nil"
 , nil
 endsnippet
 
-snippet n, ", nil" i
+snippet n, ", nil"
 nil, 
 endsnippet
 
-snippet frr "forever" w
+snippet frr "forever" bw
 for {
 	$1
 }
 endsnippet
 
-snippet ae "blah, err := " w
+snippet ae "blah, err := " bw
 ${1:data}, err := 
 endsnippet
 
-snippet a "blah := " w
+snippet a "blah := " bw
 ${1:data} := 
 endsnippet
 
 
-snippet qt "t.fatal" w
+snippet qt "t.fatal" bw
 if err != nil {
 	t.Fatal(err)
 }
 endsnippet
 
-snippet qf "log fatal" w
+snippet qf "log fatal" bw
 if err != nil {
 	log.Fatal(err.Error())
 }
 endsnippet
 
-snippet qff "log fatalf" w
+snippet qff "log fatalf" bw
 if err != nil {
 	log.Fatalf(\`$1: %s\`, $2, err)
 }
 endsnippet
 
-snippet rt "return true" w
+snippet rt "return true" bw
 return true
 endsnippet
 
-snippet rf "return false" w
+snippet rf "return false" bw
 return false
 endsnippet
 
-snippet d "define method" w
+snippet d "define method" bw
 func (`!p snip.rv=' '.join(extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
 	$5
 }
 endsnippet
 
-snippet dp "define method on pointer" w
+snippet dp "define method on pointer" bw
 func (`!p snip.rv=' *'.join(extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
 	$5
 }
 endsnippet
 
-snippet re "return errors.New" w
+snippet re "return errors.New" bw
 return errors.New($1)
 endsnippet
 
@@ -328,7 +332,7 @@ snippet lf "log.Printf" w
 log.Printf($1)
 endsnippet
 
-snippet td "todo" w
+snippet td "todo" bw
 // @TODO: 
 endsnippet
 
@@ -340,14 +344,12 @@ snippet "(func\s.*\)\s+)([\w\d_\s\{\}\[\]\*\.]+),\s?([\w\d_\s\{\}\[\]\*\.]+)" "r
 `!p snip.rv=match.group(1)`(`!p snip.rv=match.group(2)`, `!p snip.rv=match.group(3)`)
 endsnippet
 
-snippet forr "for k, v range" w
-for ${2:_}, ${3:_} := range ${1:`!p snip.rv=get_previous_slice_usage()`} {
-    $4
-}
-endsnippet
-
-snippet for "for loop" w
+snippet for "for loop" bw
 for $1 {
     $2
 }
+endsnippet
+
+snippet fp "fmt.Println" w
+fmt.Println($1)
 endsnippet
