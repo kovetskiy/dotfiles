@@ -3,7 +3,7 @@
 export XAUTHORITY=~/.Xauthority
 export DISPLAY=${DISPLAY:-:0.0}
 
-xset r rate 150 160
+xset r rate 120 160
 
 setxkbmap \
     -keycodes \
