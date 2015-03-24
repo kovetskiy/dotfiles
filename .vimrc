@@ -53,7 +53,7 @@ Plug 'alvan/vim-php-manual', { 'for': 'php' }
 Plug 'vim-scripts/smarty-syntax', { 'for': 'smarty' }
 Plug 'SyntaxAttr.vim'
 Plug 'BufOnly.vim'
-Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
 
 Plug 'kovetskiy/gocompletenote', { 'for': 'go' }
 Plug 'kovetskiy/urxvt.vim'
@@ -166,6 +166,7 @@ augroup filetype_php
 
     au BufRead,BufNewFile *.php set filetype=php
 
+    au FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
     au FileType php nmap <Leader>e :call PhpRefactorRenameLocalVariable()<CR>
     au FileType php nnoremap <F2>  :Phpcs<CR>
     au FileType php nnoremap <F7>  :!time tags_php<CR>
