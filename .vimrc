@@ -28,7 +28,6 @@ Plug 'lyokha/vim-xkbswitch'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-surround'
@@ -53,6 +52,8 @@ Plug 'justinmk/vim-sneak'
 Plug 'alvan/vim-php-manual', { 'for': 'php' }
 Plug 'vim-scripts/smarty-syntax', { 'for': 'smarty' }
 Plug 'SyntaxAttr.vim'
+Plug 'BufOnly.vim'
+Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 
 Plug 'kovetskiy/gocompletenote', { 'for': 'go' }
 Plug 'kovetskiy/urxvt.vim'
@@ -166,7 +167,6 @@ augroup filetype_php
     au BufRead,BufNewFile *.php set filetype=php
 
     au FileType php nmap <Leader>e :call PhpRefactorRenameLocalVariable()<CR>
-    au FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
     au FileType php nnoremap <F2>  :Phpcs<CR>
     au FileType php nnoremap <F7>  :!time tags_php<CR>
     au FileType php hi! def link phpDocTags  phpDefine
@@ -636,11 +636,6 @@ augroup ash_my_settings
 augroup end
 
 call Background($BACKGROUND)
-
-
-if !exists('g:php_handle_enter')
-    let g:php_handle_enter = 0
-endif
 
 augroup filetype_help
     au!
