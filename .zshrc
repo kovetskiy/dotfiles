@@ -148,6 +148,7 @@ alias gcm!='git commit --amend -m'
 alias gco='git checkout'
 alias gdo='git diff origin'
 alias gcob='git checkout -b'
+alias gcon='gf && gcom && gcof'
 alias gbn='git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3'
 alias gpot='git push origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
 alias gpot!='git push origin +`git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
@@ -177,9 +178,9 @@ function prepend-sudo() {
         (( CURSOR += 5 ))
     fi
 }
+
 zle -N prepend-sudo
 bindkey '^s' prepend-sudo
-
 
 # oh shi... i love this magic :3
 #home() {
@@ -194,13 +195,6 @@ bindkey '^s' prepend-sudo
 #zle -N home
 #bindkey / home
 
-# create a new branch from origin master
-function gcon()
-{
-    git fetch
-    git checkout origin/master
-    gcof $1
-}
 
 function gdi()
 {
