@@ -221,7 +221,7 @@ function gcf() {
         shift
     fi
 
-    issue=$(jira-now print | grep -oP '([A-Za-z]{1,}\-[0-9]{1,})')
+    issue=$(gbn | grep -oP '([A-Za-z]{1,}\-[0-9]{1,})')
     issue=$(awk '{print toupper($0)}' <<< "$issue")
     eval "git commit $amend -m '$issue: ${@}'"
 }
