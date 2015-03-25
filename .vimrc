@@ -43,7 +43,6 @@ Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'edsono/vim-matchit', { 'for': 'smarty'}
 Plug 'AndrewRadev/sideways.vim'
-Plug 'gorkunov/smartpairs.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'kana/vim-smartinput'
