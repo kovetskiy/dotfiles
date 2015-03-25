@@ -160,7 +160,7 @@ snippet p= "protected variable with variable" bw
 protected $_$1 = $2;
 endsnippet
 
-snippet a "array" w
+snippet ar "array" w
 array($1)
 endsnippet
 
@@ -210,4 +210,14 @@ endsnippet
 
 snippet > "=>" w
 $1 => $2,
+endsnippet
+
+snippet "* a" "@author block" b
+* @author `!p
+import subprocess;
+
+_name = subprocess.check_output(["git", "config", "user.name"]).strip()
+_email = subprocess.check_output(["git", "config", "user.email"]).strip()
+snip.rv = _name + " <" + _email + ">"
+`
 endsnippet
