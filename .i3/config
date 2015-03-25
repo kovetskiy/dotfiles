@@ -1,6 +1,6 @@
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
-hide_edge_borders both
+hide_edge_borders horizontal
 font pango:Monaco 1
 new_window 1pixel
 focus_follows_mouse off
