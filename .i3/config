@@ -90,7 +90,7 @@ mode "resize" {
 
 bindsym $alt+a exec "sudo ~/bin/brightness down"
 bindsym $alt+q exec "sudo ~/bin/brightness up"
-bindsym Ctrl+Insert exec sh -c 'selected=$(xsel) && xclip -selection clipboard <<< "$selected" && xclip -selection primary <<< "$selected"'
+bindsym Ctrl+Insert exec bash -c 'selected=$(xsel) && xclip -selection clipboard <<< "$selected" && xclip -selection primary <<< "$selected"'
 
 bindsym $win+Control+r mode "resize"
 
