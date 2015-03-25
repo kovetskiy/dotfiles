@@ -186,11 +186,9 @@ augroup whitespace_hacks
     au!
 
     fu! Whitespaces()
-        let l=line('.')
-        let c=virtcol('.')
+        normal ma
         %s/\s\+$//e
-        execute "normal " . l . "gg"
-        execute "normal" . c . "|"
+        normal `a
     endfu!
 
     au FileType php,go,tpl,yml,json,js autocmd BufWritePre <buffer> :call Whitespaces()
