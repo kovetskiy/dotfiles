@@ -132,6 +132,7 @@ alias gcl='git clone'
 gclg() {
     git clone "https://github.com/$1"
 }
+alias gh='git show'
 alias gd='git diff'
 alias gs='git status --short'
 alias ga='git add'
@@ -159,7 +160,11 @@ alias ggc='git gc --prune --aggressive'
 alias gpor='git pull --rebase origin master'
 alias gsh='git stash'
 alias gshp='git stash pop'
-alias gr='git reset'
+alias grt='git reset'
+alias gr='git rebase'
+gri() {
+    git rebase -i HEAD~$1
+}
 alias gcom='git checkout origin/master'
 alias gl='git log --oneline --graph --decorate --all'
 alias gd='git diff'
