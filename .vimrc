@@ -53,6 +53,7 @@ Plug 'vim-scripts/smarty-syntax', { 'for': 'smarty' }
 Plug 'SyntaxAttr.vim'
 Plug 'BufOnly.vim'
 Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
+Plug 'gregsexton/gitv'
 
 Plug 'kovetskiy/gocompletenote', { 'for': 'go' }
 Plug 'kovetskiy/urxvt.vim'
