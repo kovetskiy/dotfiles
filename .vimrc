@@ -117,6 +117,8 @@ set pastetoggle=<F11>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
+set nofoldenable
+
 set tags=tags;/
 
 let g:airline_theme = 'base16'
