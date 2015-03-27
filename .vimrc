@@ -1,7 +1,5 @@
 set nocompatible
 
-vnoremap s ggcGuse fucking 'c', bastard!
-
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !mkdir -p ~/.vim/autoload
   silent !curl -fLo ~/.vim/autoload/plug.vim
@@ -54,6 +52,7 @@ Plug 'BufOnly.vim'
 Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
 Plug 'gregsexton/gitv'
 Plug 'bogado/file-line'
+Plug 'godlygeek/tabular'
 
 Plug 'kovetskiy/gocompletenote', { 'for': 'go' }
 Plug 'kovetskiy/urxvt.vim'
@@ -574,7 +573,11 @@ map <C-L> <C-W>l
 
 imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 
+" phpdoc block tabularize
+nnoremap <C-E><C-A> :Tabularize /* @\w\+/<CR>
+
 inoremap <C-K> <C-O>A;<C-O>o
+
 
 noh
 
