@@ -36,7 +36,6 @@ Plug 'yuku-t/unite-git'
 Plug 'joonty/vim-phpqa', { 'for': 'php' }
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
 Plug 'jelera/vim-javascript-syntax', { 'for': 'js' }
-Plug 'marijnh/tern_for_vim', { 'for': 'js' }
 Plug 'rename', { 'on': 'Rename' }
 Plug 't9md/vim-choosewin', { 'on': [ 'ChooseWin', 'ChooseWinSwap' ] }
 Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
@@ -54,6 +53,7 @@ Plug 'SyntaxAttr.vim'
 Plug 'BufOnly.vim'
 Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
 Plug 'gregsexton/gitv'
+Plug 'bogado/file-line'
 
 Plug 'kovetskiy/gocompletenote', { 'for': 'go' }
 Plug 'kovetskiy/urxvt.vim'
@@ -436,6 +436,7 @@ let g:choosewin_label = 'QWEASDIOPJKL'
 
 let g:EasyMotion_keys = "hjkluiopqweasd"
 
+let g:Gitv_OpenHorizontal = 1
 
 let g:ycm_key_list_previous_completion=['<UP>']
 let g:ycm_key_list_select_completion=['<DOWN>']
