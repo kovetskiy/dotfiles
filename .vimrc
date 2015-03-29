@@ -308,6 +308,9 @@ Plug 'kovetskiy/vim-empty-lines'
 Plug 'kovetskiy/vim-reduce-line'
     nnoremap <Leader>m :call TryToReduce()<CR>
 
+Plug 'kovetskiy/vim-plugvim-utils'
+    nnoremap <Leader><Leader>c :call NewPlugFromClipboard()<CR>
+
 call plug#end()
 
 syntax on
