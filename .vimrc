@@ -301,6 +301,9 @@ Plug 'kovetskiy/vim-empty-lines'
     nnoremap <Leader>j :call AddEmptyLineBelow()<CR>
     nnoremap <Leader>k :call AddEmptyLineAbove()<CR>
 
+Plug 'kovetskiy/vim-reduce-line'
+    nnoremap <Leader>m :call TryToReduce()<CR>
+
 call plug#end()
 
 syntax on
@@ -424,26 +427,6 @@ augroup hilight_over
     au VimResized,VimEnter * set cc=80,120
 augroup end
 
-function! TryToReduce()
-    let startLine = line(".")
-    let content = getline(startLine)
-
-    let content = substitute(content, "[,\(]", "&\r", "g")
-    "let content = substitute(content, "[\)]", "\r&", "g")
-    let content = substitute(content, "\(\r\r\)", "()", "g")
-    let content = substitute(content, "\rarray\r", "array", "g")
-
-    execute 'normal S'
-    execute 'normal i' . content
-
-    let currentLine = line(".")
-    let cow = currentLine - startLine + 2
-
-    execute 'normal ' . (startLine - 1) . 'gg'
-    execute 'normal ' . cow . '=='
-    execute 'normal ' . startLine . 'gg^'
-endfunction
-
 let g:mapleader=" "
 let mapleader=g:mapleader
 
@@ -517,8 +500,6 @@ nnoremap <Leader><C-p> "kp
 nnoremap <Leader><C-P> "kP
 
 vnoremap / y/<C-r>"
-
-nnoremap <Leader>m :call TryToReduce()<CR>
 
 nnoremap <Leader>] :tnext<CR>
 
