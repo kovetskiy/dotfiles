@@ -7,6 +7,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall
 endif
 
+let g:mapleader="\<Space>"
+let mapleader=g:mapleader
 
 " Definitions of autocmd groups.
 augroup filetype_php
@@ -426,9 +428,6 @@ augroup hilight_over
     au!
     au VimResized,VimEnter * set cc=80,120
 augroup end
-
-let g:mapleader=" "
-let mapleader=g:mapleader
 
 au filetype_php FileType php nnoremap <buffer> <F7>  :!time tags_php<CR>
 
