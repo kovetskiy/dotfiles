@@ -311,6 +311,9 @@ Plug 'kovetskiy/vim-reduce-line'
 Plug 'kovetskiy/vim-plugvim-utils'
     nnoremap <Leader><Leader>c :call NewPlugFromClipboard()<CR>
 
+Plug 'kovetskiy/vim-ternary'
+    nnoremap <Leader>t :call RemoveTernaryOperator()<CR>
+
 call plug#end()
 
 syntax on
