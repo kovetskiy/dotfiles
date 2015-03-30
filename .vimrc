@@ -314,6 +314,11 @@ Plug 'kovetskiy/vim-plugvim-utils'
 Plug 'kovetskiy/vim-ternary'
     nnoremap <Leader>t :call RemoveTernaryOperator()<CR>
 
+Plug 'bronson/vim-trailing-whitespace'
+    let g:extra_whitespace_ignored_filetypes = [
+        \ 'vim'
+    \ ]
+
 call plug#end()
 
 syntax on
@@ -375,21 +380,9 @@ set nofoldenable
 
 set tags=tags;/
 
-fu! Whitespaces()
-    normal ma
-    %s/\s\+$//e
-    normal `a
-endfu!
-
 augroup filetype_help
     au!
     au FileType help setlocal number
-augroup end
-
-augroup whitespace_hacks
-    au!
-
-    au FileType php,go,tpl,yml,json,js autocmd BufWritePre <buffer> :call Whitespaces()
 augroup end
 
 augroup dir_autocreate
