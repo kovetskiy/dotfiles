@@ -1,0 +1,34 @@
+source ~/.mutt/account
+
+set ssl_verify_dates=no
+set ssl_verify_host=no
+set sleep_time=0
+set index_format="%4C %Z %{%d/%m %T} %-20.20L %s"
+set sendmail=/usr/bin/msmtp
+set markers=no
+set editor=vim
+set imap_check_subscribed
+set mail_check=60
+set sort=threads
+set narrow_tree=yes
+set metoo
+set certificate_file=~/.mutt/certificates
+set pager_stop=yes
+
+alternative_order text/plain text/html
+auto_view text/html text/calendar
+
+bind index \e[7~ first-entry
+bind index \e[8~ last-entry
+bind pager \e[7~ top
+bind pager \e[8~ bottom
+bind index @ imap-fetch-mail
+
+macro index \Ca "<change-folder> =Archive<enter>"
+macro index \Co "<change-folder> =INBOX<enter>"
+
+unset imap_passive
+
+mailboxes =INBOX
+
+source ~/.mutt/theme_$BACKGROUND
