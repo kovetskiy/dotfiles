@@ -88,7 +88,7 @@ Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
 
 Plug 'bling/vim-airline'
-    let g:airline_theme = 'base16'
+    let g:airline_theme = 'lucius'
     let g:airline#extensions#whitespace#symbol = '☼'
     let g:airline_powerline_fonts = 1
 
@@ -132,8 +132,6 @@ Plug 'mhinz/vim-startify'
 
 Plug 'l9'
 
-Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
-
 Plug 'lyokha/vim-xkbswitch'
     let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
     let g:XkbSwitchEnabled = 1
@@ -147,6 +145,7 @@ Plug 'Lokaltog/vim-easymotion'
 
 Plug 'SirVer/ultisnips'
     let g:UltiSnipsSmippetDirectories = [$HOME . '/.vim/Ultisnips/']
+    let g:UltiSnipsEnableSnipMate = 0
     let g:UltiSnipsExpandTrigger="<TAB>"
     let g:UltiSnipsJumpForwardTrigger="<C-J>"
     let g:UltiSnipsJumpBackwardTrigger="<C-K>"
@@ -517,8 +516,6 @@ imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 
 inoremap <C-K> <C-O>A;<C-O>o
 
-noh
-
 fu! Background(val)
     let bg = a:val
     if bg == ""
@@ -570,3 +567,5 @@ fu! Background(val)
 endfu!
 
 call Background($BACKGROUND)
+
+noh
