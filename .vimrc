@@ -42,19 +42,19 @@ Plug 'Shougo/unite.vim'
         \ '--ignore-dir .jhw-cache'
     let g:unite_source_grep_recursive_opt = ''
 
-    au VimEnter call unite#custom#source(
+    au VimEnter * call unite#custom#source(
         \ 'file,file/new,buffer,file_rec,file_rec/async,'
         \  . 'git_cached,git_untracked,directory',
         \ 'matchers', 'matcher_fuzzy'
     \ )
 
-    au VimEnter call unite#custom#default_action(
+    au VimEnter * call unite#custom#default_action(
         \ 'directory', 'cd'
     \ )
 
-    au VimEnter call unite#filters#sorter_default#use(['sorter_selecta'])
+    au VimEnter * call unite#filters#sorter_default#use(['sorter_selecta'])
 
-    au VimEnter call unite#custom#source(
+    au VimEnter * call unite#custom#source(
         \ 'file,file_rec,file_rec/async,git_cached,git_untracked',
         \ 'ignore_globs',
         \ split('*.png,*.zip,*.tar,*.gz,*.jpg,*.jpeg,*.chunks,*.gif', ',')
@@ -74,14 +74,10 @@ Plug 'Shougo/unite.vim'
         au FileType unite call s:unite_my_settings()
     augroup end
 
-    nnoremap ,r :UniteResume<CR>
-
-    nnoremap ,f :Unite file<CR>
-    nnoremap ,g :Unite grep<CR>
-
+    nnoremap <C-E><C-R> :UniteResume<CR>
+    nnoremap <C-E><C-G> :Unite -hide-source-names grep:.<CR>
     nnoremap <C-P> :Unite -hide-source-names buffer git_cached git_untracked<CR>
     nnoremap <C-Y> :Unite -hide-source-names history/yank<CR>
-    nnoremap <C-E><C-G> :Unite -hide-source-names grep:.<CR>
 
 Plug 'morhetz/gruvbox'
 
@@ -315,7 +311,7 @@ Plug 'kovetskiy/vim-ternary'
 
 Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
-        \ 'vim'
+        \ 'vim', 'unite'
     \ ]
 
 call plug#end()
@@ -451,7 +447,7 @@ nnoremap X S<ESC>
 vnoremap $ g_
 
 nnoremap / /\v
-vnoremap / \v
+vnoremap / /\v
 
 nnoremap > >>
 nnoremap < <<
@@ -497,8 +493,6 @@ vnoremap <Leader><C-s> "ks
 nnoremap <Leader><C-x> v"kx
 nnoremap <Leader><C-p> "kp
 nnoremap <Leader><C-P> "kP
-
-vnoremap / y/<C-r>"
 
 nnoremap <Leader>] :tnext<CR>
 
