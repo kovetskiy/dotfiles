@@ -278,8 +278,8 @@ Plug 'kovetskiy/ash.vim'
         au FileType diff hi! DiffRemovedContent ctermbg=131 guibg=#be7572 ctermfg=232
     augroup end
 
-    nnoremap ,i :Unite ash_inbox<CR>
-    nnoremap ,l :Unite ash_lsreviews:ngs/auto<CR>
+    nnoremap <C-E><C-I> :Unite ash_inbox<CR>
+    nnoremap <C-E><C-N> :Unite ash_lsreviews:ngs/auto<CR>
 
 Plug 'seletskiy/vim-pythonx', { 'for': ['go', 'php']}
     au filetype_go FileType go
@@ -313,6 +313,8 @@ Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
         \ 'vim', 'unite'
     \ ]
+
+Plug 'seletskiy/vim-nunu'
 
 call plug#end()
 
@@ -383,13 +385,6 @@ augroup end
 augroup dir_autocreate
     au!
     au BufWritePre * if !isdirectory(expand('%:h')) | call mkdir(expand('%:h'),'p') | endif
-augroup end
-
-let s:prev_line = 0
-augroup rnu_nu
-    au!
-    au CursorMoved * if &rnu && line('.') != s:prev_line | set nornu nu | endif
-    au CursorHold  * if &nu | set rnu | let s:prev_line = line('.') | endif
 augroup end
 
 augroup vimrc
