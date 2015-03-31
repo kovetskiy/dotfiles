@@ -211,8 +211,6 @@ Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
 Plug 'terryma/vim-multiple-cursors'
 
-Plug 'kana/vim-smartinput'
-
 Plug 'majutsushi/tagbar', { 'for': 'php' }
 
 Plug 'justinmk/vim-sneak'
@@ -315,6 +313,8 @@ Plug 'bronson/vim-trailing-whitespace'
     \ ]
 
 Plug 'seletskiy/vim-nunu'
+
+Plug 'ervandew/matchem'
 
 call plug#end()
 
