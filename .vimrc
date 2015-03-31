@@ -76,6 +76,7 @@ Plug 'Shougo/unite.vim'
 
     nnoremap <C-E><C-R> :UniteResume<CR>
     nnoremap <C-E><C-G> :Unite -hide-source-names grep:.<CR>
+    nnoremap <C-O> :Unite -hide-source-names buffer<CR>
     nnoremap <C-P> :Unite -hide-source-names buffer git_cached git_untracked<CR>
     nnoremap <C-Y> :Unite -hide-source-names history/yank<CR>
 
@@ -471,7 +472,7 @@ nnoremap <Leader>e :e!
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q!<CR>
 
-nnoremap <Space> viw
+nnoremap <Space> :noh<CR>
 
 nnoremap <Leader>d V"_d<Esc>
 vnoremap <Leader>d "_d
