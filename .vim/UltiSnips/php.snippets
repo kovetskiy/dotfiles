@@ -212,12 +212,20 @@ snippet > "=>" w
 $1 => $2,
 endsnippet
 
-snippet "* a" "@author block" b
-* @author `!p
+snippet "* c" "PhpDoc for class" b
+`!p
 import subprocess;
+import vim;
+
+_fp = vim.eval('expand("%p")').split('/')
+_category = _fp[0]
+_package = '_'.join(_fp[:2])
 
 _name = subprocess.check_output(["git", "config", "user.name"]).strip()
 _email = subprocess.check_output(["git", "config", "user.email"]).strip()
-snip.rv = _name + " <" + _email + ">"
-`
+_author = _name + " <" + _email + ">"
+
+`* @category `!p snip.rv=_category`
+* @package `!p snip.rv=_package`
+* @author `!p snip.rv=_author`
 endsnippet
