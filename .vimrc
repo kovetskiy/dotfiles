@@ -358,6 +358,7 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set backspace=2
+set splitright
 
 set laststatus=2
 set gdefault
@@ -506,56 +507,82 @@ imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 
 inoremap <C-K> <C-O>A;<C-O>o
 
-fu! Background(val)
-    let bg = a:val
+augroup custom_colors
+    au!
+
+    " Base {{{
+    au User BgBasePost hi! link WildMenu PmenuSel
+    au User BgBasePost hi htmlLink gui=none
+    au User BgBasePost hi SPM1 ctermbg=1 ctermfg=7
+    au User BgBasePost hi SPM2 ctermbg=2 ctermfg=7
+    au User BgBasePost hi SPM3 ctermbg=3 ctermfg=7
+    au User BgBasePost hi SPM4 ctermbg=4 ctermfg=7
+    au User BgBasePost hi SPM5 ctermbg=5 ctermfg=7
+    au User BgBasePost hi SPM6 ctermbg=6 ctermfg=7
+    au User BgBasePost hi VertSplit cterm=none ctermbg=none ctermfg=16
+    au User BgBasePost hi ErrorMsg term=none
+    au User BgBasePost hi Todo term=none
+    au User BgBasePost hi SignColumn term=none
+    au User BgBasePost hi FoldColumn term=none
+    au User BgBasePost hi Folded term=none
+    au User BgBasePost hi WildMenu term=none
+    au User BgBasePost hi WarningMsg term=none
+    au User BgBasePost hi Question term=none
+    " }}}
+
+    " Light {{{
+    au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
+
+    au User BgLightPost hi! underlined cterm=underline
+    au User BgLightPost hi! CursorLineNr ctermfg=241 ctermbg=none
+    au User BgLightPost hi! LineNr ctermfg=249 ctermbg=none
+    au User BgLightPost hi! SignColumn ctermfg=none ctermbg=none
+    au User BgLightPost hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
+    au User BgLightPost hi! NonText ctermfg=254 cterm=none term=none
+    au User BgLightPost hi! IncSearch cterm=none ctermfg=238 ctermbg=220
+    au User BgLightPost hi! Cursor ctermbg=0 ctermfg=15
+    au User BgLightPost hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
+    " }}}
+
+    " Dark {{{
+    au User BgDarkPre let g:colorscheme='gruvbox'
+    " }}}
+augroup end
+
+fu! SetBg(bg)
+    " Define autocmd events {{{
+    au User BgBasePre noh
+    au User BgBasePost noh
+    au User BgLightPre noh
+    au User BgLightPost noh
+    au User BgDarkPre noh
+    au User BgDarkPost noh
+
+    let bg = a:bg
     if bg == ""
         let bg = "light"
     endif
 
+    doautocmd User BgBasePre
+
     if bg == "light"
-        let g:seoul256_background = 255
-        let g:colorscheme='seoul256'
+        doautocmd User BgLightPre
     else
-        let g:colorscheme='gruvbox'
+        doautocmd User BgDarkPre
     endif
 
-    execute "colorscheme " . g:colorscheme
     execute "set background=" . bg
+    execute "colorscheme " . g:colorscheme
 
-    hi! link WildMenu PmenuSel
-    hi SPM1 ctermbg=1 ctermfg=7
-    hi SPM2 ctermbg=2 ctermfg=7
-    hi SPM3 ctermbg=3 ctermfg=7
-    hi SPM4 ctermbg=4 ctermfg=7
-    hi SPM5 ctermbg=5 ctermfg=7
-    hi SPM6 ctermbg=6 ctermfg=7
-    hi VertSplit cterm=none ctermbg=none ctermfg=16
-    hi ErrorMsg term=none
-    hi Todo term=none
-    hi SignColumn term=none
-    hi FoldColumn term=none
-    hi Folded term=none
-    hi WildMenu term=none
-    hi WarningMsg term=none
-    hi Question term=none
+    doautocmd User BgBasePost
 
-    if &background == "light"
-        set background=light
-        hi! underlined cterm=underline
-        hi! CursorLineNr ctermfg=241 ctermbg=none
-        hi! LineNr ctermfg=249 ctermbg=none
-        hi! SignColumn ctermfg=none ctermbg=none
-        hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
-        hi! NonText ctermfg=254 cterm=none term=none
-        hi! IncSearch cterm=none ctermfg=238 ctermbg=220
-        hi! Cursor ctermbg=0 ctermfg=15
-        hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
+    if bg == "light"
+        doautocmd User BgLightPost
+    else
+        doautocmd User BgDarkPost
     endif
-
-    " for smarty
-    hi htmlLink gui=none
 endfu!
 
-call Background($BACKGROUND)
+call SetBg($BACKGROUND)
 
 noh
