@@ -23,3 +23,5 @@ source /usr/share/zsh/functions/Prompts/promptinit
 autoload -Uz promptinit
 promptinit
 prompt lambda17
+
+zstyle ':completeion:*' rehash true
