@@ -1,6 +1,6 @@
 clear
 
-super+semicolon start,grid 4x4
+super+semicolon start,grid 4x4,sh "pkill unclutter"
 
 1 cell-select 1,warp
 q cell-select 2,warp
@@ -40,4 +40,4 @@ BackSpace history-back
 slash grid 1x1,warp
 grave grid 1x1,cursorzoom 10 10
 
-Escape end
+Escape end,sh "unclutter -idle 0 &"
