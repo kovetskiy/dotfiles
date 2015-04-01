@@ -73,6 +73,9 @@ bindsym $win+Shift+c move container to workspace c
 
 bindsym $win+Shift+r restart
 
+bindsym $win+shift+v split vertical
+bindsym $win+shift+h split horizontal
+
 mode "resize" {
         bindsym h resize grow width 1 px or 1 ppt
         bindsym j resize shrink height 1 px or 1 ppt
