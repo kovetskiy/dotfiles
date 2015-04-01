@@ -24,4 +24,4 @@ autoload -Uz promptinit
 promptinit
 prompt lambda17
 
-zstyle ':completeion:*' rehash true
+zstyle ':completion:*' rehash true
