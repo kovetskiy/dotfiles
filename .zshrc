@@ -62,7 +62,7 @@ bindkey -a '^[' vi-insert
 
 bindkey -s "\C-f" "fg\r"
 
-compress () {
+function compress () {
   if [ $1 ] ; then
     case $1 in
       tbz)  tar cjvf $2.tar.bz2 $2   ;;
@@ -79,7 +79,7 @@ compress () {
   fi
 }
 
-extract () {
+function extract () {
     if [ -f $1 ] ; then
         case $1 in
             *.tar.bz2) tar xvjf $1   ;;
@@ -100,7 +100,7 @@ extract () {
     fi
 }
 
-ashr() {
+function ashr() {
     vim -c ":Unite ash_review:$1"
 }
 
@@ -129,7 +129,7 @@ alias ...='cd ../..'
 alias zreload='source ~/.zshrc && print "zsh config has been reloaded"'
 alias ssh='TERM=xterm ssh'
 alias gcl='git clone'
-gclg() {
+function gclg() {
     git clone "https://github.com/$1"
 }
 alias gh='git show'
@@ -162,7 +162,7 @@ alias gsh='git stash'
 alias gshp='git stash pop'
 alias grt='git reset'
 alias gr='git rebase'
-gri() {
+function gri() {
     git rebase -i HEAD~$1
 }
 alias gcom='git checkout origin/master'
@@ -177,6 +177,10 @@ alias adblg='adbg logcat | grep Go'
 alias sudo='sudo env PATH=$PATH'
 alias rsstop='pkill redshift'
 
+alias bstart="batrak -Tn $(jira-now print)"
+alias bstop="batrak -Sn"
+alias bi="batrak -Ln"
+
 function prepend-sudo() {
     if [[ "$BUFFER" != su(do|)\ * ]]; then
         BUFFER="sudo $BUFFER"
@@ -187,23 +191,8 @@ function prepend-sudo() {
 zle -N prepend-sudo
 bindkey '^s' prepend-sudo
 
-# oh shi... i love this magic :3
-#home() {
-    #if [[ $LBUFFER = *// ]]; then
-        #LBUFFER=${LBUFFER%/*/}
-        #LBUFFER+="~"
-    #else
-        #LBUFFER+=/
-    #fi
-#}
-#autoload -U home
-#zle -N home
-#bindkey / home
-
-
-function gdi()
-{
-    eval "git diff $1"
+function gdi() {
+    git diff $1
 }
 compctl -K git_diff_complete gdi
 
@@ -230,7 +219,6 @@ function gcf() {
     issue=$(awk '{print toupper($0)}' <<< "$issue")
     eval "git commit $amend -m '$issue: ${@}'"
 }
-
 alias gcf!="gcf !"
 
 function github-forked() {
@@ -255,6 +243,12 @@ function github-fix-host() {
     new_url=$(sed "s/$remote_host/github.com/" <<< "$remote_url")
     git remote set-url $name $new_url
 }
+
+function go-get-github() {
+    url=$(sed 's/https:\/\///' <<< $1)
+    go get $url
+}
+alias ggg="go-get-github"
 
 # in case of servers that are know nothing about rxvt-unicode-256color
 # better ssh="TERM=xterm ssh" alias
