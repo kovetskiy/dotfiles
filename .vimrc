@@ -81,8 +81,10 @@ Plug 'Shougo/unite.vim'
     nnoremap <C-Y> :Unite -hide-source-names history/yank<CR>
 
 Plug 'morhetz/gruvbox'
+    au User BgDarkPre let g:colorscheme='gruvbox'
 
 Plug 'junegunn/seoul256.vim'
+    au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
 
 Plug 'bling/vim-airline'
     let g:airline_theme = 'lucius'
@@ -205,6 +207,8 @@ Plug 'edsono/vim-matchit', { 'for': 'smarty'}
 
         au BufRead,BufNewFile *.tpl set filetype=smarty
     augroup end
+
+    au User BgBasePost hi htmlLink cterm=none
 
 Plug 'AndrewRadev/sideways.vim'
 
@@ -512,7 +516,6 @@ augroup custom_colors
 
     " Base {{{
     au User BgBasePost hi! link WildMenu PmenuSel
-    au User BgBasePost hi htmlLink gui=none
     au User BgBasePost hi SPM1 ctermbg=1 ctermfg=7
     au User BgBasePost hi SPM2 ctermbg=2 ctermfg=7
     au User BgBasePost hi SPM3 ctermbg=3 ctermfg=7
@@ -531,8 +534,6 @@ augroup custom_colors
     " }}}
 
     " Light {{{
-    au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
-
     au User BgLightPost hi! underlined cterm=underline
     au User BgLightPost hi! CursorLineNr ctermfg=241 ctermbg=none
     au User BgLightPost hi! LineNr ctermfg=249 ctermbg=none
@@ -542,10 +543,6 @@ augroup custom_colors
     au User BgLightPost hi! IncSearch cterm=none ctermfg=238 ctermbg=220
     au User BgLightPost hi! Cursor ctermbg=0 ctermfg=15
     au User BgLightPost hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
-    " }}}
-
-    " Dark {{{
-    au User BgDarkPre let g:colorscheme='gruvbox'
     " }}}
 augroup end
 
