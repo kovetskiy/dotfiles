@@ -258,7 +258,8 @@ Plug 'bogado/file-line'
 
 Plug 'godlygeek/tabular'
     " phpdoc block tabularize
-    nnoremap <C-E><C-A> :Tabularize /* @\w\+/<CR>
+    vnoremap <C-E> :Tabularize /* @\w\+/<CR>
+    vnoremap <C-T> :Tabularize /
 
 Plug 'kovetskiy/vim-go-complete-note', { 'for': 'go' }
     inoremap <C-E> <C-O>:call GoCompleteNote()<CR><C-O>a
