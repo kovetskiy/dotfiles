@@ -1,0 +1,20 @@
+<?php
+
+`!p
+from php import *
+
+_classname=get_class_name_with_underscored_namespaces()
+_ifmatches = re.match('.*_interface$', _classname)
+if _ifmatches:
+	_identifier = 'interface'
+else:
+	_absmatches = re.match('.*_abstract$', _classname)
+	if _absmatches:
+		_identifier = 'abstract class'
+	else:
+		_identifier = 'class'
+`
+`!p snip.rv=_identifier` ${1:`!p snip.rv=_classname`}$2
+{
+    $3
+}

@@ -18,6 +18,7 @@ POINTS=(
     ".muttatorrc"
     ".urxvt"
     ".vim/UltiSnips"
+    ".vim/skeletons"
     ".vimperatorrc"
     ".vimrc"
     ".Xresources"

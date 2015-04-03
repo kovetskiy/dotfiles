@@ -314,6 +314,7 @@ Plug 'kovetskiy/vim-ternary'
     nnoremap <Leader>t :call RemoveTernaryOperator()<CR>
 
 Plug 'kovetskiy/vim-ski'
+    let g:skeletons_dir=$HOME.'/.vim/skeletons/'
 
 Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
@@ -404,24 +405,6 @@ augroup end
 augroup mcabberrc
     au!
     au BufWritePost ~/.mcabber/mcabberrc !echo "/source ~/.mcabber/mcabberrc" > ~/.mcabber/mcabber.fifo
-augroup end
-
-fu! SkeletonGitCommit()
-    let l:line = getline(".")
-    if l:line == ""
-        let l:issue = system("git symbolic-ref HEAD 2>/dev/null | grep -oP '([A-Za-z]{1,}\-[0-9]{1,})'")
-
-        if l:issue != ''
-            execute 'normal I' . toupper(l:issue)
-            execute 'normal gg$a: '
-        endif
-    endif
-endfu!
-
-augroup skeletons
-    au!
-    au FileType gitcommit exec "call SkeletonGitCommit()"
-    au BufNewFile *.php exec "normal I<?php\r\rcl"
 augroup end
 
 augroup hilight_over
