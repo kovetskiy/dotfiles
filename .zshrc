@@ -101,7 +101,7 @@ function extract () {
 }
 
 function ashr() {
-    vim -c ":Unite ash_review:$1"
+    vc -c ":Unite ash_review:$1"
 }
 
 autoload -U add-zsh-hook
@@ -120,9 +120,8 @@ alias -g EN='2>/dev/null'
 alias -g EO='2>&1'
 alias l='ls'
 alias ls='ls -lah --color=always'
-alias v='vim'
-alias vi='vim'
-alias vimm='vim'
+alias vd='vim --servername VIM'
+alias vc='vim --remote'
 alias rf='rm -rf' # like russiahhhhh
 alias ..='cd ..'
 alias ...='cd ../..'
