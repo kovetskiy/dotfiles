@@ -10,3 +10,19 @@ function! $1($2)
 	$3
 endfunction!
 endsnippet
+
+snippet i "if" bw
+if $1
+	$2
+endif
+endsnippet
+
+snippet e "exists" w
+exists($1)$0
+endsnippet
+
+snippet d "declare if not exists" bw
+if !exists('$1')
+	let $1 = $2
+endif
+endsnippet
