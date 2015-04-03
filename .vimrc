@@ -313,6 +313,8 @@ Plug 'kovetskiy/vim-plugvim-utils'
 Plug 'kovetskiy/vim-ternary'
     nnoremap <Leader>t :call RemoveTernaryOperator()<CR>
 
+Plug 'kovetskiy/vim-ski'
+
 Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
         \ 'vim', 'unite'
