@@ -1,6 +1,6 @@
 clear
 
-super+semicolon start,grid 4x4,sh "pkill unclutter"
+super+semicolon start,grid 4x4
 
 1 cell-select 1,warp
 q cell-select 2,warp
@@ -40,4 +40,7 @@ BackSpace history-back
 slash grid 1x1,warp
 grave grid 1x1,cursorzoom 10 10
 
-Escape end,sh "unclutter -idle 0 &"
+Escape end
+
+u record ~/.keynav_macros
+p playback
