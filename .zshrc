@@ -177,7 +177,7 @@ alias adblg='adbg logcat | grep Go'
 alias sudo='sudo env PATH=$PATH'
 alias rsstop='pkill redshift'
 
-alias bstart="batrak -Tn $(jira-now print)"
+alias bstart="batrak -Tn \`jira-now print\`"
 alias bstop="batrak -Sn"
 alias bi="batrak -Ln"
 
