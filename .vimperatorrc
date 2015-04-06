@@ -32,6 +32,9 @@ nnoremap % :source ~/.vimperatorrc<CR>:echomsg "Great success!"<CR>
 nmap qd gTd
 nmap wd gtd
 
+map } gt
+map { gT
+
 vmap c <ESC><ESC>c
 imap jk <ESC>
 nmap v cv
