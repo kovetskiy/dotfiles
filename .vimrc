@@ -66,6 +66,9 @@ Plug 'Shougo/unite.vim'
         imap <silent><buffer><expr> <C-T> unite#do_action('split')
         imap <silent><buffer><expr> <C-V> unite#do_action('vsplit')
         call unite#custom#alias('ash_review', 'split', 'ls')
+
+        nnoremap <buffer> <F1> :UniteClose<CR>
+        inoremap <F1> <ESC>:UniteClose<CR>
     endfunction
 
     augroup unite_setting
