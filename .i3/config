@@ -1,4 +1,4 @@
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font -m isc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
 hide_edge_borders horizontal
 font pango:Monaco 1
@@ -10,68 +10,67 @@ set $alt Mod4
 
 floating_modifier $alt
 
-bindsym $win+Return exec "urxvtc || urxvt"
+bindsym $alt+Return exec "urxvtc || urxvt"
 
-bindsym $alt+Shift+q kill
+bindsym $alt+Ctrl+d kill
 
-bindsym $alt+d exec dmenu_run
+bindsym $alt+r exec dmenu_run
 
 bindsym Shift+$alt+Control+f floating toggle
 
-bindsym $win+u focus left
-bindsym $win+i focus down
-bindsym $win+o focus up
-bindsym $win+p focus right
+bindsym Ctrl+Home focus left
+bindsym Ctrl+Next focus down
+bindsym Ctrl+Prior focus up
+bindsym Ctrl+End focus right
 
-bindsym $win+Shift+u move left
-bindsym $win+Shift+i move down
-bindsym $win+Shift+o move up
-bindsym $win+Shift+p move right
+bindsym Ctrl+Shift+Home move left
+bindsym Ctrl+Shift+Next move down
+bindsym Ctrl+Shift+Prior move up
+bindsym Ctrl+Shift+End move right
 
 bindsym $alt+f fullscreen
-bindsym $alt+s layout toggle split
 
-bindsym $win+1 workspace 1
-bindsym $win+2 workspace 2
-bindsym $win+3 workspace 3
-bindsym $win+4 workspace 4
-bindsym $win+5 workspace 5
-bindsym $win+6 workspace 6
-bindsym $win+7 workspace 7
-bindsym $win+8 workspace 8
-bindsym $win+9 workspace 9
+bindsym $alt+1 workspace 1
+bindsym $alt+2 workspace 2
+bindsym $alt+3 workspace 3
+bindsym $alt+4 workspace 4
+bindsym $alt+5 workspace 5
+bindsym $alt+6 workspace 6
+bindsym $alt+7 workspace 7
+bindsym $alt+8 workspace 8
+bindsym $alt+9 workspace 9
 
-bindsym $win+q workspace q
-bindsym $win+w workspace w
-bindsym $win+e workspace e
-bindsym $win+a workspace a
-bindsym $win+s workspace s
-bindsym $win+d workspace d
-bindsym $win+z workspace z
-bindsym $win+x workspace x
-bindsym $win+c workspace c
+bindsym $alt+q workspace q
+bindsym $alt+w workspace w
+bindsym $alt+e workspace e
+bindsym $alt+a workspace a
+bindsym $alt+s workspace s
+bindsym $alt+d workspace d
+bindsym $alt+z workspace z
+bindsym $alt+x workspace x
+bindsym $alt+c workspace c
 
-bindsym $win+Shift+1 move container to workspace 1
-bindsym $win+Shift+2 move container to workspace 2
-bindsym $win+Shift+3 move container to workspace 3
-bindsym $win+Shift+4 move container to workspace 4
-bindsym $win+Shift+5 move container to workspace 5
-bindsym $win+Shift+6 move container to workspace 6
-bindsym $win+Shift+7 move container to workspace 7
-bindsym $win+Shift+8 move container to workspace 8
-bindsym $win+Shift+9 move container to workspace 9
+bindsym $alt+Shift+1 move container to workspace 1
+bindsym $alt+Shift+2 move container to workspace 2
+bindsym $alt+Shift+3 move container to workspace 3
+bindsym $alt+Shift+4 move container to workspace 4
+bindsym $alt+Shift+5 move container to workspace 5
+bindsym $alt+Shift+6 move container to workspace 6
+bindsym $alt+Shift+7 move container to workspace 7
+bindsym $alt+Shift+8 move container to workspace 8
+bindsym $alt+Shift+9 move container to workspace 9
 
-bindsym $win+Shift+q move container to workspace q
-bindsym $win+Shift+w move container to workspace w
-bindsym $win+Shift+e move container to workspace e
-bindsym $win+Shift+a move container to workspace a
-bindsym $win+Shift+s move container to workspace s
-bindsym $win+Shift+d move container to workspace d
-bindsym $win+Shift+z move container to workspace z
-bindsym $win+Shift+x move container to workspace x
-bindsym $win+Shift+c move container to workspace c
+bindsym $alt+Shift+q move container to workspace q
+bindsym $alt+Shift+w move container to workspace w
+bindsym $alt+Shift+e move container to workspace e
+bindsym $alt+Shift+a move container to workspace a
+bindsym $alt+Shift+s move container to workspace s
+bindsym $alt+Shift+d move container to workspace d
+bindsym $alt+Shift+z move container to workspace z
+bindsym $alt+Shift+x move container to workspace x
+bindsym $alt+Shift+c move container to workspace c
 
-bindsym $win+Shift+r restart
+bindsym $alt+Shift+r restart
 
 bindsym $win+shift+v split vertical
 bindsym $win+shift+h split horizontal
@@ -91,20 +90,16 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $alt+a exec "sudo ~/bin/brightness down"
-bindsym $alt+q exec "sudo ~/bin/brightness up"
+bindsym $alt+Ctrl+a exec "sudo ~/bin/brightness down"
+bindsym $alt+Ctrl+q exec "sudo ~/bin/brightness up"
 bindsym Ctrl+Insert exec bash -c 'selected=$(xsel) && xclip -selection clipboard <<< "$selected" && xclip -selection primary <<< "$selected"'
 
-bindsym $win+Control+r mode "resize"
+bindsym $alt+Control+r mode "resize"
 
 bindsym $win+Control+e      exec engrus
-bindsym $win+Control+l      exec lockscreen
-bindsym $win+Control+0      exec volume toggle
-bindsym $win+Control+minus  exec volume down
-bindsym $win+Control+equal  exec volume up
+bindsym $alt+Control+l      exec lockscreen
 bindsym $win+Control+d      exec show-date
 bindsym $alt+Control+e      exec anki-add-word
-bindsym $win+$alt+Return    exec "xdotool click 1"
 
 set $leftM VGA1
 set $rightM HDMI1
@@ -131,4 +126,4 @@ for_window [instance="^kuake_"] floating enable
 
 client.focused #cb4b16 #dc322f #fdf6e3 #ffffff
 client.focused_inactive #586e75 #eee8d5 #657b83 #ffffff
-client.unfocused #586e75 #eee8d5 #657b83 #ffffff 
+client.unfocused #586e75 #eee8d5 #657b83 #ffffff
