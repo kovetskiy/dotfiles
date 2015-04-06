@@ -461,7 +461,6 @@ nnoremap g. '>
 nnoremap g, '<
 
 nnoremap <F4> :let &scrolloff=999-&scrolloff<CR>
-nnoremap <Leader><Leader>q :bdelete!<CR>
 nnoremap <Leader><Leader>q <Esc>:bdelete!<CR>
 
 nnoremap <Leader>vs :vsp<CR>
@@ -494,7 +493,7 @@ nnoremap <C-T><C-T> :retab<CR>
 
 inoremap <C-A> <C-O>A
 
-map <C-_> <C-W>_
+map <C-_> 99<C-W>K<C-W>_
 map <C-H> <C-W>h
 map <C-J> <C-W>j
 map <C-K> <C-W>k
