@@ -221,6 +221,9 @@ Plug 'terryma/vim-multiple-cursors'
 
 Plug 'majutsushi/tagbar', { 'for': 'php' }
 
+Plug 'kshenoy/vim-signature'
+    let g:SignatureMarkOrder = "\m"
+
 Plug 'justinmk/vim-sneak'
     " bullshit
     nmap <NOP> <Plug>Sneak_s
@@ -431,6 +434,13 @@ au filetype_php FileType php imap <buffer> <C-G><C-U> ug<TAB>
 
 au filetype_php FileType php hi! def link phpDocTags  phpDefine
 au filetype_php FileType php hi! def link phpDocParam phpType
+
+nnoremap <Leader>l <ESC>
+            \:let b:fn=expand('<cword>')<CR>
+            \?function<CR>j%o<CR><CR><C-R>
+            \=(b:fn[0]=='_'?'p':'u') . 'f'<CR> <C-O>
+            \:call UltiSnips#ExpandSnippet()<CR><ESC>
+            \ciw<C-R>=b:fn<CR><ESC>
 
 nnoremap <F12> :noh<CR>
 
