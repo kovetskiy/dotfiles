@@ -1,4 +1,4 @@
-font -m isc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
 hide_edge_borders horizontal
 font pango:Monaco 1
@@ -97,7 +97,7 @@ bindsym Ctrl+Insert exec bash -c 'selected=$(xsel) && xclip -selection clipboard
 bindsym $alt+Control+r mode "resize"
 
 bindsym $win+Control+e      exec engrus
-bindsym $alt+Control+l      exec lockscreen
+bindsym $win+Control+l      exec lockscreen
 bindsym $win+Control+d      exec show-date
 bindsym $alt+Control+e      exec anki-add-word
 
