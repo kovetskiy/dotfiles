@@ -13,7 +13,7 @@ $1 = new $2($3);
 endsnippet
 
 snippet r "return" bw
-return $1;
+return $0;
 endsnippet
 
 snippet rt "return true" bw
@@ -29,7 +29,7 @@ return null;
 endsnippet
 
 snippet t "$this" w
-$this->$1
+$this->$0
 endsnippet
 
 snippet td "$this->_di->get" bw
@@ -161,7 +161,7 @@ protected $_$1 = $2;
 endsnippet
 
 snippet ar "array" w
-array($1)
+array($0)
 endsnippet
 
 snippet vd "variable declaration" bw
@@ -181,11 +181,11 @@ $this->$1 = ${2:`!p snip.rv=get_last_used_identifier()`}
 endsnippet
 
 snippet em "empty" !w
-empty($1)
+empty($0)
 endsnippet
 
 snippet is "isset" !w
-isset($1)
+isset($0)
 endsnippet
 
 snippet te "throw exception" bw
