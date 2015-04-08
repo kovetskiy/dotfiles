@@ -274,7 +274,7 @@ Plug 'kovetskiy/urxvt.vim'
     au filetype_go FileType go nmap <buffer>
         \ <Leader>t :call urxvt#put('go test')<CR>
     au filetype_go FileType go nmap <buffer>
-        \ <Leader>r :call urxvt#put('./${$(pwd)##*/}')<CR>
+        \ <Leader>r :call urxvt#put('./\${\$(pwd)##*/}')<CR>
     au filetype_go FileType go nmap <buffer>
         \ <Leader>b :GoFmt<CR>:w<CR>:call urxvt#put('go build')<CR>
 
