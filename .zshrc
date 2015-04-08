@@ -168,7 +168,7 @@ alias gcom='git checkout origin/master'
 alias gl='git log --oneline --graph --decorate --all'
 alias gd='git diff'
 alias ashi='ash inbox'
-alias pdw='date; pwd'
+alias wow='whoami; pwd; date'
 alias srn='php stat.php | sort | sort -nr'
 alias adbd='adb devices'
 alias adbl='adb logcat'
@@ -179,6 +179,7 @@ alias rsstop='pkill redshift'
 alias bstart="batrak -Tn \`jira-now print\`"
 alias bstop="batrak -Sn"
 alias bi="batrak -Ln"
+alias dt='cd ~df'
 
 function prepend-sudo() {
     if [[ "$BUFFER" != su(do|)\ * ]]; then
