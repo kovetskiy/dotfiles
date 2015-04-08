@@ -16,7 +16,7 @@ bindsym $alt+Ctrl+d kill
 
 bindsym $alt+r exec dmenu_run
 
-bindsym Shift+$alt+Control+f floating toggle
+bindsym Shift+$alt+Ctrl+f floating toggle
 
 bindsym Ctrl+Home focus left
 bindsym Ctrl+Next focus down
@@ -81,10 +81,10 @@ mode "resize" {
         bindsym k resize grow height 1 px or 1 ppt
         bindsym l resize shrink width 1 px or 1 ppt
 
-        bindsym Control+h resize grow width 10 px or 10 ppt
-        bindsym Control+j resize shrink height 10 px or 10 ppt
-        bindsym Control+k resize grow height 10 px or 10 ppt
-        bindsym Control+l resize shrink width 10 px or 10 ppt
+        bindsym Ctrl+h resize grow width 10 px or 10 ppt
+        bindsym Ctrl+j resize shrink height 10 px or 10 ppt
+        bindsym Ctrl+k resize grow height 10 px or 10 ppt
+        bindsym Ctrl+l resize shrink width 10 px or 10 ppt
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -94,12 +94,13 @@ bindsym $alt+Ctrl+a exec "sudo ~/bin/brightness down"
 bindsym $alt+Ctrl+q exec "sudo ~/bin/brightness up"
 bindsym Ctrl+Insert exec bash -c 'selected=$(xsel) && xclip -selection clipboard <<< "$selected" && xclip -selection primary <<< "$selected"'
 
-bindsym $alt+Control+r mode "resize"
+bindsym $alt+Ctrl+r mode "resize"
 
-bindsym $win+Control+e      exec engrus
-bindsym $win+Control+l      exec lockscreen
-bindsym $win+Control+d      exec show-date
-bindsym $alt+Control+e      exec anki-add-word
+bindsym $win+Ctrl+e exec engrus
+bindsym $win+Ctrl+l exec lockscreen
+bindsym $win+Ctrl+d exec show-date
+bindsym $alt+Ctrl+e exec anki-add-word
+bindsym Ctrl+F12    exec reconfig-kbd
 
 set $leftM VGA1
 set $rightM HDMI1
