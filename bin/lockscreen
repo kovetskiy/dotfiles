@@ -5,3 +5,5 @@ MCABBER_FIFO=~/.mcabber/mcabber.fifo
 echo "/status away" > $MCABBER_FIFO
 slock
 echo "/status online" > $MCABBER_FIFO
+
+reconfig-kbd
