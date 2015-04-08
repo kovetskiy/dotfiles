@@ -288,6 +288,13 @@ if err != nil {
 }
 endsnippet
 
+snippet qr "fmt errorf" bw
+if err != nil {
+	fmt.Errorf(err.Error())
+	os.Exit(1)
+}
+endsnippet
+
 snippet qf "log fatal" bw
 if err != nil {
 	log.Fatal(err.Error())
