@@ -166,7 +166,8 @@ function gri() {
     git rebase -i HEAD~$1
 }
 alias gcom='git checkout origin/master'
-alias gl='git log --oneline --graph --decorate --all'
+alias glo='git log --oneline --graph --decorate --all'
+alias gl='PAGER=cat git log --oneline --graph --decorate --all --max-count=30'
 alias gd='git diff'
 alias ashi='ash inbox'
 alias wow='whoami; pwd; date'
