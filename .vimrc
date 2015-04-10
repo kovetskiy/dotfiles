@@ -68,7 +68,12 @@ Plug 'Shougo/unite.vim'
         call unite#custom#alias('ash_review', 'split', 'ls')
 
         nnoremap <buffer> <F1> :UniteClose<CR>
-        inoremap <F1> <ESC>:UniteClose<CR>
+        inoremap <buffer> <F1> <ESC>:UniteClose<CR>
+
+        nnoremap <buffer> <ESC> :UniteClose<CR>
+
+        " such unite
+        nnoremap <buffer> S :call unite#mappings#narrowing('')<CR>
     endfunction
 
     augroup unite_setting
