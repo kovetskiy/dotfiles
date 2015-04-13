@@ -336,6 +336,17 @@ Plug 'bronson/vim-trailing-whitespace'
         \ 'vim', 'unite'
     \ ]
 
+    function! MyWhitespaceFix()
+        if ShouldMatchWhitespace()
+            FixWhitespace
+        endif
+    endfunction!
+
+    augroup whitespaces_remover
+        au!
+        au BufWritePre * call MyWhitespaceFix()
+    augroup end
+
 Plug 'seletskiy/vim-nunu'
 
 Plug 'ervandew/matchem'
@@ -480,7 +491,7 @@ nnoremap <Leader><Leader>q <Esc>:bdelete!<CR>
 
 nnoremap <Leader>vs :vsp<CR>
 
-nnoremap <Leader>e :e! 
+nnoremap <Leader>e :e!<Space>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q!<CR>
 
