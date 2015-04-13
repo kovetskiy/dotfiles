@@ -1,2 +1,2 @@
 #!/bin/bash
-phpctags -f tags --recurse=yes .
+ctags --php-kinds=c --languages=php --recurse
