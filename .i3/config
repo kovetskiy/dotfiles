@@ -96,10 +96,9 @@ bindsym Ctrl+Insert exec bash -c 'selected=$(xsel) && xclip -selection clipboard
 
 bindsym $alt+Ctrl+r mode "resize"
 
-bindsym $win+Ctrl+e exec engrus
 bindsym $win+Ctrl+l exec lockscreen
 bindsym $win+Ctrl+d exec show-date
-bindsym $alt+Ctrl+e exec anki-add-word
+bindsym $alt+Ctrl+e exec ~/bin/engrus > /tmp/blahed 2>&1
 bindsym Ctrl+F12    exec reconfig-kbd
 
 set $leftM VGA1
