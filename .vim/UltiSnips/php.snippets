@@ -44,6 +44,14 @@ snippet ld "log debug" bw
 $this->_di->getLogger()->debug("$1");
 endsnippet
 
+snippet lr "log notice" bw
+$this->_di->getLogger()->notice("$1");
+endsnippet
+
+snippet lr "log error" bw
+$this->_di->getLogger()->error("$1");
+endsnippet
+
 snippet li "log info" bw
 $this->_di->getLogger()->info("$1");
 endsnippet
@@ -78,7 +86,7 @@ snippet uf "public function" bw
  */
 public function $1($2)
 {
-	$5
+	${5:${VISUAL}}
 }
 endsnippet
 
@@ -90,7 +98,7 @@ snippet vf "private function" bw
  */
 private function _$1($2)
 {
-	$5
+	${5:${VISUAL}}
 }
 endsnippet
 
@@ -102,7 +110,7 @@ snippet pf "protected function" bw
  */
 protected function _$1($2)
 {
-	$5
+	${5:${VISUAL}}
 }
 endsnippet
 
