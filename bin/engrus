@@ -1,6 +1,26 @@
 #!/bin/bash
 
-text=$(i3-input -F '# %s' | tail -n 3 | grep output | cut -d'=' -f2 | tr -s ' ' '+')
-url="http://translate.yandex.net/api/v1/tr.json/translate?lang=en-ru&text=$text&srv=tr-text"
-tr=$(curl -s "$url" | jq .text[0] | sed 's/"//g')
-notify-send -t 1000 "$tr"
+#set -x
+
+input() {
+    i3-input -F '#%s' | \
+        tail -n 3      | \
+        grep output    | \
+        cut -d'=' -f2
+}
+
+INPUT=$(input)
+WORDS=$(wc -w <<< "$INPUT")
+
+if [[ $WORDS > 1 ]]; then
+    INPUT=$(tr -s ' ' '+' <<< "$INPUT")
+    URL="http://translate.yandex.net/api/v1/tr.json/translate?lang=en-ru&text=$INPUT&srv=tr-text"
+    TRANSLATION=$(curl -s "$URL" | jq .text[0] | sed 's/"//g')
+else
+    TRANSLATION=$(~/go/bin/runki --dry <<< "$INPUT")
+    runki <<< "$INPUT" >/dev/null 2>&1 &
+fi
+
+notify-send -t 2000 "$TRANSLATION"
+
+exit 0
