@@ -288,6 +288,9 @@ function ssh-urxvt() {
     \ssh -t "$@" "infocmp >/dev/null 2>&1 || export TERM=xterm; LANG=$LANG \$SHELL"
 }
 
+#vw it's bin/vw, which openning some software in $EDITOR.
+compdef vw=which
+
 
 eval $(dircolors ~/.dircolors.$BACKGROUND)
 
