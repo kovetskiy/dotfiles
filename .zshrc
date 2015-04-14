@@ -14,7 +14,7 @@ plugins=(git history-substring-search)
 source ~/.oh-my-zsh/oh-my-zsh.sh
 
 HISTFILE=$HOME/.history
-HISTSIZE=800
+HISTSIZE=1000
 SAVEHIST=100000
 
 unsetopt correct
@@ -29,7 +29,7 @@ setopt rmstarsilent
 setopt append_history
 setopt extended_history
 setopt hist_expire_dups_first
-setopt hist_ignore_dups 
+setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt hist_verify
 setopt inc_append_history
@@ -53,10 +53,20 @@ bindkey -v '^H' backward-delete-char
 bindkey -v '^B' delete-char
 bindkey -v '^[[3~' delete-char
 bindkey -v '^W' backward-kill-word
-bindkey -v '^K' vi-kill-eol
 bindkey -v '^[[1;5D' vi-backward-word #ctrl+alt+H
 bindkey -v '^[[1;5C' vi-forward-word #ctrl+alt+L
 bindkey -v "^L" clear-screen
+
+function add-params() {
+    BIN=$(awk {'print $1'} <<< "$BUFFER")
+    COUNT=$(wc -c <<< "$BIN")
+    CURSOR=$COUNT
+    # hack for adding yet space before params
+    BUFFER[$CURSOR]="  "
+}
+
+zle -N add-params
+bindkey -v '^K' add-params
 
 bindkey -a '^[' vi-insert
 
