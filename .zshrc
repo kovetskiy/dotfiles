@@ -291,6 +291,11 @@ function ssh-urxvt() {
 #vw it's bin/vw, which openning some software in $EDITOR.
 compdef vw=which
 
+# mkdir + cd
+function ck() {
+    mkdir -p "$@"
+    cd "$@"
+}
 
 eval $(dircolors ~/.dircolors.$BACKGROUND)
 
