@@ -12,13 +12,20 @@ input() {
 INPUT=$(input)
 WORDS=$(wc -w <<< "$INPUT")
 
-if [[ $WORDS > 1 ]]; then
+TRANSLATION=""
+
+if [[ $WORDS == 1 ]]; then
+    TRANSLATION=$(~/go/bin/runki --dry 2>/dev/null <<< "$INPUT")
+
+    if [[ "$TRANSLATION" != "" ]]; then
+        runki <<< "$INPUT" >/dev/null 2>&1 &
+    fi
+fi
+
+if [[ "$TRANSLATION" == "" ]]; then
     INPUT=$(tr -s ' ' '+' <<< "$INPUT")
     URL="http://translate.yandex.net/api/v1/tr.json/translate?lang=en-ru&text=$INPUT&srv=tr-text"
     TRANSLATION=$(curl -s "$URL" | jq .text[0] | sed 's/"//g')
-else
-    TRANSLATION=$(~/go/bin/runki --dry <<< "$INPUT")
-    runki <<< "$INPUT" >/dev/null 2>&1 &
 fi
 
 notify-send -t 2000 "$TRANSLATION"
