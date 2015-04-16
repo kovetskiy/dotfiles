@@ -1,5 +1,25 @@
-snippet s "Snippet definition" !
+snippet s "Snippet definition" w
 `!p snip.rv = "snippet"` ${1:Tab_trigger} "${2:Description}" ${3:w}
-$0
+$1
 `!p snip.rv = "endsnippet"`
+endsnippet
+
+snippet p "python" w
+`!p
+$1
+`
+endsnippet
+
+snippet v "vim" w
+`!v
+$1
+`
+endsnippet
+
+snippet r "snip.rv" w
+snip.rv=$1
+endsnippet
+
+snippet pr "show snip.rv" w
+`!p snip.rv=$1`
 endsnippet
