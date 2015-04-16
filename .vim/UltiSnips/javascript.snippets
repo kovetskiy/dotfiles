@@ -61,3 +61,23 @@ endsnippet
 snippet pr "console log" w
 console.log($1);
 endsnippet
+
+snippet t "that" w
+that$0
+endsnippet
+
+snippet = "var" w
+var $1 = $2
+endsnippet
+
+snippet "* rs" "return self" w
+`!p
+
+import subprocess
+import vim
+
+file_path = vim.eval('expand("%p")')
+class_name = file_path.replace('.js', '').replace('/', '.')
+
+`* @return {`!p snip.rv=class_name`}
+endsnippet
