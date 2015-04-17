@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#set -x
+
+CITY="novosibirsk"
+RESPONSE=$(curl "http://pogoda.ngs.ru/api/v1/forecasts/current?city=$CITY" 2>/dev/null)
+FORECAST=$(jq ".forecasts[0]" <<< "$RESPONSE")
+
+TEMPERATURE=$(jq ".temperature" <<< "$FORECAST")
+WIND_SPEED=$(jq ".wind.speed" <<< "$FORECAST")
+CLOUD=$(jq ".cloud.title" <<< "$FORECAST" | sed 's/"//g')
+
+RESULT="$TEMPERATURE °C, $CLOUD, $WIND_SPEED m/s"
+
+echo $RESULT
