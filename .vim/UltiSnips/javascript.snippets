@@ -1,7 +1,14 @@
 snippet f "function"
+/**
+ * $5
+ */
 $1: function($2) {
+	var that = this;
+
 	$3
-}$0
+
+	return ${4:that};
+}${6:,}
 endsnippet
 
 snippet tt "that this"
@@ -17,6 +24,12 @@ snippet af "anon func"
 function($1) {
 	$2
 }
+endsnippet
+
+snippet n "action" w
+${1:click}(function($2) {
+	$3
+})${4:;}
 endsnippet
 
 snippet ev "event handler"
@@ -51,11 +64,9 @@ snippet v "variable" w
 /**
  * $3
  *
- * @type $4
+ * @var $4
  */
 $1: ${2:null},
-
-$0
 endsnippet
 
 snippet pr "console log" w
@@ -80,4 +91,8 @@ file_path = vim.eval('expand("%p")')
 class_name = file_path.replace('.js', '').replace('/', '.')
 
 `* @return {`!p snip.rv=class_name`}
+endsnippet
+
+snippet rf "return false" w
+return false
 endsnippet
