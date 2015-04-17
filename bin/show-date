@@ -1,2 +1,0 @@
-#!/bin/bash
-notify-send -u critical -t 1000 "Current date" "`date`"
