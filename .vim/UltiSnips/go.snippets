@@ -264,7 +264,7 @@ snippet ,n ", nil"
 endsnippet
 
 snippet n, ", nil"
-nil, 
+nil,
 endsnippet
 
 snippet frr "forever" bw
@@ -274,11 +274,11 @@ for {
 endsnippet
 
 snippet ae "blah, err := " bw
-${1:data}, err := 
+${1:data}, err :=
 endsnippet
 
 snippet a "blah := " bw
-${1:data} := 
+${1:data} :=
 endsnippet
 
 
@@ -340,7 +340,7 @@ log.Printf($1)
 endsnippet
 
 snippet td "todo" bw
-// @TODO: 
+// @TODO:
 endsnippet
 
 snippet l "last slice usage" iw
@@ -359,4 +359,17 @@ endsnippet
 
 snippet fp "fmt.Println" w
 fmt.Println($1)
+endsnippet
+
+snippet e "fmt.Printf" bw
+fmt.Printf("`!p snip.rv=t[1]`: %v\n", $1)
+endsnippet
+
+snippet ej "print json" bw
+`!p
+from random import randint
+
+name = t[1] + str(randint(10, 9999))
+`ej`!p snip.rv=name`, _ := json.MarshalIndent($1, "", "  ")
+fmt.Printf("`!p snip.rv=t[1]`: %s\n", string(ej`!p snip.rv=name`))
 endsnippet
