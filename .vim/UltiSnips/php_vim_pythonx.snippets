@@ -1,13 +1,13 @@
 global !p
-from php import *
+import px.php
 endglobal
 
 snippet "(protected \$([\w.]+).*ps)" "protected setter" rm
-`!p 
+`!p
 _line = match.group(1)[:-2]
-_cid = get_camelcase_identifier_from_string(_line, False)
-_id = get_identifier_from_string(_line, False)
-_phpdoc = get_phpdoc_variables_before_cursor()
+_cid = px.php.get_camelcase_identifier_from_string(_line, False)
+_id = px.php.get_identifier_from_string(_line, False)
+_phpdoc = px.php.get_phpdoc_variables_before_cursor()
 _var = ''
 if 'var' in _phpdoc:
 	_var = _phpdoc['var']
@@ -29,11 +29,11 @@ protected function _set`!p snip.rv=_cid`($$3)
 endsnippet
 
 snippet "((protected|public|private) \$([\w.]+).*pg)" "protected getter" rm
-`!p 
+`!p
 _line = match.group(1)[:-2]
-_cid = get_camelcase_identifier_from_string(_line, False)
-_id = get_identifier_from_string(_line, False)
-_phpdoc = get_phpdoc_variables_before_cursor()
+_cid = px.php.get_camelcase_identifier_from_string(_line, False)
+_id = px.php.get_identifier_from_string(_line, False)
+_phpdoc = px.php.get_phpdoc_variables_before_cursor()
 _var = ''
 if 'var' in _phpdoc:
 	_var = _phpdoc['var']
@@ -52,11 +52,11 @@ protected function _get`!p snip.rv=_cid`()
 endsnippet
 
 snippet "((protected|public|private) \$([\w.]+).*vs)" "private setter" rm
-`!p 
+`!p
 _line = match.group(1)[:-2]
-_cid = get_camelcase_identifier_from_string(_line, False)
-_id = get_identifier_from_string(_line, False)
-_phpdoc = get_phpdoc_variables_before_cursor()
+_cid = px.php.get_camelcase_identifier_from_string(_line, False)
+_id = px.php.get_identifier_from_string(_line, False)
+_phpdoc = px.php.get_phpdoc_variables_before_cursor()
 _var = ''
 if 'var' in _phpdoc:
 	_var = _phpdoc['var']
@@ -78,11 +78,11 @@ private _set`!p snip.rv=_cid`($$3)
 endsnippet
 
 snippet "((protected|public|private) \$([\w.]+).*vg)" "private getter" rm
-`!p 
+`!p
 _line = match.group(1)[:-2]
-_cid = get_camelcase_identifier_from_string(_line, False)
-_id = get_identifier_from_string(_line, False)
-_phpdoc = get_phpdoc_variables_before_cursor()
+_cid = px.php.get_camelcase_identifier_from_string(_line, False)
+_id = px.php.get_identifier_from_string(_line, False)
+_phpdoc = px.php.get_phpdoc_variables_before_cursor()
 _var = ''
 if 'var' in _phpdoc:
 	_var = _phpdoc['var']
@@ -101,11 +101,11 @@ private _get`!p snip.rv=_cid`()
 endsnippet
 
 snippet "((protected|public|private) \$([\w.]+).*us)" "public setter" rm
-`!p 
+`!p
 _line = match.group(1)[:-2]
-_cid = get_camelcase_identifier_from_string(_line, False)
-_id = get_identifier_from_string(_line, False)
-_phpdoc = get_phpdoc_variables_before_cursor()
+_cid = px.php.get_camelcase_identifier_from_string(_line, False)
+_id = px.php.get_identifier_from_string(_line, False)
+_phpdoc = px.php.get_phpdoc_variables_before_cursor()
 _var = ''
 if 'var' in _phpdoc:
 	_var = _phpdoc['var']
@@ -127,11 +127,11 @@ public function set`!p snip.rv=_cid`($$3)
 endsnippet
 
 snippet "((protected|public|private) \$([\w.]+).*ug)" "public getter" rm
-`!p 
+`!p
 _line = match.group(1)[:-2]
-_cid = get_camelcase_identifier_from_string(_line, False)
-_id = get_identifier_from_string(_line, False)
-_phpdoc = get_phpdoc_variables_before_cursor()
+_cid = px.php.get_camelcase_identifier_from_string(_line, False)
+_id = px.php.get_identifier_from_string(_line, False)
+_phpdoc = px.php.get_phpdoc_variables_before_cursor()
 _var = ''
 if 'var' in _phpdoc:
 	_var = _phpdoc['var']
