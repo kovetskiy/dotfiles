@@ -187,6 +187,7 @@ alias adbl='adb logcat'
 alias adblg='adbg logcat | grep Go'
 alias sudo='sudo env PATH=$PATH'
 alias rsstop='pkill redshift'
+alias psx='ps fuxa'
 
 alias bstart="batrak -Tn \`jira-now print\`"
 alias bstop="batrak -Sn"
@@ -220,6 +221,11 @@ function gocd() {
     cd `find $GOPATH/src/ -name "$1*" -type d | head -n 1`
 }
 
+function vicd() {
+    cd `find ~/.vim/bundle/ -name "$1*" -type d | head -n 1`
+}
+alias vimcd='vicd'
+
 function gcf() {
     amend=""
     if [ "$1" = "!" ]; then
@@ -252,7 +258,7 @@ function github-fix-host() {
     remote_url=$(awk '/Fetch URL:/{print $3}' <<< "$remote_info")
     remote_host=$(cut -d/ -f3 <<< "$remote_url")
     remote_host=$(sed 's/\@/\\@/' <<< "$remote_host")
-    new_url=$(sed "s/$remote_host/git@github.com/" <<< "$remote_url")
+    new_url=$(sed "s/$remote_host/github.com/" <<< "$remote_url")
     new_url=$(sed "s/https/ssh/" <<< "$new_url")
     git remote set-url $name $new_url
 }
