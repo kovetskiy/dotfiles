@@ -297,17 +297,6 @@ Plug 'kovetskiy/ash.vim'
     nnoremap <C-E><C-N> :Unite ash_lsreviews:ngs/auto<CR>
 
 Plug 'seletskiy/vim-pythonx', { 'for': ['go', 'php']}
-    au filetype_go FileType go
-        \ inoremap <buffer> <C-L> <C-\><C-O>:py go.cycle_by_var_name()<CR>
-    au filetype_go FileType go
-        \ smap <buffer> <C-L> <BS><C-L>
-    au filetype_go FileType go
-        \ smap <buffer> <C-K> <BS><C-I>
-
-    au filetype_php FileType php
-        \ inoremap <buffer> <C-L> <C-\><C-O>:py php.cycle_by_var_name()<CR>
-    au filetype_php FileType php
-        \ smap <buffer> <C-L> <BS><C-L>
 
 Plug 'kovetskiy/vim-empty-lines'
     nnoremap <Leader><Leader>j :call DelEmptyLineBelow()<CR>
@@ -517,7 +506,7 @@ nnoremap <Leader>] :tnext<CR>
 
 nnoremap <C-T><C-T> :retab<CR>
 
-inoremap <C-A> <C-O>A
+imap <C-A> <C-O>A
 
 map <C-_> 99<C-W>K<C-W>_
 map <C-H> <C-W>h
@@ -527,7 +516,7 @@ map <C-L> <C-W>l
 
 imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 
-inoremap <C-K> <C-O>A;<C-O>o
+inoremap <C-K> <C-O>A;<CR>
 
 augroup custom_colors
     au!
