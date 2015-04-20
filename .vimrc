@@ -449,6 +449,9 @@ nnoremap <Leader>l <ESC>
 
 nnoremap <F12> :noh<CR>
 
+nnoremap O O<Left><Right>
+nnoremap o o<Left><Right>
+
 nnoremap <Leader>o o<ESC>
 nnoremap <Leader>O O<ESC>
 
