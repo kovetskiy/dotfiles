@@ -1,9 +1,18 @@
 global !p
-from php import *
+import px.php
 endglobal
 
 snippet forr "foreach" bw
-foreach (${1:`!p snip.rv=get_last_used_identifier()`} as $2) {
+`!p
+if snip.c == "":
+	last_variable=px.php.get_last_var_for_snippet()
+	snip.rv=last_variable
+	if last_variable[-1:] == 's':
+		value_var = last_variable[:-1]
+	else:
+		value_var = '$value'
+`
+foreach (${1:`!p snip.rv=last_variable`} as ${2:`!p snip.rv=value_var`}) {
 	$3
 }
 endsnippet
@@ -57,7 +66,7 @@ $this->_di->getLogger()->info("$1");
 endsnippet
 
 snippet le "log exception" bw
-$this->_di->getLogger()->exception(`!p snip.rv=get_last_used_identifier()`);
+$this->_di->getLogger()->exception(`!p snip.rv=px.php.last_last_var_for_snippet()`);
 endsnippet
 
 snippet i "if" bw
@@ -173,19 +182,19 @@ array($0)
 endsnippet
 
 snippet vd "variable declaration" bw
-${1:`!p snip.rv=get_last_used_identifier()`} = $2
+${1:`!p snip.rv=px.php.last_last_var_for_snippet()`} = $2
 endsnippet
 
 snippet vdt "variable declaration" bw
-${1:`!p snip.rv=get_last_used_identifier()`} = $this->$2
+${1:`!p snip.rv=px.php.last_last_var_for_snippet()`} = $this->$2
 endsnippet
 
 snippet dv "variable declaration" bw
-$1 = ${2:`!p snip.rv=get_last_used_identifier()`}
+$1 = ${2:`!p snip.rv=px.php.last_last_var_for_snippet()`}
 endsnippet
 
 snippet tdv "variable declaration" bw
-$this->$1 = ${2:`!p snip.rv=get_last_used_identifier()`}
+$this->$1 = ${2:`!p snip.rv=px.php.last_last_var_for_snippet()`}
 endsnippet
 
 snippet em "empty" !w
