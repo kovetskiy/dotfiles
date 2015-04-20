@@ -194,6 +194,8 @@ alias bstop="batrak -Sn"
 alias bi="batrak -Ln"
 alias dt='cd ~df'
 
+alias gob='go build'
+
 function prepend-sudo() {
     if [[ "$BUFFER" != su(do|)\ * ]]; then
         BUFFER="sudo $BUFFER"
