@@ -10,7 +10,7 @@ set $alt Mod4
 
 floating_modifier $alt
 
-bindsym $alt+Return exec "(urxvtc || (urxvtd -f && urxvtc)) || urxvt"
+bindsym $alt+Return exec urxvt
 
 bindsym $alt+Ctrl+d kill
 
