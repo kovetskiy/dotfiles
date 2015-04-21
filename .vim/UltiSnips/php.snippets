@@ -6,11 +6,11 @@ snippet forr "foreach" bw
 `!p
 if snip.c == "":
 	last_variable=px.php.get_last_var_for_snippet()
-	snip.rv=last_variable
-	if last_variable[-1:] == 's':
-		value_var = last_variable[:-1]
-	else:
-		value_var = '$value'
+
+if t[1][-1:] == 's':
+	value_var = t[1][:-1]
+else:
+	value_var = t[2]
 `
 foreach (${1:`!p snip.rv=last_variable`} as ${2:`!p snip.rv=value_var`}) {
 	$3
