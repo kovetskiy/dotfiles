@@ -280,9 +280,9 @@ Plug 'kovetskiy/urxvt.vim'
     au filetype_go FileType go nmap <buffer>
         \ <Leader>t :call urxvt#put('go test')<CR>
     au filetype_go FileType go nmap <buffer>
-        \ <Leader>r :call urxvt#put('./\${\$(pwd)##*/}')<CR>
+        \ <Leader>r :call urxvt#put('go build && ./\${\$(pwd)##*/}')<CR>
     au filetype_go FileType go nmap <buffer>
-        \ <Leader>b :GoFmt<CR>:w<CR>:call urxvt#put('go build')<CR>
+        \ <Leader>b :GoFmt<CR>:w<CR>:GoBuild<CR>
 
 " depends of Unite.vim
 Plug 'kovetskiy/ash.vim'

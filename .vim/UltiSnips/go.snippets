@@ -1,6 +1,6 @@
 global !p
 # see ~/.vim/pythonx/go.py
-from go import *
+import px.go
 endglobal
 
 snippet n "func" bw
@@ -20,7 +20,7 @@ type ${1:TypeName} ${2:description}
 endsnippet
 
 snippet p "package" bw
-package ${1:`!p snip.rv=guess_package_name_from_file_name(snip.fn)`}
+package ${1:`!p snip.rv=px.go.guess_package_name_from_file_name(snip.fn)`}
 endsnippet
 
 snippet te "func Test" bw
@@ -36,7 +36,7 @@ type $1 interface {
 endsnippet
 
 snippet i "if " bw
-if ${1:`!p snip.rv=get_last_var_for_snippet()`} {
+if ${1:`!p snip.rv=px.all.get_last_var_for_snippet()`} {
     ${2:${VISUAL}}
 }
 endsnippet
@@ -134,7 +134,7 @@ endsnippet
 
 snippet "((\w+)\s*(\w+)) js$" "json annotation" br
 `!p snip.rv=match.group(1)` \`json:"`!p
-	snip.rv=convert_camelcase_to_snakecase(match.group(2))`"\`
+	snip.rv=px.all.convert_camelcase_to_snakecase(match.group(2))`"\`
 endsnippet
 
 snippet fm "func main" bw
@@ -316,13 +316,13 @@ return false
 endsnippet
 
 snippet d "define method" bw
-func (`!p snip.rv=' '.join(extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
+func (`!p snip.rv=' '.join(px.go.extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
 	$5
 }
 endsnippet
 
 snippet dp "define method on pointer" bw
-func (`!p snip.rv=' *'.join(extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
+func (`!p snip.rv=' *'.join(px.go.extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
 	$5
 }
 endsnippet
@@ -344,7 +344,7 @@ snippet td "todo" bw
 endsnippet
 
 snippet l "last slice usage" iw
-${1:`!p snip.rv=get_previous_slice_usage()`}[$2]
+${1:`!p snip.rv=px.go.get_previous_slice_usage()`}[$2]
 endsnippet
 
 snippet "(func\s.*\)\s+)([\w\d_\s\{\}\[\]\*\.]+),\s?([\w\d_\s\{\}\[\]\*\.]+)" "return multiple" r
