@@ -214,9 +214,10 @@ Plug 'edsono/vim-matchit', { 'for': 'smarty'}
         au!
 
         au BufRead,BufNewFile *.tpl set filetype=smarty
+        au User BgBasePost hi htmlLink cterm=none
+        au FileType smarty hi htmlLink cterm=none
     augroup end
 
-    au User BgBasePost hi htmlLink cterm=none
 
 Plug 'AndrewRadev/sideways.vim'
 
