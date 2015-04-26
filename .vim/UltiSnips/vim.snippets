@@ -1,11 +1,11 @@
-snippet au "augroup"
+snippet au "augroup" bw
 augroup ${1}
 	au!
-	${2}
-augroup END
+	${2:${VISUAL}}
+augroup end
 endsnippet
 
-snippet f "function" i
+snippet f "function" bw
 function! $1($2)
 	$3
 endfunction!
@@ -25,4 +25,12 @@ snippet d "declare if not exists" bw
 if !exists('$1')
 	let $1 = $2
 endif
+endsnippet
+
+snippet l "let" bw
+let $1 = $2
+endsnippet
+
+snippet c "call" bw
+call $1($2)
 endsnippet
