@@ -150,7 +150,7 @@ Plug 'Lokaltog/vim-easymotion'
     hi link EasyMotionTarget2First ErrorMsg
     hi link EasyMotionTarget2Second ErrorMsg
 
-Plug 'SirVer/ultisnips'
+Plug 'seletskiy/ultisnips', { 'branch': 'dev' }
     let g:UltiSnipsSmippetDirectories = [$HOME . '/.vim/Ultisnips/']
     let g:UltiSnipsEnableSnipMate = 0
     let g:UltiSnipsExpandTrigger="<TAB>"
