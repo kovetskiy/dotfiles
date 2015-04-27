@@ -1,7 +1,7 @@
 set hintchars=qweasdiopjkl
 set gui=none
 
-set editor="urxvt -e vim "
+set editor="sh -c 'i3-msg workspace 1 ; vim --remote-tab-wait-silent $0 ; i3-msg workspace back_and_forth'"
 set cpt=l
 set showstatuslinks=2
 set hto=170
