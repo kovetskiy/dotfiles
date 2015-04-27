@@ -1,53 +1,15 @@
-snippet tyb "type boolean" !b
-"type":"boolean"$0
-endsnippet
-
-snippet tyi "type integer" !b
-"type":"integer"$0
-endsnippet
-
-snippet tys "type string" !b
-"type":"string"$0
-endsnippet
-
-snippet tya "type array" !b
-"type":"array",
-"items": {
-	$1
-}$0
-endsnippet
-
-snippet tyo "type object" !b
-"type":"object",
-"properties": {
-	$1
-}$0
-endsnippet
-
-snippet tit "title" !b
-"title":"$1"$0
-endsnippet
-
-snippet req "required" !b
-"required":true$0
-endsnippet
-
-snippet en "enum" !b
-"enum": [
-	$1
-]$0
-endsnippet
-
-snippet def "default" !b
-"default":$0
-endsnippet
-
-snippet prs "property simple" !b
-"$1":$0
-endsnippet
-
-snippet pr "property" !b
-"$1":{
+snippet o "object" w
+"$1": {
 	$2
-}$0
+},
+endsnippet
+
+snippet p "property" w
+"$1":$2,
+endsnippet
+
+snippet a "array" w
+[
+	$1
+]
 endsnippet
