@@ -2,6 +2,7 @@ global !p
 # see ~/.vim/pythonx/go.py
 import px.go
 import re
+import vim
 
 def in_if_error(buffer, line):
 	if line < 2:
@@ -80,6 +81,12 @@ def in_func_declaration(buffer, line):
 			return False
 
 		line = line - 1
+
+
+def get_buffer_line():
+	line, _ = vim.current.window.cursor
+	buffer = vim.current.buffer
+	return buffer, line
 
 endglobal
 
@@ -423,13 +430,33 @@ return false
 endsnippet
 
 snippet d "define method" bw
-func (`!p snip.rv=' '.join(px.go.extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
+`!p
+buffer, line = get_buffer_line()
+
+opening = '('
+closing = ')'
+
+if len(buffer[line - 1]) > 80 or not re.search('^func \(', buffer[line - 1]):
+	opening = '(\n\t'
+	closing = '\n)'
+
+`func (`!p snip.rv=' '.join(px.go.extract_prev_method_binding_for_cursor())`) $1`!p snip.rv=opening`$2`!p snip.rv=closing` $3${3/.+/ /}{
 	$5
 }
 endsnippet
 
 snippet dp "define method on pointer" bw
-func (`!p snip.rv=' *'.join(px.go.extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
+`!p
+buffer, line = get_buffer_line()
+
+opening = '('
+closing = ')'
+
+if len(buffer[line - 1]) > 80 or not re.search('^func \(', buffer[line - 1]):
+	opening = '(\n\t'
+	closing = '\n)'
+
+`func (`!p snip.rv=' *'.join(px.go.extract_prev_method_binding_for_cursor())`) $1`!p snip.rv=opening`$2`!p snip.rv=closing` $3${3/.+/ /}{
 	$5
 }
 endsnippet
