@@ -187,8 +187,6 @@ Plug 'joonty/vim-phpqa', { 'for': 'php' }
 
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
 
-Plug 'jelera/vim-javascript-syntax', { 'for': 'js' }
-
 Plug 'rename', { 'on': 'Rename' }
 
 Plug 't9md/vim-choosewin', { 'on': [ 'ChooseWin', 'ChooseWinSwap' ] }
@@ -341,6 +339,8 @@ Plug 'seletskiy/vim-nunu'
 
 Plug 'ervandew/matchem'
 
+Plug 'othree/yajs.vim'
+
 call plug#end()
 
 syntax on
@@ -478,13 +478,13 @@ nnoremap g. '>
 nnoremap g, '<
 
 nnoremap <F4> :let &scrolloff=999-&scrolloff<CR>
-nnoremap <Leader><Leader>q <Esc>:bdelete!<CR>
+nnoremap <Leader><Leader>q :q!<CR>
 
 nnoremap <Leader>vs :vsp<CR>
 
 nnoremap <Leader>e :e!<Space>
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>q :q!<CR>
+nnoremap <Leader>q <ESC>:bdelete!<CR>
 
 nnoremap <Space> :noh<CR>
 
