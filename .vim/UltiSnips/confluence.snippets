@@ -22,7 +22,7 @@ data-macro-body-type="PLAIN_TEXT">
 		<tr>
 			<td class="wysiwyg-macro-body">
 				<pre>
-					${0:${VISUAL}}
+					${1:${VISUAL}}
 				</pre>
 			</td>
 		</tr>
@@ -31,7 +31,7 @@ data-macro-body-type="PLAIN_TEXT">
 endsnippet
 
 snippet r "gray" w
-<span style="color: rgb(192, 192, 192);">${0:${VISUAL}}</span>
+<span style="color: rgb(192, 192, 192);">${1:${VISUAL}}</span>
 endsnippet
 
 snippet t "table" b
@@ -40,8 +40,10 @@ snippet t "table" b
 		<tr>
 			<th class="confluenceTh">
 				$1
-			</th>$2
+			</th>
+			$2
 		</tr>
+		$0
 	</tbody>
 </table>
 endsnippet
@@ -50,16 +52,19 @@ snippet th "table th" b
 <th class="confluenceTh">
 	$1
 </th>
+$0
 endsnippet
 
 snippet tr "table tr" b
 <tr>
 	$1
 </tr>
+$0
 endsnippet
 
 snippet td "table td" b
 <td class="confluenceTd">
 	$1
 </td>
+$0
 endsnippet
