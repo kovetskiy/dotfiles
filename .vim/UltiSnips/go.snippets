@@ -2,92 +2,6 @@ global !p
 # see ~/.vim/pythonx/go.py
 import px.go
 import re
-import vim
-
-def in_if_error(buffer, line):
-	if line < 2:
-		return False
-
-	search = re.search('if.*err != nil', buffer[line-2])
-
-	return search
-
-def in_func_body(buffer, line):
-    close = 0
-    open = 0
-    while True:
-        line_contents = buffer[line-1]
-        open = open + line_contents.count("{")
-        close = close + line_contents.count("}")
-        if re.search('^(\s+)?func \(', line_contents):
-            if open == close:
-                return False
-            else:
-                return True
-
-        if line == 0:
-            return False
-
-        line = line - 1
-
-
-def get_bracket_line(buffer, line):
-	while True:
-		line_contents = buffer[line - 1]
-		if re.search(' {$', line_contents):
-			return line
-
-		if line == 0:
-			return False
-
-		line = line - 1
-
-
-def in_type_declaration(buffer, line):
-	bracket_line = get_bracket_line(buffer, line)
-	if not bracket_line:
-		return False
-
-	bracket_line_contents = buffer[bracket_line-1]
-	if re.search('^(\s+)?type ', bracket_line_contents):
-		return True
-	else:
-		return False
-
-
-def in_func_declaration(buffer, line):
-	while True:
-		line_contents = buffer[line - 1]
-
-		return True
-		bracket = False
-		if re.search(' {$', line_contents):
-			bracket = True
-
-		func = False
-		if re.search('^(\s+)?func \(', line_contents):
-			func = True
-
-		if bracket:
-			if func:
-				return True
-			else:
-				return False
-		else:
-			if func:
-				return True
-
-		if line == 0:
-			return False
-
-		line = line - 1
-
-
-def get_buffer_line():
-	line, _ = vim.current.window.cursor
-	buffer = vim.current.buffer
-	return buffer, line
-
 endglobal
 
 snippet n "func" bw
@@ -113,49 +27,50 @@ snippet p "package" "line == 1" bwe
 package ${1:`!p snip.rv=px.go.guess_package_name_from_file_name(snip.fn)`}
 endsnippet
 
-snippet p "panic" "in_if_error(buffer, line)" bwe
+snippet p "panic" "px.go.is_in_err_condition(buffer, line, column)" bwe
 panic(err)
 endsnippet
 
-snippet i "if" "in_func_body(buffer, line)" bwe
+priority -1
+snippet i "if" bw
 if ${1:`!p snip.rv=px.all.get_last_var_for_snippet()`} {
     ${2:${VISUAL}}
 }
 endsnippet
 
-snippet i "integer field" "in_type_declaration(buffer, line)" bwe
+snippet i "integer field" "px.go.is_type_declaration(buffer, line)" bwe
 $1 int
 endsnippet
 
-snippet i "integer field" "in_func_declaration(buffer, line)" we
+snippet i "integer field" "px.go.is_func_declaration(buffer, line)" we
 $1 int,
 endsnippet
 
-snippet s "string field" "in_type_declaration(buffer, line)" bwe
+snippet s "string field" "px.go.is_type_declaration(buffer, line)" bwe
 $1 string
 endsnippet
 
-snippet s "string field" "in_func_declaration(buffer, line)" we
+snippet s "string field" "px.go.is_func_declaration(buffer, line)" we
 $1 string,
 endsnippet
 
-snippet f "float field" "in_type_declaration(buffer, line)" bwe
+snippet f "float field" "px.go.is_type_declaration(buffer, line)" bwe
 $1 float64
 endsnippet
 
-snippet f "float field" "in_func_declaration(buffer, line)" we
+snippet f "float field" "px.go.is_func_declaration(buffer, line)" we
 $1 float64,
 endsnippet
 
-snippet m "map field" "in_type_declaration(buffer, line)" bwe
+snippet m "map field" "px.go.is_type_declaration(buffer, line)" bwe
 $1 map[${2:string}]${3:interface{}}
 endsnippet
 
-snippet m "string field" "in_func_declaration(buffer, line)" we
+snippet m "string field" "px.go.is_func_declaration(buffer, line)" we
 $1 map[${2:string}]${3:interface{}}$4,
 endsnippet
 
-snippet ii "if <VISUAL>" "in_func_body(buffer, line)" bwe
+snippet ii "if <VISUAL>" "px.go.is_func_body(buffer, line)" bwe
 if ${VISUAL} {
 	$1
 }
@@ -431,7 +346,7 @@ endsnippet
 
 snippet d "define method" bw
 `!p
-buffer, line = get_buffer_line()
+buffer, line = px.all.get_buffer_line()
 
 opening = '('
 closing = ')'
@@ -447,7 +362,7 @@ endsnippet
 
 snippet dp "define method on pointer" bw
 `!p
-buffer, line = get_buffer_line()
+buffer, line = px.all.get_buffer_line()
 
 opening = '('
 closing = ')'
