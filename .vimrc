@@ -198,8 +198,9 @@ Plug 't9md/vim-choosewin', { 'on': [ 'ChooseWin', 'ChooseWinSwap' ] }
     nnoremap <C-W><C-S> :ChooseWinSwap<CR>
 
 Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
-    nnoremap L :OverCommandLine %s/<CR>
-    vnoremap L :OverCommandLine s/<CR>
+    nnoremap H :OverCommandLine %s/<CR>
+    vnoremap H :OverCommandLine s/<CR>
+    nmap L VH
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     augroup filetype_markdown
