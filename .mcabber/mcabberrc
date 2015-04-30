@@ -51,6 +51,7 @@ bind 29 = roster unread_next
 bind 276 = roster toggle
 
 module load editor
+module load focus
 
 # aliases for friends
 source ~/.mcabber/aliases
