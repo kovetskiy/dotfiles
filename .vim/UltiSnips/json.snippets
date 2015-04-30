@@ -2,14 +2,101 @@ snippet o "object" w
 "$1": {
 	$2
 },
+$0
 endsnippet
 
 snippet p "property" w
-"$1":$2,
+"$1":$2,$0
 endsnippet
 
 snippet a "array" w
 [
 	$1
+]
+endsnippet
+
+snippet re "resource" w
+{
+	"resource":"$1",
+	"title":"$2"
+},$0
+endsnippet
+
+snippet all "all" bw
+{
+	"methods":{
+		$0
+	}
+}
+endsnippet
+
+snippet m "method" w
+"$1": {
+	"title":"$2",
+	"description":"$3",
+	$4
+},
+$0
+endsnippet
+
+snippet vars "vars" w
+"path_vars":{
+	"type":"object",
+	"properties":{
+		$1
+	}
+},
+$0
+endsnippet
+
+snippet properties "properties" w
+"properties":{
+	"type":"object",
+	"properties":{
+		$1
+	}
+},
+$0
+endsnippet
+
+snippet tb "type boolean" w
+"type":"boolean",$0
+endsnippet
+
+snippet ts "type string" w
+"type":"string",$0
+endsnippet
+
+snippet ti "type integer" w
+"type":"integer",$0
+endsnippet
+
+snippet to "type object" w
+"type":"object",
+"properties":{
+	$0
+}
+endsnippet
+
+snippet t "title" w
+"title":"$1",$0
+endsnippet
+
+snippet es "errors" w
+"errors": [
+	$1
+],$0
+endsnippet
+
+snippet e "error" w
+{
+	"code":$1,
+	"description":"$2"
+},$0
+endsnippet
+
+snippet en "enum" w
+"enum": [
+	$0
 ]
 endsnippet
