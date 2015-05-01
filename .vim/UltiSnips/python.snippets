@@ -1,0 +1,46 @@
+global !p
+import px.all
+import px.util
+endglobal
+
+snippet d "method" bw
+`!p
+is_class = px.util.match_higher_indent(
+	vim.current.buffer,
+	vim.current.window.cursor,
+	'^class '
+)
+
+self_if_need = ''
+if is_class:
+	self_if_need = 'self'
+	if len(t[2]) > 0 and t[2][:1] != ',':
+		if t[2][:1] != ' ':
+			self_if_need = self_if_need + ', '
+		else:
+			self_if_need = self_if_need + ','
+
+`def $1(`!p snip.rv=self_if_need`$2):
+	$3
+
+
+endsnippet
+
+snippet cl "class" bw
+class $1:
+	def __init__(self$2):
+		`!p
+args_contents = t[2]
+args = args_contents.split(',');
+del args[0]
+
+result = [];
+for arg in args:
+	arg = arg.strip()
+	result.append("self." + arg + " = " + arg)
+
+snip.rv=('\n'+(' '*8)).join(result)
+		`
+
+	$3
+endsnippet
