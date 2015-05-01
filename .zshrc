@@ -197,7 +197,13 @@ alias dt='cd ~df'
 alias gob='go build'
 
 function prepend-sudo() {
-    if [[ "$BUFFER" != su(do|)\ * ]]; then
+    if [[ "$BUFFER" == "" ]]; then
+        BUFFER="sudo $(fc -nl -1)"
+        CURSOR=$#BUFFER
+    elif [[ "$BUFFER" == su(do|)\ * ]]; then
+        BUFFER=${BUFFER:5}
+        (( CURSOR -= 4 ))
+    else
         BUFFER="sudo $BUFFER"
         (( CURSOR += 5 ))
     fi
