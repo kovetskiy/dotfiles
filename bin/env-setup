@@ -20,6 +20,7 @@ if [ -z `pidof charge` ]; then
 fi
 
 if [ -z `pidof shift-shift` ]; then
+    sudo ~/go/bin/shift-shift -match "razer" >/dev/null 2>&1 &
     sudo ~/go/bin/shift-shift >/dev/null 2>&1 &
 fi
 
