@@ -296,7 +296,7 @@ Plug 'kovetskiy/ash.vim'
     nnoremap <C-E><C-I> :Unite ash_inbox<CR>
     nnoremap <C-E><C-N> :Unite ash_lsreviews:ngs/auto<CR>
 
-Plug 'seletskiy/vim-pythonx', { 'for': ['go', 'php'], 'branch': 'dev' }
+Plug 'seletskiy/vim-pythonx'
 
 Plug 'kovetskiy/vim-empty-lines'
     nnoremap <Leader><Leader>j :call DelEmptyLineBelow()<CR>
