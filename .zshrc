@@ -121,6 +121,8 @@ hash -d dotfiles=~/sources/dotfiles/
 hash -d df=~/sources/dotfiles/
 hash -d src=~/sources/
 
+alias aur='yaourt -S --noconfirm'
+alias pms='sudo pacman -S'
 alias -g P='| perl -n -e'
 alias -g G='| ag'
 alias -g L='| less'
