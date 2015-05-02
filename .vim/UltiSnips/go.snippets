@@ -70,7 +70,8 @@ snippet m "string field" "px.go.is_func_declaration(buffer, line)" we
 $1 map[${2:string}]${3:interface{}}$4,
 endsnippet
 
-snippet ii "if <VISUAL>" "px.go.is_func_body(buffer, line)" bwe
+priority -1
+snippet ii "if <VISUAL>" bw
 if ${VISUAL} {
 	$1
 }
