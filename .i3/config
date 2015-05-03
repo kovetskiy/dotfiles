@@ -12,7 +12,7 @@ floating_modifier $alt
 
 bindsym $alt+Return exec urxvt
 
-bindsym $alt+Ctrl+d kill
+bindsym Ctrl+Up kill
 
 bindsym $alt+r exec dmenu_run
 
