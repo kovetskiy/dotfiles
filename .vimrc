@@ -223,6 +223,7 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
 Plug 'terryma/vim-multiple-cursors'
+    nmap <C-I> viw<C-N>
 
 Plug 'majutsushi/tagbar', { 'for': 'php' }
 
