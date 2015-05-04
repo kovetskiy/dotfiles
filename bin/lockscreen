@@ -1,9 +1,14 @@
 #!/bin/bash
 
 MCABBER_FIFO=~/.mcabber/mcabber.fifo
+VOLUME=$(amixer get Master | grep -o '[0-9]\+%')
 
+amixer set Master 0%
 echo "/status away" > $MCABBER_FIFO
+
 slock
+
+amixer set Master $VOLUME
 echo "/status online" > $MCABBER_FIFO
 
 reconfig-kbd
