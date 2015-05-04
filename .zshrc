@@ -228,11 +228,11 @@ function gcof() {
 }
 
 function gocd() {
-    cd `find $GOPATH/src/ -name "$1*" -type d | head -n 1`
+    cd `find $GOPATH/src/ -name "$1*" -type d -print -quit`
 }
 
 function vicd() {
-    cd `find ~/.vim/bundle/ -name "$1*" -type d | head -n 1`
+    cd `find ~/.vim/bundle/ -name "$1*" -type d -print -quit`
 }
 alias vimcd='vicd'
 
