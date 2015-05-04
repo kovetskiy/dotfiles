@@ -5,10 +5,32 @@ export DISPLAY=${DISPLAY:-:0.0}
 
 xset r rate 110 100
 
-setxkbmap \
-    -keycodes \
-        "evdev+aliases(qwerty)" \
-    -symbols \
-        "pc+us+ru:2+hjkl-ru+level3(lwin_switch)+mod4-lvl3+capslock(escape)+altwin(swap_alt_win)" \
-    -compat \
-        "complete+hjkl"
+KEYCODES="evdev+aliases(qwerty)"
+COMPAT="complete+hjkl+super_mappings"
+SYMBOLS=(
+    "pc"
+    "us"
+    "ru:2"
+
+    "level3(lwin_switch)"
+    "mod4-lvl3"
+
+    "hjkl"
+    "hjkl(caret)"
+    "hjkl(rctrl-rshift)"
+    "hjkl(fast-enter)"
+    "hjkl(fast-escape)"
+
+    "capslock(escape)"
+    "altwin(swap_alt_win)"
+)
+SYMBOLS=$(IFS="+"; echo "${SYMBOLS[*]}")
+
+
+
+if [[ "$1" == "-v" ]]; then
+    setxkbmap -keycodes $KEYCODES -symbols $SYMBOLS -compat $COMPAT \
+        -print | xkbcomp - :0
+else
+    setxkbmap -keycodes $KEYCODES -symbols $SYMBOLS -compat $COMPAT
+fi

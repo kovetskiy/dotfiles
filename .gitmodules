@@ -4,3 +4,6 @@
 [submodule ".zprezto/modules/prompt/functions"]
 	path = .zprezto/modules/prompt/functions
 	url = git://github.com/seletskiy/zsh-prompt-lambda17
+[submodule "root/usr/share/X11/xkb"]
+	path = root/usr/share/X11/xkb
+	url = https://github.com/reconquest/rex
