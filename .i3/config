@@ -105,8 +105,8 @@ bindsym $win+Ctrl+d  exec show-info
 bindsym $alt+Ctrl+e  exec ~/bin/engrus > /tmp/blahed 2>&1
 bindsym Ctrl+F12     exec reconfig-kbd
 
-set $leftM VGA1
 set $rightM HDMI1
+set $leftM VGA1
 
 workspace 1 output $rightM # VIM
 workspace 2 output $rightM # terminal
