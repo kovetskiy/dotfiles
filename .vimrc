@@ -1,14 +1,5 @@
 set nocompatible
 
-mapclear
-imapclear
-nmapclear
-vmapclear
-smapclear
-omapclear
-lmapclear
-cmapclear
-
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !mkdir -p ~/.vim/autoload
   silent !curl -fLo ~/.vim/autoload/plug.vim
