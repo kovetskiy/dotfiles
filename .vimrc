@@ -400,6 +400,8 @@ set lcs=eol:¶,trail:·,tab:\ \ "t
 set pastetoggle=<F11>
 
 set nofoldenable
+set noequalalways
+set winminheight=0
 
 set tags=tags;/
 
