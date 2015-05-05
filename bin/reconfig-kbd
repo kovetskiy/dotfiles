@@ -6,7 +6,7 @@ export DISPLAY=${DISPLAY:-:0.0}
 xset r rate 110 100
 
 KEYCODES="evdev+aliases(qwerty)"
-COMPAT="complete+hjkl+super_mappings"
+COMPAT="complete+hjkl"
 SYMBOLS=(
     "pc"
     "us"
