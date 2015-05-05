@@ -1,4 +1,6 @@
 global !p
+import re
+
 import px.all
 import px.util
 endglobal
@@ -19,10 +21,9 @@ if is_class:
 			self_if_need = self_if_need + ', '
 		else:
 			self_if_need = self_if_need + ','
-
-`def $1(`!p snip.rv=self_if_need`$2):
+`
+def $1(`!p snip.rv=self_if_need`$2):
 	$3
-
 
 endsnippet
 
@@ -48,4 +49,17 @@ endsnippet
 snippet i "if" w
 if $1:
 	$2
+endsnippet
+
+snippet s "self" w
+`!p
+code = t[1]
+_self = 'self.'
+if not len(code) or code[:1] == '.':
+	_self = 'self'
+snip.rv=_self`$1
+endsnippet
+
+snippet r "return" bw
+return $0
 endsnippet
