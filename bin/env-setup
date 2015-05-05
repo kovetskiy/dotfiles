@@ -32,10 +32,6 @@ if [ -z `pidof redshift` ]; then
     redshift -c ~/.config/redshift.conf &
 fi
 
-if [ -z `pidof mcabber-auto-esc` ]; then
-    mcabber-auto-esc &
-fi
-
 if [ -z `pidof urxvtd` ]; then
     urxvtd &
 fi
