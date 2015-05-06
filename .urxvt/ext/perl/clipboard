@@ -9,14 +9,14 @@
 
 sub copy {
    my ($self) = @_;
-   my $pid = open( pout, "| xsel -ibp" ) or die "fork";
+   my $pid = open( pout, "| xsel -ip" ) or die "fork";
    print pout $self->selection;
    close(pout) or die "close";
 }
 
 sub paste {
    my ($self) = @_;
-   my $content = `xsel -obp` ;
+   my $content = `xsel -ob` ;
    $self->tt_write ($content);
 }
 
