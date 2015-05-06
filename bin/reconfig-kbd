@@ -5,7 +5,7 @@ export DISPLAY=${DISPLAY:-:0.0}
 
 xset r rate 110 100
 
-KEYCODES="evdev+aliases(qwerty)"
+KEYCODES="evdev+aliases(qwerty)+hjkl"
 COMPAT="complete+hjkl"
 SYMBOLS=(
     "pc"
@@ -23,6 +23,8 @@ SYMBOLS=(
 
     "capslock(escape)"
     "altwin(swap_alt_win)"
+    "bksp-last-group"
+    "ralt-first-group"
 )
 SYMBOLS=$(IFS="+"; echo "${SYMBOLS[*]}")
 
