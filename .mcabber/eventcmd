@@ -2,8 +2,8 @@
 
 echo "${@}" >> /tmp/mcabber.log
 
-TIMEOUT=0.20
-BLINKS=5
+TIMEOUT=0.05
+BLINKS=20
 
 led_on()  { xset led named "Scroll Lock" ; }
 led_off() { xset -led named "Scroll Lock" ; }
