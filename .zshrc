@@ -1,7 +1,7 @@
 export GOROOT=""
 export GOPATH="$HOME/go"
 export PATH="$HOME/bin/:$HOME/go/bin/:$HOME/sources/git-scripts/:$PATH"
-export EDITOR=nvim
+export EDITOR=vim
 export TERM=rxvt-unicode-256color
 export PATH=$PATH:/opt/android-ndk:/opt/android-sdk/platfrom-tools/
 export BACKGROUND=$(cat ~/background)
@@ -132,9 +132,8 @@ alias -g EN='2>/dev/null'
 alias -g EO='2>&1'
 alias l='ls'
 alias ls='ls -lah --color=always'
-alias vim='nvim'
-alias vd='nvim --servername NVIM'
-alias vc='nvim --remote'
+alias vd='vim --servername VIM'
+alias vc='vim --remote'
 alias rf='rm -rf' # like russiahhhhh
 alias ..='cd ..'
 alias ...='cd ../..'
