@@ -174,6 +174,7 @@ alias gsh='git stash'
 alias gshp='git stash pop'
 alias grt='git reset'
 alias gr='git rebase'
+alias grc='git rebase --continue'
 function gri() {
     git rebase -i HEAD~$1
 }
@@ -197,6 +198,11 @@ alias bi="batrak -Ln"
 alias dt='cd ~df'
 
 alias gob='go build'
+
+alias pkgver='echo $(git rev-list --count master).$(git rev-parse --short master)'
+alias pkgverupdate='sed -i "s/pkgver\=.*/pkgver=$(git rev-list --count master).$(git rev-parse --short master)/" PKGBUILD'
+
+alias a='alias'
 
 function prepend-sudo() {
     if [[ "$BUFFER" == "" ]]; then
