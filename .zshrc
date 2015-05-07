@@ -10,7 +10,7 @@ export ZSH=~/.oh-my-zsh/
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
-plugins=(git history-substring-search)
+plugins=(git history-substring-search go)
 source ~/.oh-my-zsh/oh-my-zsh.sh
 
 HISTFILE=$HOME/.history
