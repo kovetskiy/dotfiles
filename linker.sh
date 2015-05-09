@@ -16,7 +16,7 @@ POINTS=(
     ".mcabber"
     ".muttator"
     ".muttatorrc"
-    ".urxvt"
+    ".urxvt/ext/perl"
     ".vim/UltiSnips"
     ".vim/skeletons"
     ".vimperatorrc"
