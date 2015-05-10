@@ -343,6 +343,8 @@ Plug 'ervandew/matchem'
 
 Plug 'othree/yajs.vim'
 
+Plug 'lambdalisue/vim-gita'
+
 call plug#end()
 
 syntax on
