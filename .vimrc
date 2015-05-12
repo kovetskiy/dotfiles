@@ -516,15 +516,13 @@ nnoremap <C-T><C-T> :retab<CR>
 
 imap <C-A> <C-O>A
 
-map <C-_> 99<C-W>K<C-W>_
-map <C-H> <C-W>h
-map <C-J> <C-W>j
-map <C-K> <C-W>k
-map <C-L> <C-W>l
+nmap <C-_> 99<C-W>K<C-W>_
+nmap <C-H> <C-W>h
+nmap <C-J> <C-W>j
+nmap <C-K> <C-W>k
+nmap <C-L> <C-W>l
 
 imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
-
-inoremap <C-K> <C-O>A;<CR>
 
 augroup custom_colors
     au!
