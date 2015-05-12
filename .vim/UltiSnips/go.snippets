@@ -121,6 +121,10 @@ snippet r "return" bw
 return $1
 endsnippet
 
+snippet r "return" "re.match('^\s+if err ', px.util.get_prev_nonempty_line(buffer, line))" eb
+return err
+endsnippet
+
 snippet fs "... string" bw
 $1 string$2
 endsnippet
@@ -428,4 +432,17 @@ snippet te "func Test" bw
 func Test$1(t *testing.T) {
 	$2
 }
+endsnippet
+
+snippet i "if err != nil" "re.match('^\s+[^=]*err\s*:?=', buffer[line-2])" e
+if err != nil {
+	$1
+}
+endsnippet
+
+snippet , "return ... , nil" "px.go.is_return_argument(buffer, line, column)" ie
+, `!p if px.go.is_in_err_condition(vim.current.buffer, vim.current.window.cursor[0], vim.current.window.cursor[1]):
+	snip.rv = "err"
+else:
+	snip.rv = "nil"`
 endsnippet
