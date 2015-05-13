@@ -191,6 +191,10 @@ alias adblg='adbg logcat | grep Go'
 alias sudo='sudo env PATH=$PATH'
 alias rsstop='pkill redshift'
 alias psx='ps fuxa'
+alias gro='git remote show'
+alias grog='git remote show origin -n'
+alias gros='git remote set-url origin'
+alias gra='git rebase --abort'
 
 alias bstart="batrak -Tn \`jira-now print\`"
 alias bstop="batrak -Sn"
@@ -275,7 +279,6 @@ function github-fix-host() {
     remote_host=$(cut -d/ -f3 <<< "$remote_url")
     remote_host=$(sed 's/\@/\\@/' <<< "$remote_host")
     new_url=$(sed "s/$remote_host/github.com/" <<< "$remote_url")
-    new_url=$(sed "s/https/ssh/" <<< "$new_url")
     git remote set-url $name $new_url
 }
 
@@ -288,7 +291,6 @@ alias ggg="go-get-github"
 # in case of servers that are know nothing about rxvt-unicode-256color
 # better ssh="TERM=xterm ssh" alias
 alias ssh='ssh-urxvt'
-
 function ssh-urxvt() {
     # in case of stdin, stdout or stderr is not a terminal, fallback to ssh
     if [[ ! ( -t 0 && -t 1 && -t 2 ) ]]; then
