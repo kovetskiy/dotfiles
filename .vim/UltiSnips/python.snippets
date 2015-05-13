@@ -63,3 +63,15 @@ endsnippet
 snippet r "return" bw
 return $0
 endsnippet
+
+snippet p "print with filename"
+`!p
+
+strings = ""
+if t[1] != "":
+	strings = " " + t[1].strip() + ": %s"
+
+`print "`!p snip.rv=path+":"+str(vim.current.window.cursor[0])``!p
+snip.rv=strings`"${1/.+/ % /}$1
+$0
+endsnippet
