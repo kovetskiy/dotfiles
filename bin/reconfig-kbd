@@ -23,8 +23,8 @@ SYMBOLS=(
 
     "capslock(escape)"
     "altwin(swap_alt_win)"
-    "bksp-last-group"
-    "ralt-first-group"
+    #"bksp-last-group"
+    #"ralt-first-group"
 )
 SYMBOLS=$(IFS="+"; echo "${SYMBOLS[*]}")
 
