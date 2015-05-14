@@ -357,7 +357,7 @@ set encoding=utf-8
 set printencoding=cp1251
 set fileformat=unix
 
-set textwidth=80
+set textwidth=79
 set timeoutlen=400
 set wildmenu
 
