@@ -48,6 +48,10 @@ nmap v cv
 // ctrl + shift + ]
 imap <C-}> <C-I>
 
+inoremap <C-]> <Ins><C-a><Ins><C-I>
+
+inoremap <C-a> <Ins><C-a><Ins>
+
 nmap `` :!jira-now<CR><ESC>
 
 map e1 :buffer 1<CR>
