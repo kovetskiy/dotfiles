@@ -293,12 +293,16 @@ case ${3:Type}:
 }
 endsnippet
 
-snippet ,n ", nil"
+snippet ,n ", nil" i
 , nil
 endsnippet
 
-snippet n, ", nil"
+snippet n, ", nil" i
 nil,
+endsnippet
+
+snippet "return n" "return nil" bw
+return nil
 endsnippet
 
 snippet frr "forever" bw
@@ -350,33 +354,13 @@ return false
 endsnippet
 
 snippet d "define method" bw
-`!p
-buffer, line = px.all.get_buffer_line()
-
-opening = '('
-closing = ')'
-
-if len(buffer[line - 1]) > 80 or not re.search('^func \(', buffer[line - 1]):
-	opening = '(\n\t'
-	closing = '\n)'
-
-`func (`!p snip.rv=' '.join(px.go.extract_prev_method_binding_for_cursor())`) $1`!p snip.rv=opening`$2`!p snip.rv=closing` $3${3/.+/ /}{
+func (`!p snip.rv=' '.join(px.go.extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
 	$5
 }
 endsnippet
 
 snippet dp "define method on pointer" bw
-`!p
-buffer, line = px.all.get_buffer_line()
-
-opening = '('
-closing = ')'
-
-if len(buffer[line - 1]) > 80 or not re.search('^func \(', buffer[line - 1]):
-	opening = '(\n\t'
-	closing = '\n)'
-
-`func (`!p snip.rv=' *'.join(px.go.extract_prev_method_binding_for_cursor())`) $1`!p snip.rv=opening`$2`!p snip.rv=closing` $3${3/.+/ /}{
+func (`!p snip.rv=' *'.join(px.go.extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
 	$5
 }
 endsnippet
@@ -449,4 +433,27 @@ endsnippet
 
 snippet ef "fmt.Errorf" i
 fmt.Errorf($1, $2)
+endsnippet
+
+snippet t "this instance" i
+`!p
+buffer = vim.current.buffer
+line, column = vim.current.window.cursor
+
+result = 't'
+while True:
+	line = line - 1
+	if line == 0:
+		break
+
+	line_contents = buffer[line - 1]
+	matches = re.match(r'(?m)^func \(([^)]+)\s+([^)]+)\) ', line_contents)
+	if not matches:
+		continue
+
+	result = matches.group(1)
+	break
+
+
+snip.rv=result`
 endsnippet
