@@ -38,7 +38,7 @@ shift+minus warp,drag 3
 BackSpace history-back
 
 o grid 1x1,warp
-p grid 1x1,cursorzoom 10 10
+grave grid 1x1,cursorzoom 10 10
 
 semicolon end
 Return end
