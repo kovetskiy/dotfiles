@@ -339,7 +339,7 @@ Plug 'bronson/vim-trailing-whitespace'
 
 Plug 'seletskiy/vim-nunu'
 
-Plug 'ervandew/matchem'
+Plug 'seletskiy/matchem'
 
 Plug 'othree/yajs.vim'
 
@@ -596,3 +596,5 @@ endfu!
 call SetBg($BACKGROUND)
 
 noh
+
+inoremap <C-N> <C-O>:py px.dev.imap_cr()<CR><CR>
