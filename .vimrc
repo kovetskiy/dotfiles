@@ -345,6 +345,8 @@ Plug 'othree/yajs.vim'
 
 Plug 'lambdalisue/vim-gita'
 
+Plug 'maksimr/vim-jsbeautify'
+
 call plug#end()
 
 syntax on
@@ -430,6 +432,19 @@ augroup end
 augroup hilight_over
     au!
     au VimResized,VimEnter * set cc=80,120
+augroup end
+
+
+augroup confluence
+    au!
+    au BufRead /tmp/vimperator-confluence* set ft=html.confluence | call HtmlBeautify()
+
+    " trim empty <p><br/></p> from document
+    au BufRead /tmp/vimperator-confluence* map <buffer> <Leader>t :%s/\v[\ \t\n]+\<p\>([\ \t\n]+\<br\>)?[\ \t\n]+\<\/p\>/<CR>
+
+    " ugly hack to trim all inter-tags whitespaces
+    au BufWritePre /tmp/vimperator-confluence* %s/\v\>[\ \t\n]+\</></
+    au BufWritePost /tmp/vimperator-confluence* silent! undo
 augroup end
 
 au filetype_php FileType php nnoremap <buffer> <F7>  :!time tags_php<CR>
