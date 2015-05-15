@@ -139,10 +139,6 @@ Plug 'mhinz/vim-startify'
 
 Plug 'l9'
 
-Plug 'lyokha/vim-xkbswitch'
-    let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
-    let g:XkbSwitchEnabled = 1
-
 Plug 'Lokaltog/vim-easymotion'
     let g:EasyMotion_keys = "hjkluiopqweasd"
 
