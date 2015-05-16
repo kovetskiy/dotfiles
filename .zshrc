@@ -36,6 +36,7 @@ setopt inc_append_history
 setopt share_history
 
 export KEYTIMEOUT=1
+export WORDCHARS=-
 
 bindkey -s "\C-h" "history\r!"
 bindkey -v
