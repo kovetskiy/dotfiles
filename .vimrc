@@ -156,6 +156,9 @@ Plug 'SirVer/ultisnips'
 
     nnoremap <C-S><C-E> :UltiSnipsEdit<CR>
 
+    smap <C-E> <C-V><ESC>a
+    smap <C-B> <C-V><ESC>'<i
+
 Plug 'honza/vim-snippets'
 
 Plug 'tpope/vim-fugitive'
