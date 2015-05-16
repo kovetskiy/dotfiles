@@ -172,7 +172,7 @@ Plug 'SirVer/ultisnips'
     nnoremap <C-S><C-E> :UltiSnipsEdit<CR>
 
     smap <C-E> <C-V><ESC>a
-    smap <C-B> <C-V><ESC>'<i
+    smap <C-B> <C-V>o<ESC>i
 
 Plug 'honza/vim-snippets'
 
@@ -283,8 +283,6 @@ Plug 'gregsexton/gitv'
 Plug 'bogado/file-line'
 
 Plug 'godlygeek/tabular'
-    " phpdoc block tabularize
-    vnoremap <C-E> :Tabularize /* @\w\+/<CR>
     vnoremap <C-T> :Tabularize /
 
 Plug 'kovetskiy/vim-go-complete-note', { 'for': 'go' }
