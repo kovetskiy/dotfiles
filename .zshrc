@@ -200,7 +200,7 @@ alias gra='git rebase --abort'
 alias bstart="batrak -Tn \`jira-now print\`"
 alias bstop="batrak -Sn"
 alias bi="batrak -Ln"
-alias dt='cd ~df'
+alias dt='cd ~df; git status -s'
 
 alias gob='go build'
 
