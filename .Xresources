@@ -23,9 +23,9 @@ URxvt.keysym.Mod4-v: perl:clipboard:paste
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-Control-S: perl:keyboard-select:search
 
-URxvt.keysym.M-slash: autocomplete-ALL-the-things:WORD-complete
-URxvt.keysym.M-question:  perl:aAtt:fuzzy-complete
-URxvt.keysym.M-quotedbl:  perl:aAtt:undo
+URxvt.keysym.Mod4-slash: autocomplete-ALL-the-things:WORD-complete
+URxvt.keysym.Mod4-question:  perl:aAtt:fuzzy-complete
+URxvt.keysym.Mod4-quotedbl:  perl:aAtt:undo
 
 URxvt.keysym.M-C-y: perl:url-select:select_next
 URxvt.url-select.launcher: /home/vxw/bin/x-www-browser
