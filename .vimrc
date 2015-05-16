@@ -72,6 +72,8 @@ Plug 'Shougo/unite.vim'
 
         nnoremap <buffer> <ESC> :UniteClose<CR>
 
+        imap <buffer> <C-P> <CR>:call CtrlP()<ESC>
+
         " such unite
         nnoremap <buffer> S :call unite#mappings#narrowing('')<CR>
     endfunction
@@ -82,10 +84,23 @@ Plug 'Shougo/unite.vim'
         au FileType unite call s:unite_my_settings()
     augroup end
 
+    function! CtrlP()
+        let l:is_git = isdirectory(".git")
+        if is_git == 1
+            Unite -hide-source-names buffer git_cached git_untracked
+        else
+            Unite -hide-source-names buffer file
+        endif
+    endfunction!
+
     nnoremap <C-E><C-R> :UniteResume<CR>
     nnoremap <C-E><C-G> :Unite -hide-source-names grep:.<CR>
+
+    nnoremap <C-E><C-E><C-V> :cd ~/.vim/bundle/<CR>:call Ctrlp()<CR>
+    nnoremap <C-E><C-E><C-G> :cd ~/go/src/<CR>:call Ctrlp()<CR>
+
     nnoremap <C-B> :Unite -hide-source-names buffer<CR>
-    nnoremap <C-P> :Unite -hide-source-names buffer git_cached git_untracked<CR>
+    nnoremap <C-P> :call CtrlP()<CR>
     nnoremap <C-Y> :Unite -hide-source-names history/yank<CR>
 
 Plug 'morhetz/gruvbox'
@@ -466,6 +481,8 @@ nnoremap <Leader>l <ESC>
             \:call UltiSnips#ExpandSnippet()<CR><ESC>
             \ciw<C-R>=b:fn<CR><ESC>
 
+
+nnoremap <C-E><C-D> :cd %:p:h<CR>:pwd<CR>
 nnoremap <F12> :noh<CR>
 
 nnoremap O O<Left><Right>
