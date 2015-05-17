@@ -354,6 +354,8 @@ Plug 'maksimr/vim-jsbeautify'
 Plug 'kovetskiy/vim-go-utils', { 'for': 'go' }
     inoremap <C-E> <C-R>=GoCompleteSnippet()<CR>
 
+Plug 'kopischke/vim-stay'
+
 call plug#end()
 
 syntax on
