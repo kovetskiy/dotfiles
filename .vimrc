@@ -91,8 +91,8 @@ Plug 'Shougo/unite.vim'
     nnoremap <C-E><C-R> :UniteResume<CR>
     nnoremap <C-E><C-G> :Unite -hide-source-names grep:.<CR>
 
-    nnoremap <C-E><C-E><C-V> :cd ~/.vim/bundle/<CR>:call Ctrlp()<CR>
-    nnoremap <C-E><C-E><C-G> :cd ~/go/src/<CR>:call Ctrlp()<CR>
+    nnoremap <C-E><C-E><C-V> :cd ~/.vim/bundle/<CR>:call CtrlP()<CR>
+    nnoremap <C-E><C-E><C-G> :cd ~/go/src/<CR>:call CtrlP()<CR>
 
     nnoremap <C-B> :Unite -hide-source-names buffer<CR>
     nnoremap <C-P> :call CtrlP()<CR>
@@ -280,9 +280,6 @@ Plug 'bogado/file-line'
 Plug 'godlygeek/tabular'
     vnoremap <C-T> :Tabularize /
 
-Plug 'kovetskiy/vim-go-complete-note', { 'for': 'go' }
-    inoremap <C-E> <C-O>:call GoCompleteNote()<CR><C-O>a
-
 Plug 'kovetskiy/urxvt.vim'
     au filetype_go FileType go nmap <buffer>
         \ <Leader>t :call urxvt#put('go test')<CR>
@@ -353,6 +350,9 @@ Plug 'othree/yajs.vim'
 Plug 'lambdalisue/vim-gita'
 
 Plug 'maksimr/vim-jsbeautify'
+
+Plug 'kovetskiy/vim-go-utils', { 'for': 'go' }
+    inoremap <C-E> <C-R>=GoCompleteSnippet()<CR>
 
 call plug#end()
 
