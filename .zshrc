@@ -189,7 +189,8 @@ alias srn='~/bin/st | sort -nr'
 alias adbd='adb devices'
 alias adbl='adb logcat'
 alias adblg='adbg logcat | grep Go'
-alias sudo='sudo env PATH=$PATH'
+# whitespace hack for passing aliases
+alias sudo='sudo env PATH=$PATH '
 alias rsstop='pkill redshift'
 alias psx='ps fuxa'
 alias gro='git remote show'
@@ -208,6 +209,8 @@ alias pkgver='echo $(git rev-list --count master).$(git rev-parse --short master
 alias pkgverupdate='sed -i "s/pkgver\=.*/pkgver=$(git rev-list --count master).$(git rev-parse --short master)/" PKGBUILD'
 
 alias a='alias'
+
+alias scl='systemctl'
 
 function prepend-sudo() {
     if [[ "$BUFFER" == "" ]]; then
