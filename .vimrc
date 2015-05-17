@@ -85,12 +85,7 @@ Plug 'Shougo/unite.vim'
     augroup end
 
     function! CtrlP()
-        let l:is_git = isdirectory(".git")
-        if is_git == 1
-            Unite -hide-source-names buffer git_cached git_untracked
-        else
-            Unite -hide-source-names buffer file
-        endif
+        Unite -hide-source-names buffer file
     endfunction!
 
     nnoremap <C-E><C-R> :UniteResume<CR>
