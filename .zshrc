@@ -190,7 +190,7 @@ alias adbd='adb devices'
 alias adbl='adb logcat'
 alias adblg='adbg logcat | grep Go'
 # whitespace hack for passing aliases
-alias sudo='sudo env PATH=$PATH '
+alias sudo='sudo -E '
 alias rsstop='pkill redshift'
 alias psx='ps fuxa'
 alias gro='git remote show'
