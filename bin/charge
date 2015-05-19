@@ -3,10 +3,13 @@
 battery=`upower -e | grep BAT`
 timeout=0.40
 iter=0
+
+stopped=0
 while true; do
     state=`upower -i $battery | grep state | awk {'print $2'}`
 
     if [[ "$state" != "charging" ]] && [[ "$state" != "fully-charged" ]]; then
+        stopped=0
         setleds -D -num < /dev/console
         setleds -D -caps < /dev/console
         sleep 0.20
@@ -19,8 +22,11 @@ while true; do
             iter=0
         fi
     else
-        setleds -D -num < /dev/console
-        setleds -D -caps < /dev/console
+        if [[ "$stopped" == "0" ]]; then
+            stopped=1
+            setleds -D -num < /dev/console
+            setleds -D -caps < /dev/console
+        fi
     fi
 
     sleep $timeout
