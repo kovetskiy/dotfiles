@@ -35,6 +35,9 @@ nnoremap % :source ~/.vimperatorrc<CR>:echomsg "Great success!"<CR>
 nmap qd gTd
 nmap wd gtd
 
+nmap <C-P> :set apptab=true<CR>:echomsg "Pinned"<CR>
+nmap <C-N> :set apptab=false<CR>:echomsg "Unpinned"<CR>
+
 map } gt
 map { gT
 
