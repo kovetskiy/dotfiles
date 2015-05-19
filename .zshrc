@@ -139,6 +139,7 @@ alias rf='rm -rf' # like russiahhhhh
 alias ..='cd ..'
 alias ...='cd ../..'
 alias zreload='source ~/.zshrc && print "zsh config has been reloaded"'
+alias sci='ssh-copy-id'
 alias ssh='TERM=xterm ssh'
 alias gcl='git clone'
 function gclg() {
