@@ -184,6 +184,7 @@ alias gcom='git checkout origin/master'
 alias glo='git log --oneline --graph --decorate --all'
 alias gl='PAGER=cat git log --oneline --graph --decorate --all --max-count=30'
 alias gd='git diff'
+alias gdh='git diff HEAD'
 alias ashi='ash inbox'
 alias wow='whoami; pwd; date'
 alias srn='~/bin/st | sort -nr'
@@ -228,11 +229,6 @@ function prepend-sudo() {
 
 zle -N prepend-sudo
 bindkey '^s' prepend-sudo
-
-function gdi() {
-    git diff $1
-}
-compctl -K git_diff_complete gdi
 
 function gcof() {
     if [ ! -z $1 ]; then
