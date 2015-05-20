@@ -349,7 +349,7 @@ endsnippet
 
 snippet qf "log fatal" bw
 if err != nil {
-	log.Fatal(err.Error())
+	log.Fatal(err)
 }
 endsnippet
 
@@ -480,4 +480,12 @@ endsnippet
 
 snippet = "=" w
 $1 = $2
+endsnippet
+
+snippet /n "!= nil"
+!= nil$0
+endsnippet
+
+snippet .n "== nil"
+== nil$0
 endsnippet
