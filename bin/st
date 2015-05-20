@@ -4,10 +4,10 @@
 import urllib2
 import re
 
-content = urllib2.urlopen("http://stat.rn/ngs/?module=sum_hours").read()
+content = urllib2.urlopen("http://users.stat.s/?group=hsd:rn:ngs:engineers").read()
 content = content.decode('utf-8')
 
-matches = re.findall(ur'(?us)<td>([\w\s]+)<\/td>[^\d]+<b>(\d+)<\/b>', content)
+matches = re.findall(ur'(?us)([\.\w]+)&month=\d&year=201\d\'>\w+ \w+</a></td><td[^>]+><span[^>]+>([\.\d]+)', content)
 for match in matches:
     (name,  hours) = match
     print u"{} {}".format(hours, name).encode("utf-8")
