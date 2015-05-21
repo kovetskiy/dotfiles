@@ -340,6 +340,10 @@ if err != nil {
 }
 endsnippet
 
+snippet tf "t.fatalf" bw
+t.Fatalf("$1")
+endsnippet
+
 snippet qr "fmt errorf" bw
 if err != nil {
 	fmt.Errorf(err.Error())
@@ -449,7 +453,7 @@ snippet ef "fmt.Errorf" i
 fmt.Errorf($1, $2)
 endsnippet
 
-snippet t "this instance" i
+snippet t "this instance" w
 `!p
 buffer = vim.current.buffer
 line, column = vim.current.window.cursor
