@@ -356,6 +356,10 @@ Plug 'kovetskiy/vim-go-utils', { 'for': 'go' }
 
 Plug 'kopischke/vim-stay'
 
+Plug 'amix/vim-zenroom2'
+
+Plug 'junegunn/goyo.vim'
+
 call plug#end()
 
 syntax on
