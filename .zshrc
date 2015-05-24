@@ -24,6 +24,24 @@ source ~/.antigen.zsh
 antigen bundle kovetskiy/zsh-add-params
     bindkey -v '^K' add-params
 
+antigen bundle sorin-ionescu/prezto
+    zstyle ':prezto:*:*' color 'yes'
+    zstyle ':prezto:load' pmodule \
+        'helper' \
+        'environment' \
+        'terminal' \
+        'editor' \
+        'history' \
+        'directory' \
+        'completion' \
+        'history-substring-search' \
+        'git'
+
+    zstyle ':prezto:module:editor' key-bindings 'vi'
+    zstyle ':completion:*' rehash true
+
+    prompt lambda17
+
 hash -d dotfiles=~/sources/dotfiles/
 hash -d df=~/sources/dotfiles/
 hash -d src=~/sources/
@@ -135,7 +153,7 @@ alias zreload='source ~/.zshrc && print "zsh config has been reloaded"'
 alias sci='ssh-copy-id'
 alias ssh='TERM=xterm ssh'
 alias gcl='git clone'
-gclg() { git clone "https://github.com/$1" }
+function gclg() { git clone "https://github.com/$1" }
 alias gh='git show'
 alias gd='git diff'
 alias gs='git status --short'
@@ -168,7 +186,7 @@ alias gshp='git stash pop'
 alias grt='git reset'
 alias gr='git rebase'
 alias grc='git rebase --continue'
-gri() { git rebase -i HEAD~$1 }
+function gri() { git rebase -i HEAD~$1 }
 alias gcom='git checkout origin/master'
 alias glo='git log --oneline --graph --decorate --all'
 alias gl='PAGER=cat git log --oneline --graph --decorate --all --max-count=30'
@@ -199,7 +217,7 @@ alias gob='go build'
 alias pkgver='echo $(git rev-list --count master).$(git rev-parse --short master)'
 alias pkgverupdate='sed -i "s/pkgver\=.*/pkgver=$(git rev-list --count master).$(git rev-parse --short master)/" PKGBUILD'
 
-alias a='alias'
+alias a='alias '
 
 alias scl='systemctl'
 
@@ -283,7 +301,6 @@ function ck() { mkdir -p "$@"; cd "$@" }
 #vw it's bin/vw, which openning some software in $EDITOR.
 compdef vw=which
 
-source ~/.zpreztorc
-unsetopt cdablevars
-
 eval $(dircolors ~/.dircolors.$BACKGROUND)
+
+unsetopt cdablevars
