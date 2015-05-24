@@ -1,21 +1,35 @@
+export PATH="$HOME/bin/:$HOME/go/bin/:$PATH"
+export TERM=rxvt-unicode-256color
+export EDITOR=vim
+export BACKGROUND=$(cat ~/background)
+
 export GOROOT=""
 export GOPATH="$HOME/go"
-export PATH="$HOME/bin/:$HOME/go/bin/:$HOME/sources/git-scripts/:$PATH"
-export EDITOR=vim
-export TERM=rxvt-unicode-256color
-export PATH=$PATH:/opt/android-ndk:/opt/android-sdk/platfrom-tools/
-export BACKGROUND=$(cat ~/background)
-export ZSH=~/.oh-my-zsh/
+
+export HISTFILE=$HOME/.history
+export HISTSIZE=1000
+export SAVEHIST=100000
+
+export KEYTIMEOUT=1
+export WORDCHARS=-
 
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
-plugins=(git history-substring-search go)
-source ~/.oh-my-zsh/oh-my-zsh.sh
+if [ ! -f ~/.antigen.zsh ]; then
+    curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > ~/.antigen.zsh
+fi
+source ~/.antigen.zsh
 
-HISTFILE=$HOME/.history
-HISTSIZE=1000
-SAVEHIST=100000
+antigen bundle kovetskiy/zsh-add-params
+    bindkey -v '^K' add-params
+
+hash -d dotfiles=~/sources/dotfiles/
+hash -d df=~/sources/dotfiles/
+hash -d src=~/sources/
+
+autoload -U add-zsh-hook
+autoload -U colors && colors
 
 unsetopt correct
 unsetopt correct_all
@@ -35,12 +49,12 @@ setopt hist_verify
 setopt inc_append_history
 setopt share_history
 
-export KEYTIMEOUT=1
-export WORDCHARS=-
+bindkey -a '^[' vi-insert
 
 bindkey -s "\C-h" "history\r!"
-bindkey -v
+bindkey -s "\C-f" "fg\r"
 
+bindkey -v
 bindkey -v "^R" history-incremental-search-backward
 bindkey -v "^P" history-substring-search-up
 bindkey -v "^N" history-substring-search-down
@@ -57,21 +71,6 @@ bindkey -v '^W' backward-kill-word
 bindkey -v '^[[1;5D' vi-backward-word #ctrl+alt+H
 bindkey -v '^[[1;5C' vi-forward-word #ctrl+alt+L
 bindkey -v "^L" clear-screen
-
-function add-params() {
-    BIN=$(awk {'print $1'} <<< "$BUFFER")
-    COUNT=$(wc -c <<< "$BIN")
-    CURSOR=$COUNT
-    # hack for adding yet space before params
-    BUFFER[$CURSOR]="  "
-}
-
-zle -N add-params
-bindkey -v '^K' add-params
-
-bindkey -a '^[' vi-insert
-
-bindkey -s "\C-f" "fg\r"
 
 function compress () {
   if [ $1 ] ; then
@@ -115,12 +114,6 @@ function ashr() {
     vc -c ":Unite ash_review:$1"
 }
 
-autoload -U add-zsh-hook
-autoload -U colors && colors
-
-hash -d dotfiles=~/sources/dotfiles/
-hash -d df=~/sources/dotfiles/
-hash -d src=~/sources/
 
 alias aur='yaourt -S --noconfirm'
 alias pms='sudo pacman -S'
@@ -142,9 +135,7 @@ alias zreload='source ~/.zshrc && print "zsh config has been reloaded"'
 alias sci='ssh-copy-id'
 alias ssh='TERM=xterm ssh'
 alias gcl='git clone'
-function gclg() {
-    git clone "https://github.com/$1"
-}
+gclg() { git clone "https://github.com/$1" }
 alias gh='git show'
 alias gd='git diff'
 alias gs='git status --short'
@@ -177,9 +168,7 @@ alias gshp='git stash pop'
 alias grt='git reset'
 alias gr='git rebase'
 alias grc='git rebase --continue'
-function gri() {
-    git rebase -i HEAD~$1
-}
+gri() { git rebase -i HEAD~$1 }
 alias gcom='git checkout origin/master'
 alias glo='git log --oneline --graph --decorate --all'
 alias gl='PAGER=cat git log --oneline --graph --decorate --all --max-count=30'
@@ -191,7 +180,7 @@ alias srn='~/bin/st | sort -nr'
 alias adbd='adb devices'
 alias adbl='adb logcat'
 alias adblg='adbg logcat | grep Go'
-# whitespace hack for passing aliases
+
 alias sudo='sudo -E '
 alias rsstop='pkill redshift'
 alias psx='ps fuxa'
@@ -289,41 +278,12 @@ function go-get-github() {
 }
 alias ggg="go-get-github"
 
-# in case of servers that are know nothing about rxvt-unicode-256color
-# better ssh="TERM=xterm ssh" alias
-alias ssh='ssh-urxvt'
-function ssh-urxvt() {
-    # in case of stdin, stdout or stderr is not a terminal, fallback to ssh
-    if [[ ! ( -t 0 && -t 1 && -t 2 ) ]]; then
-        \ssh "$@"
-    fi
-
-    # if there more than one arg (hostname) without dash "-", fallback to ssh
-    local hostname=''
-    for arg in "$@"; do
-        if [ ${arg:0:1} != - ]; then
-            if [[ -n $hostname ]]; then
-                \ssh "$@"
-            fi
-            hostname=$arg
-        fi
-    done
-
-    # check terminal is known, if not, fallback to xterm
-    \ssh -t "$@" "infocmp >/dev/null 2>&1 || export TERM=xterm; LANG=$LANG \$SHELL"
-}
+function ck() { mkdir -p "$@"; cd "$@" }
 
 #vw it's bin/vw, which openning some software in $EDITOR.
 compdef vw=which
 
-# mkdir + cd
-function ck() {
-    mkdir -p "$@"
-    cd "$@"
-}
+source ~/.zpreztorc
+unsetopt cdablevars
 
 eval $(dircolors ~/.dircolors.$BACKGROUND)
-
-source ~/.zpreztorc
-
-unsetopt cdablevars
