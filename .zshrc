@@ -21,8 +21,6 @@ if [ ! -f ~/.antigen.zsh ]; then
 fi
 source ~/.antigen.zsh
 
-antigen bundle kovetskiy/zsh-add-params
-    bindkey -v '^K' add-params
 
 antigen bundle sorin-ionescu/prezto
     zstyle ':prezto:*:*' color 'yes'
@@ -41,6 +39,9 @@ antigen bundle sorin-ionescu/prezto
     zstyle ':completion:*' rehash true
 
     prompt lambda17
+
+antigen bundle kovetskiy/zsh-add-params
+    bindkey -v '^K' add-params
 
 hash -d dotfiles=~/sources/dotfiles/
 hash -d df=~/sources/dotfiles/
@@ -142,6 +143,7 @@ alias -g H='| head -n'
 alias -g T='| tail -n'
 alias -g EN='2>/dev/null'
 alias -g EO='2>&1'
+alias -g W='| wc -l'
 alias l='ls'
 alias ls='ls -lah --color=always'
 alias vd='vim --servername VIM'
@@ -304,3 +306,4 @@ compdef vw=which
 eval $(dircolors ~/.dircolors.$BACKGROUND)
 
 unsetopt cdablevars
+unsetopt noclobber
