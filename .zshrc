@@ -43,6 +43,8 @@ antigen bundle sorin-ionescu/prezto
 antigen bundle kovetskiy/zsh-add-params
     bindkey -v '^K' add-params
 
+antigen bundle kovetskiy/zsh-ssh-urxvt
+
 hash -d dotfiles=~/sources/dotfiles/
 hash -d df=~/sources/dotfiles/
 hash -d src=~/sources/
@@ -153,7 +155,6 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias zreload='source ~/.zshrc && print "zsh config has been reloaded"'
 alias sci='ssh-copy-id'
-alias ssh='TERM=xterm ssh'
 alias gcl='git clone'
 function gclg() { git clone "https://github.com/$1" }
 alias gh='git show'
