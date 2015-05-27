@@ -43,7 +43,7 @@ antigen bundle sorin-ionescu/prezto
 antigen bundle kovetskiy/zsh-add-params
     bindkey -v '^K' add-params
 
-antigen bundle kovetskiy/zsh-ssh-urxvt
+antigen bundle seletskiy/zsh-ssh-urxvt
 
 hash -d dotfiles=~/sources/dotfiles/
 hash -d df=~/sources/dotfiles/
