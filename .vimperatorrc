@@ -32,9 +32,6 @@ nnoremap k 5k
 nnoremap ee :buffer<space>
 nnoremap % :source ~/.vimperatorrc<CR>:echomsg "Great success!"<CR>
 
-nmap qd gTd
-nmap wd gtd
-
 nmap <C-P> :set apptab=true<CR>:echomsg "Pinned"<CR>
 nmap <C-N> :set apptab=false<CR>:echomsg "Unpinned"<CR>
 
@@ -57,15 +54,15 @@ inoremap <C-a> <Ins><C-a><Ins>
 
 nmap `` :!jira-now<CR><ESC>
 
-map e1 :buffer 1<CR>
-map e2 :buffer 2<CR>
-map e3 :buffer 3<CR>
-map e4 :buffer 4<CR>
-map e5 :buffer 5<CR>
-map e6 :buffer 6<CR>
-map e7 :buffer 7<CR>
-map e8 :buffer 8<CR>
-map e9 :buffer 9<CR>
+map m1 :buffer 1<CR>
+map m2 :buffer 2<CR>
+map m3 :buffer 3<CR>
+map m4 :buffer 4<CR>
+map m5 :buffer 5<CR>
+map m6 :buffer 6<CR>
+map m7 :buffer 7<CR>
+map m8 :buffer 8<CR>
+map m9 :buffer 9<CR>
 
 qmark h http://news.ycombinator.com/
 qmark g http://github.com/
@@ -75,3 +72,6 @@ qmark v http://reddit.com/r/vim/new/
 qmark d https://rdot.org/forum/
 
 command! Wipe js tabs.remove(tabs.getTab(0), tabs.count, 0, 0, false)
+
+nmap w gT
+nmap e gt
