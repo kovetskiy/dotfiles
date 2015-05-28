@@ -21,10 +21,14 @@ SYMBOLS=(
     "hjkl(fast-enter)"
     "hjkl(fast-escape)"
 
+
     "capslock(escape)"
     "altwin(swap_alt_win)"
     #"bksp-last-group"
     #"ralt-first-group"
+
+    "hjkl(fast-numpad)"
+    "level5(ralt_switch)"
 )
 SYMBOLS=$(IFS="+"; echo "${SYMBOLS[*]}")
 
