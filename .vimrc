@@ -60,6 +60,11 @@ Plug 'Shougo/unite.vim'
         \ split('*.png,*.zip,*.tar,*.gz,*.jpg,*.jpeg,*.chunks,*.gif', ',')
     \ )
 
+
+    au VimEnter * call unite#custom#source(
+        \ 'file_rec', 'converters', 'converter_relative_word'
+    \ )
+
     function! s:unite_my_settings()
         imap <buffer> <C-R> <Plug>(unite_redraw)
 
@@ -76,6 +81,7 @@ Plug 'Shougo/unite.vim'
 
         " such unite
         nnoremap <buffer> S :call unite#mappings#narrowing('')<CR>
+        
     endfunction
 
     augroup unite_setting
@@ -85,7 +91,7 @@ Plug 'Shougo/unite.vim'
     augroup end
 
     function! CtrlP()
-        Unite -hide-source-names buffer file
+        Unite -hide-source-names buffer file_rec
     endfunction!
 
     nnoremap <C-E><C-R> :UniteResume<CR>
@@ -156,12 +162,14 @@ Plug 'Lokaltog/vim-easymotion'
     hi link EasyMotionTarget2First ErrorMsg
     hi link EasyMotionTarget2Second ErrorMsg
 
+Plug 'seletskiy/matchem'
+    let g:UltiSnipsJumpForwardTrigger="<C-J>"
+    let g:UltiSnipsJumpBackwardTrigger="<C-K>"
+
 Plug 'SirVer/ultisnips'
     let g:UltiSnipsSmippetDirectories = [$HOME . '/.vim/Ultisnips/']
     let g:UltiSnipsEnableSnipMate = 0
     let g:UltiSnipsExpandTrigger="<TAB>"
-    let g:UltiSnipsJumpForwardTrigger="<C-J>"
-    let g:UltiSnipsJumpBackwardTrigger="<C-K>"
     let g:UltiSnipsEditSplit="vertical"
 
     nnoremap <C-S><C-E> :UltiSnipsEdit<CR>
@@ -343,8 +351,6 @@ Plug 'bronson/vim-trailing-whitespace'
 
 Plug 'seletskiy/vim-nunu'
 
-Plug 'seletskiy/matchem'
-
 Plug 'othree/yajs.vim'
 
 Plug 'lambdalisue/vim-gita'
@@ -481,6 +487,8 @@ nnoremap <Leader>l <ESC>
             \ciw<C-R>=b:fn<CR><ESC>
 
 
+imap <C-F> t<TAB>.
+
 nnoremap <C-E><C-D> :cd %:p:h<CR>:pwd<CR>
 nnoremap <F12> :noh<CR>
 
@@ -522,7 +530,9 @@ nnoremap <Leader>e :e!<Space>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q <ESC>:bdelete!<CR>
 
-nnoremap <Space> :noh<CR>
+nnoremap <Leader> :noh<CR>
+nnoremap <Leader><Leader> :noh<CR>
+nnoremap <Leader><Leader><Leader> :noh<CR>
 
 nnoremap <Leader>d V"_d<Esc>
 vnoremap <Leader>d "_d
