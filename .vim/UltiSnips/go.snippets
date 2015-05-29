@@ -186,9 +186,9 @@ struct {
 }
 endsnippet
 
-snippet "((\w+)\s*(\w+)) js$" "json annotation" br
+snippet "((\w+)\s*([\w\[\]]+)) js$" "json annotation" br
 `!p snip.rv=match.group(1)` \`json:"`!p
-	snip.rv=px.all.convert_camelcase_to_snakecase(match.group(2))`"\`
+snip.rv=px.all.convert_camelcase_to_snakecase(match.group(2))`"\`
 endsnippet
 
 snippet fm "func main" bw
