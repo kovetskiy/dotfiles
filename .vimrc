@@ -134,7 +134,6 @@ Plug 'fatih/vim-go', { 'for': 'go' }
     let g:go_fmt_autosave = 1
     let g:go_bin_path = $GOPATH . "/bin"
 
-    au filetype_go FileType go nmap <buffer> <Leader>e :GoRename<CR>
     au filetype_go FileType go nmap <buffer> <Leader>f :GoFmt<CR>:w<CR>
     au filetype_go FileType go nmap <buffer> <Leader>h :GoDoc<CR>
 
@@ -479,14 +478,6 @@ au filetype_php FileType php imap <buffer> <C-G><C-U> ug<TAB>
 au filetype_php FileType php hi! def link phpDocTags  phpDefine
 au filetype_php FileType php hi! def link phpDocParam phpType
 
-nnoremap <Leader>l <ESC>
-            \:let b:fn=expand('<cword>')<CR>
-            \?function<CR>j%o<CR><CR><C-R>
-            \=(b:fn[0]=='_'?'p':'u') . 'f'<CR> <C-O>
-            \:call UltiSnips#ExpandSnippet()<CR><ESC>
-            \ciw<C-R>=b:fn<CR><ESC>
-
-
 imap <C-F> t<TAB>.
 
 nnoremap <C-E><C-D> :cd %:p:h<CR>:pwd<CR>
@@ -526,6 +517,7 @@ nnoremap <Leader><Leader>q :q!<CR>
 
 nnoremap <Leader>vs :vsp<CR>
 
+nnoremap <Leader>l :cn<CR>
 nnoremap <Leader>e :e!<Space>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q <ESC>:bdelete!<CR>
