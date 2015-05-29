@@ -517,7 +517,8 @@ nnoremap <Leader><Leader>q :q!<CR>
 
 nnoremap <Leader>vs :vsp<CR>
 
-nnoremap <Leader>l :cn<CR>
+nnoremap <Leader>l :cN<CR>
+nnoremap <Leader>; :cn<CR>
 nnoremap <Leader>e :e!<Space>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q <ESC>:bdelete!<CR>
@@ -630,3 +631,20 @@ call SetBg($BACKGROUND)
 noh
 
 inoremap <C-N> <C-O>:py px.dev.imap_cr()<CR><CR>
+
+function! GoogleSearch()
+    let query = input('Google: ')
+
+    python <<EOF
+import urllib
+import vim
+
+query = vim.eval('l:query')
+vim.command("let l:query_encoded = '%s'" % urllib.quote_plus(query))
+EOF
+
+    call vimproc#system('i3-msg "workspace q"')
+    call vimproc#system('firefox https://google.ru/search?q=' . l:query_encoded)
+endfunction!
+
+nnoremap <silent> <Leader><Leader>g :call GoogleSearch()<CR>
