@@ -630,8 +630,6 @@ call SetBg($BACKGROUND)
 
 noh
 
-inoremap <C-N> <C-O>:py px.dev.imap_cr()<CR><CR>
-
 function! GoogleSearch()
     let query = input('Google: ')
 
