@@ -203,7 +203,8 @@ Plug 'joonty/vim-phpqa', { 'for': 'php' }
 
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
 
-Plug 'rename', { 'on': 'Rename' }
+Plug 'danro/rename.vim', { 'on': 'Rename' }
+    nnoremap <Leader><Leader>r :noautocmd Rename<Space>
 
 Plug 't9md/vim-choosewin', { 'on': [ 'ChooseWin', 'ChooseWinSwap' ] }
     let g:choosewin_overlay_enable = 1
@@ -417,7 +418,7 @@ set showtabline=0
 set cino=(s,m1,+0
 
 set list
-set lcs=eol:¶,trail:·,tab:\·\·"t
+set lcs=eol:¶,trail:·,tab:\ \ "t
 
 set pastetoggle=<F11>
 
@@ -549,7 +550,7 @@ nnoremap <C-T><C-T> :retab<CR>
 
 imap <C-A> <C-O>A
 
-nmap <C-_> 99<C-W>K<C-W>_
+nmap <C-_> <C-W>_
 nmap <C-H> <C-W>h
 nmap <C-J> <C-W>j
 nmap <C-K> <C-W>k
@@ -592,6 +593,8 @@ augroup custom_colors
     " }}}
 augroup end
 
+inoremap <C-U> <C-O>o
+
 fu! SetBg(bg)
     " Define autocmd events {{{
     au User BgBasePre noh
@@ -629,6 +632,8 @@ endfu!
 call SetBg($BACKGROUND)
 
 noh
+
+nnoremap <Leader>e :e!<Space>
 
 function! GoogleSearch()
     let query = input('Google: ')
