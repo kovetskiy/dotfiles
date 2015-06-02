@@ -32,11 +32,13 @@ SYMBOLS=(
 )
 SYMBOLS=$(IFS="+"; echo "${SYMBOLS[*]}")
 
-
-
 if [[ "$1" == "-v" ]]; then
     setxkbmap -keycodes $KEYCODES -symbols $SYMBOLS -compat $COMPAT \
         -print | xkbcomp - :0
 else
+    if [[ "$1" == "-r" ]]; then
+        sudo rm -rf /var/lib/xkb/*
+    fi
+
     setxkbmap -keycodes $KEYCODES -symbols $SYMBOLS -compat $COMPAT
 fi

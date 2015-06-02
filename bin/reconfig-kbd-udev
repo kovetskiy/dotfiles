@@ -5,6 +5,6 @@ if ! flock -n 9; then
 	exit 1
 fi
 
-/home/vxw/sources/dotfiles/bin/reconfig-kbd &
+/home/vxw/sources/dotfiles/bin/reconfig-kbd -v &
 
 echo > "$lock" &
