@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILE="~/sources/kb/$1"
+FILE=~/sources/kb/$1
 
 if [ -f ~/.kb ]; then
     PASSWORD=$(cat ~/.kb)
