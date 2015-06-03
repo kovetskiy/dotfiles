@@ -14,13 +14,16 @@ snippet s "type struct" bw
 `!p
 body = t[2]
 
-type = 'struct'
-if re.match("^[A-Z]\w+\(\) \w+", body):
-	type = 'interface'
-`
-type $1 `!p snip.rv=type` {
-	$2
-}
+if re.match("^([\w\[\]\{\}]+)$", body):
+	type_left = ""
+	type_right = ""
+else:
+	type_left = "struct {\n\t"
+	type_right = "\n}"
+	if re.match("^[A-Z]\w+\(\) \w+", body):
+		type_left = "interface {\n\t"
+`type $1 `!p snip.rv=type_left`$2`!p snip.rv=type_right`
+$0
 endsnippet
 
 snippet p "package" "line == 1" bwe
@@ -390,13 +393,15 @@ return false
 endsnippet
 
 snippet d "define method" bw
-func (`!p snip.rv=' '.join(px.go.extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
-	$5
-}
-endsnippet
+`!p
+return_left = ''
+return_right = ''
 
-snippet dp "define method on pointer" bw
-func (`!p snip.rv=' *'.join(px.go.extract_prev_method_binding_for_cursor())`) $1($2) $3${3/.+/ /}{
+if "," in t[3]:
+	return_left = '('
+	return_right = ')'
+`
+func (`!p snip.rv=' '.join(px.go.extract_prev_method_binding_for_cursor())`) $1($2) `!p snip.rv=return_left`$3`!p snip.rv=return_right`{
 	$5
 }
 endsnippet
@@ -423,6 +428,10 @@ endsnippet
 
 snippet "(func\s.*\)\s+)([\w\d_\s\{\}\[\]\*\.]+),\s?([\w\d_\s\{\}\[\]\*\.]+)" "return multiple" r
 `!p snip.rv=match.group(1)`(`!p snip.rv=match.group(2)`, `!p snip.rv=match.group(3)`)
+endsnippet
+
+snippet "^\)\s+?([\w\d_\s\{\}\[\]\*\.]+),\s+?([\w\d_\s\{\}\[\]\*\.]+)" "return multiple" r
+) (`!p snip.rv=match.group(1)`, `!p snip.rv=match.group(2)`)
 endsnippet
 
 snippet for "for loop" bw
