@@ -75,3 +75,6 @@ command! Wipe js tabs.remove(tabs.getTab(0), tabs.count, 0, 0, false)
 
 nmap w gT
 nmap e gt
+
+" in russian layout
+nmap . /
