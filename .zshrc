@@ -304,6 +304,13 @@ function ck() { mkdir -p "$@"; cd "$@" }
 #vw it's bin/vw, which openning some software in $EDITOR.
 compdef vw=which
 
+function _kb() {
+    cd ~/sources/kb
+    reply=($(find ./ -not -iwholename '*.git*' | sed 's@./@@'))
+    cd $OLDPWD
+}
+compctl -K _kb kb
+
 eval $(dircolors ~/.dircolors.$BACKGROUND)
 
 unsetopt cdablevars

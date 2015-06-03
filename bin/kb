@@ -1,0 +1,29 @@
+#!/bin/bash
+
+FILE="~/sources/kb/$1"
+
+if [ -f ~/.kb ]; then
+    PASSWORD=$(cat ~/.kb)
+else
+    read -p "Password: " PASSWORD
+fi
+
+encrypt() {
+    openssl enc -aes-128-cbc -a -salt -pass pass:$PASSWORD
+}
+
+decrypt() {
+    openssl enc -aes-128-cbc -a -d -salt -pass pass:$PASSWORD
+}
+
+TMPDIR=$(mktemp -d)
+
+CONTENT=$(cat $FILE | decrypt)
+echo "$CONTENT" > $TMPDIR/kb
+
+vim $TMPDIR/kb
+
+RAW=$(cat $TMPDIR/kb | encrypt)
+echo "$RAW" > $TMPDIR/kb
+
+mv $TMPDIR/kb $FILE
