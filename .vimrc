@@ -165,7 +165,7 @@ Plug 'seletskiy/matchem'
     let g:UltiSnipsJumpForwardTrigger="<C-J>"
     let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 
-Plug 'SirVer/ultisnips'
+Plug 'seletskiy/ultisnips', { 'branch': 'snippet-actions' }
     let g:UltiSnipsSmippetDirectories = [$HOME . '/.vim/Ultisnips/']
     let g:UltiSnipsEnableSnipMate = 0
     let g:UltiSnipsExpandTrigger="<TAB>"
@@ -175,6 +175,10 @@ Plug 'SirVer/ultisnips'
 
     smap <C-E> <C-V><ESC>a
     smap <C-B> <C-V>o<ESC>i
+    augroup textwidth_for_snippets
+        au!
+        au FileType snippets set textwidth=999
+    augroup end
 
 Plug 'honza/vim-snippets'
 
