@@ -314,6 +314,17 @@ Plug 'kovetskiy/ash.vim'
     nnoremap <C-E><C-N> :Unite ash_lsreviews:ngs/auto<CR>
 
 Plug 'seletskiy/vim-pythonx'
+    au filetype_go FileType go nmap <buffer>
+         \ <Leader>gc :py px.go.goto_const()<CR>
+
+    au filetype_go FileType go nmap <buffer>
+         \ <Leader>gt :py px.go.goto_type()<CR>
+
+    au filetype_go FileType go nmap <buffer>
+         \ <Leader>gv :py px.go.goto_var()<CR>
+
+    au filetype_go FileType go nmap <buffer>
+         \ <Leader>gl :py px.go.goto_prev_var()<CR>
 
 Plug 'kovetskiy/vim-empty-lines'
     nnoremap <Leader><Leader>j :call DelEmptyLineBelow()<CR>
