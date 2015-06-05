@@ -381,6 +381,8 @@ Plug 'amix/vim-zenroom2'
 
 Plug 'junegunn/goyo.vim'
 
+Plug 'sjl/gundo.vim'
+
 call plug#end()
 
 syntax on
