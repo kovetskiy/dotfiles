@@ -35,8 +35,8 @@ nnoremap % :source ~/.vimperatorrc<CR>:echomsg "Great success!"<CR>
 nmap <C-P> :set apptab=true<CR>:echomsg "Pinned"<CR>
 nmap <C-N> :set apptab=false<CR>:echomsg "Unpinned"<CR>
 
-map } gt
-map { gT
+map U gt
+map I gT
 
 # squirt.io
 nmap <C-T> :open javascript:(function(){sq=window.sq=window.sq||{};if(sq.script){sq.again();}else{sq.bookmarkletVersion='0.3.0';sq.iframeQueryParams={host:'//squirt.io',userId:'dc2f358c-bffc-4a6f-ba50-054f6b9b3b0c',};sq.script=document.createElement('script');sq.script.src=sq.iframeQueryParams.host+'/bookmarklet/frame.outer.js';document.body.appendChild(sq.script);}})();<CR>
