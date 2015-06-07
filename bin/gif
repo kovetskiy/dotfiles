@@ -21,7 +21,7 @@ read
 xdotool windowfocus $ID
 
 byzanz-record --verbose --delay=0 --x=$X --y=$Y --width=$W --height=$H \
-    --exec="ping ya.ru" $OUTPUT &
+    --exec="bash -c 'ping ya.ru > /dev/null'" $OUTPUT &
 PID=$!
 
 echo "Done? Press ENTER to stop recording"
