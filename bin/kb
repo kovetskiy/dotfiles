@@ -16,9 +16,14 @@ decrypt() {
     openssl enc -aes-128-cbc -a -d -salt -pass pass:$PASSWORD
 }
 
+cd ~/sources/kb
+git pull --rebase origin master
+cd $OLDPWD
+
 TMPDIR=$(mktemp -d)
 
 CONTENT=$(cat $FILE | decrypt)
+
 echo "$CONTENT" > $TMPDIR/kb
 
 vim $TMPDIR/kb
