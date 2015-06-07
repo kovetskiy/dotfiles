@@ -322,4 +322,5 @@ eval $(dircolors ~/.dircolors.$BACKGROUND)
 
 unsetopt cdablevars
 unsetopt noclobber
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
