@@ -81,7 +81,6 @@ Plug 'Shougo/unite.vim'
 
         " such unite
         nnoremap <buffer> S :call unite#mappings#narrowing('')<CR>
-        
     endfunction
 
     augroup unite_setting
@@ -103,6 +102,9 @@ Plug 'Shougo/unite.vim'
     nnoremap <C-B> :Unite -hide-source-names buffer<CR>
     nnoremap <C-P> :call CtrlP()<CR>
     nnoremap <C-Y> :Unite -hide-source-names history/yank<CR>
+
+Plug 'dahu/SearchParty'
+    nmap <silent> <Leader><Leader> :let @/="" \| call feedkeys("\<Plug>SearchPartyHighlightClear")<CR>
 
 Plug 'morhetz/gruvbox'
     au User BgDarkPre let g:colorscheme='gruvbox'
@@ -218,10 +220,25 @@ Plug 't9md/vim-choosewin', { 'on': [ 'ChooseWin', 'ChooseWinSwap' ] }
     nnoremap <C-W><C-E> :ChooseWin<CR>
     nnoremap <C-W><C-S> :ChooseWinSwap<CR>
 
-Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
+Plug 'seletskiy/vim-over', {'on': 'OverCommandLine'}
     nnoremap H :OverCommandLine %s/<CR>
     vnoremap H :OverCommandLine s/<CR>
     nmap L VH
+
+    nnoremap H :OverCommandLine %s/<CR>
+    vnoremap H :OverCommandLine s/<CR>
+
+    let g:over#command_line#search#enable_move_cursor = 1
+    let g:over#command_line#search#very_magic = 1
+
+    nnoremap / :OverCommandLine /<CR>
+    vnoremap / :'<,'>OverCommandLine /<CR>
+    nnoremap ? :OverCommandLine ?<CR>
+    vnoremap ? :'<,'>OverCommandLine ?<CR>
+
+    nnoremap g/ /
+
+    au User OverCmdLineExecute call searchparty#mash#mash()
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     augroup filetype_markdown
@@ -499,7 +516,6 @@ au filetype_php FileType php hi! def link phpDocParam phpType
 imap <C-F> t<TAB>.
 
 nnoremap <C-E><C-D> :cd %:p:h<CR>:pwd<CR>
-nnoremap <F12> :noh<CR>
 
 nnoremap O O<Left><Right>
 nnoremap o o<Left><Right>
@@ -509,9 +525,6 @@ nnoremap <Leader>O O<ESC>
 
 nnoremap X S<ESC>
 vnoremap $ g_
-
-nnoremap / /\v
-vnoremap / /\v
 
 nnoremap > >>
 nnoremap < <<
@@ -542,8 +555,6 @@ nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q <ESC>:bdelete!<CR>
 
 nnoremap <Leader> :noh<CR>
-nnoremap <Leader><Leader> :noh<CR>
-nnoremap <Leader><Leader><Leader> :noh<CR>
 
 nnoremap <Leader>d V"_d<Esc>
 vnoremap <Leader>d "_d
