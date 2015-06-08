@@ -21,7 +21,7 @@ if [ ! -f ~/.antigen.zsh ]; then
 fi
 source ~/.antigen.zsh
 
-
+#ZDOTDIR=$HOME/.antigen/repos
 antigen bundle sorin-ionescu/prezto
     zstyle ':prezto:*:*' color 'yes'
     zstyle ':prezto:load' pmodule \
@@ -43,7 +43,13 @@ antigen bundle sorin-ionescu/prezto
 antigen bundle kovetskiy/zsh-add-params
     bindkey -v '^K' add-params
 
+antigen bundle kovetskiy/zsh-fastcd
+    alias vicd="fastcd ~/.vim/bundle/ 1"
+    alias gocd="fastcd $GOPATH/src/ 3"
+
 antigen bundle seletskiy/zsh-ssh-urxvt
+
+antigen apply
 
 hash -d dotfiles=~/sources/dotfiles/
 hash -d df=~/sources/dotfiles/
@@ -247,15 +253,6 @@ function gcof() {
         git checkout `jira-now branch`
     fi
 }
-
-function gocd() {
-    cd `find $GOPATH/src/ -name "$1*" -type d -print -quit`
-}
-
-function vicd() {
-    cd `find ~/.vim/bundle/ -name "$1*" -type d -print -quit`
-}
-alias vimcd='vicd'
 
 function gcf() {
     amend=""
