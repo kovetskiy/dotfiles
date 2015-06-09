@@ -156,13 +156,6 @@ Plug 'mhinz/vim-startify'
 
 Plug 'l9'
 
-Plug 'Lokaltog/vim-easymotion'
-    let g:EasyMotion_keys = "hjkluiopqweasd"
-
-    hi link EasyMotionTarget ErrorMsg
-    hi link EasyMotionTarget2First ErrorMsg
-    hi link EasyMotionTarget2Second ErrorMsg
-
 Plug 'seletskiy/matchem'
     let g:UltiSnipsJumpForwardTrigger="<C-J>"
     let g:UltiSnipsJumpBackwardTrigger="<C-K>"
@@ -220,7 +213,7 @@ Plug 't9md/vim-choosewin', { 'on': [ 'ChooseWin', 'ChooseWinSwap' ] }
     nnoremap <C-W><C-E> :ChooseWin<CR>
     nnoremap <C-W><C-S> :ChooseWinSwap<CR>
 
-Plug 'seletskiy/vim-over', {'on': 'OverCommandLine'}
+Plug 'seletskiy/vim-over'
     nnoremap H :OverCommandLine %s/<CR>
     vnoremap H :OverCommandLine s/<CR>
     nmap L VH
@@ -443,7 +436,10 @@ set tabstop=4
 set backspace=2
 set splitright
 
-set laststatus=2
+set showmode
+set noruler
+set laststatus=0
+
 set gdefault
 set completeopt-=preview
 set nowrap
@@ -474,7 +470,7 @@ augroup end
 
 augroup vimrc
     au!
-    au BufWritePost ~/.vimrc source % | AirlineRefresh
+    au BufWritePost ~/.vimrc source %
 augroup end
 
 augroup mcabberrc
