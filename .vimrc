@@ -661,6 +661,8 @@ call SetBg($BACKGROUND)
 
 noh
 
+nnoremap <ESC>w <ESC>:w<CR>
+
 nnoremap <Leader>e :e!<Space>
 
 function! GoogleSearch()
