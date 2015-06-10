@@ -9,6 +9,10 @@ func $1($2) $3${3/.+/ /}{
 	$4
 }
 endsnippet
+snippet c "case" bw
+case $1:
+	$2
+endsnippet
 
 snippet s "type struct" bw
 `!p
@@ -24,7 +28,7 @@ else:
 $0
 endsnippet
 
-snippet p "package" "line == 1" bwe
+snippet p "package" "line == 0" bwe
 package ${1:`!p snip.rv=px.go.guess_package_name_from_file_name(snip.fn)`}
 
 $0
@@ -36,7 +40,7 @@ package main
 $0
 endsnippet
 
-snippet m "package and main" "line == 1" bwe
+snippet m "package and main" "line == 0" bwe
 package main
 
 func main() {
@@ -109,7 +113,11 @@ if err != nil {
 endsnippet
 
 snippet fe "fmt.Errorf" w
-fmt.Errorf($1)
+fmt.Errorf("$1: %s", ${2:${VISUAL:err}})
+endsnippet
+
+snippet ff "fmt.Errorf" w
+fmt.Errorf("$1")
 endsnippet
 
 snippet qe "if err != nil" bw
@@ -247,7 +255,7 @@ for ${1:_}, ${2:val} := range ${3:Slice} {
 endsnippet
 
 snippet pr "log.Printf(%#v" bw
-log.Printf("%#v", $1)
+log.Printf("$1: %#v", $1)
 endsnippet
 
 snippet play "package main" bw
@@ -465,7 +473,7 @@ func Test$1(t *testing.T) {
 }
 endsnippet
 
-snippet i "if err != nil" "re.match('^\s+[^=]*err\s*:?=', buffer[line-2])" e
+snippet i "if err != nil" "re.match('^\s+[^=]*err\s*:?=', buffer[line-1])" e
 if err != nil {
 	$1
 }
