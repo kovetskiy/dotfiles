@@ -28,7 +28,7 @@ Plug 'Shougo/vimproc.vim'
 
 Plug 'Shougo/unite.vim'
     let g:unite_split_rule = "botright"
-    let g:unite_force_overwrite_statusline = 0
+    let g:unite_force_overwrite_statusline = 1
     let g:unite_enable_start_insert = 1
 
     let g:unite_source_history_yank_enable = 1
@@ -105,9 +105,6 @@ Plug 'Shougo/unite.vim'
 
 Plug 'dahu/SearchParty'
     nmap <silent> <Leader><Leader> :let @/="" \| call feedkeys("\<Plug>SearchPartyHighlightClear")<CR>
-
-Plug 'morhetz/gruvbox'
-    au User BgDarkPre let g:colorscheme='gruvbox'
 
 Plug 'junegunn/seoul256.vim'
     au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
@@ -393,6 +390,9 @@ Plug 'junegunn/goyo.vim'
 
 Plug 'sjl/gundo.vim'
 
+Plug 'blerins/flattown'
+    au User BgDarkPre let g:colorscheme='flattown'
+
 call plug#end()
 
 syntax on
@@ -677,3 +677,18 @@ EOF
 endfunction!
 
 nnoremap <silent> <Leader><Leader>g :call GoogleSearch()<CR>
+
+function! FuncSnippet()
+    python <<CODE
+vim.command('let l:snippet = "%s"' % px.go.get_complete_func_snippet())
+CODE
+
+    execute "normal S|"
+    let l:indenting = substitute(getline('.'), '|', '', '')
+    normal S
+
+    call UltiSnips#Anon(l:indenting . l:snippet)
+    return ''
+endfunction!
+
+inoremap <C-E> <ESC>:call FuncSnippet()<CR>
