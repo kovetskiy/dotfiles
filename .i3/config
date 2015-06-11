@@ -10,7 +10,7 @@ set $alt Mod4
 
 floating_modifier $alt
 
-bindsym $alt+Return exec urxvt -e tmux
+bindsym $alt+Return exec ~/go/bin/marvex
 
 bindsym Ctrl+Up kill
 
