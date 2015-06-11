@@ -1,3 +1,5 @@
+#set -#x
+#exec 2>/tmp/log
 export PATH="$HOME/bin/:$HOME/go/bin/:$PATH"
 export TERM=rxvt-unicode-256color
 export EDITOR=vim
@@ -145,6 +147,7 @@ function ashr() {
 alias aur='yaourt -S --noconfirm'
 alias pms='sudo pacman -S'
 alias -g P='| perl -n -e'
+alias -g F='| fzf'
 alias -g G='| ag'
 alias -g L='| less'
 alias -g H='| head -n'
@@ -156,6 +159,7 @@ alias l='ls'
 alias ls='ls -lah --color=always'
 alias vd='vim --servername VIM'
 alias vc='vim --remote'
+alias vf='vim $(fzf)'
 alias rf='rm -rf' # like russiahhhhh
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -312,3 +316,4 @@ eval $(dircolors ~/.dircolors.$BACKGROUND)
 
 unsetopt cdablevars
 unsetopt noclobber
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
