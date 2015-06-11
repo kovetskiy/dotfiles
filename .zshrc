@@ -324,3 +324,5 @@ unsetopt cdablevars
 unsetopt noclobber
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+clear
