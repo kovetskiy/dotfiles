@@ -2,6 +2,11 @@
 #exec 2>/tmp/log
 export PATH="$HOME/bin/:$HOME/go/bin/:$PATH"
 export TERM=rxvt-unicode-256color
+
+if [ "$TMUX" ]; then
+    export TERM=screen-256color-so
+fi
+
 export EDITOR=vim
 export BACKGROUND=$(cat ~/background)
 
@@ -21,6 +26,7 @@ stty -ixon
 if [ ! -f ~/.antigen.zsh ]; then
     curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > ~/.antigen.zsh
 fi
+export _ANTIGEN_CACHE_ENABLED=true
 source ~/.antigen.zsh
 
 #ZDOTDIR=$HOME/.antigen/repos
