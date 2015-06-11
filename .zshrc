@@ -150,7 +150,7 @@ function ashr() {
 }
 
 
-alias aur='yaourt -S --noconfirm'
+alias aur='yaourt -S'
 alias pms='sudo pacman -S'
 alias -g P='| perl -n -e'
 alias -g F='| fzf'
