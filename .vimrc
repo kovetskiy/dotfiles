@@ -393,6 +393,10 @@ Plug 'sjl/gundo.vim'
 Plug 'blerins/flattown'
     au User BgDarkPre let g:colorscheme='flattown'
 
+Plug 'EinfachToll/DidYouMean'
+
+Plug 'junegunn/fzf'
+
 call plug#end()
 
 syntax on
