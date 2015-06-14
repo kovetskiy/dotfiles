@@ -58,7 +58,11 @@ endsnippet
 
 priority -1
 snippet i "if" bw
-if ${1:`!p snip.rv=px.all.get_last_var_for_snippet()`} {
+`!p
+var = px.all.get_last_var_for_snippet()
+if var == 'err':
+	var = 'err != nil'
+`if ${1:`!p snip.rv=var`} {
     ${2:${VISUAL}}
 }
 endsnippet
@@ -470,12 +474,6 @@ endsnippet
 snippet te "func Test" bw
 func Test$1(t *testing.T) {
 	$2
-}
-endsnippet
-
-snippet i "if err != nil" "re.match('^\s+[^=]*err\s*:?=', buffer[line-1])" e
-if err != nil {
-	$1
 }
 endsnippet
 
