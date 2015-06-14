@@ -10,6 +10,8 @@ fi
 export EDITOR=vim
 export BACKGROUND=$(cat ~/background)
 
+export PROFILE=$(cat ~/profile)
+
 export GOROOT=""
 export GOPATH="$HOME/go"
 
@@ -46,7 +48,11 @@ antigen bundle sorin-ionescu/prezto
     zstyle ':prezto:module:editor' key-bindings 'vi'
     zstyle ':completion:*' rehash true
 
-    prompt lambda17
+    if [[ "$PROFILE" == "home" ]]; then
+        prompt lambda17 white black ω
+    else
+        prompt lambda17
+    fi
 
 antigen bundle kovetskiy/zsh-add-params
     bindkey -v '^K' add-params
