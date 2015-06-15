@@ -28,7 +28,7 @@ else:
 $0
 endsnippet
 
-snippet p "package" "line == 0" bwe
+snippet p "package" "snip.line == 0" bwe
 package ${1:`!p snip.rv=px.go.guess_package_name_from_file_name(snip.fn)`}
 
 $0
@@ -40,7 +40,7 @@ package main
 $0
 endsnippet
 
-snippet m "package and main" "line == 0" bwe
+snippet m "package and main" "snip.line == 0" bwe
 package main
 
 func main() {
@@ -48,58 +48,64 @@ func main() {
 }
 endsnippet
 
-snippet p "panic" "re.match('^\s+if err ', px.util.get_prev_nonempty_line(buffer, line))" bwe
+snippet p "panic" "re.match('^\s+if err ', px.util.get_prev_nonempty_line(snip.buffer, snip.line))" bwe
 panic(err)
 endsnippet
 
-snippet lf "log.fatal" "re.match('^\s+if err ', px.util.get_prev_nonempty_line(buffer, line))" bwe
+snippet lf "log.fatal" "re.match('^\s+if err ', px.util.get_prev_nonempty_line(snip.buffer, snip.line))" bwe
 log.Fatal(err)
 endsnippet
 
+global !p
+def get_value_for_if():
+	value = px.all.get_last_var_for_snippet()
+	if value == 'err':
+		value = 'err != nil'
+
+	return value
+endglobal
+
 priority -1
+pre_expand "snip.context = get_value_for_if()"
 snippet i "if" bw
-`!p
-var = px.all.get_last_var_for_snippet()
-if var == 'err':
-	var = 'err != nil'
-`if ${1:`!p snip.rv=var`} {
+if ${1:`!p snip.rv=snip.context`} {
     ${2:${VISUAL}}
 }
 endsnippet
 
-snippet i "integer field" "px.go.is_type_declaration(buffer, line)" bwe
+snippet i "integer field" "px.go.is_type_declaration(snip.buffer, snip.line)" bwe
 $1 int
 endsnippet
 
-snippet i "integer field" "px.go.is_func_declaration(buffer, line)" we
+snippet i "integer field" "px.go.is_func_declaration(snip.buffer, snip.line)" we
 $1 int,
 endsnippet
 
-snippet e "integer field" "px.go.is_func_declaration(buffer, line)" we
+snippet e "integer field" "px.go.is_func_declaration(snip.buffer, snip.line)" we
 error
 endsnippet
 
-snippet s "string field" "px.go.is_type_declaration(buffer, line)" bwe
+snippet s "string field" "px.go.is_type_declaration(snip.buffer, snip.line)" bwe
 $1 string
 endsnippet
 
-snippet s "string field" "px.go.is_func_declaration(buffer, line)" we
+snippet s "string field" "px.go.is_func_declaration(snip.buffer, snip.line)" we
 $1 string,
 endsnippet
 
-snippet f "float field" "px.go.is_type_declaration(buffer, line)" bwe
+snippet f "float field" "px.go.is_type_declaration(snip.buffer, snip.line)" bwe
 $1 float64
 endsnippet
 
-snippet f "float field" "px.go.is_func_declaration(buffer, line)" we
+snippet f "float field" "px.go.is_func_declaration(snip.buffer, snip.line)" we
 $1 float64,
 endsnippet
 
-snippet m "map field" "px.go.is_type_declaration(buffer, line)" bwe
+snippet m "map field" "px.go.is_type_declaration(snip.buffer, snip.line)" bwe
 $1 map[${2:string}]${3:interface{}}
 endsnippet
 
-snippet m "string field" "px.go.is_func_declaration(buffer, line)" we
+snippet m "string field" "px.go.is_func_declaration(snip.buffer, snip.line)" we
 $1 map[${2:string}]${3:interface{}}$4,
 endsnippet
 
@@ -158,7 +164,7 @@ snippet r "return" bw
 return $1
 endsnippet
 
-snippet r "return" "re.match('^\s+if err ', px.util.get_prev_nonempty_line(buffer, line))" eb
+snippet r "return" "re.match('^\s+if err ', px.util.get_prev_nonempty_line(snip.buffer, snip.line))" eb
 return err
 endsnippet
 
@@ -477,7 +483,7 @@ func Test$1(t *testing.T) {
 }
 endsnippet
 
-snippet , "return ... , nil" "px.go.is_return_argument(buffer, line, column)" ie
+snippet , "return ... , nil" "px.go.is_return_argument(snip.buffer, snip.line, snip.column)" ie
 , `!p if px.go.is_in_err_condition(vim.current.buffer, vim.current.window.cursor[0], vim.current.window.cursor[1]):
 	snip.rv = "err"
 else:
