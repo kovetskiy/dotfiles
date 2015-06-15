@@ -1,5 +1,7 @@
 #set -#x
 #exec 2>/tmp/log
+
+zmodload zsh/zprof
 export PATH="$HOME/bin/:$HOME/go/bin/:$PATH"
 export TERM=rxvt-unicode-256color
 
@@ -25,24 +27,7 @@ export WORDCHARS=-
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
-if [ ! -d ~/.zgen ]; then
-    git clone https://github.com/tarjoilija/zgen ~/.zgen
-fi
-
-source ~/.zgen/zgen.zsh
-
-if ! zgen saved; then
-    #ZDOTDIR=$HOME/.antigen/repos
-    zgen load sorin-ionescu/prezto
-
-    zgen load kovetskiy/zsh-add-params
-
-    zgen load kovetskiy/zsh-fastcd
-
-    zgen load seletskiy/zsh-ssh-urxvt
-
-    zgen save
-fi
+autoload -Uz promptinit
 
 zstyle ':prezto:*:*' color 'yes'
 zstyle ':prezto:load' pmodule \
@@ -58,6 +43,29 @@ zstyle ':prezto:load' pmodule \
 
 zstyle ':prezto:module:editor' key-bindings 'vi'
 zstyle ':completion:*' rehash true
+
+if [ ! -d ~/.zgen ]; then
+    git clone https://github.com/tarjoilija/zgen ~/.zgen
+fi
+
+real_compinit=$(functions -- compinit)
+#compinit() {
+    #echo $real_compinit
+#}
+source ~/.zgen/zgen.zsh
+
+if ! zgen saved; then
+    zgen load sorin-ionescu/prezto
+
+    zgen load kovetskiy/zsh-add-params
+    zgen load kovetskiy/zsh-fastcd
+    zgen load seletskiy/zsh-prompt-lambda17
+    zgen load seletskiy/zsh-ssh-urxvt
+
+    zgen save
+fi
+
+promptinit
 
 if [[ "$PROFILE" == "home" ]]; then
     prompt lambda17 white black ω
@@ -341,4 +349,4 @@ export FZF_COMPLETION_TRIGGER=''
 bindkey '^T' fzf-completion
 bindkey '^I' $fzf_default_completion
 
-clear
+#clear
