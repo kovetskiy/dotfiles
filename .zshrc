@@ -25,45 +25,50 @@ export WORDCHARS=-
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
-if [ ! -f ~/.antigen.zsh ]; then
-    curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > ~/.antigen.zsh
+if [ ! -d ~/.zgen ]; then
+    git clone https://github.com/tarjoilija/zgen ~/.zgen
 fi
-export _ANTIGEN_CACHE_ENABLED=true
-source ~/.antigen.zsh
 
-#ZDOTDIR=$HOME/.antigen/repos
-antigen bundle sorin-ionescu/prezto
-    zstyle ':prezto:*:*' color 'yes'
-    zstyle ':prezto:load' pmodule \
-        'helper' \
-        'environment' \
-        'terminal' \
-        'editor' \
-        'history' \
-        'directory' \
-        'completion' \
-        'history-substring-search' \
-        'git'
+source ~/.zgen/zgen.zsh
 
-    zstyle ':prezto:module:editor' key-bindings 'vi'
-    zstyle ':completion:*' rehash true
+if ! zgen saved; then
+    #ZDOTDIR=$HOME/.antigen/repos
+    zgen load sorin-ionescu/prezto
 
-    if [[ "$PROFILE" == "home" ]]; then
-        prompt lambda17 white black ω
-    else
-        prompt lambda17
-    fi
+    zgen load kovetskiy/zsh-add-params
 
-antigen bundle kovetskiy/zsh-add-params
-    bindkey -v '^K' add-params
+    zgen load kovetskiy/zsh-fastcd
 
-antigen bundle kovetskiy/zsh-fastcd
-    alias vicd="fastcd ~/.vim/bundle/ 1"
-    alias gocd="fastcd $GOPATH/src/ 3"
+    zgen load seletskiy/zsh-ssh-urxvt
 
-antigen bundle seletskiy/zsh-ssh-urxvt
+    zgen save
+fi
 
-antigen apply
+zstyle ':prezto:*:*' color 'yes'
+zstyle ':prezto:load' pmodule \
+    'helper' \
+    'environment' \
+    'terminal' \
+    'editor' \
+    'history' \
+    'directory' \
+    'completion' \
+    'history-substring-search' \
+    'git'
+
+zstyle ':prezto:module:editor' key-bindings 'vi'
+zstyle ':completion:*' rehash true
+
+if [[ "$PROFILE" == "home" ]]; then
+    prompt lambda17 white black ω
+else
+    prompt lambda17
+fi
+
+bindkey -v '^K' add-params
+
+alias vicd="fastcd ~/.vim/bundle/ 1"
+alias gocd="fastcd $GOPATH/src/ 3"
 
 hash -d dotfiles=~/sources/dotfiles/
 hash -d df=~/sources/dotfiles/
