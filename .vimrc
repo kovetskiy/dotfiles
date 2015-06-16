@@ -397,6 +397,8 @@ Plug 'EinfachToll/DidYouMean'
 
 Plug 'junegunn/fzf'
 
+Plug 'kovetskiy/kb-train'
+
 call plug#end()
 
 syntax on
