@@ -40,6 +40,10 @@ if [ -z `pidof urxvtd` ]; then
     urxvtd &
 fi
 
+if [ -z `pidof xcape` ]; then
+    xcape -t 300 -e 'Control_L=Tab'
+fi
+
 xset dpms 0 0 0
 xset s off
 
