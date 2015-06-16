@@ -1,7 +1,3 @@
-#set -#x
-#exec 2>/tmp/log
-
-zmodload zsh/zprof
 export PATH="$HOME/bin/:$HOME/go/bin/:$PATH"
 export TERM=rxvt-unicode-256color
 
@@ -48,13 +44,10 @@ if [ ! -d ~/.zgen ]; then
     git clone https://github.com/tarjoilija/zgen ~/.zgen
 fi
 
-real_compinit=$(functions -- compinit)
-#compinit() {
-    #echo $real_compinit
-#}
 source ~/.zgen/zgen.zsh
 
 if ! zgen saved; then
+    zgen load seletskiy/zsh-zgen-compinit-tweak
     zgen load sorin-ionescu/prezto
 
     zgen load kovetskiy/zsh-add-params
