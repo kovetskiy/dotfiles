@@ -1,0 +1,10 @@
+#!/usr/bin/zsh
+
+files=$(git ls-files)
+for file in $files; do
+    sed -n '/\(.\)\{79\}/p' "$file" | while read line; do
+        echo "\033[0;31m$file\033[0m"
+        grep --color -F -n -A 2 -B 2 "$line" "$file"
+        echo
+    done
+done
