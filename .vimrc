@@ -228,7 +228,8 @@ Plug 'seletskiy/vim-over'
 
     nnoremap g/ /
 
-    au User OverCmdLineExecute call searchparty#mash#mash()
+    au User OverCmdLineExecute call searchparty#mash#mash() |
+                \ let g:over#command_line#search#keep_search = 0
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     augroup filetype_markdown
