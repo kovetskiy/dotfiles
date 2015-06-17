@@ -28,7 +28,7 @@ Plug 'Shougo/vimproc.vim'
 
 Plug 'Shougo/unite.vim'
     let g:unite_split_rule = "botright"
-    let g:unite_force_overwrite_statusline = 1
+    let g:unite_force_overwrite_statusline = 0
     let g:unite_enable_start_insert = 1
 
     let g:unite_source_history_yank_enable = 1
@@ -443,9 +443,7 @@ set tabstop=4
 set backspace=2
 set splitright
 
-set showmode
-set noruler
-set laststatus=0
+set laststatus=2
 
 set gdefault
 set completeopt-=preview
@@ -477,7 +475,7 @@ augroup end
 
 augroup vimrc
     au!
-    au BufWritePost ~/.vimrc source %
+    au BufWritePost ~/.vimrc source % | AirlineRefresh
 augroup end
 
 augroup mcabberrc
