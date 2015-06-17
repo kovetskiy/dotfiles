@@ -417,7 +417,7 @@ if "," in t[3]:
 	return_left = '('
 	return_right = ')'
 `
-func (`!p snip.rv=' '.join(px.go.extract_prev_method_binding_for_cursor())`) $1($2) `!p snip.rv=return_left`$3`!p snip.rv=return_right`{
+func (`!p snip.rv=' '.join(px.go.extract_prev_method_binding_for_cursor())`) $1($2) `!p snip.rv=return_left`$3`!p snip.rv=return_right` {
 	$5
 }
 endsnippet
