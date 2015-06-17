@@ -540,6 +540,8 @@ vnoremap <silent> < <gv
 
 inoremap jk <ESC>
 
+nnoremap ; :
+
 nnoremap g< '<
 nnoremap g> '>
 
