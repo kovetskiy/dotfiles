@@ -534,3 +534,14 @@ endsnippet
 snippet .n "== nil"
 == nil$0
 endsnippet
+
+global !p
+def gocode_complete_function(snip):
+	snippet = px.go.get_snippet_gocode_complete_function()
+	snip.buffer[snip.line] = re.sub('[\w\.]', '', snip.buffer[snip.line])
+	snip.expand_anon(snippet)
+endglobal
+
+pre_expand "gocode_complete_function(snip)"
+snippet "\w+\.\w+" "gocode complete" "px.go.gocode_can_complete()" wbre
+endsnippet
