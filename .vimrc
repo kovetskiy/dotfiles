@@ -104,6 +104,10 @@ Plug 'Shougo/unite.vim'
     nnoremap <C-Y> :Unite -hide-source-names history/yank<CR>
 
 Plug 'dahu/SearchParty'
+    au VimEnter * au! SearchPartySearching
+    au BufEnter * let b:searching = 0
+    au CursorHold * call SPAfterSearch()
+
     nmap <silent> <Leader><Leader> :let @/="" \| call feedkeys("\<Plug>SearchPartyHighlightClear")<CR>
 
 Plug 'junegunn/seoul256.vim'
@@ -221,15 +225,12 @@ Plug 'seletskiy/vim-over'
     let g:over#command_line#search#enable_move_cursor = 1
     let g:over#command_line#search#very_magic = 1
 
-    nnoremap / :OverCommandLine /<CR>
-    vnoremap / :'<,'>OverCommandLine /<CR>
-    nnoremap ? :OverCommandLine ?<CR>
-    vnoremap ? :'<,'>OverCommandLine ?<CR>
+    au BufAdd,BufEnter * nnoremap / :OverCommandLine /<CR>
+    au BufAdd,BufEnter * vnoremap / :'<,'>OverCommandLine /<CR>
+    au BufAdd,BufEnter * nnoremap ? :OverCommandLine ?<CR>
+    au BufAdd,BufEnter * vnoremap ? :'<,'>OverCommandLine ?<CR>
 
-    nnoremap g/ /
-
-    au User OverCmdLineExecute call searchparty#mash#mash() |
-                \ let g:over#command_line#search#keep_search = 0
+    au User OverCmdLineExecute call searchparty#mash#mash()
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     augroup filetype_markdown
