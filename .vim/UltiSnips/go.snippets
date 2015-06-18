@@ -586,6 +586,26 @@ pre_expand "gocode_complete_function(snip)"
 snippet "\w+\.\w+" "gocode complete" "px.go.gocode_can_complete()" wbre
 endsnippet
 
-snippet & "and" A
+global !p
+def should_expand_amp(buffer, line, column):
+	line_contents = buffer[line]
+	if line_contents[column - 2] == ':':
+		return False
+
+	if line_contents[column - 2] == '=':
+		return False
+
+	return True
+endglobal
+
+snippet & "should_expand_amp(snip.buffer, snip.line, snip.column)" Awe
 && $0
+endsnippet
+
+snippet = ":=" iA
+`!p snip.rv=" = "`
+endsnippet
+
+snippet "= \" "wut" wA
+`!p snip.rv=":= "`
 endsnippet
