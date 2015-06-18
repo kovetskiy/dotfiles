@@ -2,7 +2,10 @@
 
 filename="$HOME/screenshots/$(date +%F-%T | tr : T).png"
 
-if [ "$1" == "border" ]; then
+
+if [ "$1" == "import" ]; then
+    import -trim $filename
+elif [ "$1" == "border" ]; then
     maim --nokeyboard -s $filename && notify-send "Screenshot with border ready"
     convert -bordercolor black -border 1x1 $filename{,.new}
     mv $filename{.new,}

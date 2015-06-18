@@ -9,12 +9,14 @@ func $1($2) $3${3/.+/ /}{
 	$4
 }
 endsnippet
-snippet c "case" bw
+
+snippet c "case" iA
 case $1:
 	$2
+$3
 endsnippet
 
-snippet s "type struct" bw
+snippet "^s$" "type struct" "px.go.is_before_first_func(snip.buffer, snip.line)" bwreA
 `!p
 if re.match("^([\w\[\]{}]+)$", t[2]):
         type_left = " "
@@ -28,19 +30,19 @@ else:
 $0
 endsnippet
 
-snippet p "package" "snip.line == 0" bwe
+snippet p "package" "snip.line == 0" bweA
 package ${1:`!p snip.rv=px.go.guess_package_name_from_file_name(snip.fn)`}
 
 $0
 endsnippet
 
-snippet "package m" "package main" bwr
+snippet "package m" "package main" bwrA
 package main
 
 $0
 endsnippet
 
-snippet m "package and main" "snip.line == 0" bwe
+snippet m "package and main" "snip.line == 0" bweA
 package main
 
 func main() {
@@ -48,11 +50,11 @@ func main() {
 }
 endsnippet
 
-snippet p "panic" "re.match('^\s+if err ', px.util.get_prev_nonempty_line(snip.buffer, snip.line))" bwe
+snippet p "panic" "re.match('^\s+if err ', px.util.get_prev_nonempty_line(snip.buffer, snip.line))" bweA
 panic(err)
 endsnippet
 
-snippet lf "log.fatal" "re.match('^\s+if err ', px.util.get_prev_nonempty_line(snip.buffer, snip.line))" bwe
+snippet lf "log.fatal" "re.match('^\s+if err ', px.util.get_prev_nonempty_line(snip.buffer, snip.line))" bweA
 log.Fatal(err)
 endsnippet
 
@@ -110,7 +112,7 @@ $1 map[${2:string}]${3:interface{}}$4,
 endsnippet
 
 priority -1
-snippet ii "if <VISUAL>" bw
+snippet ii "if <VISUAL>" bwA
 if ${VISUAL} {
 	$1
 }
@@ -122,45 +124,60 @@ if err != nil {
 }
 endsnippet
 
-snippet fe "fmt.Errorf" w
+snippet fe "fmt.Errorf" wA
 fmt.Errorf("$1: %s", ${2:${VISUAL:err}})
 endsnippet
 
-snippet ff "fmt.Errorf" w
+snippet ff "fmt.Errorf" wA
 fmt.Errorf("$1")
 endsnippet
 
-snippet qe "if err != nil" bw
+snippet qe "if err != nil" bwA
 if err != nil {
 	return fmt.Errorf("$1: %s", err.Error())
 }
 endsnippet
 
-snippet qq "if err != nil" bw
+snippet qq "if err != nil" bwA
 if err != nil {
 	return ${1:nil}, err
 }
 endsnippet
 
-snippet qqe "if err != nil" bw
+snippet qqe "if err != nil" bwA
 if err != nil {
 	return ${1:nil}, fmt.Errorf("$2: %s", err.Error())
 }
 endsnippet
 
-snippet qp "if err != nil panic" bw
+snippet qp "if err != nil panic" bwA
 if err != nil {
 	panic(err)
 }
 endsnippet
 
-snippet qn "if ... == nil" bw
+snippet qn "if ... == nil" bwA
 if ${1:value} == nil {
 	${0:${VISUAL}}
 }
 endsnippet
 
 snippet r "return" bw
+return $1
+endsnippet
+
+global !p
+def should_expand_r(buffer, line):
+	if re.match('^\s+if ', buffer[line-1]):
+		return True
+
+	if buffer[line-1].strip() == '' and buffer[line+1].strip() == '}':
+		return True
+
+	return False
+endglobal
+
+snippet r "return" "should_expand_r(snip.buffer, snip.line)" bweA
 return $1
 endsnippet
 
