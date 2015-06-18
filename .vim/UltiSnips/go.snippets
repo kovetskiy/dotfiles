@@ -80,6 +80,8 @@ def get_value_for_if():
 	return value
 
 def jumper_if(snip):
+	print('post_jump!')
+	print(snip)
 	if snip.tabstops[1].current_text == "err != nil" and snip.tabstop == 1 and snip.jump_direction == 1 :
 		import vim
 		vim.command('call feedkeys("\<C-J>")')
@@ -87,7 +89,7 @@ endglobal
 
 priority -1
 pre_expand "snip.context = get_value_for_if()"
-post_jump "jumper_if(snip)"
+#post_jump "jumper_if(snip)"
 snippet i "if" bw
 if ${1:`!p snip.rv=snip.context`} {
     ${2:${VISUAL}}
@@ -143,7 +145,7 @@ if err != nil {
 }
 endsnippet
 
-snippet fef "fmt.Errorf" bwA
+snippet fef "fmt.Errorf" wA
 fmt.Errorf("$1: %s", ${2:${VISUAL:err}})
 endsnippet
 
@@ -204,7 +206,7 @@ snippet ,e ", err" iA
 , err$0
 endsnippet
 
-snippet "}(.)" "else" bwrA
+snippet "}([\w ])" "else" bwrA
 } else {
 	`!p snip.rv=match.group(1)`$1
 }
@@ -312,8 +314,13 @@ func($1) $2{
 endsnippet
 
 snippet vr "var" bw
+`!p
+vis = "// variables"
+if snip.v.text  != "":
+	vis = snip.v.text.replace(" := ", " = ")
+`
 var (
-	$1
+	${1:`!p snip.rv=vis`}
 )
 endsnippet
 
@@ -590,14 +597,19 @@ snippet = ":=" iA
 buffer = vim.current.buffer
 line, column = vim.current.window.cursor
 
-if buffer[line-1][column-1] == ':':
+if not re.match(r'\w', buffer[line-1][column-1]):
 	snip.rv = "= "
 else:
 	snip.rv = " = "
 `
 endsnippet
 
-snippet "= \" "wut" wA
+priority 2
+snippet "= =" "" Ai
+`!p snip.rv="== "`
+endsnippet
+
+snippet "= \" "wut" Ai
 `!p snip.rv=":= "`
 endsnippet
 
