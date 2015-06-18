@@ -1,5 +1,4 @@
 global !p
-# see ~/.vim/pythonx/go.py
 import px.go
 import re
 endglobal
@@ -10,7 +9,21 @@ func $1($2) $3${3/.+/ /}{
 }
 endsnippet
 
-snippet c "case" iA
+global !p
+def should_expand_case(buffer, line):
+    if not px.go.is_switch(buffer, line):
+        return False
+
+    switch_line = px.go.get_bracket_line(buffer, line)
+    switch_line_indent = px.util.get_indentation(buffer[switch_line])
+
+    if switch_line_indent == px.util.get_indentation(buffer[line]):
+        return True
+
+    return False
+endglobal
+
+snippet c "case" "should_expand_case(snip.buffer, snip.line)" bweA
 case $1:
 	$2
 $3
@@ -185,6 +198,10 @@ snippet r "return" "re.match('^\s+if err ', px.util.get_prev_nonempty_line(snip.
 return err
 endsnippet
 
+snippet r "return" "should_expand_r(snip.buffer, snip.line) and re.match('^\s+if err ', px.util.get_prev_nonempty_line(snip.buffer, snip.line))" eb
+return err
+endsnippet
+
 snippet fs "... string" bw
 $1 string$2
 endsnippet
@@ -196,13 +213,13 @@ if actual != ${2:"Actual"} {
 }
 endsnippet
 
-snippet ,e ", err" i
+snippet ,e ", err" iA
 , err$0
 endsnippet
 
-snippet "} e" "else" bw
+snippet "}(.)" "else" bwrA
 } else {
-	${1:${VISUAL}}
+	`!p snip.rv=match.group(1)`$1
 }
 endsnippet
 
@@ -473,11 +490,17 @@ for $1 {
 }
 endsnippet
 
-snippet lp "log.Println" w
-log.Println($1)
+snippet lp "log.Println" wA
+`!p
+left = ''
+right = ''
+if " " in t[1] and not '"' in t[1]:
+	left = '"'
+	right = '"'
+`log.Println(`!p snip.rv=left`$1`!p snip.rv=right`)
 endsnippet
 
-snippet fp "fmt.Println" w
+snippet fp "fmt.Println" wA
 fmt.Println($1)
 endsnippet
 
