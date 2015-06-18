@@ -24,6 +24,8 @@ nnoremap <Leader><Leader>u :PlugUpdate<CR>
 
 call plug#begin('~/.vim/bundle')
 
+let g:py_modules = []
+
 Plug 'Shougo/vimproc.vim'
 
 Plug 'Shougo/unite.vim'
@@ -161,7 +163,7 @@ Plug 'seletskiy/matchem'
     let g:UltiSnipsJumpForwardTrigger="<C-J>"
     let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 
-Plug 'seletskiy/ultisnips', { 'branch': 'snippet-actions' }
+Plug 'seletskiy/ultisnips', { 'branch': 'autotrigger' }
     let g:UltiSnipsSmippetDirectories = [$HOME . '/.vim/Ultisnips/']
     let g:UltiSnipsEnableSnipMate = 0
     let g:UltiSnipsExpandTrigger="<TAB>"
@@ -334,6 +336,11 @@ Plug 'seletskiy/vim-pythonx'
 
     au filetype_go FileType go nmap <buffer>
          \ <Leader>gl :py px.go.goto_prev_var()<CR>
+    
+    call add(g:py_modules, 'px.all')
+    call add(g:py_modules, 'px.go')
+    call add(g:py_modules, 'px.util')
+    call add(g:py_modules, 'px.py')
 
 Plug 'kovetskiy/vim-empty-lines'
     nnoremap <Leader><Leader>j :call DelEmptyLineBelow()<CR>
@@ -476,7 +483,19 @@ augroup end
 
 augroup vimrc
     au!
-    au BufWritePost ~/.vimrc source % | AirlineRefresh
+    func! ReloadPythonModules()
+        python <<CODE
+import sys
+modules = vim.eval('g:py_modules')
+for module_name in modules:
+    try:
+        reload(sys.modules[module_name])
+    except:
+        pass
+CODE
+    endfunc!
+    command! ReloadPythonModules call ReloadPythonModules()
+    au BufWritePost ~/.vimrc source % | AirlineRefresh | ReloadPythonModules
 augroup end
 
 augroup mcabberrc
@@ -538,8 +557,6 @@ vnoremap <silent> > >gv
 vnoremap <silent> < <gv
 
 inoremap jk <ESC>
-
-nnoremap ; :
 
 nnoremap g< '<
 nnoremap g> '>
@@ -700,3 +717,4 @@ CODE
 endfunction!
 
 inoremap <C-E> <ESC>:call FuncSnippet()<CR>
+nnoremap <Tab> zz
