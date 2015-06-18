@@ -109,14 +109,12 @@ bindkey -v "^[[7~" beginning-of-line
 bindkey -v "^A" beginning-of-line
 bindkey -v "^Q" push-line
 bindkey -v "^[[8~" end-of-line
-bindkey -v "^E" end-of-line
 bindkey -v '^?' backward-delete-char
 bindkey -v '^H' backward-delete-char
-bindkey -v '^B' delete-char
 bindkey -v '^[[3~' delete-char
 bindkey -v '^W' backward-kill-word
-bindkey -v '^[[1;5D' vi-backward-word #ctrl+alt+H
-bindkey -v '^[[1;5C' vi-forward-word #ctrl+alt+L
+bindkey -v '^B' vi-backward-word #ctrl+alt+H
+bindkey -v '^E' vi-forward-word #ctrl+alt+L
 bindkey -v "^L" clear-screen
 
 function compress () {
