@@ -276,7 +276,7 @@ snippet msi "map[string]interface" w
 map[string]interface{}
 endsnippet
 
-snippet sw "switch" bw
+snippet sw "switch" bwA
 switch ${1:name} {
 case ${2:true}:
 	$3
@@ -584,4 +584,8 @@ endglobal
 
 pre_expand "gocode_complete_function(snip)"
 snippet "\w+\.\w+" "gocode complete" "px.go.gocode_can_complete()" wbre
+endsnippet
+
+snippet & "and" A
+&& $0
 endsnippet
