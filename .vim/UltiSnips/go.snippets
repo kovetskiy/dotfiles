@@ -78,10 +78,16 @@ def get_value_for_if():
 		value = 'err != nil'
 
 	return value
+
+def jumper_if(snip):
+	if snip.tabstops[1].current_text == "err != nil" and snip.tabstop == 1 and snip.jump_direction == 1 :
+		import vim
+		vim.command('call feedkeys("\<C-J>")')
 endglobal
 
 priority -1
 pre_expand "snip.context = get_value_for_if()"
+post_jump "jumper_if(snip)"
 snippet i "if" bw
 if ${1:`!p snip.rv=snip.context`} {
     ${2:${VISUAL}}
@@ -137,11 +143,11 @@ if err != nil {
 }
 endsnippet
 
-snippet fe "fmt.Errorf" wA
+snippet fef "fmt.Errorf" bwA
 fmt.Errorf("$1: %s", ${2:${VISUAL:err}})
 endsnippet
 
-snippet ff "fmt.Errorf" wA
+snippet ff "fmt.Errorf" bwA
 fmt.Errorf("$1")
 endsnippet
 
@@ -179,26 +185,7 @@ snippet r "return" bw
 return $1
 endsnippet
 
-global !p
-def should_expand_r(buffer, line):
-	if re.match('^\s+if ', buffer[line-1]):
-		return True
-
-	if buffer[line-1].strip() == '' and buffer[line+1].strip() == '}':
-		return True
-
-	return False
-endglobal
-
-snippet r "return" "should_expand_r(snip.buffer, snip.line)" bweA
-return $1
-endsnippet
-
 snippet r "return" "re.match('^\s+if err ', px.util.get_prev_nonempty_line(snip.buffer, snip.line))" eb
-return err
-endsnippet
-
-snippet r "return" "should_expand_r(snip.buffer, snip.line) and re.match('^\s+if err ', px.util.get_prev_nonempty_line(snip.buffer, snip.line))" eb
 return err
 endsnippet
 
@@ -223,9 +210,9 @@ snippet "}(.)" "else" bwrA
 }
 endsnippet
 
-snippet co "const" bw
+snippet "^c$" "type struct" "px.go.is_before_first_func(snip.buffer, snip.line)" bwreA
 const (
-	$1 = $2
+	$0
 )
 endsnippet
 
@@ -563,10 +550,6 @@ var (
 )
 endsnippet
 
-snippet = "=" w
-$1 = $2
-endsnippet
-
 snippet /n "!= nil"
 != nil$0
 endsnippet
@@ -603,9 +586,21 @@ snippet & "should_expand_amp(snip.buffer, snip.line, snip.column)" Awe
 endsnippet
 
 snippet = ":=" iA
-`!p snip.rv=" = "`
+`!p
+buffer = vim.current.buffer
+line, column = vim.current.window.cursor
+
+if buffer[line-1][column-1] == ':':
+	snip.rv = "= "
+else:
+	snip.rv = " = "
+`
 endsnippet
 
 snippet "= \" "wut" wA
 `!p snip.rv=":= "`
+endsnippet
+
+snippet ,- "underscore" iA
+, _
 endsnippet
