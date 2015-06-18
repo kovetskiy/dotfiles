@@ -110,7 +110,8 @@ Plug 'dahu/SearchParty'
     au BufEnter * let b:searching = 0
     au CursorHold * call SPAfterSearch()
 
-    nmap <silent> <Leader><Leader> :let @/="" \| call feedkeys("\<Plug>SearchPartyHighlightClear")<CR>
+    nmap <silent> <Leader><Leader> :let @/=''<CR>
+                \ <Plug>SearchPartyHighlightClear
 
 Plug 'junegunn/seoul256.vim'
     au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
@@ -642,7 +643,7 @@ augroup custom_colors
     " }}}
 augroup end
 
-inoremap <C-U> <C-O>o
+imap <C-U> <ESC>ua
 
 fu! SetBg(bg)
     " Define autocmd events {{{

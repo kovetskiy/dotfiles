@@ -1,4 +1,4 @@
-export PATH="$HOME/bin/:$HOME/go/bin/:$PATH"
+export PATH="$HOME/bin/:$HOME/go/bin/:/opt/go/bin/:$PATH"
 export TERM=rxvt-unicode-256color
 
 if [ "$TMUX" ]; then
