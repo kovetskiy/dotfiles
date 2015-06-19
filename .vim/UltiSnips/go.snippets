@@ -145,6 +145,9 @@ if err != nil {
 }
 endsnippet
 
+snippet fe "" w
+fmt.Errorf(${1:${VISUAL}})
+endsnippet
 snippet fef "fmt.Errorf" wA
 fmt.Errorf("$1: %s", ${2:${VISUAL:err}})
 endsnippet
@@ -567,13 +570,41 @@ endsnippet
 
 global !p
 def gocode_complete_function(snip):
-	snippet = px.go.get_snippet_gocode_complete_function()
-	snip.buffer[snip.line] = re.sub('[\w\.]', '', snip.buffer[snip.line])
-	snip.expand_anon(snippet)
+	(snip_ret, snip_func) = px.go.get_gocode_complete(False)
+	snip_full = px.go.get_gocode_complete(True)
+
+	cur_line = re.sub('\w+\.\w+$', '', snip.buffer[snip.line])
+	snip.buffer[snip.line] = cur_line
+
+	prev_line = px.util.get_prev_nonempty_line(snip.buffer, snip.line)
+
+	if prev_line[-1] == ',' or prev_line[-1] == '(' or prev_line[-1] == '&' or cur_line.strip() != '':
+		snip.expand_anon(snip_func)
+		return
+
+
+	matches = re.search('\${(\d+):error}', snip_ret)
+	if not matches:
+		snip.expand_anon(snip_full)
+
+	placeholder_err = matches.group(1)
+	actions = {
+		'post_jump': """placeholder_err = """+placeholder_err +"""
+if snip.tabstop == 0:
+	err = snip.tabstops[placeholder_err].current_text
+	if err != '_':
+		snip.expand_anon("\\nif " + err + " != nil {\\n\\t$1\\n}")
+"""
+	}
+
+	snip.expand_anon(
+		snip_full,
+		actions = actions,
+	)
 endglobal
 
 pre_expand "gocode_complete_function(snip)"
-snippet "\w+\.\w+" "gocode complete" "px.go.gocode_can_complete()" wbre
+snippet "(\w+\.\w+)" "gocode complete" "px.go.gocode_can_complete()" wbre
 endsnippet
 
 global !p
