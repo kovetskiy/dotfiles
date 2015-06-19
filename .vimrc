@@ -409,6 +409,8 @@ Plug 'junegunn/fzf'
 
 Plug 'kovetskiy/kb-train'
 
+Plug 'majutsushi/tagbar'
+
 call plug#end()
 
 syntax on
@@ -719,3 +721,5 @@ endfunction!
 
 inoremap <C-E> <ESC>:call FuncSnippet()<CR>
 nnoremap <Tab> zz
+
+let @l="%i,%a:GoFmt"
