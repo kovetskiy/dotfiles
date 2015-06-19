@@ -316,7 +316,7 @@ func($1) $2{
 }
 endsnippet
 
-snippet vr "var" bw
+snippet "^v" "var" bwrA
 `!p
 vis = "// variables"
 if snip.v.text  != "":
@@ -367,16 +367,28 @@ case ${3:Type}:
 }
 endsnippet
 
-snippet ,n ", nil" i
+snippet ,n ", nil" iA
 , nil
 endsnippet
 
-snippet n, ", nil" i
+snippet n, ", nil" iA
 nil,
+endsnippet
+
+snippet ,e ", err" wA
+, err
+endsnippet
+
+snippet "return e" "return err" bw
+return err
 endsnippet
 
 snippet "return n" "return nil" bw
 return nil
+endsnippet
+
+snippet "r (.)" "return letter" bwrA
+return `!p snip.rv=match.group(1)`
 endsnippet
 
 snippet frr "forever" bw
@@ -616,10 +628,10 @@ endsnippet
 global !p
 def should_expand_amp(buffer, line, column):
 	line_contents = buffer[line]
-	if line_contents[column - 2] == ':':
+	if column - 2 > 0 and line_contents[column - 2] == ':':
 		return False
 
-	if line_contents[column - 2] == '=':
+	if column - 2 > 0 and line_contents[column - 2] == '=':
 		return False
 
 	return True
@@ -652,4 +664,11 @@ endsnippet
 
 snippet ,- "underscore" iA
 , _
+endsnippet
+
+snippet "^t" "" wAr
+type (
+`!p
+snip.rv=snip.v.text.replace("type ", "\t")
+`)
 endsnippet
