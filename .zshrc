@@ -101,6 +101,8 @@ bindkey -a '^[' vi-insert
 bindkey -s "\C-h" "history\r!"
 bindkey -s "\C-f" "fg\r"
 
+bindkey -s "\C-x" "vim "
+
 bindkey -v
 bindkey -v "^R" history-incremental-search-backward
 bindkey -v "^P" history-substring-search-up
