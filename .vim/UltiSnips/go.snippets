@@ -586,8 +586,14 @@ def gocode_complete_function(snip):
 	matches = re.search('\${(\d+):error}', snip_ret)
 	if not matches:
 		snip.expand_anon(snip_full)
+		return
 
 	placeholder_err = matches.group(1)
+	snip_full = snip_full.replace(
+		'${'+placeholder_err+':error}',
+		'${'+placeholder_err+':err}',
+	)
+
 	actions = {
 		'post_jump': """placeholder_err = """+placeholder_err +"""
 if snip.tabstop == 0:
@@ -604,7 +610,7 @@ if snip.tabstop == 0:
 endglobal
 
 pre_expand "gocode_complete_function(snip)"
-snippet "(\w+\.\w+)" "gocode complete" "px.go.gocode_can_complete()" wbre
+snippet "(\w+\.\w+)" "gocode complete" "px.go.gocode_can_complete()" re
 endsnippet
 
 global !p
