@@ -337,9 +337,4 @@ unsetopt noclobber
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export FZF_COMPLETION_TRIGGER=''
-
-bindkey '^T' fzf-completion
-bindkey '^I' $fzf_default_completion
-
 #clear
