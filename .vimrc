@@ -722,4 +722,4 @@ endfunction!
 inoremap <C-E> <ESC>:call FuncSnippet()<CR>
 nnoremap <Tab> zz
 
-let @l="%i,%a:GoFmt"
+let @l="%i,%a"
