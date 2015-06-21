@@ -1,0 +1,17 @@
+alias ss = roster search s.seletskiy
+
+alias ap = roster search a.platonov
+alias mp = roster search m.prokopchuk
+alias ds = roster search d.shashkov
+alias ep = roster search e.persienko
+
+alias vl = roster search v.ly
+alias as = roster search a.shmy
+
+alias rdo = room join devops@conference.office.ngs.ru
+alias do = roster seearch devops
+
+set statefile = ~/.mcabber/state/office
+set logging_dir = ~/.mcabber/history/office/
+
+set fifo_name = ~/.mcabber/fifo/office

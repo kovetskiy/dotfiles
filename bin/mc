@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -e
+
+account="$1"
+
+if [[ "$account" == "o" ]]; then
+    account="office"
+fi
+
+if [[ "$account" == "s" ]]; then
+    account="slack"
+fi
+
+config="$(
+    cat ~/.mcabber/account.$account
+    echo
+    cat ~/.mcabber/mcabberrc.base
+    echo
+    cat ~/.mcabber/mcabberrc.$BACKGROUND
+    echo
+    cat ~/.mcabber/mcabberrc.$account
+    echo
+)"
+
+mcabber -f <(echo "$config")

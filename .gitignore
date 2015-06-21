@@ -1,7 +1,6 @@
 .mutt/account
-.mcabber/account
-.mcabber/aliases
+.mcabber/account.office
+.mcabber/account.slack
 .mcabber/mcabber.fifo
 .mcabber/mcabberrc.theme
 .muttator/aliases
-.mcabber/histo/
