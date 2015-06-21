@@ -451,17 +451,58 @@ snippet rf "return false" bw
 return false
 endsnippet
 
-snippet d "define method" bw
+global !p
+def should_expand_zap(snip):
+	if px.util.match_higher_indent(snip.buffer, (snip.line, 0), '^func '):
+		if len(snip.buffer[snip.line]) > 79:
+			return snip.buffer[snip.line].replace(", ", ",\n\t")
+
+	return False
+endglobal
+
+snippet "\t(.*)" "" "should_expand_zap(snip)" bwreA
 `!p
-return_left = ''
-return_right = ''
+snip.rv=snip.context
+`
+endsnippet
+snippet "^d$" "define method" "snip.context={'snip':snip}" bweAr
+`!p
+a_left = '('
+a_right = ')'
+
+buffer = vim.current.buffer
+line = snip.context['snip'].line + 1
+
+contents = buffer[line]
+if line+1 < len(buffer) and buffer[line+1][0] == "\t":
+	x = 1
+	while True:
+		if line+x >= len(buffer):
+			break
+
+		contents = contents + buffer[line+x].strip()
+
+		if buffer[line+x][0] == ')':
+			break
+
+		x += 1
+
+if len(contents) > 80:
+	a_left = "(\n\t"
+	a_right = "\n)"
+
+r_left = ' '
+r_right = ' '
 
 if "," in t[3]:
-	return_left = '('
-	return_right = ')'
+	r_left = ' ('
+	r_right = ') '
+
+binding = ' '.join(px.go.extract_prev_method_binding_for_cursor())
+
 `
-func (`!p snip.rv=' '.join(px.go.extract_prev_method_binding_for_cursor())`) $1($2) `!p snip.rv=return_left`$3`!p snip.rv=return_right` {
-	$5
+func (`!p snip.rv=binding`) $1`!p snip.rv=a_left`$2`!p snip.rv=a_right``!p snip.rv=r_left`$3`!p snip.rv=r_right`{
+	$4
 }
 endsnippet
 
@@ -486,11 +527,11 @@ ${1:`!p snip.rv=px.go.get_previous_slice_usage()`}[$2]
 endsnippet
 
 snippet "(func\s.*\)\s+)([\w\d_\s\{\}\[\]\*\.]+),\s?([\w\d_\s\{\}\[\]\*\.]+)" "return multiple" r
-`!p snip.rv=match.group(1)`(`!p snip.rv=match.group(2)`, `!p snip.rv=match.group(3)`)
+`!p snip.rv=match.group(1)`(`!p snip.rv=match.group(2)`, `!p snip.rv=match.group(3)`)`!p snip.rv=" "`
 endsnippet
 
 snippet "^\)\s+?([\w\d_\s\{\}\[\]\*\.]+),\s+?([\w\d_\s\{\}\[\]\*\.]+)" "return multiple" r
-) (`!p snip.rv=match.group(1)`, `!p snip.rv=match.group(2)`)
+) (`!p snip.rv=match.group(1)`, `!p snip.rv=match.group(2)`)`!p snip.rv=" "`
 endsnippet
 
 snippet for "for loop" bw
