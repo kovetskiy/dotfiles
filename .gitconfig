@@ -3,3 +3,5 @@
 	name = Egor Kovetskiy
 [credential]
 	helper = cache --timeout=3600000
+[core]
+	editor = vim

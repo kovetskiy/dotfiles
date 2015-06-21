@@ -5,7 +5,7 @@ if [ "$TMUX" ]; then
     export TERM=screen-256color-so
 fi
 
-export EDITOR=vim
+export EDITOR=$(which vim)
 export BACKGROUND=$(cat ~/background)
 
 export PROFILE=$(cat ~/profile)
