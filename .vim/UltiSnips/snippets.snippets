@@ -39,3 +39,7 @@ snippet g "global py" bw
 $1
 `!p snip.rv="endglobal"`
 endsnippet
+
+snippet k "print" w
+print("`!p snip.rv=t[1]`: " + str($1))
+endsnippet

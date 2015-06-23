@@ -116,6 +116,16 @@ snippet s "string field" "px.go.is_func_declaration(snip.buffer, snip.line)" we
 $1 string,
 endsnippet
 
+priority 2
+snippet "(\w+) s" "string field" "px.go.is_func_declaration(snip.buffer, snip.line)" re
+`!p snip.rv=match.group(1)` string, $0
+endsnippet
+
+priority 2
+snippet "(\w+) i" "int field" "px.go.is_func_declaration(snip.buffer, snip.line)" wre
+`!p snip.rv=match.group(1)` int$1, $2
+endsnippet
+
 snippet f "float field" "px.go.is_type_declaration(snip.buffer, snip.line)" bwe
 $1 float64
 endsnippet
@@ -124,12 +134,22 @@ snippet f "float field" "px.go.is_func_declaration(snip.buffer, snip.line)" we
 $1 float64,
 endsnippet
 
+priority 2
+snippet "(\w+)" "float field" "px.go.is_func_declaration(snip.buffer, snip.line)" we
+`!p snip.rv=match.group(1)` float64, $0
+endsnippet
+
 snippet m "map field" "px.go.is_type_declaration(snip.buffer, snip.line)" bwe
 $1 map[${2:string}]${3:interface{}}
 endsnippet
 
-snippet m "string field" "px.go.is_func_declaration(snip.buffer, snip.line)" we
+snippet m "map field" "px.go.is_func_declaration(snip.buffer, snip.line)" we
 $1 map[${2:string}]${3:interface{}}$4,
+endsnippet
+
+priority 2
+snippet "(\w+) m" "map field" "px.go.is_func_declaration(snip.buffer, snip.line)" we
+`!p snip.rv=match.group(1)` map[${2:string}]${3:interface{}}, $0
 endsnippet
 
 priority -1
@@ -367,11 +387,11 @@ case ${3:Type}:
 }
 endsnippet
 
-snippet ,n ", nil" iA
+snippet ,n ", nil" "px.go.is_return_argument(snip.buffer, snip.line, snip.column)"  iAe
 , nil
 endsnippet
 
-snippet n, ", nil" iA
+snippet n, ", nil" "px.go.is_return_argument(snip.buffer, snip.line, snip.column)" iAe
 nil,
 endsnippet
 
@@ -453,6 +473,8 @@ endsnippet
 
 global !p
 def should_expand_zap(snip):
+	return False
+
 	if px.util.match_higher_indent(snip.buffer, (snip.line, 0), '^func '):
 		if len(snip.buffer[snip.line]) > 79:
 			return snip.buffer[snip.line].replace(", ", ",\n\t")
@@ -465,6 +487,7 @@ snippet "\t(.*)" "" "should_expand_zap(snip)" bwreA
 snip.rv=snip.context
 `
 endsnippet
+
 snippet "^d$" "define method" "snip.context={'snip':snip}" bweAr
 `!p
 a_left = '('
@@ -474,7 +497,7 @@ buffer = vim.current.buffer
 line = snip.context['snip'].line + 1
 
 contents = buffer[line]
-if line+1 < len(buffer) and buffer[line+1][0] == "\t":
+if line+1 < len(buffer) and buffer[line+1][0] == "\t" and buffer[line][-1] != '{':
 	x = 1
 	while True:
 		if line+x >= len(buffer):
@@ -482,11 +505,13 @@ if line+1 < len(buffer) and buffer[line+1][0] == "\t":
 
 		contents = contents + buffer[line+x].strip()
 
-		if buffer[line+x][0] == ')':
+		if buffer[line+x] != '' and buffer[line+x][0] == ')':
 			break
 
 		x += 1
 
+
+print("contents: " + str(contents))
 if len(contents) > 80:
 	a_left = "(\n\t"
 	a_right = "\n)"
@@ -504,6 +529,7 @@ binding = ' '.join(px.go.extract_prev_method_binding_for_cursor())
 func (`!p snip.rv=binding`) $1`!p snip.rv=a_left`$2`!p snip.rv=a_right``!p snip.rv=r_left`$3`!p snip.rv=r_right`{
 	$4
 }
+
 endsnippet
 
 snippet re "return errors.New" bw
@@ -540,14 +566,19 @@ for $1 {
 }
 endsnippet
 
-snippet lp "log.Println" wA
+snippet lp "log.Printf" wA
 `!p
 left = ''
 right = ''
 if " " in t[1] and not '"' in t[1]:
 	left = '"'
 	right = '"'
-`log.Println(`!p snip.rv=left`$1`!p snip.rv=right`)
+
+func = "Printf"
+if t[1] == "err":
+	func = "Println"
+
+`log.`!p snip.rv=func`(`!p snip.rv=left`$1`!p snip.rv=right`)
 endsnippet
 
 snippet fp "fmt.Println" wA
@@ -626,7 +657,8 @@ def gocode_complete_function(snip):
 	(snip_ret, snip_func) = px.go.get_gocode_complete(False)
 	snip_full = px.go.get_gocode_complete(True)
 
-	cur_line = re.sub('\w+\.\w+$', '', snip.buffer[snip.line])
+	cur_line = re.sub('\w+\.\w+$', '', snip.buffer[snip.line][:snip.column])
+	cur_line = cur_line + "" + snip.buffer[snip.line	][snip.column+1:]
 	snip.buffer[snip.line] = cur_line
 
 	prev_line = px.util.get_prev_nonempty_line(snip.buffer, snip.line)
@@ -712,4 +744,8 @@ type (
 `!p
 snip.rv=snip.v.text.replace("type ", "\t")
 `)
+endsnippet
+
+snippet err. "err.Error()" wA
+err.Error()
 endsnippet
