@@ -722,4 +722,5 @@ endfunction!
 inoremap <C-E> <ESC>:call FuncSnippet()<CR>
 nnoremap <Tab> zz
 
-let @l="%i,%a"
+let @l="^%i,%a"
+let @k="^f=i:"
