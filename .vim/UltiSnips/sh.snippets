@@ -24,3 +24,15 @@ endsnippet
 snippet l "local" w
 local $1="$2"
 endsnippet
+
+snippet e "Description" wb
+echo $1
+endsnippet
+
+snippet pr "pr" bw
+echo '`!p snip.rv=t[1]`: '$1
+endsnippet
+
+snippet nc "Description" w
+${1:${VISUAL}} | nc localhost 1399
+endsnippet

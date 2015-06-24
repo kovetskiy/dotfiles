@@ -391,7 +391,7 @@ snippet ,n ", nil" "px.go.is_return_argument(snip.buffer, snip.line, snip.column
 , nil
 endsnippet
 
-snippet n, ", nil" "px.go.is_return_argument(snip.buffer, snip.line, snip.column)" iAe
+snippet  n, ", nil" "px.go.is_return_argument(snip.buffer, snip.line, snip.column)" wAe
 nil,
 endsnippet
 
@@ -748,4 +748,40 @@ endsnippet
 
 snippet err. "err.Error()" wA
 err.Error()
+endsnippet
+
+snippet "^o$" "new" rA
+`!p
+
+if t[1]:
+	type = t[1]
+else:
+	bindings = px.go.extract_prev_method_binding_for_cursor()
+	if not bindings:
+		type = 'someStruct'
+	else:
+		type = bindings[1]
+
+ctype = type[0].upper() + type[1:]
+`func New`!p snip.rv=ctype`($2) (${1:`!p snip.rv=type`}, error) {
+	$3
+}
+endsnippet
+
+snippet "^p$" "new" rA
+`!p
+
+if t[1]:
+	type = t[1]
+else:
+	bindings = px.go.extract_prev_method_binding_for_cursor()
+	if not bindings:
+		type = 'someStruct'
+	else:
+		type = bindings[1]
+
+ctype = type[0].upper() + type[1:]
+`func New`!p snip.rv=ctype`($2) (*${1:`!p snip.rv=type`}, error) {
+	$3
+}
 endsnippet
