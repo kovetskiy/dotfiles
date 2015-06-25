@@ -1,6 +1,7 @@
 global !p
 import px.go
 import re
+import os.path
 endglobal
 
 snippet n "func" bw
@@ -43,7 +44,7 @@ else:
 $0
 endsnippet
 
-snippet p "package" "snip.line == 0" bweA
+snippet p "package" "snip.line == 1" bweA
 package ${1:`!p snip.rv=px.go.guess_package_name_from_file_name(snip.fn)`}
 
 $0
@@ -55,7 +56,7 @@ package main
 $0
 endsnippet
 
-snippet m "package and main" "snip.line == 0" bweA
+snippet m "package and main" "snip.line == 0" eA
 package main
 
 func main() {
@@ -311,7 +312,15 @@ for ${1:_}, ${2:val} := range ${3:Slice} {
 endsnippet
 
 snippet pr "log.Printf(%#v" bw
-log.Printf("`!p snip.rv=t[1]`: %#v", $1)
+`!p
+left=t[1] + ': %#v", '
+right=')'
+if " " in t[1]:
+	left=''
+	right='")'
+
+left = " "+os.path.basename(vim.current.buffer.name)+":"+str(vim.current.window.cursor[0])+": "+left
+`log.Printf("XXXXXX`!p snip.rv=left`$1`!p snip.rv=right`
 endsnippet
 
 snippet play "package main" bw
@@ -511,7 +520,6 @@ if line+1 < len(buffer) and buffer[line+1][0] == "\t" and buffer[line][-1] != '{
 		x += 1
 
 
-print("contents: " + str(contents))
 if len(contents) > 80:
 	a_left = "(\n\t"
 	a_right = "\n)"
