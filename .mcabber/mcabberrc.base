@@ -24,7 +24,7 @@ set events_command = ~/.mcabber/eventcmd
 set muc_print_status = 1
 
 set roster_width=40
-set log_win_height=1
+set log_win_height=5
 
 bind 10 = roster down
 bind 11 = roster up
@@ -46,3 +46,4 @@ module load fifo
 module load editor
 module load focus
 module load autojoin
+module load slack_completion
