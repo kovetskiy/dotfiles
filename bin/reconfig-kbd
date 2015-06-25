@@ -42,3 +42,14 @@ else
 
     setxkbmap -keycodes $KEYCODES -symbols $SYMBOLS -compat $COMPAT
 fi
+
+SLAVE_MOD="Hyper_L"
+SPACE_KEYCODE="65"
+xmodmap -e "keycode $SPACE_KEYCODE = $SLAVE_MOD"
+xmodmap -e "remove mod4 = $SLAVE_MOD"
+xmodmap -e "add Shift  = $SLAVE_MOD"
+
+xmodmap -e "keycode any = space"
+
+killall -9 xcape
+xcape -t 100 -e "$SLAVE_MOD=space"
