@@ -508,7 +508,7 @@ augroup end
 
 augroup hilight_over
     au!
-    au VimResized,VimEnter * set cc=80,120
+    au VimResized,VimEnter * set cc=79
 augroup end
 
 
@@ -642,6 +642,18 @@ augroup custom_colors
     au User BgLightPost hi! IncSearch cterm=none ctermfg=238 ctermbg=220
     au User BgLightPost hi! Cursor ctermbg=0 ctermfg=15
     au User BgLightPost hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
+    " }}}
+
+    " Dark {{{
+    au User BgDarkPost hi! underlined cterm=underline
+    "au User BgDarkPost hi! CursorLineNr ctermfg=241 ctermbg=none
+    au User BgDarkPost hi! LineNr ctermfg=249 ctermbg=none
+    au User BgDarkPost hi! SignColumn ctermfg=none ctermbg=none
+    au User BgDarkPost hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
+    au User BgDarkPost hi! NonText ctermfg=238 cterm=none term=none
+    au User BgDarkPost hi! IncSearch cterm=none ctermfg=238 ctermbg=220
+    au User BgDarkPost hi! Cursor ctermbg=0 ctermfg=1
+    au User BgDarkPost hi! PmenuSel ctermbg=136 ctermfg=255 cterm=bold
     " }}}
 augroup end
 
