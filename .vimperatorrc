@@ -21,6 +21,8 @@ hi Hint font-size: 12px; font-weight: bold; text-transform: uppercase; color: wh
 
 nmap g :tabopen http://google.ru/search?q=
 
+nmap x :tabopen http://slovari.yandex.ru/
+
 " no macros
 nmap q <ESC>
 
