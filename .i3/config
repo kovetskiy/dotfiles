@@ -70,6 +70,8 @@ bindsym $alt+Shift+z move container to workspace z
 bindsym $alt+Shift+x move container to workspace x
 bindsym $alt+Shift+c move container to workspace c
 
+bindsym Pause workspace q; exec "firefox http://cs543100.vk.me/v543100237/50df/joWgtvxgsRo.jpg"
+
 bindsym $alt+Shift+r restart
 
 bindsym $win+shift+v split vertical
