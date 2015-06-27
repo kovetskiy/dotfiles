@@ -651,7 +651,7 @@ augroup custom_colors
     au User BgDarkPost hi! SignColumn ctermfg=none ctermbg=none
     au User BgDarkPost hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
     au User BgDarkPost hi! NonText ctermfg=238 cterm=none term=none
-    au User BgDarkPost hi! IncSearch cterm=none ctermfg=238 ctermbg=220
+    au User BgDarkPost hi! IncSearch cterm=none ctermfg=238 ctermbg=1
     au User BgDarkPost hi! Cursor ctermbg=0 ctermfg=1
     au User BgDarkPost hi! PmenuSel ctermbg=136 ctermfg=255 cterm=bold
     " }}}
