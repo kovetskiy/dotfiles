@@ -337,7 +337,7 @@ Plug 'seletskiy/vim-pythonx'
 
     au filetype_go FileType go nmap <buffer>
          \ <Leader>gl :py px.go.goto_prev_var()<CR>
-    
+
     call add(g:py_modules, 'px.all')
     call add(g:py_modules, 'px.go')
     call add(g:py_modules, 'px.util')
@@ -348,9 +348,6 @@ Plug 'kovetskiy/vim-empty-lines'
     nnoremap <Leader><Leader>k :call DelEmptyLineAbove()<CR>
     nnoremap <Leader>j :call AddEmptyLineBelow()<CR>
     nnoremap <Leader>k :call AddEmptyLineAbove()<CR>
-
-Plug 'kovetskiy/vim-reduce-line'
-    nnoremap <Leader>m :call TryToReduce()<CR>
 
 Plug 'kovetskiy/vim-plugvim-utils'
     nnoremap <Leader><Leader>c :call NewPlugFromClipboard()<CR>
@@ -568,15 +565,17 @@ nnoremap g. '>
 nnoremap g, '<
 
 nnoremap <F4> :let &scrolloff=999-&scrolloff<CR>
-nnoremap <Leader><Leader>q :q!<CR>
 
 nnoremap <Leader>vs :vsp<CR>
 
 nnoremap <Leader>l :cN<CR>
 nnoremap <Leader>; :cn<CR>
 nnoremap <Leader>e :e!<Space>
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>q <ESC>:bdelete!<CR>
+
+nnoremap <Leader>f :w<CR>
+
+nnoremap <Leader>n <ESC>:bdelete!<CR>
+nnoremap <Leader>, <ESC>:qa!<CR>
 
 nnoremap <Leader> :noh<CR>
 
