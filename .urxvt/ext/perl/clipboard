@@ -8,16 +8,32 @@
 # consult command "xmodmap" to see what your modifier mapped into.
 
 sub copy {
-   my ($self) = @_;
-   my $pid = open( pout, "| xsel -ip" ) or die "fork";
-   print pout $self->selection;
-   close(pout) or die "close";
+    my ($self) = @_;
+    my $pid = open( pout, "| xsel -ip" ) or die "fork";
+    print pout $self->selection;
+    close(pout) or die "close";
 }
 
 sub paste {
-   my ($self) = @_;
-   my $content = `xsel -ob` ;
-   $self->tt_write ($content);
+    my ($self) = @_;
+    my $content = `xsel -ob` ;
+
+    if (index($content, "\n") != -1) {
+        open(my $file, ">", "/tmp/stdin");
+        print $file $content;
+        close $file;
+
+        `urxvt -e vim /tmp/stdin`;
+
+        open(my $clipboard, '<', "/tmp/stdin");
+        {
+            local $/;
+            $content = <$clipboard>;
+        }
+        close $clipboard;
+    }
+
+    $self->tt_write ($content);
 }
 
 sub on_action {
@@ -27,12 +43,12 @@ sub on_action {
 }
 
 sub on_user_command {
-   my ($self, $cmd) = @_;
-   if ($cmd eq "clipboard:copy") {
-      $self->copy;
-   }
-   if ($cmd eq "clipboard:paste") {
-      $self->paste;
-   }
+    my ($self, $cmd) = @_;
+    if ($cmd eq "clipboard:copy") {
+        $self->copy;
+    }
+    if ($cmd eq "clipboard:paste") {
+        $self->paste;
+    }
 }
 
