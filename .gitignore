@@ -4,3 +4,5 @@
 .mcabber/mcabber.fifo
 .mcabber/mcabberrc.theme
 .muttator/aliases
+.vimperator/info/
+.vimperator/vargan/

@@ -7,3 +7,6 @@
 [submodule "root/usr/share/X11/xkb"]
 	path = root/usr/share/X11/xkb
 	url = https://github.com/reconquest/rex
+[submodule ".vimperator/bundle"]
+	path = .vimperator/bundle
+	url = https://github.com/vimpr/vimperator-plugins
