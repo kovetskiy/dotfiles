@@ -44,7 +44,13 @@ else:
 $0
 endsnippet
 
-snippet p "package" "snip.line == 1" bweA
+global !p
+def if_first_line(snip):
+	return snip.line == 0
+endglobal
+
+priority 2
+snippet p "package" "if_first_line(snip)" bweA
 package ${1:`!p snip.rv=px.go.guess_package_name_from_file_name(snip.fn)`}
 
 $0
