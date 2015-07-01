@@ -1,14 +1,23 @@
 #!/bin/bash
 
-MCABBER_FIFO=~/.mcabber/fifo/office
-VOLUME=$(amixer get Master | grep -o '[0-9]\+%')
+mcabber_cmd(){
+    mcabber_fifo=~/.mcabber/fifo/office
+    echo "$1" > $mcabber_fifo
+}
 
-amixer set Master 0%
-echo "/status away" > $MCABBER_FIFO
+mplayer_cmd(){
+    mplayer_fifo=~/.mplayer/fifo
+    if [ ! -z `pidof mplayer` ]; then
+        echo "$1" > $mplayer_fifo
+    fi
+}
+
+mcabber_cmd "/status away"
+mplayer_cmd "pause"
 
 slock
 
-amixer set Master $VOLUME
-echo "/status online" > $MCABBER_FIFO
+mcabber_cmd "/status online"
+mplayer_cmd "pause"
 
 reconfig-kbd
