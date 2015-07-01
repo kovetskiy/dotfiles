@@ -10,8 +10,10 @@ input() {
 }
 
 if [[ "$1" != "" ]]; then
-    INPUT="$1"
+    CLI=true
+    INPUT="$@"
 else
+    CLI=false
     INPUT=$(input)
 fi
 
@@ -37,6 +39,8 @@ if [[ "$TRANSLATION" == "" ]]; then
     TRANSLATION=$(curl -s "$URL" | jq .text[0] | sed 's/"//g')
 fi
 
-notify-send -t 2000 "$TRANSLATION"
-
-exit 0
+if $CLI; then
+    echo $TRANSLATION
+else
+    notify-send -t 2000 "$TRANSLATION"
+fi
