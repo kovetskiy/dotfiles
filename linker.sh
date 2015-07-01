@@ -33,6 +33,7 @@ POINTS=(
     ".muttrc"
     ".mailcap"
     ".terminfo"
+    ".vimperator"
 )
 
 for POINT in "${POINTS[@]}"; do
