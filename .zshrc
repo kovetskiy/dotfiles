@@ -54,6 +54,7 @@ if ! zgen saved; then
     zgen load kovetskiy/zsh-fastcd
     zgen load seletskiy/zsh-prompt-lambda17
     zgen load seletskiy/zsh-ssh-urxvt
+    zgen load seletskiy/zsh-ash-completion
 
     zgen save
 fi
@@ -224,7 +225,7 @@ alias gl='PAGER=cat git log --oneline --graph --decorate --all --max-count=30'
 alias gd='git diff'
 alias gdh='git diff HEAD'
 alias ashi='ash inbox'
-alias wow='whoami; pwd; date'
+alias wow='whoami; pwd; date; weather'
 alias srn='~/bin/st | sort -nr'
 alias adbd='adb devices'
 alias adbl='adb logcat'
