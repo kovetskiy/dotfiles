@@ -29,7 +29,9 @@ SYMBOLS=(
 
     "hjkl(fast-numpad)"
     "level5(ralt_switch)"
+    #"hjkl(rtrn_switch)"
 )
+
 SYMBOLS=$(IFS="+"; echo "${SYMBOLS[*]}")
 
 if [[ "$1" == "-v" ]]; then
