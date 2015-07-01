@@ -307,8 +307,8 @@ Plug 'godlygeek/tabular'
 Plug 'kovetskiy/urxvt.vim'
     au filetype_go FileType go nmap <buffer>
         \ <Leader>t :call urxvt#put('go test')<CR>
-    au filetype_go FileType go nmap <buffer>
-        \ <Leader>r :call urxvt#put('go build && ./\${\$(pwd)##*/}')<CR>
+    "au filetype_go FileType go nmap <buffer>
+        "\ <Leader>r :call urxvt#put('go build && ./\${\$(pwd)##*/}')<CR>
     au filetype_go FileType go nmap <buffer>
         \ <Leader>b :GoFmt<CR>:w<CR>:GoBuild<CR>
 
@@ -572,7 +572,7 @@ nnoremap <Leader>l :cN<CR>
 nnoremap <Leader>; :cn<CR>
 nnoremap <Leader>e :e!<Space>
 
-nnoremap <Leader>f :w<CR>
+nnoremap <Leader>r :w<CR>
 
 nnoremap <Leader>n <ESC>:bdelete!<CR>
 nnoremap <Leader>, <ESC>:qa!<CR>
