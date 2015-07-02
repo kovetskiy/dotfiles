@@ -104,8 +104,9 @@ bindsym $alt+less    exec amixer set Master 1%-
 bindsym $alt+greater exec amixer set Master 1%+
 bindsym $win+Ctrl+l  exec lockscreen
 bindsym $win+Ctrl+d  exec show-info
-bindsym $alt+Ctrl+e  exec ~/bin/engrus > /tmp/blahed 2>&1
+bindsym $alt+Ctrl+e  exec ~/bin/engrus
 bindsym Ctrl+F12     exec reconfig-kbd
+
 
 set $rightM HDMI1
 set $leftM VGA1
