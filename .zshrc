@@ -253,6 +253,8 @@ alias a='alias'
 
 alias scl='systemctl'
 
+alias rto='rtorrent "$(/bin/ls -c ~/Downloads/*rutracker* | tail -n 1)"'
+
 function prepend-sudo() {
     if [[ "$BUFFER" == "" ]]; then
         BUFFER="sudo $(fc -nl -1)"
