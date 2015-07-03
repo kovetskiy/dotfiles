@@ -3,10 +3,7 @@
 #set -x
 
 input() {
-    i3-input -F '#%s' | \
-        tail -n 3      | \
-        grep output    | \
-        cut -d'=' -f2
+    echo | dmenu -p "translate: "
 }
 
 if [[ "$1" != "" ]]; then
