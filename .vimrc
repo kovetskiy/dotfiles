@@ -735,3 +735,6 @@ nnoremap <Tab> zz
 
 let @l="^%i,%a"
 let @k="^f=i:"
+
+" no more "Entering Ex mode"
+map Q <nop>
