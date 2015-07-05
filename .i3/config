@@ -107,7 +107,6 @@ bindsym $win+Ctrl+d  exec show-info
 bindsym $alt+Ctrl+e  exec ~/bin/engrus
 bindsym Ctrl+F12     exec reconfig-kbd
 
-
 set $rightM HDMI1
 set $leftM VGA1
 
@@ -130,6 +129,7 @@ bindsym $alt+grave exec kuake
 for_window [instance="^screenkey$"] floating enable
 for_window [instance="^sxiv$"] floating enable
 for_window [instance="^kuake_"] floating enable
+for_window [instance="^malder"] floating enable
 
 client.focused #cb4b16 #dc322f #fdf6e3 #ffffff
 client.focused_inactive #586e75 #eee8d5 #657b83 #ffffff
