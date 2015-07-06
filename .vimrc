@@ -105,7 +105,7 @@ Plug 'Shougo/unite.vim'
     nnoremap <C-P> :call CtrlP()<CR>
     nnoremap <C-Y> :Unite -hide-source-names history/yank<CR>
 
-Plug 'dahu/SearchParty'
+Plug 'kovetskiy/SearchParty'
     au VimEnter * au! SearchPartySearching
     au BufEnter * let b:searching = 0
     au CursorHold * call SPAfterSearch()
