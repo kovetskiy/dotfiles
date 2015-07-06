@@ -1,0 +1,6 @@
+#!/bin/bash
+
+xwininfo=$(xwininfo)
+id=$(awk '/Window id/{print $4}' <<< "$xwininfo")
+
+xkill -id $id
