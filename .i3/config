@@ -13,6 +13,7 @@ floating_modifier $alt
 bindsym $alt+Return exec ~/go/bin/marvex
 
 bindsym Ctrl+Up kill
+bindsym Ctrl+Shift+Down exec kw
 
 bindsym $alt+r exec dmenu_run
 
