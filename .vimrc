@@ -228,11 +228,6 @@ Plug 'seletskiy/vim-over'
     let g:over#command_line#search#enable_move_cursor = 1
     let g:over#command_line#search#very_magic = 1
 
-    au BufAdd,BufEnter * nnoremap / :OverCommandLine /<CR>
-    au BufAdd,BufEnter * vnoremap / :'<,'>OverCommandLine /<CR>
-    au BufAdd,BufEnter * nnoremap ? :OverCommandLine ?<CR>
-    au BufAdd,BufEnter * vnoremap ? :'<,'>OverCommandLine ?<CR>
-
     au User OverCmdLineExecute call searchparty#mash#mash()
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
@@ -407,6 +402,24 @@ Plug 'junegunn/fzf'
 Plug 'kovetskiy/kb-train'
 
 Plug 'majutsushi/tagbar'
+
+Plug 'reconquest/snippets'
+
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-fuzzy.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/incsearch-easymotion.vim'
+    function! s:config_easyfuzzymotion(...) abort
+        return extend(copy({
+        \   'converters': [incsearch#config#fuzzy#converter()],
+        \   'modules': [incsearch#config#easymotion#module()],
+        \   'keymap': {"\<CR>": '<Over>(easymotion)'},
+        \   'is_expr': 0,
+        \   'is_stay': 1
+        \ }), get(a:, 1, {}))
+    endfunction
+
+    noremap <silent><expr> / incsearch#go(<SID>config_easyfuzzymotion())
 
 call plug#end()
 
