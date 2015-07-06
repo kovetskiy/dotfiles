@@ -409,17 +409,9 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch-easymotion.vim'
-    function! s:config_easyfuzzymotion(...) abort
-        return extend(copy({
-        \   'converters': [incsearch#config#fuzzy#converter()],
-        \   'modules': [incsearch#config#easymotion#module()],
-        \   'keymap': {"\<CR>": '<Over>(easymotion)'},
-        \   'is_expr': 0,
-        \   'is_stay': 1
-        \ }), get(a:, 1, {}))
-    endfunction
-
-    noremap <silent><expr> / incsearch#go(<SID>config_easyfuzzymotion())
+    map / <Plug>(incsearch-fuzzy-/)
+    map ? <Plug>(incsearch-fuzzy-?)
+    map g/ <Plug>(incsearch-fuzzy-stay)
 
 call plug#end()
 
