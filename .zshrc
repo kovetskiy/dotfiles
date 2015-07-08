@@ -189,7 +189,7 @@ function gclg() { git clone "https://github.com/$1" }
 alias gh='git show'
 alias gd='git diff'
 alias gs='git status --short'
-alias ga='git add --all'
+alias ga='git add --no-ignore-removal'
 alias gi='git add -pi'
 alias gp='git push'
 alias gpo='git push origin'
