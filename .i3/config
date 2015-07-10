@@ -51,6 +51,8 @@ bindsym $alt+z workspace z
 bindsym $alt+x workspace x
 bindsym $alt+c workspace c
 
+bindsym $alt+Tab workspace back_and_forth
+
 bindsym $alt+Shift+1 move container to workspace 1
 bindsym $alt+Shift+2 move container to workspace 2
 bindsym $alt+Shift+3 move container to workspace 3
