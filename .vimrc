@@ -165,7 +165,10 @@ Plug 'seletskiy/matchem'
     let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 
 Plug 'seletskiy/ultisnips', { 'branch': 'autotrigger' }
-    let g:UltiSnipsSmippetDirectories = [$HOME . '/.vim/Ultisnips/']
+    let g:UltiSnipsSnippetDirectories = [
+    \     $HOME . '/.vim/Ultisnips/',
+    \     $HOME . '/.vim/bundle/snippets/'
+    \]
     let g:UltiSnipsEnableSnipMate = 0
     let g:UltiSnipsExpandTrigger="<TAB>"
     let g:UltiSnipsEditSplit="vertical"
