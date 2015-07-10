@@ -12,6 +12,6 @@ inotifywait -m -r -e close_write --format %f . |
             continue
         fi
         echo -e '\e[1;44;1;37m:: '$name'\e[0m'
-        ${@}
+        eval "${@}"
     done
 
