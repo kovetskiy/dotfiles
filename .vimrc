@@ -114,10 +114,10 @@ Plug 'kovetskiy/SearchParty'
                 \ <Plug>SearchPartyHighlightClear
 
 Plug 'junegunn/seoul256.vim'
-    au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
+    "au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
 
 Plug 'bling/vim-airline'
-    let g:airline_theme = 'lucius'
+    let g:airline_theme = 'sol'
     let g:airline#extensions#whitespace#symbol = '☼'
     let g:airline_powerline_fonts = 1
 
@@ -408,6 +408,11 @@ Plug 'kovetskiy/kb-train'
 
 Plug 'majutsushi/tagbar'
 
+Plug 'NLKNguyen/papercolor-theme'
+    au User BgLightPre let  g:colorscheme='PaperColor'
+
+Plug 'ntpeters/vim-airline-colornum'
+
 call plug#end()
 
 syntax on
@@ -599,6 +604,8 @@ nnoremap <Leader>] :tnext<CR>
 
 nnoremap <C-T><C-T> :retab<CR>
 
+nnoremap <C-E><C-E><C-R> :silent !rm -rf ~/.vim/view/*<CR>:redraw!<CR>
+
 imap <C-A> <C-O>A
 
 nmap <C-_> <C-W>_
@@ -608,6 +615,8 @@ nmap <C-K> <C-W>k
 nmap <C-L> <C-W>l
 
 imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
+
+inoremap <C-H> <C-O>o
 
 augroup custom_colors
     au!
@@ -735,6 +744,7 @@ nnoremap <Tab> zz
 
 let @l="^%i,%a"
 let @k="^f=i:"
+let @j="^t=x"
 
 " no more "Entering Ex mode"
 map Q <nop>
