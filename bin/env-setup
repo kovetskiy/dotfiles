@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exec 2>&1 >/dev/null
+
 export PATH=$HOME/bin/:$HOME/go/bin/:$PATH
 export SHELL=/bin/zsh
 export TERMINAL=urxvt
@@ -19,13 +21,12 @@ if [ -z `pidof charge` ]; then
     sudo charge &
 fi
 
-if [ -z `pidof ~/go/bin/shift-shift` ]; then
-    RAZER_KB=$(sudo ~/go/bin/shift-shift --list | grep Razer)
-    if [[ "$RAZER_KB" != "" ]]; then
-        sudo ~/go/bin/shift-shift -match "razer" >/dev/null 2>&1 &
-    else
-        sudo ~/go/bin/shift-shift >/dev/null 2>&1 &
-    fi
+sudo killall -9 shift-shift 2>&1 >/dev/null
+RAZER_KB=$(sudo ~/go/bin/shift-shift --list | grep Razer)
+if [[ "$RAZER_KB" != "" ]]; then
+    sudo ~/go/bin/shift-shift -match "razer" >/dev/null 2>&1 &
+else
+    sudo ~/go/bin/shift-shift >/dev/null 2>&1 &
 fi
 
 if [ -z `pidof keynav` ]; then
