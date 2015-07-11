@@ -163,7 +163,7 @@ function ashr() {
 }
 
 
-alias aur='yaourt -S'
+alias aur='yes | EDITOR=cat yaourt '
 alias pms='sudo pacman -S'
 alias -g P='| perl -n -e'
 alias -g F='| fzf'
