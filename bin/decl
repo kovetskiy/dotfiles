@@ -1,0 +1,6 @@
+#!/bin/bash
+
+dir="$HOME/.clipboard/"
+
+file="$(ls "$dir" | dmenu -b -i -l 20)"
+cat "$dir/$file" | xclip -selection clipboard
