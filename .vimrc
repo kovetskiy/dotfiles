@@ -166,7 +166,7 @@ Plug 'seletskiy/matchem'
 
 Plug 'seletskiy/ultisnips', { 'branch': 'autotrigger' }
     let g:UltiSnipsSnippetDirectories = [
-    \     $HOME . '/.vim/Ultisnips/',
+    \     $HOME . '/.vim/UltiSnips/',
     \     $HOME . '/.vim/bundle/snippets/'
     \]
     let g:UltiSnipsEnableSnipMate = 0
@@ -182,7 +182,7 @@ Plug 'seletskiy/ultisnips', { 'branch': 'autotrigger' }
         au FileType snippets set textwidth=999
     augroup end
 
-Plug 'honza/vim-snippets'
+Plug 'reconquest/snippets'
 
 Plug 'tpope/vim-fugitive'
     nnoremap <F10> :Gstatus<CR>
@@ -742,10 +742,12 @@ CODE
     return ''
 endfunction!
 
+vmap ) S)i
+
 inoremap <C-E> <ESC>:call FuncSnippet()<CR>
 nnoremap <Tab> zz
 
-let @l="^%i,%a"
+let @l="^%i,%a"
 let @k="^f=i:"
 let @j="^t=x"
 
