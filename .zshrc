@@ -69,6 +69,7 @@ fi
 
 bindkey -v '^K' add-params
 
+alias scd="fastcd ~/sources/ 1"
 alias vicd="fastcd ~/.vim/bundle/ 1"
 alias gocd="fastcd $GOPATH/src/ 3"
 

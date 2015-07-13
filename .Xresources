@@ -19,6 +19,7 @@ URxvt.keysym.M-C-f: perl:fifo:start
 
 URxvt.keysym.Mod4-c: perl:clipboard:copy
 URxvt.keysym.Mod4-v: perl:clipboard:paste
+URxvt.keysym.Mod4-C-v: perl:clipboard:sync_paste
 
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-Control-S: perl:keyboard-select:search
@@ -30,9 +31,6 @@ URxvt.keysym.Mod4-quotedbl:  perl:aAtt:undo
 URxvt.keysym.M-C-y: perl:url-select:select_next
 URxvt.url-select.launcher: /home/vxw/bin/x-www-browser
 
-!URxvt.matcher.pattern.0: https?\:\/\/git\.rn[\\w./?&@#-]*[\\w/-]
-!URxvt.matcher.pattern.1: (\\bwww\\.|https?\:\/\/|ftp\:\/\/|file\:\/\/)[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
-!
 URxvt.title: rxvt-unicode
 URxvt.saveLines: 5000
 URxvt.font: xft:Monaco:pixelsize=14

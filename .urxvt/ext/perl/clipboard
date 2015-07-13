@@ -4,36 +4,33 @@
 # URxvt.perl-ext-common: clipboard
 # URxvt.keysym.Mod4-c: perl:clipboard:copy
 # URxvt.keysym.Mod4-v: perl:clipboard:paste
+# URxvt.keysym.Mod4-F: perl:clipboard:sync_paste
 
 # consult command "xmodmap" to see what your modifier mapped into.
 
 sub copy {
     my ($self) = @_;
-    my $pid = open( pout, "| xsel -ip" ) or die "fork";
+    my $pid = open( pout, "| xclip -selection clipboard" ) or die "fork";
     print pout $self->selection;
     close(pout) or die "close";
 }
 
 sub paste {
     my ($self) = @_;
-    my $content = `xsel -ob` ;
+    my $content = `xclip -o -selection clipboard`;
 
-    if (index($content, "\n") != -1) {
-        open(my $file, ">", "/tmp/stdin");
-        print $file $content;
-        close $file;
+    $self->tt_write($content);
+}
 
-        `urxvt -e vim /tmp/stdin`;
+sub sync {
+    `xclip -o -selection primary | xclip -selection clipboard`;
+}
 
-        open(my $clipboard, '<', "/tmp/stdin");
-        {
-            local $/;
-            $content = <$clipboard>;
-        }
-        close $clipboard;
-    }
+sub sync_paste {
+    my ($self) = @_;
 
-    $self->tt_write ($content);
+    $self->sync();
+    $self->paste();
 }
 
 sub on_action {
