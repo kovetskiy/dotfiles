@@ -1,10 +1,13 @@
 #!/bin/bash
 
+#exec 2>/dev/null
+
 OUTPUT="$1"
 
 if [[ "$OUTPUT" == "" ]]; then
-    echo "usage: $0 <output.gif>"
-    exit 1
+    OUTPUT=$(mktemp -u --suffix .gif)
+else
+    rm -rf $OUTPUT
 fi
 
 XWININFO=$(xwininfo)
@@ -21,7 +24,7 @@ read
 xdotool windowfocus $ID
 
 byzanz-record --verbose --delay=0 --x=$X --y=$Y --width=$W --height=$H \
-    --exec="bash -c 'ping ya.ru > /dev/null'" $OUTPUT &
+    --exec="bash -c 'ping 8.8.8.8 > /dev/null'" $OUTPUT &
 PID=$!
 
 echo "Done? Press ENTER to stop recording"
@@ -31,3 +34,5 @@ pkill ping
 while kill -0 "$PID"; do
     sleep 0.1
 done
+
+echo "file://$OUTPUT"
