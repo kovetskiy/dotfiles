@@ -747,7 +747,7 @@ vmap ) S)i
 inoremap <C-E> <ESC>:call FuncSnippet()<CR>
 nnoremap <Tab> zz
 
-let @l="^%i,%a"
+let @l="f(ak$%i,%"
 let @k="^f=i:"
 let @j="^t=x"
 
