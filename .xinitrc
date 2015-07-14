@@ -2,4 +2,6 @@
 
 ~/bin/env-setup &
 
+slock &
+
 i3
