@@ -24,9 +24,9 @@ fi
 sudo killall -9 shift-shift
 RAZER_KB=$(sudo ~/go/bin/shift-shift --list | grep Razer)
 if [[ "$RAZER_KB" != "" ]]; then
-    sudo ~/go/bin/shift-shift -match "razer"
+    sudo ~/go/bin/shift-shift -match "razer" &
 else
-    sudo ~/go/bin/shift-shift
+    sudo ~/go/bin/shift-shift &
 fi
 
 if [ -z `pidof keynav` ]; then
