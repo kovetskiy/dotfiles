@@ -77,6 +77,7 @@ qmark r http://reddit.com/
 qmark v http://reddit.com/r/vim/new/
 qmark d https://rdot.org/forum/
 qmark s https://ngs-team.slack.com/messages/devops
+qmark r https://forum.reverse4you.org/
 
 command! Wipe js tabs.remove(tabs.getTab(0), tabs.count, 0, 0, false)
 
