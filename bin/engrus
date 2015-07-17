@@ -26,7 +26,8 @@ if [[ $WORDS == 1 ]]; then
     TRANSLATION=$(~/go/bin/runki --dry --lang $LANG 2>/dev/null <<< "$INPUT")
 
     if [[ "$TRANSLATION" != "" ]]; then
-        runki --lang $LANG <<< "$INPUT" >/dev/null 2>&1 &
+        ~/go/bin/runki --lang $LANG <<< "$INPUT" >/dev/null 2>&1 &
+        disown
     fi
 fi
 
