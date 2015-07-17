@@ -403,8 +403,6 @@ Plug 'sjl/gundo.vim'
 Plug 'blerins/flattown'
     au User BgDarkPre let g:colorscheme='flattown'
 
-Plug 'EinfachToll/DidYouMean'
-
 Plug 'junegunn/fzf'
 
 Plug 'kovetskiy/kb-train'
@@ -414,7 +412,7 @@ Plug 'majutsushi/tagbar'
 Plug 'NLKNguyen/papercolor-theme'
     au User BgLightPre let  g:colorscheme='PaperColor'
 
-Plug 'ntpeters/vim-airline-colornum'
+Plug 'justinmk/vim-syntax-extra'
 
 call plug#end()
 
