@@ -30,6 +30,9 @@ SYMBOLS=(
     "hjkl(fast-numpad)"
     "level5(ralt_switch)"
     #"hjkl(rtrn_switch)"
+
+    # todo: fix this horror
+    "ctrl-shift-caps(swap_ctrl_shift_caps)"
 )
 
 SYMBOLS=$(IFS="+"; echo "${SYMBOLS[*]}")
