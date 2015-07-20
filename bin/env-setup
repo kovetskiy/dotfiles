@@ -23,10 +23,12 @@ fi
 
 sudo killall -9 shift-shift
 RAZER_KB=$(sudo ~/go/bin/shift-shift --list | grep Razer)
+GFIRST="CAPSLOCK"
+GSECOND="RIGHTSHIFT"
 if [[ "$RAZER_KB" != "" ]]; then
-    sudo ~/go/bin/shift-shift -match "razer" &
+    sudo ~/go/bin/shift-shift -match "razer" -first $GFIRST -second $GSECOND &
 else
-    sudo ~/go/bin/shift-shift &
+    sudo ~/go/bin/shift-shift -first $GFIRST -second $GSECOND &
 fi
 
 if [ -z `pidof keynav` ]; then
