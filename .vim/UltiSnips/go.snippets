@@ -1,0 +1,10 @@
+snippet df "defer" "snip.context=snip" bwe
+`!p
+left = " "
+right="()"
+if "\n" in t[1]:
+	tabs = snip.context.column-1
+	left = " func(){"
+	right = "\n"+(tabs*"\t")+"}()"
+`defer`!p snip.rv=left`$1`!p snip.rv=right`
+endsnippet
