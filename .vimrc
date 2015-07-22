@@ -302,31 +302,31 @@ Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
 Plug 'gregsexton/gitv'
     let g:Gitv_OpenHorizontal = 1
 
-Plug 'bogado/file-line'
+"Plug 'bogado/file-line'
 
 Plug 'godlygeek/tabular'
     vnoremap <C-T> :Tabularize /
 
 Plug 'kovetskiy/urxvt.vim'
     au filetype_go FileType go nmap <buffer>
-        \ <Leader>t :call urxvt#put('go test')<CR>
+        \ <Leader>h :call urxvt#put('go build')<CR>
     "au filetype_go FileType go nmap <buffer>
         "\ <Leader>r :call urxvt#put('go build && ./\${\$(pwd)##*/}')<CR>
     au filetype_go FileType go nmap <buffer>
         \ <Leader>b :GoFmt<CR>:w<CR>:GoBuild<CR>
 
 " depends of Unite.vim
-Plug 'kovetskiy/ash.vim'
-    augroup ash_customisation
-        au!
-        au FileType diff syn match DiffAddedContent "^+.*" containedin=ALL
-        au FileType diff hi! DiffAddedContent ctermbg=65 guibg=#719872 ctermfg=232
-        au FileType diff syn match DiffRemovedContent "^-.*" containedin=ALL
-        au FileType diff hi! DiffRemovedContent ctermbg=131 guibg=#be7572 ctermfg=232
-    augroup end
+"Plug 'kovetskiy/ash.vim'
+    "augroup ash_customisation
+        "au!
+        "au FileType diff syn match DiffAddedContent "^+.*" containedin=ALL
+        "au FileType diff hi! DiffAddedContent ctermbg=65 guibg=#719872 ctermfg=232
+        "au FileType diff syn match DiffRemovedContent "^-.*" containedin=ALL
+        "au FileType diff hi! DiffRemovedContent ctermbg=131 guibg=#be7572 ctermfg=232
+    "augroup end
 
-    nnoremap <C-E><C-I> :Unite ash_inbox<CR>
-    nnoremap <C-E><C-N> :Unite ash_lsreviews:ngs/auto<CR>
+    "nnoremap <C-E><C-I> :Unite ash_inbox<CR>
+    "nnoremap <C-E><C-N> :Unite ash_lsreviews:ngs/auto<CR>
 
 Plug 'seletskiy/vim-pythonx'
     au filetype_go FileType go nmap <buffer>
@@ -392,8 +392,6 @@ Plug 'maksimr/vim-jsbeautify'
 Plug 'kovetskiy/vim-go-utils', { 'for': 'go' }
     inoremap <C-E> <C-R>=GoCompleteSnippet()<CR>
 
-Plug 'kopischke/vim-stay'
-
 Plug 'amix/vim-zenroom2'
 
 Plug 'junegunn/goyo.vim'
@@ -413,6 +411,8 @@ Plug 'NLKNguyen/papercolor-theme'
     au User BgLightPre let  g:colorscheme='PaperColor'
 
 Plug 'justinmk/vim-syntax-extra'
+
+Plug 'seletskiy/ashium'
 
 call plug#end()
 
