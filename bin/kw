@@ -2,5 +2,10 @@
 
 xwininfo=$(xwininfo)
 id=$(awk '/Window id/{print $4}' <<< "$xwininfo")
+name=$(xdotool getwindowname $id)
 
 xkill -id $id
+
+if [[ $name == "marvex: "* ]]; then
+    tmux kill-session -t marvex-$(echo $name | awk '{print $2}')
+fi
