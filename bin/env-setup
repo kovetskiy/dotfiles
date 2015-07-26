@@ -1,34 +1,35 @@
 #!/bin/bash
 
-exec 2>&1 >/dev/null
-
 export PATH=$HOME/bin/:$HOME/go/bin/:$PATH
-export SHELL=/bin/zsh
+export SHELL=/usr/bin/zsh
 export TERMINAL=urxvt
 export EDITOR=/usr/bin/vim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-export BACKGROUND=$(cat $HOME/background)
+export PROFILE="$(cat $HOME/profile)"
+export BACKGROUND="$(cat $HOME/background)"
 
 xrandr \
-    --output VGA1  --mode 1920x1080 --pos 1920x0 \
-    --output HDMI1 --mode 1920x1080 --pos 0x0 &
+    --output VGA-0  --mode 1920x1080 --pos 1920x0 \
+    --output HDMI-0 --mode 1920x1080 --pos 0x0 &
 
 reconfig-kbd &
 
-if [ -z `pidof charge` ]; then
-    sudo charge &
+if [[ "$PROFILE" == "home" ]]; then
+    if [ -z `pidof charge` ]; then
+        sudo charge &
+    fi
 fi
 
 sudo killall -9 shift-shift
-RAZER_KB=$(sudo ~/go/bin/shift-shift --list | grep Razer)
+RAZER_KB=$(sudo shift-shift --list | grep Razer)
 GFIRST="CAPSLOCK"
 GSECOND="RIGHTSHIFT"
 if [[ "$RAZER_KB" != "" ]]; then
-    sudo ~/go/bin/shift-shift -match "razer" -first $GFIRST -second $GSECOND &
+    sudo shift-shift -match "razer" -first $GFIRST -second $GSECOND &
 else
-    sudo ~/go/bin/shift-shift -first $GFIRST -second $GSECOND &
+    sudo shift-shift -first $GFIRST -second $GSECOND &
 fi
 
 if [ -z `pidof keynav` ]; then
