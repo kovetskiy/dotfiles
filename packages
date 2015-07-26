@@ -36,6 +36,7 @@ google-chrome
 pacbuilder-svn
 gvim
 fzf
+<<<<<<< HEAD
 runki
 freetype2-infinality
 msmtp
@@ -47,3 +48,4 @@ mercurial
 net-tools
 inotify-tools
 ffmpeg
+jq
