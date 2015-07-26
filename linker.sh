@@ -34,6 +34,7 @@ POINTS=(
     ".mailcap"
     ".terminfo"
     ".vimperator"
+    ".tmux.conf"
 )
 
 for POINT in "${POINTS[@]}"; do
