@@ -23,6 +23,10 @@ export WORDCHARS=-
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
+
+
+ln -sfT ~/.zgen/sorin-ionescu/prezto-master ~/.zprezto
+
 autoload -Uz promptinit
 
 zstyle ':prezto:*:*' color 'yes'
@@ -164,6 +168,9 @@ function ashr() {
 }
 
 
+function apkg() {
+    echo $@ >> ~/sources/dotfiles/packages
+}
 alias aur='yes | EDITOR=cat yaourt '
 alias pms='sudo pacman -S'
 alias -g P='| perl -n -e'
