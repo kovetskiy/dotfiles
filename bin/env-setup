@@ -42,8 +42,7 @@ fi
 
 xset dpms 0 0 0
 xset s off
-
-feh --bg-scale ~/wallpaper.jpg &
+xset -b
 
 xrdb -load ~/.Xresources
 background $BACKGROUND &

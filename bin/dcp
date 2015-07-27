@@ -1,3 +1,0 @@
-#!/bin/bash
-
-cp -r ~/workspace0/scripts/migrations /data/workspace0/scripts/
