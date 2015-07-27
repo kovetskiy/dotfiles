@@ -27,6 +27,8 @@ nmap g :tabopen http://google.ru/search?q=
 
 nmap x :tabopen http://slovari.yandex.ru/
 
+nmap mg O<Home>tab<Right><Right><Right><Right><Right>http://snob.s/hsd:rn:ngs:engineers/<End>
+
 " no macros
 nmap q <ESC>
 
