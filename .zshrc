@@ -173,6 +173,8 @@ function apkg() {
 }
 alias aur='yes | EDITOR=cat yaourt '
 alias pms='sudo pacman -S'
+alias pmu='sudo pacman -U'
+alias pf='pkgfile'
 alias -g P='| perl -n -e'
 alias -g F='| fzf'
 alias -g G='| ag'
@@ -254,13 +256,14 @@ alias bi="batrak -Ln"
 alias dt='cd ~df; git status -s'
 
 alias gob='go build'
+alias goi='go install'
 
 alias pkgver='echo $(git rev-list --count master).$(git rev-parse --short master)'
 alias pkgverupdate='sed -i "s/pkgver\=.*/pkgver=$(git rev-list --count master).$(git rev-parse --short master)/" PKGBUILD'
 
 alias a='alias'
 
-alias scl='systemctl'
+alias sc='sudo systemctl'
 
 alias rto='rtorrent "$(/bin/ls -c ~/Downloads/*rutracker* | tail -n 1)"'
 
