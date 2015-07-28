@@ -4,6 +4,7 @@ export XAUTHORITY=~/.Xauthority
 export DISPLAY=${DISPLAY:-:0.0}
 
 xset r rate 110 100
+xset -b
 
 KEYCODES="evdev+aliases(qwerty)+hjkl"
 COMPAT="complete+hjkl"
