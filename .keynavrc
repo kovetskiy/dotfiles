@@ -32,13 +32,18 @@ shift+l cut-right,warp
 space warp,click 1
 minus warp,click 3
 
+
+
 shift+space warp,drag 1
 shift+minus warp,drag 3
 
 BackSpace history-back
 
-o grid 1x1,warp
+o grid 1x1,cursorzoom 10 10,click 1
 grave grid 1x1,cursorzoom 10 10
+
+n warp,click 5
+m warp,click 4
 
 semicolon end
 Return end
