@@ -5,10 +5,10 @@ if [ "$TMUX" ]; then
     export TERM=screen-256color-so
 fi
 
-export EDITOR=$(which vim)
-export BACKGROUND=$(cat ~/background)
+export EDITOR="$(which vim)"
+export BACKGROUND="$(cat ~/background)"
 
-export PROFILE=$(cat ~/profile)
+export PROFILE="$(cat ~/profile)"
 
 export GOROOT=""
 export GOPATH="$HOME/go"
@@ -22,8 +22,6 @@ export WORDCHARS=-
 
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
-
-
 
 ln -sfT ~/.zgen/sorin-ionescu/prezto-master ~/.zprezto
 
