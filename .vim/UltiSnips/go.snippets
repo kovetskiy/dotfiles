@@ -27,3 +27,11 @@ endsnippet
 snippet "\s==\sn" "Description" r
 `!p snip.rv=" == nil"`
 endsnippet
+
+snippet pld "provider.log.Debug" w
+provider.log.Debug("$1")
+endsnippet
+
+snippet pldf "provider.log.Debug" w
+provider.log.Debug("`!p snip.rv=t[1]`: %#v", $1)
+endsnippet
