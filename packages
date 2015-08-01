@@ -36,7 +36,6 @@ google-chrome
 pacbuilder-svn
 gvim
 fzf
-<<<<<<< HEAD
 runki
 freetype2-infinality
 msmtp
@@ -50,3 +49,7 @@ inotify-tools
 ffmpeg
 jq
 hub
+ttf-ms-fonts
+ttf-vista-fonts
+openssh
+pkgfile
