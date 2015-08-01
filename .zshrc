@@ -170,6 +170,7 @@ function apkg() {
     echo $@ >> ~/sources/dotfiles/packages
 }
 alias aur='yes | EDITOR=cat yaourt '
+alias pc='sudo pacman'
 alias pms='sudo pacman -S'
 alias psyu='zsnap && sudo pacman -Syu'
 alias pmu='sudo pacman -U'
