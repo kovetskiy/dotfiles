@@ -1,0 +1,5 @@
+AURURL="https://aur4.archlinux.org"
+UP_NOCONFIRM=1
+BUILD_NOCONFIRM=0
+EDITFILES=0
+NOENTER=1
