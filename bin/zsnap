@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e -u
+
+pool="zroot"
+name=`date | sed 's/  / /g' | sed 's/ /_/g' `
+sudo zfs snapshot $pool@$name
+
+echo "ZFS Snapshot [$pool@$name] created"

@@ -171,6 +171,7 @@ function apkg() {
 }
 alias aur='yes | EDITOR=cat yaourt '
 alias pms='sudo pacman -S'
+alias psyu='zsnap && sudo pacman -Syu'
 alias pmu='sudo pacman -U'
 alias pf='pkgfile'
 alias -g P='| perl -n -e'
