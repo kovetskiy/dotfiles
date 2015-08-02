@@ -1,1 +1,0 @@
-ACTION=="add", SUBSYSTEM=="usb", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/vxw/.Xauthority", RUN+="/home/vxw/bin/reconfig-kbd-udev"
