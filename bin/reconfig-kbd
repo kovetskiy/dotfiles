@@ -1,10 +1,12 @@
 #!/bin/bash
 
-export XAUTHORITY=~/.Xauthority
-export DISPLAY=${DISPLAY:-:0.0}
+# udevd doesn't know about env variables
+HOME=${HOME:-/home/vxw}
+PATH=${PATH:-/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin}
+XAUTHORITY=${XAUTHORITY:-/home/vxw/.Xauthority}
+DISPLAY=${DISPLAY:-:0.0}
 
-xset r rate 110 100
-xset -b
+export HOME PATH DISPLAY XAUTHORITY
 
 KEYCODES="evdev+aliases(qwerty)+hjkl"
 COMPAT="complete+hjkl"
@@ -42,3 +44,6 @@ setxkbmap \
     -symbols $SYMBOLS \
     -compat $COMPAT \
     -print | xkbcomp - :0
+
+xset r rate 110 100
+xset -b
