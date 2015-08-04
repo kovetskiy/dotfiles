@@ -337,6 +337,23 @@ alias ggg="go-get-github"
 
 function ck() { mkdir -p "$@"; cd "$@" }
 
+function gitaur() {
+    local package="$1"
+    local desc="$2"
+    local git="$3"
+
+    local dir=$(mktemp -d --suffix=$package)
+
+    local url="ssh://aur@aur4.archlinux.org/$package.git"
+
+    git clone $url $dir
+    cd $dir
+
+    go-makepkg -d . -c "$desc" "$git"
+    mksrcinfo
+    git add PKGBUILD .SRCINFO
+}
+
 #vw it's bin/vw, which openning some software in $EDITOR.
 compdef vw=which
 
