@@ -1,2 +1,7 @@
-text/html;muttview %s; copiousoutput
 image/gif;ffplay %s;
+text/html; ash-mailcap \
+               -x "firefox %s" %s;
+text/html; ash-mailcap \
+               -x "muttview %s" \
+               -t /usr/share/ash-mailcap-autoview/editor %s; \
+               copiousoutput
