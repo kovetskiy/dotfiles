@@ -1,10 +1,5 @@
 #!/bin/bash
-lock="/tmp/keyboard-udev-lock"
-exec 9>"$lock"
-if ! flock -n 9; then
-	exit 1
-fi
 
-/home/vxw/sources/dotfiles/bin/reconfig-kbd -v &
+sleep 1
 
-echo > "$lock" &
+/home/vxw/sources/dotfiles/bin/reconfig-kbd
