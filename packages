@@ -1,7 +1,7 @@
 xorg-server
 xorg-xinit
 git
-i3
+i3-wm
 rxvt-unicode
 marvex
 go
@@ -9,8 +9,7 @@ tmux
 xorg-xset
 firefox
 dmenu
-keynav-seletskiy-fix-me
-vimperator
+keynav-improved-grid-git
 vimperator-git
 xorg-xrandr
 cmake
@@ -39,7 +38,7 @@ fzf
 runki
 freetype2-infinality
 msmtp
-flashplayer
+flashplugin
 alsa-utils
 xsel
 openssh
@@ -60,3 +59,4 @@ apulse
 tree
 mcabber-module-external-editor
 mcabber-module-focus
+pkgbuild-introspection
