@@ -1,12 +1,11 @@
 #!/bin/bash
 
-#exec 2>/dev/null
 for file in `git ls-files`; do
     if test -f $file; then
         grep -q '.\{80\}' "$file"
         if [ $? -eq 0 ]; then
             echo "$file"
-            grep --color '.\{80\}' -A 2 -B 2 -n "$file"
+            cat $file | sed 's/\t/    /g' | grep --color '.\{80\}' -A 2 -B 2 -n
         fi
 
         grep -q 'XXXXXX' "$file"
