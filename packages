@@ -64,3 +64,5 @@ maim
 ash-mailcap-autoview
 ash-mailcap
 python-todo-t
+mcabber-module-autojoin
+mcabber-module-slack-completion
