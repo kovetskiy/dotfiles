@@ -1,0 +1,65 @@
+#!/usr/bin/env ruby
+
+require "docopt"
+
+def main
+    doc = <<DOCOPT
+Setup shadowc.
+
+Usage:
+    setup-shadowc <target> -s <shadowd> [-l <ssh>] -p <pool> -u <user>...
+
+Options:
+    -s <shadowd>    Specify shadowd.
+    -l <ssh>        Specify shadowd ssh authorization
+    -p <pool>       Specify shadowd pool.
+    -u <user>       Specify user which needs shadow entry.
+    -k <keydir>     Specify directory for cached public shadowd keys.
+                    [default: ~/.shadowd-keys]
+DOCOPT
+
+    begin
+        args = Docopt::docopt(doc)
+    rescue Docopt::Exit => e
+        puts e.message
+    end
+
+    target  = args["<target>"]
+    shadowd = args["-s"]
+    pool    = args["-p"]
+    keydir  = File.expand_path(args["-k"])
+    users   = args["-u"]
+
+    shadowd_ssh = args["-l"]
+    if args["-l"] == nil
+        shadowd_ssh = "root@"+shadowd.split(":")[0]
+    end
+
+    Dir.mkdir(keydir) unless File.exist?(keydir)
+
+    local_key = File.join(keydir, shadowd+".pem")
+
+    if not File.exist?(local_key)
+        system "scp "+shadowd_ssh+":/var/shadowd/cert/cert.pem "+local_key
+    end
+
+    puts "Installing shadowc"
+    ssh(target, "pacman -Sy shadowc")
+
+    puts "Copying public key"
+    system "scp "+local_key+" "+target+":/etc/shadowc/cert.pem"
+
+    cmd = "shadowc -s "+shadowd+" -p "+pool
+    users.each do |user|
+        cmd = cmd+" -u "+user
+    end
+
+    puts cmd
+    ssh(target, cmd)
+end
+
+def ssh(target, cmd)
+    system "ssh "+target+" '"+cmd.gsub(/['"\\\x0]/,'\\\\\0')+"'"
+end
+
+main
