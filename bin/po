@@ -1,3 +1,18 @@
 #!/bin/bash
-git ls-files | xargs grep --color '.\{80\}' -A 2 -B 2 -n 2>/dev/null
-git ls-files | xargs grep --color 'XXXXXX' -A 2 -B 2 -n 2>/dev/null
+
+#exec 2>/dev/null
+for file in `git ls-files`; do
+    if test -f $file; then
+        grep -q '.\{80\}' "$file"
+        if [ $? -eq 0 ]; then
+            echo "$file"
+            grep --color '.\{80\}' -A 2 -B 2 -n "$file"
+        fi
+
+        grep -q 'XXXXXX' "$file"
+        if [ $? -eq 0 ]; then
+            echo "$file"
+            grep --color 'XXXXXX' -A 2 -B 2 -n "$file"
+        fi
+    fi
+done
