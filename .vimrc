@@ -706,7 +706,7 @@ call SetBg($BACKGROUND)
 
 noh
 
-nnoremap <ESC>w <ESC>:w<CR>
+"nnoremap <ESC>w <ESC>:w<CR>
 
 nnoremap <Leader>e :e!<Space>
 
@@ -743,7 +743,7 @@ endfunction!
 vmap ) S)i
 
 inoremap <C-E> <ESC>:call FuncSnippet()<CR>
-nnoremap <Tab> zz
+nmap <Tab> /
 
 let @l="f(ak$%i,%"
 let @k="^f=i:"
