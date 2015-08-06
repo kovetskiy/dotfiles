@@ -748,6 +748,7 @@ nnoremap <Tab> zz
 let @l="f(ak$%i,%"
 let @k="^f=i:"
 let @j="^t=x"
+let @t=':%s/\t/    /g:w'
 
 " no more "Entering Ex mode"
 map Q <nop>
