@@ -66,3 +66,5 @@ ash-mailcap
 python-todo-t
 mcabber-module-autojoin
 mcabber-module-slack-completion
+urxvt-perls
+xorg-xmodmap
