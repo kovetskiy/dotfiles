@@ -1,0 +1,33 @@
+snippet bin "binary app" bw
+#!/usr/bin/env ruby
+
+require "docopt"
+
+doc = <<DOCOPT
+
+$1.
+
+Usage:
+    $2
+
+Options:
+    $3
+DOCOPT
+
+begin
+    args = Docopt::docopt(doc)
+rescue Docopt::Exit => e
+    puts e.message
+end
+endsnippet
+
+snippet pr "print" w
+require "pp"
+pp $1
+endsnippet
+
+snippet f "Description" w
+def $1($2)
+	$3
+end
+endsnippet
