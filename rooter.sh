@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e -u
+set -e
 zsnap
 
 src_dir=$(readlink -f root)
@@ -19,10 +19,12 @@ for src_file in `find $src_dir | tail -n +2`; do
 
     mkdir -p "$(dirname "$dest_file")"
     if test -f "$src_file"; then
-        if test -f "$dest_file"; then
-            diff -u "$src_file" "$dest_file"
-            if [ $? -ne 0 ]; then
-                exit 1
+        if [[ "$1" != "-f" ]]; then
+            if test -f "$dest_file"; then
+                diff -u "$src_file" "$dest_file"
+                if [ $? -ne 0 ]; then
+                    exit 1
+                fi
             fi
         fi
 
