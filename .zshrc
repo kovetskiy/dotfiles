@@ -256,6 +256,12 @@ alias bstart="batrak -Tn \`jira-now print\`"
 alias bstop="batrak -Sn"
 alias bi="batrak -Ln"
 alias dt='cd ~df; git status -s'
+function rsc() {
+    local file="$1"
+    local dir=$(dirname "$file")
+    mkdir -p ~/sources/dotfiles/root/$dir
+    cp -ruT $file ~/sources/dotfiles/root/$file
+}
 
 alias gob='go build'
 alias goi='go install'
