@@ -2,7 +2,7 @@ alias go = roster search golang@
 alias d = roster search devops@
 alias f = roster search smartfriday@
 
-set autojoin = devops@conference.ngs-team.xmpp.slack.com,golang,smartfriday,vim,trampoline
+set autojoin = devops@conference.ngs-team.xmpp.slack.com,golang,smartfriday,vim,trampoline,postdevops
 
 set statefile = ~/.mcabber/state/slack
 set logging_dir = ~/.mcabber/history/slack/
