@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+#set -x
 
 input() {
     echo | dmenu -p "translate: "
@@ -33,7 +33,8 @@ fi
 
 if [[ "$TRANSLATION" == "" ]]; then
     INPUT=$(tr -s ' ' '+' <<< "$INPUT")
-    URL="http://translate.yandex.net/api/v1/tr.json/translate?lang=$LANG&text=$INPUT&srv=tr-text"
+    KEY="trnsl.1.1.20150807T071843Z.319e163bafb5d806.f17c493a466253265a817c9f96a74db85f6b556b"
+    URL="https://translate.yandex.net/api/v1.5/tr.json/translate?key=$KEY&lang=$LANG&text=$INPUT"
     TRANSLATION=$(curl -s "$URL" )
     TRANSLATION=$(jq .text[0] <<< "$TRANSLATION")
     TRANSLATION=$(sed 's/"//g' <<< "$TRANSLATION")
