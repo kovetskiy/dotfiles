@@ -29,6 +29,8 @@ bind index @ imap-fetch-mail
 macro index \Ca "<change-folder> =Archive<enter>"
 macro index \Co "<change-folder> =INBOX<enter>"
 
+macro index \Ce "DStash\|rnd\|Slack\|talk\|github"
+
 unset imap_passive
 
 mailboxes =INBOX
