@@ -8,6 +8,7 @@ Setup shadowc.
 
 Usage:
     setup-shadowc <target> -s <shadowd> [-l <ssh>] -p <pool> -u <user>...
+    setup-shadowc -h | --help
 
 Options:
     -s <shadowd>    Specify shadowd.
@@ -16,6 +17,7 @@ Options:
     -u <user>       Specify user which needs shadow entry.
     -k <keydir>     Specify directory for cached public shadowd keys.
                     [default: ~/.shadowd-keys]
+    -h --help       Show this screen.
 DOCOPT
 
     begin
