@@ -275,6 +275,10 @@ alias sc='sudo systemctl'
 
 alias rto='rtorrent "$(/bin/ls -c ~/Downloads/*rutracker* | tail -n 1)"'
 
+alias tl='/usr/bin/t --task-dir ~/tasks --list tasks'
+alias tp='/usr/bin/t --task-dir ~/tasks --list plans'
+alias tw='/usr/bin/t --task-dir ~/tasks --list work'
+
 function prepend-sudo() {
     if [[ "$BUFFER" == "" ]]; then
         BUFFER="sudo $(fc -nl -1)"
@@ -343,6 +347,19 @@ alias ggg="go-get-github"
 
 function ck() { mkdir -p "$@"; cd "$@" }
 
+function aurcl() {
+    local package="$1"
+    local dir=$(mktemp -d --suffix=$package)
+    local url="ssh://aur@aur4.archlinux.org/$package.git"
+
+    git clone $url $dir
+
+    while shift; do
+        cp -r $1 $dir/
+    done
+
+    cd $dir
+}
 function gitaur() {
     local package="$1"
     local desc="$2"
