@@ -169,6 +169,7 @@ function ashr() {
 function apkg() {
     echo $@ >> ~/sources/dotfiles/packages
 }
+alias e='exec startx'
 alias aur='yes | EDITOR=cat yaourt '
 alias pc='sudo pacman'
 alias pms='sudo pacman -S'
@@ -256,6 +257,7 @@ alias bstart="batrak -Tn \`jira-now print\`"
 alias bstop="batrak -Sn"
 alias bi="batrak -Ln"
 alias dt='cd ~df; git status -s'
+alias pr='cd ~/private/; git status -s'
 function rsc() {
     local file="$1"
     local dir=$(dirname "$file")
