@@ -362,7 +362,8 @@ Plug 'kovetskiy/vim-ski'
     let g:skeletons_dir=$HOME.'/.vim/skeletons/'
 
     augroup skeleton_git
-        au BufRead *.git/COMMIT_EDITMSG call Skeleton('gitcommit')
+        au BufRead *.git/COMMIT_EDITMSG call Skeleton()
+        au BufRead,BufNewFile */bin/* set ft=sh
     augroup end
 
 Plug 'bronson/vim-trailing-whitespace'
