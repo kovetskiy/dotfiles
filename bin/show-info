@@ -1,2 +1,3 @@
 #!/bin/bash
-notify-send -t 1000 "`date`" "`~/bin/weather`"
+notify-send -t 1000 "`date`" "`weather`
+`sensors | tail -n +3 | head -n -1 | sed 's/       / /g' | awk '{print $1" "$2" "$3}'`"
