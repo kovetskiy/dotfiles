@@ -1,3 +1,12 @@
+global !p
+import re
+import os.path
+import vim
+
+import px.go
+import px.util
+endglobal
+
 snippet bin "binary app" bw
 #!/usr/bin/env ruby
 
@@ -12,6 +21,7 @@ Usage:
 
 Options:
     $3
+	-h --help    Show this screen.
 DOCOPT
 
 begin
@@ -30,4 +40,21 @@ snippet f "Description" w
 def $1($2)
 	$3
 end
+endsnippet
+
+
+global !p
+def should_expand_usage(snip):
+	if px.util.match_higher_indent(snip.buffer, (snip.line, 0), '^Usage:'):
+		prev_line = snip.buffer[snip.line-1]
+		matches = re.match(r'\s+([\w\d\-\_]+)', prev_line)
+		if not matches:
+			return {'name': ""}
+		return {'name': matches.group(1)}
+
+	return False
+endglobal
+
+snippet "^(\s+)" "expand usage" "should_expand_usage(snip)" re
+`!p snip.rv=match.group(1)``!p snip.rv=snip.context['name']` $1
 endsnippet
