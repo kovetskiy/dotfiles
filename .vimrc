@@ -710,6 +710,7 @@ noh
 "nnoremap <ESC>w <ESC>:w<CR>
 
 nnoremap <Leader>e :e!<Space>
+nnoremap <Leader>ft :set filetype=
 
 function! GoogleSearch()
     let query = input('Google: ')
