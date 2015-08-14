@@ -341,11 +341,14 @@ function github-fix-host() {
     git remote set-url $name $new_url
 }
 
-function go-get-github() {
-    url=$(sed 's/https:\/\///' <<< $1)
-    go get $url
+function goget() {
+    url=$(sed 's/https?:\/\///' <<< $1)
+    go get -v $url
+    if [[ "$url" == *.git ]]; then
+        fixed=$(sed 's/\.git//' <<< "$url")
+        mv $GOPATH/src/$url $GOPATH/src/$fixed
+    fi
 }
-alias ggg="go-get-github"
 
 function ck() { mkdir -p "$@"; cd "$@" }
 
@@ -356,9 +359,11 @@ function aurcl() {
 
     git clone $url $dir
 
-    while shift; do
-        cp -r $1 $dir/
-    done
+    if [[ $# -gt 1 ]]; then
+        while shift; do
+            cp -r $1 $dir/
+        done
+    fi
 
     cd $dir
 }
