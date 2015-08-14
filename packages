@@ -33,7 +33,7 @@ the_silver_searcher
 lynx
 google-chrome
 pacbuilder-svn
-gvim
+vim-git
 fzf
 runki
 freetype2-infinality
@@ -68,3 +68,4 @@ mcabber-module-autojoin
 mcabber-module-slack-completion
 urxvt-perls
 xorg-xmodmap
+lm_sensors
