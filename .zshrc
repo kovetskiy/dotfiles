@@ -350,7 +350,9 @@ function goget() {
     if [[ "$url" == *.git ]]; then
         fixed=$(sed 's/\.git//' <<< "$url")
         mv $GOPATH/src/$url $GOPATH/src/$fixed
+        url=$fixed
     fi
+    cd $GOPATH/src/$url
 }
 
 function ck() { mkdir -p "$@"; cd "$@" }
