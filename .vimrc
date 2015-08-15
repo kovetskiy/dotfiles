@@ -138,6 +138,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
     let g:go_fmt_autosave = 1
+    let g:go_vet_autosave = 1
     let g:go_bin_path = $GOPATH . "/bin"
 
     au filetype_go FileType go nmap <buffer> <Leader>f :GoFmt<CR>:w<CR>
