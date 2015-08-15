@@ -238,6 +238,10 @@ Plug 'seletskiy/vim-over'
 
     au User OverCmdLineExecute call searchparty#mash#mash()
 
+    let g:over_command_line_key_mappings={
+        \ "\<Space>": "."
+    \ }
+
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     augroup filetype_markdown
         au!
