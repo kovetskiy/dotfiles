@@ -113,7 +113,7 @@ Plug 'kovetskiy/SearchParty'
     nmap <silent> <Leader><Leader> :let @/=''<CR>
                 \ <Plug>SearchPartyHighlightClear
 
-Plug 'junegunn/seoul256.vim'
+"Plug 'junegunn/seoul256.vim'
     "au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
 
 Plug 'bling/vim-airline'
@@ -132,7 +132,7 @@ Plug 'Valloric/YouCompleteMe'
 
     let g:ycm_seed_identifiers_with_syntax = 1
 
-Plug '2072/PHP-Indenting-for-VIm'
+Plug '2072/PHP-Indenting-for-VIm', { 'for': 'php' }
 
 Plug 'fatih/vim-go', { 'for': 'go' }
     let g:go_fmt_fail_silently = 0
@@ -149,15 +149,6 @@ Plug 'elzr/vim-json', { 'for': 'json' }
         au!
         au BufNewFile,BufRead *.json set filetype=json
     augroup end
-
-Plug 'mhinz/vim-startify'
-    let g:startify_session_dir = '~/.vim/sessions'
-    let g:startify_enable_special = 1
-    let g:startify_list_order = ['sessions', 'dir', 'files']
-    let g:startify_files_number = 20
-    let g:startify_session_persistence = 1
-    let g:startify_session_delete_buffers = 1
-    let g:startify_change_to_dir = 0
 
 Plug 'l9'
 
@@ -183,16 +174,9 @@ Plug 'seletskiy/ultisnips', { 'branch': 'autotrigger' }
         au FileType snippets set textwidth=999
     augroup end
 
-Plug 'reconquest/snippets'
-
-Plug 'tpope/vim-fugitive'
-    nnoremap <F10> :Gstatus<CR>
-
-Plug 'tpope/vim-git'
+Plug 'reconquest/snippets', { 'for': ['php', 'go', 'ruby', 'python']}
 
 Plug 'tpope/vim-surround'
-
-Plug 'terryma/vim-multiple-cursors'
 
 Plug 'yuku-t/unite-git'
 
@@ -249,24 +233,12 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
         au BufRead,BufNewFile *.md set filetype=markdown
     augroup end
 
-Plug 'edsono/vim-matchit', { 'for': 'smarty'}
-    augroup filetype_smarty
-        au!
-
-        au BufRead,BufNewFile *.tpl set filetype=smarty
-        au User BgBasePost hi htmlLink cterm=none
-        au FileType smarty hi htmlLink cterm=none
-    augroup end
-
-
-Plug 'AndrewRadev/sideways.vim'
+Plug 'AndrewRadev/sideways.vim', { 'on': ['SidewayLeft', 'SidewayRight',
+            \ 'SidewayJumpLight', 'SidewayRightJump']}
 
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
 Plug 'terryma/vim-multiple-cursors'
-    nmap <C-I> viw<C-N>
-
-Plug 'majutsushi/tagbar', { 'for': 'php' }
 
 Plug 'kshenoy/vim-signature'
     let g:SignatureMarkOrder = "\m"
@@ -292,24 +264,7 @@ Plug 'justinmk/vim-sneak'
     omap t <Plug>Sneak_t
     omap T <Plug>Sneak_T
 
-Plug 'alvan/vim-php-manual', { 'for': 'php' }
-
-Plug 'vim-scripts/smarty-syntax', { 'for': 'smarty' }
-
-Plug 'SyntaxAttr.vim'
-
-Plug 'BufOnly.vim'
-
-Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
-    au filetype_php FileType php
-        \ setlocal omnifunc=phpcomplete_extended#CompletePHP
-
-Plug 'gregsexton/gitv'
-    let g:Gitv_OpenHorizontal = 1
-
-"Plug 'bogado/file-line'
-
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
     vnoremap <C-T> :Tabularize /
 
 Plug 'kovetskiy/urxvt.vim'
@@ -319,19 +274,6 @@ Plug 'kovetskiy/urxvt.vim'
         "\ <Leader>r :call urxvt#put('go build && ./\${\$(pwd)##*/}')<CR>
     au filetype_go FileType go nmap <buffer>
         \ <Leader>b :GoFmt<CR>:w<CR>:GoBuild<CR>
-
-" depends of Unite.vim
-"Plug 'kovetskiy/ash.vim'
-    "augroup ash_customisation
-        "au!
-        "au FileType diff syn match DiffAddedContent "^+.*" containedin=ALL
-        "au FileType diff hi! DiffAddedContent ctermbg=65 guibg=#719872 ctermfg=232
-        "au FileType diff syn match DiffRemovedContent "^-.*" containedin=ALL
-        "au FileType diff hi! DiffRemovedContent ctermbg=131 guibg=#be7572 ctermfg=232
-    "augroup end
-
-    "nnoremap <C-E><C-I> :Unite ash_inbox<CR>
-    "nnoremap <C-E><C-N> :Unite ash_lsreviews:ngs/auto<CR>
 
 Plug 'seletskiy/vim-pythonx'
     au filetype_go FileType go nmap <buffer>
@@ -357,11 +299,8 @@ Plug 'kovetskiy/vim-empty-lines'
     nnoremap <Leader>j :call AddEmptyLineBelow()<CR>
     nnoremap <Leader>k :call AddEmptyLineAbove()<CR>
 
-Plug 'kovetskiy/vim-plugvim-utils'
+Plug 'kovetskiy/vim-plugvim-utils', {'on': 'NewPlugFromClipboard'}
     nnoremap <Leader><Leader>c :call NewPlugFromClipboard()<CR>
-
-Plug 'kovetskiy/vim-ternary'
-    nnoremap <Leader>t :call RemoveTernaryOperator()<CR>
 
 Plug 'kovetskiy/vim-ski'
     let g:skeletons_dir=$HOME.'/.vim/skeletons/'
@@ -373,7 +312,7 @@ Plug 'kovetskiy/vim-ski'
 
 Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
-        \ 'vim', 'unite'
+        \ 'vim', 'unite', 'diff'
     \ ]
 
     function! MyWhitespaceFix()
@@ -389,43 +328,29 @@ Plug 'bronson/vim-trailing-whitespace'
 
 Plug 'seletskiy/vim-nunu'
 
-Plug 'othree/yajs.vim'
-
-Plug 'lambdalisue/vim-gita'
-
-Plug 'maksimr/vim-jsbeautify'
-
 Plug 'kovetskiy/vim-go-utils', { 'for': 'go' }
     inoremap <C-E> <C-R>=GoCompleteSnippet()<CR>
 
-Plug 'amix/vim-zenroom2'
+Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
 
-Plug 'junegunn/goyo.vim'
+"Plug 'blerins/flattown'
+    "au User BgDarkPre let g:colorscheme='flattown'
 
-Plug 'sjl/gundo.vim'
-
-Plug 'blerins/flattown'
-    au User BgDarkPre let g:colorscheme='flattown'
-
-Plug 'junegunn/fzf'
-
-Plug 'kovetskiy/kb-train'
-
-Plug 'majutsushi/tagbar'
+Plug 'kovetskiy/kb-train', { 'on': 'Train' }
 
 Plug 'NLKNguyen/papercolor-theme'
     au User BgLightPre let  g:colorscheme='PaperColor'
 
-Plug 'justinmk/vim-syntax-extra'
+Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
 
-Plug 'seletskiy/ashium'
+Plug 'seletskiy/ashium', { 'for': 'diff' }
 
 "Plug 'klen/python-mode'
     "let g:pymode_lint = 0
     "let g:pymode_lint_on_write = 0
     "let g:pymode_run = 0
 
-Plug 'hynek/vim-python-pep8-indent'
+Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
 call plug#end()
 
