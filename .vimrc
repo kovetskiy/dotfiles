@@ -339,7 +339,6 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
 Plug 'kovetskiy/kb-train', { 'on': 'Train' }
 
 Plug 'NLKNguyen/papercolor-theme'
-    au User BgLightPre let  g:colorscheme='PaperColor'
 
 Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
 
@@ -508,8 +507,6 @@ nnoremap g> '>
 nnoremap g. '>
 nnoremap g, '<
 
-nnoremap <F4> :let &scrolloff=999-&scrolloff<CR>
-
 nnoremap <Leader>vs :vsp<CR>
 
 nnoremap <Leader>l :cN<CR>
@@ -557,86 +554,57 @@ imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 
 inoremap <C-H> <C-O>o
 
-augroup custom_colors
-    au!
-
-    " Base {{{
-    au User BgBasePost hi! link WildMenu PmenuSel
-    au User BgBasePost hi SPM1 ctermbg=1 ctermfg=7
-    au User BgBasePost hi SPM2 ctermbg=2 ctermfg=7
-    au User BgBasePost hi SPM3 ctermbg=3 ctermfg=7
-    au User BgBasePost hi SPM4 ctermbg=4 ctermfg=7
-    au User BgBasePost hi SPM5 ctermbg=5 ctermfg=7
-    au User BgBasePost hi SPM6 ctermbg=6 ctermfg=7
-    au User BgBasePost hi VertSplit cterm=none ctermbg=none ctermfg=16
-    au User BgBasePost hi ErrorMsg term=none
-    au User BgBasePost hi Todo term=none
-    au User BgBasePost hi SignColumn term=none
-    au User BgBasePost hi FoldColumn term=none
-    au User BgBasePost hi Folded term=none
-    au User BgBasePost hi WildMenu term=none
-    au User BgBasePost hi WarningMsg term=none
-    au User BgBasePost hi Question term=none
-    " }}}
-
-    " Light {{{
-    au User BgLightPost hi! underlined cterm=underline
-    au User BgLightPost hi! CursorLineNr ctermfg=241 ctermbg=none
-    au User BgLightPost hi! LineNr ctermfg=249 ctermbg=none
-    au User BgLightPost hi! SignColumn ctermfg=none ctermbg=none
-    au User BgLightPost hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
-    au User BgLightPost hi! NonText ctermfg=254 cterm=none term=none
-    au User BgLightPost hi! IncSearch cterm=none ctermfg=238 ctermbg=220
-    au User BgLightPost hi! Cursor ctermbg=0 ctermfg=15
-    au User BgLightPost hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
-    " }}}
-
-    " Dark {{{
-    au User BgDarkPost hi! underlined cterm=underline
-    "au User BgDarkPost hi! CursorLineNr ctermfg=241 ctermbg=none
-    au User BgDarkPost hi! LineNr ctermfg=249 ctermbg=none
-    au User BgDarkPost hi! SignColumn ctermfg=none ctermbg=none
-    au User BgDarkPost hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
-    au User BgDarkPost hi! NonText ctermfg=238 cterm=none term=none
-    au User BgDarkPost hi! IncSearch cterm=none ctermfg=238 ctermbg=1
-    au User BgDarkPost hi! Cursor ctermbg=0 ctermfg=1
-    au User BgDarkPost hi! PmenuSel ctermbg=136 ctermfg=255 cterm=bold
-    " }}}
-augroup end
-
 imap <C-U> <ESC>ua
 
 fu! SetBg(bg)
-    " Define autocmd events {{{
-    au User BgBasePre noh
-    au User BgBasePost noh
-    au User BgLightPre noh
-    au User BgLightPost noh
-    au User BgDarkPre noh
-    au User BgDarkPost noh
-
     let bg = a:bg
     if bg == ""
         let bg = "light"
     endif
 
-    doautocmd User BgBasePre
+    hi! link WildMenu PmenuSel
+    hi SPM1 ctermbg=1 ctermfg=7
+    hi SPM2 ctermbg=2 ctermfg=7
+    hi SPM3 ctermbg=3 ctermfg=7
+    hi SPM4 ctermbg=4 ctermfg=7
+    hi SPM5 ctermbg=5 ctermfg=7
+    hi SPM6 ctermbg=6 ctermfg=7
+    hi VertSplit cterm=none ctermbg=none ctermfg=16
+    hi ErrorMsg term=none
+    hi Todo term=none
+    hi SignColumn term=none
+    hi FoldColumn term=none
+    hi Folded term=none
+    hi WildMenu term=none
+    hi WarningMsg term=none
+    hi Question term=none
 
     if bg == "light"
-        doautocmd User BgLightPre
+        set background=light
+        colorscheme PaperColor
+        
+        hi! underlined cterm=underline
+        hi! CursorLineNr ctermfg=241 ctermbg=none
+        hi! LineNr ctermfg=249 ctermbg=none
+        hi! SignColumn ctermfg=none ctermbg=none
+        hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
+        hi! NonText ctermfg=254 cterm=none term=none
+        hi! IncSearch cterm=none ctermfg=238 ctermbg=220
+        hi! Cursor ctermbg=0 ctermfg=15
+        hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
     else
-        doautocmd User BgDarkPre
-    endif
+        set background=dark
+        colorscheme flattown
 
-    execute "set background=" . bg
-    execute "colorscheme " . g:colorscheme
-
-    doautocmd User BgBasePost
-
-    if bg == "light"
-        doautocmd User BgLightPost
-    else
-        doautocmd User BgDarkPost
+        hi! underlined cterm=underline
+        hi! CursorLineNr ctermfg=241 ctermbg=none
+        hi! LineNr ctermfg=249 ctermbg=none
+        hi! SignColumn ctermfg=none ctermbg=none
+        hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
+        hi! NonText ctermfg=238 cterm=none term=none
+        hi! IncSearch cterm=none ctermfg=238 ctermbg=1
+        hi! Cursor ctermbg=0 ctermfg=1
+        hi! PmenuSel ctermbg=136 ctermfg=255 cterm=bold
     endif
 endfu!
 
@@ -649,39 +617,6 @@ noh
 nnoremap <Leader>e :e!<Space>
 nnoremap <Leader>ft :set filetype=
 
-function! GoogleSearch()
-    let query = input('Google: ')
-
-    python <<EOF
-import urllib
-import vim
-
-query = vim.eval('l:query')
-vim.command("let l:query_encoded = '%s'" % urllib.quote_plus(query))
-EOF
-
-    call vimproc#system('i3-msg "workspace q"')
-    call vimproc#system('firefox https://google.ru/search?q=' . l:query_encoded)
-endfunction!
-
-nnoremap <silent> <Leader><Leader>g :call GoogleSearch()<CR>
-
-function! FuncSnippet()
-    python <<CODE
-vim.command('let l:snippet = "%s"' % px.go.get_complete_func_snippet())
-CODE
-
-    execute "normal S|"
-    let l:indenting = substitute(getline('.'), '|', '', '')
-    normal S
-
-    call UltiSnips#Anon(l:indenting . l:snippet)
-    return ''
-endfunction!
-
-vmap ) S)i
-
-inoremap <C-E> <ESC>:call FuncSnippet()<CR>
 nmap <Tab> /
 
 let @l="f(ak$%i,%"
