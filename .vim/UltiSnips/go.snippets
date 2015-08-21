@@ -51,3 +51,27 @@ endsnippet
 snippet jd "log.Debug" w
 log.Debug($1)
 endsnippet
+
+snippet doca "docopt.Parse" w
+args, err := docopt.Parse(usage, nil, true, "1.0", false)
+if err != nil {
+	panic(err)
+}
+$0
+endsnippet
+
+snippet (s "(string" i
+(string
+endsnippet
+
+snippet ([]s "([]string" i
+([]string
+endsnippet
+
+snippet (b "(bool" i
+(bool
+endsnippet
+
+snippet (i "(int" i
+(int
+endsnippet
