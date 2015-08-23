@@ -90,31 +90,3 @@ nmap e gt
 " in russian layout
 nmap . /
 
-js <<EOF
-var Vargan = {
-    dir: '~/.vimperator/vargan/',
-    document: function(){ return window.content.wrappedJSObject.document; },
-    host: function() { return window.content.wrappedJSObject.location.host; },
-    init: function() {
-        /*[>alert(11);<]*/
-        /*[>var js = this.getFile(this.dir + this.host() + '.js')<]*/
-        /*var js='console.log("hello");'*/
-        /*var elem = this.document().createElement('script');*/
-        /*elem.innerHTML=js;*/
-        /*[>this.document().head.append("<script>alert(1);</script>");<]*/
-        /*window.content.wrappedJSObject.document.body.innerHTML='aaa';*/
-        /*window.content.wrappedJSObject.document.body.append('bbb');*/
-        /*window.content.wrappedJSObject.document.body.appendChild(elem);*/
-    },
-    getFile: function(path) {
-        var file = io.File(path);
-        if (!file.exists()) {
-            return false;
-        }
-
-        return file.read();
-    }
-}
-EOF
-
-autocmd PageLoad .* js Vargan.init();
