@@ -90,3 +90,49 @@ nmap e gt
 " in russian layout
 nmap . /
 
+js <<EOF
+// dirty hack for removing field without removing defineProperty of statusline.
+delete statusline._statusfields["bookmark"];
+
+statusline.addField(
+    "bookmark",
+    "buffers list instead of bookmark",
+    "liberator-status-bookmark",
+    function updateBookmark(node, delayed) {
+        if (delayed) {
+            window.setTimeout(function(){
+                updateBookmark(node, false);
+            }, 0);
+            return;
+        }
+
+        var buffers = tabs.get();
+
+        var bufs = [];
+        for (i in buffers) {
+            var buffer = buffers[i];
+
+            var number = buffer[0]
+              , title = buffer[1]
+              , url = new URL(buffer[2])
+              , active = tabs.index() == i
+
+            // for about:blank state (tabopen, quickmarks, etc)
+            if (!url.host) {
+                window.setTimeout(function(){
+                    updateBookmark(node, false);
+                }, 0);
+                return;
+            }
+
+            bufs.push(( active ? "[" : "" ) + url.host + ( active ? "]" : "" ));
+        }
+
+        node.value="  |  " + bufs.join(" ");
+    }
+);
+
+statusline.update();
+EOF
+
+set status=location,bookmark
