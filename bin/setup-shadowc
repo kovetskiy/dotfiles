@@ -7,13 +7,14 @@ def main
 Setup shadowc.
 
 Usage:
-    setup-shadowc <target> -s <shadowd> [-l <ssh>] -p <pool> -u <user>...
+    setup-shadowc <target> [-P <port>] -s <shadowd> [-l <ssh>] -p <pool> -u <user>...
     setup-shadowc -h | --help
 
 Options:
     -s <shadowd>    Specify shadowd.
     -l <ssh>        Specify shadowd ssh authorization
     -p <pool>       Specify shadowd pool.
+    -P <port>       Specify target port. [default: 22]
     -u <user>       Specify user which needs shadow entry.
     -k <keydir>     Specify directory for cached public shadowd keys.
                     [default: ~/.shadowd-keys]
@@ -26,7 +27,8 @@ DOCOPT
         puts e.message
     end
 
-    target  = args["<target>"]
+    target_host  = args["<target>"]
+    target_port    = args["-P"]
     shadowd = args["-s"]
     pool    = args["-p"]
     keydir  = File.expand_path(args["-k"])
@@ -46,22 +48,61 @@ DOCOPT
     end
 
     puts "Installing shadowc"
-    ssh(target, "pacman -Sy shadowc")
+    ssh(
+        target_host, target_port,
+        "sudo pacman -Qi shadowc || sudo pacman -Sy shadowc",
+    )
+    if $?.exitstatus != 0
+        puts "can't install shadowc"
+        abort
+    end
+
+    puts "Installing ngs.shadow"
+    ssh(
+        target_host, target_port,
+        "sudo pacman -Qi ngs.shadow || yes | sudo pacman -Sy ngs.shadow"
+    )
+    if $?.exitstatus != 0
+        puts "can't install ngs.shadow"
+        abort
+    end
 
     puts "Copying public key"
-    system "scp "+local_key+" "+target+":/etc/shadowc/cert.pem"
+    system "scp -P"+target_port+" "+local_key+" "+target_host+":/tmp/cert.pem"
+    if $?.exitstatus != 0
+        puts "can't copy certificate"
+        abort
+    end
 
-    cmd = "shadowc -s "+shadowd+" -p "+pool
+    ssh(
+        target_host, target_port,
+        "sudo cp /tmp/cert.pem /etc/shadowc/cert.pem"
+    )
+    if $?.exitstatus != 0
+        puts "can't move certificate"
+        abort
+    end
+
+    cmd = "sudo shadowc -s "+shadowd+" -p "+pool
     users.each do |user|
+        ssh(target_host, target_port, "sudo useradd -m "+user)
+        ssh(target_host, target_port, "sudo usermod -aG wheel "+user)
+
         cmd = cmd+" -u "+user
     end
 
     puts cmd
-    ssh(target, cmd)
+    ssh(target_host, target_port, cmd)
+    if $?.exitstatus != 0
+        puts "shadowc failed"
+        abort
+    end
 end
 
-def ssh(target, cmd)
-    system "ssh "+target+" '"+cmd.gsub(/['"\\\x0]/,'\\\\\0')+"'"
+def ssh(target_host, target_port, cmd)
+    return system(
+        "ssh -p"+target_port+" "+target_host+" '"+cmd.gsub(/['"\\\x0]/,'\\\\\0')+"'"
+    )
 end
 
 main
