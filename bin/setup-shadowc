@@ -44,20 +44,37 @@ DOCOPT
     local_key = File.join(keydir, shadowd+".pem")
 
     if not File.exist?(local_key)
+        puts "copying certificate from shadowd"
         system "scp "+shadowd_ssh+":/var/shadowd/cert/cert.pem "+local_key
     end
 
-    puts "Installing shadowc"
+    puts "checking sudo package"
     ssh(
         target_host, target_port,
-        "sudo pacman -Qi shadowc || sudo pacman -Sy shadowc",
+        "pacman -Qi sudo >/dev/null || yes | pacman -Sy sudo",
+    )
+    if $?.exitstatus != 0
+        puts "can't install sudo"
+        abort
+    end
+
+    puts "installing sudoers.d/wheel"
+    ssh(
+        target_host, target_port,
+        'echo "%wheel ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers.d/wheel',
+    )
+
+    puts "installing shadowc"
+    ssh(
+        target_host, target_port,
+        "sudo pacman -Qi shadowc || yes | sudo pacman -Sy shadowc",
     )
     if $?.exitstatus != 0
         puts "can't install shadowc"
         abort
     end
 
-    puts "Installing ngs.shadow"
+    puts "installing ngs.shadow"
     ssh(
         target_host, target_port,
         "sudo pacman -Qi ngs.shadow || yes | sudo pacman -Sy ngs.shadow"
@@ -67,13 +84,14 @@ DOCOPT
         abort
     end
 
-    puts "Copying public key"
+    puts "copying public key"
     system "scp -P"+target_port+" "+local_key+" "+target_host+":/tmp/cert.pem"
     if $?.exitstatus != 0
         puts "can't copy certificate"
         abort
     end
 
+    puts "moving public key"
     ssh(
         target_host, target_port,
         "sudo cp /tmp/cert.pem /etc/shadowc/cert.pem"
@@ -101,7 +119,7 @@ end
 
 def ssh(target_host, target_port, cmd)
     return system(
-        "ssh -p"+target_port+" "+target_host+" '"+cmd.gsub(/['"\\\x0]/,'\\\\\0')+"'"
+        "ssh -p"+target_port+" "+target_host+" '"+cmd+"'"
     )
 end
 
