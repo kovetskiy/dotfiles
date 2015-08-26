@@ -30,6 +30,7 @@ Plug 'ctrlpvim/ctrlp.vim'
     nnoremap <C-B> :CtrlPBuffer<CR>
     nnoremap <C-P> :CtrlPMixed<CR>
     let g:ctrlp_working_path_mode='ra'
+    let g:ctrlp_use_caching = 0
 
 Plug 'kovetskiy/SearchParty'
     au VimEnter * au! SearchPartySearching
@@ -275,6 +276,25 @@ Plug 'seletskiy/ashium', { 'for': 'diff' }
 
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
+Plug 'mileszs/ack.vim'
+    if executable('ag')
+        let g:ackprg = 'ag --vimgrep'
+    endif
+
+    let g:ack_mappings = {
+          \ "o": "<CR>",
+          \ "O": "<CR><C-W><C-W>:ccl<CR>",
+          \ "go": "<CR><C-W>j",
+          \ "h": "<C-W><CR><C-W>K",
+          \ "H": "<C-W><CR><C-W>K<C-W>b",
+          \ "v": "<C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t",
+          \ "gv": "<C-W><CR><C-W>H<C-W>b<C-W>J"
+      \ }
+    let g:ackhighlight=1
+    nnoremap <C-G> :Ack<Space>
+
+
+
 call plug#end()
 
 syntax on
@@ -433,8 +453,9 @@ nnoremap g, '<
 
 nnoremap <Leader>vs :vsp<CR>
 
-nnoremap <Leader>l :cN<CR>
-nnoremap <Leader>; :cn<CR>
+nnoremap <C-M> :cN<CR>
+nnoremap <C-F> :cn<CR>
+nnoremap <C-T> :cclose<CR>
 nnoremap <Leader>e :e!<Space>
 
 nnoremap <Leader>r :w<CR>
