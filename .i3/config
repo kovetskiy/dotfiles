@@ -119,6 +119,7 @@ workspace 2 output $rightM # terminal
 workspace 3 output $rightM # terminal
 
 workspace q output $leftM # firefox
+workspace d output $leftM # firefox
 workspace w output $leftM # terminal
 workspace e output $leftM # email
 
