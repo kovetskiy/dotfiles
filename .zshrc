@@ -336,12 +336,11 @@ function github-fix-host() {
         name="origin"
     fi
 
-    remote_info=$(git remote show $name)
+    remote_info=$(git remote show -n $name)
     remote_url=$(awk '/Fetch URL:/{print $3}' <<< "$remote_info")
-    remote_host=$(cut -d/ -f3 <<< "$remote_url")
-    remote_host=$(sed 's/\@/\\@/' <<< "$remote_host")
-    new_url=$(sed "s/$remote_host/github.com/" <<< "$remote_url")
-    git remote set-url $name $new_url
+    url=$(echo "$remote_url" | sed 's/.*github\.com./github.com\//' | sed 's/\.git$//')
+    url="ssh://git@$url.git"
+    git remote set-url $name $url
 }
 
 function goget() {
