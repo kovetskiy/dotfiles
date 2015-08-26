@@ -26,84 +26,10 @@ call plug#begin('~/.vim/bundle')
 
 let g:py_modules = []
 
-Plug 'Shougo/vimproc.vim'
-
-Plug 'Shougo/unite.vim'
-    let g:unite_split_rule = "botright"
-    let g:unite_force_overwrite_statusline = 0
-    let g:unite_enable_start_insert = 1
-
-    let g:unite_source_history_yank_enable = 1
-    let g:unite_source_history_yank_limit = 10000
-    let g:unite_source_history_yank_file=expand('~'). "/.vim/tmp/yank"
-
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts =
-        \ '--nocolor --nogroup --hidden --ignore-dir vendor/cache ' .
-        \ '--ignore-dir .git --ignore *.log --ignore *.bundle.* ' .
-        \ '--ignore-dir .jhw-cache'
-    let g:unite_source_grep_recursive_opt = ''
-
-    au VimEnter * call unite#custom#source(
-        \ 'file,file/new,buffer,file_rec,file_rec/async,'
-        \  . 'git_cached,git_untracked,directory',
-        \ 'matchers', 'matcher_fuzzy'
-    \ )
-
-    au VimEnter * call unite#custom#default_action(
-        \ 'directory', 'cd'
-    \ )
-
-    au VimEnter * call unite#filters#sorter_default#use(['sorter_selecta'])
-
-    au VimEnter * call unite#custom#source(
-        \ 'file,file_rec,file_rec/async,git_cached,git_untracked',
-        \ 'ignore_globs',
-        \ split('*.png,*.zip,*.tar,*.gz,*.jpg,*.jpeg,*.chunks,*.gif', ',')
-    \ )
-
-
-    au VimEnter * call unite#custom#source(
-        \ 'file_rec', 'converters', 'converter_relative_word'
-    \ )
-
-    function! s:unite_my_settings()
-        imap <buffer> <C-R> <Plug>(unite_redraw)
-
-        imap <silent><buffer><expr> <C-T> unite#do_action('split')
-        imap <silent><buffer><expr> <C-V> unite#do_action('vsplit')
-        call unite#custom#alias('ash_review', 'split', 'ls')
-
-        nnoremap <buffer> <F1> :UniteClose<CR>
-        inoremap <buffer> <F1> <ESC>:UniteClose<CR>
-
-        nnoremap <buffer> <ESC> :UniteClose<CR>
-
-        imap <buffer> <C-P> <CR>:call CtrlP()<ESC>
-
-        " such unite
-        nnoremap <buffer> S :call unite#mappings#narrowing('')<CR>
-    endfunction
-
-    augroup unite_setting
-        au!
-
-        au FileType unite call s:unite_my_settings()
-    augroup end
-
-    function! CtrlP()
-        Unite -hide-source-names buffer file_rec
-    endfunction!
-
-    nnoremap <C-E><C-R> :UniteResume<CR>
-    nnoremap <C-E><C-G> :Unite -hide-source-names grep:.<CR>
-
-    nnoremap <C-E><C-E><C-V> :cd ~/.vim/bundle/<CR>:call CtrlP()<CR>
-    nnoremap <C-E><C-E><C-G> :cd ~/go/src/<CR>:call CtrlP()<CR>
-
-    nnoremap <C-B> :Unite -hide-source-names buffer<CR>
-    nnoremap <C-P> :call CtrlP()<CR>
-    nnoremap <C-Y> :Unite -hide-source-names history/yank<CR>
+Plug 'ctrlpvim/ctrlp.vim'
+    nnoremap <C-B> :CtrlPBuffer<CR>
+    nnoremap <C-P> :CtrlPMixed<CR>
+    let g:ctrlp_working_path_mode='ra'
 
 Plug 'kovetskiy/SearchParty'
     au VimEnter * au! SearchPartySearching
@@ -177,8 +103,6 @@ Plug 'seletskiy/ultisnips', { 'branch': 'autotrigger' }
 Plug 'reconquest/snippets', { 'for': ['php', 'go', 'ruby', 'python']}
 
 Plug 'tpope/vim-surround'
-
-Plug 'yuku-t/unite-git'
 
 Plug 'joonty/vim-phpqa', { 'for': 'php' }
     let g:phpqa_php_cmd='php'
@@ -312,7 +236,7 @@ Plug 'kovetskiy/vim-ski'
 
 Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
-        \ 'vim', 'unite', 'diff'
+        \ 'vim', 'diff'
     \ ]
 
     function! MyWhitespaceFix()
