@@ -1,4 +1,4 @@
-export PATH="$HOME/bin/:$HOME/go/bin/:/opt/go/bin/:$PATH"
+export PATH="$(ruby -e 'print Gem.user_dir')/bin:$HOME/bin/:$HOME/private/bin/:$HOME/go/bin/:$PATH"
 export TERM=rxvt-unicode-256color
 
 if [ "$TMUX" ]; then

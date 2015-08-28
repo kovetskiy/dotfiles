@@ -2,7 +2,7 @@
 
 exec 2>&1 >/dev/null
 
-export PATH=$HOME/bin/:$HOME/private/bin/:$HOME/go/bin/:$PATH
+export PATH="$(ruby -e 'print Gem.user_dir')/bin:$HOME/bin/:$HOME/private/bin/:$HOME/go/bin/:$PATH"
 export SHELL=/usr/bin/zsh
 export TERMINAL=urxvt
 export EDITOR=/usr/bin/vim
@@ -11,6 +11,9 @@ export LC_ALL=en_US.UTF-8
 
 export PROFILE="$(cat $HOME/profile)"
 export BACKGROUND="$(cat $HOME/background)"
+
+
+
 
 xrandr \
     --output VGA-0  --mode 1920x1080 --pos 1920x0 \
