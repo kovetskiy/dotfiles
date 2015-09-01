@@ -15,3 +15,7 @@ snippet }e "else" w
 	$1
 }
 endsnippet
+
+snippet pr "syslog" w
+syslog(LOG_ERR, "[pam_eye] `!p snip.rv=str(vim.current.window.cursor[0])`");
+endsnippet
