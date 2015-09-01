@@ -172,6 +172,7 @@ function apkg() {
 alias e='exec startx'
 alias aur='yes | EDITOR=cat yaourt '
 alias p='sudo pacman'
+alias pmr='sudo pacman -R'
 alias pq='sudo pacman -Q'
 alias pql='sudo pacman -Ql'
 alias pqo='sudo pacman -Qo'
