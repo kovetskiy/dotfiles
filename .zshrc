@@ -278,6 +278,14 @@ alias pkgverupdate='sed -i "s/pkgver\=.*/pkgver=$(git rev-list --count master).$
 alias a='alias'
 
 alias sc='sudo systemctl'
+alias mc='sudo machinectl'
+alias mcp='sudo machinectl poweroff'
+alias mcs='sudo machinectl start'
+alias mcl='sudo machinectl list'
+alias mch='sudo systemd-nspawn --machine=testing --directory=$HOME/container'
+function mcc() {
+    sudo cp -r $1 ~/container/$2
+}
 
 alias rto='rtorrent "$(/bin/ls -c ~/Downloads/*rutracker* | tail -n 1)"'
 
