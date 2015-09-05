@@ -1,6 +1,7 @@
 #!/bin/bash
 
-exec 2>&1 >/dev/null
+sleep 1
+exec >> /home/vxw/.reconfig 2>&1
 
 # udevd doesn't know about env variables
 HOME=${HOME:-/home/vxw}
