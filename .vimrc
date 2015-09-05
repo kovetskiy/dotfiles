@@ -82,7 +82,7 @@ Plug 'seletskiy/matchem'
     let g:UltiSnipsJumpForwardTrigger="<C-J>"
     let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 
-Plug 'seletskiy/ultisnips', { 'branch': 'autotrigger' }
+Plug 'kovetskiy/ultisnips'
     let g:UltiSnipsSnippetDirectories = [
     \     $HOME . '/.vim/UltiSnips/',
     \     $HOME . '/.vim/bundle/snippets/'
@@ -147,9 +147,9 @@ Plug 'seletskiy/vim-over'
 
     au User OverCmdLineExecute call searchparty#mash#mash()
 
-    let g:over_command_line_key_mappings={
-        \ "\<Space>": "."
-    \ }
+    "let g:over_command_line_key_mappings={
+        "\ "\<Space>": "."
+    "\ }
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     augroup filetype_markdown
@@ -266,7 +266,7 @@ Plug 'NLKNguyen/papercolor-theme'
 
 Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
 
-Plug 'seletskiy/ashium', { 'for': 'diff' }
+Plug 'seletskiy/ashium'
 
 "Plug 'klen/python-mode'
     "let g:pymode_lint = 0
