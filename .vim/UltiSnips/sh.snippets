@@ -40,7 +40,7 @@ echo $1
 endsnippet
 
 snippet pr "pr" bw
-echo '`!p snip.rv=t[1]`: '$1
+echo `!p snip.rv=os.path.basename(vim.current.buffer.name)`:`!p snip.rv=str(vim.current.window.cursor[0])` '`!p snip.rv=t[1]`: ['$1']'
 endsnippet
 
 snippet nc "Description" w
@@ -70,3 +70,4 @@ endsnippet
 snippet tt "tests_tmpdir" w
 \`tests_tmpdir\`$0
 endsnippet
+
