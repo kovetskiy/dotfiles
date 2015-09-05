@@ -13,11 +13,9 @@ export PROFILE="$(cat $HOME/profile)"
 export BACKGROUND="$(cat $HOME/background)"
 
 
-
-
 xrandr \
-    --output VGA-0  --mode 1920x1080 --pos 1920x0 \
-    --output HDMI-0 --mode 1920x1080 --pos 0x0 &
+    --output VGA1  --mode 1920x1080 --pos 1920x0 \
+    --output HDMI1 --mode 1920x1080 --pos 0x0 &
 
 reconfig-kbd &
 
