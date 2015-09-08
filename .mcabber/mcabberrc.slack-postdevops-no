@@ -1,0 +1,10 @@
+alias ge = roster search golang@
+alias ss = roster search selets
+alias th = roster search theairk
+
+set autojoin = general@conference.postdevops-no.xmpp.slack.com
+
+set statefile = ~/.mcabber/state/slack-postdevops-no
+set logging_dir = ~/.mcabber/history/slack-postdevops-no/
+
+set fifo_name = ~/.mcabber/fifo/slack-postdevops-no

@@ -8,8 +8,12 @@ if [[ "$account" == "o" ]]; then
     account="office"
 fi
 
-if [[ "$account" == "s" ]]; then
-    account="slack"
+if [[ "$account" == "n" ]]; then
+    account="slack-ngs-team"
+fi
+
+if [[ "$account" == "p" ]]; then
+    account="slack-postdevops-no"
 fi
 
 config="$(
