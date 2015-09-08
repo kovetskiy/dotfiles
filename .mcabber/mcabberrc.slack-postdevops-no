@@ -1,4 +1,5 @@
-alias ge = roster search golang@
+alias ge = roster search general@
+alias ep = roster search persi
 alias ss = roster search selets
 alias th = roster search theairk
 
