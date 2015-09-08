@@ -1,0 +1,13 @@
+#!/bin/bash
+
+mkdir ~/xorg.leak/
+
+oldres=
+while :; do
+    top="$(top -p `pidof Xorg` -b -n 1 | grep Xorg)"
+    res="$(echo $top | awk '{print $6}' | sed 's/m//')"
+    if [[ "$res" != "$oldres" ]]; then
+        oldres=$res
+        ps fuxa > ~/xorg.leak/$res
+    fi
+done
