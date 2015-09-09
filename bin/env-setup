@@ -14,8 +14,8 @@ export BACKGROUND="$(cat $HOME/background)"
 
 
 xrandr \
-    --output VGA1  --mode 1920x1080 --pos 1920x0 \
-    --output HDMI1 --mode 1920x1080 --pos 0x0 &
+    --output VGA-0 --mode 1920x1080 --pos 1920x0 --rotate normal \
+    --output HDMI-0 --mode 1920x1080 --pos 0x0 --rotate normal &
 
 reconfig-kbd &
 
@@ -35,6 +35,8 @@ fi
 xset dpms 0 0 0
 xset s off
 xset -b
+xset +fp ~/.fonts
+xset fp rehash
 
 xrdb -load ~/.Xresources
 background $BACKGROUND &
