@@ -257,8 +257,7 @@ Plug 'kovetskiy/vim-go-utils', { 'for': 'go' }
 
 Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
 
-"Plug 'blerins/flattown'
-    "au User BgDarkPre let g:colorscheme='flattown'
+Plug 'blerins/flattown'
 
 Plug 'kovetskiy/kb-train', { 'on': 'Train' }
 
