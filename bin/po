@@ -15,3 +15,5 @@ for file in `git ls-files`; do
         fi
     fi
 done
+
+go vet
