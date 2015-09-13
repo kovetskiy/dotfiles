@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ ! -f ~/.godoc ]; then
+    grep -R '^package ' /usr/lib/go/src/ | grep -v '_test$' | \
+        sed 's@/usr/lib/go/src/@@g' | cut -d: -f1 | \
+        sed 's@/[0-9a-z_]*\.go$@@g' | grep -v '\.' | grep -v 'internal' | \
+        sort | uniq > ~/.godoc
+fi
+
+/usr/bin/godoc $(cat ~/.godoc | fzf) | less
