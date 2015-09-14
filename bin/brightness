@@ -1,13 +1,20 @@
 #!/bin/bash
 
-SYS=/sys/class/backlight/acpi_video0
-CUR=$(cat $SYS/brightness)
-STEP=1
+if [ "$PROFILE" == "laptop" ]; then
+    dir=/sys/class/backlight/intel_backlight
+    step=50
+else
+    dir=/sys/class/backlight/acpi_video0
+    step=1
+fi
+
+path=$dir/brightness
+value=$(cat $path)
 
 if [ $# -eq 0 ]; then
-	echo $CUR
+	echo $value
 elif [ $1 == "up" ]; then
-	echo $(($CUR+$STEP)) > $SYS/brightness
+	echo $(($value+$step)) | sudo tee $dir/brightness
 elif [ $1 == "down" ]; then
-	echo $(($CUR-$STEP)) > $SYS/brightness
+	echo $(($value-$step)) | sudo tee $dir/brightness
 fi

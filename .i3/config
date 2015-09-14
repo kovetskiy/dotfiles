@@ -95,8 +95,8 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $alt+Ctrl+a exec "sudo ~/bin/brightness down"
-bindsym $alt+Ctrl+q exec "sudo ~/bin/brightness up"
+bindsym $alt+Ctrl+a exec "brightness down"
+bindsym $alt+Ctrl+q exec "brightness up"
 bindsym $alt+b exec "xsel -op | xsel -ib"
 
 bindsym $alt+Ctrl+r mode "resize"
