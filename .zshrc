@@ -65,6 +65,8 @@ promptinit
 
 if [[ "$PROFILE" == "home" ]]; then
     prompt lambda17 white black ω
+elif [[ "$PROFILE" == "laptop" ]]; then
+    prompt lambda17 red black ω
 else
     prompt lambda17
 fi
