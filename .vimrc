@@ -276,7 +276,7 @@ Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
 Plug 'mileszs/ack.vim'
     if executable('ag')
-        let g:ackprg = 'ag --vimgrep'
+        let g:ackprg = 'ag --vimgrep -- '
     endif
 
     let g:ack_mappings = {
@@ -292,6 +292,7 @@ Plug 'mileszs/ack.vim'
     nnoremap <C-G> :Ack<Space>
 
 
+Plug 'yssl/QFEnter'
 
 call plug#end()
 
@@ -525,7 +526,7 @@ fu! SetBg(bg)
     if bg == "light"
         set background=light
         colorscheme PaperColor
-        
+
         hi! underlined cterm=underline
         hi! CursorLineNr ctermfg=241 ctermbg=none
         hi! LineNr ctermfg=249 ctermbg=none
