@@ -20,7 +20,7 @@ function install {
     exit 1
   else
     echo "Retrieving package-query ..."
-    curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
+    curl -O -v https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
     echo "Uncompressing package-query ..."
     tar zxvf package-query.tar.gz
     cd package-query
@@ -28,7 +28,8 @@ function install {
     makepkg -si --noconfirm
     cd ..
     echo "Retrieving yaourt ..."
-    curl -O https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
+    curl -O -v https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz
+    echo "Uncompressing package-query ..."
     echo "Uncompressing yaourt ..."
     tar zxvf yaourt.tar.gz
     cd yaourt
