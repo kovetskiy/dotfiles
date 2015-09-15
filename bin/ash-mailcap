@@ -1,0 +1,13 @@
+#!/bin/bash
+set -eu
+
+getopts :x: _
+file="$(echo $OPTARG | sed "s/muttview //g" | tr -d "'")"
+hash="$(md5sum $file | cut -d' ' -f1)"
+cache="/tmp/cache_$hash"
+
+if [[ -f "$cache" ]]; then
+    cat $cache
+else
+    /usr/bin/ash-mailcap "$@" | tee $cache
+fi
