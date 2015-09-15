@@ -36,6 +36,7 @@ POINTS=(
     ".vimperator"
     ".tmux.conf"
     ".yaourtrc"
+    ".toprc"
 )
 
 for POINT in "${POINTS[@]}"; do
