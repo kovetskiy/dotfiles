@@ -2,9 +2,5 @@ image/gif;ffplay %s;
 image/png;feh %s;
 image/jpg;feh %s;
 image/jpeg;feh %s;
-text/html;ash-mailcap \
-               -x "firefox %s" %s;
-text/html;ash-mailcap \
-               -x "muttview %s" \
-               -t /usr/share/ash-mailcap-autoview/editor %s; \
-               copiousoutput
+text/html;ash-mailcap -x "firefox %s" %s;
+text/html;ash-mailcap -x "muttview %s" -t /usr/share/ash-mailcap-autoview/editor %s; copiousoutput
