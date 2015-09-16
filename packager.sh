@@ -11,10 +11,10 @@ yaourt -Sy
 for package in `cat packages`; do
     echo checking package $package...
     installed=$(pacman -Qi $package)
-    if [[ "$1" -ne "-f" ]];then 
     if [ $? -ne 0 ]; then
-        echo installing package $package...
-        install $package
+        if [[ "$1" -ne "-f" ]];then
+            echo installing package $package...
+            install $package
+        fi
     fi
-fi
 done
