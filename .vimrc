@@ -355,6 +355,7 @@ set pastetoggle=<F11>
 set nofoldenable
 set noequalalways
 set winminheight=0
+set clipboard=unnamed
 
 set tags=tags;/
 
