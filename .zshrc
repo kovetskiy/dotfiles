@@ -197,6 +197,9 @@ alias sls='ls'
 alias sl='ls'
 alias vi='vim'
 alias viz='vim ~/.zshrc'
+function vims() {
+    vim -O $1 $2 +"wincmd l|lcd %:p:h|wincmd h|lcd %:p:h"
+}
 alias rf='rm -rf' # like russiahhhhh
 alias ..='cd ..'
 alias ...='cd ../..'
