@@ -66,6 +66,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
     let g:go_fmt_command = "goimports"
     let g:go_fmt_autosave = 1
     let g:go_bin_path = $GOPATH . "/bin"
+    "let g:go_vet_autosave = 1
 
     au filetype_go FileType go nmap <buffer> <Leader>f :GoFmt<CR>:w<CR>
     au filetype_go FileType go nmap <buffer> <Leader>h :GoDoc<CR>
@@ -289,7 +290,7 @@ Plug 'mileszs/ack.vim'
           \ "gv": "<C-W><CR><C-W>H<C-W>b<C-W>J"
       \ }
     let g:ackhighlight=1
-    nnoremap <C-G> :Ack<Space>
+    nnoremap <C-E><C-G> :Ack<Space>''<Left>
 
 
 Plug 'yssl/QFEnter'
@@ -423,6 +424,7 @@ au filetype_php FileType php hi! def link phpDocParam phpType
 imap <C-F> t<TAB>.
 
 nnoremap <C-E><C-D> :cd %:p:h<CR>:pwd<CR>
+nnoremap <C-E><C-F> :lcd %:p:h<CR>:pwd<CR>
 
 nnoremap O O<Left><Right>
 nnoremap o o<Left><Right>
