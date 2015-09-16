@@ -3,76 +3,6 @@ command! -nargs=1 Plug source ~/.vimperator/bundle/<args>.js
 Plug auto_reload
 Plug cookieManager
 
-set hintchars=qweasdiopjkl
-set gui=none
-
-set editor="sh -c 'i3-msg workspace 1 ; vim --remote-tab-wait-silent $0 ; i3-msg workspace back_and_forth'"
-set cpt=l
-set showstatuslinks=2
-set hto=170
-
-" try to stay in normal mode after page loading
-set focuscontent
-
-set! javascript.options.jit.chrome=true
-
-let mapleader=","
-
-hi CompResult -append font-family: Monaco; font-size: 12px;
-hi CompDesc -append font-family: Monaco; font-size: 12px;
-hi CmdLine>* font-family: Monaco; font-size: 12px;
-hi StatusLine -append font-family: Monaco; font-size: 12px;
-hi Hint font-size: 12px; font-weight: bold; text-transform: uppercase; color: white; background-color: red; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px; font-family: Monaco
-
-nmap g :tabopen http://google.ru/search?q=
-
-nmap x :tabopen http://slovari.yandex.ru/
-
-nmap mg O<Home>tab<Right><Right><Right><Right><Right>http://snob.s/hsd:rn:ngs:engineers/<End>
-
-" no macros
-nmap q <ESC>
-
-nmap s :tabopen<space>
-nmap b :buffer<space>
-
-nnoremap j 5j
-nnoremap k 5k
-nnoremap ee :buffer<space>
-nnoremap % :source ~/.vimperatorrc<CR>:echomsg "Great success!"<CR>
-
-nmap <C-P> :set apptab=true<CR>:echomsg "Pinned"<CR>
-nmap <C-N> :set apptab=false<CR>:echomsg "Unpinned"<CR>
-
-map U gT
-map I gt
-
-# squirt.io
-nmap <C-T> :open javascript:(function(){sq=window.sq=window.sq||{};if(sq.script){sq.again();}else{sq.bookmarkletVersion='0.3.0';sq.iframeQueryParams={host:'//squirt.io',userId:'dc2f358c-bffc-4a6f-ba50-054f6b9b3b0c',};sq.script=document.createElement('script');sq.script.src=sq.iframeQueryParams.host+'/bookmarklet/frame.outer.js';document.body.appendChild(sq.script);}})();<CR>
-
-vmap c <ESC><ESC>c
-imap jk <ESC>
-nmap v cv
-
-// ctrl + shift + ]
-imap <C-}> <C-I>
-
-inoremap <C-]> <Ins><C-a><Ins><C-I>
-
-inoremap <C-a> <Ins><C-a><Ins>
-
-nmap `` :!jira-now<CR><ESC>
-
-map m1 :buffer 1<CR>
-map m2 :buffer 2<CR>
-map m3 :buffer 3<CR>
-map m4 :buffer 4<CR>
-map m5 :buffer 5<CR>
-map m6 :buffer 6<CR>
-map m7 :buffer 7<CR>
-map m8 :buffer 8<CR>
-map m9 :buffer 9<CR>
-
 qmark h http://news.ycombinator.com/
 qmark g http://github.com/
 qmark u http://uprt.slack.com/
@@ -82,10 +12,74 @@ qmark d https://rdot.org/forum/
 qmark s https://ngs-team.slack.com/messages/devops
 qmark r https://forum.reverse4you.org/
 
+nmap g :tabopen http://google.ru/search?q=
+nmap x :tabopen http://slovari.yandex.ru/
+
 command! Wipe js tabs.remove(tabs.getTab(0), tabs.count, 0, 0, false)
 
+hi CompResult -append font-family: Monaco; font-size: 12px;
+hi CompDesc -append font-family: Monaco; font-size: 12px;
+hi CmdLine>* font-family: Monaco; font-size: 12px;
+hi StatusLine -append font-family: Monaco; font-size: 12px;
+hi Hint font-size: 12px; font-weight: bold; text-transform: uppercase; color: white; background-color: red; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px; font-family: Monaco
+
+set hintchars=qweasdiopjkl
+set gui=none
+
+set editor="sh -c 'i3-msg workspace 1 ; vim --remote-tab-wait-silent $0 ; i3-msg workspace back_and_forth'"
+set cpt=l
+set showstatuslinks=2
+set hto=170
+set focuscontent
+
+nmap mg O<Home>tab<Right><Right><Right><Right><Right>http://snob.s/hsd:rn:ngs:engineers/<End>
+
+nmap q <ESC>
+nmap s :tabopen<space>
+nmap b :buffer<space>
+nnoremap j 5j
+nnoremap k 5k
+nnoremap ee :buffer<space>
+nnoremap % :source ~/.vimperatorrc<CR>:echomsg "Great success!"<CR>
+nmap <C-P> :set apptab=true<CR>:echomsg "Pinned"<CR>
+nmap <C-N> :set apptab=false<CR>:echomsg "Unpinned"<CR>
+vmap c <ESC><ESC>c
+imap jk <ESC>
+nmap v cv
+imap <C-}> <C-I>
+inoremap <C-]> <Ins><C-a><Ins><C-I>
+inoremap <C-a> <Ins><C-a><Ins>
+
+map U gT
+map I gt
 nmap w gT
 nmap e gt
-
-" in russian layout
 nmap . /
+
+" no more google tracking
+set! breakpad.reportURL=""
+set! browser.safebrowsing.appRepURL=""
+set! browser.safebrowsing.debug=false
+set! browser.safebrowsing.downloads.enabled=false
+set! browser.safebrowsing.downloads.remote.enabled=false
+set! browser.safebrowsing.enabled=false
+set! browser.safebrowsing.gethashURL=""
+set! browser.safebrowsing.malware.enabled=false
+set! browser.safebrowsing.malware.reportURL=""
+set! browser.safebrowsing.reportErrorURL=""
+set! browser.safebrowsing.reportGenericURL=""
+set! browser.safebrowsing.reportMalwareErrorURL=""
+set! browser.safebrowsing.reportMalwareURL=""
+set! browser.safebrowsing.reportPhishURL=""
+set! browser.safebrowsing.reportURL=""
+set! browser.safebrowsing.updateURL=""
+set! browser.send_pings.require_same_host=true
+set! browser.send_pings=false
+
+set! javascript.options.jit.chrome=true
+
+" do not nag 'Remember password?'
+set! signon.rememberSignons=false
+
+" do not close firefox with last window
+set! browser.tabs.closeWindowWithLastTab=false
