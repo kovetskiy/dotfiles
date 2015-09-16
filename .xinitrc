@@ -1,6 +1,6 @@
 #!/bin/sh
 
-~/bin/env-setup &
+~/bin/env-setup
 
-slock
+( sleep 0.1; xtrlock -b ) &
 i3

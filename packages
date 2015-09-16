@@ -24,7 +24,7 @@ redshift
 dunst
 feh
 libnotify
-slock
+xtrlock
 mcabber
 mutt
 wget
@@ -75,3 +75,4 @@ sox
 imagemagick
 mcabber-module-slack-completion
 xlogin-git
+abs

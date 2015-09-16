@@ -15,7 +15,7 @@ mplayer_cmd(){
 mcabber_cmd "/status away"
 mplayer_cmd "pause"
 
-slock
+xtrlock -b
 
 mcabber_cmd "/status online"
 mplayer_cmd "pause"

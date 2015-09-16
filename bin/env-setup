@@ -15,9 +15,9 @@ export BACKGROUND="$(cat $HOME/background)"
 
 xrandr \
     --output VGA-0 --mode 1920x1080 --pos 1920x0 --rotate normal \
-    --output HDMI-0 --mode 1920x1080 --pos 0x0 --rotate normal &
+    --output HDMI-0 --mode 1920x1080 --pos 0x0 --rotate normal
 
-reconfig-kbd &
+reconfig-kbd
 
 if [[ "$PROFILE" == "home" ]]; then
     if [ -z `pidof charge` ]; then
@@ -39,6 +39,4 @@ xset +fp ~/.fonts
 xset fp rehash
 
 xrdb -load ~/.Xresources
-background $BACKGROUND &
-
-disown
+background $BACKGROUND
