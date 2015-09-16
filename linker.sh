@@ -3,7 +3,6 @@
 POINTS=(
     "bin"
     ".config/dunst"
-    ".config/redshift.conf"
     ".config/fontconfig"
     ".dircolors.dark"
     ".dircolors.light"

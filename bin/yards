@@ -1,0 +1,3 @@
+#!/bin/bash
+
+dig @dn.s -p53000 s axfr | egrep '^\w+.yard.s'

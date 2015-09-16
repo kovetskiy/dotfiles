@@ -1,0 +1,4 @@
+#!/bin/bash
+pkg="$1"
+scp $pkg root@repo.s:/tmp/
+ssh root@repo.s "repos -AC -e latest arch-ngs /tmp/$pkg"
