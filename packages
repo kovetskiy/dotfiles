@@ -25,7 +25,8 @@ dunst
 feh
 libnotify
 xtrlock
-mcabber
+loudmouth-ossl
+mcabber-crew-hg-extended
 mutt
 wget
 lshw
@@ -76,3 +77,6 @@ imagemagick
 mcabber-module-slack-completion
 xlogin-git
 abs
+xorg-xinput
+go-makepkg
+ash
