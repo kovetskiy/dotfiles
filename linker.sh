@@ -19,6 +19,7 @@ POINTS=(
     ".vim/UltiSnips"
     ".vim/skeletons"
     ".vimperatorrc"
+    ".lvimrc"
     ".vimrc"
     ".Xresources"
     ".Xresources.dark"
