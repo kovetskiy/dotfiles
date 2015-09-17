@@ -16,7 +16,7 @@ set certificate_file=~/.mutt/certificates
 set pager_stop=yes
 set mime_forward=yes
 set mime_forward_rest=yes
-set pager_index_lines=30
+set pager_index_lines=10
 
 alternative_order text/plain text/html
 auto_view text/html text/calendar
