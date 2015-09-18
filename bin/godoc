@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ $# -ne 0  ]; then
+    exec /usr/bin/godoc ${@} | less
+    exit 0
+fi
+
 if [ ! -f ~/.godoc ]; then
     grep -R '^package ' /usr/lib/go/src/ | grep -v '_test$' | \
         sed 's@/usr/lib/go/src/@@g' | cut -d: -f1 | \
@@ -7,4 +12,4 @@ if [ ! -f ~/.godoc ]; then
         sort | uniq > ~/.godoc
 fi
 
-/usr/bin/godoc $(cat ~/.godoc | fzf) | less
+exec /usr/bin/godoc $(cat ~/.godoc | fzf) | less
