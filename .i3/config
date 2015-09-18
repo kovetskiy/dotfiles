@@ -111,7 +111,7 @@ bindsym $alt+Ctrl+e  exec ~/bin/engrus
 bindsym $alt+g       exec ~/bin/decl
 bindsym Ctrl+F12     exec reconfig-kbd
 
-set $left HDMI-0
+set $left DVI-0
 set $right VGA-0
 
 workspace 1 output $left # VIM
