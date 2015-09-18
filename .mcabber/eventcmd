@@ -2,22 +2,26 @@
 
 echo "${@}" >> /tmp/mcabber.log
 
-TIMEOUT=0.05
-BLINKS=5
+timeout=0.05
+blinks=5
 
 led_on()  { xset led named "Scroll Lock" ; }
 led_off() { xset -led named "Scroll Lock" ; }
 lock()    { exec 200<$0 ; flock 200 || exit 1 ; }
 
-if [ "$1" == "UNREAD" ]; then
-    if [ ${2%% *} -gt 0 ]; then
+action="$1"
+data="$2"
+
+if [ "$action" == "UNREAD" ]; then
+    count="$(cut -d' ' -f4 <<< "$data")"
+    if [ ${count%% *} -gt 0 ]; then
         lock
-        for i in `seq 1 $BLINKS`; do
-            led_on  ; sleep $TIMEOUT
-            led_off ; sleep $TIMEOUT
+        for i in `seq 1 $blinks`; do
+            led_on  ; sleep $timeout
+            led_off ; sleep $timeout
         done
         led_on
-#        notify-send -u normal -t 1000 "mcabber" "new message"
+        notify-send -u critical -t 1000 "mcabber" "new message"
     else
         lock
         led_off
