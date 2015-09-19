@@ -6,6 +6,7 @@ case "$1" in
         ;;
     "office" )
         echo "nameserver 192.168.20.2" > /etc/resolv.conf
+        echo "nameserver 192.168.21.100" >> /etc/resolv.conf
         echo "search cname.s" >> /etc/resolv.conf
 
         ip a | grep ppp0 -q
