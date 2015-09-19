@@ -73,9 +73,6 @@ fi
 
 bindkey -v '^K' add-params
 
-alias scd="fastcd ~/sources/ 1"
-alias vicd="fastcd ~/.vim/bundle/ 1"
-alias gocd="fastcd $GOPATH/src/ 3"
 
 hash -d dotfiles=~/sources/dotfiles/
 hash -d df=~/sources/dotfiles/
@@ -171,6 +168,13 @@ function ashr() {
 function apkg() {
     echo $@ >> ~/sources/dotfiles/packages
 }
+
+unalias -a
+
+alias scd="fastcd ~/sources/ 1"
+alias vicd="fastcd ~/.vim/bundle/ 1"
+alias gocd="fastcd $GOPATH/src/ 3"
+
 alias e='exec startx'
 alias aur='yes | EDITOR=cat yaourt '
 alias p='sudo pacman'
