@@ -574,3 +574,6 @@ let @t=':%s/\t/    /g:w'
 " no more "Entering Ex mode"
 map Q <nop>
 map K <nop>
+
+nmap <Down> }
+nmap <Up> {

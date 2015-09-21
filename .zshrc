@@ -175,6 +175,8 @@ alias scd="fastcd ~/sources/ 1"
 alias vicd="fastcd ~/.vim/bundle/ 1"
 alias gocd="fastcd $GOPATH/src/ 3"
 
+alias ssh='ssh-urxvt'
+
 alias e='exec startx'
 alias aur='yes | EDITOR=cat yaourt '
 alias p='sudo pacman'

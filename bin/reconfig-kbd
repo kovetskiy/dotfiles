@@ -23,12 +23,11 @@ SYMBOLS=(
 
     "hjkl"
     "hjkl(caret)"
-    "hjkl(rctrl-rshift)"
     "hjkl(fast-enter)"
     "hjkl(fast-escape)"
 
 
-    "capslock(escape)"
+    #"capslock(escape)"
     "altwin(swap_alt_win)"
     #"bksp-last-group"
     #"ralt-first-group"
@@ -46,7 +45,7 @@ setxkbmap \
     -keycodes $KEYCODES \
     -symbols $SYMBOLS \
     -compat $COMPAT \
-    -print | xkbcomp -w 0 - :0
+    -print | xkbcomp -w 0 - $DISPLAY
 
 xset r rate 110 100
 xset -b
