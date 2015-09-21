@@ -70,9 +70,6 @@
     # Set to 0 to disable.
     idle_threshold = 0
 
-    # Which monitor should the notifications be displayed on.
-    monitor = 1
-
     # Display notification on focused monitor. Possible modes are:
     # mouse: follow mouse pointer
     # keyboard: follow window with keyboard focus
@@ -83,7 +80,7 @@
     #
     # If this option is set to mouse or keyboard, the monitor option will be
     # ignored.
-    follow = none
+    follow = keyboard
 
     # should a notification popped up from history be sticky or
     # timeout as if it would normally do.
