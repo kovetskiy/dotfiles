@@ -1,15 +1,16 @@
 #!/bin/bash
 
-sleep 1
-exec >> /home/vxw/.reconfig 2>&1
+# hack for udevd
+if [[ "$HOME" == "" ]]; then
+    sleep 1
 
-# udevd doesn't know about env variables
-HOME=${HOME:-/home/vxw}
-PATH=${PATH:-/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/go/bin/}
-XAUTHORITY=${XAUTHORITY:-/home/vxw/.Xauthority}
-DISPLAY=${DISPLAY:-:0.0}
+    HOME=${HOME:-/home/vxw}
+    PATH=${PATH:-/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/go/bin/}
+    XAUTHORITY=${XAUTHORITY:-/home/vxw/.Xauthority}
+    DISPLAY=${DISPLAY:-:0.0}
 
-export HOME PATH DISPLAY XAUTHORITY
+    export HOME PATH DISPLAY XAUTHORITY
+fi
 
 KEYCODES="evdev+aliases(qwerty)+hjkl"
 COMPAT="complete+hjkl"
