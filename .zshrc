@@ -178,7 +178,9 @@ alias gocd="fastcd $GOPATH/src/ 3"
 alias ssh='ssh-urxvt'
 
 alias e='exec startx'
-alias aur='yes | EDITOR=cat yaourt '
+alias au='yes | EDITOR=cat yaourt '
+alias aus='au -S'
+alias aur='au -R'
 alias p='sudo pacman'
 alias pmr='sudo pacman -R'
 alias pq='sudo pacman -Q'
