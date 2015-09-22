@@ -12,5 +12,7 @@ export BACKGROUND="$(cat $HOME/background)"
 
 env-setup &
 
+dunst &
+
 ( sleep 0.1; xtrlock -b ) &
 i3
