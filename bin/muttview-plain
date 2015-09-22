@@ -1,0 +1,6 @@
+#!/bin/bash
+
+file=$1
+html=`mktemp -u --suffix=.html`
+markdown $1 > $html
+lynx -dump -force-html $html
