@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec urxvt -e zsh -ic "vim $@" 2>/dev/null &
