@@ -21,7 +21,7 @@ if [ "$action" == "UNREAD" ]; then
             led_off ; sleep $timeout
         done
         led_on
-        notify-send -u critical -t 1000 "mcabber" "new message"
+        notify-send -u critical -t 10000 "mcabber" "new message"
     else
         lock
         led_off
