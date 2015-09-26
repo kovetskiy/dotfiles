@@ -103,13 +103,14 @@ bindsym $alt+Ctrl+r mode "resize"
 
 bindsym Ctrl+Shift+$alt+Break exec poweroff
 
-bindsym $alt+less    exec amixer set Master 1%-
-bindsym $alt+greater exec amixer set Master 1%+
-bindsym $win+Ctrl+l  exec lockscreen
-bindsym $win+Ctrl+d  exec show-info
-bindsym $alt+Ctrl+e  exec ~/bin/engrus
-bindsym $alt+g       exec ~/bin/decl
-bindsym Ctrl+F12     exec reconfig-kbd
+bindsym  $alt+less    exec amixer set Master 1%-
+bindsym  $alt+greater exec amixer set Master 1%+
+bindsym  $win+Ctrl+l  exec lockscreen
+bindsym  $win+Ctrl+d  exec show-info
+bindsym  $alt+Ctrl+e  exec ~/bin/engrus
+bindsym  $alt+g       exec ~/bin/decl
+bindsym  Ctrl+F12     exec reconfig-kbd
+bindcode 218          exec sh -c 'notify-send "`acpi`"'
 
 set $left DVI-0
 set $right VGA-0
