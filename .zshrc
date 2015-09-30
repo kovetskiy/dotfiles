@@ -201,6 +201,10 @@ alias -g EN='2>/dev/null'
 alias -g EO='2>&1'
 alias -g W='| wc -l'
 alias l='ls'
+function c() {
+    cd $@
+    ls -lah --color=always
+}
 alias ls='ls -lah --color=always'
 alias sls='ls'
 alias sl='ls'
