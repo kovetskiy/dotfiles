@@ -2,7 +2,6 @@
 
 filename="$HOME/screenshots/$(date +%F-%T | tr : T).png"
 
-
 if [ "$1" == "import" ]; then
     import -trim $filename
 elif [ "$1" == "border" ]; then
@@ -20,4 +19,15 @@ elif [ "$1" == "public" ]; then
     notify-send "Screenshot ready, path copied to clipboard"
 else
     maim --nokeyboard -s $filename && notify-send "Screenshot ready"
+fi
+
+echo $filename
+
+echo -n "Should upload screenshot to github using github-image-uploader? [y/n]: "
+read val
+if [ "$val" == "y" ]; then
+    echo "Uploading..."
+    url=$(github-image-uploader $filename)
+    echo "$url" | xclip
+    echo "$url"
 fi
