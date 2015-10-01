@@ -46,16 +46,16 @@ snippet pldf "provider.log.Debug" w
 provider.log.Debug("`!p snip.rv=t[1]`: %#v", $1)
 endsnippet
 
-snippet jce "log.Critical err" w
-log.Critical(err.Error())
+snippet jfe "log.Fatal err" w
+log.Fatal(err.Error())
 endsnippet
 
-snippet jcf "log.Critical with format errrrrrr" w
-log.Critical("$1: %s", err)
+snippet jff "log.Fatal with format errrrrrr" w
+log.Fatal("$1: %s", err)
 endsnippet
 
-snippet jc "log.Critical" w
-log.Critical($1)
+snippet jf "log.Fatal" w
+log.Fatal($1)
 endsnippet
 
 snippet jd "log.Debug" w
