@@ -20,6 +20,8 @@ export SAVEHIST=100000
 export KEYTIMEOUT=1
 export WORDCHARS=-
 
+export GO15VENDOREXPERIMENT=1
+
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
