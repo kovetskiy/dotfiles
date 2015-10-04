@@ -292,6 +292,9 @@ Plug 'mileszs/ack.vim'
     let g:ackhighlight=1
     nnoremap <C-E><C-G> :Ack<Space>''<Left>
 
+Plug 'kovetskiy/next-indentation'
+    nnoremap { :IndentationGoUp<CR>
+    nnoremap } :IndentationGoDown<CR>
 
 Plug 'yssl/QFEnter'
 
