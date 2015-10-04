@@ -43,5 +43,5 @@ fi
 if $CLI; then
     echo $TRANSLATION
 else
-    notify-send -t 2000 "$TRANSLATION"
+    notify-send -t 2000 -- "$TRANSLATION"
 fi
