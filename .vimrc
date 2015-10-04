@@ -83,7 +83,7 @@ Plug 'seletskiy/matchem'
     let g:UltiSnipsJumpForwardTrigger="<C-J>"
     let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 
-Plug 'kovetskiy/ultisnips'
+Plug 'reconquest/ultisnips'
     let g:UltiSnipsSnippetDirectories = [
     \     $HOME . '/.vim/UltiSnips/',
     \     $HOME . '/.vim/bundle/snippets/'
@@ -297,6 +297,11 @@ Plug 'kovetskiy/next-indentation'
     nnoremap } :IndentationGoDown<CR>
 
 Plug 'yssl/QFEnter'
+
+Plug 'kovetskiy/next-indentation'
+    nnoremap { :IndentationGoUp<CR>
+    nnoremap } :IndentationGoDown<CR>
+    let g:next_indentation_allow_zero = 0
 
 call plug#end()
 

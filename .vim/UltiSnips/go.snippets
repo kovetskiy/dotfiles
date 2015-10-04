@@ -7,10 +7,11 @@ import px.go
 import px.all
 endglobal
 
-snippet df "defer" "snip.context=snip" bwe
+snippet e "defer" "snip.context=snip" bwe
 `!p
 left = " "
 right="()"
+right = right[10]
 if "\n" in t[1]:
 	tabs = snip.context.column-1
 	left = " func(){"
@@ -97,4 +98,11 @@ endsnippet
 
 snippet a "arg" wb
 args["$1"].($3)
+endsnippet
+
+snippet dcp "docopt" w
+args, err := docopt.Parse(usage, nil, true, version, true, true)
+if err != nil {
+	panic(err)
+}
 endsnippet
