@@ -68,7 +68,7 @@ promptinit
 if [[ "$PROFILE" == "home" ]]; then
     prompt lambda17 white black ω
 elif [[ "$PROFILE" == "laptop" ]]; then
-    prompt lambda17 red black ω
+    prompt lambda17 white black ω
 else
     prompt lambda17
 fi
@@ -372,14 +372,16 @@ function github-fix-host() {
 }
 
 function goget() {
-    url=$(sed 's/https?:\/\///' <<< $1)
-    go get -v $url
-    if [[ "$url" == *.git ]]; then
-        fixed=$(sed 's/\.git//' <<< "$url")
-        mv $GOPATH/src/$url $GOPATH/src/$fixed
-        url=$fixed
+    local url=$(sed 's/.*:\/\///' <<< $1)
+    local dir=$GOPATH/src/$url
+    if [[ "$dir" == *.git ]]; then
+        dir=$(sed 's/\.git//' <<< "$dir")
     fi
-    cd $GOPATH/src/$url
+    go get $url
+    cd $dir
+    git submodule init
+    git submodule update
+    go get
 }
 
 function ck() { mkdir -p "$@"; cd "$@" }
