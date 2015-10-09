@@ -12,6 +12,8 @@ case "$1" in
         ip a | grep ppp0 -q
 
         if [ $? -eq 0 ]; then
+            ip r a 192.168.160.0/24 dev ppp0
+            ip r a 192.168.44.0/24 dev ppp0
             ip r a 192.168.23.0/24 dev ppp0
             ip r a 192.168.22.0/24 dev ppp0
             ip r a 192.168.21.0/24 dev ppp0
