@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ "$1" == "x" ]; then
+    sed -i '/XXXXXX/d' *.go
+    go fmt
+    exit 0
+fi
+
 for file in `git ls-files`; do
     if test -f $file; then
         grep -q '.\{80\}' "$file"
@@ -16,4 +22,5 @@ for file in `git ls-files`; do
     fi
 done
 
-go vet
+
+gometalinter
