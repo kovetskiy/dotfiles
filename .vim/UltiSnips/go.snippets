@@ -52,7 +52,7 @@ log.Fatal(err.Error())
 endsnippet
 
 snippet jff "log.Fatal with format errrrrrr" w
-log.Fatal("$1: %s", err)
+log.Fatalf("$1: %s", ${2:err})
 endsnippet
 
 snippet jf "log.Fatal" w
