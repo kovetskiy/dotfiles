@@ -585,3 +585,5 @@ map K <nop>
 
 nmap <Down> }
 nmap <Up> {
+
+imap <C-Y> <Down>
