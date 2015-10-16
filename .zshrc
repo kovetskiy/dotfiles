@@ -202,7 +202,8 @@ alias -g T='| tail -n'
 alias -g EN='2>/dev/null'
 alias -g EO='2>&1'
 alias -g W='| wc -l'
-alias -g E=' -l e.kovetskiy'
+alias -g E='-l e.kovetskiy'
+alias -g R='-l root'
 alias l='ls'
 function c() {
     cd $@
