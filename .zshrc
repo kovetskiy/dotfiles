@@ -25,7 +25,9 @@ export GO15VENDOREXPERIMENT=1
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
-ln -sfT ~/.zgen/sorin-ionescu/prezto-master ~/.zprezto
+if [ ! -d ~/.zpezto ]; then
+    ln -sfT ~/.zgen/sorin-ionescu/prezto-master ~/.zprezto
+fi
 
 autoload -Uz promptinit
 
