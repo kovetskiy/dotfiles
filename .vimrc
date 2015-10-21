@@ -295,9 +295,8 @@ Plug 'mileszs/ack.vim'
 Plug 'yssl/QFEnter'
 
 Plug 'kovetskiy/next-indentation'
-    nnoremap { :IndentationGoUp<CR>
-    nnoremap } :IndentationGoDown<CR>
-    let g:next_indentation_allow_zero = 0
+    nnoremap <Up> :IndentationGoUp<CR>
+    nnoremap <Down> :IndentationGoDown<CR>
 
 call plug#end()
 
@@ -426,7 +425,7 @@ au filetype_php FileType php imap <buffer> <C-G><C-U> ug<TAB>
 au filetype_php FileType php hi! def link phpDocTags  phpDefine
 au filetype_php FileType php hi! def link phpDocParam phpType
 
-imap <C-F> t<TAB>.
+imap <C-F> tx<TAB>
 
 nnoremap <C-E><C-D> :cd %:p:h<CR>:pwd<CR>
 nnoremap <C-E><C-F> :lcd %:p:h<CR>:pwd<CR>
@@ -578,8 +577,5 @@ let @t=':%s/\t/    /g:w'
 " no more "Entering Ex mode"
 map Q <nop>
 map K <nop>
-
-nmap <Down> }
-nmap <Up> {
 
 imap <C-Y> <Down>
