@@ -572,7 +572,7 @@ nmap <Tab> /
 let @l="f(ak$%i,%"
 let @k="^f=i:"
 let @j="^t=x"
-let @t=':%s/\t/    /g:w'
+let @t=':%s/\t/    /g:w:noh'
 
 " no more "Entering Ex mode"
 map Q <nop>
