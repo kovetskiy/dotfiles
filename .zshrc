@@ -61,6 +61,7 @@ if ! zgen saved; then
     zgen load seletskiy/zsh-prompt-lambda17
     zgen load seletskiy/zsh-ssh-urxvt
     zgen load seletskiy/zsh-ash-completion
+    zgen load rust-lang/zsh-config
 
     zgen save
 fi
