@@ -30,9 +30,8 @@ shift+k cut-up,warp
 shift+l cut-right,warp
 
 space warp,click 1
-minus warp,click 3
-
-
+g warp,click 2
+b warp,click 3
 
 shift+space warp,drag 1
 shift+minus warp,drag 3

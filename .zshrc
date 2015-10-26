@@ -78,7 +78,6 @@ fi
 
 bindkey -v '^K' add-params
 
-
 hash -d dotfiles=~/sources/dotfiles/
 hash -d df=~/sources/dotfiles/
 hash -d src=~/sources/
@@ -281,9 +280,6 @@ alias grog='git remote show origin -n'
 alias gros='git remote set-url origin'
 alias gra='git rebase --abort'
 
-alias bstart="batrak -Tn \`jira-now print\`"
-alias bstop="batrak -Sn"
-alias bi="batrak -Ln"
 alias dt='cd ~df; git status -s'
 alias pr='cd ~/private/; git status -s'
 function rsc() {
