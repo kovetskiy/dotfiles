@@ -1,0 +1,14 @@
+#!/bin/bash
+
+lead="s.seletskiy@postdevops-no.xmpp.slack.com"
+tasks=${1:-~/tasks}
+
+content="$(
+    cat "$tasks" | \
+    sed ":a;N;\$!ba;s/\n/\n\/say_to $lead /g"
+)"
+
+content="/say_to $lead $content"
+
+echo "$content" > ~/.mcabber/fifo/slack-postdevops-no
+
