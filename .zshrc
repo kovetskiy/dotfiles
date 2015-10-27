@@ -256,6 +256,8 @@ alias gpor='git pull --rebase origin master'
 alias gsh='git stash'
 alias gshp='git stash pop'
 alias grt='git reset'
+alias grth='git reset --hard'
+alias grts='git reset --soft'
 alias gr='git rebase'
 alias grc='git rebase --continue'
 function gri() { git rebase -i HEAD~$1 }
@@ -378,11 +380,11 @@ function goget() {
     if [[ "$dir" == *.git ]]; then
         dir=$(sed 's/\.git//' <<< "$dir")
     fi
-    go get $url
+    go get -v $url
     cd $dir
     git submodule init
     git submodule update
-    go get
+    go get -v
 }
 
 function ck() { mkdir -p "$@"; cd "$@" }
