@@ -214,6 +214,7 @@ function c() {
 alias ls='ls -lah --color=always'
 alias sls='ls'
 alias sl='ls'
+alias v='vim'
 alias vi='vim'
 alias viz='vim ~/.zshrc'
 function vims() {
