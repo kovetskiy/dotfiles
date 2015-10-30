@@ -1,0 +1,88 @@
+#!/usr/bin/env ruby
+
+require "docopt"
+require "pp"
+
+doc = <<DOCOPT
+
+istart - start applications in order on specified workspaces.
+
+Usage:
+    istart [options]
+
+Options:
+    -c <path>    Load specified config [default: ~/.config/istart]
+    -v --version Show version
+    -h --help    Show this screen.
+DOCOPT
+
+begin
+    doc.gsub!("~/", ENV["HOME"] + "/")
+
+    args = Docopt::docopt(doc)
+rescue Docopt::Exit => e
+    puts e.message
+end
+
+
+def i3_workspace(workspace)
+    system("i3-msg -- workspace " + workspace)
+end
+
+def execute(cmdline)
+    job = fork do
+        exec(cmdline + " >/dev/null 2>/dev/null ")
+    end
+
+    Process.detach(job)
+end
+
+def wait_window(title)
+    while true do
+        diff = system(
+            "xwininfo -tree -root " +
+                "| grep -E '\".*\"' | grep -v 'i3 con' " +
+                "| grep -qE '" + title + "'"
+        )
+
+        puts diff
+        if diff == true
+            return
+        end
+
+        sleep(0.05)
+    end
+end
+
+puts args
+config_path = args["-c"]
+config = File.open(config_path, "rb")
+
+while (line = config.gets)
+    line.strip!
+
+    case true
+    when line.start_with?("i3: ")
+        line.slice! "i3: "
+
+        puts "switching to " + line
+        i3_workspace(line)
+
+    when line.start_with?("$ ")
+        line.slice! "$ "
+
+        puts "executing '" + line + "'"
+        execute(line)
+
+    when line.start_with?("wait_window: ")
+        line.slice! "wait_window: "
+
+        puts "waiting for window " + line
+        wait_window(line)
+    when line.start_with?("sleep: ")
+        line.slice! "sleep: "
+
+        puts "sleep " + line.to_f.to_s
+        sleep(line.to_f)
+    end
+end
