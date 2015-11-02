@@ -67,6 +67,18 @@ snippet ji "log.Debug" w
 log.Info($1)
 endsnippet
 
+snippet je "log.Error" w
+log.Error($1)
+endsnippet
+
+snippet jer "log.Error" w
+log.Error(err.Error())
+endsnippet
+
+snippet jef "log.Error" w
+log.Error("$1: %s", ${2:err})
+endsnippet
+
 snippet doca "docopt.Parse" w
 args, err := docopt.Parse(usage, nil, true, "1.0", false)
 if err != nil {
