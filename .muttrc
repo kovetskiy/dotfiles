@@ -30,7 +30,7 @@ bind index @ imap-fetch-mail
 macro index \Cr "<change-folder> =Archives<enter>"
 macro index \Cf "<change-folder> =INBOX<enter>"
 
-macro index \Ce "T*;s=Archivesy"
+macro index \Ce "T*;s=Archivesy<sync-mailbox>"
 
 unset imap_passive
 
