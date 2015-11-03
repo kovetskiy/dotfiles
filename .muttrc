@@ -27,10 +27,10 @@ bind pager \e[7~ top
 bind pager \e[8~ bottom
 bind index @ imap-fetch-mail
 
-macro index \Ca "<change-folder> =Archive<enter>"
-macro index \Co "<change-folder> =INBOX<enter>"
+macro index \Cr "<change-folder> =Archives<enter>"
+macro index \Cf "<change-folder> =INBOX<enter>"
 
-macro index \Ce "DStash\|rnd\|Slack\|talk\|github\|Confluence\|JIRA\|Travis\|git.rn"
+macro index \Ce "T*;s=Archivesy"
 
 unset imap_passive
 
