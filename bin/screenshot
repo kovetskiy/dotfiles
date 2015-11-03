@@ -22,12 +22,3 @@ else
 fi
 
 echo $filename
-
-echo -n "Should upload screenshot to github using github-image-uploader? [y/n]: "
-read val
-if [ "$val" == "y" ]; then
-    echo "Uploading..."
-    url=$(github-image-uploader $filename)
-    echo "$url" | xclip
-    echo "$url"
-fi
