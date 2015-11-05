@@ -298,7 +298,7 @@ Plug 'kovetskiy/next-indentation'
     nnoremap <Up> :IndentationGoUp<CR>
     nnoremap <Down> :IndentationGoDown<CR>
 
-Plug 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim', {'for': 'rust' }
 
 call plug#end()
 
