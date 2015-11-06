@@ -300,6 +300,8 @@ alias pkgverupdate='sed -i "s/pkgver\=.*/pkgver=$(git rev-list --count master).$
 
 alias a='alias'
 
+alias slp='sleep 3600; poweroff'
+
 alias sc='sudo systemctl'
 alias mc='sudo machinectl'
 alias mcp='sudo machinectl poweroff'
