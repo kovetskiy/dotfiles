@@ -286,7 +286,7 @@ alias grog='git remote show origin -n'
 alias gros='git remote set-url origin'
 alias gra='git rebase --abort'
 
-alias dt='cd ~df; git status -s'
+alias dt='cd ~df; git status -s ; PAGER=cat git diff'
 alias pr='cd ~/private/; git status -s'
 function rsc() {
     local file="$1"
