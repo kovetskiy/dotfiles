@@ -299,6 +299,7 @@ function rsc() {
 
 alias gob='go build'
 alias goi='go install'
+alias gog='go get'
 
 alias pkgver='echo $(git rev-list --count master).$(git rev-parse --short master)'
 alias pkgverupdate='sed -i "s/pkgver\=.*/pkgver=$(git rev-list --count master).$(git rev-parse --short master)/" PKGBUILD'
