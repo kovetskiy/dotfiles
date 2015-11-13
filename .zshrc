@@ -367,6 +367,7 @@ function github-forked() {
     origin_url=$(sed "s/$upstream_user/kovetskiy/" <<< $upstream_url)
     git remote add origin "$origin_url"
 }
+alias gfk='github-forked'
 
 function github-fix-host() {
     name=$1
@@ -380,6 +381,7 @@ function github-fix-host() {
     url="ssh://git@$url.git"
     git remote set-url $name $url
 }
+alias gfh='github-fix-host'
 
 function goget() {
     local url=$(sed 's/.*:\/\///' <<< $1)
