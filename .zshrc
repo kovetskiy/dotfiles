@@ -205,6 +205,7 @@ alias -g EN='2>/dev/null'
 alias -g EO='2>&1'
 alias -g W='| wc -l'
 alias -g E='-l e.kovetskiy'
+alias -g U='-t "sudo -i"'
 alias -g R='-l root'
 alias l='ls'
 function c() {
@@ -216,7 +217,7 @@ alias sls='ls'
 alias sl='ls'
 alias v='vim'
 alias vi='vim'
-alias viz='vim ~/.zshrc'
+alias tiz='tim ~/.zshrc'
 function vims() {
     vim -O $1 $2 +"wincmd l|lcd %:p:h|wincmd h|lcd %:p:h"
 }
