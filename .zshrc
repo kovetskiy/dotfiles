@@ -241,12 +241,23 @@ alias gpo='git push origin'
 alias gpl='git pull'
 alias gpr='git pull --rebase'
 alias gf='git fetch'
-alias gc='git commit'
-alias gc!='git commit --amend'
-alias gcm='git commit -m'
-alias gcm!='git commit --amend -m'
-alias gcok='git commit --amend -C HEAD'
+alias gcn='git commit'
+alias gcn!='git commit --amend'
+function gc()  { git commit -m "$@" }
+function gc!() { git commit --amend -m "$@" }
+alias gck='git commit --amend -C HEAD'
 alias gco='git checkout'
+function gcor() {
+    git checkout --orphan "$1"
+    git status -s | awk '{print $2}' | xargs -n1 rm -rf
+    git add .
+}
+function gcorg() {
+    gcor
+    touch .gitignore
+    git add .gitignore
+    git commit -m ".gitignore added"
+}
 alias gdo='git diff origin'
 alias gcob='git checkout -b'
 alias gcon='gf && gcom && gcof'
