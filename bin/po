@@ -23,4 +23,8 @@ for file in `git ls-files`; do
 done
 
 
+echo
+echo
+echo
+
 gometalinter -D golint --cyclo-over 15
