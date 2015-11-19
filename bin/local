@@ -13,6 +13,7 @@ case "$1" in
 
         if [ $? -eq 0 ]; then
             ip r a 192.168.160.0/24 dev ppp0
+            ip r a 192.168.80/24 dev ppp0
             ip r a 192.168.44.0/24 dev ppp0
             ip r a 192.168.23.0/24 dev ppp0
             ip r a 192.168.22.0/24 dev ppp0
