@@ -7,6 +7,7 @@ POINTS=(
     ".dircolors.dark"
     ".dircolors.light"
     ".fonts"
+    ".icons"
     ".gitconfig"
     ".gitignore"
     ".gitignore_global"
