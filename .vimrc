@@ -300,6 +300,8 @@ Plug 'kovetskiy/next-indentation'
 
 Plug 'rust-lang/rust.vim', {'for': 'rust' }
 
+Plug 'rhysd/vim-go-impl'
+
 call plug#end()
 
 syntax on
