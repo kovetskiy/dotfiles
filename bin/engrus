@@ -3,7 +3,7 @@
 #set -x
 
 input() {
-    echo | dmenu -p "translate: "
+    echo | dmenu -b -p "translate: "
 }
 
 if [[ "$1" != "" ]]; then
