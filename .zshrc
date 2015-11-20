@@ -181,6 +181,14 @@ alias gocd="fastcd $GOPATH/src/ 3"
 
 alias ssh='ssh-urxvt'
 
+function s() {
+    local host="$1"
+    shift
+
+    ssh-urxvt "$host" -l e.kovetskiy -t "sudo -i" $@
+}
+compdef s=ssh
+
 alias e='exec startx'
 alias au='yes | EDITOR=cat yaourt '
 alias aus='au -S'
@@ -253,7 +261,7 @@ function gcor() {
     git add .
 }
 function gcorg() {
-    gcor
+    gcor $1
     touch .gitignore
     git add .gitignore
     git commit -m ".gitignore added"
