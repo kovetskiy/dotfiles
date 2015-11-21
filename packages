@@ -78,3 +78,5 @@ zip
 gometalinter-git
 mime-git
 llpp
+netcat
+bc
