@@ -185,7 +185,30 @@ function s() {
     local host="$1"
     shift
 
-    ssh-urxvt "$host" -l e.kovetskiy -t "sudo -i" $@
+    count_file=~/.ssh/counters/$host
+    mark_file=~/.ssh/marks/$host
+
+    if [[ ! -f $mark_file ]]; then
+        count=0
+        if [[ -f $count_file ]]; then
+            count=`cat $count_file`
+        fi
+
+        count=$((count+1))
+        echo -n $count > $count_file
+
+        if [[ $count -gt 2 ]]; then
+            echo "[@] executing ssh-copy-id..."
+            rm -f ~/.ssh/connections/* 2>/dev/null
+            ssh-copy-id "e.kovetskiy@$host"
+            if [[ $? -ne 0 ]]; then
+                exit
+            fi
+            touch $mark_file
+        fi
+    fi
+
+    ssh "$host" -l e.kovetskiy -t "TERM=xterm sudo -i" $@
 }
 compdef s=ssh
 
