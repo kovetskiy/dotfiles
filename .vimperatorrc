@@ -5,12 +5,10 @@ Plug cookieManager
 
 qmark h http://news.ycombinator.com/
 qmark g http://github.com/
-qmark u http://uprt.slack.com/
-qmark r http://reddit.com/
+qmark u http://mail.google.com/
 qmark v http://reddit.com/r/vim/new/
 qmark d https://rdot.org/forum/
 qmark s https://ngs-team.slack.com/messages/devops
-qmark r https://forum.reverse4you.org/
 
 nmap g :tabopen http://google.ru/search?q=
 nmap x :tabopen http://slovari.yandex.ru/
