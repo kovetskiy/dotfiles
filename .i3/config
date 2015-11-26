@@ -112,8 +112,8 @@ bindsym  $alt+g       exec ~/bin/decl
 bindsym  Ctrl+F12     exec reconfig-kbd
 bindcode 218          exec sh -c 'notify-send "`acpi`"'
 
-set $left DVI-0
-set $right VGA-0
+set $left DVI-I-1
+set $right VGA-1
 
 workspace 1 output $left # VIM
 workspace 2 output $left # terminal
