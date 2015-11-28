@@ -302,6 +302,11 @@ Plug 'rust-lang/rust.vim', {'for': 'rust' }
 
 Plug 'rhysd/vim-go-impl'
 
+Plug 'vitalk/vim-simple-todo', { 'for': 'markdown' }
+    let g:simple_todo_map_keys = 1
+    nmap <Leader>f <Plug>(simple-todo-mark-as-done)
+    nmap <Leader>g <Plug>(simple-todo-mark-as-undone)
+
 call plug#end()
 
 syntax on
