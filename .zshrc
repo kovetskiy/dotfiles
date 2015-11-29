@@ -212,6 +212,7 @@ function s() {
 }
 compdef s=ssh
 
+alias rto='rtorrent $(ls --color=never -t ~/downloads/*.torrent | head -n1)'
 alias e='exec startx'
 alias au='yes | EDITOR=cat yaourt '
 alias aus='au -S'
