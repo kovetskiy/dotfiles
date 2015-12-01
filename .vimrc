@@ -307,6 +307,8 @@ Plug 'vitalk/vim-simple-todo', { 'for': 'markdown' }
     nmap <Leader>f <Plug>(simple-todo-mark-as-done)
     nmap <Leader>g <Plug>(simple-todo-mark-as-undone)
 
+Plug 'wellle/targets.vim'
+
 call plug#end()
 
 syntax on
