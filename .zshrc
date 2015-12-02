@@ -248,6 +248,8 @@ alias ls='ls -lah --color=always'
 alias sls='ls'
 alias sl='ls'
 alias v='vim'
+alias vt='vim ~/todo.md'
+alias tt='tim ~/todo.md'
 alias vi='vim'
 alias tiz='tim ~/.zshrc'
 function vims() {
