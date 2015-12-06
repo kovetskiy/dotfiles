@@ -251,6 +251,7 @@ alias v='vim'
 alias vt='vim ~/todo.md'
 alias tt='tim ~/todo.md'
 alias vi='vim'
+alias viz='vim ~/.zshrc ; zreload'
 alias tiz='tim ~/.zshrc'
 function vims() {
     vim -O $1 $2 +"wincmd l|lcd %:p:h|wincmd h|lcd %:p:h"
