@@ -10,6 +10,9 @@ export LC_ALL=en_US.UTF-8
 export PROFILE="$(cat $HOME/profile)"
 export BACKGROUND="$(cat $HOME/background)"
 
+export GOROOT=""
+export GOPATH="$HOME/go"
+
 env-setup &
 
 dunst &
