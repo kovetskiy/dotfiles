@@ -1,0 +1,5 @@
+#!/bin/bash
+
+/usr/bin/apm "${@}"
+
+/usr/bin/apm list --installed --bare > ~/.atom/packages.txt 2>/dev/null &
