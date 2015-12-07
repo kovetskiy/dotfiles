@@ -38,6 +38,11 @@ POINTS=(
     ".tmux.conf"
     ".yaourtrc"
     ".toprc"
+    ".atom/packages.txt"
+    ".atom/init.coffee"
+    ".atom/config.cson"
+    ".atom/keymap.cson"
+    ".atom/styles.less"
 )
 
 for POINT in "${POINTS[@]}"; do

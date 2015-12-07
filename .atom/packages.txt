@@ -1,0 +1,10 @@
+activate-power-mode@0.3.2
+cursor-history@0.5.9
+git-status@0.3.3
+go-plus@3.5.2
+goto@1.7.1
+incremental-search@5.0.1
+paner@0.1.14
+sync-settings@0.6.0
+vim-mode-plus@0.7.1
+
