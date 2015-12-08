@@ -27,4 +27,4 @@ echo
 echo
 echo
 
-gometalinter -D golint --cyclo-over 15
+gometalinter -D golint -D gotype --cyclo-over 15
