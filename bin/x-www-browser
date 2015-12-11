@@ -1,4 +1,5 @@
 #!/bin/bash
 
-URL=$1
-exec firefox $URL
+URL="$(sed 's/^\(git+ssh\|ssh\|git\):\/\///' <<< "$1")"
+
+exec firefox "$URL"

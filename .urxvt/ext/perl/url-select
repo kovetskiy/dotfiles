@@ -73,7 +73,7 @@ sub on_start {
 		}
 	} else {
 		@{$self->{pattern}} = qr{
-			(?:https?://|ftp://|news://|mailto:|file://|\bwww\.)
+			(?:https?://|ssh://|git://|ftp://|news://|mailto:|file://|\bwww\.)
 			[\w\-\@;\/?:&=%\$.+!*\x27,~#]*
 			(
 				\([\w\-\@;\/?:&=%\$.+!*\x27,~#]*\)   # Allow a pair of matched parentheses
