@@ -1,0 +1,12 @@
+# vim: tw=0
+alias ge = roster search general@
+alias ep = roster search persi
+alias ss = roster search selets
+alias th = roster search theairk
+
+set autojoin = general@conference.postdevops-no.xmpp.slack.com,reviews,time,adventure-time,random
+
+set statefile = ~/.mcabber/state/slack-postdevops
+set logging_dir = ~/.mcabber/history/slack-postdevops/
+
+set fifo_name = ~/.mcabber/fifo/slack-postdevops

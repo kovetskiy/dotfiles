@@ -1,7 +1,7 @@
 .mutt/account
 .mcabber/account.office
 .mcabber/account.slack-ngs-team
-.mcabber/account.slack-postdevops-no
+.mcabber/account.slack-postdevops
 .mcabber/mcabber.fifo
 .mcabber/mcabberrc.theme
 .muttator/aliases
