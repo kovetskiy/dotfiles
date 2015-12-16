@@ -15,7 +15,7 @@ if [[ "$PROFILE" == "home" ]]; then
 fi
 
 killall -9 keynav
-keynav &
+keynav
 
 if [ -z `pidof autousb` ]; then
     autousb &
