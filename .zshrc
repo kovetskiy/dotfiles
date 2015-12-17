@@ -1,9 +1,9 @@
-export PATH="$(ruby -e 'print Gem.user_dir')/bin:$HOME/bin/:$HOME/private/bin/:$HOME/go/bin/:$PATH"
 export TERM=rxvt-unicode-256color
-
 if [ "$TMUX" ]; then
     export TERM=screen-256color-so
 fi
+
+export PATH="$(ruby -e 'print Gem.user_dir')/bin:$HOME/bin/:$HOME/private/bin/:$HOME/go/bin/:$PATH"
 
 export EDITOR="$(which vim)"
 export BACKGROUND="$(cat ~/background)"
@@ -143,31 +143,9 @@ function compress () {
   fi
 }
 
-function extract () {
-    if [ -f $1 ] ; then
-        case $1 in
-            *.tar.bz2) tar xvjf $1   ;;
-            *.tar.gz)  tar xvzf $1   ;;
-            *.bz2)     bunzip2 $1    ;;
-            *.rar)     unrar x $1    ;;
-            *.gz)      gunzip $1     ;;
-            *.tar)     tar xvf $1    ;;
-            *.tbz2)    tar xvjf $1   ;;
-            *.tgz)     tar xvzf $1   ;;
-            *.zip)     unzip $1      ;;
-            *.Z)       uncompress $1 ;;
-            *.7z)      7z x $1       ;;
-            *)         echo "'$1' cannot be extracted via >extract<" ;;
-        esac
-    else
-        echo "'$1' is not a valid file"
-    fi
-}
-
 function ashr() {
     vc -c ":Unite ash_review:$1"
 }
-
 
 function apkg() {
     echo $@ >> ~/sources/dotfiles/packages
@@ -460,6 +438,7 @@ function aurcl() {
 
     cd $dir
 }
+
 function gitaur() {
     local package="$1"
     local desc="$2"
