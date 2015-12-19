@@ -143,10 +143,6 @@ function compress () {
   fi
 }
 
-function ashr() {
-    vc -c ":Unite ash_review:$1"
-}
-
 function apkg() {
     echo $@ >> ~/sources/dotfiles/packages
 }
