@@ -5,7 +5,7 @@ case "$1" in
         echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
         ;;
     "office" )
-        echo "nameserver 192.168.20.2" | sudo /etc/resolv.conf
+        echo "nameserver 192.168.20.2" | sudo tee /etc/resolv.conf
         echo "nameserver 192.168.21.100" | sudo tee --append /etc/resolv.conf
         echo "search cname.s" | sudo tee --append /etc/resolv.conf
 
