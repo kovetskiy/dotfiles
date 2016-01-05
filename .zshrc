@@ -292,6 +292,8 @@ alias grog='git remote show origin -n'
 alias gros='git remote set-url origin'
 alias gra='git rebase --abort'
 
+alias ку='reconfig-kbd'
+alias й='env-setup'
 alias dt='cd ~df; git status -s ; PAGER=cat git diff'
 alias pr='cd ~/private/; git status -s'
 function rsc() {
