@@ -169,7 +169,7 @@ function s() {
 }
 compdef s=ssh
 
-alias rto='rtorrent $(ls --color=never -t ~/downloads/*.torrent | head -n1)'
+alias rto='rtorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
 alias e='exec startx'
 alias au='yes | EDITOR=cat yaourt '
 alias aus='au -S'
@@ -322,7 +322,6 @@ function mcc() {
     sudo cp -r $1 ~/container/$2
 }
 
-alias rto='rtorrent "$(/bin/ls -c ~/Downloads/*rutracker* | tail -n 1)"'
 
 alias tl='/usr/bin/t --task-dir ~/tasks --list tasks'
 alias tp='/usr/bin/t --task-dir ~/tasks --list plans'
