@@ -83,7 +83,7 @@ Plug 'seletskiy/matchem'
     let g:UltiSnipsJumpForwardTrigger="<C-J>"
     let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 
-Plug 'reconquest/ultisnips'
+Plug 'sirver/ultisnips'
     let g:UltiSnipsSnippetDirectories = [
     \     $HOME . '/.vim/UltiSnips/',
     \     $HOME . '/.vim/bundle/snippets/'
@@ -200,7 +200,7 @@ Plug 'kovetskiy/urxvt.vim'
     au filetype_go FileType go nmap <buffer>
         \ <Leader>b :GoFmt<CR>:w<CR>:GoBuild<CR>
 
-Plug 'seletskiy/vim-pythonx'
+Plug 'reconquest/vim-pythonx'
     au filetype_go FileType go nmap <buffer>
          \ <Leader>gc :py px.go.goto_const()<CR>
 
