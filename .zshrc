@@ -170,6 +170,8 @@ function s() {
 compdef s=ssh
 
 alias rto='rtorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
+alias m='mplayer '
+alias ma='mplayer *'
 alias e='exec startx'
 alias au='yes | EDITOR=cat yaourt '
 alias aus='au -S'
