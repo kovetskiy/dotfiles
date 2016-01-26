@@ -21,4 +21,9 @@ else
     maim --nokeyboard -s $filename && notify-send "Screenshot ready"
 fi
 
-echo $filename
+echo "screenshot ready"
+echo "$filename"
+echo "uploading"
+url="$(echo $filename | xargs imgur 2>&1 | head -n1)"
+echo "$url"
+echo "$url" | xclip -selection clipboard
