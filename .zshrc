@@ -313,6 +313,19 @@ alias a='alias'
 alias A='alias | grep '
 
 alias slp='sleep 3600; poweroff'
+function ww() {
+    while :; do
+        eval "$@"
+    done
+}
+
+function ff() {
+    local count=$1
+    shift
+    for x in `seq 1 $count`; do
+        eval "$@"
+    done
+}
 
 alias sc='sudo systemctl'
 alias mc='sudo machinectl'
