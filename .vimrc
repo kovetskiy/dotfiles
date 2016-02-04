@@ -513,6 +513,8 @@ nmap <C-L> <C-W>l
 
 imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 
+nmap <Leader>m O_ = "breakpoint"<ESC>
+
 inoremap <C-H> <C-O>o
 
 imap <C-U> <ESC>ua
