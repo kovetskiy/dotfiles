@@ -120,7 +120,8 @@ workspace 2 output $left # terminal
 workspace 3 output $left # terminal
 
 workspace q output $right # firefox
-workspace d output $right # firefox
+workspace s output $right # chrome
+workspace d output $right # music
 workspace w output $right # terminal
 workspace e output $right # email
 
