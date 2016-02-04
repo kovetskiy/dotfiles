@@ -18,7 +18,7 @@ elif [ "$1" == "public" ]; then
     echo $(basename $filename) | xclip
     notify-send "Screenshot ready, path copied to clipboard"
 else
-    maim --nokeyboard -s $filename && notify-send "Screenshot ready"
+    maim --nokeyboard -s $filename
 fi
 
 echo "screenshot ready"
@@ -27,3 +27,4 @@ echo "uploading"
 url="$(echo $filename | xargs imgur 2>&1 | head -n1)"
 echo "$url"
 echo "$url" | xclip -selection clipboard
+notify-send "Screenshot ready"
