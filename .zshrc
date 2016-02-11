@@ -297,7 +297,7 @@ alias gra='git rebase --abort'
 alias ку='reconfig-kbd'
 alias й='env-setup'
 alias dt='cd ~df; git status -s ; PAGER=cat git diff'
-alias pr='cd ~/private/; git status -s'
+alias pr='hub pull-request -f'
 function rsc() {
     local file="$1"
     local dir=$(dirname "$file")
