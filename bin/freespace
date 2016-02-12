@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sudo zfs list -t snapshot \
+    | tail -n $(($(sudo zfs list -t snapshot | wc -l) - 10)) \
+    | cut -d' ' -f1 \
+    | xargs -n1 sudo zfs destroy -R
