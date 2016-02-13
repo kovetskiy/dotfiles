@@ -1,0 +1,22 @@
+#!/bin/bash
+
+HOSTS=(
+    "www.keybr.com"
+    "typing.io"
+
+    "ru.wikipedia.org"
+    "reddit.com"
+
+    "d3.ru"
+    "gif.d3.ru"
+    "2ch.hk"
+    "devopsreactions.tumblr.com"
+    "twitter.com"
+
+    "web.telegram.org"
+)
+
+for HOST in ${HOSTS[@]}; do
+    LINE="127.0.0.1 $HOST"
+    echo "$LINE" | sudo tee --append /etc/hosts
+done
