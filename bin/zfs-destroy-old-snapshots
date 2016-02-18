@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e -u
+
+threshold=20
+
+all_snapshots="$(sudo zfs list -t snapshot)"
+all_count=$(wc -l <<< "$all_snapshots")
+
+removing_count=$(($all_count-$threshold))
+
+if [ $removing_count -le 0 ]; then
+    exit 0
+fi
+
+echo "[zfs] destroying $removing_count old snapshots"
+
+tail -n $removing_count <<< "$all_snapshots" \
+    | cut -d' ' -f1 \
+    | while read snapshot;
+    do
+        echo "[zfs] destroying $snapshot"
+        sudo zfs destroy -- "$snapshot"
+    done
