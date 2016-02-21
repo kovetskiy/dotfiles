@@ -61,7 +61,8 @@ if ! zgen saved; then
     zgen load seletskiy/zsh-prompt-lambda17
     zgen load seletskiy/zsh-ssh-urxvt
     zgen load seletskiy/zsh-ash-completion
-    zgen load rust-lang/zsh-config
+
+    zgen load s7anley/zsh-geeknote
 
     zgen save
 fi
@@ -337,6 +338,8 @@ function mcc() {
     sudo cp -r $1 ~/container/$2
 }
 
+alias pyt='python2'
+alias py='python'
 
 alias tl='/usr/bin/t --task-dir ~/tasks --list tasks'
 alias tp='/usr/bin/t --task-dir ~/tasks --list plans'
