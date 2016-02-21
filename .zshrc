@@ -170,6 +170,8 @@ function s() {
 }
 compdef s=ssh
 
+alias z='sudo zfs'
+alias zl='sudo zfs list'
 alias rto='rtorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
 alias m='mplayer '
 alias ma='mplayer *'
