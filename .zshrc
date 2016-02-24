@@ -347,6 +347,8 @@ alias tl='/usr/bin/t --task-dir ~/tasks --list tasks'
 alias tp='/usr/bin/t --task-dir ~/tasks --list plans'
 alias tw='/usr/bin/t --task-dir ~/tasks --list work'
 
+alias er='translator'
+
 function prepend-sudo() {
     if [[ "$BUFFER" == "" ]]; then
         BUFFER="sudo $(fc -nl -1)"
