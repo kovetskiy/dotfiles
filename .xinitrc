@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export PATH="$(ruby -e 'print Gem.user_dir')/bin:$HOME/bin/:$HOME/private/bin/:$HOME/go/bin/:$PATH"
+export PATH="$(ruby -e 'print Gem.user_dir')/bin:$HOME/bin/:$HOME/private/bin/:$HOME/sources/dotfiles/deadfiles/bin:$HOME/go/bin/:$PATH"
 export SHELL=/usr/bin/zsh
 export TERMINAL=urxvt
 export EDITOR=/usr/bin/vim
