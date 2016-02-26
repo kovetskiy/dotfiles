@@ -43,8 +43,9 @@ Plug 'kovetskiy/SearchParty'
 "Plug 'junegunn/seoul256.vim'
     "au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
 
-Plug 'bling/vim-airline'
-    let g:airline_theme = 'sol'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+    let g:airline_theme = 'term'
     let g:airline#extensions#whitespace#symbol = '☼'
     let g:airline_powerline_fonts = 1
 
