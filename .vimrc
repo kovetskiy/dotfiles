@@ -196,10 +196,21 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'kovetskiy/urxvt.vim'
     au filetype_go FileType go nmap <buffer>
         \ <Leader>h :call urxvt#put('go build')<CR>
-    "au filetype_go FileType go nmap <buffer>
-        "\ <Leader>r :call urxvt#put('go build && ./\${\$(pwd)##*/}')<CR>
-    au filetype_go FileType go nmap <buffer>
-        \ <Leader>b :GoFmt<CR>:w<CR>:GoBuild<CR>
+
+    function! KillFuckingQuickfixesAndDoFuckingBuild()
+        exe 'windo
+            \ if &buftype == "quickfix" || &buftype == "locationlist"
+            \     | lclose |
+            \ endif
+            \'
+
+        exe 'GoFmt'
+        exe 'GoBuild'
+    endfunction!
+
+    au filetype_go FileType go nmap <buffer> <silent>
+        \ <Leader>b :call KillFuckingQuickfixesAndDoFuckingBuild()<CR>
+
 
 Plug 'reconquest/vim-pythonx'
     au filetype_go FileType go nmap <buffer>
