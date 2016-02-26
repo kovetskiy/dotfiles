@@ -205,6 +205,7 @@ Plug 'kovetskiy/urxvt.vim'
             \'
 
         exe 'GoFmt'
+        normal w
         exe 'GoBuild'
     endfunction!
 
