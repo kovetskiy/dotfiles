@@ -5,7 +5,7 @@ alias ss = roster search selets
 alias as = roster search shmyr
 alias th = roster search theairk
 
-set autojoin = devops@conference.ngs-team.xmpp.slack.com,golang,vim
+set autojoin = devops@conference.ngs-team.xmpp.slack.com,golang,vim,techops
 
 set statefile = ~/.mcabber/state/slack-ngs-team
 set logging_dir = ~/.mcabber/history/slack-ngs-team/
