@@ -21,8 +21,10 @@ if [ -z `pidof autousb` ]; then
     autousb &
 fi
 
-if [ -z `pidof redshift` ]; then
-    redshift -l 55.7:12.6 -t 3500:3100 -g 0.8 -m randr -v &
+if [ "$PROFILE" != "work" ]; then
+    if [ -z `pidof redshift` ]; then
+        redshift -l 55.7:12.6 -t 3500:3100 -g 0.8 -m randr -v &
+    fi
 fi
 
 xset dpms 0 0 0
