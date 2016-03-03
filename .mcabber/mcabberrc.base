@@ -49,3 +49,7 @@ module load editor
 module load focus
 module load autojoin
 module load slack_completion
+
+alias o=otr start
+alias sq=otr smpq .
+alias sa=otr smpr .
