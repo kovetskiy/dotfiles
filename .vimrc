@@ -198,11 +198,15 @@ Plug 'kovetskiy/urxvt.vim'
         \ <Leader>h :call urxvt#put('go build')<CR>
 
     function! KillFuckingQuickfixesAndDoFuckingBuild()
+        let current_winnr = winnr()
+
         exe 'windo
             \ if &buftype == "quickfix" || &buftype == "locationlist"
             \     | lclose |
             \ endif
             \'
+
+        exe current_winnr 'wincmd w'
 
         exe 'GoFmt'
         normal w
@@ -314,11 +318,6 @@ Plug 'kovetskiy/next-indentation'
 Plug 'rust-lang/rust.vim', {'for': 'rust' }
 
 Plug 'rhysd/vim-go-impl'
-
-Plug 'vitalk/vim-simple-todo', { 'for': 'markdown' }
-    let g:simple_todo_map_keys = 1
-    nmap <Leader>f <Plug>(simple-todo-mark-as-done)
-    nmap <Leader>g <Plug>(simple-todo-mark-as-undone)
 
 Plug 'wellle/targets.vim'
 
@@ -450,6 +449,7 @@ au filetype_php FileType php hi! def link phpDocTags  phpDefine
 au filetype_php FileType php hi! def link phpDocParam phpType
 
 imap <C-F> tx<TAB>
+vmap <C-F> ctx<TAB>
 
 nnoremap <C-E><C-D> :cd %:p:h<CR>:pwd<CR>
 nnoremap <C-E><C-F> :lcd %:p:h<CR>:pwd<CR>
@@ -523,6 +523,8 @@ nmap <C-H> <C-W>h
 nmap <C-J> <C-W>j
 nmap <C-K> <C-W>k
 nmap <C-L> <C-W>l
+
+nmap <Leader>s :sp<Space>
 
 imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 
