@@ -10,3 +10,6 @@ set statefile = ~/.mcabber/state/slack-postdevops
 set logging_dir = ~/.mcabber/history/slack-postdevops/
 
 set fifo_name = ~/.mcabber/fifo/slack-postdevops
+set otr = 1
+
+otrpolicy s.seletskiy@postdevops.xmpp.slack.com always
