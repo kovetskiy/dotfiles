@@ -25,6 +25,6 @@ echo "screenshot ready"
 echo "$filename"
 echo "uploading"
 url="$(echo $filename | xargs imgur 2>&1 | head -n1)"
-echo "$url"
-echo "$url" | xclip -selection clipboard
+echo -n $url
+echo -n $url | xclip -selection clipboard
 notify-send "Screenshot ready"
