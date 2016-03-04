@@ -103,6 +103,8 @@ bindsym $alt+Ctrl+r mode "resize"
 
 bindsym Ctrl+Shift+$alt+Break exec poweroff
 
+bindsym  F2           exec amixer set Master 2%-
+bindsym  F3           exec amixer set Master 2%+
 bindsym  $alt+less    exec amixer set Master 1%-
 bindsym  $alt+greater exec amixer set Master 1%+
 bindsym  $win+Ctrl+l  exec lockscreen
