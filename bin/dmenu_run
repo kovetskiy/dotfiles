@@ -1,0 +1,5 @@
+#!/bin/sh
+
+PATH="$HOME/dmenu:$PATH"
+
+dmenu_path | dmenu "$@" | ${SHELL:-"/bin/sh"} &
