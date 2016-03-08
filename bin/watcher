@@ -5,13 +5,16 @@ if [ -n "$1" ]; then
     shift
 fi
 
-inotifywait -m -r -e close_write --format %f . |
+cmd="${@}"
+
+inotifywait -m -r -e close_write --format %w%f . |
     while read name
     do
         if ! grep "$pattern" <<< "$name"; then
             continue
         fi
         echo -e '\e[1;44;1;37m:: '$name'\e[0m'
-        eval "${@}"
+
+        eval "$(sed 's|%s|'"$name"'|' <<< "$cmd")"
     done
 
