@@ -130,3 +130,33 @@ endsnippet
 snippet ae "assert.Equal" wb
 assert.Equal(t, $1, $2)
 endsnippet
+
+snippet pt "print trace" wb
+{`!p
+if t[1] == "0":
+	snip.rv="\n\t\tprintln(\`========================XXXXXX\`)\n\t"
+else:
+	snip.rv=''
+`	_, file, line, _ := runtime.Caller(${1:0})
+	print("stack #$1: ", file, ":", line, "\n")
+}
+$0
+endsnippet
+
+snippet ptf "print trace" wb
+{
+	println("================================================================")
+	println("stack trace:")
+	step := 0
+	for {
+		_, file, line, ok := runtime.Caller(step)
+		if !ok {
+			println("end of stack")
+			break
+		}
+		println("stack #", step, ": ", file, ":", line)
+		step++
+	}
+}
+$0
+endsnippet
