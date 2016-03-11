@@ -27,4 +27,30 @@ echo
 echo
 echo
 
-gometalinter -D golint -D gotype --cyclo-over 15
+gometalinter -D golint -D gotype -D vet --cyclo-over 15
+
+common_functions=(
+    Panic
+    Fatal
+    Error
+    Warning
+    Notice
+    Info
+    Print
+    Debug
+)
+
+printfuncs=""
+for raw_func in "${common_functions[@]}"
+do
+    func="${raw_func}:0"
+    funcf="${raw_func}f:1"
+
+    if [ -n "$printfuncs" ]; then
+        printfuncs="${printfuncs},"
+    fi
+
+    printfuncs="${printfuncs}${func},${funcf}"
+done
+
+go tool vet --printfuncs="$printfuncs" .
