@@ -315,6 +315,8 @@ alias gog='go get'
 alias a='alias'
 alias A='alias | grep '
 
+alias si='sed -i'
+
 alias slp='sleep 3600; poweroff'
 function ww() {
     while :; do
