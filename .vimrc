@@ -91,7 +91,7 @@ Plug 'sirver/ultisnips'
     \]
     let g:UltiSnipsEnableSnipMate = 0
     let g:UltiSnipsExpandTrigger="<TAB>"
-    let g:UltiSnipsEditSplit="vertical"
+    let g:UltiSnipsEditSplit="horizontal"
 
     nnoremap <C-S><C-E> :UltiSnipsEdit<CR>
 
@@ -600,7 +600,7 @@ nmap <Tab> /
 let @l="f(ak$%i,%"
 let @k="^f=i:"
 let @j="^t=x"
-let @t=':%s/\t/    /g:w:noh'
+let @t=':%s/\t/    /g'
 
 " no more "Entering Ex mode"
 map Q <nop>
