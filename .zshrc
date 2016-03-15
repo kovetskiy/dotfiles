@@ -308,6 +308,10 @@ function rsc() {
     cp -ruT $file ~/sources/dotfiles/root/$file
 }
 
+alias po='poe -L'
+alias pox='poe -X -v'
+alias pof='poe -F -v'
+
 alias gob='go build'
 alias goi='go install'
 alias gog='go get'
