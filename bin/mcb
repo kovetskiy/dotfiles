@@ -16,6 +16,10 @@ if [[ "$account" == "p" ]]; then
     account="slack-postdevops"
 fi
 
+if [[ "$account" == "a" ]]; then
+    account="adastra"
+fi
+
 config="$(
     cat ~/.mcabber/account.$account
     echo

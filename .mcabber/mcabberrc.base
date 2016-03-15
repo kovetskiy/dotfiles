@@ -50,6 +50,7 @@ module load focus
 module load autojoin
 module load slack_completion
 
+set otr = 1
 alias o=otr start
 alias sq=otr smpq .
 alias sa=otr smpr .
