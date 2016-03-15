@@ -69,7 +69,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
     let g:go_bin_path = $GOPATH . "/bin"
     let g:go_metalinter_command="gometalinter -D golint --cyclo-over 15"
 
-    au filetype_go FileType go nmap <buffer> <Leader>f :GoFmt<CR>:w<CR>
+    au filetype_go FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au filetype_go FileType go nmap <buffer> <Leader>h :GoDoc<CR>
 
 Plug 'elzr/vim-json', { 'for': 'json' }
