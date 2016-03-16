@@ -5,3 +5,7 @@
 	helper = cache --timeout=3600000
 [core]
 	editor = vim
+[color]
+	ui = auto
+[url "git+ssh://github.com/"]
+	insteadOf = https://github.com/
