@@ -1,0 +1,8 @@
+#!/bin/bash
+
+netstat -na | grep -q 2222
+if [ $? -ne 0 ]; then
+    adb forward tcp:2222 tcp:22
+fi
+
+exec ssh root@localhost -p2222 "$@"
