@@ -58,3 +58,44 @@ endglobal
 snippet "^(\s+)" "expand usage" "should_expand_usage(snip)" re
 `!p snip.rv=match.group(1)``!p snip.rv=snip.context['name']` $1
 endsnippet
+
+snippet a "args" w
+args["$1"]
+endsnippet
+
+snippet r "return" w
+return $0
+endsnippet
+
+snippet rf "Description" w
+return FALSE
+endsnippet
+
+snippet e "end" w
+end
+endsnippet
+
+snippet p "puts" w
+puts "$1"
+endsnippet
+
+priority 10
+snippet "return f" "Description"
+return FALSE
+endsnippet
+
+snippet rt "return true" w
+return TRUE
+endsnippet
+
+priority 10
+snippet "return t" "Description" w
+return TRUE
+endsnippet
+
+snippet i "if" w
+if $1
+	$2
+end
+$0
+endsnippet

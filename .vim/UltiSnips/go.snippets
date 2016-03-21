@@ -173,12 +173,6 @@ snippet mss "map[string]string" w
 map[string]string
 endsnippet
 
-snippet "(map\[\w+\][\w{}\[\]]+){" "map[\w]\w{\n}" rA
-`!p snip.rv=match.group(1)`{
-	$1
-}$0
-endsnippet
-
 snippet "map\[(\w+)\]i" "map[\w]interface{}" r
 map[`!p snip.rv=match.group(1)`]interface{}$0
 endsnippet
