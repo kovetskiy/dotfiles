@@ -7,7 +7,7 @@ fi
 
 cmd="${@}"
 
-inotifywait -m -e modify --format %w%f . |
+inotifywait -r -m -e modify --format %w%f . |
     while read name
     do
         if ! grep "$pattern" <<< "$name"; then
