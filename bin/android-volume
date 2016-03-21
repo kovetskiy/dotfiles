@@ -1,0 +1,12 @@
+#!/bin/bash
+
+KEYCODE_VOLUME_UP=24
+KEYCODE_VOLUME_DOWN=25
+
+if [ "$1" == "up" ]; then
+    adb shell input keyevent $KEYCODE_VOLUME_UP
+fi
+
+if [ "$1" == "down" ]; then
+    adb shell input keyevent $KEYCODE_VOLUME_DOWN
+fi

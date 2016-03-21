@@ -1,0 +1,17 @@
+#!/bin/bash
+
+adb_devices_stub_lines=2
+
+adb_lines_count=$(adb devices | wc -l)
+
+if [[ $adb_lines_count > $adb_devices_stub_lines ]]; then
+    exec android-volume $@
+fi
+
+if [ "$1" == "up" ]; then
+    exec amixer set Master 2%+
+fi
+
+if [ "$1" == "down" ]; then
+    exec amixer set Master 2%-
+fi
