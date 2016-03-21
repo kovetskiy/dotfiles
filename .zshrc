@@ -201,6 +201,7 @@ alias -g W='| wc -l'
 alias -g E='-l e.kovetskiy'
 alias -g U='-t "sudo -i"'
 alias -g R='-l root'
+alias -g X='| xargs -n1 -I{}'
 alias l='ls'
 function c() {
     cd $@
