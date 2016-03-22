@@ -1,0 +1,5 @@
+#!/bin/bash
+
+exec google-chrome-stable \
+    --profile-directory=Default \
+    --app-id=pofoighmmpljaikjiidkkfhldjndfdbk
