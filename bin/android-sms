@@ -1,0 +1,77 @@
+#!/bin/bash
+
+_usage() {
+    echo "
+Usage:
+    android-sms [-a]
+
+Options:
+    -a      Show read messages.
+    -l      Show only last message.
+"
+}
+
+_main() {
+    arg_all=false
+    arg_last=false
+
+    while getopts al ARG; do
+        case "$ARG" in
+            a)
+                arg_all=true
+                ;;
+
+            l)
+                arg_last=true
+                ;;
+
+            \?)
+                _usage
+                exit 0
+                ;;
+        esac
+    done
+
+    _list $arg_all $arg_last
+}
+
+
+_list() {
+    local arg_all=$1
+    local arg_last=$2
+
+    local FILE=/data/data/com.android.providers.telephony/databases/mmssms.db
+
+    local QUERY="
+        select
+            '{BEGIN}', address, '{|}', body, '{END}'
+        from sms
+    "
+
+    if ! $arg_all;  then
+        QUERY="$QUERY"$'\n'"WHERE read=0"
+    fi
+
+    if $arg_last; then
+        QUERY="$QUERY"$'\n'"ORDER BY date DESC LIMIT 1"
+    fi
+
+    local CMDLINE=
+    read -r -d '' CMDLINE <<CMDLINE
+        echo "$QUERY;" | su root sqlite3 -csv "$FILE"
+CMDLINE
+
+    local SMS=$(
+        adb shell "$CMDLINE" \
+        | sed 's/{BEGIN},/{"address": "/g' \
+        | sed 's/,{|},/", "body": /g' \
+        | sed 's/,{END}/},/g' \
+        | tr -d '\r' \
+        | tr '\n' ' ' \
+        | sed 's/, $//' # prevent expecting another array element
+    )
+
+    echo "[$SMS]"
+}
+
+_main $@

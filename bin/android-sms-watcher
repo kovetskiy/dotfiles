@@ -1,0 +1,26 @@
+#!/bin/bash
+
+SIGNATURE="handleSmsReceived"
+
+# adb logcat can't show only new messages, so we have to use a hack with
+# skipping old events
+garbage_count=$(adb logcat -v raw -d | wc -l)
+
+skipped=0
+adb logcat -v raw | while read line; do
+    if [ $skipped -lt $garbage_count ]; then
+        skipped=$((skipped+1))
+        continue
+    fi
+
+    if ! grep "$SIGNATURE" <<< "$line"; then
+        continue
+    fi
+
+    contents=$(android-sms -l | jq '.[]')
+
+    address=$(jq -r .address <<< "$contents")
+    body=$(jq -r .body <<< "$contents")
+
+    notify-send "$address" "$body"
+done
