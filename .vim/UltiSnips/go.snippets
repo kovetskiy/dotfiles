@@ -180,3 +180,17 @@ endsnippet
 snippet []s "[]string" w
 []string{$1}$0
 endsnippet
+
+snippet c "construct structure" w
+$2 = $1{
+	$3,
+}
+endsnippet
+
+
+priority 10
+snippet "= c" "construct structure"
+= $1{
+	$2,
+}
+endsnippet

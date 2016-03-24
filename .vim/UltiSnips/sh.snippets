@@ -47,27 +47,15 @@ snippet nc "Description" w
 echo ${1:${VISUAL}} | nc localhost 1399
 endsnippet
 
-snippet te "tests_ensure" w
-tests_ensure $1
+
+snippet k "put stdin" w
+<<EOF
+$1
+EOF
+
+endsnippet
+
+snippet tas "tas" w
+tests:assert-success
 $0
 endsnippet
-
-snippet td "tests_do" w
-tests_do $1
-$0
-endsnippet
-
-snippet tor "tests_assert_stdout_re" w
-tests_assert_stdout_re $1
-$0
-endsnippet
-
-snippet tor "tests_assert_stderr_re" w
-tests_assert_stderr_re $1
-$0
-endsnippet
-
-snippet tt "tests_tmpdir" w
-\`tests_tmpdir\`$0
-endsnippet
-
