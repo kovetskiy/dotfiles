@@ -244,6 +244,7 @@ alias gcn!='git commit --amend'
 function gc()  { git commit -m "$@" }
 function gc!() { git commit --amend -m "$@" }
 alias gck='git commit --amend -C HEAD'
+alias gcoo='git checkout --orphan'
 alias gco='git checkout'
 function gcor() {
     git checkout --orphan "$1"
@@ -298,6 +299,8 @@ alias gro='git remote show'
 alias grog='git remote show origin -n'
 alias gros='git remote set-url origin'
 alias grb='git rebase --abort'
+
+alias t='ssh vxw@home.local'
 
 alias ку='reconfig-kbd'
 alias й='env-setup'
