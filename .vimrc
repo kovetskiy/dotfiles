@@ -561,6 +561,8 @@ fu! SetBg(bg)
         set background=light
         colorscheme PaperColor
 
+        let g:airline_theme = 'sol'
+
         hi! underlined cterm=underline
         hi! CursorLineNr ctermfg=241 ctermbg=none
         hi! LineNr ctermfg=249 ctermbg=none
