@@ -143,10 +143,10 @@ bindsym $alt+Ctrl+grave [instance="^(?!kuake)"] scratchpad show
 bindsym $alt+Shift+grave move scratchpad
 bindsym $alt+grave exec kuake
 
-for_window [instance="^screenkey$"] floating enable
-for_window [instance="^sxiv$"] floating enable
-for_window [instance="^kuake_"] floating enable
-for_window [instance="^malder"] floating enable
+for_window [title="^screenkey$"] floating enable
+for_window [title="^sxiv$"] floating enable
+for_window [title="^kuake_"] floating enable
+for_window [title="^malder"] floating enable
 for_window [title="android"] floating disable
 
 client.focused #cb4b16 #dc322f #fdf6e3 #ffffff
