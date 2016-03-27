@@ -170,11 +170,19 @@ function s() {
 }
 compdef s=ssh
 
+alias m='man'
+# man find
+mf() {
+    man --regex -wK "$@" \
+        | sed 's#.*/##g' \
+        | cut -d. -f1 \
+        | uniq
+}
 alias z='sudo zfs'
 alias zl='sudo zfs list'
 alias rto='rtorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
-alias m='mplayer '
-alias ma='mplayer *'
+alias mp='mplayer '
+alias mpa='mplayer *'
 alias e='exec startx'
 alias au='yes | EDITOR=cat yaourt '
 alias aus='au -S'
