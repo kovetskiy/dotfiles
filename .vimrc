@@ -321,6 +321,15 @@ Plug 'rhysd/vim-go-impl'
 
 Plug 'wellle/targets.vim'
 
+Plug 'takac/vim-hardtime'
+    let g:list_of_insert_keys = []
+    let g:list_of_visual_keys = []
+    let g:list_of_normal_keys = ["<Leader>r"]
+
+    let g:hardtime_showerr = 1
+    let g:hardtime_timeout = 5000
+    let g:hardtime_default_on = 1
+
 call plug#end()
 
 syntax on
