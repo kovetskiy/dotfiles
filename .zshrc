@@ -209,7 +209,7 @@ cu() {
 alias -g Cu='| cu'
 
 f() {
-    find -iname "*$1*" -print | sed-remove-all-before './'
+    find -iname "*$1*" -not -path '.' -printf '%P\n'
 }
 
 alias z='sudo zfs'
@@ -217,7 +217,7 @@ alias zl='sudo zfs list'
 alias rto='rtorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
 alias mp='mplayer '
 alias mpa='mplayer *'
-alias e='exec startx'
+alias e='echo'
 alias au='yes | EDITOR=cat yaourt '
 alias aus='au -S'
 alias aur='au -R'
@@ -309,8 +309,8 @@ alias gdo='git diff origin'
 alias gcob='git checkout -b'
 alias gcon='gf && gcom && gcof'
 alias gbn='git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3'
-alias gpot='git push origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3` && ghc'
-alias gpot!='git push origin +`git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3` && ghc'
+alias gpot='git push origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3` && { ghc || bhc }'
+alias gpot!='git push origin +`git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3` && { ghc || bhc }'
 alias gpt='gpot'
 alias gpt!='gpot!'
 alias gput='git pull --rebase origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
@@ -348,7 +348,8 @@ alias grog='git remote show origin -n'
 alias gros='git remote set-url origin'
 alias grb='git rebase --abort'
 alias ghu='hub browse -u'
-alias ghc='hub browse -u -- commit/$(git rev-parse --short HEAD)'
+alias ghc='hub browse -u -- commit/$(git rev-parse --short HEAD) 2>/dev/null'
+alias bhc='BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
 
 alias t='ssh vxw@home.local'
 
