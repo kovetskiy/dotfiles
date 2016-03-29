@@ -59,3 +59,13 @@ snippet tas "tas" w
 tests:assert-success
 $0
 endsnippet
+
+snippet tt "" w
+$(tests:get-tmp-dir)$0
+endsnippet
+
+snippet j "pass stdin as file" w
+<<<EOF
+$1
+EOF
+endsnippet

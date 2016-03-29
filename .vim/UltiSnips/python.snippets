@@ -1,0 +1,10 @@
+snippet p "Description" w
+print "$1"
+endsnippet
+
+priority 1000
+snippet d "Description" w
+with open("/tmp/debug", 'a+') as f:
+  f.write($1)
+endsnippet
+
