@@ -208,6 +208,10 @@ cu() {
 }
 alias -g Cu='| cu'
 
+f() {
+    find -iname "*$1*" -print | sed-remove-all-before './'
+}
+
 alias z='sudo zfs'
 alias zl='sudo zfs list'
 alias rto='rtorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
@@ -239,7 +243,13 @@ alias -g W='| wc -l'
 alias -g E='-l e.kovetskiy'
 alias -g U='-t "sudo -i"'
 alias -g R='-l root'
-alias -g X='| xargs -n1 -I{}'
+alias -g Xa='| xargs -n1 -I{} '
+alias -g X='| xarger-zsh'
+xarger-zsh() {
+    xargs -n1 -I{} echo "( $@ ) <<< '{}'" | while read line; do
+        eval "$line"
+    done
+}
 alias l='ls'
 function c() {
     cd $@
