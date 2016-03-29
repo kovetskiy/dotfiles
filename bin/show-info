@@ -1,6 +1,6 @@
 #!/bin/bash
-notify-send -t 1000 -- "`date`"
-notify-send -t 1000 -- "`weather`" "`sensors \
-        | tail -n +3 | head -n -1 | head -n 2 \
-        | sed 's/       / /g' \
-        | awk '{print $1" "$2}'`"
+body="$(date)"
+notify-send.sh -r 1000 -t 1000 " " -- "$body"
+
+body="$body"$'\n'"$(weather)"
+notify-send.sh -r 1000 -t 1000 " " -- "$body"
