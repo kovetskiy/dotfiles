@@ -50,12 +50,15 @@ if [ ! -d ~/.zgen ]; then
     git clone https://github.com/tarjoilija/zgen ~/.zgen
 fi
 
+autoload -Uz compinit
+compinit
+
 source ~/.zgen/zgen.zsh
 
 if ! zgen saved; then
-    zgen load seletskiy/zsh-zgen-compinit-tweak
     zgen load sorin-ionescu/prezto
 
+    zgen load kovetskiy/zsh-quotes
     zgen load kovetskiy/zsh-add-params
     zgen load kovetskiy/zsh-fastcd
     zgen load seletskiy/zsh-prompt-lambda17
@@ -78,6 +81,7 @@ else
 fi
 
 bindkey -v '^K' add-params
+bindkey -v '^O' toggle-quotes
 
 hash -d dotfiles=~/sources/dotfiles/
 hash -d df=~/sources/dotfiles/
@@ -124,7 +128,7 @@ bindkey -v '^H' backward-delete-char
 bindkey -v '^[[3~' delete-char
 bindkey -v '^W' backward-kill-word
 bindkey -v '^B' vi-backward-word #ctrl+alt+H
-bindkey -v '^E' vi-forward-word #ctrl+alt+L
+bindkey -v '^E' vi-forward-blank-word #ctrl+alt+L
 bindkey -v "^L" clear-screen
 
 function apkg() {
