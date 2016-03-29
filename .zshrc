@@ -182,6 +182,32 @@ mf() {
         | cut -d. -f1 \
         | uniq
 }
+
+sed-remove-all-before() {
+    local symbol=$(sed 's@/@\\/@g' <<< "$1")
+    sed "s/.*$symbol//g"
+}
+alias sb='sed-remove-all-before'
+alias -g Sb='| sed-remove-all-before'
+
+sed-remove-all-after() {
+    local symbol=$(sed 's@/@\\/@g' <<< "$1")
+    sed "s/$symbol.*//g"
+}
+alias sa='sed-remove-all-after'
+alias -g Sa='| sed-remove-all-after'
+
+alias td='tr -d'
+alias -g Td='tr -d'
+alias -g Tr='| tr'
+
+cu() {
+    local d="$1"
+    shift
+    cut -d"$d" -f"$@"
+}
+alias -g Cu='| cu'
+
 alias z='sudo zfs'
 alias zl='sudo zfs list'
 alias rto='rtorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
@@ -273,8 +299,8 @@ alias gdo='git diff origin'
 alias gcob='git checkout -b'
 alias gcon='gf && gcom && gcof'
 alias gbn='git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3'
-alias gpot='git push origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
-alias gpot!='git push origin +`git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
+alias gpot='git push origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3` && ghc'
+alias gpot!='git push origin +`git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3` && ghc'
 alias gpt='gpot'
 alias gpt!='gpot!'
 alias gput='git pull --rebase origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
@@ -311,6 +337,8 @@ alias gro='git remote show'
 alias grog='git remote show origin -n'
 alias gros='git remote set-url origin'
 alias grb='git rebase --abort'
+alias ghu='hub browse -u'
+alias ghc='hub browse -u -- commit/$(git rev-parse --short HEAD)'
 
 alias t='ssh vxw@home.local'
 
