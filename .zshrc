@@ -175,13 +175,20 @@ function s() {
 compdef s=ssh
 
 alias m='man'
-# man find
+
 mf() {
     man --regex -wK "$@" \
         | sed 's#.*/##g' \
         | cut -d. -f1 \
         | uniq
 }
+
+md() {
+    man $1 | less +"/^\s{7}$2"
+}
+compdef md=man
+
+alias hi='fc -ln 0'
 
 sed-remove-all-before() {
     local symbol=$(sed 's@/@\\/@g' <<< "$1")
@@ -211,6 +218,7 @@ alias -g Cu='| cu'
 f() {
     find -iname "*$1*" -not -path '.' -printf '%P\n'
 }
+
 
 alias z='sudo zfs'
 alias zl='sudo zfs list'
