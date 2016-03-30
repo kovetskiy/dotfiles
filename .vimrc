@@ -68,6 +68,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
     let g:go_fmt_autosave = 1
     let g:go_bin_path = $GOPATH . "/bin"
     let g:go_metalinter_command="gometalinter -D golint --cyclo-over 15"
+    let g:go_list_type = "quickfix"
 
     au filetype_go FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au filetype_go FileType go nmap <buffer> <Leader>h :GoDoc<CR>
@@ -292,9 +293,9 @@ Plug 'seletskiy/ashium'
 
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
-Plug 'mileszs/ack.vim'
-    if executable('ag')
-        let g:ackprg = 'ag --vimgrep -- '
+Plug 'rking/ag.vim'
+    if executable('sift')
+        let g:ag_prg = 'sift  -- '
     endif
 
     let g:ack_mappings = {
@@ -306,8 +307,8 @@ Plug 'mileszs/ack.vim'
           \ "v": "<C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t",
           \ "gv": "<C-W><CR><C-W>H<C-W>b<C-W>J"
       \ }
-    let g:ackhighlight=1
-    nnoremap <C-E><C-G> :Ack<Space>''<Left>
+    
+    nnoremap <C-E><C-G> :Ag<Space>''<Left>
 
 Plug 'yssl/QFEnter'
 
@@ -329,6 +330,8 @@ Plug 'takac/vim-hardtime'
     let g:hardtime_showerr = 1
     let g:hardtime_timeout = 5000
     let g:hardtime_default_on = 1
+
+Plug 'kovetskiy/ycm-sh'
 
 call plug#end()
 

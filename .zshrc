@@ -67,6 +67,7 @@ if ! zgen saved; then
     zgen load seletskiy/zsh-ssh-urxvt
     zgen load seletskiy/zsh-ash-completion
 
+
     zgen load s7anley/zsh-geeknote
 
     zgen save
@@ -192,6 +193,13 @@ compdef md=man
 
 alias hi='fc -ln 0'
 
+sed-s() {
+    local from=$(sed 's@/@\\/@g' <<< "$1")
+    local to=$(sed 's@/@\\/@g' <<< "$2")
+    sed "s/$from/$to/g"
+}
+alias ss='sed-s'
+
 sed-remove-all-before() {
     local symbol=$(sed 's@/@\\/@g' <<< "$1")
     sed "s/.*$symbol//g"
@@ -218,9 +226,12 @@ cu() {
 alias -g Cu='| cu'
 
 f() {
-    find -iname "*$1*" -not -path '.' -printf '%P\n'
+    local query="$1"
+    shift
+    find -iname "*$query*" -not -path '.' -printf '%P\n' "$@"
 }
 
+alias s='sift -e'
 
 alias z='sudo zfs'
 alias zl='sudo zfs list'
