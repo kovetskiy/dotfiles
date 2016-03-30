@@ -38,6 +38,7 @@ POINTS=(
     ".tmux.conf"
     ".yaourtrc"
     ".toprc"
+    ".sift.conf"
 )
 
 for POINT in "${POINTS[@]}"; do

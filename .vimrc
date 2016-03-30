@@ -293,9 +293,9 @@ Plug 'seletskiy/ashium'
 
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
-Plug 'rking/ag.vim'
+Plug 'kovetskiy/ack.vim'
     if executable('sift')
-        let g:ag_prg = 'sift  -- '
+        let g:ackprg = 'sift --err-skip-line-length --binary-skip'
     endif
 
     let g:ack_mappings = {
@@ -307,8 +307,9 @@ Plug 'rking/ag.vim'
           \ "v": "<C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t",
           \ "gv": "<C-W><CR><C-W>H<C-W>b<C-W>J"
       \ }
-    
-    nnoremap <C-E><C-G> :Ag<Space>''<Left>
+
+    let g:ackhighlight=1
+    nnoremap <C-E><C-G> :Ack<Space>
 
 Plug 'yssl/QFEnter'
 
