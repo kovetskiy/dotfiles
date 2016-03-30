@@ -252,14 +252,32 @@ alias -g EO='2>&1'
 alias -g W='| wc -l'
 alias -g E='-l e.kovetskiy'
 alias -g U='-t "sudo -i"'
-alias -g R='-l root'
+alias -g SR='--replace'
+alias -g ST='--targets'
 alias -g Xa='| xargs -n1 -I{} '
 alias -g X='| xarger-zsh'
 xarger-zsh() {
-    xargs -n1 -I{} echo "( $@ ) <<< '{}'" | while read line; do
-        eval "$line"
+    local cmd="$@"
+    local args=()
+    for i in "$@"; do
+        case $i in
+            '`'*)  args+=($i) ;;
+            *'`')  args+=($i) ;;
+            *'>'*) args+=($i) ;;
+            *'<'*) args+=($i) ;;
+            *'&')  args+=($i) ;;
+            '|')   args+=($i) ;;
+            *)     args+=(\""$i"\")
+        esac
+    done
+
+    xargs -n1 -I{} \
+        echo "( exec ${args[@]} ) <<< '{}'" \
+        | while read -r subcmd; do
+            eval "${subcmd[@]}"
     done
 }
+
 alias l='ls'
 function c() {
     cd $@
