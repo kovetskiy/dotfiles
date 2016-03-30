@@ -56,6 +56,8 @@ compinit
 source ~/.zgen/zgen.zsh
 
 if ! zgen saved; then
+    zgen load seletskiy/zsh-zgen-compinit-tweak
+
     zgen load sorin-ionescu/prezto
 
     zgen load kovetskiy/zsh-quotes
