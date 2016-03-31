@@ -163,11 +163,12 @@ function s() {
         echo -n $count > $count_file
 
         if [[ $count -gt 2 ]]; then
-            echo "[@] executing ssh-copy-id..."
-            rm -f ~/.ssh/connections/* 2>/dev/null
-            ssh-copy-id "e.kovetskiy@$host"
+            ( setopt null_glob && rm -f ~/.ssh/connections/* &>/dev/null )
+            echo "adding public key..."
+            ssh-copy-id "e.kovetskiy@$host" &> /tmp/.ssh-copy-id
             if [[ $? -ne 0 ]]; then
-                exit
+                cat /tmp/.ssh-copy-id
+                return 1
             fi
             touch $mark_file
         fi
