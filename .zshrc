@@ -63,6 +63,8 @@ if ! zgen saved; then
     zgen load kovetskiy/zsh-quotes
     zgen load kovetskiy/zsh-add-params
     zgen load kovetskiy/zsh-fastcd
+    zgen load kovetskiy/zsh-smart-ssh
+
     zgen load seletskiy/zsh-prompt-lambda17
     zgen load seletskiy/zsh-ssh-urxvt
     zgen load seletskiy/zsh-ash-completion
@@ -149,7 +151,7 @@ alias gocd="fastcd $GOPATH/src/ 3"
 zstyle ':smart-ssh' username e.kovetskiy
 zstyle ':smart-ssh' ssh-options '-t' 'TERM=xterm sudo -i'
 zstyle ':smart-ssh' whitelist '.s' '.in.ngs.ru'
-alias h='ssh-smart'
+alias h='smart-ssh'
 
 alias m='man'
 
@@ -271,7 +273,7 @@ ssh-environment-host() {
     host=$(deployer -Qe "$env" \
         | grep '^node0:$' -A 3 \
         | awk '/host:/ {print $2}')
-    ssh-smart $host
+    smart-ssh $host
 }
 alias he='ssh-environment-host'
 
