@@ -144,39 +144,12 @@ alias scd="fastcd ~/sources/ 1"
 alias vicd="fastcd ~/.vim/bundle/ 1"
 alias gocd="fastcd $GOPATH/src/ 3"
 
-alias ssh='ssh-urxvt'
+#alias ssh='ssh-urxvt'
 
-function s() {
-    local host="$1"
-    shift
-
-    count_file=~/.ssh/counters/$host
-    mark_file=~/.ssh/marks/$host
-
-    if [[ ! -f $mark_file ]]; then
-        count=0
-        if [[ -f $count_file ]]; then
-            count=`cat $count_file`
-        fi
-
-        count=$((count+1))
-        echo -n $count > $count_file
-
-        if [[ $count -gt 2 ]]; then
-            ( setopt null_glob && rm -f ~/.ssh/connections/* &>/dev/null )
-            echo "adding public key..."
-            ssh-copy-id "e.kovetskiy@$host" &> /tmp/.ssh-copy-id
-            if [[ $? -ne 0 ]]; then
-                cat /tmp/.ssh-copy-id
-                return 1
-            fi
-            touch $mark_file
-        fi
-    fi
-
-    ssh "$host" -l e.kovetskiy -t "TERM=xterm sudo -i" $@
-}
-compdef s=ssh
+zstyle ':smart-ssh' username e.kovetskiy
+zstyle ':smart-ssh' ssh-options '-t' 'TERM=xterm sudo -i'
+zstyle ':smart-ssh' whitelist '.s' '.in.ngs.ru'
+alias h='ssh-smart'
 
 alias m='man'
 
@@ -233,6 +206,9 @@ f() {
 }
 
 alias s='sift -e'
+alias -g SR='--replace'
+alias -g ST='--targets'
+alias -g SX='--exclude-path'
 
 alias z='sudo zfs'
 alias zl='sudo zfs list'
@@ -264,8 +240,6 @@ alias -g EO='2>&1'
 alias -g W='| wc -l'
 alias -g E='-l e.kovetskiy'
 alias -g U='-t "sudo -i"'
-alias -g SR='--replace'
-alias -g ST='--targets'
 alias -g Xa='| xargs -n1 -I{} '
 alias -g X='| xarger-zsh'
 xarger-zsh() {
@@ -289,6 +263,17 @@ xarger-zsh() {
             eval "${subcmd[@]}"
     done
 }
+
+ssh-environment-host() {
+    local env=$(sed 's/^\(.*.ru\.\|\.\)//' <<< "$1")
+
+    local host
+    host=$(deployer -Qe "$env" \
+        | grep '^node0:$' -A 3 \
+        | awk '/host:/ {print $2}')
+    ssh-smart $host
+}
+alias he='ssh-environment-host'
 
 alias l='ls'
 function c() {
