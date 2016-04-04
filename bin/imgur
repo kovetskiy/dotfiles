@@ -1,0 +1,7 @@
+#!/bin/bash
+
+clientid='3e7a4deb7ac67da'
+
+curl -sH "Authorization: Client-ID $clientid" -F "image=@$1" \
+            "https://api.imgur.com/3/upload" \
+        | jq -r '.data.link'
