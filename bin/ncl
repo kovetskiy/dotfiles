@@ -1,0 +1,6 @@
+#!/bin/bash
+
+data="$@"
+[ -s /dev/stdin ] && data="$(cat)"
+
+exec nc localhost 1399 <<< "$data"
