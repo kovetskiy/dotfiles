@@ -10,11 +10,6 @@ endif
 let g:mapleader="\<Space>"
 let mapleader=g:mapleader
 
-" Definitions of autocmd groups.
-augroup filetype_php
-    au!
-augroup end
-
 augroup filetype_go
     au!
 augroup end
@@ -60,8 +55,6 @@ Plug 'Valloric/YouCompleteMe'
 
     let g:ycm_seed_identifiers_with_syntax = 1
 
-Plug '2072/PHP-Indenting-for-VIm', { 'for': 'php' }
-
 Plug 'fatih/vim-go', { 'for': 'go' }
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
@@ -103,21 +96,9 @@ Plug 'sirver/ultisnips'
         au FileType snippets set textwidth=999
     augroup end
 
-Plug 'reconquest/snippets', { 'for': ['php', 'go', 'ruby', 'python']}
+Plug 'reconquest/snippets', { 'for': ['go', 'ruby', 'python']}
 
 Plug 'tpope/vim-surround'
-
-Plug 'joonty/vim-phpqa', { 'for': 'php' }
-    let g:phpqa_php_cmd='php'
-    let g:phpqa_run_on_write=0
-    let g:phpqa_codesniffer_cmd='phpcs'
-    let g:phpqa_codesniffer_args="--encoding=utf8 --standard='" . expand('~') .
-        \ "/repos/standards/CodeSniffer/Standards/NGS/ruleset.xml'"
-
-    let g:phpqa_codesniffer_autorun=0
-    let g:phpqa_messdetector_autorun=0
-
-    au filetype_php FileType php nnoremap <buffer> <F2>  :Phpcs<CR>
 
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
 
@@ -447,19 +428,6 @@ augroup confluence
     au BufWritePre /tmp/vimperator-confluence* %s/\v\>[\ \t\n]+\</></
     au BufWritePost /tmp/vimperator-confluence* silent! undo
 augroup end
-
-au filetype_php FileType php nnoremap <buffer> <F7>  :!time tags_php<CR>
-
-" Ultisnips triggers.
-au filetype_php FileType php imap <buffer> <C-S><C-P> ps<TAB>
-au filetype_php FileType php imap <buffer> <C-G><C-P> pg<TAB>
-au filetype_php FileType php imap <buffer> <C-S><C-V> vs<TAB>
-au filetype_php FileType php imap <buffer> <C-G><C-V> vg<TAB>
-au filetype_php FileType php imap <buffer> <C-S><C-U> us<TAB>
-au filetype_php FileType php imap <buffer> <C-G><C-U> ug<TAB>
-
-au filetype_php FileType php hi! def link phpDocTags  phpDefine
-au filetype_php FileType php hi! def link phpDocParam phpType
 
 imap <C-F> tx<TAB>
 vmap <C-F> ctx<TAB>
