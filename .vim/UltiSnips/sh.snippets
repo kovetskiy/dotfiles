@@ -1,3 +1,67 @@
+snippet u "" w
+[ $1 ] && $0
+endsnippet
+
+snippet r "re" w
+return
+endsnippet
+
+snippet se "Description" w
+set -euo pipefail
+endsnippet
+
+snippet gp "Description" w
+while getopts ":$1" arg; do
+	local value="$OPTARG"
+	case $arg in
+		$2
+		h)
+			show_usage
+			;;
+	esac
+done
+
+local OPTIND
+
+$0
+endsnippet
+
+snippet m "main" w
+usage() {
+	echo "
+$1
+
+Usage:
+	$2
+
+Options:
+	$3
+"
+}
+
+__main__() {
+	$4
+
+	show_usage
+	exit 1
+}
+
+$5
+
+
+if [ $# -eq 0 ]; then
+	usage
+	exit 2
+fi
+
+if [ "\$1" == "-h" ] || [ "\$1" == "--help" ]; then
+	usage
+	exit 0
+fi
+
+__main__ $@
+endsnippet
+
 snippet er "exec 2>&1" w
 exec 2>&1 >${1:/dev/null}
 endsnippet
@@ -10,6 +74,19 @@ endsnippet
 snippet p "if not pidof" w
 if [ -z \`pidof $1\` ]; then
 	$2
+fi
+endsnippet
+
+snippet i# "i#" w
+if [ $# -ne $1 ]; then
+	usage
+	exit 1
+fi
+endsnippet
+
+snippet in "if" bw
+if [ "$1" != "$2" ]; then
+	$3
 fi
 endsnippet
 
@@ -68,4 +145,21 @@ snippet j "pass stdin as file" w
 <<<EOF
 $1
 EOF
+endsnippet
+
+snippet gf "log func" w
+log() {
+	echo ">>> $@"
+}
+endsnippet
+
+snippet g "log" w
+log "$1"
+endsnippet
+
+snippet c "Description" w
+$1)
+	$2
+	;;
+$0
 endsnippet
