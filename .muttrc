@@ -7,7 +7,8 @@ set index_format="%4C %Z %{%d/%m %T} %-20.20L %s"
 set sendmail=/usr/bin/msmtp
 set markers=no
 set editor=vim
-set imap_check_subscribed
+set imap_check_subscribed=yes
+set imap_idle=yes
 set mail_check=300
 set sort=threads
 set narrow_tree=yes
