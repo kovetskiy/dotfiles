@@ -8,7 +8,7 @@ set sendmail=/usr/bin/msmtp
 set markers=no
 set editor=vim
 set imap_check_subscribed
-set mail_check=1
+set mail_check=300
 set sort=threads
 set narrow_tree=yes
 set metoo
