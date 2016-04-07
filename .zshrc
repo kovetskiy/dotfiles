@@ -172,20 +172,22 @@ alias hi='fc -ln 0'
 sed-s() {
     local from=$(sed 's@/@\\/@g' <<< "$1")
     local to=$(sed 's@/@\\/@g' <<< "$2")
-    sed "s/$from/$to/g"
+    sed -r "s/$from/$to/g"
 }
 alias ss='sed-s'
 
+alias se='sed -r '
+
 sed-remove-all-before() {
     local symbol=$(sed 's@/@\\/@g' <<< "$1")
-    sed "s/.*$symbol//g"
+    sed -r "s/.*$symbol//g"
 }
 alias sb='sed-remove-all-before'
 alias -g Sb='| sed-remove-all-before'
 
 sed-remove-all-after() {
     local symbol=$(sed 's@/@\\/@g' <<< "$1")
-    sed "s/$symbol.*//g"
+    sed -r "s/$symbol.*//g"
 }
 alias sa='sed-remove-all-after'
 alias -g Sa='| sed-remove-all-after'
@@ -400,7 +402,10 @@ alias goi='go install'
 alias gog='go get'
 
 alias a='alias'
-alias A='alias | grep '
+
+function A() {
+    alias | grep -- "$*"
+}
 
 alias si='sed -i'
 
