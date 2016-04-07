@@ -5,12 +5,25 @@ if [ -n "$1" ]; then
     shift
 fi
 
-cmd="${@}"
 
-inotifywait -r -m -e modify --format %w%f . |
+RUN_ST=1
+if [[ $1 =~ ^-?[0-9]+$ ]]; then
+    RUN_ST=$1
+    shift
+fi
+
+cmd_template="${@}"
+
+N=0
+inotifywait -r -m -e modify --format %w%f . 2>/dev/null |
     while read name
     do
-        if ! grep "$pattern" <<< "$name"; then
+        if ! grep -q "$pattern" <<< "$name"; then
+            continue
+        fi
+
+        N=$((N+1))
+        if [ $(bc <<< "$N%$RUN_ST") != "0"  ]; then
             continue
         fi
 
@@ -19,6 +32,10 @@ inotifywait -r -m -e modify --format %w%f . |
         export FILE="$name"
         export EXT=$(sed 's/.*\.//g' <<< "$FILE")
 
-        eval "$(sed 's|%s|'"$name"'|' <<< "$cmd")"
+        cmd=$(sed 's|%s|'"$name"'|' <<< "$cmd_template")
+        echo "$ $cmd"
+        (
+            eval "$cmd"
+        )
     done
 
