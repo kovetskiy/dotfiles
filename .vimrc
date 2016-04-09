@@ -328,9 +328,11 @@ set timeoutlen=400
 set wildmenu
 
 set undofile
-set undodir=$HOME/.vim/tmp/
+set undodir=$HOME/.vim/undo/
 set directory=$HOME/.vim/tmp/
-set backupdir=$HOME/.vim/tmp
+set backupdir=$HOME/.vim/backup/
+set writebackup
+set backup
 
 set lazyredraw
 set ttyfast
