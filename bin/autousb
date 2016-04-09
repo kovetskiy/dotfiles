@@ -6,7 +6,7 @@ inotifywait --monitor --event create,delete --format '%e %w%f' /dev | \
         if [[ $device =~ $pattern ]]; then
             case $event in
                 CREATE)
-                    echo "Settling for $device..."
+                    logger "mounting $device"
                     sleep 1
                     udisksctl mount --block-device $device --no-user-interaction
                 ;;
