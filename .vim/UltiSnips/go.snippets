@@ -194,3 +194,16 @@ snippet "= c" "construct structure"
 	$2,
 }
 endsnippet
+
+snippet u "usage" w
+version = "1.0"
+usage = \`$1\` + version + \`
+$2
+
+Usage:
+
+Options:
+	-h --help		Show this screen.
+	--version       Show version.
+\`
+endsnippet
