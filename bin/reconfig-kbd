@@ -1,10 +1,10 @@
 #!/bin/bash
 
 exec &> /tmp/reconfig-kbd.log
-set -x
 
-# hack for udevd
-if [[ "$HOME" == "" ]]; then
+# udev mode
+if [ ! "$HOME" ]; then
+    echo "udev"
     HOME=${HOME:-/home/vxw}
     PATH=${PATH:-/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/go/bin/}
     XAUTHORITY=${XAUTHORITY:-/home/vxw/.Xauthority}
@@ -51,20 +51,22 @@ setxkbmap \
     -keycodes $KEYCODES \
     -symbols $SYMBOLS \
     -compat $COMPAT \
-    -print | xkbcomp -w 0 - $DISPLAY
+    -print | xkbcomp -w 0 - $DISPLAY &> /tmp/xkb.log
 
 xset r rate 110 100
 xset -b
 
+if [ ! pidof shift-shift > /dev/null ]; then
+    HANDLER_ENG="CAPSLOCK"
+    HANDLER_RUS="RIGHTSHIFT"
+    if grep -q "Razer" /proc/bus/input/devices; then
+        KEYBOARD="razer"
+    else
+        KEYBOARD="keyboard"
+    fi
 
-HANDLER_ENG="CAPSLOCK"
-HANDLER_RUS="RIGHTSHIFT"
-if grep -q "Razer" /proc/bus/input/devices; then
-    KEYBOARD="razer"
-else
-    KEYBOARD="keyboard"
+    sudo shift-shift \
+        -match "$KEYBOARD" \
+        -first "$HANDLER_ENG" -second "$HANDLER_RUS" \
+        &> /tmp/shift-shift.log &
 fi
-
-sudo pkill shift-shift
-sudo shift-shift -quiet=true \
-    -match "$KEYBOARD" -first "$HANDLER_ENG" -second "$HANDLER_RUS" &
