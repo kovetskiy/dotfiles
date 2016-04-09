@@ -50,8 +50,6 @@ if [ ! -d ~/.zgen ]; then
     git clone https://github.com/tarjoilija/zgen ~/.zgen
 fi
 
-autoload -Uz compinit
-compinit
 
 source ~/.zgen/zgen.zsh
 
@@ -72,8 +70,11 @@ if ! zgen saved; then
 
     zgen load s7anley/zsh-geeknote
 
+    ZGEN_AUTOLOAD_COMPINIT="-d $ZGEN_DIR/zcompdump"
     zgen save
 fi
+
+compinit -d $ZGEN_DIR/zcompdump
 
 promptinit
 
@@ -146,11 +147,6 @@ alias scd="fastcd ~/sources/ 1"
 alias vicd="fastcd ~/.vim/bundle/ 1"
 alias gocd="fastcd ~/go/src/ 3"
 
-#alias ssh='ssh-urxvt'
-
-zstyle ':smart-ssh' username e.kovetskiy
-zstyle ':smart-ssh' ssh-options '-t' 'TERM=xterm sudo -i'
-zstyle ':smart-ssh' whitelist '.s' '.in.ngs.ru'
 alias h='smart-ssh'
 
 alias m='man'
@@ -378,6 +374,7 @@ alias gros='git remote set-url origin'
 alias grb='git rebase --abort'
 alias ghu='hub browse -u'
 alias ghc='hub browse -u -- commit/$(git rev-parse --short HEAD) 2>/dev/null'
+alias gsu='git submodule update --init'
 alias bhc='BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
 
 alias t='ssh vxw@home.local'
