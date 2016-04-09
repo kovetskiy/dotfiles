@@ -1,6 +1,6 @@
 #!/bin/bash
 
-exec 2>&1 >/dev/null
+exec &> /tmp/env-setup.log
 
 xrandr \
     --output DVI-I-1 --mode 1920x1080 --pos 0x0 --rotate normal \
@@ -8,8 +8,8 @@ xrandr \
 
 reconfig-kbd
 
-if [[ "$PROFILE" == "home" ]]; then
-    if [ -z `pidof charge` ]; then
+if [ "$PROFILE" == "home" ]; then
+    if [ ! pidof charge > /dev/null ]; then
         sudo charge &
     fi
 fi
@@ -17,12 +17,12 @@ fi
 killall -9 keynav
 keynav
 
-if [ -z `pidof autousb` ]; then
-    autousb &
+if [ ! pidof autousb >/dev/null ]; then
+    sudo autousb &
 fi
 
-if [ "$PROFILE" != "work" ]; then
-    if [ -z `pidof redshift` ]; then
+if [ -f ~/.redshift ]; then
+    if [ ! pidof redshift > /dev/null ]; then
         redshift -l 55.7:12.6 -t 3500:3100 -g 0.8 -m randr -v &
     fi
 fi
