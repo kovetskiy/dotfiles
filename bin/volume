@@ -1,17 +1,23 @@
 #!/bin/bash
 
-adb_devices_stub_lines=2
+action="$1"
 
-adb_lines_count=$(adb devices | wc -l)
+if [ -f ~/.android-volume ]; then
+    adb_devices_stub_lines=2
 
-if [[ $adb_lines_count > $adb_devices_stub_lines ]]; then
-    exec android-volume $@
+    adb_lines_count=$(adb devices | wc -l)
+
+    if [[ $adb_lines_count > $adb_devices_stub_lines ]]; then
+        exec android-volume $@
+    fi
 fi
 
-if [ "$1" == "up" ]; then
-    exec amixer set Master 2%+
-fi
+case $action in
+    up)
+        exec amixer -M set Master 2%+
+    ;;
 
-if [ "$1" == "down" ]; then
-    exec amixer set Master 2%-
-fi
+    down)
+        exec amixer -M set Master 2%-
+    ;;
+esac
