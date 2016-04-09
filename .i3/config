@@ -106,11 +106,9 @@ bindsym Ctrl+Shift+$alt+Break exec poweroff
 bindsym  F2           exec volume down
 bindsym  F3           exec volume up
 
-bindsym  F5           exec android-soundcloud previous
-bindsym  F6           exec android-soundcloud play
-bindsym  F7           exec android-soundcloud next
-
-bindsym  F9           exec android-soundcloud like
+bindsym  F5           exec mplayer-control pt_step -1
+bindsym  F6           exec mplayer-control pause
+bindsym  F7           exec mplayer-control pt_step 1
 
 bindsym  $alt+less    exec volume down
 bindsym  $alt+greater exec volume up
