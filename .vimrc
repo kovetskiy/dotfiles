@@ -114,20 +114,16 @@ Plug 't9md/vim-choosewin', { 'on': [ 'ChooseWin', 'ChooseWinSwap' ] }
     nnoremap <C-W><C-S> :ChooseWinSwap<CR>
 
 Plug 'seletskiy/vim-over'
-    nnoremap H :OverCommandLine %s/<CR>
-    vnoremap H :OverCommandLine s/<CR>
     nmap L VH
 
-    nnoremap H :OverCommandLine %s/<CR>
-    vnoremap H :OverCommandLine s/<CR>
+    nnoremap H :OverCommandLine %s/\v<CR>
+    vnoremap H :OverCommandLine s/\v<CR>
 
     let g:over#command_line#search#enable_move_cursor = 1
     let g:over#command_line#search#very_magic = 1
 
-    au BufAdd,BufEnter * nnoremap / :OverCommandLine /<CR>
-    au BufAdd,BufEnter * vnoremap / :'<,'>OverCommandLine /<CR>
-    au BufAdd,BufEnter * nnoremap ? :OverCommandLine ?<CR>
-    au BufAdd,BufEnter * vnoremap ? :'<,'>OverCommandLine ?<CR>
+    au BufAdd,BufEnter * nnoremap / :OverCommandLine /\v<CR>
+    au BufAdd,BufEnter * vnoremap / :'<,'>OverCommandLine /\v<CR>
 
     au User OverCmdLineExecute call searchparty#mash#mash()
 
