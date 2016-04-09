@@ -71,10 +71,8 @@ snippet ! "shebang" bw
 $0
 endsnippet
 
-snippet p "if not pidof" w
-if [ -z \`pidof $1\` ]; then
-	$2
-fi
+snippet p "" w
+echo "$1" >> /tmp/debug
 endsnippet
 
 snippet i# "i#" w
@@ -117,7 +115,7 @@ echo $1
 endsnippet
 
 snippet pr "pr" bw
-echo `!p snip.rv=os.path.basename(vim.current.buffer.name)`:`!p snip.rv=str(vim.current.window.cursor[0])` '`!p snip.rv=t[1]`: ['$1']'
+echo `!p snip.rv=os.path.basename(vim.current.buffer.name)`:`!p snip.rv=str(vim.current.window.cursor[0])` '`!p snip.rv=t[1]`: ['$1']' >> /tmp/debug
 endsnippet
 
 snippet nc "Description" w
@@ -163,3 +161,5 @@ $1)
 	;;
 $0
 endsnippet
+
+
