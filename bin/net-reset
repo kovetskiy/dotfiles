@@ -1,0 +1,18 @@
+#!/bin/sudo /bin/bash
+
+set -euo pipefail
+
+if pgrep -f "pppd" >/dev/null; then
+    echo -n "stopping ppp providers..."
+    poff -a
+    echo "ok"
+fi
+
+echo -n "switching network to local..."
+resolv-switch local
+echo "ok"
+
+echo -n "restarting dhcpcd..."
+systemctl restart dhcpcd.service
+echo "ok"
+
