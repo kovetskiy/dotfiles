@@ -56,7 +56,7 @@ setxkbmap \
 xset r rate 110 100
 xset -b
 
-if [ ! pidof shift-shift > /dev/null ]; then
+if ! pidof shift-shift > /dev/null; then
     HANDLER_ENG="CAPSLOCK"
     HANDLER_RUS="RIGHTSHIFT"
     if grep -q "Razer" /proc/bus/input/devices; then

@@ -9,7 +9,7 @@ xrandr \
 reconfig-kbd
 
 if [ "$PROFILE" == "home" ]; then
-    if [ ! pidof charge > /dev/null ]; then
+    if ! pidof charge > /dev/null; then
         sudo charge &
     fi
 fi
@@ -17,12 +17,12 @@ fi
 killall -9 keynav
 keynav
 
-if [ ! pidof autousb >/dev/null ]; then
+if ! pidof autousb >/dev/null; then
     sudo autousb &
 fi
 
 if [ -f ~/.redshift ]; then
-    if [ ! pidof redshift > /dev/null ]; then
+    if ! pidof redshift > /dev/null; then
         redshift -l 55.7:12.6 -t 3500:3100 -g 0.8 -m randr -v &
     fi
 fi
