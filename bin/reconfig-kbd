@@ -1,6 +1,4 @@
-#!/bin/bash
-
-exec &> /tmp/reconfig-kbd.log
+#!/bin/systemd-cat -t reconfig-kbd /bin/bash
 
 # udev mode
 if [ ! "$HOME" ]; then
@@ -51,7 +49,9 @@ setxkbmap \
     -keycodes $KEYCODES \
     -symbols $SYMBOLS \
     -compat $COMPAT \
-    -print | xkbcomp -w 0 - $DISPLAY &> /tmp/xkb.log
+    -print \
+    | xkbcomp -w 0 - $DISPLAY 2>&1  \
+    | systemd-cat -t xkb
 
 xset r rate 110 100
 xset -b
@@ -65,8 +65,9 @@ if ! pidof shift-shift > /dev/null; then
         KEYBOARD="keyboard"
     fi
 
-    sudo shift-shift \
-        -match "$KEYBOARD" \
-        -first "$HANDLER_ENG" -second "$HANDLER_RUS" \
-        &> /tmp/shift-shift.log &
+    systemd-cat -t shift-shift \
+        sudo shift-shift \
+            -match "$KEYBOARD" \
+            -first "$HANDLER_ENG" -second "$HANDLER_RUS" \
+            &> /tmp/shift-shift.log &
 fi

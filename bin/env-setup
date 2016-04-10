@@ -1,6 +1,4 @@
-#!/bin/bash
-
-exec &> /tmp/env-setup.log
+#!/bin/systemd-cat -t env-setup /bin/bash
 
 xrandr \
     --output DVI-I-1 --mode 1920x1080 --pos 0x0 --rotate normal \
