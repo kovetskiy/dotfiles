@@ -1,4 +1,6 @@
-#!/bin/systemd-cat -t env-setup /bin/bash
+#!/bin/bash
+
+[ -f /bin/systemd-cat-bash ] && . /bin/systemd-cat-bash env-setup
 
 xrandr \
     --output DVI-I-1 --mode 1920x1080 --pos 0x0 --rotate normal \

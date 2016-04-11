@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. /bin/systemd-cat-bash
+
 filename="$HOME/screenshots/$(date +%F-%T | tr : T).png"
 
 if [ "$1" == "import" ]; then
@@ -21,10 +23,11 @@ else
     maim --nokeyboard -s $filename
 fi
 
-echo "screenshot ready"
 echo "$filename"
-echo "uploading"
-url="$(echo $filename | xargs imgur 2>&1 | head -n1)"
-echo -n $url
+echo  "uploading screenshot"
+notify-send " " "uploading screenshot"
+url=$(imgur $filename)
+echo -n $url | xclip -selection primary
 echo -n $url | xclip -selection clipboard
-notify-send "Screenshot ready"
+echo "$url"
+notify-send " " "screenshot ready"

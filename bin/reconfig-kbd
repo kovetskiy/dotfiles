@@ -1,4 +1,6 @@
-#!/bin/systemd-cat -t reconfig-kbd /bin/bash
+#!/bin/bash
+
+[ -f /bin/systemd-cat-bash ] && . /bin/systemd-cat-bash reconfig-kbd
 
 # udev mode
 if [ ! "$HOME" ]; then
@@ -65,9 +67,11 @@ if ! pidof shift-shift > /dev/null; then
         KEYBOARD="keyboard"
     fi
 
-    systemd-cat -t shift-shift \
+    {
         sudo shift-shift \
             -match "$KEYBOARD" \
             -first "$HANDLER_ENG" -second "$HANDLER_RUS" \
-            &> /tmp/shift-shift.log &
+            | systemd-cat -t shift-shift
+    } &
+
 fi
