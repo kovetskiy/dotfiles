@@ -51,8 +51,6 @@ bindsym $alt+z workspace z
 bindsym $alt+x workspace x
 bindsym $alt+c workspace c
 
-bindsym $alt+Tab workspace back_and_forth
-
 bindsym $alt+Shift+1 move container to workspace 1
 bindsym $alt+Shift+2 move container to workspace 2
 bindsym $alt+Shift+3 move container to workspace 3
@@ -115,7 +113,7 @@ bindsym  $alt+greater exec volume up
 bindsym  $win+Ctrl+l  exec lockscreen
 bindsym  $win+Ctrl+d  exec show-info
 bindsym  $alt+Ctrl+e  exec translator
-bindsym  $alt+g       exec paster
+bindsym  $alt+Tab     exec paster
 bindsym  Ctrl+F12     exec reconfig-kbd
 bindcode 218          exec sh -c 'notify-send "`acpi`"'
 bindsym  F1           exec screenshot > ~/.screenshot
