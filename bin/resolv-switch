@@ -9,7 +9,7 @@ case "$1" in
         {
             echo "nameserver 192.168.20.2"
             echo "nameserver 192.168.21.100"
-            echo "search cname.s"
+            echo "search cname.s in.ngs.ru"
         } > /etc/resolv.conf
 
         if ip a | grep -q ppp0; then
