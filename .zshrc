@@ -62,6 +62,7 @@ if ! zgen saved; then
     zgen load kovetskiy/zsh-add-params
     zgen load kovetskiy/zsh-fastcd
     zgen load kovetskiy/zsh-smart-ssh
+    zgen load kovetskiy/zsh-insert-dot-dot-slash
 
     zgen load seletskiy/zsh-prompt-lambda17
     zgen load seletskiy/zsh-ssh-urxvt
@@ -137,6 +138,8 @@ bindkey -v '^B' vi-backward-word #ctrl+alt+H
 bindkey -v '^E' vi-forward-blank-word #ctrl+alt+L
 bindkey -v "^L" clear-screen
 
+bindkey -v "^_" insert-dot-dot-slash
+
 function apkg() {
     echo $@ >> ~/sources/dotfiles/packages
 }
@@ -146,8 +149,24 @@ unalias -a
 alias scd="fastcd ~/sources/ 1"
 alias vicd="fastcd ~/.vim/bundle/ 1"
 alias gocd="fastcd ~/go/src/ 3"
+alias zcd='fastcd ~/.zgen/ 2'
 
-alias h='smart-ssh'
+
+zstyle :smart-ssh whitelist .s .in.ngs.ru
+#zstyle :smart-ssh ssh ssh-urxvt
+
+ssh-enhanced() {
+    local hostname="$1"
+    shift
+
+    local cmd="TERM=xterm sudo -i"
+    if [ $# -ne 0 ]; then
+        cmd="TERM=xterm sudo -i \$SHELL -ic ${(q)*}"
+    fi
+    smart-ssh -t "$hostname" "$cmd"
+}
+alias ssh='ssh-enhanced'
+alias h='ssh-enhanced'
 
 alias m='man'
 
@@ -271,7 +290,7 @@ ssh-environment-host() {
     host=$(deployer -Qe "$env" \
         | grep '^node0:$' -A 3 \
         | awk '/host:/ {print $2}')
-    smart-ssh $host
+    ssh-enhanced $host
 }
 alias he='ssh-environment-host'
 
@@ -377,7 +396,7 @@ alias ghc='hub browse -u -- commit/$(git rev-parse --short HEAD) 2>/dev/null'
 alias gsu='git submodule update --init'
 alias bhc='BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
 
-alias t='ssh vxw@home.local'
+alias t='h vxw@home.local'
 
 alias ку='reconfig-kbd'
 alias й='env-setup'
