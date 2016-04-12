@@ -409,6 +409,11 @@ augroup mcabberrc
     au BufWritePost ~/.mcabber/mcabberrc !echo "/source ~/.mcabber/mcabberrc" > ~/.mcabber/mcabber.fifo
 augroup end
 
+augroup i3config
+    au!
+    au BufWritePost */.i3/config !i3-msg restart
+augroup end
+
 augroup hilight_over
     au!
     au VimResized,VimEnter * set cc=79
@@ -581,7 +586,7 @@ nmap <Tab> /
 let @l="f(ak$%i,%"
 let @k="^f=i:"
 let @j="^t=x"
-let @t=':%s/\t/    /g'
+let @t=':%s/\t/    /g@t'
 
 " no more "Entering Ex mode"
 map Q <nop>
