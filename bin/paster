@@ -1,6 +1,15 @@
 #!/bin/bash
 
-dir="$HOME/.clipboard/"
+[ -x /bin/systemd-cat-bash ] && . /bin/systemd-cat-bash paster
 
-file="$(ls "$dir" | dmenu -b -i -l 20)"
-cat "$dir/$file" | xclip -selection clipboard
+dir=$HOME/.clipboard/
+
+list=$(command ls $dir | command sort -n)
+if ! selected=$(dmenu -p "token: " -f -b -i -l 20 <<< "$list"); then
+    exit
+fi
+
+content=$(cat "$dir/$selected")
+
+xdotool type --clearmodifiers --delay 1 "$content"
+xdotool key --clearmodifiers --delay 1 --repeat 3 Return
