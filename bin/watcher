@@ -1,10 +1,13 @@
 #!/bin/bash
 
-if [ -n "$1" ]; then
-    pattern=${1:-.}
-    shift
-fi
+pattern="$1"
+shift
 
+target="."
+if [ -e $pattern ]; then
+    target=$pattern
+    pattern="*"
+fi
 
 RUN_ST=1
 if [[ $1 =~ ^-?[0-9]+$ ]]; then
@@ -15,10 +18,14 @@ fi
 cmd_template="${@}"
 
 N=0
-inotifywait -r -m -e modify --format %w%f . 2>/dev/null |
+inotifywait -m -e close_write --format %w%f $target 2>/dev/null |
     while read name
     do
-        if ! grep -q "$pattern" <<< "$name"; then
+        if ! grep -qE "$pattern" <<< "$name"; then
+            continue
+        fi
+
+        if grep -qE "[0-9]+" <<< $(basename "$name"); then
             continue
         fi
 
