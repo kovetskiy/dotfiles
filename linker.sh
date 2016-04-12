@@ -39,6 +39,7 @@ POINTS=(
     ".yaourtrc"
     ".toprc"
     ".sift.conf"
+    ".ssh/config"
 )
 
 for POINT in "${POINTS[@]}"; do
