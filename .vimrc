@@ -79,9 +79,10 @@ Plug 'seletskiy/matchem'
     let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 
 Plug 'sirver/ultisnips'
+    let g:UltiSnipsSnippetsDir = $HOME . '/.vim/bundle/snippets/'
     let g:UltiSnipsSnippetDirectories = [
+    \     $HOME . '/.vim/bundle/snippets/',
     \     $HOME . '/.vim/UltiSnips/',
-    \     $HOME . '/.vim/bundle/snippets/'
     \]
     let g:UltiSnipsEnableSnipMate = 0
     let g:UltiSnipsExpandTrigger="<TAB>"
