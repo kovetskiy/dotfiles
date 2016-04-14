@@ -1,0 +1,26 @@
+#!/bin/bash
+
+get_query() {
+    awk '{
+        match($0, /Query was: (.*);/, matches)
+        print matches[1]
+    }'
+}
+
+canonicalize() {
+    sed -r "s|: \[[^]]+\]|: [@]|g" \
+    | sed -r "s|: '[^']+'|: @|g" \
+    | sed -r "s|: [0-9]+|: @|g" \
+    | sed -r "s|\{['@,:0-9 ]+\}|{@}|g" \
+    | sed -r "s|\[@\]|@|g" \
+    | sed -r "s|\{@\}|@|g"
+}
+
+while read line; do
+    query=$(get_query <<< "$line")
+    if [ ! "$query" ]; then
+        continue
+    fi
+
+    echo "$query" | canonicalize
+done
