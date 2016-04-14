@@ -583,3 +583,15 @@ unsetopt cdablevars
 unsetopt noclobber
 
 [ -f /etc/profile.d/fzf.zsh ] && source /etc/profile.d/fzf.zsh
+
+fzf-history-widget() {
+  local selected num
+  selected=( $(fc -l 1 | $(__fzfcmd) --tac +m -n2..,.. --tiebreak=index -q "${LBUFFER//$/\\$}") )
+  if [ -n "$selected" ]; then
+    num=$selected[1]
+    if [ -n "$num" ]; then
+      zle vi-fetch-history -n $num
+    fi
+  fi
+  zle redisplay
+}
