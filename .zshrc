@@ -165,7 +165,6 @@ ssh-enhanced() {
     fi
     smart-ssh -t "$hostname" "$cmd"
 }
-alias ssh='ssh-enhanced'
 alias h='ssh-enhanced'
 
 alias m='man'
@@ -396,7 +395,7 @@ alias ghc='hub browse -u -- commit/$(git rev-parse --short HEAD) 2>/dev/null'
 alias gsu='git submodule update --init'
 alias bhc='BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
 
-alias t='h vxw@home.local'
+alias t='ssh vxw@home.local'
 
 alias ку='reconfig-kbd'
 alias й='env-setup'
