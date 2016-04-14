@@ -7,7 +7,8 @@ import px.go
 import px.all
 endglobal
 
-snippet e "defer" "snip.context=snip" bwe
+context "snip.context=snip"
+snippet e "" bwe
 `!p
 left = " "
 right="()"
@@ -103,7 +104,8 @@ snippet (i "(int" i
 (int
 endsnippet
 
-snippet a "arg" "px.util.match_higher_indent(snip.buffer, (snip.line, 0), '^var \(')" wbe
+context "px.util.match_higher_indent(snip.buffer, (snip.line, 0), '^var \(')"
+snippet a "" wbe
 $1 = args["$2"].($3)
 $0
 endsnippet
