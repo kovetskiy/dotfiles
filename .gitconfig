@@ -7,5 +7,8 @@
 	editor = vim
 [color]
 	ui = auto
-[url "git+ssh://github.com/"]
+[url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
+
+[url "ssh://git@github.com/"]
+	insteadOf = git+ssh://github.com/
