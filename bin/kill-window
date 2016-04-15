@@ -1,6 +1,6 @@
 #!/bin/bash
 
-xwininfo=$(xwininfo)
+xwininfo=$(xwininfo ${1:+-id $1})
 id=$(awk '/Window id/{print $4}' <<< "$xwininfo")
 name=$(xdotool getwindowname $id)
 
