@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cmd="$1"
+shift
+
+for server in ${@}; do
+    echo "$server" >&2
+    ssh -le.kovetskiy "$server" "$cmd"
+done
