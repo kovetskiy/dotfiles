@@ -1,23 +1,49 @@
 #!/bin/bash
 
-mcabber_cmd(){
-    mcabber_fifo=~/.mcabber/fifo/office
-    echo "$1" > $mcabber_fifo
-}
+mplayer_fifo=~/.mplayer/fifo
 
 mplayer_cmd(){
-    mplayer_fifo=~/.mplayer/fifo
-    if [ ! -z `pidof mplayer` ]; then
+    if pidof mplayer &>/dev/null; then
         echo "$1" > $mplayer_fifo
     fi
 }
 
-mcabber_cmd "/status away"
+screen() {
+    xrandr -q \
+        | awk '/ connected / { print $3 }' \
+        | head -n1
+}
+
+center() {
+    local position="$(cat)"
+    bc <<< "($position)/2" 2>/dev/null
+}
+
+set -x
+
+screen_x_center() {
+    if [ -f /tmp/screen_x_center ]; then
+        cat /tmp/screen_x_center
+        return
+    fi
+
+    screen | sed 's/x.*//' | center | tee /tmp/screen_x_center
+}
+
+screen_y_center() {
+    if [ -f /tmp/screen_y_center ]; then
+        cat /tmp/screen_y_center
+        return
+    fi
+
+    screen | sed 's/.*x//' | center | tee /tmp/screen_y_center
+}
+
 mplayer_cmd "pause"
 
+xdotool mousemove $(screen_x_center) $(screen_y_center)
 xtrlock -b
 
-mcabber_cmd "/status online"
 mplayer_cmd "pause"
 
 reconfig-kbd

@@ -18,5 +18,6 @@ env-setup &
 
 dunst &
 
-( sleep 0.1; xtrlock -b ) &
+lockscreen &
+
 i3
