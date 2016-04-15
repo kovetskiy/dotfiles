@@ -1,0 +1,24 @@
+#!/bin/bash
+
+:regexp() {
+    local values=$*
+    echo ${values// /\\|}
+}
+
+:package-name() {
+    awk '/^local\// { sub(/^local\//, "", $1); print $1; }'
+}
+
+dependencies=($(yaourt -Qd | :package-name))
+orphans=()
+
+for dependency in ${dependencies[@]}; do
+    orphans+=($(
+        yaourt -Q --depends --nameonly $dependency 2>/dev/null | :package-name
+    ))
+done
+
+orphans=($(echo ${orphans[@]} | tr ' ' '\n' | awk '!a[$0]++'))
+for orphan in ${orphans[@]}; do
+    pactree $orphan | grep $(:regexp $orphan ${dependencies[@]})
+done

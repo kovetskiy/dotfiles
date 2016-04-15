@@ -1,0 +1,11 @@
+#!/bin/bash
+
+threads=${1:-20}
+
+pkgs -a \
+    | xargs -n1 -P20 -I{} \
+    bash -c '
+        echo "upgrading {}" >&2
+        yes | EDITOR=cat yaourt -S {} 2>&1 | systemd-cat -t yaourt_{}
+        echo "{}"
+'
