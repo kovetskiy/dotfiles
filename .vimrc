@@ -63,6 +63,8 @@ Plug 'fatih/vim-go', { 'for': 'go' }
     let g:go_metalinter_command="gometalinter -D golint --cyclo-over 15"
     let g:go_list_type = "quickfix"
 
+    let g:go_doc_keywordprg_enabled = 0
+
     au filetype_go FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au filetype_go FileType go nmap <buffer> <Leader>h :GoDoc<CR>
 
@@ -249,9 +251,6 @@ Plug 'bronson/vim-trailing-whitespace'
 
 Plug 'seletskiy/vim-nunu'
 
-Plug 'kovetskiy/vim-go-utils', { 'for': 'go' }
-    inoremap <C-E> <C-R>=GoCompleteSnippet()<CR>
-
 Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
 
 Plug 'blerins/flattown'
@@ -433,6 +432,9 @@ augroup confluence
     au BufWritePost /tmp/vimperator-confluence* silent! undo
 augroup end
 
+map Q <nop>
+map K <nop>
+
 imap <C-F> tx<TAB>
 vmap <C-F> ctx<TAB>
 
@@ -583,14 +585,11 @@ nnoremap <Leader>e :e!<Space>
 nnoremap <Leader>ft :set filetype=
 
 nmap <Tab> /
+nmap K :s///g<CR><C-O>i
 
 let @l="f(ak$%i,%"
 let @k="^f=i:"
 let @j="^t=x"
 let @t=':%s/\t/    /g@t'
-
-" no more "Entering Ex mode"
-map Q <nop>
-map K <nop>
 
 imap <C-Y> <Down>
