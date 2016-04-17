@@ -2,5 +2,4 @@ image/gif;ffplay %s;
 image/png;feh %s;
 image/jpg;feh %s;
 image/jpeg;feh %s;
-text/html;ash-mailcap -x "muttview %s" -t /usr/share/ash-mailcap-autoview/editor %s; copiousoutput;
-text/plain;muttview-plain %s; copiousoutput;
+text/html;ash-mailcap -x "url-convert-text %s" -t /usr/share/ash-mailcap-autoview/editor %s; copiousoutput;

@@ -1,3 +1,0 @@
-#!/bin/bash
-
-setleds -D "$1" < /dev/console

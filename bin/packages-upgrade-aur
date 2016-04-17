@@ -2,7 +2,7 @@
 
 threads=${1:-20}
 
-pkgs -a \
+packages-local -a \
     | xargs -n1 -P20 -I{} \
     bash -c '
         echo "upgrading {}" >&2

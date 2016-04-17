@@ -7,8 +7,8 @@ def main
 Setup shadowc.
 
 Usage:
-    setup-shadowc <target> [-P <port>] -s <shadowd> [-l <ssh>] -p <pool> -u <user>...
-    setup-shadowc -h | --help
+    shadowc-setup <target> [-P <port>] -s <shadowd> [-l <ssh>] -p <pool> -u <user>...
+    shadowc-setup -h | --help
 
 Options:
     -s <shadowd>    Specify shadowd.

@@ -1,23 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 
-export DMENU_PATH="$HOME/bin/shortcuts"
-export PATH="$(ruby -e 'print Gem.user_dir')/bin:$HOME/bin/:$HOME/private/bin/:$HOME/sources/dotfiles/deadfiles/bin:$HOME/go/bin/:$PATH"
-export SHELL=/usr/bin/zsh
-export TERMINAL=urxvt
-export EDITOR=/usr/bin/vim
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+. /bin/systemd-cat-bash xinitrc
 
-export PROFILE="$(cat $HOME/profile)"
-export BACKGROUND="$(cat $HOME/background)"
+. ~/bin/environment-variables
+. ~/bin/environment-setup
 
-export GOROOT=""
-export GOPATH="$HOME/go"
-
-env-setup &
-
+# @TODO: move to systemd
 dunst &
 
-lockscreen &
+screen-lock &
 
-i3
+exec i3

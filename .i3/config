@@ -12,22 +12,22 @@ floating_modifier $alt
 
 bindsym $alt+Return exec marvex
 
-bindsym Ctrl+Up kill
-bindsym Ctrl+Shift+Down exec kw
+bindsym Ctrl+BackSpace kill
+bindsym Ctrl+Delete exec window-kill-focused
 
 bindsym $alt+r exec dmenu_run
 
 bindsym Shift+$alt+Ctrl+f floating toggle
 
-bindsym Ctrl+Home focus left
-bindsym Ctrl+Next focus down
+bindsym Ctrl+Home  focus left
+bindsym Ctrl+Next  focus down
 bindsym Ctrl+Prior focus up
-bindsym Ctrl+End focus right
+bindsym Ctrl+End   focus right
 
-bindsym Ctrl+Shift+Home move left
-bindsym Ctrl+Shift+Next move down
+bindsym Ctrl+Shift+Home  move left
+bindsym Ctrl+Shift+Next  move down
 bindsym Ctrl+Shift+Prior move up
-bindsym Ctrl+Shift+End move right
+bindsym Ctrl+Shift+End   move right
 
 bindsym $alt+f fullscreen
 
@@ -71,13 +71,14 @@ bindsym $alt+Shift+z move container to workspace z
 bindsym $alt+Shift+x move container to workspace x
 bindsym $alt+Shift+c move container to workspace c
 
-bindsym Pause workspace q; exec "firefox http://cs543100.vk.me/v543100237/50df/joWgtvxgsRo.jpg"
+bindsym Pause workspace q; exec "browser http://cs543100.vk.me/v543100237/50df/joWgtvxgsRo.jpg"
 
 bindsym $alt+Shift+r restart
 
 bindsym $win+shift+v split vertical
 bindsym $win+shift+h split horizontal
 
+bindsym $alt+Ctrl+r mode "resize"
 mode "resize" {
         bindsym h resize grow width 1 px or 1 ppt
         bindsym j resize shrink height 1 px or 1 ppt
@@ -93,32 +94,28 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $alt+Ctrl+a exec "brightness down"
-bindsym $alt+Ctrl+q exec "brightness up"
-bindsym $alt+b exec "xsel -op | xsel -ib"
+bindsym $alt+Ctrl+a   exec "brightness down"
+bindsym $alt+Ctrl+q   exec "brightness up"
+bindsym $alt+b        exec "xsel -op | xsel -ib"
 
-bindsym $alt+Ctrl+r mode "resize"
 
-bindsym Ctrl+Shift+$alt+Break exec poweroff
-
+bindsym  F1           exec screenshot > ~/.screenshot
 bindsym  F2           exec volume down
 bindsym  F3           exec volume up
-
 bindsym  F5           exec mplayer-control pt_step -1
 bindsym  F6           exec mplayer-control pause
 bindsym  F7           exec mplayer-control pt_step 1
 
 bindsym  $alt+less    exec volume down
 bindsym  $alt+greater exec volume up
-bindsym  $win+Ctrl+l  exec lockscreen
-bindsym  $win+Ctrl+d  exec show-info
+bindsym  $win+Ctrl+l  exec screen-lock
+bindsym  $win+Ctrl+d  exec notification-information-basic
 bindsym  $alt+Ctrl+e  exec translator
 bindsym  $alt+Tab     exec paster
-bindsym  Ctrl+F12     exec reconfig-kbd
-bindcode 218          exec sh -c 'notify-send "`acpi`"'
-bindsym  F1           exec screenshot > ~/.screenshot
+bindsym  Ctrl+F12     exec xkb-reconfigure
+bindsym  $alt+grave   exec terminal-floating
 
-set $left DVI-I-1
+set $left  DVI-I-1
 set $right VGA-1
 
 workspace 1 output $left # VIM
@@ -135,16 +132,15 @@ workspace z output $right # mcabber
 workspace x output $left # tmp
 workspace c output $right # gui shit - skype
 
-bindsym $alt+Ctrl+grave [instance="^(?!kuake)"] scratchpad show
+bindsym $alt+Ctrl+grave  [instance="^(?!kuake)"] scratchpad show
 bindsym $alt+Shift+grave move scratchpad
-bindsym $alt+grave exec kuake
 
 for_window [title="^screenkey$"] floating enable
-for_window [title="^sxiv$"] floating enable
-for_window [title="^kuake_"] floating enable
-for_window [title="^malder"] floating enable
-for_window [title="android"] floating disable
+for_window [title="^sxiv$"]      floating enable
+for_window [title="^kuake_"]     floating enable
+for_window [title="^malder"]     floating enable
+for_window [title="android"]     floating disable
 
-client.focused #cb4b16 #dc322f #fdf6e3 #ffffff
+client.focused          #cb4b16 #dc322f #fdf6e3 #ffffff
 client.focused_inactive #586e75 #eee8d5 #657b83 #ffffff
-client.unfocused #586e75 #eee8d5 #657b83 #ffffff
+client.unfocused        #586e75 #eee8d5 #657b83 #ffffff

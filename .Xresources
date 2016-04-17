@@ -1,7 +1,7 @@
 URxvt.iso14755: off
 URxvt.iso14755_52: off
 
-URxvt.perl-lib: /home/vxw/.urxvt/ext/perl
+URxvt.perl-lib: /home/operator/.urxvt/ext/perl
 
 URxvt.buffered: false
 
@@ -29,7 +29,7 @@ URxvt.keysym.Mod4-question:  perl:aAtt:fuzzy-complete
 URxvt.keysym.Mod4-quotedbl:  perl:aAtt:undo
 
 URxvt.keysym.M-C-y: perl:url-select:select_next
-URxvt.url-select.launcher: /home/vxw/bin/x-www-browser
+URxvt.url-select.launcher: browser
 
 URxvt.title: rxvt-unicode
 URxvt.saveLines: 5000

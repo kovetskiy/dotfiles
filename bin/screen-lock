@@ -19,8 +19,6 @@ center() {
     bc <<< "($position)/2" 2>/dev/null
 }
 
-set -x
-
 screen_x_center() {
     if [ -f /tmp/screen_x_center ]; then
         cat /tmp/screen_x_center
@@ -42,7 +40,7 @@ screen_y_center() {
 mplayer_cmd "pause"
 
 xdotool mousemove $(screen_x_center) $(screen_y_center)
-xtrlock -b
+slock xset dpms force suspend
 
 mplayer_cmd "pause"
 

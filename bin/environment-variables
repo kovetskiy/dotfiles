@@ -1,0 +1,36 @@
+#!/bin/bash
+
+HOME="/home/operator"
+
+LANG="en_US.UTF-8"
+LC_ALL="en_US.UTF-8"
+SHELL="/bin/zsh"
+
+TERMINAL="/bin/urxvt"
+EDITOR="/bin/vim"
+BROWSER="$HOME/bin/browser"
+
+GOROOT=""
+GOPATH="$HOME/go"
+RUBYPATH=$(/bin/ruby -e 'print Gem.user_dir')
+
+BIN=(
+    "$HOME/bin"
+    "$HOME/bin/rewrite"
+    "$HOME/dotfiles/deadfiles/bin"
+    "$GOPATH/bin"
+    "$RUBYPATH"
+)
+
+PROFILE=$(/bin/cat "$HOME/profile")
+BACKGROUND=$(/bin/cat "$HOME/background")
+
+BIN=$(/bin/tr ' :' '\n' <<< "${BIN[*]}:$PATH" | /bin/awk '!seen[$0]++')
+PATH=${BIN//$'\n'/:}
+
+export HOME \
+    LANG LC_ALL SHELL \
+    TERMINAL EDITOR BROWSER \
+    GOROOT GOPATH RUBYPATH PATH
+
+unset BIN

@@ -42,7 +42,7 @@ bind 18 = roster unread_next
 
 bind 276 = roster toggle
 
-set editor = lvim
+set editor = vim-econom
 
 module load fifo
 module load editor

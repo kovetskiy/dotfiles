@@ -118,7 +118,7 @@
     dmenu = /usr/bin/dmenu -p dunst:
 
     # browser for opening urls in context menu
-    browser = x-www-browser
+    browser = browser
 
 [frame]
     width = 2

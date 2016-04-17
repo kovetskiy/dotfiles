@@ -1,8 +1,8 @@
-0  6   *  *  * vxw /usr/bin/yota-cli -C -s max
-0  7   *  *  * vxw /usr/bin/yota-cli -C -s 2.1
+0  6   *  *  * operator /usr/bin/yota-cli -C -s max
+0  7   *  *  * operator /usr/bin/yota-cli -C -s 2.1
 
-0  9   *  *  * vxw /usr/bin/yota-cli -C -s max
-0  10  *  *  * vxw /usr/bin/yota-cli -C -s 2.1
+0  9   *  *  * operator /usr/bin/yota-cli -C -s max
+0  10  *  *  * operator /usr/bin/yota-cli -C -s 2.1
 
-30 18  *  *  * vxw /usr/bin/yota-cli -C -s max
-0  10  *  *  * vxw /usr/bin/yota-cli -C -s 2.1
+30 18  *  *  * operator /usr/bin/yota-cli -C -s max
+0  10  *  *  * operator /usr/bin/yota-cli -C -s 2.1

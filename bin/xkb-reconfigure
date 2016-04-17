@@ -1,13 +1,11 @@
 #!/bin/bash
 
-[ -f /bin/systemd-cat-bash ] && . /bin/systemd-cat-bash reconfig-kbd
-
 # udev mode
 if [ ! "$HOME" ]; then
     echo "udev"
-    HOME=${HOME:-/home/vxw}
+    HOME=${HOME:-/home/operator}
     PATH=${PATH:-/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/go/bin/}
-    XAUTHORITY=${XAUTHORITY:-/home/vxw/.Xauthority}
+    XAUTHORITY=${XAUTHORITY:-/home/operator/.Xauthority}
     DISPLAY=${DISPLAY:-:0.0}
 
     export HOME PATH DISPLAY XAUTHORITY

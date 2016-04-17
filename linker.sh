@@ -12,15 +12,12 @@ POINTS=(
     ".gitignore"
     ".gitignore_global"
     ".i3"
-    ".i3status.conf"
     ".mcabber"
-    ".muttator"
-    ".muttatorrc"
     ".urxvt"
     ".vim/UltiSnips"
     ".vim/skeletons"
     ".vimperatorrc"
-    ".lvimrc"
+    ".vimrc-economic"
     ".vimrc"
     ".Xresources"
     ".Xresources.dark"
@@ -47,7 +44,7 @@ for POINT in "${POINTS[@]}"; do
     echo "$COMMAND"
     eval $COMMAND
 
-    COMMAND="ln -sf ~/sources/dotfiles/$POINT ~/$POINT"
+    COMMAND="ln -sf ~/dotfiles/$POINT ~/$POINT"
     echo "$COMMAND"
     eval $COMMAND
 done

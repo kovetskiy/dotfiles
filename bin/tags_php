@@ -1,2 +1,0 @@
-#!/bin/bash
-ctags --php-kinds=c --languages=php --recurse

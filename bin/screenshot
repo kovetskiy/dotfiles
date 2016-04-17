@@ -26,7 +26,7 @@ fi
 echo "$filename"
 echo  "uploading screenshot"
 notify-send " " "uploading screenshot"
-url=$(imgur $filename)
+url=$(image-upload $filename)
 echo -n $url | xclip -selection primary
 echo -n $url | xclip -selection clipboard
 echo "$url"

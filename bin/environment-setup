@@ -1,24 +1,18 @@
 #!/bin/bash
 
-[ -f /bin/systemd-cat-bash ] && . /bin/systemd-cat-bash env-setup
-
 xrandr \
     --output DVI-I-1 --mode 1920x1080 --pos 0x0 --rotate normal \
     --output VGA-1 --mode 1920x1080 --pos 1920x0 --rotate normal
 
-reconfig-kbd
+xkb-reconfigure
 
-if [ "$PROFILE" == "home" ]; then
-    if ! pidof charge > /dev/null; then
-        sudo charge &
-    fi
-fi
-
+# @TODO: move to systemd
 killall -9 keynav
 keynav
 
-if ! pidof autousb >/dev/null; then
-    sudo autousb &
+# @TODO: move to systemd
+if ! pidof usb-automount >/dev/null; then
+    sudo usb-automount &
 fi
 
 if [ -f ~/.redshift ]; then
@@ -34,4 +28,4 @@ xset +fp ~/.fonts
 xset fp rehash
 
 xrdb -load ~/.Xresources
-background $BACKGROUND
+background-switch $BACKGROUND
