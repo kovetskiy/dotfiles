@@ -12,7 +12,7 @@ export BACKGROUND=$(cat ~/background)
 export GO15VENDOREXPERIMENT=1
 
 
-# prezto
+# :prezto
 {
     zstyle ':prezto:*:*' color 'yes'
     zstyle ':prezto:load' pmodule \
@@ -30,7 +30,7 @@ export GO15VENDOREXPERIMENT=1
     zstyle ':completion:*' rehash true
 }
 
-# zgen
+# :zgen
 {
     if [ ! -d ~/.zgen ]; then
         git clone https://github.com/tarjoilija/zgen ~/.zgen
@@ -65,7 +65,7 @@ export GO15VENDOREXPERIMENT=1
     fi
 }
 
-# /reset
+# :reset
 {
     unalias -a
     unsetopt cdablevars
@@ -74,7 +74,7 @@ export GO15VENDOREXPERIMENT=1
     unsetopt correct_all
 }
 
-# /setup
+# :setup
 {
     autoload -U add-zsh-hook
 
@@ -114,7 +114,7 @@ export GO15VENDOREXPERIMENT=1
 }
 
 
-# /binds
+# :binds
 {
     bindkey -a '^[' vi-insert
     bindkey -v
@@ -138,14 +138,14 @@ export GO15VENDOREXPERIMENT=1
 }
 
 
-# /hash
+# :hash
 {
     hash -d dotfiles=~/dotfiles/
     hash -d deadfiles=~/deadfiles/
     hash -d src=~/sources/
 }
 
-# /fastcd
+# :fastcd
 {
     alias scd="fastcd ~/sources/ 1"
     alias vicd="fastcd ~/.vim/bundle/ 1"
@@ -153,7 +153,7 @@ export GO15VENDOREXPERIMENT=1
     alias zcd='fastcd ~/.zgen/ 2'
 }
 
-# /func
+# :func
 {
     packages-add() {
         echo $@ >> ~/sources/dotfiles/packages
@@ -350,7 +350,7 @@ export GO15VENDOREXPERIMENT=1
     }
 }
 
-# /funcaliases
+# :funcaliases
 {
     alias ck='create-and-change-directory'
     alias mf='man-find'
@@ -372,7 +372,7 @@ export GO15VENDOREXPERIMENT=1
 }
 
 
-# /alias
+# :alias
 {
     alias history='fc -ln 0'
     alias m='man'
@@ -390,7 +390,7 @@ export GO15VENDOREXPERIMENT=1
     alias py='python'
     alias py2='python2'
 
-    # /globals
+    # :globals
     {
         alias -g G='EO | grep --color'
         alias -g L='EO | less -r'
@@ -410,7 +410,7 @@ export GO15VENDOREXPERIMENT=1
     alias rto='rtorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
 
 
-    # /aur
+    # :aur
     {
         alias au='yes | EDITOR=cat yaourt '
         alias aus='au -S'
@@ -418,7 +418,7 @@ export GO15VENDOREXPERIMENT=1
         alias aug='cd /tmp/; au -G'
     }
 
-    # /pacman
+    # :pacman
     {
         alias p='sudo pacman'
         alias pmr='sudo pacman -R'
@@ -433,7 +433,7 @@ export GO15VENDOREXPERIMENT=1
     }
 
 
-    # /zsh
+    # :zsh
     {
         alias viz='vim ~/.zshrc ; zreload'
         alias tiz='terminal-vim ~/.zshrc'
@@ -441,7 +441,7 @@ export GO15VENDOREXPERIMENT=1
     }
 
 
-    # /git
+    # :git
     {
         alias gcl='git clone'
         alias gh='git show'
@@ -507,14 +507,14 @@ export GO15VENDOREXPERIMENT=1
     alias dt='cd ~/dotfiles; git status -s ; PAGER=cat git diff'
     alias pr='hub pull-request -f'
 
-    # /poe
+    # :poe
     {
         alias po='poe -L'
         alias pox='poe -X -v'
         alias pof='poe -F -v'
     }
 
-    # /go
+    # :go
     {
         alias gob='go build'
         alias goi='go install'
@@ -522,7 +522,7 @@ export GO15VENDOREXPERIMENT=1
     }
 
 
-    # /systemctl
+    # :systemd
     {
         alias sc='sudo systemctl'
         alias scs='sudo systemctl start'
@@ -532,7 +532,7 @@ export GO15VENDOREXPERIMENT=1
         alias scu='sudo systemctl status'
     }
 
-    # /journal
+    # :journald
     {
         alias jcx='sudo journalctl -xe'
         alias jcxf='sudo journalctl -xef'
