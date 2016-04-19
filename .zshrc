@@ -584,3 +584,14 @@ fzf-history-widget() {
   fi
   zle redisplay
 }
+
+copy-to-http() {
+    local src="$1"
+    local dest=$(basename "$src")
+    if [ $# -ne 1 ]; then
+        dest=$2
+    fi
+    cp "$src" "/srv/http/$dest"
+    echo -n "http://home.local/$dest" | xclip -selection clipboard
+    echo "http://home.local/$dest"
+}
