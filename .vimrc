@@ -24,14 +24,13 @@ let g:py_modules = []
 Plug 'ctrlpvim/ctrlp.vim'
     nnoremap <C-B> :CtrlPBuffer<CR>
     nnoremap <C-P> :CtrlPMixed<CR>
+
     let g:ctrlp_working_path_mode='raw'
     let g:ctrlp_use_caching = 0
 
-Plug 'kovetskiy/SearchParty'
-    au VimEnter * au! SearchPartySearching
-    au BufEnter * let b:searching = 0
-    au CursorHold * call SPAfterSearch()
+    let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:200'
 
+Plug 'kovetskiy/SearchParty'
     nmap <silent> <Leader><Leader> :let @/=''<CR>
                 \ <Plug>SearchPartyHighlightClear
 
@@ -62,6 +61,10 @@ Plug 'fatih/vim-go', { 'for': 'go' }
     let g:go_bin_path = $GOPATH . "/bin"
     let g:go_metalinter_command="gometalinter -D golint --cyclo-over 15"
     let g:go_list_type = "quickfix"
+
+    nnoremap <C-]> :cN<CR>
+    nnoremap <C-[> :cn<CR>
+    nnoremap <C-Q> :cclose<CR>
 
     let g:go_doc_keywordprg_enabled = 0
 
@@ -119,14 +122,14 @@ Plug 't9md/vim-choosewin', { 'on': [ 'ChooseWin', 'ChooseWinSwap' ] }
 Plug 'seletskiy/vim-over'
     nmap L VH
 
-    nnoremap H :OverCommandLine %s/\v<CR>
-    vnoremap H :OverCommandLine s/\v<CR>
+    nnoremap H :OverCommandLine %s/<CR>
+    vnoremap H :OverCommandLine s/<CR>
 
     let g:over#command_line#search#enable_move_cursor = 1
     let g:over#command_line#search#very_magic = 1
 
-    au BufAdd,BufEnter * nnoremap / :OverCommandLine /\v<CR>
-    au BufAdd,BufEnter * vnoremap / :'<,'>OverCommandLine /\v<CR>
+    au BufAdd,BufEnter * nnoremap / :OverCommandLine /<CR>
+    au BufAdd,BufEnter * vnoremap / :'<,'>OverCommandLine /<CR>
 
     au User OverCmdLineExecute call searchparty#mash#mash()
 
@@ -235,7 +238,7 @@ Plug 'kovetskiy/vim-ski'
 
 Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
-        \ 'vim', 'diff'
+        \ 'diff'
     \ ]
 
     function! MyWhitespaceFix()
@@ -270,24 +273,6 @@ Plug 'seletskiy/ashium'
 
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
-Plug 'kovetskiy/ack.vim'
-    if executable('sift')
-        let g:ackprg = 'sift --err-skip-line-length --binary-skip'
-    endif
-
-    let g:ack_mappings = {
-          \ "o": "<CR>",
-          \ "O": "<CR><C-W><C-W>:ccl<CR>",
-          \ "go": "<CR><C-W>j",
-          \ "h": "<C-W><CR><C-W>K",
-          \ "H": "<C-W><CR><C-W>K<C-W>b",
-          \ "v": "<C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t",
-          \ "gv": "<C-W><CR><C-W>H<C-W>b<C-W>J"
-      \ }
-
-    let g:ackhighlight=1
-    nnoremap <C-E><C-G> :Ack<Space>
-
 Plug 'yssl/QFEnter'
 
 Plug 'kovetskiy/next-indentation'
@@ -310,6 +295,33 @@ Plug 'takac/vim-hardtime'
     let g:hardtime_default_on = 1
 
 Plug 'kovetskiy/ycm-sh'
+
+Plug 'lokikl/vim-ctrlp-ag'
+    let g:grep_last_query = ""
+
+    function! Grep(query)
+        let g:grep_last_query = a:query
+
+        let @/ = a:query
+        call ctrlp#ag#exec(a:query)
+    endfunction!
+
+    function! GrepSlash()
+        let l:slash = strpart(@/, 2)
+        call Grep(l:slash)
+    endfunction!
+
+    function! GrepRestore()
+        call Grep(g:grep_last_query)
+    endfunction!
+
+    command! -nargs=1 Grep call Grep(<q-args>)
+    command! GrepSlash call GrepRestore()
+    command! GrepRestore call GrepRestore()
+
+    nnoremap <C-F> :Grep<Space>
+    nnoremap <C-E><C-F> :GrepSlash<CR>
+    nnoremap <C-E><C-G> :GrepRestore<CR>
 
 call plug#end()
 
@@ -370,7 +382,11 @@ set lcs=eol:¶,trail:·,tab:\ \ "t
 
 set pastetoggle=<F11>
 
-set nofoldenable
+augroup nofolding
+    au!
+    au VimEnter,WinEnter * set nofoldenable
+augroup end
+
 set noequalalways
 set winminheight=0
 set clipboard=unnamed
@@ -469,10 +485,7 @@ nnoremap g, '<
 
 nnoremap <Leader>vs :vsp<CR>
 
-nnoremap <C-M> :cN<CR>
-nnoremap <C-F> :cn<CR>
-nnoremap <C-T> :cclose<CR>
-nnoremap <Leader>e :e!<Space>
+nnoremap <Leader>e :e!<CR>
 
 nnoremap <Leader>r :w<CR>
 
@@ -593,3 +606,6 @@ let @j="^t=x"
 let @t=':%s/\t/    /g@t'
 
 imap <C-Y> <Down>
+cmap <C-F> <NOP>
+
+vmap <Leader> S<Space><Space>
