@@ -48,3 +48,11 @@ endsnippet
 snippet pr "print" w
 echo "XXXXXXXX `!p snip.rv=t[1]`" $1
 endsnippet
+
+snippet m "" w
+echom "`!p snip.rv=t[1]`: [" . $1 . "]"
+endsnippet
+
+snippet n "" w
+echom "$1"
+endsnippet

@@ -1,3 +1,5 @@
+. ~/bin/environment-variables
+
 export TERM=rxvt-unicode-256color
 if [ "$TMUX" ]; then
     export TERM=screen-256color-so
@@ -147,10 +149,10 @@ export GO15VENDOREXPERIMENT=1
 
 # :fastcd
 {
-    alias scd="fastcd ~/sources/ 1"
+    alias srcd="fastcd ~/sources/ 1"
     alias vicd="fastcd ~/.vim/bundle/ 1"
     alias gocd="fastcd ~/go/src/ 3"
-    alias zcd='fastcd ~/.zgen/ 2'
+    alias zgcd='fastcd ~/.zgen/ 2'
 }
 
 # :func
@@ -169,6 +171,7 @@ export GO15VENDOREXPERIMENT=1
         fi
         smart-ssh -t "$hostname" "$cmd"
     }
+    compdef ssh-enhanced=ssh
 
     man-find() {
         man --regex -wK "$@" \
@@ -224,10 +227,10 @@ export GO15VENDOREXPERIMENT=1
         done
 
         xargs -n1 -I{} \
-            echo "( exec ${args[@]} ) <<< '{}'" \
+            echo "( eval ${args[@]} ) <<< '{}'" \
             | \
             while read -r subcmd; do
-                eval "${subcmd[@]}"
+                echo eval "${subcmd[@]}"
             done
     }
 
@@ -348,6 +351,62 @@ export GO15VENDOREXPERIMENT=1
         mksrcinfo
         git add PKGBUILD .SRCINFO
     }
+
+    cd-pkgbuild() {
+        local dir=$(basename "$(pwd)")
+        local dir_pkgbuild="${dir}-pkgbuild"
+
+        if [ -d "$dir_pkgbuild" ]; then
+            cd "$dir_pkgbuild"
+            return
+        fi
+
+        cp -r "../$dir" "../$dir_pkgbuild"
+
+        cd "../$dir_pkgbuild"
+
+        if [ "$(git rev-parse --abbrev-parse HEAD)" = "pkgbuild" ]; then
+            return
+        fi
+
+        if git branch | grep -q pkgbuild; then
+            git checkout pkgbuild
+            return
+        fi
+
+        git-checkout-orphan pkgbuild
+    }
+
+    go-makepkg() {
+        local package="$1"
+        local description="$2"
+        local repo="$3"
+        shift 3
+
+        if [[ ! "$repo" ]]; then
+            repo=$(git remote get-url origin)
+            if grep -q "github.com" <<< "$repo"; then
+                repo=$(sed-replace '.*@' 'https://' <<< "$repo")
+                repo=$(sed-replace '.*://' 'https://' <<< "$repo")
+            fi
+        fi
+
+        go-makepkg -g -c -n $package -d . "$description"  "$repo" $@
+    }
+
+    copy-to-clipboard() {
+        if [ $# -ne 0 ]; then
+            if [ -e "$1" ]; then
+                xclip -selection clipboard < "$1"
+                return
+            fi
+
+            xclip -selection clipboard <<< "$@"
+            return
+        fi
+
+        cat | xclip-selection clipboard
+    }
 }
 
 # :funcaliases
@@ -369,6 +428,8 @@ export GO15VENDOREXPERIMENT=1
     alias -g X='| xargs-eval'
 
     alias A='alias-search'
+
+    alias cdp='cd-pkgbuild'
 }
 
 
@@ -406,6 +467,7 @@ export GO15VENDOREXPERIMENT=1
     {
         alias -g SX='--exclude-path'
     }
+
 
     alias rto='rtorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
 

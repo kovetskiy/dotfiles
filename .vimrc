@@ -62,9 +62,9 @@ Plug 'fatih/vim-go', { 'for': 'go' }
     let g:go_metalinter_command="gometalinter -D golint --cyclo-over 15"
     let g:go_list_type = "quickfix"
 
-    nnoremap <C-]> :cN<CR>
-    nnoremap <C-[> :cn<CR>
-    nnoremap <C-Q> :cclose<CR>
+    "nnoremap <C-'> :cN<CR>
+    "nnoremap <C-;> :cn<CR>
+    "nnoremap <C-Q> :cclose<CR>
 
     let g:go_doc_keywordprg_enabled = 0
 
@@ -124,6 +124,7 @@ Plug 'seletskiy/vim-over'
 
     nnoremap H :OverCommandLine %s/<CR>
     vnoremap H :OverCommandLine s/<CR>
+    vnoremap L :OverCommandLine s/<CR>
 
     let g:over#command_line#search#enable_move_cursor = 1
     let g:over#command_line#search#very_magic = 1
@@ -155,10 +156,10 @@ Plug 'kshenoy/vim-signature'
 
 Plug 'justinmk/vim-sneak'
     " bullshit
-    nmap <NOP> <Plug>Sneak_s
-    vmap <NOP> <Plug>Sneak_s
-    nmap <NOP><NOP> <Plug>Sneak_S
-    vmap <NOP><NOP> <Plug>Sneak_S
+    nmap <C-E><C-S>S <Plug>Sneak_s
+    vmap <C-E><C-S>s <Plug>Sneak_s
+    nmap <C-E><C-S><C-S> <Plug>Sneak_S
+    vmap <C-E><C-S><C-S> <Plug>Sneak_S
 
     nmap f <Plug>Sneak_f
     nmap F <Plug>Sneak_F
@@ -284,15 +285,6 @@ Plug 'rust-lang/rust.vim', {'for': 'rust' }
 Plug 'rhysd/vim-go-impl'
 
 Plug 'wellle/targets.vim'
-
-Plug 'takac/vim-hardtime'
-    let g:list_of_insert_keys = []
-    let g:list_of_visual_keys = []
-    let g:list_of_normal_keys = ["<Leader>r"]
-
-    let g:hardtime_showerr = 1
-    let g:hardtime_timeout = 5000
-    let g:hardtime_default_on = 1
 
 Plug 'kovetskiy/ycm-sh'
 
@@ -609,3 +601,21 @@ imap <C-Y> <Down>
 cmap <C-F> <NOP>
 
 vmap <Leader> S<Space><Space>
+
+function! MacroToggle()
+    if !get(g:, "macro_toggle_recording")
+        let g:macro_toggle_recording = 0
+    endif
+
+    if g:macro_toggle_recording == 0
+        normal qx
+    else
+        normal q
+    endif
+
+    let g:macro_toggle_recording = !g:macro_toggle_recording
+endfunction!
+
+nmap M :call MacroToggle()<CR>
+nmap m @x
+vmap m @x

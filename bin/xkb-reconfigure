@@ -56,6 +56,7 @@ setxkbmap \
 xset r rate 110 100
 xset -b
 
+pkill shift-shift
 if ! pidof shift-shift > /dev/null; then
     HANDLER_ENG="CAPSLOCK"
     HANDLER_RUS="RIGHTSHIFT"
