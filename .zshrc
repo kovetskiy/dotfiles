@@ -59,6 +59,7 @@ export GO15VENDOREXPERIMENT=1
         zgen load seletskiy/zsh-ssh-urxvt
         zgen load seletskiy/zsh-ash-completion
 
+        zgen load seletskiy/zsh-hash-aliases
 
         zgen load s7anley/zsh-geeknote
 
@@ -113,6 +114,8 @@ export GO15VENDOREXPERIMENT=1
     setopt hist_verify
     setopt inc_append_history
     setopt share_history
+
+    hash-aliases:install
 }
 
 
@@ -212,25 +215,24 @@ export GO15VENDOREXPERIMENT=1
     }
 
     xargs-eval() {
-        local cmd="$@"
-        local args=()
-        for i in "$@"; do
-            case $i in
-                '`'*)  args+=($i) ;;
-                *'`')  args+=($i) ;;
-                *'>'*) args+=($i) ;;
-                *'<'*) args+=($i) ;;
-                *'&')  args+=($i) ;;
-                '|')   args+=($i) ;;
-                *)     args+=(\""$i"\")
-            esac
-        done
+        local pass_stdin=false
+        if [ "$1" = "-" ]; then
+            pass_stdin=true
+            shift
+        fi
 
-        xargs -n1 -I{} \
-            echo "( eval ${args[@]} ) <<< '{}'" \
-            | \
-            while read -r subcmd; do
-                echo eval "${subcmd[@]}"
+        local cmd="$@"
+
+        local line="{ $cmd ; }"
+        if $pass_stdin; then
+            line="$line <<< '{}'"
+        fi
+
+        local main_input="$(cat)"
+
+        xargs -n1 -I{} echo "$line" <<< "$main_input" \
+            | while read subcmd; do
+                eval "(${subcmd[@]})" </dev/tty
             done
     }
 
@@ -457,7 +459,6 @@ export GO15VENDOREXPERIMENT=1
         alias -g L='EO | less -r'
         alias -g H='EO | head -n'
         alias -g T='EO | tail -n'
-        alias -g W='| wc -l'
         alias -g Xa='| xargs -n1 -I{} '
         alias -g EO='2>&1'
         alias -g EN='2>/dev/null'
@@ -478,6 +479,7 @@ export GO15VENDOREXPERIMENT=1
         alias aus='au -S'
         alias aur='au -R'
         alias aug='cd /tmp/; au -G'
+        alias aq='yaourt -Q'
     }
 
     # :pacman
@@ -492,6 +494,12 @@ export GO15VENDOREXPERIMENT=1
         alias psyu='zfs-snapshot && sudo pacman -Syu'
         alias pmu='sudo pacman -U'
         alias pf='pkgfile'
+    }
+
+    # :packages-local
+    {
+        alias pl='packages-local'
+        alias pla='packages-local -a'
     }
 
 
