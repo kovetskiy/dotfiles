@@ -192,22 +192,32 @@ export GO15VENDOREXPERIMENT=1
         local from=$(sed 's@/@\\/@g' <<< "$1")
         local to=$(sed 's@/@\\/@g' <<< "$2")
         shift 2
-        sed -ri "s/$from/$to/g" $@
+
+        if [ $# -ne 0 ]; then
+            sed -ri "s/$from/$to/g" ${@}
+        else
+            sed -r "s/$from/$to/g"
+        fi
     }
 
     sed-remove-all-before() {
-        local symbol=$(sed 's@/@\\/@g' <<< "$1")
-        sed -r "s/.*$symbol//g"
+        local query="$1"
+        shift
+        sed-replace ".*$query" "" $@
     }
+
     sed-remove-all-after() {
-        local symbol=$(sed 's@/@\\/@g' <<< "$1")
-        sed -r "s/$symbol.*//g"
+        local query="$1"
+        shift
+        sed-replace "$query.*" "" $@
     }
+
     cut-d-t() {
         local d="$1"
         shift
         cut -d"$d" -f"$@"
     }
+
     find-iname() {
         local query="$1"
         shift
@@ -256,11 +266,46 @@ export GO15VENDOREXPERIMENT=1
     }
 
     git-commit-m() {
-        git commit -m "$*"
+        local msg="$*"
+        for x in $@; do
+            if [ "$x" = "!" ]; then
+                amend=true
+                msg=$(sed-replace '!' '' <<< "$msg")
+            fi
+        done
+
+        if [ $(pwd) = "$HOME/dotfiles" ]; then
+            if ! grep -q ":" <<< "$msg"; then
+                word=$(git status --porcelain \
+                    | awk '/^M/ { print $2; }' \
+                    | sed-remove-all-before '/' \
+                    | sed-replace '^\.' '' \
+                    | sed-replace 'rc$' ''
+                )
+
+                if [ ! "$word" ]; then
+                    word=$(git status --porcelain \
+                        | awk '/^A/ { print $2; }' \
+                        | sed-remove-all-after '/'
+                    )
+                fi
+            fi
+
+            if [ "$word" ]; then
+                msg="${word/\\n/ }: $msg"
+            fi
+        fi
+
+        local flags=""
+        if [ "$amend" ]; then
+            flags="--amend"
+        fi
+
+        git commit $flags -m "$msg"
     }
 
     git-commit-m-amend() {
-        git commit --amend -m "$*"
+        amend=1 git-commit-m $*
     }
 
     git-checkout-orphan() {
@@ -303,16 +348,62 @@ export GO15VENDOREXPERIMENT=1
     }
 
     go-get-enhanced() {
-        local url=$(sed 's/.*:\/\///' <<< $1)
-        local dir=$GOPATH/src/$url
+        if [ $# -eq 0 ]; then
+            go get
+            return
+        fi
+
+        local url=""
+        local dir=""
+        local flags=("-v")
+        local update=false
+        if [ "$1" = "u" -o "$1" = "-u" -o "$1" = "-" ]; then
+            flags+=("-u")
+            update=true
+            shift
+        fi
+
+        if [ $# -eq 0 ]; then
+            go get ${flags[@]}
+            return
+        fi
+
+        import=$(sed 's/.*:\/\///' <<< "$1")
+        shift
+
+        flags+=("$@")
+
+        local slashes=$(grep -o '/'  <<< "$import" | wc -l)
+        if [ $slashes = 1 ]; then
+            import="github.com/$import"
+        fi
+
+        if $update && [ $slashes = 0 ]; then
+            dependency_import=$(
+                go list -f \
+                    '{{ range $dep := .Deps }}{{ $dep }}{{ "\n" }}{{ end }}' . \
+                    | awk "/\/$import\$/ { print }"
+            )
+            if [ "$dependency_import" ]; then
+                import=$dependency_import
+            fi
+        fi
+
+        if [ ! "$dependency_import" ] && [ $slashes = 0 ]; then
+            import="github.com/kovetskiy/$import"
+        fi
+
+        go get ${flags[@]} $import
+
+        dir=$GOPATH/src/$import
         if [[ "$dir" == *.git ]]; then
             dir=$(sed 's/\.git//' <<< "$dir")
         fi
-        go get -v $url
-        cd $dir
-        git submodule init
-        git submodule update
-        go get -v
+
+        if [ -d $dir ]; then
+            cd $dir
+            git submodule update --init
+        fi
     }
 
 
@@ -356,10 +447,15 @@ export GO15VENDOREXPERIMENT=1
 
     cd-pkgbuild() {
         local dir=$(basename "$(pwd)")
+        if  grep -q '\-pkgbuild' <<< "$dir"; then
+            cd ../$(sed -r 's/\-pkgbuild//g' <<< "$dir")
+            return
+        fi
+
         local dir_pkgbuild="${dir}-pkgbuild"
 
-        if [ -d "$dir_pkgbuild" ]; then
-            cd "$dir_pkgbuild"
+        if [ -d "../$dir_pkgbuild" ]; then
+            cd "../$dir_pkgbuild"
             return
         fi
 
@@ -379,21 +475,28 @@ export GO15VENDOREXPERIMENT=1
         git-checkout-orphan pkgbuild
     }
 
-    go-makepkg() {
+    go-makepkg-enhanced() {
+        if [ "$1" = "-h" ]; then
+            echo "package description [repo]"
+            return
+        fi
+
         local package="$1"
         local description="$2"
         local repo="$3"
-        shift 3
+        shift 2
 
-        if [[ ! "$repo" ]]; then
+        if [ "$repo" ]; then
+            shift
+        else
             repo=$(git remote get-url origin)
             if grep -q "github.com" <<< "$repo"; then
-                repo=$(sed-replace '.*@' 'https://' <<< "$repo")
-                repo=$(sed-replace '.*://' 'https://' <<< "$repo")
+                repo=$(sed-replace '.*@' 'git://' <<< "$repo")
+                repo=$(sed-replace '.*://' 'git://' <<< "$repo")
             fi
         fi
 
-        go-makepkg -g -c -n $package -d . "$description"  "$repo" $@
+        go-makepkg -g -c -n "$package" -d . $(echo $FLAGS) "$description" "$repo" $@
     }
 
     copy-to-clipboard() {
@@ -408,6 +511,11 @@ export GO15VENDOREXPERIMENT=1
         fi
 
         cat | xclip-selection clipboard
+    }
+
+    restore-pkgver-pkgrel() {
+        sed-replace 'pkgver=.*' 'pkgver=${PKGVER:-autogenerated}' ${1:-PKGBUILD}
+        sed-replace 'pkgrel=.*' 'pkgrel=${PKGREL:-1}' ${1:-PKGBUILD}
     }
 }
 
@@ -431,12 +539,23 @@ export GO15VENDOREXPERIMENT=1
 
     alias A='alias-search'
 
+    alias si='ssh-copy-id'
+
     alias cdp='cd-pkgbuild'
-}
+    alias gog='go-get-enhanced'
+    alias gme='go-makepkg-enhanced'
+    alias gmev='FLAGS="-p version" go-makepkg-enhanced'
+    alias gmel='gmev'
+    alias mpk='makepkg -fc; pkr'
+    alias mpk!='rm -rf *xz; rm -rf {pkg,src}; makepkg -fc; pkr'
+    alias vw='vim-which'
+    alias ur='packages-upload-repo.s'
+    alias urx='packages-upload-repo.s "$(/usr/bin/ls --color=never -t *.xz | head -n1)"'
+    alias urxl='packages-upload-repo.s "$(/usr/bin/ls --color=never -t *.xz | head -n1)" latest'
+    alias urxc='packages-upload-repo.s "$(/usr/bin/ls --color=never -t *.xz | head -n1)" current'
+    alias tim='terminal-vim'
+    alias pkr='restore-pkgver-pkgrel'
 
-
-# :alias
-{
     alias history='fc -ln 0'
     alias m='man'
     alias rf='rm -rf'
@@ -452,6 +571,7 @@ export GO15VENDOREXPERIMENT=1
     alias a='alias'
     alias py='python'
     alias py2='python2'
+    alias god='godoc-search'
 
     # :globals
     {
@@ -570,11 +690,12 @@ export GO15VENDOREXPERIMENT=1
         alias ghu='hub browse -u'
         alias ghc='hub browse -u -- commit/$(git rev-parse --short HEAD) 2>/dev/null'
         alias gsu='git submodule update --init'
+        alias gic='git add . ; git commit -m "initial commit"'
         alias bhc='BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
     }
 
 
-    alias dt='cd ~/dotfiles; git status -s ; PAGER=cat git diff'
+    alias dt='cd ~/dotfiles; PAGER=cat git diff; git status -s ; '
     alias pr='hub pull-request -f'
 
     # :poe
@@ -588,7 +709,6 @@ export GO15VENDOREXPERIMENT=1
     {
         alias gob='go build'
         alias goi='go install'
-        alias gog='go get'
     }
 
 
