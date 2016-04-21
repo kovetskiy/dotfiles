@@ -80,14 +80,6 @@ snippet jef "log.Error" w
 log.Error("$1: %s", ${2:err})
 endsnippet
 
-snippet doca "docopt.Parse" w
-args, err := docopt.Parse(usage, nil, true, "1.0", false)
-if err != nil {
-	panic(err)
-}
-$0
-endsnippet
-
 snippet (s "(string" i
 (string
 endsnippet
@@ -199,13 +191,20 @@ endsnippet
 
 snippet u "usage" w
 version = "1.0"
-usage = \`$1\` + version + \`
+usage = \`$1 \` + version + \`
 $2
 
 Usage:
+	$1 $3
+	$1 -h | --help
+	$1 --version
 
 Options:
 	-h --help		Show this screen.
 	--version       Show version.
 \`
+endsnippet
+
+snippet he "" w
+hierr.Errorf(err, "$1"${2/(.+)/, /}$2)
 endsnippet
