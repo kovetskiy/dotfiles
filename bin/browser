@@ -2,4 +2,4 @@
 
 URL="$(sed 's/^\(git+ssh\|ssh\|git\):\/\///' <<< "$1")"
 
-exec firefox "$URL"
+exec yandex-browser-beta "$URL"
