@@ -526,6 +526,12 @@ inoremap <C-H> <C-O>o
 
 imap <C-U> <ESC>ua
 
+augroup pkgbuild
+    au!
+    au BufRead,BufNewFile PKGBUILD set noet ft=pkgbuild.sh
+augroup end
+
+
 fu! SetBg(bg)
     let bg = a:bg
     if bg == ""
@@ -595,7 +601,13 @@ nmap K :s///g<CR><C-O>i
 let @l="f(ak$%i,%"
 let @k="^f=i:"
 let @j="^t=x"
-let @t=':%s/\t/    /g@t'
+
+function! TabSpace()
+    keepjumps %s/\t/    /
+    normal ''
+endfunction!
+
+nmap @t :call TabSpace()<CR>
 
 imap <C-Y> <Down>
 cmap <C-F> <NOP>
