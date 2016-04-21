@@ -18,6 +18,7 @@ BIN=(
     "$HOME/bin"
     "$HOME/bin/rewrite"
     "$HOME/dotfiles/deadfiles/bin"
+    "/usr/bin/"
     "$GOPATH/bin"
     "$RUBYPATH"
 )
