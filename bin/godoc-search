@@ -1,0 +1,30 @@
+#!/bin/bash
+
+query="$@"
+token=$(md5sum <<< "$query" | cut -d' ' -f1)
+token_file=~/.cache/godoc_$token
+
+if [ -f $token_file ]; then
+    uri=$(cat $token_file)
+else
+    uri=$(
+        googler -n 1 -C godoc $@ <<< "" 2>/dev/null | awk -r '
+        {
+            if (match($0, /^https?:\/\/godoc\.org\/(.*)/, link)) {
+                print link[1];
+            }
+        }'
+    )
+
+    if [ $? -ne 0 ]; then
+        exit $?
+    fi
+
+    echo -n "$uri" > $token_file
+fi
+
+if [ -t 1 ]; then
+    godoc $uri | less
+else
+    godoc $uri
+fi
