@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+
+team="$1"
+url="https://slack.com/api/channels.list?token=$2&exclude_archived=1"
+
+curl -s "$url" \
+    | jq -r '.channels[] | .name' \
+    | sed "s/$/@conference.$team.xmpp.slack.com/"

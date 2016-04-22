@@ -1,34 +1,29 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 account="$1"
 
-if [[ "$account" == "o" ]]; then
-    account="office"
-fi
-
-if [[ "$account" == "n" ]]; then
-    account="slack-ngs-team"
-fi
-
-if [[ "$account" == "p" ]]; then
-    account="slack-postdevops"
-fi
-
-if [[ "$account" == "a" ]]; then
-    account="adastra"
-fi
-
-config="$(
+config() {
     cat ~/.mcabber/account.$account
     echo
+
     cat ~/.mcabber/mcabberrc.base
     echo
+
     cat ~/.mcabber/mcabberrc.$BACKGROUND
     echo
+
     cat ~/.mcabber/mcabberrc.$account
     echo
-)"
 
-mcabber -f <(echo "$config")
+    if [ -f ~/.mcabber/token.$account ]; then
+        channels=$(
+            slack-get-jabber-rooms $account $(cat ~/.mcabber/token.$account) \
+                | tr '\n' ','
+        )
+        echo "set autojoin = $channels"
+    fi
+}
+
+mcabber -f <(config)

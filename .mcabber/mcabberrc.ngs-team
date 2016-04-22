@@ -1,0 +1,8 @@
+alias d = roster search devops
+alias t = roster search tech
+
+set autojoin    = devops@conference.ngs-team.xmpp.slack.com,golang,vim,techops
+
+set statefile   = ~/.mcabber/state/ngs-team
+set logging_dir = ~/.mcabber/history/ngs-team/
+set fifo_name   = ~/.mcabber/fifo/ngs-team

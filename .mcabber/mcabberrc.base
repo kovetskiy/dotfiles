@@ -1,48 +1,30 @@
-set ignore_self_presence = 1
-
-set tls = 1
-set ssl_ignore_checks = 1
-
-set cmdhistory_lines = 64
-
+set ignore_self_presence  = 1
+set tls                   = 1
+set ssl_ignore_checks     = 1
+set cmdhistory_lines      = 64
 set roster_display_filter = ofdna
-
-set lang = en
-set logging = 1
-set load_logs = 1
-set logging_dir = ~/.mcabber/history/base/
+set lang                  = en
+set logging               = 1
+set load_logs             = 1
+set logging_dir           = ~/.mcabber/history/base/
 set logging_ignore_status = 1
+set log_muc_conf          = 1
+set load_muc_logs         = 1
+set statefile             = ~/.mcabber/state/base
+set max_history_blocks    = 8
+set events_command        = ~/.mcabber/eventcmd
+set muc_print_status      = 1
+set roster_width          = 40
+set log_win_height        = 5
+set fifo_name             = ~/.mcabber/fifo/base
+set fifo_hide_commands    = 0
+set editor                = vim-economic
+set otr                   = 1
 
-set log_muc_conf = 1
-set load_muc_logs = 1
-
-set statefile = ~/.mcabber/state/base
-set max_history_blocks = 8
-
-set events_command = ~/.mcabber/eventcmd
-
-set muc_print_status = 1
-
-set roster_width=40
-set log_win_height=5
-
-bind 10 = roster down
-bind 11 = roster up
-
-alias s = roster search
-
-alias on = status online
-alias a = status away
-alias na = status notavail
-
-set fifo_name = ~/.mcabber/fifo/base
-set fifo_hide_commands = 0
-
-bind 18 = roster unread_next
-
+bind 10  = roster down
+bind 11  = roster up
+bind 18  = roster unread_next
 bind 276 = roster toggle
-
-set editor = vim-econom
 
 module load fifo
 module load editor
@@ -50,7 +32,7 @@ module load focus
 module load autojoin
 module load slack_completion
 
-set otr = 1
-alias o=otr start
-alias sq=otr smpq .
-alias sa=otr smpr .
+alias o  = otr start
+alias sq = otr smpq .
+alias sa = otr smpr .
+alias q  = roster search

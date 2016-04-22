@@ -162,4 +162,11 @@ $1)
 $0
 endsnippet
 
+snippet b "" w
+[ -x /bin/systemd-cat-bash ] && /bin/systemd-cat-bash $(basename "\$0")
+$0
+endsnippet
 
+snippet x "" w
+set -x
+endsnippet
