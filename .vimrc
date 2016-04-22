@@ -25,7 +25,7 @@ Plug 'ctrlpvim/ctrlp.vim'
     nnoremap <C-B> :CtrlPBuffer<CR>
     nnoremap <C-P> :CtrlPMixed<CR>
 
-    let g:ctrlp_working_path_mode='raw'
+    let g:ctrlp_working_path_mode='a'
     let g:ctrlp_use_caching = 0
 
     let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:200'
@@ -84,22 +84,35 @@ Plug 'seletskiy/matchem'
     let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 
 Plug 'sirver/ultisnips'
-    let g:UltiSnipsSnippetsDir = $HOME . '/.vim/bundle/snippets/'
+    let g:snippets_dotfiles = $HOME . '/.vim/UltiSnips/'
+    let g:snippets_reconquest = $HOME . '/.vim/bundle/snippets/'
+
     let g:UltiSnipsSnippetDirectories = [
-    \     $HOME . '/.vim/bundle/snippets/',
-    \     $HOME . '/.vim/UltiSnips/',
+    \     g:snippets_dotfiles, g:snippets_reconquest,
     \]
+
     let g:UltiSnipsEnableSnipMate = 0
     let g:UltiSnipsExpandTrigger="<TAB>"
     let g:UltiSnipsEditSplit="horizontal"
 
-    nnoremap <C-S><C-E> :UltiSnipsEdit<CR>
+    function! SnippetsDotfiles()
+        let g:UltiSnipsSnippetsDir = g:snippets_dotfiles
+        UltiSnipsEdit
+    endfunction!
+
+    function! SnippetsReconquest()
+        let g:UltiSnipsSnippetsDir = g:snippets_reconquest
+        UltiSnipsEdit
+    endfunction!
+
+    nnoremap <C-S><C-D> :call SnippetsDotfiles()<CR>
+    nnoremap <C-S><C-S> :call SnippetsReconquest()<CR>
 
     smap <C-E> <C-V><ESC>a
     smap <C-B> <C-V>o<ESC>i
     augroup textwidth_for_snippets
         au!
-        au FileType snippets set textwidth=999
+        au FileType snippets set textwidth=0
     augroup end
 
 Plug 'reconquest/snippets', { 'for': ['go', 'ruby', 'python']}
@@ -111,32 +124,71 @@ Plug 'pangloss/vim-javascript', { 'for': 'js' }
 Plug 'danro/rename.vim', { 'on': 'Rename' }
     nnoremap <Leader><Leader>r :noautocmd Rename<Space>
 
-Plug 't9md/vim-choosewin', { 'on': [ 'ChooseWin', 'ChooseWinSwap' ] }
-    let g:choosewin_overlay_enable = 1
-    let g:choosewin_overlay_clear_multibyte = 1
-    let g:choosewin_label = 'QWEASDIOPJKL'
-
-    nnoremap <C-W><C-E> :ChooseWin<CR>
-    nnoremap <C-W><C-S> :ChooseWinSwap<CR>
-
 Plug 'seletskiy/vim-over'
-    nmap L VH
-
-    nnoremap H :OverCommandLine %s/<CR>
-    vnoremap H :OverCommandLine s/<CR>
-    vnoremap L :OverCommandLine s/<CR>
-
     let g:over#command_line#search#enable_move_cursor = 1
     let g:over#command_line#search#very_magic = 1
 
-    au BufAdd,BufEnter * nnoremap / :OverCommandLine /<CR>
-    au BufAdd,BufEnter * vnoremap / :'<,'>OverCommandLine /<CR>
+    nmap L VH
 
-    au User OverCmdLineExecute call searchparty#mash#mash()
+    nnoremap H :OverExec %s/<CR>
+    vnoremap H :OverExec s/<CR>
+    vnoremap L :OverExec s/<CR>
 
-    "let g:over_command_line_key_mappings={
-        "\ "\<Space>": "."
-    "\ }
+    au BufAdd,BufEnter * nnoremap / :OverExec /<CR>
+    au BufAdd,BufEnter * vnoremap / :'<,'>OverExec /<CR>
+
+    augroup over
+        au!
+        au User OverCmdLineExecute call OverExecAutocmd()
+    augroup end
+
+    let g:over_exec_autocmd_skip = 0
+    function! OverExecAutocmd()
+        if g:over_exec_autocmd_skip
+            let g:over_exec_autocmd_skip = 0
+            return
+        endif
+
+        call searchparty#mash#mash()
+    endfunction!
+
+    function! OverExec(line1, line2, args)
+        let g:over#command_line#search#enable_move_cursor = 1
+        call over#command_line(
+        \   g:over_command_line_prompt,
+        \   a:line1 != a:line2 ? printf("'<,'>%s", a:args) : a:args
+        \)
+    endfunction!
+    command! -range -nargs=* OverExec call OverExec(<line1>, <line2>, <q-args>)
+    nmap <Plug>(OverExec) :OverExec<CR>
+
+    function! s:over_exec_do(args)
+        let g:over_exec_autocmd_skip = 1
+        let g:over#command_line#search#enable_move_cursor = 0
+        call feedkeys("\<CR>" . a:args . "\<Plug>(OverExec)\<Up>")
+    endfunction!
+
+    function! OverNext()
+        call s:over_exec_do("n")
+        return ""
+    endfunction!
+
+    let g:over_command_line_key_mappings = {
+        \ "\<C-F>": ".",
+        \ "\<C-E>": '\w+',
+        \ "\<C-O>": ".*",
+        \ "\<C-L>": "\\zs",
+        \
+        \ "\<C-K>": "\<Left>\\\<Right>",
+        \ "\<C-D>": "\<Left>\<BackSpace>\<Right>",
+        \
+        \ "\<C-N>" : {
+        \ 	"key" : "OverNext()",
+        \   "expr": 1,
+        \ 	"noremap" : 1,
+        \ 	"lock" : 1,
+        \ },
+    \ }
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     augroup filetype_markdown
@@ -315,6 +367,8 @@ Plug 'lokikl/vim-ctrlp-ag'
     nnoremap <C-E><C-F> :GrepSlash<CR>
     nnoremap <C-E><C-G> :GrepRestore<CR>
 
+Plug 'chrisbra/Recover.vim'
+
 call plug#end()
 
 syntax on
@@ -412,11 +466,6 @@ CODE
     au BufWritePost ~/.vimrc source % | AirlineRefresh | ReloadPythonModules
 augroup end
 
-augroup mcabberrc
-    au!
-    au BufWritePost ~/.mcabber/mcabberrc !echo "/source ~/.mcabber/mcabberrc" > ~/.mcabber/mcabber.fifo
-augroup end
-
 augroup i3config
     au!
     au BufWritePost */.i3/config !i3-msg restart
@@ -477,8 +526,9 @@ nnoremap g, '<
 
 nnoremap <Leader>vs :vsp<CR>
 
-nnoremap <Leader>e :e!<CR>
+nnoremap <Leader>e :e<CR>
 
+nnoremap <Leader>q <ESC>:q<CR>
 nnoremap <Leader>r :w<CR>
 
 nnoremap <Leader>n <ESC>:bdelete!<CR>
@@ -529,6 +579,16 @@ imap <C-U> <ESC>ua
 augroup pkgbuild
     au!
     au BufRead,BufNewFile PKGBUILD set noet ft=pkgbuild.sh
+augroup end
+
+augroup mcabberrc
+    au!
+    au BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.sh
+augroup end
+
+augroup snippets_ft
+    au!
+    au BufRead,BufNewFile *.snippets set noet ft=snippets
 augroup end
 
 
@@ -592,7 +652,6 @@ noh
 
 "nnoremap <ESC>w <ESC>:w<CR>
 
-nnoremap <Leader>e :e!<Space>
 nnoremap <Leader>ft :set filetype=
 
 nmap <Tab> /
