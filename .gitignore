@@ -2,6 +2,7 @@
 .mcabber/account.office
 .mcabber/account.ngs-team
 .mcabber/account.postdevops
+.mcabber/token.*
 .mcabber/mcabber.fifo
 .mcabber/mcabberrc.theme
 .muttator/aliases
