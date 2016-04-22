@@ -5,5 +5,5 @@ shift
 
 for server in ${@}; do
     echo "$server" >&2
-    ssh -le.kovetskiy "$server" "$cmd"
+    ssh -oStrictHostKeyChecking=no -le.kovetskiy "$server" "$cmd"
 done
