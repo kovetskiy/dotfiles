@@ -1,29 +1,5 @@
-snippet f "function" bw
-$1() {
-	$2
-}
-endsnippet
-
-snippet i "if" bw
-if [ $1 ]; then
-	$2
-fi
-endsnippet
-
 snippet a "alias" bw
 alias $1='$2'
-endsnippet
-
-snippet pr "print" w
-echo 'XXXXXX `!p snip.rv=t[1]`: '"$1"
-endsnippet
-
-snippet k "print" w
-ncl 'XXXXXX `!p snip.rv=t[1]`: '"$1"
-endsnippet
-
-snippet l "" w
-local $1="$2"
 endsnippet
 
 snippet s "" w

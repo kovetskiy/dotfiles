@@ -155,11 +155,12 @@ snippet g "log" w
 log "$1"
 endsnippet
 
-snippet c "Description" w
+snippet "    ;;" "" wr
+    ;;
+
 $1)
 	$2
 	;;
-$0
 endsnippet
 
 snippet b "" w
@@ -169,4 +170,12 @@ endsnippet
 
 snippet x "" w
 set -x
+endsnippet
+
+snippet c "" w
+case "$1" in
+	$2)
+		$3
+		;;$4
+esac
 endsnippet
