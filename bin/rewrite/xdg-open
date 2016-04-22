@@ -1,0 +1,16 @@
+#!/bin/bash
+
+[ -x /bin/systemd-cat-bash ] && /bin/systemd-cat-bash $(basename "$0")
+
+set -x
+
+link="$*"
+
+if grep -qE "^magnet:" <<< "$link"; then
+    file=~/Downloads/magnet.$RANDOM.torrent
+    magnet2torrent "$link" "$file"
+    notify-send "magnet" "$file"
+    exit 0
+fi
+
+exec browser "$link"
