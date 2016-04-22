@@ -21,6 +21,7 @@ H=$(awk '/Height/{print $2}' <<< "$XWININFO")
 
 echo "Are you ready? Press ENTER to start recording"
 read
+xdotool mousemove 99999 99999
 xdotool windowfocus $ID
 
 byzanz-record --verbose --delay=0 --x=$X --y=$Y --width=$W --height=$H \
