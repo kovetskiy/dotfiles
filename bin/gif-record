@@ -10,6 +10,7 @@ else
     rm -rf $OUTPUT
 fi
 
+echo "choose window"
 XWININFO=$(xwininfo)
 
 ID=$(awk '/Window id/{print $4}' <<< "$XWININFO")
@@ -19,21 +20,27 @@ Y=$(awk '/Absolute upper-left Y/{print $4}' <<< "$XWININFO")
 W=$(awk '/Width/{print $2}' <<< "$XWININFO")
 H=$(awk '/Height/{print $2}' <<< "$XWININFO")
 
-echo "Are you ready? Press ENTER to start recording"
+echo "press ENTER to start recording"
 read
 xdotool mousemove 99999 99999
 xdotool windowfocus $ID
 
+echo "recording..."
+
 byzanz-record --verbose --delay=0 --x=$X --y=$Y --width=$W --height=$H \
-    --exec="bash -c 'ping 8.8.8.8 > /dev/null'" $OUTPUT &
+    --exec="bash -c 'ping 8.8.8.8 > /dev/null'" $OUTPUT &>/dev/null &
 PID=$!
 
-echo "Done? Press ENTER to stop recording"
+echo "press ENTER to stop recording"
 read
+
 pkill ping
 
 while kill -0 "$PID"; do
     sleep 0.1
 done
 
-echo "file://$OUTPUT"
+echo "gif: $OUTPUT"
+
+echo "uploading..."
+image-upload "$OUTPUT"
