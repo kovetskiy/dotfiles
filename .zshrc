@@ -581,13 +581,15 @@ export GO15VENDOREXPERIMENT=1
 
             cd $deadfiles
             git add .
-            git commit --amend -m "$subject migrated from kovetskiy/dotfiles"
-            git push -f origin master
+            git commit -m "$subject migrated from kovetskiy/dotfiles"
+            git push origin master
+            git stash pop
 
             cd $dotfiles
             git add .
-            git commit --amend -m "$subject migrated to deadcrew/deadfiles"
-            git push -f origin master
+            git commit -m "$subject migrated to deadcrew/deadfiles"
+            git push origin master
+            git stash pop
         )
     }
 }
