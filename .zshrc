@@ -172,7 +172,7 @@ export GO15VENDOREXPERIMENT=1
         if [ $# -ne 0 ]; then
             cmd="TERM=xterm sudo -i \$SHELL -ic ${(q)*}"
         fi
-        smart-ssh -t "$hostname" "$cmd"
+        smart-ssh -t "$hostname" "$cmd" 2>/dev/null
     }
     compdef ssh-enhanced=ssh
 
@@ -246,14 +246,38 @@ export GO15VENDOREXPERIMENT=1
             done
     }
 
-    ssh-node0-host() {
+    container-host-ssh() {
         local env=$(sed 's/^\(.*.ru\.\|\.\)//' <<< "$1")
+        shift
 
         local host
         host=$(deployer -Qe "$env" \
             | grep '^node0:$' -A 3 \
             | awk '/host:/ {print $2}')
-        ssh-enhanced $host
+        ssh-enhanced $host $@
+    }
+
+    container-status() {
+        local env="$1"
+        shift
+
+        container-host-ssh "$env" heaver -L | ag -F "$env"
+    }
+
+    container-guess-and-fix-problem() {
+        local env="$1"
+        shift
+
+        local env_status=$(container-status "$env")
+        echo "container status:"
+        echo "$env_status"
+
+        local container=$(awk '/frozen/ { print $1 }' <<< "$env_status")
+        if [ "$container" ]; then
+            echo "container frozen by memory, restarting..."
+            container-host-ssh $env heaver -T $container
+            container-host-ssh $env heaver -S $container
+        fi
     }
 
     cd-and-ls() {
@@ -519,13 +543,12 @@ export GO15VENDOREXPERIMENT=1
     }
 }
 
-# :funcaliases
+# :alias
 {
     alias ck='create-and-change-directory'
     alias mf='man-find'
     alias md='man-directive'
     alias c='cd-and-ls'
-    alias he='ssh-node0-host'
     alias ss='sed-replace'
     alias -g sb='| sed-remove-all-before'
     alias -g sa='| sed-remove-all-after'
@@ -572,6 +595,13 @@ export GO15VENDOREXPERIMENT=1
     alias py='python'
     alias py2='python2'
     alias god='godoc-search'
+    alias nhh='ssh'
+    alias nhu='container-status'
+    alias nhr='container-restart'
+    alias rto='rtorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
+    alias mcan='mcabber-account ngs-team'
+    alias mcap='mcabber-account postdevops'
+    alias mcao='mcabber-account office'
 
     # :globals
     {
@@ -588,9 +618,6 @@ export GO15VENDOREXPERIMENT=1
     {
         alias -g SX='--exclude-path'
     }
-
-
-    alias rto='rtorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
 
 
     # :aur
