@@ -576,6 +576,12 @@ inoremap <C-H> <C-O>o
 
 imap <C-U> <ESC>ua
 
+augroup zshsh
+    au!
+    au BufRead,BufNewFile ~/.zshrc set ft=zsh.sh
+    au BufRead,BufNewFile *.zsh    set ft=zsh.sh
+augroup end
+
 augroup pkgbuild
     au!
     au BufRead,BufNewFile PKGBUILD set noet ft=pkgbuild.sh
