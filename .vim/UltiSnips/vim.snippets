@@ -6,9 +6,9 @@ augroup end
 endsnippet
 
 snippet f "function" bw
-function! $1($2)
+fun! $1($2)
 	$3
-endfunction!
+endfun!
 endsnippet
 
 snippet i "if" bw
@@ -55,4 +55,14 @@ endsnippet
 
 snippet n "" w
 echom "$1"
+endsnippet
+
+snippet co "" w
+command! $3
+	\ $1
+	\ $2
+endsnippet
+
+snippet c "" w
+call $1($2)
 endsnippet
