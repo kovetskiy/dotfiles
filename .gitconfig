@@ -7,11 +7,19 @@
 	editor = vim
 [color]
 	ui = auto
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
-
-[url "ssh://git@github.com/"]
-	insteadOf = git+ssh://github.com/
 [pager]
 	diff = diff-so-fancy | less --tabs=4 -RFX
 	show = diff-so-fancy | less --tabs=4 -RFX
+[url "git@github.com:kovetskiy/"]
+	insteadOf = git+ssh://github.com/me/
+	insteadOf = git://github.com/me/
+	insteadOf = ssh://github.com/me/
+	insteadOf = ssh://git@github.com/me/
+	insteadOf = https://github.com/me/
+	insteadOf = git@github.com:me/
+[url "git@github.com:"]
+	insteadOf = git+ssh://github.com/
+	insteadOf = git://github.com/
+	insteadOf = ssh://github.com/
+	insteadOf = ssh://git@github.com/
+	insteadOf = https://github.com/
