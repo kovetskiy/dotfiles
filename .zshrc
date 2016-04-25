@@ -63,6 +63,7 @@ export GO15VENDOREXPERIMENT=1
         zgen load seletskiy/zsh-hash-aliases
 
         zgen load s7anley/zsh-geeknote
+        zgen load seletskiy/zsh-smart-kill-word
 
         ZGEN_AUTOLOAD_COMPINIT="-d $ZGEN_DIR/zcompdump"
         zgen save
@@ -135,13 +136,15 @@ export GO15VENDOREXPERIMENT=1
     bindkey -v '^?' backward-delete-char
     bindkey -v '^H' backward-delete-char
     bindkey -v '^[[3~' delete-char
-    bindkey -v '^W' backward-kill-word
     bindkey -v '^B' vi-backward-word
     bindkey -v '^E' vi-forward-blank-word
     bindkey -v "^L" clear-screen
     bindkey -v '^K' add-params
     bindkey -v '^O' toggle-quotes
     bindkey -v "^_" insert-dot-dot-slash
+
+    bindkey '^W' smart-backward-kill-word
+    bindkey '^S' smart-forward-kill-word
 }
 
 
@@ -196,7 +199,26 @@ export GO15VENDOREXPERIMENT=1
         shift 2
 
         if [ $# -ne 0 ]; then
-            sed -ri "s/$from/$to/g" ${@}
+            local diff=false
+            local files=()
+            for file in $@; do
+                if [ "$file" = "!" ]; then
+                    diff=true
+                else
+                    files+=("$file")
+                fi
+            done
+
+            for file in "${files[@]}"; do
+                if $diff; then
+                    after=$(mktemp -u)
+                    sed -r "s/$from/$to/g" $file > $after
+                    git diff --color $file $after | diff-so-fancy
+                else
+                    sed -ri "s/$from/$to/g" $file
+                fi
+            done
+
         else
             sed -r "s/$from/$to/g"
         fi
@@ -663,6 +685,10 @@ export GO15VENDOREXPERIMENT=1
     alias mcap='mcabber-account postdevops'
     alias mcao='mcabber-account office'
     alias mtd='migrate-to-deadfiles'
+    alias dt='cd ~/dotfiles; PAGER=cat git diff; git status -s ; '
+    alias de='cd ~/deadfiles; git status -s'
+    alias pr='hub pull-request -f'
+
 
     # :globals
     {
@@ -783,9 +809,6 @@ export GO15VENDOREXPERIMENT=1
         alias bhc='BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
     }
 
-
-    alias dt='cd ~/dotfiles; PAGER=cat git diff; git status -s ; '
-    alias pr='hub pull-request -f'
 
     # :poe
     {
