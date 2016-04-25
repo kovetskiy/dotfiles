@@ -116,7 +116,7 @@ Plug 'sirver/ultisnips'
         au FileType snippets set textwidth=0
     augroup end
 
-Plug 'reconquest/snippets', { 'for': ['go', 'ruby', 'python']}
+Plug 'reconquest/snippets'
 
 Plug 'tpope/vim-surround'
 
