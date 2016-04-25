@@ -12,3 +12,6 @@
 
 [url "ssh://git@github.com/"]
 	insteadOf = git+ssh://github.com/
+[pager]
+	diff = diff-so-fancy | less --tabs=4 -RFX
+	show = diff-so-fancy | less --tabs=4 -RFX
