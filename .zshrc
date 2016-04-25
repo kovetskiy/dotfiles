@@ -54,6 +54,7 @@ export GO15VENDOREXPERIMENT=1
         zgen load kovetskiy/zsh-fastcd
         zgen load kovetskiy/zsh-smart-ssh
         zgen load kovetskiy/zsh-insert-dot-dot-slash
+        zgen load knu/zsh-manydots-magic manydots-magic
 
         zgen load seletskiy/zsh-prompt-lambda17
         zgen load seletskiy/zsh-ssh-urxvt
@@ -75,6 +76,7 @@ export GO15VENDOREXPERIMENT=1
     unsetopt noclobber
     unsetopt correct
     unsetopt correct_all
+    unsetopt interactivecomments
 }
 
 # :setup
@@ -592,6 +594,13 @@ export GO15VENDOREXPERIMENT=1
             git stash pop
         )
     }
+
+    github-browse() {
+        local file="$1"
+        local line="${2:+#L$2}"
+        hub browse -u -- blob/$(git rev-parse --abbrev-ref HEAD)/$file$line
+    }
+    compdef github-browse=ls
 }
 
 # :alias
@@ -717,7 +726,8 @@ export GO15VENDOREXPERIMENT=1
         alias gd='git diff'
         alias gs='git status --short'
         alias ga='git add --no-ignore-removal'
-        alias gb='git branch'
+        alias gb='github-browse'
+        alias gbr='git branch'
         alias gn='git clean -fd; git clean -fdX'
         alias gi='git add -pi'
         alias gp='git push'
