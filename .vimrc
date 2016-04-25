@@ -319,10 +319,10 @@ Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
 
 Plug 'seletskiy/ashium'
 
-"Plug 'klen/python-mode'
-    "let g:pymode_lint = 0
-    "let g:pymode_lint_on_write = 0
-    "let g:pymode_run = 0
+Plug 'klen/python-mode'
+    let g:pymode_lint = 0
+    let g:pymode_lint_on_write = 0
+    let g:pymode_run = 0
 
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
