@@ -65,6 +65,9 @@ export GO15VENDOREXPERIMENT=1
         zgen load s7anley/zsh-geeknote
         zgen load seletskiy/zsh-smart-kill-word
 
+        zgen load rupa/z  z.sh
+        zgen load knu/zsh-manydots-magic manydots-magic
+
         ZGEN_AUTOLOAD_COMPINIT="-d $ZGEN_DIR/zcompdump"
         zgen save
     fi
