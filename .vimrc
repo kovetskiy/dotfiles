@@ -84,11 +84,12 @@ Plug 'seletskiy/matchem'
     let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 
 Plug 'sirver/ultisnips'
-    let g:snippets_dotfiles = $HOME . '/.vim/UltiSnips/'
+    let g:snippets_dotfiles = $HOME . '/.vim/snippets/'
     let g:snippets_reconquest = $HOME . '/.vim/bundle/snippets/'
 
     let g:UltiSnipsSnippetDirectories = [
-    \     g:snippets_dotfiles, g:snippets_reconquest,
+    \      g:snippets_reconquest,
+	\      g:snippets_dotfiles,
     \]
 
     let g:UltiSnipsEnableSnipMate = 0
@@ -594,7 +595,7 @@ augroup end
 
 augroup snippets_ft
     au!
-    au BufRead,BufNewFile *.snippets set noet ft=snippets
+    au BufRead,BufNewFile *.snippets set noet ft=snippets.python
 augroup end
 
 

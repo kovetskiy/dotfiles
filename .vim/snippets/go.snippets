@@ -2,9 +2,6 @@ global !p
 import re
 import os.path
 import vim
-
-import px.go
-import px.all
 endglobal
 
 context "snip.context=snip"
@@ -96,11 +93,11 @@ snippet (i "(int" i
 (int
 endsnippet
 
-context "px.util.match_higher_indent(snip.buffer, (snip.line, 0), '^var \(')"
-snippet a "" wbe
-$1 = args["$2"].($3)
-$0
-endsnippet
+#context "px.util.match_higher_indent(snip.buffer, (snip.line, 0), '^var \(')"
+#snippet a "" wbe
+#$1 = args["$2"].($3)
+#$0
+#endsnippet
 
 snippet a "arg" w
 args["$1"].($2)
