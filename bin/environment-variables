@@ -13,6 +13,7 @@ BROWSER="$HOME/bin/browser"
 GOROOT=""
 GOPATH="$HOME/go"
 RUBYPATH=$(/bin/ruby -e 'print Gem.user_dir')
+DISPLAY=":0"
 
 BIN=(
     "$HOME/bin"

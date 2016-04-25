@@ -130,7 +130,6 @@ export GO15VENDOREXPERIMENT=1
     bindkey -a '^[' vi-insert
     bindkey -v
     bindkey -v "^R" history-incremental-search-backward
-    bindkey -v "^P" history-substring-search-up
     bindkey -v "^N" history-substring-search-down
     bindkey -v "^[[7~" beginning-of-line
     bindkey -v "^A" beginning-of-line
@@ -147,7 +146,7 @@ export GO15VENDOREXPERIMENT=1
     bindkey -v "^_" insert-dot-dot-slash
 
     bindkey '^W' smart-backward-kill-word
-    bindkey '^S' smart-forward-kill-word
+    bindkey '^P' smart-forward-kill-word
 }
 
 
@@ -331,19 +330,21 @@ export GO15VENDOREXPERIMENT=1
                     | awk '/^M/ { print $2; }' \
                     | sed-remove-all-before '/' \
                     | sed-replace '^\.' '' \
-                    | sed-replace 'rc$' ''
+                    | sed-replace 'rc$' '' \
+                    | sort | uniq | sort -n
                 )
 
                 if [ ! "$word" ]; then
                     word=$(git status --porcelain \
                         | awk '/^A/ { print $2; }' \
-                        | sed-remove-all-after '/'
+                        | sed-remove-all-after '/' \
+                        | sort | uniq | sort -n
                     )
                 fi
             fi
 
             if [ "$word" ]; then
-                msg="${word/\\n/ }: $msg"
+                msg="${word//\\n/ }: $msg"
             fi
         fi
 
@@ -376,12 +377,12 @@ export GO15VENDOREXPERIMENT=1
         alias | grep -- "$*"
     }
 
-    github-remote-set-origin-as-upstream() {
+    github-remote-set-me-origin() {
         git remote rename origin upstream
         upstream_info=$(git remote show upstream)
         upstream_url=$(awk '/Fetch URL:/{print $3}' <<< "$upstream_info")
         upstream_user=$(cut -d/ -f4 <<< "$upstream_url")
-        origin_url=$(sed "s/$upstream_user/kovetskiy/" <<< $upstream_url)
+        origin_url=$(sed "s/$upstream_user/me/" <<< $upstream_url)
         git remote add origin "$origin_url"
     }
 
@@ -779,11 +780,12 @@ export GO15VENDOREXPERIMENT=1
         alias gbn='git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3'
         alias gpot='git push origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3` && { ghc || bhc }'
         alias gpot!='git push origin +`git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3` && { ghc || bhc }'
-        alias gpt='gpot'
-        alias gpt!='gpot!'
-        alias gput='git pull --rebase origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
+        alias gt='gpot'
+        alias gt!='gpot!'
+        alias gu='git pull --rebase origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
+        alias gus='git stash && gu && git stash pop'
         alias ggc='git gc --prune --aggressive'
-        alias gpor='git pull --rebase origin master'
+        alias gor='git pull --rebase origin master'
         alias gsh='git stash'
         alias gshp='git stash pop'
         alias grt='git reset'

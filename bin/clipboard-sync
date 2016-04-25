@@ -1,0 +1,15 @@
+#!/bin/bash
+
+g_primary=""
+g_clipboard=""
+
+while :; do
+    primary=$(xsel -op)
+    clipboard=$(xsel -ob)
+
+    if [ "$primary" != "$g_primary" ] && [ "$clipboard" = "$g_clipboard" ]; then
+        xsel -ib <<< "$primary"
+        g_primary=$primary
+        g_clipboard=$clipboard
+    fi
+done
