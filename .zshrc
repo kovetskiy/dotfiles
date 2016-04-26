@@ -377,26 +377,14 @@ export GO15VENDOREXPERIMENT=1
         alias | grep -- "$*"
     }
 
-    github-remote-set-me-origin() {
+    git-remote-set-origin-me() {
         git remote rename origin upstream
-        upstream_info=$(git remote show upstream)
-        upstream_url=$(awk '/Fetch URL:/{print $3}' <<< "$upstream_info")
-        upstream_user=$(cut -d/ -f4 <<< "$upstream_url")
-        origin_url=$(sed "s/$upstream_user/me/" <<< $upstream_url)
-        git remote add origin "$origin_url"
-    }
-
-    github-remote-fix-origin-protocol() {
-        name=$1
-        if [[ "$name" == "" ]]; then
-            name="origin"
-        fi
-
-        remote_info=$(git remote show -n $name)
-        remote_url=$(awk '/Fetch URL:/{print $3}' <<< "$remote_info")
-        url=$(echo "$remote_url" | sed 's/.*github\.com./github.com\//' | sed 's/\.git$//')
-        url="ssh://git@$url.git"
-        git remote set-url $name $url
+        new_url=$(
+            git remote show -n upstream \
+            | awk '/Fetch URL:/{print $3}' \
+            | sed-replace '(\w)([:/])\w+/' '\1:me/'
+        )
+        git remote add origin "$new_url"
     }
 
     go-get-enhanced() {
@@ -627,6 +615,21 @@ export GO15VENDOREXPERIMENT=1
         hub browse -u -- blob/$(git rev-parse --abbrev-ref HEAD)/$file$line
     }
     compdef github-browse=ls
+
+    git-pull() {
+        local origin="origin"
+        local branch=$(git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3)
+
+        if [ $# -ne 0 ]; then
+            local option=$1
+            if [ "$option" = "upstream" ]; then
+                origin=$option
+            else
+                branch=$option
+            fi
+        fi
+        git pull --rebase $origin $branch
+    }
 }
 
 # :alias
@@ -782,7 +785,7 @@ export GO15VENDOREXPERIMENT=1
         alias gpot!='git push origin +`git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3` && { ghc || bhc }'
         alias gt='gpot'
         alias gt!='gpot!'
-        alias gu='git pull --rebase origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3`'
+        alias gu='git-pull'
         alias gus='git stash && gu && git stash pop'
         alias ggc='git gc --prune --aggressive'
         alias gor='git pull --rebase origin master'
@@ -804,8 +807,9 @@ export GO15VENDOREXPERIMENT=1
         alias psx='ps fuxa'
         alias gra='git remote add origin '
         alias gro='git remote show'
-        alias grog='git remote show origin -n'
-        alias gros='git remote set-url origin'
+        alias grg='git remote show origin -n'
+        alias grs='git remote set-url origin'
+        alias grsm='git-remote-set-origin-me'
         alias grb='git rebase --abort'
         alias ghu='hub browse -u'
         alias ghc='hub browse -u -- commit/$(git rev-parse --short HEAD) 2>/dev/null'
