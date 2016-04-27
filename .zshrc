@@ -197,8 +197,13 @@ export GO15VENDOREXPERIMENT=1
 
     sed-replace() {
         local from=$(sed 's@/@\\/@g' <<< "$1")
-        local to=$(sed 's@/@\\/@g' <<< "$2")
-        shift 2
+        shift
+
+        local to=""
+        if [ $# -ne 0 ]; then
+            to=$(sed 's@/@\\/@g' <<< "$2")
+            shift
+        fi
 
         if [ $# -ne 0 ]; then
             local diff=false
@@ -316,44 +321,62 @@ export GO15VENDOREXPERIMENT=1
     }
 
     git-commit-m() {
-        local msg="$*"
+        local message="$*"
         for x in $@; do
             if [ "$x" = "!" ]; then
                 amend=true
-                msg=$(sed-replace '!' '' <<< "$msg")
+                message=$(sed-replace ' !' <<< "$message")
             fi
         done
 
-        if [ $(pwd) = "$HOME/dotfiles" ]; then
-            if ! grep -q ":" <<< "$msg"; then
-                word=$(git status --porcelain \
-                    | awk '/^M/ { print $2; }' \
-                    | sed-remove-all-before '/' \
-                    | sed-replace '^\.' '' \
-                    | sed-replace 'rc$' '' \
-                    | sort | uniq | sort -n
+        if ! grep -q ":" <<< "$message"; then
+            local status=$(git status --porcelain)
+
+            local modified=$(awk '/^M/ { print $2; }' <<< "$status")
+            local added=$(awk '/^A/ { print $2; }' <<< "$status")
+            local deleted=$(awk '/^D/ { print $2; }' <<< "$status")
+
+            local subject=""
+
+            local pwd=$(pwd)
+
+            if [[ $(pwd) =~ $HOME/dotfiles ]]; then
+                subject=$(
+                    echo "$modified" \
+                    | sed-replace '.*/' \
+                    | sed-replace '^\.' \
+                    | sed-replace 'rc$' \
+                    | sed-replace 'config$' \
+                    | sed-replace '.conf$'
                 )
 
-                if [ ! "$word" ]; then
-                    word=$(git status --porcelain \
-                        | awk '/^A/ { print $2; }' \
-                        | sed-remove-all-after '/' \
-                        | sort | uniq | sort -n
+                if [ ! "$subject" ]; then
+                    subject=$(
+                        echo "$added" \
+                        | sed-replace '/.*'
+                    )
+                fi
+
+                if [ ! "$subject" ]; then
+                    subject=$(
+                        echo "$deleted" \
+                        | sed-replace '/.*'
                     )
                 fi
             fi
 
-            if [ "$word" ]; then
-                msg="${word//\\n/ }: $msg"
+            if [ "$subject" ]; then
+                message="${subject//\\n/, }: $message"
             fi
         fi
+
 
         local flags=""
         if [ "$amend" ]; then
             flags="--amend"
         fi
 
-        git commit $flags -m "$msg"
+        git commit $flags -m "$message"
     }
 
     git-commit-m-amend() {
