@@ -256,6 +256,19 @@ Plug 'reconquest/snippets'
     "au operations FileType go nmap <buffer>
          "\ <Leader>gl :py px.go.goto_prev_var()<CR>
 
+	au operations VimEnter * py
+        \   import vim;
+        \   import px;
+        \   import snippets;
+        \   [
+        \       vim.command("call add(g:py_modules, '%s')" % library)
+        \       for library in px.libs()
+        \   ]
+        \   and
+        \   [
+        \       vim.command("call add(g:py_modules, '%s')" % library)
+        \       for library in px.libs('snippets')
+        \   ]
 
 Plug 'kovetskiy/vim-empty-lines'
     nnoremap <Leader><Leader>j :call DelEmptyLineBelow()<CR>
@@ -434,6 +447,9 @@ CODE
 endfunc!
 
 command! ReloadPythonModules call ReloadPythonModules()
+command! RePy call ReloadPythonModules()
+
+au operations BufWritePost *.snippets ReloadPythonModules
 
 au operations BufWritePost ~/.vimrc source % | AirlineRefresh | ReloadPythonModules
 
