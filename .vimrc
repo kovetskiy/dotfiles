@@ -10,7 +10,7 @@ endif
 let g:mapleader="\<Space>"
 let mapleader=g:mapleader
 
-augroup filetype_go
+augroup operations
     au!
 augroup end
 
@@ -68,14 +68,11 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 
     let g:go_doc_keywordprg_enabled = 0
 
-    au filetype_go FileType go nmap <buffer> <Leader>f :GoFmt<CR>
-    au filetype_go FileType go nmap <buffer> <Leader>h :GoDoc<CR>
+    au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
+    au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
 
 Plug 'elzr/vim-json', { 'for': 'json' }
-    augroup filetype_json
-        au!
-        au BufNewFile,BufRead *.json set filetype=json
-    augroup end
+    au operations BufNewFile,BufRead *.json set filetype=json
 
 Plug 'l9'
 
@@ -111,12 +108,8 @@ Plug 'sirver/ultisnips'
 
     smap <C-E> <C-V><ESC>a
     smap <C-B> <C-V>o<ESC>i
-    augroup textwidth_for_snippets
-        au!
-        au FileType snippets set textwidth=0
-    augroup end
 
-Plug 'reconquest/snippets'
+    au operations FileType snippets set textwidth=0
 
 Plug 'tpope/vim-surround'
 
@@ -135,13 +128,10 @@ Plug 'seletskiy/vim-over'
     vnoremap H :OverExec s/<CR>
     vnoremap L :OverExec s/<CR>
 
-    au BufAdd,BufEnter * nnoremap / :OverExec /<CR>
-    au BufAdd,BufEnter * vnoremap / :'<,'>OverExec /<CR>
+    au operations BufAdd,BufEnter * nnoremap / :OverExec /<CR>
+    au operations BufAdd,BufEnter * vnoremap / :'<,'>OverExec /<CR>
 
-    augroup over
-        au!
-        au User OverCmdLineExecute call OverExecAutocmd()
-    augroup end
+    au operations User OverCmdLineExecute call OverExecAutocmd()
 
     let g:over_exec_autocmd_skip = 0
     function! OverExecAutocmd()
@@ -192,10 +182,7 @@ Plug 'seletskiy/vim-over'
     \ }
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-    augroup filetype_markdown
-        au!
-        au BufRead,BufNewFile *.md set filetype=markdown
-    augroup end
+    au operations BufRead,BufNewFile *.md set filetype=markdown
 
 Plug 'AndrewRadev/sideways.vim', { 'on': ['SidewayLeft', 'SidewayRight',
             \ 'SidewayJumpLight', 'SidewayRightJump']}
@@ -232,7 +219,7 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
     vnoremap <C-T> :Tabularize /
 
 Plug 'kovetskiy/urxvt.vim'
-    au filetype_go FileType go nmap <buffer>
+    au operations FileType go nmap <buffer>
         \ <Leader>h :call urxvt#put('go build')<CR>
 
     function! KillFuckingQuickfixesAndDoFuckingBuild()
@@ -251,27 +238,24 @@ Plug 'kovetskiy/urxvt.vim'
         exe 'GoBuild'
     endfunction!
 
-    au filetype_go FileType go nmap <buffer> <silent>
+    au operations FileType go nmap <buffer> <silent>
         \ <Leader>b :call KillFuckingQuickfixesAndDoFuckingBuild()<CR>
 
 
 Plug 'reconquest/vim-pythonx'
-    au filetype_go FileType go nmap <buffer>
-         \ <Leader>gc :py px.go.goto_const()<CR>
+Plug 'reconquest/snippets'
+    "au operations FileType go nmap <buffer>
+         "\ <Leader>gc :py px.go.goto_const()<CR>
 
-    au filetype_go FileType go nmap <buffer>
-         \ <Leader>gt :py px.go.goto_type()<CR>
+    "au operations FileType go nmap <buffer>
+         "\ <Leader>gt :py px.go.goto_type()<CR>
 
-    au filetype_go FileType go nmap <buffer>
-         \ <Leader>gv :py px.go.goto_var()<CR>
+    "au operations FileType go nmap <buffer>
+         "\ <Leader>gv :py px.go.goto_var()<CR>
 
-    au filetype_go FileType go nmap <buffer>
-         \ <Leader>gl :py px.go.goto_prev_var()<CR>
+    "au operations FileType go nmap <buffer>
+         "\ <Leader>gl :py px.go.goto_prev_var()<CR>
 
-    call add(g:py_modules, 'px.all')
-    call add(g:py_modules, 'px.go')
-    call add(g:py_modules, 'px.util')
-    call add(g:py_modules, 'px.py')
 
 Plug 'kovetskiy/vim-empty-lines'
     nnoremap <Leader><Leader>j :call DelEmptyLineBelow()<CR>
@@ -285,10 +269,7 @@ Plug 'kovetskiy/vim-plugvim-utils', {'on': 'NewPlugFromClipboard'}
 Plug 'kovetskiy/vim-ski'
     let g:skeletons_dir=$HOME.'/.vim/skeletons/'
 
-    augroup skeleton_git
-        au BufRead *.git/COMMIT_EDITMSG call Skeleton()
-        au BufRead,BufNewFile */bin/* set ft=sh
-    augroup end
+    au operations BufRead,BufNewFile */bin/* set ft=sh
 
 Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
@@ -301,10 +282,7 @@ Plug 'bronson/vim-trailing-whitespace'
         endif
     endfunction!
 
-    augroup whitespaces_remover
-        au!
-        au BufWritePre * call MyWhitespaceFix()
-    augroup end
+    au operations BufWritePre * call MyWhitespaceFix()
 
 Plug 'seletskiy/vim-nunu'
 
@@ -431,10 +409,7 @@ set lcs=eol:¶,trail:·,tab:\ \ "t
 
 set pastetoggle=<F11>
 
-augroup nofolding
-    au!
-    au VimEnter,WinEnter * set nofoldenable
-augroup end
+au operations VimEnter,WinEnter * set nofoldenable
 
 set noequalalways
 set winminheight=0
@@ -442,20 +417,12 @@ set clipboard=unnamed
 
 set tags=tags;/
 
-augroup filetype_help
-    au!
     au FileType help setlocal number
-augroup end
 
-augroup dir_autocreate
-    au!
     au BufWritePre * if !isdirectory(expand('%:h')) | call mkdir(expand('%:h'),'p') | endif
-augroup end
 
-augroup vimrc
-    au!
-    func! ReloadPythonModules()
-        python <<CODE
+func! ReloadPythonModules()
+    python <<CODE
 import sys
 modules = vim.eval('g:py_modules')
 for module_name in modules:
@@ -464,33 +431,23 @@ for module_name in modules:
     except:
         pass
 CODE
-    endfunc!
-    command! ReloadPythonModules call ReloadPythonModules()
-    au BufWritePost ~/.vimrc source % | AirlineRefresh | ReloadPythonModules
-augroup end
+endfunc!
 
-augroup i3config
-    au!
-    au BufWritePost */.i3/config !i3-msg restart
-augroup end
+command! ReloadPythonModules call ReloadPythonModules()
 
-augroup hilight_over
-    au!
-    au VimResized,VimEnter * set cc=79
-augroup end
+au operations BufWritePost ~/.vimrc source % | AirlineRefresh | ReloadPythonModules
 
+au operations BufWritePost */.i3/config !i3-msg restart
+au operations VimResized,VimEnter * set cc=79
 
-augroup confluence
-    au!
-    au BufRead /tmp/vimperator-confluence* set ft=html.confluence | call HtmlBeautify()
+au operations BufRead /tmp/vimperator-confluence* set ft=html.confluence | call HtmlBeautify()
 
-    " trim empty <p><br/></p> from document
-    au BufRead /tmp/vimperator-confluence* map <buffer> <Leader>t :%s/\v[\ \t\n]+\<p\>([\ \t\n]+\<br\>)?[\ \t\n]+\<\/p\>/<CR>
+" trim empty <p><br/></p> from document
+au operations BufRead /tmp/vimperator-confluence* map <buffer> <Leader>t :%s/\v[\ \t\n]+\<p\>([\ \t\n]+\<br\>)?[\ \t\n]+\<\/p\>/<CR>
 
-    " ugly hack to trim all inter-tags whitespaces
-    au BufWritePre /tmp/vimperator-confluence* %s/\v\>[\ \t\n]+\</></
-    au BufWritePost /tmp/vimperator-confluence* silent! undo
-augroup end
+" ugly hack to trim all inter-tags whitespaces
+au operations BufWritePre /tmp/vimperator-confluence* %s/\v\>[\ \t\n]+\</></
+au operations BufWritePost /tmp/vimperator-confluence* silent! undo
 
 map Q <nop>
 map K <nop>
@@ -579,26 +536,14 @@ inoremap <C-H> <C-O>o
 
 imap <C-U> <ESC>ua
 
-augroup zshsh
-    au!
     au BufRead,BufNewFile ~/.zshrc set ft=zsh.sh
     au BufRead,BufNewFile *.zsh    set ft=zsh.sh
-augroup end
 
-augroup pkgbuild
-    au!
     au BufRead,BufNewFile PKGBUILD set noet ft=pkgbuild.sh
-augroup end
 
-augroup mcabberrc
-    au!
     au BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.sh
-augroup end
 
-augroup snippets_ft
-    au!
     au BufRead,BufNewFile *.snippets set noet ft=snippets.python
-augroup end
 
 
 fu! SetBg(bg)
