@@ -59,8 +59,9 @@ export GO15VENDOREXPERIMENT=1
         zgen load seletskiy/zsh-prompt-lambda17
         zgen load seletskiy/zsh-ssh-urxvt
         zgen load seletskiy/zsh-ash-completion
-
         zgen load seletskiy/zsh-hash-aliases
+
+        zgen load deadcrew/deadfiles
 
         zgen load s7anley/zsh-geeknote
         zgen load seletskiy/zsh-smart-kill-word
@@ -318,67 +319,6 @@ export GO15VENDOREXPERIMENT=1
 
     git-clone-github() {
         git clone "https://github.com/$1"
-    }
-
-    git-commit-m() {
-        local message="$*"
-        for x in $@; do
-            if [ "$x" = "!" ]; then
-                amend=true
-                message=$(sed-replace ' !' <<< "$message")
-            fi
-        done
-
-        if ! grep -q ":" <<< "$message"; then
-            local changeset=$(git status --porcelain)
-
-            local modified=$(awk '/^M/ { print $2; }' <<< "$changeset")
-            local added=$(awk '/^A/ { print $2; }' <<< "$changeset")
-            local deleted=$(awk '/^D/ { print $2; }' <<< "$changeset")
-
-            local subject=""
-
-            local pwd=$(pwd)
-
-            if [[ $(pwd) =~ $HOME/dotfiles ]]; then
-                subject=$(
-                    echo "$modified" \
-                    | sed-replace '.*/' \
-                    | sed-replace '^\.' \
-                    | sed-replace 'rc$' \
-                    | sed-replace 'config$' \
-                    | sed-replace '.conf$'
-                )
-
-                if [ ! "$subject" ]; then
-                    subject=$(
-                        echo "$added" \
-                        | sed-replace '/.*'
-                    )
-                fi
-
-                if [ ! "$subject" ]; then
-                    subject=$(
-                        echo "$deleted" \
-                        | sed-replace '/.*'
-                    )
-                fi
-            fi
-
-            if [ "$subject" ]; then
-                message="${subject//\\n/, }: $message"
-            fi
-
-            unset MATCH
-        fi
-
-
-        local flags=""
-        if [ "$amend" ]; then
-            flags="--amend"
-        fi
-
-        git commit $flags -m "$message"
     }
 
     git-checkout-orphan() {
@@ -791,7 +731,7 @@ export GO15VENDOREXPERIMENT=1
         alias gf='git fetch'
         alias gcn='git commit'
         alias gcn!='git commit --amend'
-        alias gc='git-commit-m'
+        alias gc='git-commit'
         alias gck='git commit --amend -C HEAD'
         alias gco='git checkout'
 
@@ -817,7 +757,7 @@ export GO15VENDOREXPERIMENT=1
         alias gr='git rebase'
         alias grc='git rebase --continue'
         alias gri='git rebase -i'
-        alias gcom='git checkout origin/master'
+        alias gcom='git checkout master'
         alias glo='git log --oneline --graph --decorate --all'
         alias gl='PAGER=cat git log --oneline --graph --decorate --all --max-count=30'
         alias gd='git diff'
