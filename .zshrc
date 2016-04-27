@@ -330,17 +330,18 @@ export GO15VENDOREXPERIMENT=1
         done
 
         if ! grep -q ":" <<< "$message"; then
-            local status=$(git status --porcelain)
+            local changeset=$(git status --porcelain)
 
-            local modified=$(awk '/^M/ { print $2; }' <<< "$status")
-            local added=$(awk '/^A/ { print $2; }' <<< "$status")
-            local deleted=$(awk '/^D/ { print $2; }' <<< "$status")
+            local modified=$(awk '/^M/ { print $2; }' <<< "$changeset")
+            local added=$(awk '/^A/ { print $2; }' <<< "$changeset")
+            local deleted=$(awk '/^D/ { print $2; }' <<< "$changeset")
 
             local subject=""
 
             local pwd=$(pwd)
 
             if [[ $(pwd) =~ $HOME/dotfiles ]]; then
+                unset MATCH
                 subject=$(
                     echo "$modified" \
                     | sed-replace '.*/' \
@@ -377,10 +378,6 @@ export GO15VENDOREXPERIMENT=1
         fi
 
         git commit $flags -m "$message"
-    }
-
-    git-commit-m-amend() {
-        amend=1 git-commit-m $*
     }
 
     git-checkout-orphan() {
@@ -794,7 +791,6 @@ export GO15VENDOREXPERIMENT=1
         alias gcn='git commit'
         alias gcn!='git commit --amend'
         alias gc='git-commit-m'
-        alias gc!='git-commit-m-amend'
         alias gck='git commit --amend -C HEAD'
         alias gco='git checkout'
 
