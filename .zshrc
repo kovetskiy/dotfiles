@@ -341,7 +341,6 @@ export GO15VENDOREXPERIMENT=1
             local pwd=$(pwd)
 
             if [[ $(pwd) =~ $HOME/dotfiles ]]; then
-                unset MATCH
                 subject=$(
                     echo "$modified" \
                     | sed-replace '.*/' \
@@ -369,6 +368,8 @@ export GO15VENDOREXPERIMENT=1
             if [ "$subject" ]; then
                 message="${subject//\\n/, }: $message"
             fi
+
+            unset MATCH
         fi
 
 
