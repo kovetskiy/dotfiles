@@ -1,60 +1,77 @@
 extends py
 
+priority 2
 snippet s "Snippet definition" w
 `!p snip.rv = "snippet"` ${1:Tab_trigger} "" ${3:w}
 $4
 `!p snip.rv = "endsnippet"`
 endsnippet
 
+priority 2
 snippet p "python" w
 \`!p
 $1
 \`
 endsnippet
 
+priority 2
 snippet v "vim" w
 \`!v
 $1
 \`
 endsnippet
 
+priority 2
 snippet r "snip.rv" w
 snip.rv=$1
 endsnippet
 
+priority 2
 snippet pr "show snip.rv" i
 \`!p snip.rv=$1\`
 endsnippet
 
+priority 2
 snippet i "visual" w
 \$\{$1:\$\{VISUAL\}\}
 endsnippet
 
+priority 2
 snippet l "placeholder" w
 \$\{$1:$2\}
 endsnippet
 
+priority 2
 snippet g "global py" bw
 `!p snip.rv="global !p"`
 $1
 `!p snip.rv="endglobal"`
 endsnippet
 
+priority 2
 snippet k "print" w
 print("`!p snip.rv=t[1]`: " + str($1))
 endsnippet
 
 
+priority 2
 snippet y "priority" w
 priority ${1:10}
 endsnippet
 
+priority 2
 snippet gp "" w
 global !p
 from px import all
 endglobal
 endsnippet
 
-snippet snip.rv=c "" wA
+priority 2
+snippet snip.rv=c "" w
 snip.rv=snip.context
+endsnippet
+
+priority 2
+snippet snip.rv=m "" w
+snip.rv=match.group(${1:1})
 endsnippet
