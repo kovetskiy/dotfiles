@@ -13,7 +13,6 @@ export WORDCHARS=-
 export BACKGROUND=$(cat ~/background)
 export GO15VENDOREXPERIMENT=1
 
-
 # :prezto
 {
     zstyle ':prezto:*:*' color 'yes'
@@ -44,6 +43,8 @@ export GO15VENDOREXPERIMENT=1
 
     source ~/.zgen/zgen.zsh
 
+    AUTOPAIR_INHIBIT_INIT=1
+
     if ! zgen saved; then
         zgen load seletskiy/zsh-zgen-compinit-tweak
 
@@ -68,6 +69,7 @@ export GO15VENDOREXPERIMENT=1
 
         zgen load rupa/z  z.sh
         zgen load knu/zsh-manydots-magic manydots-magic
+        zgen load hlissner/zsh-autopair autopair.zsh
 
         ZGEN_AUTOLOAD_COMPINIT="-d $ZGEN_DIR/zcompdump"
         zgen save
@@ -82,6 +84,29 @@ export GO15VENDOREXPERIMENT=1
     unsetopt correct
     unsetopt correct_all
     unsetopt interactivecomments
+}
+
+# :binds
+{
+    bindkey -a '^[' vi-insert
+    bindkey -v "^R" history-incremental-search-backward
+    bindkey -v "^N" history-substring-search-down
+    bindkey -v "^[[7~" beginning-of-line
+    bindkey -v "^A" beginning-of-line
+    bindkey -v "^Q" push-line
+    bindkey -v "^[[8~" end-of-line
+    bindkey -v '^?' backward-delete-char
+    bindkey -v '^H' backward-delete-char
+    bindkey -v '^[[3~' delete-char
+    bindkey -v '^B' vi-backward-word
+    bindkey -v '^E' vi-forward-blank-word
+    bindkey -v "^L" clear-screen
+    bindkey -v '^K' add-params
+    bindkey -v '^O' toggle-quotes
+    bindkey -v "^_" insert-dot-dot-slash
+
+    bindkey '^W' smart-backward-kill-word
+    bindkey '^P' smart-forward-kill-word
 }
 
 # :setup
@@ -123,32 +148,10 @@ export GO15VENDOREXPERIMENT=1
     setopt share_history
 
     hash-aliases:install
+    autopair-init
 }
 
 
-# :binds
-{
-    bindkey -a '^[' vi-insert
-    bindkey -v
-    bindkey -v "^R" history-incremental-search-backward
-    bindkey -v "^N" history-substring-search-down
-    bindkey -v "^[[7~" beginning-of-line
-    bindkey -v "^A" beginning-of-line
-    bindkey -v "^Q" push-line
-    bindkey -v "^[[8~" end-of-line
-    bindkey -v '^?' backward-delete-char
-    bindkey -v '^H' backward-delete-char
-    bindkey -v '^[[3~' delete-char
-    bindkey -v '^B' vi-backward-word
-    bindkey -v '^E' vi-forward-blank-word
-    bindkey -v "^L" clear-screen
-    bindkey -v '^K' add-params
-    bindkey -v '^O' toggle-quotes
-    bindkey -v "^_" insert-dot-dot-slash
-
-    bindkey '^W' smart-backward-kill-word
-    bindkey '^P' smart-forward-kill-word
-}
 
 
 # :hash
@@ -421,7 +424,6 @@ export GO15VENDOREXPERIMENT=1
             git submodule update --init
         fi
     }
-
 
     create-and-change-directory() {
         mkdir -p "$@"
