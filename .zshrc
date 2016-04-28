@@ -205,7 +205,7 @@ export GO15VENDOREXPERIMENT=1
 
         local to=""
         if [ $# -ne 0 ]; then
-            to=$(sed 's@/@\\/@g' <<< "$2")
+            to=$(sed 's@/@\\/@g' <<< "$1")
             shift
         fi
 
@@ -348,6 +348,7 @@ export GO15VENDOREXPERIMENT=1
             | awk '/Fetch URL:/{print $3}' \
             | sed-replace '(\w)([:/])\w+/' '\1:me/'
         )
+        git remote remove origin
         git remote add origin "$new_url"
     }
 
@@ -665,6 +666,7 @@ export GO15VENDOREXPERIMENT=1
     alias dt='cd ~/dotfiles; PAGER=cat git diff; git status -s ; '
     alias de='cd ~/deadfiles; git status -s'
     alias pr='hub pull-request -f'
+    alias cc='copy-to-clipboard'
 
 
     # :globals
