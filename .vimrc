@@ -72,6 +72,8 @@ Plug 'fatih/vim-go', { 'for': 'go' }
     au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
     au operations FileType go nmap <buffer> gh :GoDef<CR>
 
+    au operations FileType go source ~/.vim/patches/go/list.vim
+
     function! KillFuckingQuickfixesAndDoFuckingBuild()
         let current_winnr = winnr()
 
