@@ -1,14 +1,19 @@
 #!/bin/bash
 
-xrandr \
+   xrandr \
     --output DVI-I-1 --mode 1920x1080 --pos 0x0 --rotate normal \
-    --output VGA-1 --mode 1920x1080 --pos 1920x0 --rotate normal
+    --output VGA-1 --mode 1920x1080 --pos 1920x0 --rotate normal \
+|| xrandr --output VGA1 --mode 1920x1200 --output LVDS1 --off
 
 xkb-reconfigure
 
 # @TODO: move to systemd
 killall -9 keynav
 keynav
+
+if ! pidof clipboard-sync >/dev/null; then
+    sudo clipboard-sync &
+fi
 
 # @TODO: move to systemd
 if ! pidof usb-automount >/dev/null; then
