@@ -62,15 +62,44 @@ Plug 'fatih/vim-go', { 'for': 'go' }
     let g:go_metalinter_command="gometalinter -D golint --cyclo-over 15"
     let g:go_list_type = "quickfix"
 
-    "nnoremap <C-'> :cN<CR>
-    "nnoremap <C-;> :cn<CR>
-    "nnoremap <C-Q> :cclose<CR>
+    nnoremap 1k :cN<CR>
+    nnoremap 1j :cn<CR>
+    nnoremap 1d :cclose<CR>
 
     let g:go_doc_keywordprg_enabled = 0
 
     au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
     au operations FileType go nmap <buffer> gh :GoDef<CR>
+
+    function! KillFuckingQuickfixesAndDoFuckingBuild()
+        let current_winnr = winnr()
+
+        exe 'windo
+            \ if &buftype == "quickfix" || &buftype == "locationlist"
+            \     | lclose |
+            \ endif
+            \'
+
+        exe current_winnr 'wincmd w'
+
+        exe 'GoFmt'
+        normal w
+        exe 'GoBuild'
+    endfunction!
+
+    au operations FileType go nmap <buffer> <silent>
+        \ <Leader>b :call KillFuckingQuickfixesAndDoFuckingBuild()<CR>
+
+
+    "func! go#list#Window(listtype, ...)
+        "if !a:0 || a:1 == 0
+            "cclose
+            "return
+        "endif
+
+    "endfunc!
+
 
 Plug 'elzr/vim-json', { 'for': 'json' }
     au operations BufNewFile,BufRead *.json set filetype=json
@@ -222,25 +251,6 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'kovetskiy/urxvt.vim'
     au operations FileType go nmap <buffer>
         \ <Leader>h :call urxvt#put('go build')<CR>
-
-    function! KillFuckingQuickfixesAndDoFuckingBuild()
-        let current_winnr = winnr()
-
-        exe 'windo
-            \ if &buftype == "quickfix" || &buftype == "locationlist"
-            \     | lclose |
-            \ endif
-            \'
-
-        exe current_winnr 'wincmd w'
-
-        exe 'GoFmt'
-        normal w
-        exe 'GoBuild'
-    endfunction!
-
-    au operations FileType go nmap <buffer> <silent>
-        \ <Leader>b :call KillFuckingQuickfixesAndDoFuckingBuild()<CR>
 
 
 Plug 'reconquest/vim-pythonx'
