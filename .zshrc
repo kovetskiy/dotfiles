@@ -593,6 +593,13 @@ export GO15VENDOREXPERIMENT=1
         fi
         git pull --rebase $origin $branch
     }
+
+    aur-get-sources() {
+        local package=$1
+        cd /tmp/
+        yaourt -G "$package"
+        cd "$package"
+    }
 }
 
 # :alias
@@ -682,7 +689,7 @@ export GO15VENDOREXPERIMENT=1
         alias au='yes | EDITOR=cat yaourt '
         alias aus='au -S'
         alias aur='au -R'
-        alias aug='cd /tmp/; au -G'
+        alias aug='aur-get-sources'
         alias aq='yaourt -Q'
     }
 
@@ -766,7 +773,7 @@ export GO15VENDOREXPERIMENT=1
         alias gin='git init'
         alias gdh='git diff HEAD'
         alias sudo='sudo -E '
-        alias psx='ps fuxa'
+        alias psx='ps fuxa | grep'
         alias gra='git remote add origin '
         alias gro='git remote show'
         alias grg='git remote show origin -n'
