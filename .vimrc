@@ -359,7 +359,7 @@ Plug 'lokikl/vim-ctrlp-ag'
 
     nnoremap <C-F> :Grep<Space>
     nnoremap <C-E><C-F> :GrepSlash<CR>
-    nnoremap <C-E><C-G> :GrepRestore<CR>
+    nnoremap <C-G> :GrepRestore<CR>
 
 Plug 'chrisbra/Recover.vim'
 
