@@ -150,13 +150,6 @@ snippet g "log" w
 log "$1"
 endsnippet
 
-snippet "    ;;" "" wr
-    ;;
-
-$1)
-	$2
-	;;
-endsnippet
 
 snippet b "" w
 [ -x /bin/systemd-cat-bash ] && /bin/systemd-cat-bash $(basename "\$0")
@@ -167,10 +160,3 @@ snippet x "" w
 set -x
 endsnippet
 
-snippet c "" w
-case "$1" in
-	$2)
-		$3
-		;;$4
-esac
-endsnippet

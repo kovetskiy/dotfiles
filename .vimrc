@@ -70,6 +70,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 
     au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
+    au operations FileType go nmap <buffer> gh :GoDef<CR>
 
 Plug 'elzr/vim-json', { 'for': 'json' }
     au operations BufNewFile,BufRead *.json set filetype=json
