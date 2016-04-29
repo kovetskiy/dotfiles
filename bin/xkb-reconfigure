@@ -41,6 +41,7 @@ SYMBOLS=(
     #"hjkl(rtrn_switch)"
 
     "ctrl-shift-caps"
+    "rshift-ralt"
 )
 
 SYMBOLS=$(IFS="+"; echo "${SYMBOLS[*]}")
