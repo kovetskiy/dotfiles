@@ -21,6 +21,8 @@ call plug#begin('~/.vim/bundle')
 
 let g:py_modules = []
 
+Plug 'kovetskiy/vim-hacks'
+
 Plug 'ctrlpvim/ctrlp.vim'
     nnoremap <C-B> :CtrlPBuffer<CR>
     nnoremap <C-P> :CtrlPMixed<CR>

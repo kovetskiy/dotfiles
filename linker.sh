@@ -14,7 +14,7 @@ POINTS=(
     ".i3"
     ".mcabber"
     ".urxvt"
-    ".vim/patches"
+    ".vim/hacks"
     ".vim/skeletons"
     ".vim/snippets"
     ".vim/ropeproject"
