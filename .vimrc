@@ -54,7 +54,7 @@ Plug 'Valloric/YouCompleteMe'
 
     let g:ycm_seed_identifiers_with_syntax = 1
 
-Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'fatih/vim-go', {'for': 'go'}
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
     let g:go_fmt_autosave = 1
@@ -72,26 +72,14 @@ Plug 'fatih/vim-go', { 'for': 'go' }
     au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
     au operations FileType go nmap <buffer> gh :GoDef<CR>
 
-    au operations FileType go source ~/.vim/patches/go/list.vim
-
-    function! KillFuckingQuickfixesAndDoFuckingBuild()
-        let current_winnr = winnr()
-
-        exe 'windo
-            \ if &buftype == "quickfix" || &buftype == "locationlist"
-            \     | lclose |
-            \ endif
-            \'
-
-        exe current_winnr 'wincmd w'
-
+    func! _go_build()
         exe 'GoFmt'
         normal w
         exe 'GoBuild'
-    endfunction!
+    endfunc!
 
     au operations FileType go nmap <buffer> <silent>
-        \ <Leader>b :call KillFuckingQuickfixesAndDoFuckingBuild()<CR>
+        \ <Leader>b :call _go_build()<CR>
 
 
     "func! go#list#Window(listtype, ...)
@@ -125,18 +113,18 @@ Plug 'sirver/ultisnips'
     let g:UltiSnipsExpandTrigger="<TAB>"
     let g:UltiSnipsEditSplit="horizontal"
 
-    function! SnippetsDotfiles()
+    func! _snippets_dotfiles()
         let g:UltiSnipsSnippetsDir = g:snippets_dotfiles
         UltiSnipsEdit
-    endfunction!
+    endfunc!
 
-    function! SnippetsReconquest()
+    func! _snippets_reconquest()
         let g:UltiSnipsSnippetsDir = g:snippets_reconquest
         UltiSnipsEdit
-    endfunction!
+    endfunc!
 
-    nnoremap <C-S><C-D> :call SnippetsDotfiles()<CR>
-    nnoremap <C-S><C-S> :call SnippetsReconquest()<CR>
+    nnoremap <C-S><C-D> :call _snippets_dotfiles()<CR>
+    nnoremap <C-S><C-S> :call _snippets_reconquest()<CR>
 
     smap <C-E> <C-V><ESC>a
     smap <C-B> <C-V>o<ESC>i
@@ -163,38 +151,40 @@ Plug 'seletskiy/vim-over'
     au operations BufAdd,BufEnter * nnoremap / :OverExec /<CR>
     au operations BufAdd,BufEnter * vnoremap / :'<,'>OverExec /<CR>
 
-    au operations User OverCmdLineExecute call OverExecAutocmd()
+    au operations User OverCmdLineExecute call _over_autocmd()
 
     let g:over_exec_autocmd_skip = 0
-    function! OverExecAutocmd()
+    func! _over_autocmd()
         if g:over_exec_autocmd_skip
             let g:over_exec_autocmd_skip = 0
             return
         endif
 
         call searchparty#mash#mash()
-    endfunction!
+    endfunc!
 
-    function! OverExec(line1, line2, args)
+    func! _over_exec(line1, line2, args)
         let g:over#command_line#search#enable_move_cursor = 1
         call over#command_line(
         \   g:over_command_line_prompt,
         \   a:line1 != a:line2 ? printf("'<,'>%s", a:args) : a:args
         \)
-    endfunction!
-    command! -range -nargs=* OverExec call OverExec(<line1>, <line2>, <q-args>)
+    endfunc!
+
+    command! -range -nargs=* OverExec call _over_exec(<line1>, <line2>, <q-args>)
+
     nmap <Plug>(OverExec) :OverExec<CR>
 
-    function! s:over_exec_do(args)
+    func! s:_over_exec_do(args)
         let g:over_exec_autocmd_skip = 1
         let g:over#command_line#search#enable_move_cursor = 0
         call feedkeys("\<CR>" . a:args . "\<Plug>(OverExec)\<Up>")
-    endfunction!
+    endfunc!
 
-    function! OverNext()
-        call s:over_exec_do("n")
+    func! _over_next()
+        call s:_over_exec_do("n")
         return ""
-    endfunction!
+    endfunc!
 
     let g:over_command_line_key_mappings = {
         \ "\<C-F>": ".",
@@ -206,7 +196,7 @@ Plug 'seletskiy/vim-over'
         \ "\<C-D>": "\<Left>\<BackSpace>\<Right>",
         \
         \ "\<C-N>" : {
-        \ 	"key" : "OverNext()",
+        \ 	"key" : "_over_next()",
         \   "expr": 1,
         \ 	"noremap" : 1,
         \ 	"lock" : 1,
@@ -302,13 +292,13 @@ Plug 'bronson/vim-trailing-whitespace'
         \ 'diff'
     \ ]
 
-    function! MyWhitespaceFix()
+    func! _whitespaces_fix()
         if ShouldMatchWhitespace()
             FixWhitespace
         endif
-    endfunction!
+    endfunc!
 
-    au operations BufWritePre * call MyWhitespaceFix()
+    au operations BufWritePre * call _whitespaces_fix()
 
 Plug 'seletskiy/vim-nunu'
 
@@ -350,29 +340,27 @@ Plug 'kovetskiy/ycm-sh'
 Plug 'lokikl/vim-ctrlp-ag'
     let g:grep_last_query = ""
 
-    function! Grep(query)
+    func! _grep(query)
         let g:grep_last_query = a:query
 
         let @/ = a:query
         call ctrlp#ag#exec(a:query)
-    endfunction!
+    endfunc!
 
-    function! GrepSlash()
+    func! _grep_slash()
         let l:slash = strpart(@/, 2)
         call Grep(l:slash)
-    endfunction!
+    endfunc!
 
-    function! GrepRestore()
+    func! _grep_recover()
         call Grep(g:grep_last_query)
-    endfunction!
+    endfunc!
 
-    command! -nargs=1 Grep call Grep(<q-args>)
-    command! GrepSlash call GrepRestore()
-    command! GrepRestore call GrepRestore()
+    command! -nargs=1 Grep call _grep(<q-args>)
 
     nnoremap <C-F> :Grep<Space>
-    nnoremap <C-E><C-F> :GrepSlash<CR>
-    nnoremap <C-G> :GrepRestore<CR>
+    nnoremap <C-E><C-F> :call _grep_slash()<CR>
+    nnoremap <C-G> :call _grep_recover()<CR>
 
 Plug 'chrisbra/Recover.vim'
 
@@ -447,7 +435,7 @@ set tags=tags;/
 
     au BufWritePre * if !isdirectory(expand('%:h')) | call mkdir(expand('%:h'),'p') | endif
 
-func! ReloadPythonModules()
+func! _py_modules_reload()
     python <<CODE
 import sys
 modules = vim.eval('g:py_modules')
@@ -459,12 +447,11 @@ for module_name in modules:
 CODE
 endfunc!
 
-command! ReloadPythonModules call ReloadPythonModules()
-command! RePy call ReloadPythonModules()
+command! PyModulesReload call _py_modules_reload()
 
-au operations BufWritePost *.snippets ReloadPythonModules
+au operations BufWritePost *.snippets call _py_modules_reload()
 
-au operations BufWritePost ~/.vimrc source % | AirlineRefresh | ReloadPythonModules
+au operations BufWritePost ~/.vimrc source % | AirlineRefresh | PyModulesReload
 
 au operations BufWritePost */.i3/config !i3-msg restart
 au operations VimResized,VimEnter * set cc=79
@@ -575,7 +562,7 @@ imap <C-U> <ESC>ua
     au BufRead,BufNewFile *.snippets set noet ft=snippets.python
 
 
-fu! SetBg(bg)
+fu! _background(bg)
     let bg = a:bg
     if bg == ""
         let bg = "light"
@@ -629,7 +616,7 @@ fu! SetBg(bg)
     endif
 endfu!
 
-call SetBg($BACKGROUND)
+call _background($BACKGROUND)
 
 noh
 
@@ -644,19 +631,19 @@ let @l="f(ak$%i,%"
 let @k="^f=i:"
 let @j="^t=x"
 
-function! TabSpace()
+func! _tab_space()
     keepjumps %s/\t/    /
     normal ''
-endfunction!
+endfunc!
 
-nmap @t :call TabSpace()<CR>
+nmap @t :call _tab_space()<CR>
 
 imap <C-Y> <Down>
 cmap <C-F> <NOP>
 
 vmap <Leader> S<Space><Space>
 
-function! MacroToggle()
+func! _macros_mode_toggle()
     if !get(g:, "macro_toggle_recording")
         let g:macro_toggle_recording = 0
     endif
@@ -668,8 +655,8 @@ function! MacroToggle()
     endif
 
     let g:macro_toggle_recording = !g:macro_toggle_recording
-endfunction!
+endfunc!
 
-nmap M :call MacroToggle()<CR>
+nmap M :call _macros_mode_toggle()<CR>
 nmap m @x
 vmap m @x
