@@ -26,6 +26,10 @@ Plug 'kovetskiy/vim-hacks'
 Plug 'ctrlpvim/ctrlp.vim'
     nnoremap <C-B> :CtrlPBuffer<CR>
     nnoremap <C-P> :CtrlPMixed<CR>
+    nnoremap <C-E><C-L> :CtrlPLine<CR>
+    nnoremap <C-E><C-E> :CtrlPQuickfix<CR>
+    nnoremap <C-E>k :cN<CR>
+    nnoremap <C-E>j :cn<CR>
 
     let g:ctrlp_working_path_mode='a'
     let g:ctrlp_use_caching = 0
@@ -62,35 +66,17 @@ Plug 'fatih/vim-go', {'for': 'go'}
     let g:go_fmt_autosave = 1
     let g:go_bin_path = $GOPATH . "/bin"
     let g:go_metalinter_command="gometalinter -D golint --cyclo-over 15"
-    let g:go_list_type = "quickfix"
-
-    nnoremap 1k :cN<CR>
-    nnoremap 1j :cn<CR>
-    nnoremap 1d :cclose<CR>
 
     let g:go_doc_keywordprg_enabled = 0
 
     au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
-    au operations FileType go nmap <buffer> gh :GoDef<CR>
+    au operations FileType go nmap <buffer> gdg :call go#def#Jump('')<CR>
+    au operations FileType go nmap <buffer> gdl :call go#def#Jump('vsplit')<CR>
+    au operations FileType go nmap <buffer> gdk :call go#def#Jump('split')<CR>
 
-    func! _go_build()
-        exe 'GoFmt'
-        normal w
-        exe 'GoBuild'
-    endfunc!
-
-    au operations FileType go nmap <buffer> <silent>
-        \ <Leader>b :call _go_build()<CR>
-
-
-    "func! go#list#Window(listtype, ...)
-        "if !a:0 || a:1 == 0
-            "cclose
-            "return
-        "endif
-
-    "endfunc!
+    au operations FileType go nmap <buffer> <Leader>b :GoBuild<CR>
+    au operations FileType go nmap <buffer> <Leader>l :GoLint .<CR>
 
 
 Plug 'elzr/vim-json', { 'for': 'json' }
@@ -621,8 +607,6 @@ endfu!
 call _background($BACKGROUND)
 
 noh
-
-"nnoremap <ESC>w <ESC>:w<CR>
 
 nnoremap <Leader>ft :set filetype=
 
