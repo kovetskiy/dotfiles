@@ -601,6 +601,12 @@ export GO15VENDOREXPERIMENT=1
         yaourt -G "$package"
         cd "$package"
     }
+
+    ash-approve() {
+        local review="$1"
+        ash "$1" approve
+    }
+    compdef ash-approve=ash
 }
 
 # :alias
@@ -651,7 +657,6 @@ export GO15VENDOREXPERIMENT=1
     alias vi='vim'
     alias se='sed -r'
     alias t='ssh operator@home.local'
-    alias a='alias'
     alias py='python'
     alias py2='python2'
     alias god='godoc-search'
@@ -787,6 +792,10 @@ export GO15VENDOREXPERIMENT=1
         alias gsu='git submodule update --init'
         alias gic='git add . ; git commit -m "initial commit"'
         alias bhc='BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
+        alias ai='ash inbox'
+        alias i='ash inbox reviewer'
+        alias a='ash'
+        alias aa='ash-approve'
     }
 
 
