@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$PROFILE" == "laptop" ]; then
+if [ "$(cat ~/profile)" == "laptop" ]; then
     dir=/sys/class/backlight/intel_backlight
     step=50
 else

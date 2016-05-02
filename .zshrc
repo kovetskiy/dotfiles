@@ -136,7 +136,6 @@ export GO15VENDOREXPERIMENT=1
     setopt auto_name_dirs
     setopt auto_pushd
     setopt pushd_ignore_dups
-    setopt interactivecomments
     setopt rmstarsilent
     setopt append_history
     setopt extended_history
@@ -149,6 +148,7 @@ export GO15VENDOREXPERIMENT=1
 
     hash-aliases:install
     autopair-init
+    zstyle ':smart-ssh' whitelist .s .in.ngs.ru
 }
 
 
@@ -321,7 +321,7 @@ export GO15VENDOREXPERIMENT=1
     }
 
     git-clone-github() {
-        git clone "https://github.com/$1"
+        git clone "https://github.com/$1" $2
     }
 
     git-checkout-orphan() {
@@ -620,7 +620,6 @@ export GO15VENDOREXPERIMENT=1
     alias -g sa='| sed-remove-all-after'
     alias -g C='| cut-d-t'
 
-    zstyle :smart-ssh whitelist .s .in.ngs.ru
     alias h='ssh-enhanced'
 
     alias f='find-iname'
