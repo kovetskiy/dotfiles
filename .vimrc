@@ -101,18 +101,29 @@ Plug 'sirver/ultisnips'
     let g:UltiSnipsExpandTrigger="<TAB>"
     let g:UltiSnipsEditSplit="horizontal"
 
-    func! _snippets_dotfiles()
-        let g:UltiSnipsSnippetsDir = g:snippets_dotfiles
-        UltiSnipsEdit
+    func! _snippets_get_filetype()
+        let l:dot = strridx(&filetype, ".")
+        if l:dot != -1
+            return strpart(&filetype, 0, dot)
+        endif
+
+        return &filetype
     endfunc!
 
-    func! _snippets_reconquest()
-        let g:UltiSnipsSnippetsDir = g:snippets_reconquest
-        UltiSnipsEdit
+    func! _snippets_open_dotfiles()
+        split
+        execute "edit" g:snippets_dotfiles .
+            \ _snippets_get_filetype() . ".snippets"
     endfunc!
 
-    nnoremap <C-S><C-D> :call _snippets_dotfiles()<CR>
-    nnoremap <C-S><C-S> :call _snippets_reconquest()<CR>
+    func! _snippets_open_reconquest()
+        split
+        execute "edit" g:snippets_reconquest .
+            \ _snippets_get_filetype() .  ".snippets"
+    endfunc!
+
+    nnoremap <C-S><C-D> :call _snippets_open_dotfiles()<CR>
+    nnoremap <C-S><C-S> :call _snippets_open_reconquest()<CR>
 
     smap <C-E> <C-V><ESC>a
     smap <C-B> <C-V>o<ESC>i
