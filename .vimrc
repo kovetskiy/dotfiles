@@ -498,7 +498,7 @@ nnoremap <Leader>r :w<CR>
 nnoremap <Leader>n <ESC>:bdelete!<CR>
 nnoremap <Leader>, <ESC>:qa!<CR>
 
-nnoremap <Leader> :noh<CR>
+nnoremap <Leader><Leader> :noh<CR>
 
 nnoremap <Leader>d V"_d<Esc>
 vnoremap <Leader>d "_d
