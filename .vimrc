@@ -273,7 +273,7 @@ Plug 'kovetskiy/vim-plugvim-utils', {'on': 'NewPlugFromClipboard'}
 Plug 'kovetskiy/vim-ski'
     let g:skeletons_dir=$HOME.'/.vim/skeletons/'
 
-    au operations BufRead,BufNewFile */bin/* set ft=sh
+    au operations BufRead,BufNewFile */bin/* set ft=bash
 
 Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
@@ -351,6 +351,8 @@ Plug 'lokikl/vim-ctrlp-ag'
     nnoremap <C-G> :call _grep_recover()<CR>
 
 Plug 'chrisbra/Recover.vim'
+
+Plug 'kovetskiy/vim-bash'
 
 call plug#end()
 
