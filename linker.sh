@@ -39,6 +39,7 @@ POINTS=(
     ".toprc"
     ".sift.conf"
     ".ssh/config"
+    ".config/systemd/user/network-office.service"
 )
 
 for POINT in "${POINTS[@]}"; do

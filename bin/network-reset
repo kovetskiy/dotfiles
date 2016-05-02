@@ -1,0 +1,63 @@
+#!/bin/sudo /bin/bash
+
+[ -x /bin/systemd-cat-bash ] && /bin/systemd-cat-bash $(basename "$0")
+
+set -euo pipefail
+
+:main() {
+    if :vpn-is-connected; then
+        :vpn-disconnect-all
+    fi
+
+    :resolvconf-local
+    :dhcpcd-restart
+
+    exit 0
+}
+
+:vpn-is-connected() {
+    ip l | grep -v DOWN | grep -q ppp0
+    return $?
+}
+
+:vpn-disconnect-all() {
+    :log-process "closing existing vpn connections"
+    poff -a
+    :log-status ok
+}
+
+:resolvconf-local() {
+    :log-process "switching network to local"
+    resolvconf-switch local
+    :log-status ok
+}
+
+:dhcpcd-restart() {
+    :log-process restarting dhcpcd
+    systemctl restart dhcpcd.service
+    :log-status ok
+}
+
+:log-process() {
+    if :interactive; then
+        echo -n "$*..." >&2
+    else
+        echo "$*" >&2
+    fi
+}
+
+:log-status() {
+    if :interactive; then
+        echo "$*" >&2
+    fi
+}
+
+:interactive() {
+    if [ -t 1 ]; then
+        return 0
+    fi
+
+    return 1;
+}
+
+:main

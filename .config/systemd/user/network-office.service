@@ -1,0 +1,6 @@
+[Unit]
+Description=office virtual private network
+
+[Service]
+ExecStart=/home/operator/bin/network-office
+Restart=always

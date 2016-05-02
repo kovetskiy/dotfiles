@@ -1,0 +1,141 @@
+#!/bin/sudo /bin/bash
+
+[ -x /bin/systemd-cat-bash ] && /bin/systemd-cat-bash $(basename "$0")
+
+set -euo pipefail
+
+:main() {
+    local _ticks_max=100
+    local _ticks_time=0.1
+
+    if ! :interactive; then
+        :log-process "=== network-office ==="
+        :bootstrap
+    fi
+
+    if :vpn-is-connected; then
+        :vpn-disconnect
+        :resolvconf-local
+    fi
+
+    :vpn-connect
+    if ! :vpn-ensure; then
+        :log "can't establish vpn connection"
+
+        :network-reset
+        :log "network reseted, exiting"
+
+        exit 1
+    fi
+
+    if ! :interactive; then
+        :log-process "watching the vpn connection"
+        while :vpn-is-connected; do
+            :tick
+        done
+        :log "vpn connection has gone away"
+
+        :network-reset
+        :log "network reseted, exiting"
+
+        exit 1
+    fi
+
+    exit 0
+}
+
+:bootstrap() {
+    . $(dirname $0)/environment-variables
+}
+
+:network-reset() {
+    network-reset
+}
+
+:vpn-is-connected() {
+    ip l | grep -v DOWN | grep -q ppp0
+    return $?
+}
+
+:vpn-disconnect() {
+    :log-process "closing existing vpn connection"
+    poff office
+    :log-status ok
+}
+
+:vpn-connect() {
+    :log-process "starting vpn provider"
+    pon office
+    :log-status ok
+}
+
+:vpn-ensure() {
+    :log-process "establishing vpn connection"
+
+    local ticks=0
+    until :vpn-is-connected; do
+        ticks=$((ticks + 1))
+        if [ $ticks -ge $_ticks_max ]; then
+            :log-status fail
+
+            return 1
+        fi
+
+        :tick
+        if :interactive; then
+            :log-tick
+        fi
+    done
+
+    :log-status ok
+
+    return 0
+}
+
+:resolvconf-office() {
+    :log-process "switching network to office"
+    resolvconf-switch office
+    :log-status ok
+}
+
+:resolvconf-local() {
+    :log-process "switching network to local"
+    resolvconf-switch local
+    :log-status ok
+}
+
+:log-process() {
+    if :interactive; then
+        echo -n "$*..." >&2
+    else
+        echo "$*" >&2
+    fi
+}
+
+:log-status() {
+    if :interactive; then
+        echo "$*" >&2
+    fi
+}
+
+:log-tick() {
+    echo -n "." >&2
+}
+
+:log() {
+    echo "$*" >&2
+}
+
+:tick() {
+    sleep $_ticks_time
+}
+
+:interactive() {
+    if [ -t 1 ]; then
+        return 0
+    fi
+
+    return 1;
+}
+
+:main $@

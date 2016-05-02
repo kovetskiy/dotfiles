@@ -831,6 +831,8 @@ export GO15VENDOREXPERIMENT=1
         alias usd='systemctl --user disable'
         alias usu='systemctl --user status'
         alias usl='systemctl --user list-unit-files'
+
+        alias sdr='sudo systemctl daemon-reload'
     }
 
     # :journald
