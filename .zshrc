@@ -669,7 +669,9 @@ export GO15VENDOREXPERIMENT=1
     alias mtd='migrate-to-deadfiles'
     alias dt='cd ~/dotfiles; PAGER=cat git diff; git status -s ; '
     alias de='cd ~/deadfiles; git status -s'
-    alias pr='hub pull-request -f'
+    alias hf='hub fork'
+    alias hc='hub create'
+    alias hr='hub pull-request -f'
     alias cc='copy-to-clipboard'
 
 
