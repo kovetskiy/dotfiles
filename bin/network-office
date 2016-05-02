@@ -28,6 +28,8 @@ set -euo pipefail
         exit 1
     fi
 
+    :resolvconf-office
+
     if ! :interactive; then
         :log-process "watching the vpn connection"
         while :vpn-is-connected; do
