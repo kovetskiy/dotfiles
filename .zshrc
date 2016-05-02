@@ -816,18 +816,31 @@ export GO15VENDOREXPERIMENT=1
     {
         alias sc='sudo systemctl'
         alias scs='sudo systemctl start'
-        alias scd='sudo systemctl disable'
         alias sct='sudo systemctl stop'
+        alias scr='sudo systemctl restart'
         alias sce='sudo systemctl enable'
+        alias scd='sudo systemctl disable'
         alias scu='sudo systemctl status'
+        alias scl='sudo systemctl list-unit-files'
+
+        alias us='systemctl --user'
+        alias uss='systemctl --user start'
+        alias ust='systemctl --user stop'
+        alias usr='systemctl --user restart'
+        alias use='systemctl --user enable'
+        alias usd='systemctl --user disable'
+        alias usu='systemctl --user status'
+        alias usl='systemctl --user list-unit-files'
     }
 
     # :journald
     {
-        alias jcx='sudo journalctl -xe'
-        alias jcxf='sudo journalctl -xef'
-        alias jcu='sudo journalctl -u'
-        alias jcuf='sudo journalctl -f -u'
+        alias jx='sudo journalctl -xe'
+        alias jxf='sudo journalctl -xef'
+        alias jxg='sudo journalctl -xe | grep '
+        alias jxfg='sudo journalctl -xef | grep '
+        alias ju='sudo journalctl -u'
+        alias juf='sudo journalctl -f -u'
     }
 }
 
