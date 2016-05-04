@@ -2,4 +2,13 @@ image/gif;ffplay %s;
 image/png;feh %s;
 image/jpg;feh %s;
 image/jpeg;feh %s;
-text/html;ash-mailcap -x "url-convert-text %s" -t /usr/share/ash-mailcap-autoview/editor %s; copiousoutput;
+
+text/html; ash-mailcap \
+               -x "i3-sensible-browser %s" %s; \
+               needsterminal;
+
+text/html; ash-mailcap \
+               -c \
+               -x "url-convert-text %s" \
+               -t /usr/share/ash-mailcap-autoview/editor %s; \
+               copiousoutput
