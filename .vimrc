@@ -25,11 +25,9 @@ Plug 'kovetskiy/vim-hacks'
 
 Plug 'ctrlpvim/ctrlp.vim'
     nnoremap <C-B> :CtrlPBuffer<CR>
-    nnoremap <C-P> :CtrlPMixed<CR>
+    nnoremap <C-P> :CtrlPRoot<CR>
     nnoremap <C-E><C-L> :CtrlPLine<CR>
     nnoremap <C-E><C-E> :CtrlPQuickfix<CR>
-    nnoremap <C-E>k :cN<CR>
-    nnoremap <C-E>j :cn<CR>
 
     let g:ctrlp_working_path_mode='a'
     let g:ctrlp_use_caching = 0
@@ -78,6 +76,62 @@ Plug 'fatih/vim-go', {'for': 'go'}
     au operations FileType go nmap <buffer> <Leader>b :GoBuild<CR>
     au operations FileType go nmap <buffer> <Leader>l :GoLint .<CR>
 
+    nnoremap <C-R> :call _quickfix_next()<CR>
+    nnoremap <C-E><C-R> :call _quickfix_prev()<CR>
+    nnoremap <C-E><C-T> :call _quickfix_error()<CR>
+
+    func! _quickfix_reset()
+        let g:_quickfix_nr = 0
+        let g:_quickfix_count = len(getqflist())
+    endfunc!
+
+    func! _quickfix_error()
+        echo getqflist()[g:_quickfix_nr]["text"]
+    endfunc!
+
+    func! _quickfix_counter()
+        return "[" . (g:_quickfix_nr+1) . "/" . g:_quickfix_count . "]"
+    endfunc!
+
+    func! _quickfix_go(nr)
+        let item = getqflist()[a:nr]
+        let buffer = item["bufnr"]
+        let windows = win_findbuf(buffer)
+
+        if len(windows) > 0
+            execute windows[0] . "wincmd" "w"
+        else
+            execute "botright" "sbuffer" buffer
+            execute "wincmd" "="
+        endif
+
+        execute "normal! " item["lnum"] . "G"
+        silent! normal! zvzz
+
+        redraw!
+
+        echo strpart(_quickfix_counter() . " " . item["text"], 0, &columns-1)
+    endfunc!
+
+    func! _quickfix_next()
+        let next_nr = g:_quickfix_nr + 1
+        if next_nr < g:_quickfix_count
+            call _quickfix_go(next_nr)
+            let g:_quickfix_nr = next_nr
+        else
+            echo ""
+        endif
+    endfunc!
+
+    func! _quickfix_prev()
+        let prev_nr = g:_quickfix_nr - 1
+        if prev_nr >= 0
+            call _quickfix_go(prev_nr)
+            let g:_quickfix_nr = prev_nr
+        else
+            echo ""
+        endif
+    endfunc!
 
 Plug 'elzr/vim-json', { 'for': 'json' }
     au operations BufNewFile,BufRead *.json set filetype=json
@@ -424,7 +478,7 @@ set lcs=eol:¶,trail:·,tab:\ \ "t
 
 set pastetoggle=<F11>
 
-au operations VimEnter,WinEnter * set nofoldenable
+au operations VimEnter,WinEnter,BufRead,BufNewFile * set nofoldenable
 
 set noequalalways
 set winminheight=0
