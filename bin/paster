@@ -12,4 +12,5 @@ fi
 content=$(cat "$dir/$selected")
 
 xdotool type --clearmodifiers --delay 1 "$content"
-xdotool key --clearmodifiers --delay 1 --repeat 3 Return
+sleep 0.05
+xdotool key --clearmodifiers --delay 1 Return

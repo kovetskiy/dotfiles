@@ -64,8 +64,16 @@ Plug 'fatih/vim-go', {'for': 'go'}
     let g:go_fmt_autosave = 1
     let g:go_bin_path = $GOPATH . "/bin"
     let g:go_metalinter_command="gometalinter -D golint --cyclo-over 15"
+    let g:go_list_type = "quickfix"
 
     let g:go_doc_keywordprg_enabled = 0
+
+    func! _go_build()
+        echo "go build"
+        GoFmt
+        execute 'w'
+        GoBuild
+    endfunc!
 
     au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
@@ -73,7 +81,7 @@ Plug 'fatih/vim-go', {'for': 'go'}
     au operations FileType go nmap <buffer> gdl :call go#def#Jump('vsplit')<CR>
     au operations FileType go nmap <buffer> gdk :call go#def#Jump('split')<CR>
 
-    au operations FileType go nmap <buffer> <Leader>b :GoBuild<CR>
+    au operations FileType go nmap <buffer> <Leader>b :call _go_build()<CR>
     au operations FileType go nmap <buffer> <Leader>l :GoLint .<CR>
 
     nnoremap <C-R> :call _quickfix_next()<CR>
