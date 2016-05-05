@@ -24,10 +24,30 @@ let g:py_modules = []
 Plug 'kovetskiy/vim-hacks'
 
 Plug 'ctrlpvim/ctrlp.vim'
-    nnoremap <C-B> :CtrlPBuffer<CR>
+
+    func! _ctrlp_buffer_add_augroup()
+        augroup _ctrlp_buffer_bufenter
+            au!
+            au BufEnter * exe "wincmd" "_" |
+                        \ call _ctrlp_buffer_remove_augroup()
+        augroup end
+    endfunc!
+
+    func! _ctrlp_buffer_remove_augroup()
+        augroup _ctrlp_buffer_bufenter
+            au!
+        augroup end
+    endfunc!
+
+    func! _ctrlp_buffer()
+        CtrlPBuffer
+        call _ctrlp_buffer_add_augroup()
+    endfunc!
+
+    nnoremap <C-B> :call _ctrlp_buffer()<CR>
     nnoremap <C-P> :CtrlPRoot<CR>
     nnoremap <C-E><C-L> :CtrlPLine<CR>
-    nnoremap <C-E><C-E> :CtrlPQuickfix<CR>
+    nnoremap <C-E><C-E> :CtrlPBuffer()<CR>
 
     let g:ctrlp_working_path_mode='a'
     let g:ctrlp_use_caching = 0
@@ -84,7 +104,7 @@ Plug 'fatih/vim-go', {'for': 'go'}
     au operations FileType go nmap <buffer> <Leader>b :call _go_build()<CR>
     au operations FileType go nmap <buffer> <Leader>l :GoLint .<CR>
 
-    nnoremap <C-R> :call _quickfix_next()<CR>
+    nnoremap <C-T> :call _quickfix_next()<CR>
     nnoremap <C-E><C-R> :call _quickfix_prev()<CR>
     nnoremap <C-E><C-T> :call _quickfix_error()<CR>
 
@@ -107,7 +127,7 @@ Plug 'fatih/vim-go', {'for': 'go'}
         let windows = win_findbuf(buffer)
 
         if len(windows) > 0
-            execute windows[0] . "wincmd" "w"
+            call win_gotoid(windows[0])
         else
             execute "botright" "sbuffer" buffer
             execute "wincmd" "="
@@ -615,12 +635,13 @@ inoremap <C-H> <C-O>o
 
 imap <C-U> <ESC>ua
 
-    au BufRead,BufNewFile ~/.zshrc set ft=zsh.sh
-    au BufRead,BufNewFile *.zsh    set ft=zsh.sh
+    au BufRead,BufNewFile ~/.zshrc set ft=zsh.bash
+    au BufRead,BufNewFile *.zsh    set ft=zsh.bash
 
-    au BufRead,BufNewFile PKGBUILD set noet ft=pkgbuild.sh
+    au BufRead,BufNewFile *.service set noet ft=systemd
+    au BufRead,BufNewFile PKGBUILD set et ft=pkgbuild.bash
 
-    au BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.sh
+    au BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.bash
 
     au BufRead,BufNewFile *.snippets set noet ft=snippets.python
 

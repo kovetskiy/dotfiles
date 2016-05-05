@@ -1,3 +1,10 @@
+global !p
+import px
+for full_name, name in px.libs().items():
+    exec "import " + full_name
+    exec "import " + full_name + " as " + name
+endglobal
+
 snippet u "" w
 [ $1 ] && $0
 endsnippet
@@ -6,60 +13,47 @@ snippet r "re" w
 return
 endsnippet
 
-snippet se "Description" w
+snippet se "" w
 set -euo pipefail
 endsnippet
 
-snippet gp "Description" w
-while getopts ":$1" arg; do
-	local value="$OPTARG"
-	case $arg in
-		$2
-		h)
-			show_usage
-			;;
-	esac
+post_jump "px.snippets.expand(snip, 2)"
+snippet gp "" w
+while getopts ":$1" key; do
+    local value="$OPTARG"
+    c$2
 done
-
-local OPTIND
+local OPTIND # reset options
 
 $0
 endsnippet
 
 snippet m "main" w
-usage() {
-	echo "
-$1
+:usage() {
+    sed -r 's/^([ ]{4}|\t)//g' <<USAGE
+    $1
 
-Usage:
-	$2
+    Usage:
+        $2
+        `!p snip.rv=t[1]` -h
 
-Options:
-	$3
-"
+    Options:
+        $3
+        -h  Show this screen.
+USAGE
 }
 
-__main__() {
-	$4
+:main() {
+    $4
 
-	show_usage
-	exit 1
+    exit 0
 }
 
-$5
+:log() {
+    echo "[$(date -Iseconds | cut -dT -f1)] $*" >&2
+}
 
-
-if [ $# -eq 0 ]; then
-	usage
-	exit 2
-fi
-
-if [ "\$1" == "-h" ] || [ "\$1" == "--help" ]; then
-	usage
-	exit 0
-fi
-
-__main__ $@
+:main "$@"
 endsnippet
 
 snippet er "exec 2>&1" w
@@ -77,30 +71,25 @@ endsnippet
 
 snippet i# "i#" w
 if [ $# -ne $1 ]; then
-	usage
-	exit 1
+    usage
+    exit 1
 fi
 endsnippet
 
 snippet in "if" bw
 if [ "$1" != "$2" ]; then
-	$3
+    $3
 fi
 endsnippet
 
 
 snippet ii "if" bw
 if [ $1 ]; then
-	$2
+    $2
 fi
 endsnippet
 
-snippet f "function" bw
-$1() {
-	$2
-}
-endsnippet
-
+priority 33
 snippet l "local" w
 local $1="$2"
 endsnippet
@@ -138,14 +127,13 @@ endsnippet
 
 snippet gf "log func" w
 log() {
-	echo ">>> $@"
+    echo ">>> $@"
 }
 endsnippet
 
 snippet g "log" w
 log "$1"
 endsnippet
-
 
 snippet b "" w
 [ -x /bin/systemd-cat-bash ] && /bin/systemd-cat-bash $(basename "\$0")
@@ -156,3 +144,9 @@ snippet x "" w
 set -x
 endsnippet
 
+snippet fr "" w
+for $2 in "${$1[@]}"; do
+    $3
+done
+endsnippet
+# vim: et
