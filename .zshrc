@@ -676,6 +676,7 @@ export GO15VENDOREXPERIMENT=1
     alias hc='hub create'
     alias hr='hub pull-request -f'
     alias cc='copy-to-clipboard'
+    alias bmpk='bithookctl -p post -A makepkg primary'
 
 
     # :globals
