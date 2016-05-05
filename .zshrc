@@ -149,6 +149,9 @@ export GO15VENDOREXPERIMENT=1
     hash-aliases:install
     autopair-init
     zstyle ':smart-ssh' whitelist .s .in.ngs.ru
+
+    zstyle ':zle:smart-kill-word' precise always
+    zstyle ':zle:smart-kill-word' keep-slash true
 }
 
 
