@@ -327,6 +327,15 @@ export GO15VENDOREXPERIMENT=1
         git clone "https://github.com/$1" $2
     }
 
+    git-clone-devops() {
+        git clone "git+ssh://git.rn/devops/$1" $2
+    }
+
+    git-clone-profiles() {
+        git clone "git+ssh://git.rn/profiles/$1" $2
+    }
+
+
     git-checkout-orphan() {
         git checkout --orphan "$1"
         git status -s | awk '{print $2}' | xargs -n1 rm -rf
@@ -616,6 +625,7 @@ export GO15VENDOREXPERIMENT=1
 
 # :alias
 {
+    alias bx='chmod +x ~/bin/*'
     alias ck='create-and-change-directory'
     alias mf='man-find'
     alias md='man-directive'
@@ -760,6 +770,8 @@ export GO15VENDOREXPERIMENT=1
 
         alias gci='git-create-and-commit-empty-gitignore'
         alias gclg='git-clone-github'
+        alias gcld='git-clone-devops'
+        alias gclp='git-clone-profiles'
         alias gcoo='git-checkout-orphan'
 
         alias gcb='git checkout -b'
