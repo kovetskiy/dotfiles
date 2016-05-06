@@ -3,12 +3,15 @@ image/png;feh %s;
 image/jpg;feh %s;
 image/jpeg;feh %s;
 
+text/plain; plain-mailcap %s; copiousoutput;
+
 text/html; ash-mailcap \
-               -x "i3-sensible-browser %s" %s; \
+               -x "browser %s" %s; \
                needsterminal;
 
 text/html; ash-mailcap \
                -c \
                -x "url-convert-text %s" \
                -t /usr/share/ash-mailcap-autoview/editor %s; \
-               copiousoutput
+               copiousoutput;
+

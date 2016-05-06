@@ -20,7 +20,7 @@ set mime_forward_rest=yes
 set pager_index_lines=10
 
 alternative_order text/plain text/html
-auto_view text/html text/calendar
+auto_view text/html text/plain
 
 bind index \e[7~ first-entry
 bind index \e[8~ last-entry
@@ -38,3 +38,5 @@ unset imap_passive
 mailboxes =INBOX
 
 source ~/.mutt/theme_$BACKGROUND
+
+set allow_ansi
