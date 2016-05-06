@@ -489,7 +489,9 @@ export GO15VENDOREXPERIMENT=1
             return
         fi
 
-        if git branch | grep -q pkgbuild; then
+        git fetch
+
+        if git branch -a | grep -q pkgbuild; then
             git checkout pkgbuild
             return
         fi
