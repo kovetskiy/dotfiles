@@ -446,12 +446,12 @@ export GO15VENDOREXPERIMENT=1
     aur-create-project() {
         local package="$1"
         local dir=$(mktemp -d --suffix=$package)
-        local url="ssh://aur@aur4.archlinux.org/$package.git"
+        local url="ssh://aur@aur.archlinux.org/$package.git"
 
         git clone $url $dir
 
         if [[ $# -gt 1 ]]; then
-            while shift; do
+            while shift &>/dev/null; do
                 cp -r $1 $dir/
             done
         fi
