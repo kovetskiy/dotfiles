@@ -621,6 +621,19 @@ export GO15VENDOREXPERIMENT=1
         ash "$1" approve
     }
     compdef ash-approve=ash
+
+    compdef vim-which=which
+
+    copy-to-http() {
+        local src="$1"
+        local dest=$(basename "$src")
+        if [ $# -ne 1 ]; then
+            dest=$2
+        fi
+        cp "$src" "/srv/http/$dest"
+        echo -n "http://home.local/$dest" | xclip -selection clipboard
+        echo "http://home.local/$dest"
+    }
 }
 
 # :alias
@@ -883,40 +896,12 @@ prepend-sudo() {
 zle -N prepend-sudo
 bindkey '^s' prepend-sudo
 
-
-#############################################################################
-#############################################################################
-#############################################################################
-#############################################################################
-#
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
-compdef vim-which=which
+eval "$(
+    cat $(pacman -Ql fzf | grep '.zsh$' | cut -d' ' -f2) \
+        | sed-replace '^(\s+selected=.* )\+s(.*)$' '\1\2'
+)"
 
 eval $(dircolors ~/.dircolors.$BACKGROUND)
-
-[ -f /etc/profile.d/fzf.zsh ] && source /etc/profile.d/fzf.zsh
-
-fzf-history-widget() {
-  local selected num
-  selected=( $(fc -l 1 | $(__fzfcmd) --tac +m -n2..,.. --tiebreak=index -q "${LBUFFER//$/\\$}") )
-  if [ -n "$selected" ]; then
-    num=$selected[1]
-    if [ -n "$num" ]; then
-      zle vi-fetch-history -n $num
-    fi
-  fi
-  zle redisplay
-}
-
-copy-to-http() {
-    local src="$1"
-    local dest=$(basename "$src")
-    if [ $# -ne 1 ]; then
-        dest=$2
-    fi
-    cp "$src" "/srv/http/$dest"
-    echo -n "http://home.local/$dest" | xclip -selection clipboard
-    echo "http://home.local/$dest"
-}
