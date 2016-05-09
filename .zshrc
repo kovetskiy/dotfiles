@@ -529,6 +529,7 @@ export GO15VENDOREXPERIMENT=1
             fi
         fi
 
+        set -x
         go-makepkg -g -c -n "$package" -d . $(echo $FLAGS) "$description" "$repo" $@
     }
 
@@ -638,6 +639,19 @@ export GO15VENDOREXPERIMENT=1
 
 # :alias
 {
+    alias r=_z
+    alias cld='clusterctl dev'
+    alias clp='clusterctl prod'
+    alias pra='pdns records add'
+    alias prl='pdns records list'
+    alias prr='pdns records remove'
+    alias prda='pdns records add -t A -d 80'
+    alias prdac='pdns records add -t CNAME -d 80'
+    alias prdl='pdns records list -t A -d 80'
+    alias prdlc='pdns records list -t CNAME -d 80'
+    alias prdr='pdns records remove -t A'
+    alias prdrc='pdns records remove -t CNAME'
+    alias bl='bithookctl -L'
     alias bx='chmod +x ~/bin/*'
     alias ck='create-and-change-directory'
     alias mf='man-find'
@@ -702,6 +716,7 @@ export GO15VENDOREXPERIMENT=1
     alias hr='hub pull-request -f'
     alias cc='copy-to-clipboard'
     alias bmpk='bithookctl -p post -A makepkg primary'
+    alias bsl='bithookctl -p pre -A sould primary'
 
 
     # :globals
