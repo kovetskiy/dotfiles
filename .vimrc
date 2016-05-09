@@ -19,6 +19,9 @@ nnoremap <Leader><Leader>u :PlugUpdate<CR>
 
 call plug#begin('~/.vim/bundle')
 
+" set up indent/vim.vim
+let g:vim_indent_cont = shiftwidth()
+
 let g:py_modules = []
 
 Plug 'kovetskiy/vim-hacks'
