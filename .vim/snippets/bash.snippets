@@ -28,12 +28,15 @@ $0
 endsnippet
 
 snippet m "main" w
+
+set -euo pipefail
+
 :usage() {
     sed -r 's/^([ ]{4}|\t)//g' <<USAGE
     $1
 
     Usage:
-        $2
+        `!p snip.rv=t[1]` $2
         `!p snip.rv=t[1]` -h
 
     Options:
