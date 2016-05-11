@@ -1,9 +1,18 @@
 #!/bin/bash
 
-cmd="$1"
-shift
+if [ -s /dev/stdin ]; then
+    cmd=$(cat)
+
+    echo "servers: $*" >&2
+    echo >&2
+    echo "cmd: $cmd" >&2
+    echo >&2
+else
+    cmd="$1"
+    shift
+fi
 
 for server in ${@}; do
     echo "$server" >&2
-    ssh -oStrictHostKeyChecking=no -le.kovetskiy "$server" "$cmd"
+    echo "$cmd" | ssh -oStrictHostKeyChecking=no -le.kovetskiy "$server" "bash"
 done

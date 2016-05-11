@@ -182,11 +182,13 @@ export GO15VENDOREXPERIMENT=1
         local hostname="$1"
         shift
 
-        local cmd="TERM=xterm sudo -i"
         if [ $# -ne 0 ]; then
-            cmd="TERM=xterm sudo -i \$SHELL -ic ${(q)*}"
+            echo "$*" \
+                | smart-ssh -t "$hostname" \
+                    "sudo -i \$SHELL" 2>/dev/null
+        else
+            smart-ssh -t "$hostname" "TERM=xterm sudo -i" 2>/dev/null
         fi
-        smart-ssh -t "$hostname" "$cmd" 2>/dev/null
     }
     compdef ssh-enhanced=ssh
 
@@ -651,7 +653,9 @@ export GO15VENDOREXPERIMENT=1
     alias str='strace -ff -s 100'
     alias r=_z
     alias cld='clusterctl dev'
+    alias cldl='clusterctl dev -L'
     alias clp='clusterctl prod'
+    alias clpl='clusterctl prod -L'
     alias pra='pdns records add'
     alias prl='pdns records list'
     alias prr='pdns records remove'
