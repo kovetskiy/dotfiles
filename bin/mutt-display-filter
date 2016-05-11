@@ -1,0 +1,78 @@
+#!/bin/bash
+
+footer="[рР]уководитель|[сС]пециалист|[иИ]нженер|[мМ]енеджер|[вВ]сего|[аА]дминистратор"
+footer="$footer|@office"
+footer="$footer|\nОфициальный\sлист\sуведомлений"
+
+footer_force="[сС]\s+[уУ]важением"
+#footer_force="$footer_force|^From:\s"
+footer_force="$footer_force|\[bitbucket-logo-\]"
+footer_force="$footer_force|^You\scan\s\[[0-9]\]unwatch\sthis\spull\srequest"
+footer_force="$footer_force|^\s*\[[0-9]\]View\spull\srequest"
+footer_force="$footer_force|^\s*\[[0-9]\]Add\sComment"
+
+footer_force="$footer_force|^This\smessage\swas\ssent\s"
+footer_force="$footer_force|^\[\w+\]\s+[0-9]{2}\s\w+\s20[0-9]{2}\s[0-9]{2}:[0-9]{2}\s[AP]M"
+
+footer_force="$footer_force|^\s*\[[0-9]\]Reply\sIcon"
+
+footer_force="$footer_force|^\s*\[[0-9]\]\s*http:\/\/confluence.*\/like\.action"
+footer_force="$footer_force|^\s*\[[0-9]\]\s*http:\/\/git.*\?unwatch"
+
+exec cat \
+        | sed -r \
+            -e '/\[--.* Autoview .*--\]/d' \
+            -e '/\[--.* is unsupported .*--\]/d' \
+            -e '/\[--.* Type: .*, Encoding: .* --\]/d' \
+            -e '/\[--.* Type: .*, Encoding: .* --\]/d' \
+            -e 's/●/ /g' \
+        | LANG=ru_RU.UTF-8 awk '
+    {
+        if (/^References:/) {
+            footer = 0;
+            print "\n" $0;
+            next;
+        }
+
+        lines = $0;
+        delimited = 0;
+        if (!footer && /^--/) {
+            delimited = 1;
+            for(i = 0; i < 5; i++) {
+                if (!getline) {
+                    break;
+                }
+
+                lines = lines "\n" $0;
+                if (/^--/) {
+                    if (i != 0) {
+                        i = 0;
+                    }
+                }
+            }
+        }
+
+        if (delimited && match(lines,
+            /('$footer')/)) {
+            footer = 1;
+        }
+
+        if (match(lines, /('$footer_force')/)) {
+            footer = 1;
+        }
+
+        if (!footer) {
+            print lines;
+        }
+
+        lines = "";
+    }
+    END {
+        if (!lines) {
+            #print lines;
+        }
+    }' \
+        | sed -r 's/\r//g' \
+        | sed -r 's/^\s+$//g' \
+        | sed -r ':a; /^\n*$/{ s/\n//; N;  ba};'
+        #| sed -r 's/^(.*)$/[\1]/g'
