@@ -1,5 +1,7 @@
 source ~/.mutt/account
+mailboxes =INBOX
 
+unset imap_passive
 set ssl_verify_dates=no
 set ssl_verify_host=no
 set sleep_time=0
@@ -18,6 +20,15 @@ set pager_stop=yes
 set mime_forward=yes
 set mime_forward_rest=yes
 set pager_index_lines=10
+set message_cachedir=~/.cache/mutt/messages/
+set header_cache=~/.cache/mutt/headers/
+set charset="utf-8"
+set send_charset="utf-8"
+set assumed_charset="utf-8"
+set allow_8bit
+set allow_ansi
+
+set display_filter=mutt-display-filter
 
 alternative_order text/plain text/html
 auto_view text/html text/plain
@@ -33,10 +44,4 @@ macro index \Cf "<change-folder> =INBOX<enter>"
 
 macro index \Ce "T*;s=Archivesy<sync-mailbox>"
 
-unset imap_passive
-
-mailboxes =INBOX
-
 source ~/.mutt/theme_$BACKGROUND
-
-set allow_ansi
