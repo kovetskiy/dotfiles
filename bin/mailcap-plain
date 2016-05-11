@@ -1,0 +1,12 @@
+#!/bin/bash
+
+charset=$1
+filename=$2
+
+if grep -q "\[fetch\]" "$filename"; then
+    exec mailcap-plain-makepkg "$@"
+fi
+
+exec iconv \
+    -f "$charset" -t "UTF-8" \
+    "$filename"

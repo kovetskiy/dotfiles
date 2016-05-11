@@ -1,3 +1,0 @@
-#!/bin/bash
-
-lynx -dump -force-html $1

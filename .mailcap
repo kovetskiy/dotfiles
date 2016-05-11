@@ -3,15 +3,7 @@ image/png;feh %s;
 image/jpg;feh %s;
 image/jpeg;feh %s;
 
-text/plain; plain-mailcap %s; copiousoutput;
+text/plain; mailcap-plain %{charset} %s; copiousoutput;
 
-text/html; ash-mailcap \
-               -x "browser %s" %s; \
-               needsterminal;
-
-text/html; ash-mailcap \
-               -c \
-               -x "url-convert-text %s" \
-               -t /usr/share/ash-mailcap-autoview/editor %s; \
-               copiousoutput;
-
+text/html; ash-mailcap -x "browser %s" %s; needsterminal;
+text/html; ash-mailcap -cx "mailcap-html %{charset} %s" -t /usr/share/ash-mailcap-autoview/editor %s; copiousoutput;

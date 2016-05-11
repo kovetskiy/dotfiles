@@ -1,9 +1,9 @@
 #!/bin/bash
 
-filename="$1"
+charset=$1
+filename=$2
 
-if grep -q "\[fetch\]" $filename; then
-    awk '
+awk '
     function level1(s) {
         printf(">     %s\n", s);
     }
@@ -55,7 +55,4 @@ if grep -q "\[fetch\]" $filename; then
             next;
         }
         level1($0);
-    }' < $filename
-else
-    cat $filename
-fi
+}' < $filename
