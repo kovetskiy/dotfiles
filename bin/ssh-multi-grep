@@ -1,0 +1,39 @@
+#!/bin/bash
+
+date=$1
+shift
+
+type=$1
+shift
+
+subject=$1
+shift
+
+if [ $# -eq 0 ]; then
+    dns_query=$type
+elif [ $# -eq 1 ]; then
+    dns_query="$1"
+else
+    servers=$@
+fi
+
+if [ "$dns_query" ]; then
+    if [ "$dns_query" = "nginx" ]; then
+        dns_query="frontend"
+    elif  [ "$dns_query" = "php" ]; then
+        dns_query="phpnode|php\..*ri"
+    fi
+    servers=($(axfr $dns_query))
+fi
+
+if [ "$type" = "nginx" ]; then
+    files="/data/logs/error.log"
+elif [ "$type" = "php" ]; then
+    files="/data/logs/php*error*"
+else
+    files=$type
+fi
+
+ssh-multi "${servers[@]}" <<CMD
+grep -P "20\d\d[ :]($date)" $files | grep -Pi "$subject"
+CMD

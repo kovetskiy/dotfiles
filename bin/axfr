@@ -1,0 +1,8 @@
+#!/bin/bash
+
+query="$*"
+query="${query// /|}"
+
+dig @dn.s -p53000 +short s axfr \
+    | sed 's/\.$//g' \
+    | grep -P "($query)"
