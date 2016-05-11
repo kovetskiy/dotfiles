@@ -544,7 +544,7 @@ export GO15VENDOREXPERIMENT=1
             return
         fi
 
-        cat | xclip-selection clipboard
+        cat | xclip -selection clipboard
     }
 
     restore-pkgver-pkgrel() {
@@ -635,10 +635,20 @@ export GO15VENDOREXPERIMENT=1
         echo -n "http://home.local/$dest" | xclip -selection clipboard
         echo "http://home.local/$dest"
     }
+
+    git-rebase-interactive() {
+        if [[ "$1" =~ ^[0-9]+$ ]]; then
+            git rebase -i "HEAD~$1"
+            return $?
+        fi
+
+        git rebase -i $@
+    }
 }
 
 # :alias
 {
+    alias str='strace -ff -s 100'
     alias r=_z
     alias cld='clusterctl dev'
     alias clp='clusterctl prod'
@@ -721,7 +731,7 @@ export GO15VENDOREXPERIMENT=1
 
     # :globals
     {
-        alias -g G='EO | grep --color'
+        alias -g G='EO | grep --color -P'
         alias -g L='EO | less -r'
         alias -g H='EO | head -n'
         alias -g T='EO | tail -n'
@@ -819,7 +829,7 @@ export GO15VENDOREXPERIMENT=1
         alias grts='git reset --soft'
         alias gr='git rebase'
         alias grc='git rebase --continue'
-        alias gri='git rebase -i'
+        alias gri='git-rebase-interactive'
         alias gcom='git checkout master'
         alias glo='git log --oneline --graph --decorate --all'
         alias gl='PAGER=cat git log --oneline --graph --decorate --all --max-count=30'
@@ -830,6 +840,7 @@ export GO15VENDOREXPERIMENT=1
         alias psx='ps fuxa | grep'
         alias gra='git remote add origin '
         alias gro='git remote show'
+        alias gru='git remote get-url origin'
         alias grg='git remote show origin -n'
         alias grs='git remote set-url origin'
         alias grsm='git-remote-set-origin-me'
