@@ -148,7 +148,6 @@ export GO15VENDOREXPERIMENT=1
 
     hash-aliases:install
     autopair-init
-    zstyle ':smart-ssh' whitelist .s .in.ngs.ru
 
     zstyle ':zle:smart-kill-word' precise always
     zstyle ':zle:smart-kill-word' keep-slash true
@@ -181,6 +180,8 @@ export GO15VENDOREXPERIMENT=1
     ssh-enhanced() {
         local hostname="$1"
         shift
+
+        zstyle ':smart-ssh' whitelist .s .in.ngs.ru
 
         if [ $# -ne 0 ]; then
             echo "$*" \
@@ -646,10 +647,21 @@ export GO15VENDOREXPERIMENT=1
 
         git rebase -i $@
     }
+
+    incidents-create() {
+        incidents -C \
+            && cd ~/.incidents/"$(
+            /usr/bin/ls --color=never -t ~/.incidents/ | head -n1)"
+    }
 }
 
 # :alias
 {
+    alias ic='incidents-create'
+    alias iu='incidents -U'
+    alias irt='incidents -Rt'
+    alias irb='incidents -Rb'
+    alias iru='incidents -Ru'
     alias str='strace -ff -s 100'
     alias r=_z
     alias cld='clusterctl dev'

@@ -643,10 +643,12 @@ imap <C-U> <ESC>ua
 
     au BufRead,BufNewFile *.service set noet ft=systemd
     au BufRead,BufNewFile PKGBUILD set et ft=pkgbuild.bash
+    au BufRead,BufNewFile incident.md set et ft=incident|Skeleton|set ft=incident.markdown
 
     au BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.bash
 
     au BufRead,BufNewFile *.snippets set noet ft=snippets.python
+    au BufRead,BufNewFile *.skeleton set noet ft=snippets.python
 
 
 fu! _background(bg)
