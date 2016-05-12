@@ -367,7 +367,7 @@ Plug 'kovetskiy/vim-plugvim-utils', {'on': 'NewPlugFromClipboard'}
     nnoremap <Leader><Leader>c :call NewPlugFromClipboard()<CR>
 
 Plug 'kovetskiy/vim-ski'
-    let g:skeletons_dir=$HOME.'/.vim/skeletons/'
+    let g:skeletons_dir=$HOME . '/deadfiles/.vim/skeletons/'
 
     au operations BufRead,BufNewFile */bin/* set ft=bash
 
