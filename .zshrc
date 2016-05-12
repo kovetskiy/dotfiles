@@ -186,9 +186,9 @@ export GO15VENDOREXPERIMENT=1
         if [ $# -ne 0 ]; then
             echo "$*" \
                 | smart-ssh -t "$hostname" \
-                    "sudo -i \$SHELL" 2>/dev/null
+                    "sudo bash"
         else
-            smart-ssh -t "$hostname" "TERM=xterm sudo -i" 2>/dev/null
+            smart-ssh -t "$hostname" "TERM=xterm sudo -i"
         fi
     }
     compdef ssh-enhanced=ssh
