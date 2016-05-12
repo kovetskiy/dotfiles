@@ -643,7 +643,8 @@ imap <C-U> <ESC>ua
 
     au BufRead,BufNewFile *.service set noet ft=systemd
     au BufRead,BufNewFile PKGBUILD set et ft=pkgbuild.bash
-    au BufRead,BufNewFile incident.md set et ft=incident|Skeleton|set ft=incident.markdown
+    au BufRead incident.md set et ft=incident.markdown
+    au BufNewFile incident.md set et ft=incident|Skeleton|set ft=incident.markdown
 
     au BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.bash
 
