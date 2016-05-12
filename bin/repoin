@@ -1,0 +1,6 @@
+#!/bin/bash
+
+scp "$1" repo.in.ngs.ru:
+ssh repo.in.ngs.ru -le.kovetskiy \
+    "sudo cp '$1' /data/repositories/ngs-packages/lucid/ && sudo /data/repositories/ngs-packages/rescan_lucid.sh"
+echo http://repo.in.ngs.ru/ngs-packages/lucid/$1

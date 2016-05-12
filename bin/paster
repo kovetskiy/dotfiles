@@ -11,6 +11,8 @@ fi
 
 content=$(cat "$dir/$selected")
 
+xclip -selection clipboard <<< "$content"
+
 xdotool type --clearmodifiers --delay 1 "$content"
 sleep 0.05
 xdotool key --clearmodifiers --delay 1 Return

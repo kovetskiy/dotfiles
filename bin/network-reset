@@ -16,7 +16,7 @@ set -euo pipefail
 }
 
 :vpn-is-connected() {
-    ip l | grep -v DOWN | grep -q ppp0
+    ip l | grep -v DOWN | grep -q ppp
     return $?
 }
 

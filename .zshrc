@@ -688,6 +688,7 @@ export GO15VENDOREXPERIMENT=1
     alias gmel='gmev'
     alias mpk='makepkg -fc; pkr'
     alias mpk!='rm -rf *xz; rm -rf {pkg,src}; makepkg -fc; pkr'
+    alias mpkc='mpk! && urxc'
     alias vw='vim-which'
     alias ur='packages-upload-repo.s'
     alias urx='packages-upload-repo.s "$(/usr/bin/ls --color=never -t *.xz | head -n1)"'
