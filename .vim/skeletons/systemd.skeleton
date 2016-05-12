@@ -1,8 +1,0 @@
-[Unit]
-Description=$1
-
-[Service]
-ExecStart=$2
-
-[Install]
-WantedBy=${3:basic.target}
