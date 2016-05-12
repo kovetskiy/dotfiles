@@ -14,5 +14,17 @@ fi
 
 for server in ${@}; do
     echo "$server" >&2
-    echo "$cmd" | ssh -oStrictHostKeyChecking=no -le.kovetskiy "$server" "bash"
+    if ! ssh-keygen -F "$server" &>/dev/null; then
+        output=$(
+            { ssh-keyscan "$hostname" >> ~/.ssh/known_hosts; } 2>&1
+        )
+        if [ $? -ne 0 ]; then
+            echo "$output" >&2
+            continue
+        fi
+    fi
+
+    echo "$cmd" | ssh \
+        -oConnectTimeout=1 -oStrictHostKeyChecking=no "$server" \
+        "cat > .cmd; sudo bash .cmd "
 done
