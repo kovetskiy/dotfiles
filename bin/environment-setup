@@ -5,7 +5,7 @@
     --output VGA-1 --mode 1920x1080 --pos 1920x0 --rotate normal \
 || xrandr --output VGA1 --mode 1920x1200 --output LVDS1 --off
 
-xkb-reconfigure
+xkb
 
 # @TODO: move to systemd
 killall -9 keynav

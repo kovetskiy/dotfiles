@@ -1,0 +1,7 @@
+#!/bin/bash
+
+xkbcomp -w 0 -I$HOME/.xkb -R$HOME/.xkb $HOME/.xkbrc $DISPLAY
+
+sudo pkill shift-shift
+sudo shift-shift -first RIGHTSHIFT -second CAPSLOCK -match razer &
+sudo shift-shift -first RIGHTSHIFT -second CAPSLOCK -match keyboard &

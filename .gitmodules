@@ -13,3 +13,6 @@
 [submodule "deadandroid"]
 	path = deadandroid
 	url = git@github.com:deadcrew/master-of-android
+[submodule ".xkb"]
+	path = .xkb
+	url = https://github.com/reconquest/rex

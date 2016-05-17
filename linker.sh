@@ -40,6 +40,8 @@ POINTS=(
     ".sift.conf"
     ".ssh/config"
     ".config/systemd/user/network-office.service"
+    ".xkb"
+    ".xkbrc"
 )
 
 for POINT in "${POINTS[@]}"; do
