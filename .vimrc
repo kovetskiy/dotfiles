@@ -17,6 +17,8 @@ augroup end
 nnoremap <Leader><Leader>i :PlugInstall<CR>
 nnoremap <Leader><Leader>u :PlugUpdate<CR>
 
+"augroup plugvim
+    "au!
 call plug#begin('~/.vim/bundle')
 
 " set up indent/vim.vim
@@ -450,7 +452,23 @@ Plug 'chrisbra/Recover.vim'
 
 Plug 'kovetskiy/vim-bash'
 
+"Plug 'seletskiy/vim-autosurround'
+    "au User _overwrite_matchem
+        "\ au VimEnter,BufEnter,FileType *
+        "\ inoremap <buffer> ( (<C-R>=AutoSurround(")") ? "" : g:MatchemMatchStart()<CR>
+
+    "au User _overwrite_matchem
+        "\ autocmd VimEnter,BufEnter,FileType * call AutoSurroundInitMappings()
+
+    "au User plugins_loaded doau User _overwrite_matchem
+    "doau User _overwrite_matchem
+
+"augroup end
+
 call plug#end()
+
+"au VimEnter * doautocmd User plugins_loaded
+"au VimEnter * au! plugvim
 
 syntax on
 filetype plugin indent on
