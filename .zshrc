@@ -272,16 +272,16 @@ export GO15VENDOREXPERIMENT=1
             shift
         fi
 
-        local cmd="$@"
+        local cmd="$(sed 's/@/"@"/g' <<< $@)"
 
         local line="{ $cmd ; }"
         if $pass_stdin; then
-            line="$line <<< '{}'"
+            line="$line <<< '@'"
         fi
 
         local main_input="$(cat)"
 
-        xargs -n1 -I{} echo "$line" <<< "$main_input" \
+        xargs -n1 -I@ echo "$line" <<< "$main_input" \
             | while read subcmd; do
                 eval "(${subcmd[@]})" </dev/tty
             done
