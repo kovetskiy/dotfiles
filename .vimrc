@@ -465,6 +465,11 @@ Plug 'kovetskiy/vim-bash'
 
 "augroup end
 
+Plug 'FooSoft/vim-argwrap'
+    au operations BufRead,BufNewFile *.go let b:argwrap_tail_comma = 1
+    nnoremap <silent> @l :call search('[\(\{\[]', 'cs')<CR>l:ArgWrap<CR>
+    nnoremap <silent> @; :ArgWrap<CR>
+
 call plug#end()
 
 "au VimEnter * doautocmd User plugins_loaded
@@ -733,7 +738,6 @@ nnoremap <Leader>ft :set filetype=
 nmap <Tab> /
 nmap K :s///g<CR><C-O>i
 
-let @l="f(ak$%i,%"
 let @k="^f=i:"
 let @j="^t=x"
 
