@@ -56,6 +56,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 
     let g:ctrlp_working_path_mode='a'
     let g:ctrlp_use_caching = 0
+    let g:ctrlp_user_command = "ag %s -l --nocolor -g '' | grep -vP 'vendor|lib/tests/testcases'"
 
     let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:200'
 
@@ -453,6 +454,7 @@ Plug 'lokikl/vim-ctrlp-ag'
 Plug 'chrisbra/Recover.vim'
 
 Plug 'kovetskiy/vim-bash'
+    nmap gd <C-]>
 
 Plug 'seletskiy/vim-autosurround'
     au User _overwrite_matchem
@@ -541,11 +543,11 @@ set noequalalways
 set winminheight=0
 set clipboard=unnamed
 
-set tags=tags;/
+set tags=./.tags;/
 
-    au FileType help setlocal number
+au FileType help setlocal number
 
-    au BufWritePre * if !isdirectory(expand('%:h')) | call mkdir(expand('%:h'),'p') | endif
+au BufWritePre * if !isdirectory(expand('%:h')) | call mkdir(expand('%:h'),'p') | endif
 
 func! _py_modules_reload()
     python <<CODE

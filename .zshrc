@@ -876,7 +876,7 @@ export GO15VENDOREXPERIMENT=1
 
     # :poe
     {
-        alias po='poe -L'
+        alias po='poe -L -t 60'
         alias pox='poe -X -v'
         alias pof='poe -F -v'
     }
