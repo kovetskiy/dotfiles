@@ -438,11 +438,11 @@ Plug 'lokikl/vim-ctrlp-ag'
 
     func! _grep_slash()
         let l:slash = strpart(@/, 2)
-        call Grep(l:slash)
+        call _grep(l:slash)
     endfunc!
 
     func! _grep_recover()
-        call Grep(g:grep_last_query)
+        call _grep(g:grep_last_query)
     endfunc!
 
     command! -nargs=1 Grep call _grep(<q-args>)
