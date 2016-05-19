@@ -3,3 +3,4 @@ tags
 *.swo
 config/config.yml
 .ropeproject
+.tags_*.*

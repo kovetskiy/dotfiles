@@ -17,8 +17,8 @@ augroup end
 nnoremap <Leader><Leader>i :PlugInstall<CR>
 nnoremap <Leader><Leader>u :PlugUpdate<CR>
 
-"augroup plugvim
-    "au!
+augroup plugvim
+    au!
 call plug#begin('~/.vim/bundle')
 
 " set up indent/vim.vim
@@ -92,6 +92,8 @@ Plug 'fatih/vim-go', {'for': 'go'}
     let g:go_list_type = "quickfix"
 
     let g:go_doc_keywordprg_enabled = 0
+
+    let g:go_highlight_build_constraints = 1
 
     func! _go_build()
         echo "go build"
@@ -452,28 +454,29 @@ Plug 'chrisbra/Recover.vim'
 
 Plug 'kovetskiy/vim-bash'
 
-"Plug 'seletskiy/vim-autosurround'
-    "au User _overwrite_matchem
-        "\ au VimEnter,BufEnter,FileType *
-        "\ inoremap <buffer> ( (<C-R>=AutoSurround(")") ? "" : g:MatchemMatchStart()<CR>
+Plug 'seletskiy/vim-autosurround'
+    au User _overwrite_matchem
+        \ au VimEnter,BufEnter,FileType *
+        \ inoremap <buffer> ( (<C-R>=AutoSurround(")") ? "" : g:MatchemMatchStart()<CR>
 
-    "au User _overwrite_matchem
-        "\ autocmd VimEnter,BufEnter,FileType * call AutoSurroundInitMappings()
+    au User _overwrite_matchem
+        \ autocmd VimEnter,BufEnter,FileType * call AutoSurroundInitMappings()
 
-    "au User plugins_loaded doau User _overwrite_matchem
-    "doau User _overwrite_matchem
+    au User plugins_loaded doau User _overwrite_matchem
+    doau User _overwrite_matchem
 
-"augroup end
 
 Plug 'FooSoft/vim-argwrap'
     au operations BufRead,BufNewFile *.go let b:argwrap_tail_comma = 1
     nnoremap <silent> @l :call search('[\(\{\[]', 'cs')<CR>l:ArgWrap<CR>
     nnoremap <silent> @; :ArgWrap<CR>
 
-call plug#end()
+Plug 'kovetskiy/synta'
 
-"au VimEnter * doautocmd User plugins_loaded
-"au VimEnter * au! plugvim
+augroup end
+call plug#end()
+au VimEnter * doautocmd User plugins_loaded
+au VimEnter * au! plugvim
 
 syntax on
 filetype plugin indent on
@@ -611,7 +614,7 @@ nnoremap g, '<
 
 nnoremap <Leader>vs :vsp<CR>
 
-nnoremap <Leader>e :e<CR>
+nnoremap <Leader>e :e!<CR>
 
 nnoremap <Leader>q <ESC>:q<CR>
 nnoremap <Leader>r :w<CR>
