@@ -112,7 +112,7 @@ bindsym  $win+Ctrl+l  exec screen-lock
 bindsym  $win+Ctrl+d  exec notification-information-basic
 bindsym  $alt+Ctrl+e  exec translator
 bindsym  $alt+Tab     exec paster
-bindsym  Ctrl+F12     exec xkb-reconfigure
+bindsym  Ctrl+F12     exec xkb
 bindsym  $alt+grave   exec terminal-floating
 
 set $left  DVI-I-1

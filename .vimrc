@@ -56,7 +56,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 
     let g:ctrlp_working_path_mode='a'
     let g:ctrlp_use_caching = 0
-    let g:ctrlp_user_command = "ag %s -l --nocolor -g '' | grep -vP 'vendor|lib/tests/testcases'"
+    let g:ctrlp_user_command = "ag %s -l --nocolor -g '' | grep -vP 'lib/tests/testcases'"
 
     let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:200'
 
