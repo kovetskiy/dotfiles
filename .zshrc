@@ -809,6 +809,7 @@ export GO15VENDOREXPERIMENT=1
 
     # :git
     {
+        alias gcp='git cherry-pick'
         alias gcl='git clone'
         alias gh='git show'
         alias gd='git diff'
