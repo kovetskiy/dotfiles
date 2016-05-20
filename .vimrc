@@ -457,6 +457,18 @@ Plug 'chrisbra/Recover.vim'
 
 Plug 'kovetskiy/vim-bash'
     nmap gd <C-]>
+    func! _tags_sh()
+        if &ft != "sh"
+            return
+        endif
+
+        let tagfiles = tagfiles()
+        if len(tagfiles) > 0
+            let tagfile = tagfiles[0]
+            silent execute "!tags-sh " . tagfile . " >/dev/null 2>&1 &"
+        endif
+    endfunc!
+    au operations BufWritePost * call _tags_sh()
 
 Plug 'seletskiy/vim-autosurround'
     au User _overwrite_matchem
