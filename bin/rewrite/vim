@@ -1,3 +1,12 @@
 #!/bin/bash
 
-exec /usr/bin/vim --servername VIM "$@"
+args="$@"
+if [[ $# -eq 1 ]]; then
+    if ! grep "^[\-+]" <<< "$args"; then
+        if [[ ! -f "$args" ]]; then
+            args=$(/bin/ls -t $args* | head -n1)
+        fi
+    fi
+fi
+
+exec /bin/vim --servername VIM $args
