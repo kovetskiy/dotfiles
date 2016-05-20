@@ -626,6 +626,12 @@ export GO15VENDOREXPERIMENT=1
     }
     compdef ash-approve=ash
 
+    ash-merge() {
+        local review="$1"
+        ash "$1" merge
+    }
+    compdef ash-merge=ash
+
     compdef vim-which=which
 
     copy-to-http() {
@@ -871,6 +877,7 @@ export GO15VENDOREXPERIMENT=1
         alias i='ash inbox reviewer'
         alias a='ash'
         alias aa='ash-approve'
+        alias am='ash-merge'
     }
 
 
