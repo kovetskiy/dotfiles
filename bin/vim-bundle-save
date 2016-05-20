@@ -1,0 +1,5 @@
+#!/bin/bash
+
+exec>/dev/null 2>&1
+
+exec vim '+PlugSnapshot ~/.vim/bundle/versions.vim' '+qall'

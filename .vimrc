@@ -7,6 +7,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall
 endif
 
+let g:plug_url_format = 'git@github.com:%s'
+
 let g:mapleader="\<Space>"
 let mapleader=g:mapleader
 
@@ -75,7 +77,7 @@ Plug 'vim-airline/vim-airline'
 
 Plug 'scrooloose/nerdcommenter'
 
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', {'frozen': 1, 'commit': '7f4191'}
     let g:ycm_key_list_previous_completion=['<UP>']
     let g:ycm_key_list_select_completion=['<DOWN>']
 
@@ -84,7 +86,7 @@ Plug 'Valloric/YouCompleteMe'
 
     let g:ycm_seed_identifiers_with_syntax = 1
 
-Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1, 'commit': 'd2f22ba'}
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
     let g:go_fmt_autosave = 1
@@ -560,12 +562,17 @@ for module_name in modules:
         pass
 CODE
 endfunc!
+command! -bar PyModulesReload call _py_modules_reload()
 
-command! PyModulesReload call _py_modules_reload()
+func! _snapshot()
+   silent execute "!vim-bundle-save >/dev/null 2>&1 &"
+endfunc!
+command! -bar Snapshot call _snapshot()
 
 au operations BufWritePost *.snippets call _py_modules_reload()
 
-au operations BufWritePost ~/.vimrc source % | AirlineRefresh | PyModulesReload
+au operations BufWritePost ~/.vimrc
+    \ source % | AirlineRefresh | PyModulesReload | Snapshot
 
 au operations BufWritePost */.i3/config !i3-msg restart
 au operations VimResized,VimEnter * set cc=79

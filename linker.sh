@@ -18,6 +18,7 @@ POINTS=(
     ".vim/skeletons"
     ".vim/snippets"
     ".vim/ropeproject"
+    ".vim/bundle/versions.vim"
     ".vimperatorrc"
     ".vimrc-economic"
     ".vimrc"
