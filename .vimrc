@@ -97,6 +97,8 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1, 'commit': 'd2f22ba'}
     let g:go_doc_keywordprg_enabled = 0
 
     let g:go_highlight_build_constraints = 1
+    let g:go_highlight_functions = 1
+    let g:go_highlight_methods = 1
 
     func! _go_build()
         echo "go build"
