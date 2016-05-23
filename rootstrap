@@ -1,6 +1,6 @@
 #!/bin/bash
 
-zsnap
+zfs-snapshot
 
 src_dir=$(readlink -f root)
 dest_dir="/"
