@@ -439,6 +439,7 @@ Plug 'FooSoft/vim-argwrap'
 Plug 'kovetskiy/synta'
 
 augroup end
+
 call plug#end()
 au VimEnter * doautocmd User plugins_loaded
 au VimEnter * au! plugvim
