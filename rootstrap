@@ -21,7 +21,7 @@ for src_file in `find $src_dir | tail -n +2`; do
         copy=1
         if [[ "$1" != "-f" ]]; then
             if test -f "$dest_file"; then
-                diff -u "$src_file" "$dest_file"
+                diff -u "$dest_file" "$src_file"
                 if [ $? -ne 0 ]; then
                     copy=0
                 fi
