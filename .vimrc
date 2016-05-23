@@ -97,8 +97,8 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1, 'commit': 'd2f22ba'}
     let g:go_doc_keywordprg_enabled = 0
 
     let g:go_highlight_build_constraints = 1
-    let g:go_highlight_functions = 1
-    let g:go_highlight_methods = 1
+    "let g:go_highlight_functions = 1
+    "let g:go_highlight_methods = 1
 
     func! _go_build()
         echo "go build"
@@ -116,62 +116,9 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1, 'commit': 'd2f22ba'}
     au operations FileType go nmap <buffer> <Leader>b :call _go_build()<CR>
     au operations FileType go nmap <buffer> <Leader>l :GoLint .<CR>
 
-    nnoremap <C-T> :call _quickfix_next()<CR>
-    nnoremap <C-E><C-R> :call _quickfix_prev()<CR>
-    nnoremap <C-E><C-T> :call _quickfix_error()<CR>
-
-    func! _quickfix_reset()
-        let g:_quickfix_nr = 0
-        let g:_quickfix_count = len(getqflist())
-    endfunc!
-
-    func! _quickfix_error()
-        echo getqflist()[g:_quickfix_nr]["text"]
-    endfunc!
-
-    func! _quickfix_counter()
-        return "[" . (g:_quickfix_nr+1) . "/" . g:_quickfix_count . "]"
-    endfunc!
-
-    func! _quickfix_go(nr)
-        let item = getqflist()[a:nr]
-        let buffer = item["bufnr"]
-        let windows = win_findbuf(buffer)
-
-        if len(windows) > 0
-            call win_gotoid(windows[0])
-        else
-            execute "botright" "sbuffer" buffer
-            execute "wincmd" "="
-        endif
-
-        execute "normal! " item["lnum"] . "G"
-        silent! normal! zvzz
-
-        redraw!
-
-        echo strpart(_quickfix_counter() . " " . item["text"], 0, &columns-1)
-    endfunc!
-
-    func! _quickfix_next()
-        let next_nr = g:_quickfix_nr + 1
-        if next_nr < g:_quickfix_count
-            call _quickfix_go(next_nr)
-            let g:_quickfix_nr = next_nr
-        else
-            echo ""
-        endif
-    endfunc!
-
-    func! _quickfix_prev()
-        let prev_nr = g:_quickfix_nr - 1
-        if prev_nr >= 0
-            call _quickfix_go(prev_nr)
-            let g:_quickfix_nr = prev_nr
-        else
-            echo ""
-        endif
-    endfunc!
+    nnoremap <C-T> :call synta#quickfix#next()<CR>
+    nnoremap <C-E><C-R> :call synta#quickfix#prev()<CR>
+    nnoremap <C-E><C-T> :call synta#quickfix#error()<CR>
 
 Plug 'elzr/vim-json', { 'for': 'json' }
     au operations BufNewFile,BufRead *.json set filetype=json

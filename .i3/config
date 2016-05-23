@@ -12,8 +12,8 @@ floating_modifier $alt
 
 bindsym $alt+Return exec marvex
 
-bindsym Ctrl+BackSpace kill
-bindsym Ctrl+Delete exec window-kill-focused
+bindsym Shift+BackSpace kill
+bindsym Shift+Delete exec window-kill-focused
 
 bindsym $alt+r exec dmenu_run
 
