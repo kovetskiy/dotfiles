@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+vim-bundle-save
+git add .vim/bundle/versions.vim
