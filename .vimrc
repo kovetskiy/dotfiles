@@ -325,7 +325,7 @@ Plug 'kovetskiy/vim-plugvim-utils', {'on': 'NewPlugFromClipboard'}
 Plug 'kovetskiy/vim-ski'
     let g:skeletons_dir=$HOME . '/deadfiles/.vim/skeletons/'
 
-    au operations BufRead,BufNewFile */bin/* set ft=bash
+    au operations BufRead,BufNewFile */bin/* set ft=sh
 
 Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
