@@ -77,7 +77,7 @@ Plug 'vim-airline/vim-airline'
 
 Plug 'scrooloose/nerdcommenter'
 
-Plug 'Valloric/YouCompleteMe', {'frozen': 1, 'commit': '7f4191'}
+Plug 'Valloric/YouCompleteMe', {'frozen': 1}
     let g:ycm_key_list_previous_completion=['<UP>']
     let g:ycm_key_list_select_completion=['<DOWN>']
 
@@ -86,7 +86,7 @@ Plug 'Valloric/YouCompleteMe', {'frozen': 1, 'commit': '7f4191'}
 
     let g:ycm_seed_identifiers_with_syntax = 1
 
-Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1, 'commit': 'd2f22ba'}
+Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
     let g:go_fmt_autosave = 1
@@ -109,7 +109,7 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1, 'commit': 'd2f22ba'}
 
     au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
-    au operations FileType go nmap <buffer> gdg :call go#def#Jump('')<CR>
+    au operations FileType go nmap <buffer> gdg :GoDef<CR>
     au operations FileType go nmap <buffer> gdl :call go#def#Jump('vsplit')<CR>
     au operations FileType go nmap <buffer> gdk :call go#def#Jump('split')<CR>
 
