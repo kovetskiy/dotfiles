@@ -437,8 +437,6 @@ Plug 'kovetskiy/synta'
 
 augroup end
 
-Plug 'vim-go-syntax'
-
 call plug#end()
 au VimEnter * doautocmd User plugins_loaded
 au VimEnter * au! plugvim
