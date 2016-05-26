@@ -100,6 +100,10 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     func! _go_build()
         echo "go build"
 
+        normal w
+
+        let g:go_errors = []
+
         py << CODE
 import subprocess
 
@@ -124,6 +128,9 @@ CODE
     call synta#quickfix#reset()
     if len(g:errors) > 0
         call synta#quickfix#go(0)
+    else
+        redraw!
+        echo "success"
     endif
     endfunc!
 
