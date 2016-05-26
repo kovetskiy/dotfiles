@@ -99,9 +99,32 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
 
     func! _go_build()
         echo "go build"
-        GoFmt
-        execute 'w'
-        GoBuild
+
+        py << CODE
+import subprocess
+
+build = subprocess.Popen(
+    ["go", "build"],
+    stdout=subprocess.PIPE,
+    stderr=subprocess.PIPE,
+    close_fds=True
+)
+
+_, stderr = build.communicate()
+lines = stderr.split('\n')
+if len(lines) > 1:
+    lines = lines[1:]
+    vim.vars['go_errors'] = lines
+CODE
+
+    let g:errors = go#tool#ParseErrors(g:go_errors)
+
+    call setqflist(g:errors)
+
+    call synta#quickfix#reset()
+    if len(g:errors) > 0
+        call synta#quickfix#go(0)
+    endif
     endfunc!
 
     au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
