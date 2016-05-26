@@ -2,7 +2,7 @@
 
 set -e -u
 
-threshold=50
+threshold=20
 
 all_snapshots="$(sudo zfs list -t snapshot)"
 all_count=$(wc -l <<< "$all_snapshots")

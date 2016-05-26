@@ -7,9 +7,10 @@ set -x
 link="$*"
 
 if grep -qE "^magnet:" <<< "$link"; then
+    notify-send " " "magnet: importing to .torrent"
     file=~/Downloads/magnet.$RANDOM.torrent
     magnet2torrent "$link" "$file"
-    notify-send "magnet" "$file"
+    notify-send " " "magnet: success"
     exit 0
 fi
 

@@ -659,6 +659,7 @@ export GO15VENDOREXPERIMENT=1
             && cd ~/.incidents/"$(
             /usr/bin/ls --color=never -t ~/.incidents/ | head -n1)"
     }
+
 }
 
 # :alias
