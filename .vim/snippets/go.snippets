@@ -46,35 +46,35 @@ provider.log.Debug("`!p snip.rv=t[1]`: %#v", $1)
 endsnippet
 
 snippet jfe "log.Fatal err" w
-log.Fatal(err.Error())
+logger.Fatal(err.Error())
 endsnippet
 
 snippet jff "log.Fatal with format errrrrrr" w
-log.Fatalf("$1: %s", ${2:err})
+logger.Fatalf("$1: %s", ${2:err})
 endsnippet
 
 snippet jf "log.Fatal" w
-log.Fatal($1)
+logger.Fatal($1)
 endsnippet
 
 snippet jd "log.Debug" w
-log.Debug($1)
+logger.Debug($1)
 endsnippet
 
 snippet ji "log.Debug" w
-log.Info($1)
+logger.Info($1)
 endsnippet
 
 snippet je "log.Error" w
-log.Error($1)
+logger.Error($1)
 endsnippet
 
 snippet jer "log.Error" w
-log.Error(err.Error())
+logger.Error(err.Error())
 endsnippet
 
 snippet jef "log.Error" w
-log.Error("$1: %s", ${2:err})
+logger.Error("$1: %s", ${2:err})
 endsnippet
 
 snippet (s "(string" i
@@ -208,4 +208,17 @@ endsnippet
 
 snippet dd "" w
 p.parseMethodStmt(receiver, $1)
+endsnippet
+
+# logger
+snippet lo "" wb
+const logFormat = \`${level:%s\::right:false} ${time} ${prefix}%s\`
+
+func getLogger() lorg.Logger {
+	logger := lorg.NewLog()
+	logger.SetFormat(lorg.NewFormat(logFormat))
+	logger.SetLevel(lorg.LevelDebug)
+
+	return logger
+}
 endsnippet
