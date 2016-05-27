@@ -662,15 +662,15 @@ inoremap <C-H> <C-O>o
 
 imap <C-U> <ESC>ua
 
-    au BufRead,BufNewFile ~/.zshrc set ft=zsh.bash
-    au BufRead,BufNewFile *.zsh    set ft=zsh.bash
+    au BufRead,BufNewFile ~/.zshrc set ft=zsh.sh
+    au BufRead,BufNewFile *.zsh    set ft=zsh.sh
 
     au BufRead,BufNewFile *.service set noet ft=systemd
-    au BufRead,BufNewFile PKGBUILD set et ft=pkgbuild.bash
+    au BufRead,BufNewFile PKGBUILD set et ft=pkgbuild.sh
     au BufRead incident.md set et ft=incident.markdown
     au BufNewFile incident.md set et ft=incident|Skeleton|set ft=incident.markdown
 
-    au BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.bash
+    au BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.sh
 
     au BufRead,BufNewFile *.snippets set noet ft=snippets.python
     au BufRead,BufNewFile *.skeleton set noet ft=snippets.python

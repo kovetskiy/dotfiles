@@ -327,7 +327,28 @@ export GO15VENDOREXPERIMENT=1
     }
 
     git-clone-github() {
-        git clone "https://github.com/$1" $2
+        local uri="$1"
+        local dir="$2"
+        local user=$(cut -d/ -f1 <<< "$uri")
+        local project=$(cut -d/ -f2 <<< "$uri")
+
+        if ! grep -q "/" <<< "$uri"; then
+            project="$user"
+            user="kovetskiy"
+        fi
+        if [[ "$user" = "s" ]]; then
+            user="seletskiy"
+        fi
+        if [[ "$user" = "r" ]]; then
+            user="reconquest"
+        fi
+        if [[ "$user" = "k" ]]; then
+            user="kovetskiy"
+        fi
+
+        uri="https://github.com/$user/$project"
+        echo "$uri"
+        git clone "$uri" $dir
     }
 
     git-clone-devops() {
@@ -802,9 +823,9 @@ export GO15VENDOREXPERIMENT=1
 
     # :zsh
     {
-        alias viz='vim ~/.zshrc ; zreload'
+        alias viz='vim ~/.zshrc ; zr'
         alias tiz='terminal-vim ~/.zshrc'
-        alias zreload='source ~/.zshrc && print "zsh config has been reloaded"'
+        alias zr='source ~/.zshrc && print "zsh config has been reloaded"'
     }
 
 
