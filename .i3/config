@@ -141,6 +141,6 @@ for_window [title="^kuake_"]     floating enable
 for_window [title="^malder"]     floating enable
 for_window [title="android"]     floating disable
 
-client.focused          #cb4b16 #dc322f #fdf6e3 #ffffff
-client.focused_inactive #586e75 #eee8d5 #657b83 #ffffff
-client.unfocused        #586e75 #eee8d5 #657b83 #ffffff
+client.focused          #163ccb #163ccb #163ccb #163ccb
+client.focused_inactive #000000 #000000 #000000 #000000
+client.unfocused        #000000 #000000 #000000 #000000
