@@ -35,7 +35,7 @@ space warp,click 1
 g warp,click 2
 b warp,click 3
 
-i warp,click 1,sh "xdotool key x"
+i warp,click 1,sh 'sleep 0.05',click 1,sh 'translator-selected',click 1
 
 shift+space warp,drag 1
 shift+minus warp,drag 3

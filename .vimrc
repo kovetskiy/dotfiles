@@ -95,57 +95,22 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     let g:go_list_type = "quickfix"
 
     let g:go_doc_keywordprg_enabled = 0
+    let g:go_def_mapping_enabled = 0
 
-
-    func! _go_build()
-        echo "go build"
-
-        normal w
-
-        let g:go_errors = []
-
-        py << CODE
-import subprocess
-
-build = subprocess.Popen(
-    ["go", "build"],
-    stdout=subprocess.PIPE,
-    stderr=subprocess.PIPE,
-    close_fds=True
-)
-
-_, stderr = build.communicate()
-lines = stderr.split('\n')
-if len(lines) > 1:
-    lines = lines[1:]
-    vim.vars['go_errors'] = lines
-CODE
-
-    let g:errors = go#tool#ParseErrors(g:go_errors)
-
-    call setqflist(g:errors)
-
-    call synta#quickfix#reset()
-    if len(g:errors) > 0
-        call synta#quickfix#go(0)
-    else
-        redraw!
-        echo "success"
-    endif
-    endfunc!
 
     au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
     au operations FileType go nmap <buffer> gdg :GoDef<CR>
-    au operations FileType go nmap <buffer> gdl :call go#def#Jump('vsplit')<CR>
-    au operations FileType go nmap <buffer> gdk :call go#def#Jump('split')<CR>
+    au operations FileType go nmap <buffer> gdl :call go#def#JumpMode('vsplit')<CR>
+    au operations FileType go nmap <buffer> gdk :call go#def#JumpMode('split')<CR>
 
-    au operations FileType go nmap <buffer> <Leader>b :call _go_build()<CR>
+    au operations FileType go nmap <buffer> <Leader>, :call synta#go#build()<CR>
+    au operations FileType go imap <buffer> <Leader>, <ESC>:call synta#go#build()<CR>
     au operations FileType go nmap <buffer> <Leader>l :GoLint .<CR>
 
-    nnoremap <C-T> :call synta#quickfix#next()<CR>
-    nnoremap <C-E><C-R> :call synta#quickfix#prev()<CR>
-    nnoremap <C-E><C-T> :call synta#quickfix#error()<CR>
+    au operations FileType go nmap <buffer> <C-T> :call synta#quickfix#next()<CR>
+    au operations FileType go nmap <buffer> <C-E><C-R> :call synta#quickfix#prev()<CR>
+    au operations FileType go nmap <buffer> <C-E><C-T> :call synta#quickfix#error()<CR>
 
 Plug 'elzr/vim-json', { 'for': 'json' }
     au operations BufNewFile,BufRead *.json set filetype=json
@@ -615,7 +580,8 @@ nnoremap <Leader>vs :vsp<CR>
 nnoremap <Leader>e :e!<CR>
 
 nnoremap <Leader>q <ESC>:q<CR>
-nnoremap <Leader>r :w<CR>
+nnoremap <Leader>; :w<CR>
+inoremap <Leader>; <ESC>:w<CR>a
 
 nnoremap <Leader>n <ESC>:bdelete!<CR>
 nnoremap <Leader>, <ESC>:qa!<CR>

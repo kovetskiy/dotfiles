@@ -1,0 +1,7 @@
+#!/bin/bash
+
+exec >>/tmp/log 2>&1
+
+set -x
+
+translator "$(xsel -op)"
