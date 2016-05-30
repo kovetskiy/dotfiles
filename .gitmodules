@@ -9,15 +9,23 @@
 [submodule ".vimperator/bundle"]
 	path = .vimperator/bundle
 	url = https://github.com/vimpr/vimperator-plugins
-[submodule "deadandroid"]
+[submodule "deadcrew/deadandroid"]
 	path = deadandroid
 	url = git@github.com:deadcrew/master-of-android
 	branch = master
-[submodule ".xkb"]
+[submodule "reconquest/rex"]
 	path = .xkb
 	url = https://github.com/reconquest/rex
 	branch = master
 [submodule "deadcrew/deadfiles"]
 	path = deadfiles
 	url = git@github.com:deadcrew/deadfiles
+	branch = master
+[submodule "reconquest/snippets"]
+	path = .vim/bundle/snippets
+	url = https://github.com/reconquest/vim-pythonx
+	branch = master
+[submodule "reconquest/vim-pythonx"]
+	path = .vim/bundle/vim-pythonx
+	url = https://github.com/reconquest/vim-pythonx
 	branch = master
