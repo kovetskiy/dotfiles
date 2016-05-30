@@ -1,19 +1,23 @@
 [submodule ".fonts"]
 	path = .fonts
 	url = git://github.com/seletskiy/monaco-font
+	branch = master
 [submodule ".zprezto/modules/prompt/functions"]
 	path = .zprezto/modules/prompt/functions
 	url = git://github.com/seletskiy/zsh-prompt-lambda17
+	branch = master
 [submodule ".vimperator/bundle"]
 	path = .vimperator/bundle
 	url = https://github.com/vimpr/vimperator-plugins
 [submodule "deadandroid"]
 	path = deadandroid
 	url = git@github.com:deadcrew/master-of-android
+	branch = master
 [submodule ".xkb"]
 	path = .xkb
 	url = https://github.com/reconquest/rex
-[submodule "deadfiles"]
+	branch = master
+[submodule "deadcrew/deadfiles"]
 	path = deadfiles
 	url = git@github.com:deadcrew/deadfiles
 	branch = master
