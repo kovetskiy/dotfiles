@@ -681,10 +681,25 @@ export GO15VENDOREXPERIMENT=1
             /usr/bin/ls --color=never -t ~/.incidents/ | head -n1)"
     }
 
+    jira-issue-create-schedule-current() {
+        local label_date=$(date +'%Y-%B' | tr '[:upper:]' '[:lower:]')
+        jira-issue-create -l schedule -l $label_date "$@"
+    }
+
+    jira-issue-create-schedule-next() {
+        local label_date=$(date +'%Y-%B' --date='next month' \
+            | tr '[:upper:]' '[:lower:]')
+        jira-issue-create -l schedule -l $label_date "$@"
+    }
+
 }
 
 # :alias
 {
+    alias bl='batrak -L'
+    alias bd='batrak -M 21 -n'
+    alias kc='jira-issue-create-schedule-current'
+    alias kn='jira-issue-create-schedule-next'
     alias ic='incidents-create'
     alias iu='incidents -U'
     alias irt='incidents -Rt'
@@ -705,7 +720,7 @@ export GO15VENDOREXPERIMENT=1
     alias prdlc='pdns records list -t CNAME -d 80'
     alias prdr='pdns records remove -t A'
     alias prdrc='pdns records remove -t CNAME'
-    alias bl='bithookctl -L'
+    alias bhl='bithookctl -L'
     alias bx='chmod +x ~/bin/*'
     alias ck='create-and-change-directory'
     alias mf='man-find'
@@ -871,7 +886,7 @@ export GO15VENDOREXPERIMENT=1
         alias gsh='git stash'
         alias gshp='git stash pop'
         alias grt='git reset'
-        alias grth='git reset --hard'
+        alias grh='git reset --hard'
         alias grts='git reset --soft'
         alias gr='git rebase'
         alias grc='git rebase --continue'
@@ -893,7 +908,12 @@ export GO15VENDOREXPERIMENT=1
         alias grb='git rebase --abort'
         alias ghu='hub browse -u'
         alias ghc='hub browse -u -- commit/$(git rev-parse --short HEAD) 2>/dev/null'
-        alias gsu='git submodule update --init'
+        alias glu='git submodule update --recursive --init'
+        alias gle='git submodule'
+        alias gla='git submodule add'
+        alias gld='git submodule deinit'
+        alias glf='git submodule foreach --recursive'
+        alias grm='git rm -f '
         alias gic='git add . ; git commit -m "initial commit"'
         alias bhc='BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
         alias ai='ash inbox'

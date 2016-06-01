@@ -9,3 +9,4 @@ set logging_dir = ~/.mcabber/history/postdevops/
 set fifo_name   = ~/.mcabber/fifo/postdevops
 
 otrpolicy s.seletskiy@postdevops.xmpp.slack.com always
+otrpolicy a.baranov@postdevops.xmpp.slack.com always

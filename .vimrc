@@ -86,7 +86,7 @@ Plug 'Valloric/YouCompleteMe', {'frozen': 1}
 
     let g:ycm_seed_identifiers_with_syntax = 1
 
-Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
+Plug 'fatih/vim-go', {'for': 'go'}
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
     let g:go_fmt_autosave = 1
@@ -584,7 +584,7 @@ nnoremap <Leader>; :w<CR>
 inoremap <Leader>; <ESC>:w<CR>a
 
 nnoremap <Leader>n <ESC>:bdelete!<CR>
-nnoremap <Leader>, <ESC>:qa!<CR>
+nnoremap <Leader>q <ESC>:qa!<CR>
 
 nnoremap <Leader><Leader> :noh<CR>
 
