@@ -277,8 +277,8 @@ Plug 'kovetskiy/urxvt.vim'
         \ <Leader>h :call urxvt#put('go build')<CR>
 
 
-Plug 'reconquest/vim-pythonx'
-Plug 'reconquest/snippets'
+Plug 'reconquest/vim-pythonx', {'frozen': '1'}
+Plug 'reconquest/snippets', {'frozen': '1'}
     "au operations FileType go nmap <buffer>
          "\ <Leader>gc :py px.go.goto_const()<CR>
 
