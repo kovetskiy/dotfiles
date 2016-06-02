@@ -23,7 +23,7 @@
 	branch = master
 [submodule "reconquest/snippets"]
 	path = .vim/bundle/snippets
-	url = git@github.com:reconquest/vim-pythonx
+	url = git@github.com:reconquest/snippets
 	branch = master
 [submodule "reconquest/vim-pythonx"]
 	path = .vim/bundle/vim-pythonx
