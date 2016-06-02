@@ -696,6 +696,9 @@ export GO15VENDOREXPERIMENT=1
         jira-issue-create -l schedule -l $label_date "$@"
     }
 
+    git-clean-powered() {
+        git clean -ffdx
+    }
 }
 
 # :alias
@@ -703,8 +706,9 @@ export GO15VENDOREXPERIMENT=1
     alias vbs='vim-bundle-sync'
     alias vbr='vim-bundle-restore'
     alias gbs='git-submodule-branch-sync'
-    alias bl='batrak -L'
-    alias bd='batrak -M 21 -n'
+    alias bl='batrak -L -f 16053'
+    alias bll='batrak -L'
+    alias bd='batrak -M 21'
     alias kc='jira-issue-create-schedule-current'
     alias kn='jira-issue-create-schedule-next'
     alias ic='incidents-create'
@@ -861,7 +865,7 @@ export GO15VENDOREXPERIMENT=1
         alias ga='git add --no-ignore-removal'
         alias gb='github-browse'
         alias gbr='git branch'
-        alias gn='git clean -fd; git clean -fdX'
+        alias gn='git-clean-powered'
         alias gi='git add -pi'
         alias gp='git push'
         alias gpo='git push origin'
