@@ -697,6 +697,9 @@ export GO15VENDOREXPERIMENT=1
 
 # :alias
 {
+    alias vbs='vim-bundle-sync'
+    alias vbr='vim-bundle-restore'
+    alias gbs='git-submodule-branch-sync'
     alias bl='batrak -L'
     alias bd='batrak -M 21 -n'
     alias kc='jira-issue-create-schedule-current'
