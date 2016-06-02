@@ -62,10 +62,6 @@ Plug 'ctrlpvim/ctrlp.vim'
 
     let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:200'
 
-Plug 'kovetskiy/SearchParty'
-    nmap <silent> <Leader><Leader> :let @/=''<CR>
-                \ <Plug>SearchPartyHighlightClear
-
 "Plug 'junegunn/seoul256.vim'
     "au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
 
@@ -170,6 +166,7 @@ Plug 'pangloss/vim-javascript', { 'for': 'js' }
 Plug 'danro/rename.vim', { 'on': 'Rename' }
     nnoremap <Leader><Leader>r :noautocmd Rename<Space>
 
+Plug 'kovetskiy/SearchParty'
 Plug 'seletskiy/vim-over'
     let g:over#command_line#search#enable_move_cursor = 1
     let g:over#command_line#search#very_magic = 1
@@ -180,10 +177,46 @@ Plug 'seletskiy/vim-over'
     vnoremap H :OverExec s/<CR>
     vnoremap L :OverExec s/<CR>
 
+    nmap <Leader><Leader> :call _search_clear_highlighting()<CR>
+    noremap n :call _search_cursorhold_register()<CR>n
+
     au operations BufAdd,BufEnter * nnoremap / :OverExec /<CR>
     au operations BufAdd,BufEnter * vnoremap / :'<,'>OverExec /<CR>
 
     au operations User OverCmdLineExecute call _over_autocmd()
+
+    augroup _search_cursorhold_events
+        au!
+    augroup end
+
+    func! _search_clear_highlighting()
+        call searchparty#mash#unmash()
+        call feedkeys(":nohlsearch\<CR>")
+        "nohlsearch
+    endfunc!
+
+    func! _search_cursorhold_do()
+        if &updatetime != g:updatetime
+            exec "set updatetime =" . g:updatetime
+        endif
+
+        augroup _search_cursorhold_events
+            au!
+        augroup end
+
+        call _search_clear_highlighting()
+    endfunc!
+
+    func! _search_cursorhold_register()
+        set updatetime=3000
+
+        augroup _search_cursorhold_events
+            au!
+            au CursorHold * call _search_cursorhold_do()
+        augroup end
+
+        call searchparty#mash#mash()
+    endfunc!
 
     let g:over_exec_autocmd_skip = 0
     func! _over_autocmd()
@@ -195,12 +228,17 @@ Plug 'seletskiy/vim-over'
         call searchparty#mash#mash()
     endfunc!
 
+
     func! _over_exec(line1, line2, args)
+        call _search_cursorhold_register()
+
         let g:over#command_line#search#enable_move_cursor = 1
+
         call over#command_line(
         \   g:over_command_line_prompt,
         \   a:line1 != a:line2 ? printf("'<,'>%s", a:args) : a:args
         \)
+
     endfunc!
 
     command! -range -nargs=* OverExec call _over_exec(<line1>, <line2>, <q-args>)
@@ -484,7 +522,10 @@ set laststatus=2
 set gdefault
 set completeopt-=preview
 set nowrap
+let g:updatetime=150
 set updatetime=150
+
+set timeoutlen=150
 set showtabline=0
 set cino=(s,m1,+0
 
@@ -585,8 +626,6 @@ inoremap <Leader>; <ESC>:w<CR>a
 
 nnoremap <Leader>n <ESC>:bdelete!<CR>
 nnoremap <Leader>q <ESC>:qa!<CR>
-
-nnoremap <Leader><Leader> :noh<CR>
 
 nnoremap <Leader>d V"_d<Esc>
 vnoremap <Leader>d "_d
