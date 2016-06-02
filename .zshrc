@@ -505,7 +505,7 @@ export GO15VENDOREXPERIMENT=1
 
     cd-pkgbuild() {
         local dir=$(basename "$(pwd)")
-        if  grep -q '\-pkgbuild' <<< "$dir"; then
+        if grep -q '\-pkgbuild' <<< "$dir"; then
             cd ../$(sed -r 's/\-pkgbuild//g' <<< "$dir")
             return
         fi
@@ -528,7 +528,9 @@ export GO15VENDOREXPERIMENT=1
         git fetch
 
         if git branch -a | grep -q pkgbuild; then
+            git stash
             git checkout pkgbuild
+            git-clean-powered
             return
         fi
 
@@ -699,6 +701,12 @@ export GO15VENDOREXPERIMENT=1
     git-clean-powered() {
         git clean -ffdx
     }
+
+    batrak-move() {
+        local transition="$1"
+        local issue="$2"
+        batrak -M $issue $transition
+    }
 }
 
 # :alias
@@ -708,7 +716,7 @@ export GO15VENDOREXPERIMENT=1
     alias gbs='git-submodule-branch-sync'
     alias bl='batrak -L -f 16053'
     alias bll='batrak -L'
-    alias bd='batrak -M 21'
+    alias bd='batrak-move 21'
     alias kc='jira-issue-create-schedule-current'
     alias kn='jira-issue-create-schedule-next'
     alias ic='incidents-create'
