@@ -378,13 +378,16 @@ export GO15VENDOREXPERIMENT=1
     }
 
     git-remote-set-origin-me() {
-        git remote rename origin upstream
-        new_url=$(
+        if ! git remote | grep -q upstream; then
+            git remote rename origin upstream
+        fi
+        local new_url=$(
             git remote show -n upstream \
             | awk '/Fetch URL:/{print $3}' \
-            | sed-replace '(\w)([:/])\w+/' '\1:me/'
+            | sed-replace '([:/])([a-zA-Z0-9_-]+)/(\w+)' '\1me/\3'
         )
-        git remote remove origin
+        git remote rm origin
+        echo "$new_url"
         git remote add origin "$new_url"
     }
 
@@ -785,7 +788,7 @@ export GO15VENDOREXPERIMENT=1
     alias mtd='migrate-to-deadfiles'
     alias dt='cd ~/dotfiles; PAGER=cat git diff; git status -s ; '
     alias de='cd ~/deadfiles; git status -s'
-    alias hf='hub fork'
+    alias hf='hub fork && grsm'
     alias hc='hub create'
     alias hr='hub pull-request -f'
     alias cc='copy-to-clipboard'
