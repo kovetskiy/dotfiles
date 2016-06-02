@@ -698,8 +698,6 @@ endfu!
 
 call _background($BACKGROUND)
 
-noh
-
 nnoremap <Leader>ft :set filetype=
 
 nmap <Tab> /
@@ -737,3 +735,5 @@ endfunc!
 nmap M :call _macros_mode_toggle()<CR>
 nmap m @x
 vmap m @x
+
+noh
