@@ -179,6 +179,7 @@ Plug 'seletskiy/vim-over'
 
     nmap <Leader><Leader> :call _search_clear_highlighting()<CR>
     noremap n :call _search_cursorhold_register()<CR>n
+    noremap N :call _search_cursorhold_register()<CR>N
 
     au operations BufAdd,BufEnter * nnoremap / :OverExec /<CR>
     au operations BufAdd,BufEnter * vnoremap / :'<,'>OverExec /<CR>
