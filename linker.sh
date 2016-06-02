@@ -43,6 +43,8 @@ POINTS=(
     ".config/systemd/user/network-office.service"
     ".xkb"
     ".xkbrc"
+    ".vim/bundle/snippets"
+    ".vim/bundle/vim-pythonx"
 )
 
 for POINT in "${POINTS[@]}"; do
