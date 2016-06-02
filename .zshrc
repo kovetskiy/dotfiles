@@ -631,7 +631,8 @@ export GO15VENDOREXPERIMENT=1
                 branch=$option
             fi
         fi
-        git pull --rebase $origin $branch
+
+        git pull --stat --rebase $origin $branch
     }
 
     aur-get-sources() {
@@ -879,6 +880,7 @@ export GO15VENDOREXPERIMENT=1
         alias gpot!='git push origin +`git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3` && { ghc || bhc }'
         alias gt='gpot'
         alias gt!='gpot!'
+        alias gut='gu && gt'
         alias gu='git-pull'
         alias gus='git stash && gu && git stash pop'
         alias ggc='git gc --prune --aggressive'
