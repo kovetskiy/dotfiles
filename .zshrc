@@ -374,7 +374,12 @@ export GO15VENDOREXPERIMENT=1
     }
 
     alias-search() {
-        alias | grep -- "$*"
+        local query="$*"
+        if declare -f "$query"; then
+            return
+        fi
+
+        alias | grep -P -- "$*"
     }
 
     git-remote-set-origin-me() {
@@ -829,6 +834,7 @@ export GO15VENDOREXPERIMENT=1
     # :aur
     {
         alias au='yes | EDITOR=cat yaourt '
+        alias auk='au -S --nameonly -s'
         alias aus='au -S'
         alias aur='au -R'
         alias aug='aur-get-sources'
