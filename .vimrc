@@ -8,7 +8,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 let g:plug_url_format = 'git@github.com:%s'
-let g:plug_shallow = 1
+let g:plug_shallow = 0
 
 let g:mapleader="\<Space>"
 let mapleader=g:mapleader
@@ -59,7 +59,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 
     let g:ctrlp_working_path_mode='a'
     let g:ctrlp_use_caching = 0
-    let g:ctrlp_user_command = "ag %s -l --nocolor -g '' | grep -vP 'lib/tests/testcases|vendor/'"
+    let g:ctrlp_user_command = "ag %s -l --nocolor -g '' --depth 999 | grep -vP 'lib/tests/testcases|vendor/'"
 
     let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:200'
 
@@ -98,8 +98,8 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
     au operations FileType go nmap <buffer> gdg :GoDef<CR>
-    au operations FileType go nmap <buffer> gdl :call go#def#JumpMode('vsplit')<CR>
-    au operations FileType go nmap <buffer> gdk :call go#def#JumpMode('split')<CR>
+    au operations FileType go nmap <buffer> gdl :call go#def#Jump('vsplit')<CR>
+    au operations FileType go nmap <buffer> gdk :call go#def#Jump('split')<CR>
 
     au operations FileType go nmap <buffer> <Leader>, :call synta#go#build()<CR>
     au operations FileType go imap <buffer> <Leader>, <ESC>:call synta#go#build()<CR>
