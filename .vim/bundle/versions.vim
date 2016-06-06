@@ -1,50 +1,50 @@
-silent! let g:plugs['ashium'].commit = 'ddcd8a6'
-silent! let g:plugs['ctrlp.vim'].commit = '28fce0f'
-silent! let g:plugs['flattown'].commit = 'dd3f86a'
-silent! let g:plugs['gundo.vim'].commit = 'e7fe410'
-silent! let g:plugs['kb-train'].commit = 'a20c958'
-silent! let g:plugs['l9'].commit = 'c822b05'
-silent! let g:plugs['matchem'].commit = '79a9ec5'
-silent! let g:plugs['nerdcommenter'].commit = '06c3184'
-silent! let g:plugs['next-indentation'].commit = '16286f8'
-silent! let g:plugs['papercolor-theme'].commit = 'ca6610e'
-silent! let g:plugs['python-mode'].commit = '4bda303'
-silent! let g:plugs['QFEnter'].commit = '847066d'
-silent! let g:plugs['Recover.vim'].commit = 'f6c4033'
-silent! let g:plugs['rename.vim'].commit = 'f133763'
-silent! let g:plugs['rust.vim'].commit = '57ce076'
-silent! let g:plugs['SearchParty'].commit = '48dbaa9'
-silent! let g:plugs['sideways.vim'].commit = '507f0a3'
-silent! let g:plugs['synta'].commit = '147f584'
-silent! let g:plugs['tabular'].commit = '00e1e7f'
-silent! let g:plugs['targets.vim'].commit = '5c2ae9d'
-silent! let g:plugs['ultisnips'].commit = '1c6b4f7'
-silent! let g:plugs['urxvt.vim'].commit = 'b986053'
-silent! let g:plugs['vim-airline'].commit = '64f0630'
-silent! let g:plugs['vim-airline-themes'].commit = '97a042a'
-silent! let g:plugs['vim-argwrap'].commit = '068637f'
-silent! let g:plugs['vim-autosurround'].commit = 'f2c7517'
-silent! let g:plugs['vim-bash'].commit = '992d8e5'
-silent! let g:plugs['vim-cpp-enhanced-highlight'].commit = '31e80e7'
-silent! let g:plugs['vim-ctrlp-ag'].commit = '0af7097'
-silent! let g:plugs['vim-dispatch'].commit = '5f5c22c'
-silent! let g:plugs['vim-empty-lines'].commit = 'b0ee3f8'
-silent! let g:plugs['vim-go'].commit = 'bc37263'
-silent! let g:plugs['vim-go-impl'].commit = '3a68a75'
-silent! let g:plugs['vim-hacks'].commit = 'f423472'
-silent! let g:plugs['vim-javascript'].commit = '0f0e4a7'
-silent! let g:plugs['vim-json'].commit = 'f5e3181'
-silent! let g:plugs['vim-markdown'].commit = 'a316954'
-silent! let g:plugs['vim-multiple-cursors'].commit = '25b567b'
-silent! let g:plugs['vim-nunu'].commit = 'd586ebb'
-silent! let g:plugs['vim-over'].commit = '146b065'
-silent! let g:plugs['vim-plugvim-utils'].commit = 'c59a498'
-silent! let g:plugs['vim-python-pep8-indent'].commit = 'f4f95ee'
-silent! let g:plugs['vim-signature'].commit = 'f89c3d4'
-silent! let g:plugs['vim-ski'].commit = '8f2add7'
-silent! let g:plugs['vim-sneak'].commit = 'f22ee25'
-silent! let g:plugs['vim-surround'].commit = 'e49d6c2'
-silent! let g:plugs['vim-syntax-extra'].commit = '28926b8'
-silent! let g:plugs['vim-trailing-whitespace'].commit = '733fb64'
-silent! let g:plugs['ycm-sh'].commit = 'd1f85f3'
-silent! let g:plugs['YouCompleteMe'].commit = '7f41910'
+ashium ddcd8a6
+ctrlp.vim f6c587e
+flattown dd3f86a
+gundo.vim e7fe410
+kb-train a20c958
+l9 c822b05
+matchem 79a9ec5
+nerdcommenter 06c3184
+next-indentation 16286f8
+papercolor-theme ca6610e
+python-mode 4bda303
+QFEnter 847066d
+Recover.vim f6c4033
+rename.vim f133763
+rust.vim e064f27
+SearchParty 48dbaa9
+sideways.vim 507f0a3
+synta 147f584
+tabular 00e1e7f
+targets.vim 5c2ae9d
+ultisnips 1c6b4f7
+urxvt.vim b986053
+vim-airline 6c8f33f
+vim-airline-themes 97a042a
+vim-argwrap 068637f
+vim-autosurround f2c7517
+vim-bash 992d8e5
+vim-cpp-enhanced-highlight 31e80e7
+vim-ctrlp-ag 0af7097
+vim-dispatch 5f5c22c
+vim-empty-lines b0ee3f8
+vim-go bc37263
+vim-go-impl 3a68a75
+vim-hacks f423472
+vim-javascript 0f0e4a7
+vim-json f5e3181
+vim-markdown a316954
+vim-multiple-cursors 51d0717
+vim-nunu d586ebb
+vim-over 146b065
+vim-plugvim-utils c59a498
+vim-python-pep8-indent f4f95ee
+vim-signature f89c3d4
+vim-ski 8f2add7
+vim-sneak f22ee25
+vim-surround e49d6c2
+vim-syntax-extra 28926b8
+vim-trailing-whitespace 733fb64
+ycm-sh d1f85f3
+YouCompleteMe 7f41910

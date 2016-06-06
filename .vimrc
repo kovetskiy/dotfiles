@@ -8,6 +8,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 let g:plug_url_format = 'git@github.com:%s'
+let g:plug_shallow = 1
 
 let g:mapleader="\<Space>"
 let mapleader=g:mapleader
@@ -82,7 +83,7 @@ Plug 'Valloric/YouCompleteMe', {'frozen': 1}
 
     let g:ycm_seed_identifiers_with_syntax = 1
 
-Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
     let g:go_fmt_autosave = 1

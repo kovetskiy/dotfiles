@@ -355,6 +355,16 @@ export GO15VENDOREXPERIMENT=1
         git clone "git+ssh://git.rn/devops/$1" $2
     }
 
+    git-remote-set-devops() {
+        local name=${1}
+        if [[ ! "$name" ]]; then
+            name=$(dirname $(pwd))
+        fi
+
+        git remote remove origin
+        git remove add "git+ssh://git.rn/devops/$name" .
+    }
+
     git-clone-profiles() {
         git clone "git+ssh://git.rn/profiles/$1" $2
     }
@@ -394,6 +404,10 @@ export GO15VENDOREXPERIMENT=1
         git remote rm origin
         echo "$new_url"
         git remote add origin "$new_url"
+    }
+
+    go-get-enhanced-devops() {
+        go-get-enhanced "git.rn/devops/$1"
     }
 
     go-get-enhanced() {
@@ -498,7 +512,7 @@ export GO15VENDOREXPERIMENT=1
 
         local dir=$(mktemp -d --suffix=$package)
 
-        local url="ssh://aur@aur4.archlinux.org/$package.git"
+        local url="ssh://aur@aur.archlinux.org/$package.git"
 
         git clone $url $dir
         cd $dir
@@ -716,6 +730,7 @@ export GO15VENDOREXPERIMENT=1
 
 # :alias
 {
+    alias stcr='stacket repositories create devops'
     alias vbs='vim-bundle-sync'
     alias vbr='vim-bundle-restore'
     alias gbs='git-submodule-branch-sync'
@@ -767,6 +782,7 @@ export GO15VENDOREXPERIMENT=1
 
     alias cdp='cd-pkgbuild'
     alias gog='go-get-enhanced'
+    alias gogd='go-get-enhanced-devops'
     alias gme='go-makepkg-enhanced'
     alias gmev='FLAGS="-p version" go-makepkg-enhanced'
     alias gmel='gmev'
@@ -896,6 +912,7 @@ export GO15VENDOREXPERIMENT=1
         alias gci='git-create-and-commit-empty-gitignore'
         alias gclg='git-clone-github'
         alias gcld='git-clone-devops'
+        alias grsd='git-clone-devops'
         alias gclp='git-clone-profiles'
         alias gcoo='git-checkout-orphan'
 
@@ -942,6 +959,7 @@ export GO15VENDOREXPERIMENT=1
         alias glf='git submodule foreach --recursive'
         alias grm='git rm -f '
         alias gic='git add . ; git commit -m "initial commit"'
+        alias gig='touch .gitignore; git add .gitignore ; git commit -m "gitignore"'
         alias bhc='BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
         alias ai='ash inbox'
         alias i='ash inbox reviewer'
