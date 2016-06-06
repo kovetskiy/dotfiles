@@ -10,7 +10,7 @@ set $alt Mod4
 
 floating_modifier $alt
 
-bindsym $alt+Return exec marvex
+bindsym $alt+Return exec marvex -s
 
 bindsym Shift+BackSpace kill
 bindsym Shift+Delete exec window-kill-focused

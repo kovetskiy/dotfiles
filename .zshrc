@@ -71,6 +71,8 @@ export GO15VENDOREXPERIMENT=1
         zgen load knu/zsh-manydots-magic manydots-magic
         zgen load hlissner/zsh-autopair autopair.zsh
 
+        zgen load seletskiy/zsh-syntax-highlighting
+
         ZGEN_AUTOLOAD_COMPINIT="-d $ZGEN_DIR/zcompdump"
         zgen save
     fi
