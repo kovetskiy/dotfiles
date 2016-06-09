@@ -203,7 +203,7 @@ export GO15VENDOREXPERIMENT=1
     }
 
     man-directive() {
-        man $1 | less +"/^\s{7}$2"
+        man $1 | less +"/^\s{7}$2\s"
     }
     compdef man-directive=man
 

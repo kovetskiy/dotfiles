@@ -17,66 +17,6 @@ if "\n" in t[1]:
 `defer`!p snip.rv=left`$1`!p snip.rv=right`
 endsnippet
 
-snippet "\s=\s" "Description" r
-`!p snip.rv=" == "`
-endsnippet
-
-snippet "\s==\s" "Description" r
-`!p snip.rv=" != "`
-endsnippet
-
-snippet "\s!=\s" "Description" r
-`!p snip.rv=" == "`
-endsnippet
-
-snippet "\s!=\sn" "Description" r
-`!p snip.rv=" != nil"`
-endsnippet
-
-snippet "\s==\sn" "Description" r
-`!p snip.rv=" == nil"`
-endsnippet
-
-snippet pld "provider.log.Debug" w
-provider.log.Debug("$1")
-endsnippet
-
-snippet pldf "provider.log.Debug" w
-provider.log.Debug("`!p snip.rv=t[1]`: %#v", $1)
-endsnippet
-
-snippet jfe "log.Fatal err" w
-logger.Fatal(err.Error())
-endsnippet
-
-snippet jff "log.Fatal with format errrrrrr" w
-logger.Fatalf("$1: %s", ${2:err})
-endsnippet
-
-snippet jf "log.Fatal" w
-logger.Fatal($1)
-endsnippet
-
-snippet jd "log.Debug" w
-logger.Debug($1)
-endsnippet
-
-snippet ji "log.Debug" w
-logger.Info($1)
-endsnippet
-
-snippet je "log.Error" w
-logger.Error($1)
-endsnippet
-
-snippet jer "log.Error" w
-logger.Error(err.Error())
-endsnippet
-
-snippet jef "log.Error" w
-logger.Error("$1: %s", ${2:err})
-endsnippet
-
 snippet (s "(string" i
 (string
 endsnippet
@@ -221,4 +161,120 @@ func getLogger() lorg.Logger {
 
 	return logger
 }
+
+func debugf(format string, values ...interface{}) {
+    logger.Debugf(format, values...)
+}
+
+func infof(format string, values ...interface{}) {
+    logger.Infof(format, values...)
+}
+
+func fatalf(format string, values ...interface{}) {
+    logger.Fatalf(format, values...)
+}
+
+func errorf(format string, values ...interface{}) {
+    logger.Errorf(format, values...)
+}
+endsnippet
+
+# debugf
+snippet jwd "" wA
+`!p
+expand = False
+if t[2] != "" or "%" in t[1]:
+    expand = True
+`debugf(`!p
+if expand:
+    snip.rv = "\n\t\t\""
+else:
+    snip.rv = "\""
+`$1`!p
+if expand:
+    snip.rv = "\",\n\t\t"
+else:
+    snip.rv = "\""
+`$2`!p
+if expand:
+    snip.rv = " ,\n\t)"
+else:
+    snip.rv = ")"
+`
+$0
+endsnippet
+
+# infof
+snippet jwi "" wA
+`!p
+expand = False
+if t[2] != "" or "%" in t[1]:
+    expand = True
+`infof(`!p
+if expand:
+    snip.rv = "\n\t\t\""
+else:
+    snip.rv = "\""
+`$1`!p
+if expand:
+    snip.rv = "\",\n\t\t"
+else:
+    snip.rv = "\""
+`$2`!p
+if expand:
+    snip.rv = " ,\n\t)"
+else:
+    snip.rv = ")"
+`
+$0
+endsnippet
+
+# fatalf
+snippet jwf "" wA
+`!p
+expand = False
+if t[2] != "" or "%" in t[1]:
+    expand = True
+`fatalf(`!p
+if expand:
+    snip.rv = "\n\t\t\""
+else:
+    snip.rv = "\""
+`$1`!p
+if expand:
+    snip.rv = "\",\n\t\t"
+else:
+    snip.rv = "\""
+`$2`!p
+if expand:
+    snip.rv = " ,\n\t)"
+else:
+    snip.rv = ")"
+`
+$0
+endsnippet
+
+# errorf
+snippet jwe "" wA
+`!p
+expand = False
+if t[2] != "" or "%" in t[1]:
+    expand = True
+`errorf(`!p
+if expand:
+    snip.rv = "\n\t\t\""
+else:
+    snip.rv = "\""
+`$1`!p
+if expand:
+    snip.rv = "\",\n\t\t"
+else:
+    snip.rv = "\""
+`$2`!p
+if expand:
+    snip.rv = " ,\n\t)"
+else:
+    snip.rv = ")"
+`
+$0
 endsnippet
