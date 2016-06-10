@@ -98,8 +98,8 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
     au operations FileType go nmap <buffer> gdg :GoDef<CR>
-    au operations FileType go nmap <buffer> gdl :call go#def#Jump('vsplit')<CR>
-    au operations FileType go nmap <buffer> gdk :call go#def#Jump('split')<CR>
+    au operations FileType go nmap <buffer> gdl :call go#def#JumpMode('vsplit')<CR>
+    au operations FileType go nmap <buffer> gdk :call go#def#JumpMode('split')<CR>
 
     au operations FileType go nmap <buffer> <Leader>, :call synta#go#build()<CR>
     au operations FileType go imap <buffer> <Leader>, <ESC>:call synta#go#build()<CR>
