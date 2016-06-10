@@ -732,7 +732,9 @@ export GO15VENDOREXPERIMENT=1
 
 # :alias
 {
-    alias stcr='stacket repositories create devops'
+    alias stpr='stacket-pull-request-create'
+    alias stprr='reviewers-add'
+    alias strc='stacket repositories create devops'
     alias vbs='vim-bundle-sync'
     alias vbr='vim-bundle-restore'
     alias gbs='git-submodule-branch-sync'
@@ -894,6 +896,7 @@ export GO15VENDOREXPERIMENT=1
         alias gcl='git clone'
         alias gh='git show'
         alias gd='git diff'
+        alias gdo='git diff origin/master'
         alias gs='git status --short'
         alias ga='git add --no-ignore-removal'
         alias gb='github-browse'
