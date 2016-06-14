@@ -278,3 +278,20 @@ else:
 `
 $0
 endsnippet
+
+# hierr.Errorf
+snippet hh "" wA
+hierr.Errorf(
+    $1,
+    $2,
+)$0
+endsnippet
+
+snippet hp "" w
+hierr.Push(
+    hierr.Errorf(
+        $1,$2
+    ),
+    $3,
+)
+endsnippet

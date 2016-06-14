@@ -482,6 +482,8 @@ filetype plugin indent on
 set rtp-=~/.vim
 set rtp^=~/.vim
 
+set shortmess+=sAIc
+
 set encoding=utf-8
 set printencoding=cp1251
 set fileformat=unix
