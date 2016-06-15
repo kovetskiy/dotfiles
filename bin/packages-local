@@ -1,11 +1,9 @@
 #!/bin/bash
-
-
 arg_local=false
 arg_aur=false
 arg_version=false
 
-while getopts "alv" arg; do
+while getopts "alvh" arg; do
     case $arg in
         a)
             arg_aur=true
@@ -15,6 +13,12 @@ while getopts "alv" arg; do
             ;;
         v)
             arg_version=true
+            ;;
+        h)
+            echo "-a -- only aur packages"
+            echo "-l -- only local packages"
+            echo "-v -- show versions"
+            exit 1
             ;;
     esac
 done
