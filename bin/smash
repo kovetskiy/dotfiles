@@ -1,0 +1,258 @@
+#!/bin/zsh
+
+source ~/.smashrc &>/dev/null
+
+:get_option() {
+    local name="config_$1"
+    local default_value="${2:-}"
+
+    eval local value=\$$name
+
+    if [[ "$value" ]]; then
+        echo "$value"
+    else
+        echo "$default_value"
+    fi
+}
+
+:get_zone_regexp() {
+    local pattern=${(j:|:)whitelist_zone}
+    local group=${pattern//./\\.}
+    echo "($group)$"
+}
+
+:get_full_hostname() {
+    local hostname="$1"
+
+    # loci.lname.s.         1    IN      CNAME   foci.common.local.s.
+    # loci.common.local.s.  2    IN      A       127.0.0.2
+    local full_hostname=$(dig +noall +search +answer "$hostname" \
+        | awk '{
+            if ($4 == "CNAME") {
+                print $5;
+            } else {
+                print $1;
+            }
+
+            exit 0;
+        }'
+    )
+
+    echo "${${full_hostname%.}:-$hostname}"
+}
+
+:get_counter() {
+    local hostname="$1"
+
+    local dir=$(:get_option counters ~/.smash/counts/)
+    /bin/mkdir -p "$dir"
+
+    local file="$dir/$hostname"
+    touch "$file"
+
+    local counter=$(cat "$file")
+    echo "${counter:-0}"
+}
+
+:set_counter() {
+    local hostname="$1"
+    local value="$2"
+
+    local dir=$(:get_option counters ~/.smash/counts/)
+    /bin/mkdir -p "$dir"
+
+    echo -n "$value" >! "$dir/$hostname"
+}
+
+:remove_counter() {
+    local hostname="$1"
+
+    local dir=$(:get_option counters ~/.smash/counts/)
+
+    /bin/rm -f "$dir/$hostname"
+}
+
+:is_synced_hostname() {
+    local hostname="$1"
+
+    local dir=$(:get_option syncs ~/.smash/syncs/)
+    /bin/mkdir -p "$dir"
+
+    [ -f "$dir/$hostname" ]
+    return $?
+}
+
+:set_synced() {
+    local hostname="$1"
+
+    local dir=$(:get_option syncs ~/.smash/syncs/)
+    /bin/mkdir -p "$dir"
+
+    touch "$dir/$hostname"
+}
+
+:is_in_whitelist() {
+    local hostname="$1"
+    local whitelist=$(:get_option whitelist)
+    if [ -n "$whitelist" ]; then
+        /bin/grep -q -E \
+            "$(:get_zone_regexp "$whitelist")" <<< "$hostname"
+        return $?
+    fi
+
+    return 1
+}
+
+:get_ssh() {
+    :get_option ssh '/bin/ssh'
+}
+
+:get_auth_count() {
+    :get_option auth_count 3
+}
+
+:is_smart_host_key_checking_enabled() {
+    local value=$(:get_option smart-host-key-checking true)
+    if [ "$value" = "true" ] \
+    || [ "$value" = "yes" ] \
+    || [ "$value" = "1" ] \
+    || [ $value ]; then
+        return 0;
+    fi
+
+    return 1;
+}
+
+:is_known_host() {
+    local hostname="$1"
+    local port="$2"
+
+    local address="$hostname"
+    if [ "$port" ]; then
+        address="[$hostname]:$port"
+    fi
+
+    ssh-keygen -F "$address" > /dev/null
+    return $?
+}
+
+:keyscan() {
+    local hostname="$1"
+    local port="${2:-22}"
+
+    local output=$(
+        { ssh-keyscan -p "$port" "$hostname" >> ~/.ssh/known_hosts; } 2>&1
+    )
+    if [ $? -ne 0 ]; then
+        echo "$output" >&2
+        return $?
+    fi
+}
+
+:copy_id() {
+    local login="$1"
+    local hostname="$2"
+    local identity="$3"
+    local output
+
+    output=$(ssh-copy-id \
+            ${identity:+-i${identity}} \
+            -o "PubkeyAuthentication=no" -o "ControlMaster=no" \
+            "${login:+${login}@}$hostname" 2>&1)
+    if [[ $? -ne 0 ]]; then
+        echo "$output"
+        return 1
+    fi
+}
+
+main() {
+    local login
+    local hostname
+    local port
+    local identity
+    local interactive
+    local opts
+    local full_hostname
+    local should_sync
+    local sudo
+
+    # workaround for parsing cases like ssh -X hostname -t command
+    while [ ! "$hostname" ]; do
+        zparseopts -a opts -D \
+            'b:' 'c:' 'D:' 'E:' 'e:' 'F:' 'I:' 'L:' 'm:' 'O:' 'o:' \
+            'p:=port' \
+            'z=sudo' \
+            'Q:' 'R:' 'S:' 'W:' 'w:' \
+            'l:=login' \
+            'i:=identity' \
+            '1' '2' '4' '6' 'A' 'a' 'C' 'f' 'G' 'g' 'K' 'k' 'M' 'N' 'n' 'q' \
+            's' 'T' 'V' 'v' 'X' 'x' 'Y' 'y' \
+            't=interactive'
+
+        hostname="$1"
+        if [ ! "$hostname" ]; then
+            echo smash: hostname is not specified
+            /bin/ssh
+            return $?
+        fi
+
+        shift
+    done
+
+    opts+=($interactive $login $identity $port)
+
+    if [ "${hostname%@*}" != "$hostname" ]; then
+        opts+=(-l${hostname%@*})
+        login=${hostname%@*}
+        hostname=${hostname#*@}
+    fi
+
+    full_hostname=$(:get_full_hostname "$hostname")
+
+    should_sync=false
+    if ! :is_synced_hostname "$full_hostname"; then
+        if :is_in_whitelist "$full_hostname"; then
+            should_sync=true
+        else
+            local counter=$(:get_counter "$full_hostname")
+            counter=$((counter+1))
+            if [[ $counter > $(:get_auth_count) ]]; then
+                should_sync=true
+            fi
+
+            :set_counter "$full_hostname" $counter
+        fi
+    fi
+
+    if :is_smart_host_key_checking_enabled; then
+        if ! :is_known_host "$full_hostname" "$port"; then
+            :keyscan "$full_hostname" "$port"
+        fi
+    fi
+
+    if $should_sync; then
+        if :copy_id "$login" "$full_hostname" "$identity"; then
+            :remove_counter "$full_hostname"
+            :set_synced "$full_hostname"
+        fi
+    fi
+
+    local shell='$SHELL'
+    if [ "$interactive" ]; then
+        shell+=" -ic ${(q)${(qqq@)@}}"
+    else
+        /bin/ssh "$hostname" "${opts[@]}" "$@"
+        return $?
+    fi
+
+    if [ ! "$sudo" ]; then
+        shell="exec $shell"
+    else
+        shell="sudo $shell"
+    fi
+
+    /bin/ssh "$hostname" -t "${opts[@]}" \
+        "infocmp >/dev/null 2>&1 || export TERM=xterm; LANG=$LANG $shell"
+}
+
+main "$@"

@@ -680,6 +680,7 @@ export GO15VENDOREXPERIMENT=1
     compdef ash-merge=ash
 
     compdef vim-which=which
+    compdef smash=ssh
 
     copy-to-http() {
         local src="$1"
