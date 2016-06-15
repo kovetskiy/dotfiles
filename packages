@@ -1,4 +1,3 @@
-abs
 alsa-utils
 android-sdk-build-tools-19
 android-sdk-platform-tools
@@ -19,18 +18,14 @@ dunst
 eclipse-emf
 eclipse-gef
 elvish-git
-etcd
 feh
 ffmpeg
 firefox
 flashplugin
-fontconfig-infinality
 freetype2-infinality
 fzf
 git
 go
-godebug-git
-go-makepkg
 go-makepkg-git
 gometalinter-git
 google-chrome
@@ -40,7 +35,6 @@ hub
 i3-wm
 icmake
 imagemagick
-imgur
 impl
 info2man
 inotify-tools
@@ -64,7 +58,6 @@ lshw
 lsyncd
 lynx
 magnet2torrent-git
-maim
 maim-git
 marvex
 mcabber-crew-hg-extended
@@ -74,13 +67,11 @@ mcabber-module-focus
 mcabber-module-highlight-git
 mcabber-module-slack-completion
 mercurial
-mime-git
 mlocate
 mplayer
 msmtp
 mutt
 ncurses5-compat-libs
-netcat
 net-tools
 notify-send.sh
 openssh
@@ -121,7 +112,6 @@ sift-bin
 skype
 sloc-git
 sox
-speedtest-cli-git
 sup
 systemd-cat-bash
 the_silver_searcher
@@ -135,7 +125,6 @@ unyaffs
 unzip
 upower
 urxvt-autocomplete-all-the-things-git
-urxvt-perls
 urxvt-perls-git
 usermount-git
 vim-git
@@ -147,7 +136,6 @@ xclip
 xdotool-git
 xidel
 xlogin-git
-xorg
 xorg-startx-systemd
 xorg-xclipboard
 xorg-xinit
@@ -160,4 +148,3 @@ yodl
 zip
 zsh-doc-git
 zsh-git
-zsh-syntax-highlighting-git

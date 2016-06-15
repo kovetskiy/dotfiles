@@ -858,6 +858,7 @@ export GO15VENDOREXPERIMENT=1
         alias aur='au -R'
         alias aug='aur-get-sources'
         alias aq='yaourt -Q'
+        alias pcr='packages-remove'
     }
 
     # :pacman

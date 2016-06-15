@@ -1,8 +1,10 @@
 #!/bin/bash
 
-packages-local -a >> ~/dotfiles/packages
+_local=$(packages-local -a)
+_packages=$(cat ~/dotfiles/packages)
 
-cat ~/dotfiles/packages \
+
+pacman -Q $(sort -n <<< "${_local}${_packages}" | uniq) \
+    | awk '{print $1}' \
     | sort -n \
-    | uniq \
     | tee ~/dotfiles/packages
