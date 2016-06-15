@@ -529,7 +529,7 @@ set nowrap
 let g:updatetime=150
 set updatetime=150
 
-set timeoutlen=150
+set timeoutlen=400
 set showtabline=0
 set cino=(s,m1,+0
 
