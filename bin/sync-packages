@@ -1,0 +1,8 @@
+#!/bin/bash
+
+packages-local -a >> ~/dotfiles/packages
+
+cat ~/dotfiles/packages \
+    | sort -n \
+    | uniq \
+    | tee ~/dotfiles/packages
