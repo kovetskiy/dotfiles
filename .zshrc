@@ -607,7 +607,6 @@ export GO15VENDOREXPERIMENT=1
         shift
 
         (
-            set -euo pipefail
             local dotfiles=~/dotfiles
             local deadfiles=~/deadfiles
 
