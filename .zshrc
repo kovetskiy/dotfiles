@@ -717,9 +717,11 @@ export GO15VENDOREXPERIMENT=1
 # :alias
 {
     alias td='touch  /tmp/debug; tail -f /tmp/debug'
+    alias ns='nodectl -pS G'
     alias stpr='stacket-pull-request-create'
     alias stprr='reviewers-add'
-    alias strc='stacket repositories create devops'
+    alias strcd='stacket repositories create devops'
+    alias strcs='stacket repositories create specs'
     alias vbs='vim-bundle-sync'
     alias vbr='vim-bundle-restore'
     alias gbs='git-submodule-branch-sync'
@@ -740,6 +742,7 @@ export GO15VENDOREXPERIMENT=1
     alias cldl='clusterctl dev -L'
     alias clp='clusterctl prod'
     alias clpl='clusterctl prod -L'
+    alias pso='pdns soa update -n s'
     alias pra='pdns records add'
     alias prl='pdns records list'
     alias prr='pdns records remove'
