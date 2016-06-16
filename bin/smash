@@ -156,7 +156,6 @@ source ~/.smashrc &>/dev/null
     local identity="$3"
     local output
 
-    set -x
     output=$(ssh-copy-id \
             ${identity:+-i${identity}} \
             -o "PubkeyAuthentication=no" -o "ControlMaster=no" \
@@ -256,9 +255,7 @@ main() {
         shell="sudo -i $shell"
     fi
 
-    set -x
-
-    /bin/ssh "$hostname" -t "${opts[@]}" \
+    /bin/ssh "$full_hostname" -t "${opts[@]}" \
         "infocmp >/dev/null 2>&1 || export TERM=xterm; LANG=$LANG $shell"
 }
 
