@@ -713,10 +713,20 @@ export GO15VENDOREXPERIMENT=1
         local issue="$2"
         batrak -M $issue $transition
     }
+
+    ssh-enhanced() {
+        local hostname="$1"
+        tmux set status on
+        tmux set status-left "# $hostname"
+        smash -z "$@"
+        tmux set status off
+    }
 }
 
 # :alias
 {
+    alias ia='ip a'
+    alias il='ip l'
     alias td='touch  /tmp/debug; tail -f /tmp/debug'
     alias ns='nodectl -pS G'
     alias stpr='stacket-pull-request-create'
@@ -764,7 +774,7 @@ export GO15VENDOREXPERIMENT=1
     alias -g sa='| sed-remove-all-after'
     alias -g C='| cut-d-t'
 
-    alias h='smash -z'
+    alias h='ssh-enhanced'
 
     alias f='find-iname'
     alias -g X='| xargs-eval'
