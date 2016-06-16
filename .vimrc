@@ -59,7 +59,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 
     let g:ctrlp_working_path_mode='a'
     let g:ctrlp_use_caching = 0
-    let g:ctrlp_user_command = "ag %s -l --nocolor -g '' --depth 999 | grep -vP 'lib/tests/testcases|vendor/'"
+    let g:ctrlp_user_command = "ag %s -l --nocolor -g '' --depth 999 | grep -vP 'lib/tests/testcases|vendor'"
 
     let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:200'
 
@@ -97,9 +97,9 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
 
     au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
-    au operations FileType go nmap <buffer> gdg :GoDef<CR>
-    au operations FileType go nmap <buffer> gdl :call go#def#JumpMode('vsplit')<CR>
-    au operations FileType go nmap <buffer> gdk :call go#def#JumpMode('split')<CR>
+    au operations FileType go nmap <buffer> gd :GoDef<CR>
+    au operations FileType go nmap <buffer> gl :call go#def#JumpMode('vsplit')<CR>
+    au operations FileType go nmap <buffer> gk :call go#def#JumpMode('split')<CR>
 
     au operations FileType go nmap <buffer> <Leader>, :call synta#go#build()<CR>
     au operations FileType go imap <buffer> <Leader>, <ESC>:call synta#go#build()<CR>
@@ -469,7 +469,7 @@ Plug 'FooSoft/vim-argwrap'
     nnoremap <silent> @; :ArgWrap<CR>
 
 Plug 'kovetskiy/synta'
-
+Plug 'junkblocker/patchreview-vim'
 augroup end
 
 call plug#end()
@@ -778,5 +778,30 @@ endfunc!
 nmap M :call _macros_mode_toggle()<CR>
 nmap m @x
 vmap m @x
+
+func! DiffApplyTop()
+    let start = line('.')
+    call search(">>>>>>", "cs")
+    let end = line('.')
+    execute start.",".end "delete"
+    call search("<<<<<", "bcs")
+    execute "delete"
+    nohlsearch
+endfunc!
+
+func! DiffApplyBottom()
+    let start = line('.')
+    call search("<<<<<", "bcs")
+    let end = line('.')
+    execute start.",".end "delete"
+    call search(">>>>>", "bcs")
+    execute "delete"
+    nohlsearch
+endfunc!
+
+nmap <C-F><C-D> :Grep '\=\=\=\=\=\=\='<CR><CR>
+nmap rr :/=====<CR>zz:noh<CR>
+nmap rk :call DiffApplyTop()<CR>rr
+nmap rj :call DiffApplyBottom()<CR>rr
 
 noh

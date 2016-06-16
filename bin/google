@@ -1,0 +1,12 @@
+#!/bin/bash
+
+:prompt() {
+    clear
+    echo -n "[google]:> "
+}
+
+:prompt
+while read -r line; do
+    googler "$line"
+    :prompt
+done

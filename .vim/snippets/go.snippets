@@ -44,10 +44,7 @@ args["$1"].($2)
 endsnippet
 
 snippet dcp "docopt" w
-args, err := docopt.Parse(usage, nil, true, version, true, true)
-if err != nil {
-	panic(err)
-}
+args := godocs.MustParse(usage, version, godocs.UsePager)
 endsnippet
 
 snippet f "false" w
@@ -282,7 +279,7 @@ endsnippet
 # hierr.Errorf
 snippet hh "" wA
 hierr.Errorf(
-    $1,
+    ${1:err},
     $2,
 )$0
 endsnippet
@@ -294,4 +291,12 @@ hierr.Push(
     ),
     $3,
 )
+endsnippet
+
+# hierr.Fatalf
+snippet hf "" wA
+hierr.Fatalf(
+    ${1:err},
+    $2,
+)$0
 endsnippet
