@@ -179,22 +179,6 @@ export GO15VENDOREXPERIMENT=1
         echo $@ >> ~/sources/dotfiles/packages
     }
 
-    ssh-enhanced() {
-        local hostname="$1"
-        shift
-
-        zstyle ':smart-ssh' whitelist .s .in.ngs.ru
-
-        if [ $# -ne 0 ]; then
-            echo "$*" \
-                | smart-ssh -t "$hostname" \
-                    "sudo bash"
-        else
-            smart-ssh -t "$hostname" "TERM=xterm sudo -i"
-        fi
-    }
-    compdef ssh-enhanced=ssh
-
     man-find() {
         man --regex -wK "$@" \
             | sed 's#.*/##g' \
@@ -297,7 +281,7 @@ export GO15VENDOREXPERIMENT=1
         host=$(deployer -Qe "$env" \
             | grep '^node0:$' -A 3 \
             | awk '/host:/ {print $2}')
-        ssh-enhanced $host $@
+        smash -z $host $@
     }
 
     container-status() {
@@ -775,7 +759,7 @@ export GO15VENDOREXPERIMENT=1
     alias -g sa='| sed-remove-all-after'
     alias -g C='| cut-d-t'
 
-    alias h='ssh-enhanced'
+    alias h='smash -z'
 
     alias f='find-iname'
     alias -g X='| xargs-eval'

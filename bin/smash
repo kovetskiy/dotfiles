@@ -238,17 +238,14 @@ main() {
     fi
 
     local shell='$SHELL'
-    if [ "$interactive" ]; then
+    if [[ "$interactive" || $# -gt 0 ]]; then
         shell+=" -ic ${(q)${(qqq@)@}}"
-    else
-        /bin/ssh "$hostname" "${opts[@]}" "$@"
-        return $?
     fi
 
     if [ ! "$sudo" ]; then
         shell="exec $shell"
     else
-        shell="sudo $shell"
+        shell="sudo -i $shell"
     fi
 
     /bin/ssh "$hostname" -t "${opts[@]}" \
