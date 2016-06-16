@@ -338,7 +338,8 @@ export GO15VENDOREXPERIMENT=1
     }
 
     git-clone-devops() {
-        git clone "git+ssh://git.rn/devops/$1" $2
+        git clone "git+ssh://git.rn/devops/$1" $2 \
+            || git clone "git+ssh://git.rn/specs/$1" $2
     }
 
     git-remote-set-devops() {
@@ -906,7 +907,7 @@ export GO15VENDOREXPERIMENT=1
         alias gci='git-create-and-commit-empty-gitignore'
         alias gclg='git-clone-github'
         alias gcld='git-clone-devops'
-        alias grsd='git-clone-devops'
+        alias grsd='git-remote-set-devops'
         alias gclp='git-clone-profiles'
         alias gcoo='git-checkout-orphan'
 
