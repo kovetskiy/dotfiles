@@ -716,6 +716,7 @@ export GO15VENDOREXPERIMENT=1
 
 # :alias
 {
+    alias td='touch  /tmp/debug; tail -f /tmp/debug'
     alias stpr='stacket-pull-request-create'
     alias stprr='reviewers-add'
     alias strc='stacket repositories create devops'
