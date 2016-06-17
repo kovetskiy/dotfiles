@@ -1,6 +1,8 @@
 ashium ddcd8a6
 ctrlp.vim f6c587e
 flattown dd3f86a
+fzf 5759d50
+fzf.vim 0867178
 gundo.vim e7fe410
 kb-train a20c958
 l9 c822b05

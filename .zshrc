@@ -70,6 +70,8 @@ export GO15VENDOREXPERIMENT=1
         zgen load rupa/z  z.sh
         zgen load knu/zsh-manydots-magic manydots-magic
         zgen load hlissner/zsh-autopair autopair.zsh
+        zgen load mafredri/zsh-async
+        zgen load seletskiy/zsh-fuzzy-search-and-edit
 
         zgen load seletskiy/zsh-syntax-highlighting
 
@@ -100,15 +102,16 @@ export GO15VENDOREXPERIMENT=1
     bindkey -v '^?' backward-delete-char
     bindkey -v '^H' backward-delete-char
     bindkey -v '^[[3~' delete-char
-    bindkey -v '^B' vi-backward-word
-    bindkey -v '^E' vi-forward-blank-word
+    bindkey -v '^B' backward-word
+    bindkey -v '^E' forward-word
     bindkey -v "^L" clear-screen
     bindkey -v '^K' add-params
     bindkey -v '^O' toggle-quotes
     bindkey -v "^_" insert-dot-dot-slash
 
     bindkey '^W' smart-backward-kill-word
-    bindkey '^P' smart-forward-kill-word
+    bindkey '^F' smart-forward-kill-word
+    bindkey '^P' fuzzy-search-and-edit
 }
 
 # :setup
@@ -167,10 +170,32 @@ export GO15VENDOREXPERIMENT=1
 
 # :fastcd
 {
-    alias srcd="fastcd ~/sources/ 1"
-    alias vicd="fastcd ~/.vim/bundle/ 1"
-    alias gocd="fastcd ~/go/src/ 3"
-    alias zgcd='fastcd ~/.zgen/ 2'
+    bindkey -v '^_' cd-to-directory-favorites
+    zle -N cd-to-directory-favorites
+    cd-to-directory-favorites() {
+        local dir_sources=~/sources/
+        local dir_go=~/go/src/
+        local dir_zsh=~/.zgen/
+        local dir_vim=~/.vim/bundle/
+        local dir=$({
+            find $dir_sources -L -maxdepth 1 -xtype d -printf 'sources: %P\n'
+            find $dir_go -maxdepth 4 -type d          -printf 'go: %P\n'
+            find $dir_zsh -maxdepth 2 -type d         -printf 'zsh: %P\n'
+            find $dir_vim -maxdepth 1 -type d         -printf 'vim: %P\n'
+        } 2>/dev/null | grep -Pv '^\w+: $' | fzf-tmux)
+
+        local token=${dir//:*/}
+        local dir=${dir//*: /}
+
+        eval local root_dir=\$dir_$token
+        echo eval cd "$root_dir$dir"
+
+        unset dir
+
+        prompt_lambda17_precmd
+
+        zle reset-prompt
+    }
 }
 
 # :func
@@ -1048,3 +1073,5 @@ eval "$(
 )"
 
 eval $(dircolors ~/.dircolors.$BACKGROUND)
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

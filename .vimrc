@@ -31,6 +31,8 @@ let g:py_modules = []
 
 Plug 'kovetskiy/vim-hacks'
 
+Plug 'junegunn/fzf', {'do': './install --all'}
+Plug 'junegunn/fzf.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 
     func! _ctrlp_buffer_add_augroup()
@@ -53,9 +55,7 @@ Plug 'ctrlpvim/ctrlp.vim'
     endfunc!
 
     nnoremap <C-B> :call _ctrlp_buffer()<CR>
-    nnoremap <C-P> :CtrlPRoot<CR>
-    nnoremap <C-E><C-L> :CtrlPLine<CR>
-    nnoremap <C-E><C-E> :CtrlPBuffer()<CR>
+    nnoremap <C-P> :Files<CR>
 
     let g:ctrlp_working_path_mode='a'
     let g:ctrlp_use_caching = 0
@@ -416,7 +416,7 @@ Plug 'lokikl/vim-ctrlp-ag'
         let g:grep_last_query = a:query
 
         let @/ = a:query
-        call ctrlp#ag#exec(a:query)
+        call fzf#vim#ag(a:query, fzf#vim#layout(0))
     endfunc!
 
     func! _grep_slash()
@@ -428,9 +428,9 @@ Plug 'lokikl/vim-ctrlp-ag'
         call _grep(g:grep_last_query)
     endfunc!
 
-    command! -nargs=1 Grep call _grep(<q-args>)
+    command! -nargs=* Grep call _grep(<q-args>)
 
-    nnoremap <C-F> :Grep<Space>
+    nnoremap <C-F> :Grep<CR>
     nnoremap <C-E><C-F> :call _grep_slash()<CR>
     nnoremap <C-G> :call _grep_recover()<CR>
 
