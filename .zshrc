@@ -188,7 +188,7 @@ export GO15VENDOREXPERIMENT=1
         local dir=${dir//*: /}
 
         eval local root_dir=\$dir_$token
-        echo eval cd "$root_dir$dir"
+        eval cd "$root_dir$dir"
 
         unset dir
 
