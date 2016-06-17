@@ -83,6 +83,36 @@ Plug 'Valloric/YouCompleteMe', {'frozen': 1}
 
     let g:ycm_seed_identifiers_with_syntax = 1
 
+    func! _completions_complete()
+        try
+            let completions = youcompleteme#OmniComplete(0, 0)
+            if len(completions.words) != 1
+                return
+            endif
+        catch
+            return
+        endtry
+
+        let line = getline('.')
+        let col = col('.')
+        if col < 2
+            return
+        endif
+
+        let suffix = line[col-2] . v:char
+        if len(suffix) != 2
+            return
+        endif
+
+        let completion = completions.words[0].word
+        if matchstr(completion,suffix."$") == ""
+            return
+        endif
+        call feedkeys("\<C-N>", 'n')
+    endfunc!
+
+    au operations InsertCharPre * call _completions_complete()
+
 Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
