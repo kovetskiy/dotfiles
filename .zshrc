@@ -190,7 +190,12 @@ export GO15VENDOREXPERIMENT=1
         eval local root_dir=\$dir_$token
         eval cd "$root_dir$dir"
 
+        unset dir_sources
+        unset dir_go
+        unset dir_zsh
+        unset dir_vim
         unset dir
+        unset token
 
         prompt_lambda17_precmd
 
