@@ -16,6 +16,7 @@ rename.vim f133763
 rust.vim e064f27
 SearchParty 48dbaa9
 sideways.vim 507f0a3
+snippets 0ec4a2a
 synta 147f584
 tabular 00e1e7f
 targets.vim 5c2ae9d
@@ -28,7 +29,6 @@ vim-autosurround f2c7517
 vim-bash 992d8e5
 vim-cpp-enhanced-highlight 18d0bca
 vim-ctrlp-ag 0af7097
-vim-dispatch 5f5c22c
 vim-empty-lines b0ee3f8
 vim-go b979626
 vim-go-impl 3a68a75
@@ -41,6 +41,7 @@ vim-nunu d586ebb
 vim-over 146b065
 vim-plugvim-utils c59a498
 vim-python-pep8-indent f4f95ee
+vim-pythonx 4f97095
 vim-signature 2a29156
 vim-ski 8f2add7
 vim-sneak f22ee25
