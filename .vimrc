@@ -99,8 +99,8 @@ Plug 'Valloric/YouCompleteMe', {'frozen': 1}
             return
         endif
 
-        let suffix = line[col-2] . v:char
-        if len(suffix) != 2
+        let suffix = line[col-3] . line[col-2] . v:char
+        if len(suffix) != 3
             return
         endif
 
