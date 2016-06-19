@@ -204,6 +204,7 @@ Plug 'seletskiy/vim-over'
 
     nmap L VH
 
+    nnoremap M :exec 'OverExec' '%s/\C\V' . expand('<cword>') . '/'<CR>
     nnoremap H :OverExec %s/<CR>
     vnoremap H :OverExec s/<CR>
     vnoremap L :OverExec s/<CR>
@@ -693,7 +694,7 @@ nmap <C-L> <C-W>l
 
 nmap <Leader>s :sp<Space>
 
-imap <C-T> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
+imap <C-E> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 
 nmap <Leader>m O_ = "breakpoint"<ESC>
 
@@ -805,7 +806,7 @@ func! _macros_mode_toggle()
     let g:macro_toggle_recording = !g:macro_toggle_recording
 endfunc!
 
-nmap M :call _macros_mode_toggle()<CR>
+""nmap M :call _macros_mode_toggle()<CR>
 nmap m @x
 vmap m @x
 
