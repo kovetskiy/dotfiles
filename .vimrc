@@ -55,7 +55,7 @@ Plug 'ctrlpvim/ctrlp.vim'
     endfunc!
 
     nnoremap <C-B> :call _ctrlp_buffer()<CR>
-    nnoremap <C-P> :Files<CR>
+    nnoremap <C-P> :CtrlP<CR>
 
     let g:ctrlp_working_path_mode='a'
     let g:ctrlp_use_caching = 0

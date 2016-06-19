@@ -170,7 +170,8 @@ export GO15VENDOREXPERIMENT=1
 
 # :fastcd
 {
-    bindkey -v '^_' cd-to-directory-favorites
+    alias srcd='cd ~/sources/'
+    bindkey -v '^H' cd-to-directory-favorites
     zle -N cd-to-directory-favorites
     cd-to-directory-favorites() {
         local dir_sources=~/sources/
@@ -368,8 +369,9 @@ export GO15VENDOREXPERIMENT=1
     }
 
     git-clone-devops() {
-        git clone "git+ssh://git.rn/devops/$1" $2 \
-            || git clone "git+ssh://git.rn/specs/$1" $2
+        git clone "git+ssh://git.rn/specs/$1" \
+            || git clone "git+ssh://git.rn/devops/$1"
+        cd $(basename "$1")
     }
 
     git-remote-set-devops() {
