@@ -55,7 +55,6 @@ export GO15VENDOREXPERIMENT=1
         zgen load kovetskiy/zsh-fastcd
         zgen load kovetskiy/zsh-smart-ssh
         zgen load kovetskiy/zsh-insert-dot-dot-slash
-        zgen load knu/zsh-manydots-magic manydots-magic
 
         zgen load seletskiy/zsh-prompt-lambda17
         zgen load seletskiy/zsh-ssh-urxvt
@@ -68,12 +67,13 @@ export GO15VENDOREXPERIMENT=1
         zgen load seletskiy/zsh-smart-kill-word
 
         zgen load rupa/z  z.sh
-        zgen load knu/zsh-manydots-magic manydots-magic
         zgen load hlissner/zsh-autopair autopair.zsh
         zgen load mafredri/zsh-async
         zgen load seletskiy/zsh-fuzzy-search-and-edit
+        zgen load Tarrasch/zsh-bd
 
-        zgen load seletskiy/zsh-syntax-highlighting
+        zgen load seletskiy/zsh-autosuggestions
+        #zgen load seletskiy/zsh-syntax-highlighting
 
         ZGEN_AUTOLOAD_COMPINIT="-d $ZGEN_DIR/zcompdump"
         zgen save
@@ -107,7 +107,6 @@ export GO15VENDOREXPERIMENT=1
     bindkey -v "^L" clear-screen
     bindkey -v '^K' add-params
     bindkey -v '^O' toggle-quotes
-    bindkey -v "^_" insert-dot-dot-slash
 
     bindkey '^W' smart-backward-kill-word
     bindkey '^F' smart-forward-kill-word
@@ -171,7 +170,7 @@ export GO15VENDOREXPERIMENT=1
 # :fastcd
 {
     alias srcd='cd ~/sources/'
-    bindkey -v '^H' cd-to-directory-favorites
+    bindkey -v '^N' cd-to-directory-favorites
     zle -N cd-to-directory-favorites
     cd-to-directory-favorites() {
         local dir_sources=~/sources/
