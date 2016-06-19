@@ -2,7 +2,7 @@
 
 xkbcomp -w 0 -I$HOME/.xkb -R$HOME/.xkb $HOME/.xkbrc $DISPLAY
 
-{ sleep 1 && xset r rate 110 100; } &
+{ sleep 1 && xset r rate 110 150; } &
 xset -b
 
 sudo pkill shift-shift
