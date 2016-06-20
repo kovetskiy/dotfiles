@@ -178,7 +178,7 @@ export GO15VENDOREXPERIMENT=1
         local dir_zsh=~/.zgen/
         local dir_vim=~/.vim/bundle/
         local dir=$({
-            find $dir_sources -L -maxdepth 1 -xtype d -printf 'sources: %P\n'
+            find $dir_sources -maxdepth 1 -type d -printf 'sources: %P\n'
             find $dir_go -maxdepth 4 -type d          -printf 'go: %P\n'
             find $dir_zsh -maxdepth 2 -type d         -printf 'zsh: %P\n'
             find $dir_vim -maxdepth 1 -type d         -printf 'vim: %P\n'
@@ -200,6 +200,9 @@ export GO15VENDOREXPERIMENT=1
         prompt_lambda17_precmd
 
         zle reset-prompt
+        clear
+        ls -lah
+        git status -s
     }
 }
 
