@@ -15,17 +15,13 @@ background = ARGV[0]
 
 if !background
     background = ENV["BACKGROUND"]
-end
-
-if !background
-    puts "error: background cannot be empty"
-    exit 1
+    puts background
+    exit(0)
 end
 
 files.each do|file|
     link = file + "." + background
     cmd = "ln -sf " + link + " " + file + ".theme"
-    puts cmd
     system(cmd)
 end
 
@@ -35,3 +31,4 @@ commands.each do|command|
 end
 
 system("echo '" + background + "' > ~/background")
+

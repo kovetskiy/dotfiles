@@ -4,5 +4,4 @@ query="$*"
 query="${query// /|}"
 
 dig @dn.s -p53000 +short s axfr \
-    | sed 's/\.$//g' \
-    | grep -P "^[^\s]+($query)"
+    | sed 's/\.$//g'

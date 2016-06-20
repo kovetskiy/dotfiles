@@ -807,7 +807,7 @@ func! _macros_mode_toggle()
     let g:macro_toggle_recording = !g:macro_toggle_recording
 endfunc!
 
-""nmap M :call _macros_mode_toggle()<CR>
+"""nmap M :call _macros_mode_toggle()<CR>
 nmap m @x
 vmap m @x
 
