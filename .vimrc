@@ -99,13 +99,14 @@ Plug 'Valloric/YouCompleteMe', {'frozen': 1}
             return
         endif
 
+        let moresuffix = line[col-4] . line[col-3] . line[col-2] . v:char
         let suffix = line[col-3] . line[col-2] . v:char
-        if len(suffix) != 3
+        if len(suffix) != 3 || len(moresuffix) != 4
             return
         endif
 
         let completion = completions.words[0].word
-        if matchstr(completion,suffix."$") == ""
+        if matchstr(completion,suffix."$") == "" || matchstr(completion,moresuffix."$") != ""
             return
         endif
         call feedkeys("\<C-N>", 'n')
