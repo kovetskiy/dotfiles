@@ -14,8 +14,7 @@ commands = [
 background = ARGV[0]
 
 if !background
-    background = ENV["BACKGROUND"]
-    puts background
+    system("cat ~/background")
     exit(0)
 end
 
