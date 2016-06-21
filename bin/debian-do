@@ -1,0 +1,68 @@
+#!/bin/bash
+
+set -euo pipefail
+
+:usage() {
+    sed -r 's/^([ ]{4}|\t)//g' <<USAGE
+    debian-do
+
+    Usage:
+        debian-do <command> -- <copy-to> -- <copy-from>
+        debian-do -h
+
+    Options:
+        -h  Show this screen.
+USAGE
+}
+
+:main() {
+    tree=~/debian/
+    session=$RANDOM
+
+    sudo mkdir -p $tree/session/$session/
+
+    dashed=false
+    args=()
+    while [[ $# -ne 0 ]]; do
+        if [[ "$1" == "--" ]]; then
+            if $dashed; then
+                shift
+                break
+            fi
+            dashed=true
+            shift
+            continue
+        fi
+
+        if $dashed; then
+            sudo mkdir -p $tree/session/$session/$(dirname "$1")
+            sudo cp -rT "$1" $tree/session/$session/"$1" \
+                | spin -s "$(:log "-> $1 ")"
+        else
+            args+=("$1")
+        fi
+
+        shift
+    done
+
+    :log "$ ${args[*]}"
+    sudo systemd-nspawn --directory "$tree" -- \
+        /bin/bash -c "cd /session/$session; ${args[*]}"
+
+    while [[ $# -ne 0 ]]; do
+        files=$(cd $tree/session/$session/; /bin/ls -t $1)
+        for file in "${files[@]}"; do
+            sudo cp -r "$tree/session/$session/$file" "$(basename "$file")" \
+                | spin -s "$(:log "<- $file ")"
+        done
+        shift
+    done
+
+    exit 0
+}
+
+:log() {
+    echo "$(tput bold)[DEBIAN] $*$(tput sgr0)"
+}
+
+:main "$@"

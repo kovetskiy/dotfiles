@@ -759,6 +759,8 @@ export GO15VENDOREXPERIMENT=1
 
 # :alias
 {
+    alias ddo='debian-do'
+    alias ddoai='ddo apt-get install'
     alias ia='ip a'
     alias il='ip l'
     alias td='touch  /tmp/debug; tail -f /tmp/debug'
