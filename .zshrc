@@ -11,7 +11,6 @@ export SAVEHIST=100000
 export KEYTIMEOUT=1
 export WORDCHARS=-
 export BACKGROUND=$(cat ~/background)
-export GO15VENDOREXPERIMENT=1
 
 # :prezto
 {
@@ -598,7 +597,6 @@ export GO15VENDOREXPERIMENT=1
             fi
         fi
 
-        set -x
         go-makepkg -g -c -n "$package" -d . $(echo $FLAGS) "$description" "$repo" $@
     }
 
@@ -785,6 +783,27 @@ $url
 DATA
 
         xclip -o -selection clipboard
+
+    this-pull-request() {
+        local branch="$(git rev-parse --abbref-ref HEAD)"
+        ash $(
+            ash inbox \
+                | grep -F "$(git rev-parse --abbrev-ref HEAD)" \
+                | grep -F "$(basename $(git rev-parse --show-toplevel))" \
+                | awk '{print $1}'
+        )
+    }
+
+    amf-new() {
+        cd ~/sources/
+        stacket repositories create specs "$1"
+        git clone "git+ssh://git.rn/specs/$1"
+        cd "$1"
+        bithookctl -p pre -A sould primary
+        touch amfspec
+        git add .
+        git commit -m "ethernal void"
+        git push origin master
     }
 }
 
@@ -792,10 +811,11 @@ DATA
 {
     alias ddo='debian-do'
     alias ddoai='ddo apt-get install'
+    alias tpr='this-pull-request'
     alias ia='ip a'
     alias il='ip l'
     alias td='touch  /tmp/debug; tail -f /tmp/debug'
-    alias ns='nodectl -pS G'
+    alias ns='nodectl -S G'
     alias stpr='stacket-pull-request-create'
     alias stprr='reviewers-add'
     alias strcd='stacket repositories create devops'
@@ -1109,6 +1129,7 @@ bindkey '^s' prepend-sudo
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
+FZF_TMUX_HEIGHT=15
 eval "$(
     cat $(pacman -Ql fzf | grep '.zsh$' | cut -d' ' -f2) \
         | sed-replace '^(\s+selected=.* )\+s(.*)$' '\1\2'
