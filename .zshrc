@@ -808,10 +808,50 @@ DATA
         git commit -m "ethernal void"
         git push origin master
     }
+
+    makepkg-clean() {
+        local branch="$1"
+        rm -rf *.xz
+        rm -rf src pkg
+        BRANCH="$branch" makepkg -f
+        restore-pkgver-pkgrel
+    }
+
+    makepkg-clean-upload-stable() {
+        makepkg-clean "$@"
+        packages-upload-repo.s $(/bin/ls *.xz) current
+    }
+
+    makepkg-clean-upload-testing() {
+        makepkg-clean "$@"
+        packages-upload-repo.s $(/bin/ls *.xz) latest
+    }
+
+    dns-new-a() {
+        local hostname="$1"
+        local address="$2"
+        pdns records add -t A -d 80 -n "$hostname" -c "$address"
+        pdns records add -t CNAME -d 80 \
+            -n "$(cut -d. -f1 <<< "$hostname").cname.s" \
+            -c "$hostname"
+        pdns soa update -n s
+    }
+
+    dns-new-srv() {
+        local name="$1"
+        local hostname="$2"
+        local port="${3:-80}"
+
+        pdns records add -n "$name._tcp.s" -c "0 $port $hostname" -t SRV -d 80 -l 60
+        pdns soa update -n s
+    }
 }
 
 # :alias
 {
+    alias mpk='makepkg-clean'
+    alias mpks='makepkg-clean-upload-stable'
+    alias mpkt='makepkg-clean-upload-testing'
     alias ddo='debian-do'
     alias ddoai='ddo apt-get install'
     alias tpr='this-pull-request'
@@ -879,16 +919,12 @@ DATA
     alias gme='go-makepkg-enhanced'
     alias gmev='FLAGS="-p version" go-makepkg-enhanced'
     alias gmel='gmev'
-    alias mpk='makepkg -fc; pkr'
-    alias mpk!='rm -rf *xz; rm -rf {pkg,src}; makepkg -fc; pkr'
-    alias mpkc='mpk! && urxc'
     alias vw='vim-which'
     alias ur='packages-upload-repo.s'
     alias urx='packages-upload-repo.s "$(/usr/bin/ls --color=never -t *.xz | head -n1)"'
     alias urxl='packages-upload-repo.s "$(/usr/bin/ls --color=never -t *.xz | head -n1)" latest'
     alias urxc='packages-upload-repo.s "$(/usr/bin/ls --color=never -t *.xz | head -n1)" current'
     alias tim='terminal-vim'
-    alias pkr='restore-pkgver-pkgrel'
 
     alias history='fc -ln 0'
     alias m='man'
