@@ -770,19 +770,22 @@ export BACKGROUND=$(cat ~/background)
                 --pretty="%h: %s"\
                 --abbrev-commit --decorate origin/$to..
         )
+        local code='```'
+
         copy-to-clipboard <<DATA
 @here:
 
 [$project] $branch -> $to
 
-\`\`\`
+$code
 $log
-\`\`\`
+$code
 
 $url
 DATA
 
         xclip -o -selection clipboard
+    }
 
     this-pull-request() {
         local branch="$(git rev-parse --abbref-ref HEAD)"
@@ -1109,22 +1112,6 @@ DATA
     }
 }
 
-# @TODO move to plugin
-prepend-sudo() {
-    if [[ "$BUFFER" == "" ]]; then
-        BUFFER="sudo $(fc -nl -1)"
-        CURSOR=$#BUFFER
-    elif [[ "$BUFFER" == su(do|)\ * ]]; then
-        BUFFER=${BUFFER:5}
-        (( CURSOR -= 4 ))
-    else
-        BUFFER="sudo $BUFFER"
-        (( CURSOR += 5 ))
-    fi
-}
-
-zle -N prepend-sudo
-bindkey '^s' prepend-sudo
 
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
