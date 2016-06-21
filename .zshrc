@@ -182,7 +182,7 @@ export GO15VENDOREXPERIMENT=1
             find $dir_go -maxdepth 4 -type d          -printf 'go: %P\n'
             find $dir_zsh -maxdepth 2 -type d         -printf 'zsh: %P\n'
             find $dir_vim -maxdepth 1 -type d         -printf 'vim: %P\n'
-        } 2>/dev/null | grep -Pv '^\w+: $' | fzf-tmux)
+        } 2>/dev/null | grep -Pv '^\w+: $' | fzf-tmux -u 15)
 
         local token=${dir//:*/}
         local dir=${dir//*: /}
@@ -606,14 +606,14 @@ export GO15VENDOREXPERIMENT=1
         if [ $# -ne 0 ]; then
             if [ -e "$1" ]; then
                 xclip -selection clipboard < "$1"
-                return
+            else
+                xclip -selection clipboard <<< "$@"
             fi
-
-            xclip -selection clipboard <<< "$@"
-            return
+        else
+            xclip -selection clipboard
         fi
 
-        cat | xclip -selection clipboard
+        xclip -o -selection clipboard | xclip -selection primary
     }
 
     restore-pkgver-pkgrel() {
@@ -754,6 +754,37 @@ export GO15VENDOREXPERIMENT=1
         tmux set status-left "# $hostname"
         smash -z "$@"
         tmux set status off
+    }
+
+    reviews-message() {
+        local project=$(basename $(pwd))
+        local branch=$(git rev-parse --abbrev-ref HEAD)
+        local url=$(
+            git config --get \
+                pull-request.$branch.url
+        )
+        local to=$(
+            git config --get \
+                pull-request.$branch.to
+        )
+        local log=$(
+            git log \
+                --pretty="%h: %s"\
+                --abbrev-commit --decorate origin/$to..
+        )
+        copy-to-clipboard <<DATA
+@here:
+
+[$project] $branch -> $to
+
+\`\`\`
+$log
+\`\`\`
+
+$url
+DATA
+
+        xclip -o -selection clipboard
     }
 }
 
