@@ -178,7 +178,7 @@ export BACKGROUND=$(cat ~/background)
         local dir_vim=~/.vim/bundle/
         local dir=$({
             find $dir_sources -maxdepth 1 -type d -printf 'sources: %P\n'
-            find $dir_go -maxdepth 4 -type d          -printf 'go: %P\n'
+            find $dir_go -maxdepth 3 -type d          -printf 'go: %P\n'
             find $dir_zsh -maxdepth 2 -type d         -printf 'zsh: %P\n'
             find $dir_vim -maxdepth 1 -type d         -printf 'vim: %P\n'
         } 2>/dev/null | grep -Pv '^\w+: $' | fzf-tmux -u 15)
@@ -858,7 +858,7 @@ DATA
     alias ia='ip a'
     alias il='ip l'
     alias td='touch  /tmp/debug; tail -f /tmp/debug'
-    alias ns='nodectl -S G'
+    alias ns='nodectl -S'
     alias stpr='stacket-pull-request-create'
     alias stprr='reviewers-add'
     alias strcd='stacket repositories create devops'
