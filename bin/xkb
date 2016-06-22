@@ -6,7 +6,7 @@ xkbcomp -w 0 -I$HOME/.xkb -R$HOME/.xkb $HOME/.xkbrc $DISPLAY
 xset -b
 
 sudo pkill shift-shift
-sudo shift-shift -first CAPSLOCK -second RIGHTSHIFT -match razer &
-sudo shift-shift -first CAPSLOCK -second RIGHTSHIFT -match keyboard &
+sudo shift-shift -first CAPSLOCK -second RIGHTSHIFT -match razer &>/dev/null &
+sudo shift-shift -first CAPSLOCK -second RIGHTSHIFT -match keyboard &>/dev/null &
 
 disown

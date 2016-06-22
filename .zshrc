@@ -929,7 +929,7 @@ DATA
     alias history='fc -ln 0'
     alias m='man'
     alias rf='rm -rf'
-    alias ls='ls -lah --color=always'
+    alias ls='ls -lah --group-directories-first -v --color=always'
     alias l='ls'
     alias sls='ls'
     alias sl='ls'
