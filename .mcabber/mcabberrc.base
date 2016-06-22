@@ -28,7 +28,6 @@ bind 276 = roster toggle
 
 module load fifo
 module load editor
-module load focus
 module load autojoin
 module load slack_completion
 
