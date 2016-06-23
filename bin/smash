@@ -256,7 +256,7 @@ main() {
     fi
 
     /bin/ssh "$full_hostname" -t "${opts[@]}" \
-        "infocmp >/dev/null 2>&1 || export TERM=xterm; which zsh &>/dev/null && export SHELL=/bin/zsh; LANG=$LANG $shell"
+        "infocmp >/dev/null 2>&1 || export TERM=xterm; SHELL=\$(which zsh) && export SHELL; LANG=$LANG $shell"
 }
 
 main "$@"

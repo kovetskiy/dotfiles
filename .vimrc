@@ -112,7 +112,7 @@ Plug 'Valloric/YouCompleteMe', {'frozen': 1}
         call feedkeys("\<C-N>", 'n')
     endfunc!
 
-    au operations InsertCharPre * call _completions_complete()
+    "au operations InsertCharPre * call _completions_complete()
 
 Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     let g:go_fmt_fail_silently = 0
@@ -136,9 +136,6 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     au operations FileType go imap <buffer> <Leader>, <ESC>:call synta#go#build()<CR>
     au operations FileType go nmap <buffer> <Leader>l :GoLint .<CR>
 
-    au operations FileType go nmap <buffer> <C-T> :call synta#quickfix#next()<CR>
-    au operations FileType go nmap <buffer> <C-E><C-R> :call synta#quickfix#prev()<CR>
-    au operations FileType go nmap <buffer> <C-E><C-T> :call synta#quickfix#error()<CR>
 
 Plug 'elzr/vim-json', { 'for': 'json' }
     au operations BufNewFile,BufRead *.json set filetype=json
@@ -484,12 +481,28 @@ Plug 'kovetskiy/vim-bash'
     au operations BufWritePost * call _tags_sh()
 
 Plug 'seletskiy/vim-autosurround'
+    func! _ultisnips_enter()
+        let v:char="	"
+        call UltiSnips#TrackChange()
+        let v:char=""
+        call UltiSnips#TrackChange()
+        return """
+    endfunc!
+
+	nnoremap o o<C-R>=_ultisnips_enter()<CR>
+	nnoremap O O<C-R>=_ultisnips_enter()<CR>
+
+    au User _overwrite_matchem
+        \ au VimEnter,BufEnter,FileType *
+        \ inoremap <CR> <C-R>=g:MatchemExpandCr(1)<CR><C-R>=_ultisnips_enter()<CR>
+
     au User _overwrite_matchem
         \ au VimEnter,BufEnter,FileType *
         \ inoremap <buffer> ( (<C-R>=AutoSurround(")") ? "" : g:MatchemMatchStart()<CR>
 
     au User _overwrite_matchem
         \ autocmd VimEnter,BufEnter,FileType * call AutoSurroundInitMappings()
+
 
     au User plugins_loaded doau User _overwrite_matchem
     doau User _overwrite_matchem
@@ -501,10 +514,24 @@ Plug 'FooSoft/vim-argwrap'
     nnoremap <silent> @; :ArgWrap<CR>
 
 Plug 'kovetskiy/synta'
-Plug 'junkblocker/patchreview-vim'
-augroup end
 
+Plug 'scrooloose/syntastic'
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 0
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_go_checkers = ["gofmt"]
+
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
+    au operations FileType go nmap <buffer> <C-T> :lnext<CR>zz
+    au operations FileType go nmap <buffer> <C-E><C-T> :lprev<CR>zz
+
+
+augroup end
 call plug#end()
+
 au VimEnter * doautocmd User plugins_loaded
 au VimEnter * au! plugvim
 
@@ -626,9 +653,6 @@ vmap <C-F> ctx<TAB>
 nnoremap <C-E><C-D> :cd %:p:h<CR>:pwd<CR>
 nnoremap <C-E><C-F> :lcd %:p:h<CR>:pwd<CR>
 
-nnoremap O O<Left><Right>
-nnoremap o o<Left><Right>
-
 nnoremap <Leader>o o<ESC>
 nnoremap <Leader>O O<ESC>
 
@@ -681,7 +705,7 @@ nnoremap <Leader><C-P> "kP
 
 nnoremap <Leader>] :tnext<CR>
 
-nnoremap <C-T><C-T> :retab<CR>
+"nnoremap <C-T><C-T> :retab<CR>
 
 nnoremap <C-E><C-E><C-R> :silent !rm -rf ~/.vim/view/*<CR>:redraw!<CR>
 
@@ -837,3 +861,4 @@ nmap rk :call DiffApplyTop()<CR>rr
 nmap rj :call DiffApplyBottom()<CR>rr
 
 noh
+
