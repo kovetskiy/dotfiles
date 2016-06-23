@@ -132,8 +132,8 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     au operations FileType go nmap <buffer> gl :call go#def#JumpMode('vsplit')<CR>
     au operations FileType go nmap <buffer> gk :call go#def#JumpMode('split')<CR>
 
-    au operations FileType go nmap <buffer> <Leader>, :call synta#go#build()<CR>
-    au operations FileType go imap <buffer> <Leader>, <ESC>:call synta#go#build()<CR>
+    au operations FileType go nmap <buffer> <Leader>, :SyntasticCheck<CR>:ll<CR>
+    au operations FileType go imap <buffer> <Leader>, <ESC>:SyntasticCheck<CR>
     au operations FileType go nmap <buffer> <Leader>l :GoLint .<CR>
 
 
@@ -518,8 +518,8 @@ Plug 'kovetskiy/synta'
 Plug 'scrooloose/syntastic'
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_auto_loc_list = 0
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_go_checkers = ["gofmt"]
+    let g:syntastic_check_on_open = 0
+    let g:syntastic_go_checkers = ["go", "gofmt"]
 
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
