@@ -72,6 +72,7 @@ export BACKGROUND=$(cat ~/background)
         zgen load Tarrasch/zsh-bd
 
         zgen load seletskiy/zsh-autosuggestions
+        zgen load kovetskiy/zsh-alias-search
         #zgen load seletskiy/zsh-syntax-highlighting
 
         zgen oh-my-zsh plugins/sudo
@@ -114,6 +115,7 @@ export BACKGROUND=$(cat ~/background)
     bindkey '^P' fuzzy-search-and-edit
 
     bindkey "^S" sudo-command-line
+    bindkey "^F" alias-search
 }
 
 # :setup
@@ -408,13 +410,13 @@ export BACKGROUND=$(cat ~/background)
         git commit -m ".gitignore added"
     }
 
-    alias-search() {
+    alias-grep() {
         local query="$*"
-        if declare -f "$query"; then
+        if declare -f "$query" 2>/dev/null; then
             return
         fi
 
-        alias | grep -P -- "$*"
+        alias | grep -F -- "$*"
     }
 
     git-remote-set-origin-me() {
@@ -854,6 +856,8 @@ DATA
 
 # :alias
 {
+    alias z='zabbixctl'
+    alias zp='zabbixctl -Tp -xxxx'
     alias zgr='zgen reset'
     alias mpk='makepkg-clean'
     alias mpks='makepkg-clean-upload-stable'
@@ -915,7 +919,7 @@ DATA
     alias f='find-iname'
     alias -g X='| xargs-eval'
 
-    alias A='alias-search'
+    alias A='alias-grep'
 
     alias si='ssh-copy-id'
 
