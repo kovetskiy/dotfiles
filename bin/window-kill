@@ -6,6 +6,6 @@ name=$(xdotool getwindowname $id)
 
 xkill -id $id
 
-if [[ $name == "marvex: "* ]]; then
-    tmux kill-session -t marvex-$(echo $name | awk '{print $2}')
+if [[ $name == "marvex"* ]]; then
+    tmux kill-window
 fi

@@ -74,6 +74,8 @@ export BACKGROUND=$(cat ~/background)
         zgen load seletskiy/zsh-autosuggestions
         #zgen load seletskiy/zsh-syntax-highlighting
 
+        zgen oh-my-zsh plugins/sudo
+
         ZGEN_AUTOLOAD_COMPINIT="-d $ZGEN_DIR/zcompdump"
         zgen save
     fi
@@ -110,6 +112,8 @@ export BACKGROUND=$(cat ~/background)
     bindkey '^W' smart-backward-kill-word
     bindkey '^F' smart-forward-kill-word
     bindkey '^P' fuzzy-search-and-edit
+
+    bindkey "^S" sudo-command-line
 }
 
 # :setup
@@ -177,8 +181,9 @@ export BACKGROUND=$(cat ~/background)
         local dir_zsh=~/.zgen/
         local dir_vim=~/.vim/bundle/
         local dir=$({
+            find $dir_go -maxdepth 3 -type d    -printf 'go: %P\n'
+
             find $dir_sources -maxdepth 1 -type d -printf 'sources: %P\n'
-            find $dir_go -maxdepth 3 -type d          -printf 'go: %P\n'
             find $dir_zsh -maxdepth 2 -type d         -printf 'zsh: %P\n'
             find $dir_vim -maxdepth 1 -type d         -printf 'vim: %P\n'
         } 2>/dev/null | grep -Pv '^\w+: $' | fzf-tmux -u 15)
@@ -849,6 +854,7 @@ DATA
 
 # :alias
 {
+    alias zgr='zgen reset'
     alias mpk='makepkg-clean'
     alias mpks='makepkg-clean-upload-stable'
     alias mpkt='makepkg-clean-upload-testing'

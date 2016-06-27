@@ -124,13 +124,16 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
 
     let g:go_doc_keywordprg_enabled = 0
     let g:go_def_mapping_enabled = 0
+    let g:go_def_mode = 'godef'
 
 
     au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
+    au operations FileType go let w:go_stack = 'fix that shit'
+    au operations FileType go let w:go_stack_level = 'fix that shit'
     au operations FileType go nmap <buffer> gd :GoDef<CR>
-    au operations FileType go nmap <buffer> gl :call go#def#JumpMode('vsplit')<CR>
-    au operations FileType go nmap <buffer> gk :call go#def#JumpMode('split')<CR>
+    au operations FileType go nmap <buffer> gl :call go#def#Jump('vsplit')<CR>
+    au operations FileType go nmap <buffer> gk :call go#def#Jump('split')<CR>
 
     au operations FileType go nmap <buffer> <Leader>, :SyntasticCheck<CR>:ll<CR>
     au operations FileType go imap <buffer> <Leader>, <ESC>:SyntasticCheck<CR>
@@ -830,10 +833,6 @@ func! _macros_mode_toggle()
 
     let g:macro_toggle_recording = !g:macro_toggle_recording
 endfunc!
-
-"""nmap M :call _macros_mode_toggle()<CR>
-nmap m @x
-vmap m @x
 
 func! DiffApplyTop()
     let start = line('.')
