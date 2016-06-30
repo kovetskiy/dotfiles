@@ -140,6 +140,10 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     au operations FileType go nmap <buffer> <Leader>l :GoLint .<CR>
 
 
+    au operations FileType go nmap <buffer> <Leader>;
+        \ :let b:syntastic_mode = 'passive'<CR>:w<CR>:let b:syntastic_mode = 'active'<CR>:<ESC>
+
+
 Plug 'elzr/vim-json', { 'for': 'json' }
     au operations BufNewFile,BufRead *.json set filetype=json
 
@@ -393,7 +397,7 @@ Plug 'kovetskiy/vim-ski'
 
 Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
-        \ 'diff'
+        \ 'diff', 'go'
     \ ]
 
     func! _whitespaces_fix()
