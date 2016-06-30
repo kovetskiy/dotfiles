@@ -33,6 +33,24 @@ Plug 'kovetskiy/vim-hacks'
 
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'junegunn/fzf.vim'
+    let g:fzf_prefer_tmux = 1
+
+    let g:fzf_colors =
+    \ { 'fg':      [240],
+      \ 'bg':      [234],
+      \ 'hl':      [248],
+      \ 'fg+':     [220],
+      \ 'bg+':     [236],
+      \ 'hl+':     [220],
+      \ 'info':    [1],
+      \ 'prompt':  [15],
+      \ 'pointer': [220],
+      \ 'spinner': [1],
+      \ 'header':  ['Comment'] }
+
+    au operations FileType * let g:fzf#vim#default_layout  = {'bottom': '100'}
+    au operations FileType * nnoremap <C-P> :GFiles?<CR>
+
 Plug 'ctrlpvim/ctrlp.vim'
 
     func! _ctrlp_buffer_add_augroup()
@@ -55,7 +73,6 @@ Plug 'ctrlpvim/ctrlp.vim'
     endfunc!
 
     nnoremap <C-B> :call _ctrlp_buffer()<CR>
-    nnoremap <C-P> :CtrlP<CR>
 
     let g:ctrlp_working_path_mode='a'
     let g:ctrlp_use_caching = 0
@@ -272,10 +289,14 @@ Plug 'seletskiy/vim-over'
 
         let g:over#command_line#search#enable_move_cursor = 1
 
-        call over#command_line(
-        \   g:over_command_line_prompt,
-        \   a:line1 != a:line2 ? printf("'<,'>%s", a:args) : a:args
-        \)
+        try
+            call over#command_line(
+            \   g:over_command_line_prompt,
+            \   a:line1 != a:line2 ? printf("'<,'>%s", a:args) : a:args
+            \)
+        catch
+            _over_exec(a:line1, a:line2, a:args)
+        endtry
 
     endfunc!
 
