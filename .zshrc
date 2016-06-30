@@ -205,10 +205,10 @@ export BACKGROUND=$(cat ~/background)
 
         prompt_lambda17_precmd
 
-        zle reset-prompt
         clear
         ls -lah
         git status -s
+        zle reset-prompt
     }
 }
 

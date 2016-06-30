@@ -32,24 +32,10 @@ let g:py_modules = []
 Plug 'kovetskiy/vim-hacks'
 
 Plug 'junegunn/fzf', {'do': './install --all'}
-Plug 'junegunn/fzf.vim'
-    let g:fzf_prefer_tmux = 1
-
-    let g:fzf_colors =
-    \ { 'fg':      [240],
-      \ 'bg':      [234],
-      \ 'hl':      [248],
-      \ 'fg+':     [220],
-      \ 'bg+':     [236],
-      \ 'hl+':     [220],
-      \ 'info':    [1],
-      \ 'prompt':  [15],
-      \ 'pointer': [220],
-      \ 'spinner': [1],
-      \ 'header':  ['Comment'] }
-
-    au operations FileType * let g:fzf#vim#default_layout  = {'bottom': '100'}
-    au operations FileType * nnoremap <C-P> :GFiles?<CR>
+Plug 'kovetskiy/fzf.vim'
+    let g:fzf_prefer_tmux = 0
+    au operations FileType * let g:fzf#vim#default_layout  = {'bottom': '40'}
+    au operations FileType * nnoremap <C-P> :Sift<CR>
 
 Plug 'ctrlpvim/ctrlp.vim'
 
@@ -134,7 +120,7 @@ Plug 'Valloric/YouCompleteMe', {'frozen': 1}
 Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
-    let g:go_fmt_autosave = 1
+    let g:go_fmt_autosave = 0
     let g:go_bin_path = $GOPATH . "/bin"
     let g:go_metalinter_command="gometalinter -D golint --cyclo-over 15"
     let g:go_list_type = "quickfix"
