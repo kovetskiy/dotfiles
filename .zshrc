@@ -874,7 +874,7 @@ DATA
     alias stprr='reviewers-add'
     alias strcd='stacket repositories create devops'
     alias strcs='stacket repositories create specs'
-    alias vbs='vim-bundle-sync'
+    alias vbs='vim-bundle-save'
     alias vbr='vim-bundle-restore'
     alias gbs='git-submodule-branch-sync'
     alias bkl='batrak -L -f 16053'
