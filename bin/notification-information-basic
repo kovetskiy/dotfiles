@@ -1,5 +1,5 @@
 #!/bin/bash
-body="$(date)"
+body="$(date) $(acpi)"
 notify-send.sh -r 1000 -t 1000 " " -- "$body"
 
 body="$body"$'\n'"$(weather)"
