@@ -856,6 +856,7 @@ DATA
 
 # :alias
 {
+    alias rx='sudo systemctl restart x@vt7.service xlogin@operator.service'
     alias xoc='orgalorg -s -p -v -u e.kovetskiy -C'
     alias z='zabbixctl'
     alias zp='zabbixctl -Tp -xxxx'

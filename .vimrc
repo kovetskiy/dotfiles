@@ -865,10 +865,9 @@ func! DiffApplyBottom()
     nohlsearch
 endfunc!
 
-nmap <C-F><C-D> :Grep '\=\=\=\=\=\=\='<CR><CR>
-nmap rr :/=====<CR>zz:noh<CR>
-nmap rk :call DiffApplyTop()<CR>rr
-nmap rj :call DiffApplyBottom()<CR>rr
+au operations FileType diff nmap <buffer> <C-F><C-D> :Grep '\=\=\=\=\=\=\='<CR><CR>
+au operations FileType diff nmap <buffer> rr :/=====<CR>zz:noh<CR>
+au operations FileType diff nmap <buffer> rk :call DiffApplyTop()<CR>rr
+au operations FileType diff nmap <buffer> rj :call DiffApplyBottom()<CR>rr
 
 noh
-

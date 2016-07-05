@@ -10,7 +10,8 @@ source ~/bin/environment-setup
 # @TODO: move to systemd
 dunst &
 
-screen-lock &
+if ! tmux list-sessions &>/dev/null; then
+    screen-lock &
+fi
 
-echo $PATH
 i3
