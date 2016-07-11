@@ -178,37 +178,21 @@ export BACKGROUND=$(cat ~/background)
     bindkey -v '^N' cd-to-directory-favorites
     zle -N cd-to-directory-favorites
     cd-to-directory-favorites() {
-        local dir_sources=~/sources/
-        local dir_go=~/go/src/
-        local dir_zsh=~/.zgen/
-        local dir_vim=~/.vim/bundle/
-        local dir=$({
-            find $dir_go -maxdepth 3 -type d    -printf 'go: %P\n'
+        local __dir="$(fzf-choose-favorite)"
+        if [[ ! "$__dir" ]]; then
+            return
+        fi
 
-            find $dir_sources -maxdepth 1 -type d -printf 'sources: %P\n'
-            find $dir_zsh -maxdepth 2 -type d         -printf 'zsh: %P\n'
-            find $dir_vim -maxdepth 1 -type d         -printf 'vim: %P\n'
-        } 2>/dev/null | grep -Pv '^\w+: $' | fzf-tmux -u 15)
+        eval cd "$__dir"
 
-        local token=${dir//:*/}
-        local dir=${dir//*: /}
-
-        eval local root_dir=\$dir_$token
-        eval cd "$root_dir$dir"
-
-        unset dir_sources
-        unset dir_go
-        unset dir_zsh
-        unset dir_vim
-        unset dir
-        unset token
-
-        prompt_lambda17_precmd
+        unset __dir
 
         clear
-        ls -lah
-        git status -s
+        zle -R
+        prompt_lambda17_precmd
         zle reset-prompt
+        ls -lah --color=always
+        git status -s
     }
 }
 
@@ -385,11 +369,11 @@ export BACKGROUND=$(cat ~/background)
     git-remote-set-devops() {
         local name=${1}
         if [[ ! "$name" ]]; then
-            name=$(dirname $(pwd))
+            name=$(basename $(pwd))
         fi
 
         git remote remove origin
-        git remove add "git+ssh://git.rn/devops/$name" .
+        git remote add origin "git+ssh://git.rn/devops/$name"
     }
 
     git-clone-profiles() {
@@ -852,10 +836,29 @@ DATA
         pdns records add -n "$name._tcp.s" -c "0 $port $hostname" -t SRV -d 80 -l 60
         pdns soa update -n s
     }
+
+    npm-to-aur() {
+        local pkg="$1"
+        aur-create-project "nodejs-$pkg"
+        npm2PKGBUILD "$pkg" > PKGBUILD
+        sed 's/ # All lowercase//' -i PKGBUILD
+        sed '/^#/d' -i PKGBUILD
+        echo
+        cat PKGBUILD
+        echo
+        mksrcinfo
+        git add .
+        git commit -m "update pkgbuild"
+        git push origin master
+        makepkg
+        sudo pacman -U *.xz
+    }
 }
 
 # :alias
 {
+    alias npu='npm-to-aur'
+    alias -g J='| jq .'
     alias rx='sudo systemctl restart x@vt7.service xlogin@operator.service'
     alias xoc='orgalorg -s -p -v -u e.kovetskiy -C'
     alias z='zabbixctl'
@@ -969,6 +972,7 @@ DATA
     alias cc='copy-to-clipboard'
     alias bmpk='bithookctl -p post -A makepkg primary'
     alias bsl='bithookctl -p pre -A sould primary'
+    alias bur='bithookctl -p post -A uroboros uroboros'
 
 
     # :globals

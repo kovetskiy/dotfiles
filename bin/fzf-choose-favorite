@@ -1,0 +1,18 @@
+#!/bin/bash
+dir_sources=~/sources/
+dir_go=~/go/src/
+dir_zsh=~/.zgen/
+dir_vim=~/.vim/bundle/
+dir=$({
+    find $dir_go -maxdepth 3 -type d -printf 'go: %P\n'
+
+    find $dir_sources -maxdepth 1 -type d -printf 'sources: %P\n'
+    find $dir_zsh -maxdepth 2 -type d -printf 'zsh: %P\n'
+    find $dir_vim -maxdepth 1 -type d -printf 'vim: %P\n'
+} 2>/dev/null | grep -Pv '^\w+: $' | fzf-tmux -u 15)
+
+token=${dir//:*/}
+dir=${dir//*: /}
+
+eval root_dir=\$dir_$token
+echo "$root_dir$dir"

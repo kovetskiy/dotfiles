@@ -69,6 +69,8 @@ Plug 'ctrlpvim/ctrlp.vim'
 "Plug 'junegunn/seoul256.vim'
     "au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
 
+Plug 'marijnh/tern_for_vim'
+
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
     let g:airline_theme = 'term'
@@ -542,6 +544,16 @@ Plug 'scrooloose/syntastic'
     au operations FileType go nmap <buffer> <C-T> :lnext<CR>zz
     au operations FileType go nmap <buffer> <C-E><C-T> :lprev<CR>zz
 
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
+    let g:session_menu = 1
+    let g:session_command_aliases = 1
+    let g:session_autosave_periodic = 1
+    let g:session_autosave = 'yes'
+    let g:session_autoload = 'no'
+    let g:session_lock_enabled = 0
+    let g:session_default_overwrite = 1
+
 
 augroup end
 call plug#end()
@@ -658,8 +670,33 @@ au operations BufRead /tmp/vimperator-confluence* map <buffer> <Leader>t :%s/\v[
 au operations BufWritePre /tmp/vimperator-confluence* %s/\v\>[\ \t\n]+\</></
 au operations BufWritePost /tmp/vimperator-confluence* silent! undo
 
+au operations BufRead *.noml set ft=noml.dracula
+
+au operations FileType html setlocal sw=2
+
 map Q <nop>
 map K <nop>
+
+func! _favorites()
+    call _session_save()
+    SessionClose
+    redraw!
+    let directory = system("fzf-choose-favorite")
+    execute 'cd' directory
+    call _session_open()
+    redraw!
+endfunc!
+
+func! _session_save()
+    execute 'SessionSave' expand('%:p:h')
+endfunc!
+
+func! _session_open()
+    execute 'SessionOpen!' expand('%:p:h')
+endfunc!
+
+nmap <C-E><C-N> :call  _favorites()<CR>
+nmap <C-E><C-S> :call _session_save()<CR>
 
 imap <C-F> tx<TAB>
 vmap <C-F> ctx<TAB>
@@ -741,18 +778,18 @@ inoremap <C-H> <C-O>o
 
 imap <C-U> <ESC>ua
 
-    au BufRead,BufNewFile ~/.zshrc set ft=zsh.sh
-    au BufRead,BufNewFile *.zsh    set ft=zsh.sh
+au BufRead,BufNewFile ~/.zshrc set ft=zsh.sh
+au BufRead,BufNewFile *.zsh    set ft=zsh.sh
 
-    au BufRead,BufNewFile *.service set noet ft=systemd
-    au BufRead,BufNewFile PKGBUILD set et ft=pkgbuild.sh
-    au BufRead incident.md set et ft=incident.markdown
-    au BufNewFile incident.md set et ft=incident|Skeleton|set ft=incident.markdown
+au BufRead,BufNewFile *.service set noet ft=systemd
+au BufRead,BufNewFile PKGBUILD set et ft=pkgbuild.sh
+au BufRead incident.md set et ft=incident.markdown
+au BufNewFile incident.md set et ft=incident|Skeleton|set ft=incident.markdown
 
-    au BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.sh
+au BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.sh
 
-    au BufRead,BufNewFile *.snippets set noet ft=snippets.python
-    au BufRead,BufNewFile *.skeleton set noet ft=snippets.python
+au BufRead,BufNewFile *.snippets set noet ft=snippets.python
+au BufRead,BufNewFile *.skeleton set noet ft=snippets.python
 
 
 fu! _background(bg)
@@ -865,9 +902,15 @@ func! DiffApplyBottom()
     nohlsearch
 endfunc!
 
-au operations FileType diff nmap <buffer> <C-F><C-D> :Grep '\=\=\=\=\=\=\='<CR><CR>
-au operations FileType diff nmap <buffer> rr :/=====<CR>zz:noh<CR>
-au operations FileType diff nmap <buffer> rk :call DiffApplyTop()<CR>rr
-au operations FileType diff nmap <buffer> rj :call DiffApplyBottom()<CR>rr
+func! DiffEnable()
+    nmap <buffer> <C-F><C-D> :Grep '\=\=\=\=\=\=\='<CR><CR>
+    nmap <buffer> rr :/=====<CR>zz:noh<CR>
+    nmap <buffer> rk :call DiffApplyTop()<CR>rr
+    nmap <buffer> rj :call DiffApplyBottom()<CR>rr
+endfunc!
+
+command!
+    \ Diff
+    \ call DiffEnable()
 
 noh

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+xdotool search --class sxiv key r

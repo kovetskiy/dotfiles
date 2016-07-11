@@ -142,6 +142,7 @@ for_window [title="^sxiv$"]      floating enable
 for_window [title="^kuake_"]     floating enable
 for_window [title="^malder"]     floating enable
 for_window [title="android"]     floating disable
+for_window [title="^sxiv"]     floating disable
 
 client.focused          #163ccb #163ccb #163ccb #163ccb
 client.focused_inactive #000000 #000000 #000000 #000000
