@@ -74,6 +74,7 @@ export BACKGROUND=$(cat ~/background)
         zgen load seletskiy/zsh-autosuggestions
         zgen load kovetskiy/zsh-alias-search
         #zgen load seletskiy/zsh-syntax-highlighting
+        #zgen load hchbaw/auto-fu.zsh
 
         zgen oh-my-zsh plugins/sudo
 
@@ -81,6 +82,13 @@ export BACKGROUND=$(cat ~/background)
         zgen save
     fi
 }
+
+
+#function zle-line-init () {
+    #auto-fu-init
+#}
+#zle -N zle-line-init
+#zstyle ':completion:*' completer _oldlist _complete
 
 # :reset
 {
@@ -502,6 +510,12 @@ export BACKGROUND=$(cat ~/background)
 
     aur-create-project() {
         local package="$1"
+
+        if [[ "$package" == "" || "$package" == "-h" ]]; then
+            echo "aur-create-project <package> [<file>]..."
+            return
+        fi
+
         local dir=$(mktemp -d --suffix=$package)
         local url="ssh://aur@aur.archlinux.org/$package.git"
 
@@ -521,12 +535,19 @@ export BACKGROUND=$(cat ~/background)
         local desc="$2"
         local git="$3"
 
+        if [[ "$package" == "" || "$package" == "-h" ]]; then
+            echo "aur-import-project-golang <package> <description> <url>"
+            return
+        fi
+
         local dir=$(mktemp -d --suffix=$package)
 
         local url="ssh://aur@aur.archlinux.org/$package.git"
 
         git clone $url $dir
         cd $dir
+
+        git=$(sed-replace 'https?://' 'git://' <<< "$git")
 
         go-makepkg -d . -c "$desc" "$git"
         mksrcinfo
@@ -857,10 +878,12 @@ DATA
 
 # :alias
 {
+    alias pas='packages-sync && { cd ~/dotfiles; git diff -U0 packages; }'
+    alias duty='cake --id 41882909 -L && cal -m'
     alias npu='npm-to-aur'
     alias -g J='| jq .'
     alias rx='sudo systemctl restart x@vt7.service xlogin@operator.service'
-    alias xoc='orgalorg -s -p -v -u e.kovetskiy -C'
+    alias xoc='orgalorg -s -p -u e.kovetskiy -C'
     alias z='zabbixctl'
     alias zp='zabbixctl -Tp -xxxx'
     alias zgr='zgen reset'
