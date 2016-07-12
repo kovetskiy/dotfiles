@@ -536,6 +536,10 @@ Plug 'scrooloose/syntastic'
     let g:syntastic_auto_loc_list = 0
     let g:syntastic_check_on_open = 0
     let g:syntastic_go_checkers = ["go", "gofmt"]
+    let g:syntastic_mode_map = {
+        \ "mode": "active",
+        \ "active_filetypes": ["go"],
+        \ "passive_filetypes": ["bash", "sh", "zsh"] }
 
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
