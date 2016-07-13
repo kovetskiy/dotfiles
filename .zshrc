@@ -71,6 +71,8 @@ export BACKGROUND=$(cat ~/background)
         zgen load seletskiy/zsh-fuzzy-search-and-edit
         zgen load Tarrasch/zsh-bd
 
+        zgen load brnv/zsh-too-long
+
         zgen load seletskiy/zsh-autosuggestions
         zgen load kovetskiy/zsh-alias-search
         #zgen load seletskiy/zsh-syntax-highlighting
