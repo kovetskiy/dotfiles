@@ -1,5 +1,6 @@
 #!/bin/bash
 
 URL="$(sed 's/^\(git+ssh\|ssh\|git\):\/\///' <<< "$1")"
+shift
 
-exec yandex-browser-beta "$URL"
+exec yandex-browser-beta --kiosk "$URL" "$@"
