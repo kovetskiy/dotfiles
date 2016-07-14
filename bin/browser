@@ -3,4 +3,4 @@
 URL="$(sed 's/^\(git+ssh\|ssh\|git\):\/\///' <<< "$1")"
 shift
 
-exec yandex-browser-beta --kiosk "$URL" "$@"
+exec yandex-browser-beta --noerrdialogs --disable-infobars --kiosk "$URL" "$@"
