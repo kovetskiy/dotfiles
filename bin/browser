@@ -1,6 +1,6 @@
 #!/bin/bash
 
-URL="$(sed 's/^\(git+ssh\|ssh\|git\):\/\///' <<< "$1")"
+url=$(sed -r 's#^(git+ssh|ssh|git)://(\w+@)?##' <<< "$1")
 shift
 
-exec yandex-browser-beta --noerrdialogs --disable-infobars --kiosk "$URL" "$@"
+exec yandex-browser-beta --noerrdialogs --disable-infobars --kiosk "$url" "$@"
