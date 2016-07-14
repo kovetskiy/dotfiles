@@ -45,6 +45,7 @@ POINTS=(
     ".xkbrc"
     ".vim/bundle/snippets"
     ".vim/bundle/vim-pythonx"
+    ".config/surfingkeys.js"
 )
 
 for POINT in "${POINTS[@]}"; do
