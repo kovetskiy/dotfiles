@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec mpv -v https://www.youtube.com/watch\?v\=uenf3ZEEDeI
