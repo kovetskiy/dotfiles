@@ -876,13 +876,22 @@ DATA
         makepkg
         sudo pacman -U *.xz
     }
+
+    sed-files() {
+        local from="$1"
+        local to="$2"
+        shift 2
+        sed-replace "$from" "$to" $(sift --targets) "$@"
+    }
 }
 
 # :alias
 {
+    alias sf='sed-files'
     alias pas='packages-sync && { cd ~/dotfiles; git diff -U0 packages; }'
     alias duty='cake --id 41882909 -L && cal -m'
     alias npu='npm-to-aur'
+    alias -g I='<<<'
     alias -g J='| jq .'
     alias rx='sudo systemctl restart x@vt7.service xlogin@operator.service'
     alias xoc='orgalorg -s -p -u e.kovetskiy -C'
@@ -1011,7 +1020,7 @@ DATA
         alias -g EN='2>/dev/null'
     }
 
-    alias s='sift -e'
+    alias s='sift -i -e'
     {
         alias -g SX='--exclude-path'
     }
