@@ -130,7 +130,7 @@ snippet "= c" "construct structure"
 endsnippet
 
 snippet u "usage" w
-version = "1.0"
+version = "[manual build]"
 usage = \`$1 \` + version + \`
 $2
 
@@ -336,3 +336,63 @@ endsnippet
 #`$0
 #`!p snip.rv=match.group(1)`
 #endsnippet
+
+snippet ko "" w
+import "github.com/kovetskiy/ko"
+
+type Config struct {
+	Web struct {
+		Listen string \`toml:"listen"\`
+	} \`toml:"web"\`
+
+	Database struct {
+		URL string \`toml:"url"\`
+	} \`toml:"database"\`
+}
+
+func getConfig(path string) (*Config, error) {
+	config := &Config{}
+	err := ko.Load(path, config)
+	if err != nil {
+		return nil, err
+	}
+
+	return config, nil
+}
+endsnippet
+
+snippet va "" w
+var (
+    $1
+)
+endsnippet
+
+global !p
+def is_inside_var(snip):
+    return px.whitespaces.match_higher_indent(
+        snip.buffer, snip.cursor, 'var \($'
+    )
+endglobal
+
+context "is_inside_var(snip)"
+snippet "^(\s+)a" "" wre
+`!p snip.rv=match.group(1)`$1 = args["$2"].($3)
+endsnippet
+
+snippet req "" w
+required:"true"
+endsnippet
+
+priority 200
+snippet "^(func.*)\(cgc" "" Air
+`!p snip.rv=match.group(1)`(context *gin.Context
+endsnippet
+
+priority 100
+snippet (cgc "" Ai
+(context
+endsnippet
+
+snippet cgc "" i
+context
+endsnippet

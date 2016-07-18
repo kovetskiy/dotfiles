@@ -122,7 +122,7 @@ Plug 'Valloric/YouCompleteMe', {'frozen': 1}
 Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
-    let g:go_fmt_autosave = 0
+    let g:go_fmt_autosave = 1
     let g:go_bin_path = $GOPATH . "/bin"
     let g:go_metalinter_command="gometalinter -D golint --cyclo-over 15"
     let g:go_list_type = "quickfix"
@@ -283,7 +283,7 @@ Plug 'seletskiy/vim-over'
             \   a:line1 != a:line2 ? printf("'<,'>%s", a:args) : a:args
             \)
         catch
-            _over_exec(a:line1, a:line2, a:args)
+            call _over_exec(a:line1, a:line2, a:args)
         endtry
 
     endfunc!
@@ -406,7 +406,7 @@ Plug 'kovetskiy/vim-ski'
 
 Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
-        \ 'diff', 'go'
+        \ 'diff', 'go', 'markdown'
     \ ]
 
     func! _whitespaces_fix()
@@ -704,6 +704,8 @@ nmap <C-E><C-S> :call _session_save()<CR>
 
 imap <C-F> tx<TAB>
 vmap <C-F> ctx<TAB>
+
+imap <C-E><C-F> context.
 
 nnoremap <C-E><C-D> :cd %:p:h<CR>:pwd<CR>
 nnoremap <C-E><C-F> :lcd %:p:h<CR>:pwd<CR>

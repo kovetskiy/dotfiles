@@ -28,7 +28,7 @@ xdotool windowfocus $ID
 echo "recording..."
 
 byzanz-record --verbose --delay=0 --x=$X --y=$Y --width=$W --height=$H \
-    --exec="bash -c 'ping 8.8.8.8 > /dev/null'" $OUTPUT &>/dev/null &
+    --exec="bash -c 'ping 8.8.8.8 > /dev/null'" $OUTPUT &
 PID=$!
 
 echo "press ENTER to stop recording"
