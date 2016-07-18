@@ -801,7 +801,7 @@ DATA
         xclip -o -selection clipboard
     }
 
-    this-pull-request() {
+    ash-this() {
         local branch="$(git rev-parse --abbref-ref HEAD)"
         ash $(
             ash inbox \
@@ -809,6 +809,13 @@ DATA
                 | grep -F "$(basename $(git rev-parse --show-toplevel))" \
                 | awk '{print $1}'
         )
+    }
+
+    uroboros-this() {
+        curl -d "url=$(
+            git config --get \
+                pull-request.$(git rev-parse --abbrev-ref HEAD).url
+        )" http://uroboro.s/api/v1/tasks/
     }
 
     amf-new() {
@@ -903,7 +910,8 @@ DATA
     alias mpkt='makepkg-clean-upload-testing'
     alias ddo='debian-do'
     alias ddoai='ddo apt-get install'
-    alias tpr='this-pull-request'
+    alias asht='ash-this'
+    alias urot='uroboros-this'
     alias ia='ip a'
     alias il='ip l'
     alias td='touch  /tmp/debug; tail -f /tmp/debug'
