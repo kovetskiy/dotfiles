@@ -49,6 +49,7 @@ mapkey('=', 'source settings', sourceSettings)
 mapkey('p', 'paste link',      pasteLink)
 
 map('F', 'af')
+map('o', 'go')
 
 favorites('g', {
     g: 'gmail.com',
