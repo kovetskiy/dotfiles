@@ -50,6 +50,8 @@ mapkey('p', 'paste link',      pasteLink)
 
 map('F', 'af')
 map('o', 'go')
+map('j', '<DOWN>')
+map('k', '<UP>')
 
 favorites('g', {
     g: 'gmail.com',

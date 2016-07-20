@@ -3,4 +3,4 @@
 url=$(sed -r 's#^(git+ssh|ssh|git)://(\w+@)?##' <<< "$1")
 shift
 
-exec yandex-browser-beta --noerrdialogs --disable-infobars --kiosk "$url" "$@"
+exec yandex-browser-beta --noerrdialogs --disable-infobars "$url" "$@"

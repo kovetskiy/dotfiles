@@ -33,9 +33,9 @@ Plug 'kovetskiy/vim-hacks'
 
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'kovetskiy/fzf.vim'
-    let g:fzf_prefer_tmux = 0
-    au operations FileType * let g:fzf#vim#default_layout  = {'bottom': '40'}
-    au operations FileType * nnoremap <C-P> :Sift<CR>
+    let g:fzf_prefer_tmux = 1
+    au operations FileType * let g:fzf#vim#default_layout  = {'bottom': '10%'}
+    "au operations FileType * nnoremap <C-P> :Sift<CR>
 
 Plug 'ctrlpvim/ctrlp.vim'
 
@@ -62,7 +62,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 
     let g:ctrlp_working_path_mode='a'
     let g:ctrlp_use_caching = 0
-    let g:ctrlp_user_command = "ag %s -l --nocolor -g '' --depth 999 | grep -vP 'lib/tests/testcases|vendor'"
+    let g:ctrlp_user_command = "sift --targets %s | grep -vP 'lib/tests/testcases|vendor'"
 
     let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:200'
 
@@ -558,6 +558,7 @@ Plug 'xolox/vim-session'
     let g:session_lock_enabled = 0
     let g:session_default_overwrite = 1
 
+Plug 'airblade/vim-gitgutter'
 
 augroup end
 call plug#end()
