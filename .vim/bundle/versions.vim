@@ -34,6 +34,7 @@ vim-cpp-enhanced-highlight f4351ba
 vim-ctrlp-ag 0af7097
 vim-dispatch 5f5c22c
 vim-empty-lines b0ee3f8
+vim-gitgutter 26c6b54
 vim-go a7a3751
 vim-go-impl 3a68a75
 vim-hacks f423472
