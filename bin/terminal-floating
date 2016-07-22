@@ -13,7 +13,7 @@ main() {
         done
         i3-msg -q '[instance="'$NAME'"] move scratchpad'
     else
-        local terminal_id=$(xdotool search --classname $NAME)
+        local terminal_id=$(:xdotool search --classname $NAME)
     fi
 
     shift
@@ -27,11 +27,21 @@ main() {
         main 1 "${@}"
     else
         read screen_num screen_x screen_y screen_width screen_height <<<$(xscreeninfo)
-        eval `xdotool getwindowgeometry --shell $terminal_id`
+        :xdotool getwindowgeometry --shell $terminal_id
         i3-msg -q '[instance="'$NAME'"] scratchpad show'
-        xdotool windowmove --sync $terminal_id  $screen_x $screen_y
-        xdotool windowsize --sync $terminal_id $screen_width $(($screen_height*75/100))
+        :xdotool windowmove --sync $terminal_id $screen_x $screen_y
+        :xdotool windowsize --sync $terminal_id $screen_width $(($screen_height*75/100))
     fi
+}
+
+:xdotool() {
+    while :; do
+        content=$(xdotool "$@" 2>&1)
+        if ! grep -q 'BadWindow' <<< "$content"; then
+            echo "$content"
+            break
+        fi
+    done
 }
 
 main 0 "${@}"

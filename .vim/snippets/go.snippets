@@ -129,20 +129,23 @@ snippet "= c" "construct structure"
 }
 endsnippet
 
-snippet u "usage" w
-version = "[manual build]"
-usage = \`$1 \` + version + \`
+snippet xvu "usage" w
+var (
+    version = "[manual build]"
+    usage = "$1 " + version + \`
 $2
 
 Usage:
-	$1 $3
-	$1 -h | --help
-	$1 --version
+    $1 [options]
+    $1 -h | --help
+    $1 --version
 
 Options:
-	-h --help		Show this screen.
-	--version       Show version.
+    $3
+    -h --help		Show this screen.
+    --version       Show version.
 \`
+)
 endsnippet
 
 snippet he "" w
@@ -154,7 +157,7 @@ p.parseMethodStmt(receiver, $1)
 endsnippet
 
 # logger
-snippet lo "" wb
+snippet xlo "" wb
 package main
 
 import (
@@ -164,63 +167,66 @@ import (
 	"github.com/kovetskiy/lorg"
 )
 
-const logFormat = `${level:%s\::right:false} ${time} %s`
+const (
+	loggerFormat       = \`${level:%s\::right:false} ${time} %s\`
+	loggerFormatLength = 28
+)
 
 func getLogger() lorg.Logger {
 	logger := lorg.NewLog()
-	logger.SetFormat(lorg.NewFormat(logFormat))
+	logger.SetFormat(lorg.NewFormat(loggerFormat))
 	logger.SetLevel(lorg.LevelDebug)
 
 	return logger
 }
 
 func fatalf(format string, values ...interface{}) {
-	logger.Fatal(wrapNewLines(format, values...))
+	logger.Fatal(wrapLines(format, values...))
 }
 
 func errorf(format string, values ...interface{}) {
-	logger.Error(wrapNewLines(format, values...))
+	logger.Error(wrapLines(format, values...))
 }
 
 func warningf(format string, values ...interface{}) {
-	logger.Warning(wrapNewLines(format, values...))
+	logger.Warning(wrapLines(format, values...))
 }
 
 func infof(format string, values ...interface{}) {
-	logger.Info(wrapNewLines(format, values...))
+	logger.Info(wrapLines(format, values...))
 }
 
 func debugf(format string, values ...interface{}) {
-	logger.Debug(wrapNewLines(format, values...))
+	logger.Debug(wrapLines(format, values...))
 }
 
 func tracef(format string, values ...interface{}) {
-	logger.Trace(wrapNewLines(format, values...))
+	logger.Trace(wrapLines(format, values...))
 }
 
 func debugln(value interface{}) {
-	logger.Debug(wrapNewLines("%s", value))
+	logger.Debug(wrapLines("%s", value))
 }
 
 func infoln(value interface{}) {
-	logger.Info(wrapNewLines("%s", value))
+	logger.Info(wrapLines("%s", value))
 }
 
 func fatalln(value interface{}) {
-	logger.Fatal(wrapNewLines("%s", value))
+	logger.Fatal(wrapLines("%s", value))
 }
 
 func errorln(value interface{}) {
-	logger.Error(wrapNewLines("%s", value))
+	logger.Error(wrapLines("%s", value))
 }
 
-func wrapNewLines(format string, values ...interface{}) string {
+func wrapLines(format string, values ...interface{}) string {
 	contents := fmt.Sprintf(format, values...)
 	contents = strings.TrimSuffix(contents, "\n")
 	contents = strings.Replace(
 		contents,
 		"\n",
-		"\n"+strings.Repeat(" ", loggerFormattinbBasicLength),
+		"\n"+strings.Repeat(" ", loggerFormatLength),
 		-1,
 	)
 
@@ -231,8 +237,7 @@ endsnippet
 # hierr.Errorf
 snippet hh "" wA
 hierr.Errorf(
-    ${1:err},
-    $2,
+    ${1:err}, "$2",
 )$0
 endsnippet
 
@@ -248,72 +253,32 @@ endsnippet
 # hierr.Fatalf
 snippet hf "" wA
 hierr.Fatalf(
-    ${1:err},
-    $2,
+    ${1:err}, $2,
 )$0
 endsnippet
 
-post_jump "px.snippets.expand(snip)"
 snippet kkd "" wA
-ldebug$1
+debugf("$1", $2)
 endsnippet
 
-post_jump "px.snippets.expan(snip)"
-snippet kkl "" wA
-linfo$1
+snippet kki "" wA
+infof("$1", $2)
 endsnippet
 
-post_jump "px.snippets.expand(snip)"
 snippet kke "" wA
-lerror$1
+errorln($1)
 endsnippet
 
-post_jump "px.snippets.expand(snip)"
 snippet kkf "" wA
-lfatal$1
+fatalln("$1")
 endsnippet
 
-snippet "^(\s+)l(debug|info|error|fatal)" "" wr
-`!p
-
-try:
-    once
-    line = px.buffer.get()[line_number].replace("\t", "    ")
-    if not breakline and len(line) > 79:
-        breakline = True
-except:
-    once = True
-    line_number = px.cursor.get()[0]
-    breakline = False
-
-
-func    = match.group(2)+"ln"
-content = t[1]
-left    = '('
-right   = ''
-separator = ')'
-
-if "," in t[2] or "\n" in t[2] or "\n" in t[1]:
-    breakline = True
-
-if breakline:
-    left = '(\n' + match.group(1)
-    separator = ',\n' + match.group(1) + ')'
-if re.search('^\w+ ', content) or re.search('%', content):
-    func = match.group(2)+"f"
-    left = '("'
-    right = ')'
-    if breakline:
-        left = '(\n' + match.group(1) + "\t" + '"'
-        right = '\n' + match.group(1) + ')'
-    separator='"'
-    if t[2] != "":
-        separator = '", '
-        if breakline:
-            separator = '",\n' + match.group(1) + "\t"
-
-snip.rv=match.group(1)
-``!p snip.rv=func``!p snip.rv=left`$1`!p snip.rv=separator`$2`!p snip.rv=right`
+snippet kkh "" wA
+errorln(
+    hierr.Errorf(
+        err, "$1",
+    ),
+)
 endsnippet
 
 #global !p
@@ -395,4 +360,56 @@ endsnippet
 
 snippet cgc "" i
 context
+endsnippet
+
+snippet xli "" w
+func listen(address string, router *gin.Engine) error {
+	addr, err := net.ResolveTCPAddr("tcp", address)
+	if err != nil {
+		return hierr.Errorf(
+			err,
+			"can't resolve '%s'", address,
+		)
+	}
+
+	socket, err := net.ListenTCP("tcp", addr)
+	if err != nil {
+		return hierr.Errorf(
+			err,
+			"can't listen '%s'", addr,
+		)
+	}
+
+	infof("listening at %s", address)
+
+	return http.Serve(socket, router)
+}
+endsnippet
+
+snippet xvl "" w
+var (
+	logger    = lorg.NewLog()
+	debugMode = false
+	traceMode = false
+)
+endsnippet
+
+snippet xml "" w
+logger.SetFormat(
+    colorgful.MustApplyDefaultTheme(
+        "${time} ${level:[%s]:right:short} ${prefix}%s",
+        colorgful.Dark,
+    ),
+)
+
+debugMode = args["--debug"].(bool)
+if debugMode {
+    logger.SetLevel(lorg.LevelDebug)
+}
+
+traceMode = args["--trace"].(bool)
+if traceMode {
+    logger.SetLevel(lorg.LevelTrace)
+}
+
 endsnippet

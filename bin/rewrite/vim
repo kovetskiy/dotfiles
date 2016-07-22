@@ -3,7 +3,7 @@
 if [[ "$1" ]]; then
     if ! grep "^[\-+]" <<< "$1"; then
         if [[ ! -f "$1" ]]; then
-            file=$(/bin/ls -t $1* | head -n1)
+            file=$(/bin/ls -t $1* 2>/dev/null | head -n1)
         fi
     fi
 fi

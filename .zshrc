@@ -894,6 +894,7 @@ DATA
 
 # :alias
 {
+    alias p='vimpager'
     alias sf='sed-files'
     alias pas='packages-sync && { cd ~/dotfiles; git diff -U0 packages; }'
     alias duty='cake --id 41882909 -L && cal -m'
@@ -1047,7 +1048,6 @@ DATA
 
     # :pacman
     {
-        alias p='sudo pacman'
         alias pmr='sudo pacman -R'
         alias pq='sudo pacman -Q'
         alias pql='sudo pacman -Ql'
