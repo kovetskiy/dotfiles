@@ -115,7 +115,8 @@ bindsym  $win+Ctrl+d  exec notification-information-basic
 bindsym  $alt+Ctrl+e  exec translator
 bindsym  $alt+Tab     exec paster
 bindsym  Ctrl+F12     exec xkb
-bindsym  $alt+grave   exec terminal-floating
+bindsym  $alt+grave     exec kuake --terminal --height 75
+bindsym  $alt+backslash exec kuake --focus --height 75
 
 set $left  DVI-I-1
 set $right VGA-1
