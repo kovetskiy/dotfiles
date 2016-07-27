@@ -10,7 +10,7 @@ set -e -u
 echo "[zfs] creating snapshot"
 
 pool="zroot"
-slug="`date | sed 's/  / /g' | sed 's/ /_/g'`"
+slug="`date | sed 's/  / /g; s/ /_/g; s/\+//g;'`"
 snapshot="$pool@$slug"
 
 sudo zfs snapshot $snapshot
