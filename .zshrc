@@ -1146,7 +1146,7 @@ DATA
         alias gla='git submodule add'
         alias gld='git submodule deinit'
         alias glf='git submodule foreach --recursive'
-        alias grm='git rm -f '
+        alias grm='git rm -rf'
         alias gic='git add . ; git commit -m "initial commit"'
         alias gig='touch .gitignore; git add .gitignore ; git commit -m "gitignore"'
         alias bhc='BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
