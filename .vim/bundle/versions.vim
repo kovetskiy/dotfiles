@@ -17,9 +17,10 @@ Recover.vim f6c4033
 rename.vim f133763
 rust.vim a4d6fb2
 SearchParty 48dbaa9
-sideways.vim abc2551
-synta 40d76be
-syntastic a16b4e0
+sideways.vim 507f0a3
+snippets 0ec4a2a
+synta 147f584
+syntastic cee74e0
 tabular 00e1e7f
 targets.vim 5c2ae9d
 tern_for_vim 34c516a
