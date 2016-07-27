@@ -894,6 +894,8 @@ DATA
 
 # :alias
 {
+    alias alq='alsamixer -D equal'
+    alias al='alsamixer'
     alias p='vimpager'
     alias sf='sed-files'
     alias pas='packages-sync && { cd ~/dotfiles; git diff -U0 packages; }'

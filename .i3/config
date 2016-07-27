@@ -101,12 +101,12 @@ bindsym $alt+Ctrl+q   exec "brightness up"
 bindsym $alt+b        exec "xsel -op | xsel -ib"
 
 
-bindsym  F1           exec screenshot > ~/.screenshot
-bindsym  F2           exec volume down
-bindsym  F3           exec volume up
-bindsym  F5           exec mplayer-control pt_step -1
-bindsym  F6           exec mplayer-control pause
-bindsym  F7           exec mplayer-control pt_step 1
+bindsym  $alt+F1           exec screenshot > ~/.screenshot
+bindsym  $alt+F2           exec volume down
+bindsym  $alt+F3           exec volume up
+bindsym  $alt+F5           exec mplayer-control pt_step -1
+bindsym  $alt+F6           exec mplayer-control pause
+bindsym  $alt+F7           exec mplayer-control pt_step 1
 
 bindsym  $alt+less    exec volume down
 bindsym  $alt+greater exec volume up
@@ -117,6 +117,7 @@ bindsym  $alt+Tab     exec paster
 bindsym  Ctrl+F12     exec xkb
 bindsym  $alt+grave     exec kuake --terminal --height 75
 bindsym  $alt+backslash exec kuake --focus --height 75
+bindsym  Ctrl+backslash exec autocomplete-tmux
 
 set $left  DVI-I-1
 set $right VGA-1
