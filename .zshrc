@@ -840,12 +840,12 @@ DATA
 
     makepkg-clean-upload-stable() {
         makepkg-clean "$@"
-        packages-upload-repo.s $(/bin/ls *.xz) current
+        packages-upload-repo.s $(/bin/ls *.xz) stable
     }
 
     makepkg-clean-upload-testing() {
         makepkg-clean "$@"
-        packages-upload-repo.s $(/bin/ls *.xz) latest
+        packages-upload-repo.s $(/bin/ls *.xz) testing
     }
 
     dns-new-a() {
@@ -894,6 +894,8 @@ DATA
 
 # :alias
 {
+    alias wh='which'
+    alias ii="ash \$(ash inbox | fzf | awk '{print \$1}')"
     alias alq='alsamixer -D equal'
     alias al='alsamixer'
     alias p='vimpager'
@@ -904,7 +906,8 @@ DATA
     alias -g I='<<<'
     alias -g J='| jq .'
     alias rx='sudo systemctl restart x@vt7.service xlogin@operator.service'
-    alias -g K='| orgalorg -s -p -x -u e.kovetskiy -C'
+    alias -g K='| orgalorg -t -w -s -p -x -u e.kovetskiy -C'
+    alias -g O='| orgalorg -t -w -s -p -x -u e.kovetskiy'
     alias z='zabbixctl'
     alias zp='zabbixctl -Tp -xxxx'
     alias zgr='zgen reset'
@@ -979,6 +982,7 @@ DATA
     alias gogd='go-get-enhanced-devops'
     alias gme='go-makepkg-enhanced'
     alias gmev='FLAGS="-p version" go-makepkg-enhanced'
+    alias gmevs='FLAGS="-p version -s" go-makepkg-enhanced'
     alias gmel='gmev'
     alias vw='vim-which'
     alias ur='packages-upload-repo.s'

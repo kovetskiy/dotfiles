@@ -559,6 +559,16 @@ Plug 'xolox/vim-session'
     let g:session_default_overwrite = 1
 
 Plug 'airblade/vim-gitgutter'
+Plug 'git-time-metric/gtm-vim-plugin'
+    let g:gtm_plugin_status_enabled = 1
+    func! AirlineGtm()
+      if exists('*GTMStatusline')
+        call airline#parts#define_function('gtmstatus', 'GTMStatusline')
+        let g:airline_section_b = airline#section#create(
+            \ [g:airline_section_b, ' ', '[', 'gtmstatus', ']'])
+      endif
+    endfunc
+    autocmd User AirlineAfterInit call AirlineGtm()
 
 augroup end
 call plug#end()

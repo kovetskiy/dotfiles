@@ -82,10 +82,10 @@ bindsym $win+Shift+h split horizontal
 
 bindsym $alt+Ctrl+r mode "resize"
 mode "resize" {
-        bindsym h resize grow width 1 px or 1 ppt
-        bindsym j resize shrink height 1 px or 1 ppt
-        bindsym k resize grow height 1 px or 1 ppt
-        bindsym l resize shrink width 1 px or 1 ppt
+        bindsym h resize grow width 5 px or 2 ppt
+        bindsym j resize shrink height 5 px or 2 ppt
+        bindsym k resize grow height 5 px or 2 ppt
+        bindsym l resize shrink width 5 px or 2 ppt
 
         bindsym Ctrl+h resize grow width 10 px or 10 ppt
         bindsym Ctrl+j resize shrink height 10 px or 10 ppt

@@ -305,7 +305,7 @@ endsnippet
 snippet ko "" w
 import "github.com/kovetskiy/ko"
 
-type Config struct {
+type config struct {
 	Web struct {
 		Listen string \`toml:"listen"\`
 	} \`toml:"web"\`
@@ -315,8 +315,8 @@ type Config struct {
 	} \`toml:"database"\`
 }
 
-func getConfig(path string) (*Config, error) {
-	config := &Config{}
+func getConfig(path string) (*config, error) {
+	config := &config{}
 	err := ko.Load(path, config)
 	if err != nil {
 		return nil, err
