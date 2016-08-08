@@ -894,6 +894,8 @@ DATA
 
 # :alias
 {
+    alias pcaa='sudo pacmanconfctl -A arch-ngs'
+    alias pcra='sudo pacmanconfctl -R arch-ngs'
     alias wh='which'
     alias ii="ash \$(ash inbox | fzf | awk '{print \$1}')"
     alias alq='alsamixer -D equal'
@@ -1061,7 +1063,7 @@ DATA
         alias pqo='sudo pacman -Qo'
         alias pqi='sudo pacman -Qi'
         alias pms='sudo pacman -S'
-        alias psyu='zfs-snapshot && sudo pacman -Syu'
+        alias psyu='pcra && zfs-snapshot && sudo pacman -Syu'
         alias pmu='sudo pacman -U'
         alias pf='pkgfile'
     }
