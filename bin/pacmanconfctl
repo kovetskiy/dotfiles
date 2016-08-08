@@ -1,0 +1,89 @@
+#!/bin/bash
+
+set -euo pipefail
+
+:usage() {
+    sed -r 's/^([ ]{4}|\t)//g' <<USAGE
+    pacmanconfctl
+
+    Usage:
+        pacmanconfctl -A <resource>
+        pacmanconfctl -R <resource>
+        pacmanconfctl -h
+
+    Options:
+        -A  Add specified resource.
+        -R  Remove specified resource.
+        -h  Show this screen.
+USAGE
+}
+
+:main() {
+    local _add=false
+    local _remove=false
+    local _resource=""
+    while [[ $# -ne 0 ]]; do
+        case "$1" in
+            -A)
+                _add=true
+                ;;
+
+            -R)
+                _remove=true
+                ;;
+
+            -h)
+                :usage
+                exit 0
+                ;;
+
+            *)
+                _resource="$1"
+                ;;
+        esac
+
+        shift
+    done
+
+    if [[ ! "$_resource" ]]; then
+        :usage
+        exit 1
+    fi
+
+    if $_add; then
+        :add "$_resource"
+    elif $_remove; then
+        :remove "$_resource"
+    else
+        :usage
+        exit 1
+    fi
+
+    exit 0
+}
+
+:add() {
+    local resource="$1"
+
+    local output="# $resource: begin"
+    output="$output"$'\n'"$(:get "$resource")"$'\n'
+    output="$output# $resource: end"
+
+    echo "$output" >> /etc/pacman.conf
+}
+
+:remove() {
+    local resource="$1"
+    sed "/^# $resource: begin$/,/^# $resource: end$/d" -i /etc/pacman.conf
+}
+
+:get() {
+    local resource="$1"
+    cat ~/.config/pacman.d/$resource.conf
+}
+
+:log() {
+    echo "[$(date -Iseconds | cut -dT -f1)] $*" >&2
+}
+
+:main "$@"
