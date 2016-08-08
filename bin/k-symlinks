@@ -46,6 +46,7 @@ POINTS=(
     ".vim/bundle/snippets"
     ".vim/bundle/vim-pythonx"
     ".config/surfingkeys.js"
+    ".config/pacman.d"
     ".asoundrc"
 )
 
