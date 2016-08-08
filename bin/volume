@@ -1,5 +1,8 @@
 #!/bin/bash
 
+exec 200>/tmp/volume.lock
+flock 200
+
 action="$1"
 
 if [ -f ~/.android-volume ]; then

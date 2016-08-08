@@ -1,8 +1,11 @@
 #!/bin/bash
 
+exec 200>/tmp/brightness.lock
+flock 200
+
 if [ "$(cat ~/profile)" == "laptop" ]; then
     dir=/sys/class/backlight/intel_backlight
-    step=50
+    step=200
 else
     dir=/sys/class/backlight/acpi_video0
     step=1
