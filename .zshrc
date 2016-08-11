@@ -894,9 +894,15 @@ DATA
     :launch-binary() {
         local pwd="$(pwd)"
         local name="$(basename "$pwd")"
+        local binary="$pwd/$name"
 
-        if stat "$pwd/$name" &>/dev/null; then
-            "$pwd/$name" "$@"
+        if stat "$binary" &>/dev/null; then
+            if grep -q "$GOPATH" <<< "$pwd"; then
+                if ! go-fast-build; then
+                    return 1
+                fi
+            fi
+            "$binary" "$@"
         else
             echo "nothing to launch" >&2
             return 1
@@ -973,7 +979,7 @@ DATA
     alias prdr='pdns records remove -t A'
     alias prdrc='pdns records remove -t CNAME'
     alias bhl='bithookctl -L'
-    alias bx='chmod +x ~/bin/*'
+    alias bx='chmod +x ~/bin/*; chmod +x ~/deadfiles/bin/*'
     alias ck='create-and-change-directory'
     alias mf='man-find'
     alias md='man-directive'
