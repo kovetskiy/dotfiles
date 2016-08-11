@@ -890,10 +890,23 @@ DATA
         shift 2
         sed-replace "$from" "$to" $(sift --targets) "$@"
     }
+
+    :launch-binary() {
+        local pwd="$(pwd)"
+        local name="$(basename "$pwd")"
+
+        if stat "$pwd/$name" &>/dev/null; then
+            "$pwd/$name" "$@"
+        else
+            echo "nothing to launch" >&2
+            return 1
+        fi
+    }
 }
 
 # :alias
 {
+    alias x=':launch-binary'
     alias pcaa='sudo pacmanconfctl -A arch-ngs'
     alias pcra='sudo pacmanconfctl -R arch-ngs'
     alias wh='which'
@@ -1176,7 +1189,8 @@ DATA
 
     # :go
     {
-        alias gob='go build'
+        alias gob='go-fast-build'
+        alias b='go-fast-build'
         alias goi='go install'
     }
 
