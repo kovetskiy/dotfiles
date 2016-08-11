@@ -896,12 +896,13 @@ DATA
         local name="$(basename "$pwd")"
         local binary="$pwd/$name"
 
-        if stat "$binary" &>/dev/null; then
-            if grep -q "$GOPATH" <<< "$pwd"; then
-                if ! go-fast-build; then
-                    return 1
-                fi
+        if grep -q "$GOPATH" <<< "$pwd"; then
+            if ! go-fast-build; then
+                return 1
             fi
+        fi
+
+        if stat "$binary" &>/dev/null; then
             "$binary" "$@"
         else
             echo "nothing to launch" >&2
