@@ -1,3 +1,6 @@
+[Install]
+WantedBy=basic.target
+
 [Unit]
 Description=office virtual private network
 
