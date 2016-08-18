@@ -903,16 +903,27 @@ DATA
         fi
 
         if stat "$binary" &>/dev/null; then
-            "$binary" "$@"
+            ${SUDO:+":sudo"} "$binary" "$@"
         else
             echo "nothing to launch" >&2
             return 1
+        fi
+    }
+
+    :sudo() {
+        local cmd="$1"
+        if [[ "${cmd[1]}" == ":" ]]; then
+            SUDO=true "$@"
+        else
+            /bin/sudo -E "$@"
         fi
     }
 }
 
 # :alias
 {
+    alias sudo=':sudo '
+    alias mkl='sudo mkinitcpio -p linux'
     alias x=':launch-binary'
     alias pcaa='sudo pacmanconfctl -A arch-ngs'
     alias pcra='sudo pacmanconfctl -R arch-ngs'
@@ -1159,7 +1170,6 @@ DATA
         alias gd='git diff'
         alias gin='git init'
         alias gdh='git diff HEAD'
-        alias sudo='sudo -E '
         alias psx='ps fuxa | grep'
         alias gra='git remote add origin '
         alias gro='git remote show'
