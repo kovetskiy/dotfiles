@@ -11,7 +11,7 @@ source ~/bin/environment-setup
 dunst &
 
 if ! tmux list-sessions &>/dev/null; then
-    screen-lock &
+    slock &
 fi
 
 i3
