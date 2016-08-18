@@ -3,6 +3,7 @@ ctrlp.vim b9fa920
 flattown dd3f86a
 fzf fccc931
 fzf.vim 54bdbd9
+gtm-vim-plugin 8104a33
 gundo.vim e7fe410
 kb-train a20c958
 l9 c822b05
@@ -18,7 +19,7 @@ rename.vim f133763
 rust.vim a4d6fb2
 SearchParty 48dbaa9
 sideways.vim abc2551
-synta 40d76be
+synta fcfa11b
 syntastic a16b4e0
 tabular 00e1e7f
 targets.vim 5c2ae9d
@@ -35,7 +36,7 @@ vim-ctrlp-ag 0af7097
 vim-dispatch 5f5c22c
 vim-empty-lines b0ee3f8
 vim-gitgutter 26c6b54
-vim-go a7a3751
+vim-go a4ba0a5
 vim-go-impl 3a68a75
 vim-hacks f423472
 vim-javascript 26c7330
