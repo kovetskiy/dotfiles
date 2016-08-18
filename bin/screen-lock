@@ -8,38 +8,8 @@ mplayer_cmd(){
     fi
 }
 
-screen() {
-    xrandr -q \
-        | awk '/ connected / { print $3 }' \
-        | head -n1
-}
-
-center() {
-    local position="$(cat)"
-    bc <<< "($position)/2" 2>/dev/null
-}
-
-screen_x_center() {
-    if [ -f /tmp/screen_x_center ]; then
-        cat /tmp/screen_x_center
-        return
-    fi
-
-    screen | sed 's/x.*//' | center | tee /tmp/screen_x_center
-}
-
-screen_y_center() {
-    if [ -f /tmp/screen_y_center ]; then
-        cat /tmp/screen_y_center
-        return
-    fi
-
-    screen | sed 's/.*x//' | center | tee /tmp/screen_y_center
-}
-
 mplayer_cmd "pause"
 
-xdotool mousemove $(screen_x_center) $(screen_y_center)
 slock xset dpms force suspend
 
 mplayer_cmd "pause"
