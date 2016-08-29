@@ -918,10 +918,22 @@ DATA
             /bin/sudo -E "$@"
         fi
     }
+
+    git-clone-sources() {
+        cd ~/sources/
+        git clone "$1"
+    }
+
+    :cd-sources() {
+        cd ~/sources/"$@"
+    }
 }
 
 # :alias
 {
+    alias cs=':cd-sources'
+    alias pmp='sudo pacman -U $(/bin/ls -t *.pkg.*)'
+    alias psyuz='psyu --ignore linux,zfs-linux-git,zfs-utils-linux-git,spl-linux-git,spl-utils-linux-git'
     alias sudo=':sudo '
     alias mkl='sudo mkinitcpio -p linux'
     alias x=':launch-binary'
@@ -937,6 +949,7 @@ DATA
     alias duty='cake --id 41882909 -L && cal -m'
     alias npu='npm-to-aur'
     alias -g I='<<<'
+    alias -g S='| sed-replace'
     alias -g J='| jq .'
     alias rx='sudo systemctl restart x@vt7.service xlogin@operator.service'
     alias -g K='| orgalorg -t -w -s -p -x -u e.kovetskiy -C'
@@ -1144,6 +1157,7 @@ DATA
         alias grsd='git-remote-set-devops'
         alias gclp='git-clone-profiles'
         alias gcoo='git-checkout-orphan'
+        alias gcls='git-clone-sources'
 
         alias gcb='git checkout -b'
         alias gbn='git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3'
