@@ -14,4 +14,6 @@ if ! tmux list-sessions &>/dev/null; then
     slock &
 fi
 
+sxhkd &
+
 i3
