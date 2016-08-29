@@ -1,0 +1,23 @@
+#!/bin/bash
+
+bases=$(xrestop -b -m 1 \
+    | grep '<unknown>' -A 1 \
+    | awk '/res_base/ { print $3; }' \
+    | sed 's/^ox/0x/' \
+    | grep -oE '.{5}')
+
+
+regexp_bases=$(printf "%s|" $bases)
+regexp_bases="(${regexp_bases%|})"
+
+xwininfo -root -all \
+    | awk "/^\s+$regexp_bases/ { print \$1; }" \
+    | while read windowid; do
+        logger "xkill -id $windowid"
+
+        if xkill -id "$windowid"; then
+            echo "[success] $windowid"
+        else
+            echo "[failure] $windowid"
+        fi
+    done
