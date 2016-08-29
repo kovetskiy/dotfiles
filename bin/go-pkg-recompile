@@ -1,0 +1,23 @@
+#!/bin/bash
+
+:main() {
+    cd $(go env GOPATH)/pkg/$(go env GOOS)_$(go env GOARCH)
+
+    local packages=$(find . -name "*.a" -not -path '.' -printf '%P\n')
+    local total=$(wc -l <<< "$packages")
+
+    xargs -n1 -P12 -I{} bash -c "
+        file={}
+        package=\${file%*.a}
+
+        rm \$file
+        go install \$package
+        echo \$package
+    " <<< "$packages" \
+        | while read package; do
+            made=$((made+1))
+            echo "[$made/$total] $package"
+        done
+}
+
+:main "${@}"
