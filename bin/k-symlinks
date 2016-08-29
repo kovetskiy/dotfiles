@@ -48,6 +48,7 @@ POINTS=(
     ".config/surfingkeys.js"
     ".config/pacman.d"
     ".asoundrc"
+    ".config/sxhkd"
 )
 
 for POINT in "${POINTS[@]}"; do

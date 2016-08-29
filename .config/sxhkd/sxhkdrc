@@ -1,0 +1,62 @@
+super + Return
+	marvex -s
+
+super + r
+	dmenu_run
+
+shift + Delete
+	window-kill-focused
+
+super + control + s
+	browser
+
+super + control + a
+	brightness down
+
+super + control + q
+	brightness up
+
+super + b
+	xsel -op | xsel -ib
+
+super + F1
+	screenshot > ~/.screenshot
+
+super + F2
+	volume down
+
+super + F3
+	volume up
+
+super + F5
+	mplayer-control pt_step -1
+
+super + F6
+	mplayer-control pause
+
+super + F7
+	mplayer-control pt_step 1
+
+alt + control + l
+	screen-lock
+
+alt + control + d
+	notification-information-basic
+
+super + control + e
+	translator
+
+super + Tab
+	paster
+
+control + F12
+	xkb
+
+super + grave
+	kuake --terminal --height 75
+
+super + backslash
+	kuake --focus --height 75
+
+control + backslash
+	autocomplete-tmux
