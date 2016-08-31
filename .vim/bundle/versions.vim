@@ -18,7 +18,6 @@ rename.vim f133763
 rust.vim a4d6fb2
 SearchParty 48dbaa9
 sideways.vim 507f0a3
-snippets 0ec4a2a
 synta 147f584
 syntastic cee74e0
 tabular 00e1e7f
@@ -44,7 +43,6 @@ vim-nunu d586ebb
 vim-over 146b065
 vim-plugvim-utils c59a498
 vim-python-pep8-indent 1022821
-vim-pythonx 4f97095
 vim-signature e2fca5f
 vim-ski 24d8cd0
 vim-sneak 8f7fe76
