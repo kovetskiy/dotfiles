@@ -2,7 +2,7 @@ super + Return
 	marvex -s
 
 super + r
-	dmenu_run
+	modal-run
 
 shift + Delete
 	window-kill-focused
