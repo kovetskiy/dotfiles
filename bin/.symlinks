@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -euo pipefail
+
+{
+    cat ~/dotfiles/.symlinks
+    echo "$@"
+} | sort | uniq | tee ~/dotfiles/.symlinks

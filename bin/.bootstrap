@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -euo pipefail
+
+symlinks=($(cat ~/dotfiles/.symlinks))
+
+:exec() {
+    echo "$ $*"
+    #"$@"
+}
+
+for path in "${symlinks[@]}"; do
+    :exec rm -r ~/"$path"
+    :exec ln -s ~/dotfiles/ ~/"$path"
+done
