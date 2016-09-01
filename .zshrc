@@ -931,7 +931,10 @@ DATA
 
 # :alias
 {
-    alias dc='ssh root@deadcrew.org'
+    alias dca='ssh deadcrew.org aurora -A '
+    alias dcr='ssh deadcrew.org aurora -R '
+    alias dcq='ssh deadcrew.org aurora -Q '
+    alias dc='ssh deadcrew.org'
     alias cs=':cd-sources'
     alias pmp='sudo pacman -U $(/bin/ls -t *.pkg.*)'
     alias psyuz='psyu --ignore linux,zfs-linux-git,zfs-utils-linux-git,spl-linux-git,spl-utils-linux-git'
