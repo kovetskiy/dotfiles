@@ -1,83 +1,11 @@
-command! -nargs=1 Plug source ~/.vimperator/bundle/<args>.js
+source ~/.vimperator/style.js
+source ~/.vimperator/settings.js
+source ~/.vimperator/mappings.js
 
-Plug auto_reload
-Plug cookieManager
+source ~/.vimperator/bundle/auto_reload.js
+source ~/.vimperator/bundle/cookieManager.js
 
-qmark h http://news.ycombinator.com/
-qmark g http://github.com/
-qmark u http://mail.google.com/
-qmark v http://reddit.com/r/vim/new/
-qmark d https://rdot.org/forum/
-qmark s https://ngs-team.slack.com/messages/devops
+command! -nargs=0 Wipe
+    \ js tabs.remove(tabs.getTab(0), tabs.count, 0, 0, false)
 
-nmap g :tabopen http://google.ru/search?q=
-nmap x :tabopen http://slovari.yandex.ru/
-
-command! Wipe js tabs.remove(tabs.getTab(0), tabs.count, 0, 0, false)
-
-hi CompResult -append font-family: Monaco; font-size: 12px;
-hi CompDesc -append font-family: Monaco; font-size: 12px;
-hi CmdLine>* font-family: Monaco; font-size: 12px;
-hi StatusLine -append font-family: Monaco; font-size: 12px;
-hi Hint font-size: 12px; font-weight: bold; text-transform: uppercase; color: white; background-color: red; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px; font-family: Monaco
-
-set hintchars=qweasdiopjkl
-set gui=none
-
-set editor="sh -c 'i3-msg workspace 1 ; vim --remote-tab-wait-silent $0 ; i3-msg workspace back_and_forth'"
-set cpt=l
-set showstatuslinks=2
-set hto=170
-set focuscontent
-
-nmap mg O<Home>tab<Right><Right><Right><Right><Right>http://snob.s/hsd:rn:ngs:engineers/<End>
-
-nmap q <ESC>
-nmap s :tabopen<space>
-nmap b :buffer<space>
-nnoremap j 5j
-nnoremap k 5k
-nnoremap ee :buffer<space>
-nnoremap % :source ~/.vimperatorrc<CR>:echomsg "Great success!"<CR>
-nmap <C-P> :set apptab=true<CR>:echomsg "Pinned"<CR>
-nmap <C-N> :set apptab=false<CR>:echomsg "Unpinned"<CR>
-vmap c <ESC><ESC>c
-imap jk <ESC>
-nmap v cv
-imap <C-}> <C-I>
-inoremap <C-]> <Ins><C-a><Ins><C-I>
-inoremap <C-a> <Ins><C-a><Ins>
-
-map U gT
-map I gt
-nmap w gT
-nmap e gt
-nmap . /
-
-" no more google tracking
-set! breakpad.reportURL=""
-set! browser.safebrowsing.appRepURL=""
-set! browser.safebrowsing.debug=false
-set! browser.safebrowsing.downloads.enabled=false
-set! browser.safebrowsing.downloads.remote.enabled=false
-set! browser.safebrowsing.enabled=false
-set! browser.safebrowsing.gethashURL=""
-set! browser.safebrowsing.malware.enabled=false
-set! browser.safebrowsing.malware.reportURL=""
-set! browser.safebrowsing.reportErrorURL=""
-set! browser.safebrowsing.reportGenericURL=""
-set! browser.safebrowsing.reportMalwareErrorURL=""
-set! browser.safebrowsing.reportMalwareURL=""
-set! browser.safebrowsing.reportPhishURL=""
-set! browser.safebrowsing.reportURL=""
-set! browser.safebrowsing.updateURL=""
-set! browser.send_pings.require_same_host=true
-set! browser.send_pings=false
-
-set! javascript.options.jit.chrome=true
-
-" do not nag 'Remember password?'
-set! signon.rememberSignons=false
-
-" do not close firefox with last window
-set! browser.tabs.closeWindowWithLastTab=false
+" vim:ft=vim
