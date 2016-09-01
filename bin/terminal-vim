@@ -1,3 +1,3 @@
 #!/bin/bash
 
-exec urxvt -e zsh -ic "vim $@"
+exec urxvt -e zsh -ic "vim $@" &
