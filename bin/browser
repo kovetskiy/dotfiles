@@ -3,4 +3,4 @@
 url=$(sed -r 's#^(git+ssh|ssh|git)://(\w+@)?##' <<< "$1")
 shift
 
-exec google-chrome-beta --noerrdialogs --disable-infobars "$url" "$@"
+exec firefox --noerrdialogs --disable-infobars "$url" "$@"
