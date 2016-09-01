@@ -32,5 +32,3 @@ nnoremap %   :source ~/.vimperatorrc<CR>
 
 inoremap <C-]> <Ins><C-a><Ins><C-I>
 inoremap <C-a> <Ins><C-a><Ins>
-
-" vim:ft=vim

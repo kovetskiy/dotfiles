@@ -1,11 +1,5 @@
-source ~/.vimperator/style.js
-source ~/.vimperator/settings.js
-source ~/.vimperator/mappings.js
+source ~/.vimperator/settings.vim
+source ~/.vimperator/style.vim
+source ~/.vimperator/mappings.vim
 
-source ~/.vimperator/bundle/auto_reload.js
-source ~/.vimperator/bundle/cookieManager.js
-
-command! -nargs=0 Wipe
-    \ js tabs.remove(tabs.getTab(0), tabs.count, 0, 0, false)
-
-" vim:ft=vim
+command! -nargs=0 Wipe js tabs.remove(tabs.getTab(0), tabs.count, 0, 0, false)

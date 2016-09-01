@@ -1,11 +1,13 @@
-set! hintchars=qweasdiopjkl
-set! gui=none
+set complete=lS
 
-set! editor="vimperator-editor $0"
-set! cpt=l
-set! showstatuslinks=2
-set! hto=170
-set! focuscontent
+set hintchars=qweasdiopjkl
+set gui=none
+
+set editor=vimperator-editor
+set cpt=l
+set showstatuslinks=2
+set hto=170
+set focuscontent
 
 set! breakpad.reportURL=""
 set! browser.safebrowsing.appRepURL=""
@@ -26,7 +28,7 @@ set! browser.safebrowsing.updateURL=""
 set! browser.send_pings.require_same_host=true
 set! browser.send_pings=false
 set! javascript.options.jit.chrome=true
+set! javascript.options.jit.content=true
 set! signon.rememberSignons=false
 set! browser.tabs.closeWindowWithLastTab=false
-
-" vim:ft=vim
+set! gfx.font_rendering.fontconfig.fontlist.enabled=false

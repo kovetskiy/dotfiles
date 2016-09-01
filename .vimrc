@@ -574,6 +574,8 @@ Plug 'kovetskiy/sxhkd-vim'
 
 Plug 'PotatoesMaster/i3-vim-syntax'
 
+Plug 'vimperator/vimperator.vim'
+
 augroup end
 call plug#end()
 
@@ -692,6 +694,8 @@ au operations BufWritePost /tmp/vimperator-confluence* silent! undo
 au operations BufRead *.noml set ft=noml.dracula
 
 au operations FileType html setlocal sw=2
+
+au operations BufRead */.vimperator/*.vim,.vimperatorrc set ft=vimperator
 
 map Q <nop>
 map K <nop>
