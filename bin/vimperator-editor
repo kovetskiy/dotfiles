@@ -1,0 +1,7 @@
+#!/bin/bash
+
+i3-msg workspace 1
+
+vim --remote-tab-wait-silent $@
+
+i3-msg workspace back_and_forth
