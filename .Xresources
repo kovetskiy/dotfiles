@@ -45,3 +45,5 @@ URxvt.matcher.button: 1
 URxvt.transparent: false
 URxvt.shading: 0
 URxvt.fading: 0
+
+Xft.dpi: 96
