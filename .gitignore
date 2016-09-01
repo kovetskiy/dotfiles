@@ -5,3 +5,5 @@
 /.mcabber/mcabberrc.theme
 /.muttator/aliases
 /.vimperator/info/
+/.vimperator/settings.vim
+/.vimperator/style.vim
