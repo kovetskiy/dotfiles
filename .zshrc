@@ -131,18 +131,30 @@ export BACKGROUND=$(cat ~/background)
 # :setup
 {
     autoload -U add-zsh-hook
-
     autoload -Uz promptinit
+
     promptinit
+    prompt lambda17
+
     case $PROFILE in
-        home)
-            prompt lambda17 white black ω
-            ;;
         laptop)
-            prompt lambda17 white black ω
+            prompt-pwd() {
+                local branch=$(basename "$PWD")
+                local tree=$(
+                    dirname "$PWD" \
+                        | sed "s|$HOME|~|" \
+                        | sed -r 's#(/\w)[^\./]+#\1#g'
+                )
+
+                lambda17:printf '%s' "$tree/$branch"
+            }
+            zstyle 'lambda17>10-dir' 15-pwd prompt-pwd
+            zstyle lambda17:05-sign text "ω"
+            zstyle lambda17:05-sign fg "white"
             ;;
         *)
-            prompt lambda17
+            zstyle lambda17:15-pwd text "%~"
+            zstyle lambda17:05-sign text "ω"
             ;;
     esac
 
