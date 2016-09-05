@@ -136,25 +136,26 @@ export BACKGROUND=$(cat ~/background)
     promptinit
     prompt lambda17
 
+    :prompt-pwd() {
+        local branch=$(basename "$PWD")
+        local tree=$(
+            dirname "$PWD" \
+                | sed "s|$HOME|~|" \
+                | sed -r 's#(/\w)[^/]+#\1#g'
+        )
+
+        lambda17:printf '%s' "$tree/$branch"
+    }
+
+    zstyle 'lambda17:05-sign' text "ω"
+    zstyle 'lambda17>10-dir' 15-pwd :prompt-pwd
+
     case $PROFILE in
         laptop)
-            prompt-pwd() {
-                local branch=$(basename "$PWD")
-                local tree=$(
-                    dirname "$PWD" \
-                        | sed "s|$HOME|~|" \
-                        | sed -r 's#(/\w)[^\./]+#\1#g'
-                )
-
-                lambda17:printf '%s' "$tree/$branch"
-            }
-            zstyle 'lambda17>10-dir' 15-pwd prompt-pwd
-            zstyle lambda17:05-sign text "ω"
             zstyle lambda17:05-sign fg "white"
             ;;
         *)
-            zstyle lambda17:15-pwd text "%~"
-            zstyle lambda17:05-sign text "ω"
+            zstyle lambda17:05-sign fg "red"
             ;;
     esac
 
@@ -184,9 +185,6 @@ export BACKGROUND=$(cat ~/background)
     zstyle ':zle:smart-kill-word' keep-slash true
 }
 
-
-
-
 # :hash
 {
     hash -d dotfiles=~/dotfiles/
@@ -211,7 +209,7 @@ export BACKGROUND=$(cat ~/background)
 
         clear
         zle -R
-        prompt_lambda17_precmd
+        lambda17:update
         zle reset-prompt
         ls -lah --color=always
         git status -s
