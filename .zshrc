@@ -931,6 +931,7 @@ DATA
 
 # :alias
 {
+    alias g='guess'
     alias dca='ssh deadcrew.org aurora -A '
     alias dcr='ssh deadcrew.org aurora -R '
     alias dcq='ssh deadcrew.org aurora -Q '
