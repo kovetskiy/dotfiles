@@ -937,10 +937,32 @@ DATA
     :cd-sources() {
         cd ~/sources/"$@"
     }
+
+    :issues:query() {
+        batrak -L --show-name "$@" \
+            | sed -r 's/Открыта/open/g; s/Завершена/closed/g'
+    }
+
+    :issues:filter:open() {
+        :issues:query -f 16131
+    }
+
+    :issues:filter:open:me() {
+        :issues:query -f 16130
+    }
+
+    :issues:filter:me() {
+        :issues:query -f 16053
+    }
+
+    :issues:filter() {
+        :issues:query -f 16047
+    }
 }
 
 # :alias
 {
+    alias grr='gri --root'
     alias g='guess'
     alias dca='ssh deadcrew.org aurora -A '
     alias dcr='ssh deadcrew.org aurora -R '
@@ -991,12 +1013,14 @@ DATA
     alias vbs='vim-bundle-save'
     alias vbr='vim-bundle-restore'
     alias gbs='git-submodule-branch-sync'
-    alias bkl='batrak -L -f 16053'
-    alias bkk='batrak -L'
-    alias bkc='batrak-move 21'
-    alias bkr='batrak -R'
-    alias kc='jira-issue-create-schedule-current'
-    alias kn='jira-issue-create-schedule-next'
+    alias kl=':issues:filter'
+    alias ko=':issues:filter:open'
+    alias km=':issues:filter:me'
+    alias kk=':issues:filter:open:me'
+    alias kmc='batrak-move 21'
+    alias kr='batrak -R'
+    alias kn='jira-issue-create-schedule-current'
+    alias knn='jira-issue-create-schedule-next'
     alias ic='incidents-create'
     alias iu='incidents -U'
     alias irt='incidents -Rt'
