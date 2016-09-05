@@ -20,6 +20,7 @@ nmap w      gT
 nmap e      gt
 nmap .      /
 nmap <C-K>  <ESC>
+nmap <C-L>  O
 
 imap <C-}>  <C-I>
 imap jk     <ESC>
