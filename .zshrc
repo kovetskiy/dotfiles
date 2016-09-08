@@ -561,7 +561,7 @@ export BACKGROUND=$(cat ~/background)
 
         git=$(sed-replace 'https?://' 'git://' <<< "$git")
 
-        go-makepkg -d . -c "$desc" "$git"
+        go-makepkg -n "$package" -d . -c "$desc" "$git"
         mksrcinfo
         git add PKGBUILD .SRCINFO
     }
