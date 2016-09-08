@@ -73,9 +73,13 @@ Plug 'marijnh/tern_for_vim'
 
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
-    let g:airline_theme = 'term'
     let g:airline#extensions#whitespace#symbol = '☼'
     let g:airline_powerline_fonts = 1
+    let g:airline_skip_empty_sections = 1
+    let g:airline#extensions#whitespace#checks = ['indent', 'trailing']
+
+Plug 'kovetskiy/vim-theme-rex'
+    let g:airline_theme = 'rex'
 
 Plug 'scrooloose/nerdcommenter'
 
@@ -118,6 +122,8 @@ Plug 'Valloric/YouCompleteMe', {'frozen': 1}
     endfunc!
 
     "au operations InsertCharPre * call _completions_complete()
+
+Plug 'kovetskiy/synta'
 
 Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     let g:go_fmt_fail_silently = 0
@@ -421,8 +427,6 @@ Plug 'seletskiy/vim-nunu'
 
 Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
 
-Plug 'blerins/flattown'
-
 Plug 'kovetskiy/kb-train', { 'on': 'Train' }
 
 Plug 'NLKNguyen/papercolor-theme'
@@ -528,8 +532,6 @@ Plug 'FooSoft/vim-argwrap'
     au operations BufRead,BufNewFile *.go let b:argwrap_tail_comma = 1
     nnoremap <silent> @l :call search('[\(\{\[]', 'cs')<CR>l:ArgWrap<CR>
     nnoremap <silent> @; :ArgWrap<CR>
-
-Plug 'kovetskiy/synta'
 
 Plug 'scrooloose/syntastic'
     let g:syntastic_always_populate_loc_list = 1
@@ -640,7 +642,7 @@ set showtabline=0
 set cino=(s,m1,+0
 
 set list
-set lcs=eol:¶,trail:·,tab:\ \ "t
+set lcs=trail:·,tab:☰\ "
 
 set pastetoggle=<F11>
 
@@ -816,8 +818,7 @@ au BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.sh
 au BufRead,BufNewFile *.snippets set noet ft=snippets.python
 au BufRead,BufNewFile *.skeleton set noet ft=snippets.python
 
-
-fu! _background(bg)
+func!  _background(bg)
     let bg = a:bg
     if bg == ""
         let bg = "light"
@@ -857,19 +858,9 @@ fu! _background(bg)
         hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
     else
         set background=dark
-        colorscheme flattown
-
-        hi! underlined cterm=underline
-        hi! CursorLineNr ctermfg=241 ctermbg=none
-        hi! LineNr ctermfg=249 ctermbg=none
-        hi! SignColumn ctermfg=none ctermbg=none
-        hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
-        hi! NonText ctermfg=238 cterm=none term=none
-        hi! IncSearch cterm=none ctermfg=238 ctermbg=1
-        hi! Cursor ctermbg=0 ctermfg=1
-        hi! PmenuSel ctermbg=136 ctermfg=255 cterm=bold
+        colorscheme rex
     endif
-endfu!
+endfunc!
 
 call _background($BACKGROUND)
 
