@@ -1,16 +1,66 @@
 #!/bin/bash
 
-g_primary=""
-g_clipboard=""
+[ -n "$_LOCK" ] || _LOCK=x exec flock -n $0 $0 "$@"
+
+:xsel() {
+    local iteration=0
+    local content=""
+    while :; do
+        if content=$(xsel "$@" 2>&1); then
+            echo "$content"
+            break
+        fi
+
+        iteration=$((iteration+1))
+        if [[ "$iteration" -gt 5 ]]; then
+            break
+        fi
+    done
+}
+
+:read() {
+    local variable="$1"
+
+    eval typeset -Ag $variable
+
+    eval "${variable}[primary]=\$(:xsel -op)"
+    eval "${variable}[clipboard]=\$(:xsel -ob)"
+}
+
+:sync() {
+    local selection="$1"
+
+    case "$selection" in
+        "primary")
+            :xsel -ib <<< "${now[$selection]}"
+            ;;
+
+        "clipboard")
+            :xsel -ob <<< "${now[$selection]}"
+            ;;
+
+        \?)
+            echo "unexpected selection: '$selection'" >&2
+            exit 1
+            ;;
+    esac
+}
+
+:remember() {
+    memory=$now
+}
+
+:read memory
 
 while :; do
-    primary=$(xsel -op)
-    clipboard=$(xsel -ob)
+    :read now
 
-    if [ "$primary" != "$g_primary" ] && [ "$clipboard" = "$g_clipboard" ]; then
-        xsel -ib <<< "$primary"
-        echo "[primary->clipboard] $primary" &
-        g_primary=$primary
-        g_clipboard=$clipboard
+    if [[ "${now[primary]}" != "${memory[primary]}" \
+        && "${now[clipboard]}" == "${memory[clipboard]}"
+    ]]; then
+        :sync primary
+        :remember
     fi
+
+    sleep 0.1
 done
