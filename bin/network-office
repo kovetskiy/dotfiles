@@ -29,6 +29,7 @@ set -euo pipefail
     fi
 
     :resolvconf-office
+    :unban
 
     if ! :interactive; then
         :log-process "watching the vpn connection"
@@ -44,6 +45,11 @@ set -euo pipefail
     fi
 
     exit 0
+}
+
+:unban() {
+    unban "rutracker.org"
+    unban "lurkmore.to"
 }
 
 :bootstrap() {

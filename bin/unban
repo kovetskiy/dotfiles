@@ -1,0 +1,32 @@
+#!/bin/sudo /bin/bash
+
+set -euo pipefail
+
+:exec() {
+    echo ":: $*" >&2
+    "$@"
+}
+
+:resolve() {
+    local domain="$1"
+
+    :exec dig "$domain" +short
+    return $?
+}
+
+:route() {
+    local address="$1"
+
+    :exec ip r a "$address" dev ppp0
+}
+
+:main() {
+    local domain="$1"
+    local address=""
+
+    if address=$(:resolve "$domain"); then
+        :route "$address"
+    fi
+}
+
+:main "$@"
