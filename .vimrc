@@ -78,8 +78,8 @@ Plug 'vim-airline/vim-airline'
     let g:airline_skip_empty_sections = 1
     let g:airline#extensions#whitespace#checks = ['indent', 'trailing']
 
-Plug 'kovetskiy/vim-theme-rex'
-    let g:airline_theme = 'rex'
+Plug 'reconquest/vim-colorscheme'
+    let g:airline_theme = 'reconquest'
 
 Plug 'scrooloose/nerdcommenter'
 
@@ -858,7 +858,7 @@ func!  _background(bg)
         hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
     else
         set background=dark
-        colorscheme rex
+        colorscheme reconquest
     endif
 endfunc!
 

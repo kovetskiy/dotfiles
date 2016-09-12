@@ -57,7 +57,7 @@ vim-ski 97d230e
 vim-sneak ecbc1fa
 vim-surround e49d6c2
 vim-syntax-extra 28926b8
-vim-theme-rex 1602bbb
+vim-theme-rex 2f5e171
 vim-trailing-whitespace 733fb64
 ycm-sh d1f85f3
 YouCompleteMe 7f41910
