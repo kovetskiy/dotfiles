@@ -71,7 +71,6 @@ Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'marijnh/tern_for_vim'
 
-Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
     let g:airline#extensions#whitespace#symbol = '☼'
     let g:airline_powerline_fonts = 1
@@ -429,7 +428,7 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
 
 Plug 'kovetskiy/kb-train', { 'on': 'Train' }
 
-Plug 'NLKNguyen/papercolor-theme'
+"Plug 'NLKNguyen/papercolor-theme'
 
 Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
 
@@ -509,8 +508,8 @@ Plug 'seletskiy/vim-autosurround'
         return """
     endfunc!
 
-	nnoremap o o<C-R>=_ultisnips_enter()<CR>
-	nnoremap O O<C-R>=_ultisnips_enter()<CR>
+    nnoremap o o<C-R>=_ultisnips_enter()<CR>
+    nnoremap O O<C-R>=_ultisnips_enter()<CR>
 
     au User _overwrite_matchem
         \ au VimEnter,BufEnter,FileType *
@@ -561,16 +560,18 @@ Plug 'xolox/vim-session'
     let g:session_default_overwrite = 1
 
 Plug 'airblade/vim-gitgutter'
-"Plug 'git-time-metric/gtm-vim-plugin'
-    "let g:gtm_plugin_status_enabled = 1
-    "func! AirlineGtm()
-      "if exists('*GTMStatusline')
-        "call airline#parts#define_function('gtmstatus', 'GTMStatusline')
-        "let g:airline_section_b = airline#section#create(
-            "\ [g:airline_section_b, ' ', '[', 'gtmstatus', ']'])
-      "endif
-    "endfunc
-    "autocmd User AirlineAfterInit call AirlineGtm()
+  let g:gitgutter_override_sign_column_highlight = 0
+
+""Plug 'git-time-metric/gtm-vim-plugin'
+    ""let g:gtm_plugin_status_enabled = 1
+    ""func! AirlineGtm()
+      ""if exists('*GTMStatusline')
+        ""call airline#parts#define_function('gtmstatus', 'GTMStatusline')
+        ""let g:airline_section_b = airline#section#create(
+            ""\ [g:airline_section_b, ' ', '[', 'gtmstatus', ']'])
+      ""endif
+    ""endfunc
+    ""autocmd User AirlineAfterInit call AirlineGtm()
 
 Plug 'kovetskiy/sxhkd-vim'
 
@@ -584,11 +585,57 @@ call plug#end()
 au VimEnter * doautocmd User plugins_loaded
 au VimEnter * au! plugvim
 
-syntax on
-filetype plugin indent on
-
 set rtp-=~/.vim
 set rtp^=~/.vim
+
+func!  _background(bg)
+    let bg = a:bg
+    if bg == ""
+        let bg = "light"
+    endif
+
+    if bg == "light"
+        set background=light
+        colorscheme PaperColor
+
+        let g:airline_theme = 'sol'
+
+        "hi! link WildMenu PmenuSel
+        "hi SPM1 ctermbg=1 ctermfg=7
+        "hi SPM2 ctermbg=2 ctermfg=7
+        "hi SPM3 ctermbg=3 ctermfg=7
+        "hi SPM4 ctermbg=4 ctermfg=7
+        "hi SPM5 ctermbg=5 ctermfg=7
+        "hi SPM6 ctermbg=6 ctermfg=7
+        "hi VertSplit cterm=none ctermbg=none ctermfg=16
+        "hi ErrorMsg term=none
+        "hi Todo term=none
+        "hi SignColumn term=none
+        "hi FoldColumn term=none
+        "hi Folded term=none
+        "hi WildMenu term=none
+        "hi WarningMsg term=none
+        "hi Question term=none
+
+        "hi! underlined cterm=underline
+        "hi! CursorLineNr ctermfg=241 ctermbg=none
+        "hi! LineNr ctermfg=249 ctermbg=none
+        "hi! SignColumn ctermfg=none ctermbg=none
+        "hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
+        "hi! NonText ctermfg=254 cterm=none term=none
+        "hi! IncSearch cterm=none ctermfg=238 ctermbg=220
+        "hi! Cursor ctermbg=0 ctermfg=15
+        "hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
+    else
+        set background=dark
+        colorscheme reconquest
+    endif
+endfunc!
+
+call _background($BACKGROUND)
+
+syntax on
+filetype plugin indent on
 
 set shortmess+=sAIc
 
@@ -817,52 +864,6 @@ au BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.sh
 
 au BufRead,BufNewFile *.snippets set noet ft=snippets.python
 au BufRead,BufNewFile *.skeleton set noet ft=snippets.python
-
-func!  _background(bg)
-    let bg = a:bg
-    if bg == ""
-        let bg = "light"
-    endif
-
-    hi! link WildMenu PmenuSel
-    hi SPM1 ctermbg=1 ctermfg=7
-    hi SPM2 ctermbg=2 ctermfg=7
-    hi SPM3 ctermbg=3 ctermfg=7
-    hi SPM4 ctermbg=4 ctermfg=7
-    hi SPM5 ctermbg=5 ctermfg=7
-    hi SPM6 ctermbg=6 ctermfg=7
-    hi VertSplit cterm=none ctermbg=none ctermfg=16
-    hi ErrorMsg term=none
-    hi Todo term=none
-    hi SignColumn term=none
-    hi FoldColumn term=none
-    hi Folded term=none
-    hi WildMenu term=none
-    hi WarningMsg term=none
-    hi Question term=none
-
-    if bg == "light"
-        set background=light
-        colorscheme PaperColor
-
-        let g:airline_theme = 'sol'
-
-        hi! underlined cterm=underline
-        hi! CursorLineNr ctermfg=241 ctermbg=none
-        hi! LineNr ctermfg=249 ctermbg=none
-        hi! SignColumn ctermfg=none ctermbg=none
-        hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
-        hi! NonText ctermfg=254 cterm=none term=none
-        hi! IncSearch cterm=none ctermfg=238 ctermbg=220
-        hi! Cursor ctermbg=0 ctermfg=15
-        hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
-    else
-        set background=dark
-        colorscheme reconquest
-    endif
-endfunc!
-
-call _background($BACKGROUND)
 
 nnoremap <Leader>ft :set filetype=
 
