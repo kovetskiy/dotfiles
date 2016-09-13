@@ -147,17 +147,17 @@ export BACKGROUND=$(cat ~/background)
         lambda17:printf '%s' "$tree/$branch"
     }
 
-    zstyle 'lambda17:05-sign' text "ω"
-    zstyle 'lambda17>10-dir' 15-pwd :prompt-pwd
+    #zstyle 'lambda17:05-sign' text "ω"
+    #zstyle 'lambda17>10-dir' 15-pwd :prompt-pwd
 
-    case $PROFILE in
-        laptop)
-            zstyle lambda17:05-sign fg "white"
-            ;;
-        *)
-            zstyle lambda17:05-sign fg "red"
-            ;;
-    esac
+    #case $PROFILE in
+        #laptop)
+            #zstyle lambda17:05-sign fg "white"
+            #;;
+        #*)
+            #zstyle lambda17:05-sign fg "red"
+            #;;
+    #esac
 
     compinit -d $ZGEN_DIR/zcompdump
 
@@ -898,7 +898,7 @@ DATA
         local from="$1"
         local to="$2"
         shift 2
-        sed-replace "$from" "$to" $(sift --targets) "$@"
+        sed-replace "$from" "$to" $(sift "$from" -l) "$@"
     }
 
     :launch-binary() {
@@ -958,10 +958,18 @@ DATA
     :issues:filter() {
         :issues:query -f 16047
     }
+
+    :orgalorg:copy() {
+        local server="$1"
+        local remotepath="$2"
+        shift 2
+        orgalorg -o $server -vx -p -u e.kovetskiy -er $remotepath -U "${@}"
+    }
 }
 
 # :alias
 {
+    alias hcp=':orgalorg:copy'
     alias grr='gri --root'
     alias g='guess'
     alias dca='ssh deadcrew.org aurora -A '
@@ -1312,3 +1320,5 @@ eval "$(
 eval $(dircolors ~/.dircolors.$BACKGROUND)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+unset -f colors
