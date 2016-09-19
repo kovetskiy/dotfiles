@@ -137,8 +137,8 @@ export BACKGROUND=$(cat ~/background)
     prompt lambda17
 
     :prompt-pwd() {
-        if [[ "$PWD" == "$HOME/" ]]; then
-            lambda17:printf ''
+        if [[ "$PWD" == "$HOME" ]]; then
+            lambda17:print ''
             return
         fi
 
@@ -149,20 +149,23 @@ export BACKGROUND=$(cat ~/background)
                 | sed -r 's#(/\w)[^/]+#\1#g'
         )
 
-        lambda17:printf '%s' "$tree/$branch"
+        lambda17:print "$tree/$branch"
     }
 
-    #zstyle 'lambda17:05-sign' text "ω"
-    #zstyle 'lambda17>10-dir' 15-pwd :prompt-pwd
+    zstyle -d 'lambda17:00-main' transform
+    zstyle -d 'lambda17:25-head' when
+    zstyle 'lambda17:05-sign' text "ω"
+    zstyle "lambda17>00-root>00-main>00-status>10-dir" 15-pwd :prompt-pwd
+    zstyle -d "lambda17::async" pre-draw
 
-    #case $PROFILE in
-        #laptop)
-            #zstyle lambda17:05-sign fg "white"
-            #;;
-        #*)
-            #zstyle lambda17:05-sign fg "red"
-            #;;
-    #esac
+    case $PROFILE in
+        laptop)
+            zstyle lambda17:05-sign fg "white"
+            ;;
+        *)
+            zstyle lambda17:05-sign fg "red"
+            ;;
+    esac
 
     compinit -d $ZGEN_DIR/zcompdump
 
@@ -1022,6 +1025,7 @@ DATA
 
 # :alias
 {
+    alias ver='sudo vim /etc/resolv.conf'
     alias hcp=':orgalorg:copy'
     alias -g -- '#o'='| :orgalorg:exec'
 
