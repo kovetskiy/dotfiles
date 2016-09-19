@@ -137,6 +137,11 @@ export BACKGROUND=$(cat ~/background)
     prompt lambda17
 
     :prompt-pwd() {
+        if [[ "$PWD" == "$HOME/" ]]; then
+            lambda17:printf ''
+            return
+        fi
+
         local branch=$(basename "$PWD")
         local tree=$(
             dirname "$PWD" \
@@ -965,11 +970,66 @@ DATA
         shift 2
         orgalorg -o $server -vx -p -u e.kovetskiy -er $remotepath -U "${@}"
     }
+
+    :is-interactive() {
+        (
+            exec 9>&1
+            if [[ "$(readlink /dev/fd/9)" == *"pipe:"* ]]; then
+                return 1
+            else
+                return 0
+            fi
+        )
+        return $?
+    }
+
+    :nodes:query() {
+        local flags=""
+        if ! :is-interactive; then
+            flags="-pp"
+        fi
+
+        local filters=()
+        if [[ "$1" == "amf" ]]; then
+            filters=("amf:true")
+            shift
+        fi
+
+        if [[ "$1" && "$1" != *":"* ]]; then
+            filters=("spec:$1")
+            shift
+        fi
+
+        nodectl ${flags} -S ${filters[@]} "${@}"
+    }
+
+    :orgalorg:exec() {
+        local flags=()
+        while [[ $# -ne 0 ]]; do
+            if [[ "$1" == "-"* ]]; then
+                flags+=("$1")
+                shift
+            else
+                break
+            fi
+        done
+
+        orgalorg -t -w -s -p -x -u e.kovetskiy ${flags[@]} -C "${@}"
+    }
+
+    compdef guess=which
+>>>>>>> zsh: add orgalorg aliases
 }
 
 # :alias
 {
+<<<<<<< 74606ace0b7aaa622b48750e0aef6b83f528acf6
     alias hcp=':orgalorg:copy'
+=======
+    alias -g -- '#o'='| :orgalorg:exec'
+
+    alias q=':nodes:query'
+>>>>>>> zsh: add orgalorg aliases
     alias grr='gri --root'
     alias g='guess'
     alias dca='ssh deadcrew.org aurora -A '
@@ -997,8 +1057,7 @@ DATA
     alias -g S='| sed-replace'
     alias -g J='| jq .'
     alias rx='sudo systemctl restart x@vt7.service xlogin@operator.service'
-    alias -g K='| orgalorg -t -w -s -p -x -u e.kovetskiy -C'
-    alias -g O='| orgalorg -t -w -s -p -x -u e.kovetskiy'
+    alias -g O='| :orgalorg:exec'
     alias z='zabbixctl'
     alias zp='zabbixctl -Tp -xxxx'
     alias zgr='zgen reset'
@@ -1059,14 +1118,10 @@ DATA
     alias ss='sed-replace'
     alias -g sb='| sed-remove-all-before'
     alias -g sa='| sed-remove-all-after'
-    alias -g C='| cut-d-t'
 
     alias h='ssh-enhanced'
 
     alias f='find-iname'
-    alias -g X='| xargs-eval'
-
-    alias A='alias-grep'
 
     alias si='ssh-copy-id'
 
@@ -1116,18 +1171,6 @@ DATA
     alias bmpk='bithookctl -p post -A makepkg primary'
     alias bsl='bithookctl -p pre -A sould primary'
     alias bur='bithookctl -p post -A uroboros uroboros'
-
-
-    # :globals
-    {
-        alias -g G='EO | grep --color -P'
-        alias -g L='EO | less -r'
-        alias -g H='EO | head -n'
-        alias -g T='EO | tail -n'
-        alias -g Xa='| xargs -n1 -I{} '
-        alias -g EO='2>&1'
-        alias -g EN='2>/dev/null'
-    }
 
     alias s='sift -i -e'
     {
