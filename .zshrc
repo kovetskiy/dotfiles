@@ -71,7 +71,7 @@ export BACKGROUND=$(cat ~/background)
         zgen load seletskiy/zsh-fuzzy-search-and-edit
         zgen load Tarrasch/zsh-bd
 
-        zgen load brnv/zsh-too-long
+        #zgen load brnv/zsh-too-long
 
         zgen load seletskiy/zsh-autosuggestions
         zgen load kovetskiy/zsh-alias-search
@@ -1018,18 +1018,14 @@ DATA
     }
 
     compdef guess=which
->>>>>>> zsh: add orgalorg aliases
 }
 
 # :alias
 {
-<<<<<<< 74606ace0b7aaa622b48750e0aef6b83f528acf6
     alias hcp=':orgalorg:copy'
-=======
     alias -g -- '#o'='| :orgalorg:exec'
 
     alias q=':nodes:query'
->>>>>>> zsh: add orgalorg aliases
     alias grr='gri --root'
     alias g='guess'
     alias dca='ssh deadcrew.org aurora -A '
