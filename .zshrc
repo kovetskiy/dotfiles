@@ -703,6 +703,7 @@ export BACKGROUND=$(cat ~/background)
         cd /tmp/
         yaourt -G "$package"
         cd "$package"
+        cat PKGBUILD
     }
 
     ash-approve() {
@@ -1044,7 +1045,7 @@ DATA
             s|^(ssh://git@git.rn/)?d/|ssh://git@git.rn/devops/|;
             ' <<< "$target"
         )
-        dir=$(sed -r 's|^.*://[^/]+/||; s|^.*:||; ' <<< "$target")
+        local dir=$(sed -r 's|^.*://[^/]+/||; s|^.*:||; ' <<< "$target")
         echo ":: $target -> $dir"
         if [[ ! -d ~/sources/$dir ]]; then
             git clone "$target" ~/sources/$dir
@@ -1052,10 +1053,43 @@ DATA
 
         cd ~/sources/$dir
     }
+
+    :ash:print() {
+        local review=""
+        local approves=""
+
+        review=$(ash "$@" -e /bin/cat)
+
+        approves=$(grep -P '^### .* approved' <<< "$review" \
+            | cut -d'<' -f2- \
+            | cut -d'@' -f1)
+
+        review=$(sed -r '/^###/d; /^(#)?$/d' <<< "$review")
+        printf '%s\n' "$review" \
+            | sed -re "
+                /^#\s+---$/,/^\-\-\-/{/^(\+|\-[^\-]| )/d};
+                /^\-\-\-/d;
+                /^@/,+8d;
+                s/^(#.*)$/$(highlight fg yellow)\\1$(highlight reset)/;
+                s/^(\+\+\+.*)$/$(highlight fg blue)\\1$(highlight reset)/;
+                s/^(\+.*)$/$(highlight fg light_green)\\1$(highlight reset)/;
+                s/^(\-.*)$/$(highlight fg light_red)\\1$(highlight reset)/;
+            "
+
+        if [[ "$approves" ]]; then
+            echo
+            echo "$(highlight fg green):: "\
+                "[approved] $(wc -l <<< "$approves"):" \
+                "$(tr '\n' ' ' <<< "$approves")$(highlight reset)"
+        fi
+    }
+
+    compdef :ash:print=ash
 }
 
 # :alias
 {
+    alias ap=':ash:print'
     alias sg=':sources:get'
     alias ver='sudo vim /etc/resolv.conf'
     alias hcp=':orgalorg:copy'
