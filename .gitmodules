@@ -3,15 +3,6 @@
 	url = git@github.com:seletskiy/monaco-font
 	branch = master
 	ignore = all
-[submodule "zsh-prompt-lambda17"]
-	path = .zprezto/modules/prompt/functions
-	url = git@github.com:seletskiy/zsh-prompt-lambda17
-	branch = master
-	ignore = all
-[submodule "vimperator-plugins"]
-	path = .vimperator/bundle
-	url = git@github.com:vimpr/vimperator-plugins
-	ignore = all
 [submodule "deadcrew/deadandroid"]
 	path = deadandroid
 	url = git@github.com:deadcrew/master-of-android
