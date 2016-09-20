@@ -1021,6 +1021,27 @@ DATA
     }
 
     compdef guess=which
+
+    :nmap:online() {
+        nmap -sP -PS22 $@ -oG - \
+            | awk '/Status: Up/{ print $2; }' \
+            | tee /dev/stderr \
+    }
+
+    :machines:scan:vpn() {
+        local network="192.168.34."
+        :nmap:online ${network}1/24 \
+            | orgalorg -t -w -s -p -u $(whoami) -C hostname
+    }
+
+    :machines:laptop() {
+        local machines=$(:machines:scan:vpn)
+        local address=$(awk '/ laptop$/{ print $1 }' <<< "$machines")
+        if [[ "$address" ]]; then
+            ssh-keygen -R "$address"
+            ssh $(whoami)@$address
+        fi
+    }
 }
 
 # :alias
