@@ -6,7 +6,7 @@ dir_vim=~/.vim/bundle/
 dir=$({
     find $dir_go -maxdepth 3 -type d -printf 'go: %P\n'
 
-    find -L $dir_sources -maxdepth 1 -type d -printf 'sources: %P\n'
+    find -L $dir_sources -maxdepth 2 -type d -printf 'sources: %P\n'
     find -L $dir_zsh -maxdepth 2 -type d -printf 'zsh: %P\n'
     find -L $dir_vim -maxdepth 1 -type d -printf 'vim: %P\n'
 } 2>/dev/null | grep -Pv '^\w+: $' | fzf-tmux -u 15)
