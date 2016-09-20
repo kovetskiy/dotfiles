@@ -24,5 +24,6 @@
     insteadOf = ssh://github.com/
     insteadOf = ssh://git@github.com/
     insteadOf = https://github.com/
+    insteadOf = gh:
 [http]
 	cookiefile = /home/operator/.gitcookies

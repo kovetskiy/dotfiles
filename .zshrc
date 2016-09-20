@@ -137,7 +137,7 @@ export BACKGROUND=$(cat ~/background)
     prompt lambda17
 
     :prompt-pwd() {
-        if [[ "$PWD" == "$HOME" ]]; then
+        if [[ "$PWD" == "$HOME" || "$PWD" == "$HOME/" ]]; then
             lambda17:print ''
             return
         fi
@@ -299,7 +299,7 @@ export BACKGROUND=$(cat ~/background)
     find-iname() {
         local query="$1"
         shift
-        find -iname "*$query*" -not -path '.' -printf '%P\n' "$@"
+        find -iname "*$query*" -not -path '.' -printf '%P\n' "$@" 2>/dev/null
     }
 
     xargs-eval() {
@@ -388,12 +388,6 @@ export BACKGROUND=$(cat ~/background)
         git clone "$uri" $dir
     }
 
-    git-clone-devops() {
-        git clone "git+ssh://git.rn/specs/$1" \
-            || git clone "git+ssh://git.rn/devops/$1"
-        cd $(basename "$1")
-    }
-
     git-remote-set-devops() {
         local name=${1}
         if [[ ! "$name" ]]; then
@@ -403,11 +397,6 @@ export BACKGROUND=$(cat ~/background)
         git remote remove origin
         git remote add origin "git+ssh://git.rn/devops/$name"
     }
-
-    git-clone-profiles() {
-        git clone "git+ssh://git.rn/profiles/$1" $2
-    }
-
 
     git-checkout-orphan() {
         git checkout --orphan "$1"
@@ -1042,10 +1031,32 @@ DATA
             ssh $(whoami)@$address
         fi
     }
+
+    :sources:get() {
+        local target="$1"
+        target=$(sed -r '
+            s|^gh:/|git@github.com:|;
+            s|^rn:/|ssh://git@git.rn/|;
+            s|^(git@github.com:)?k/|git@github.com:kovetskiy/|;
+            s|^(git@github.com:)?s/|git@github.com:seletskiy/|;
+            s|^(git@github.com:)?r/|git@github.com:reconquest/|;
+            s|^(ssh://git@git.rn/)?c/|ssh://git@git.rn/core/|;
+            s|^(ssh://git@git.rn/)?d/|ssh://git@git.rn/devops/|;
+            ' <<< "$target"
+        )
+        dir=$(sed -r 's|^.*://[^/]+/||; s|^.*:||; ' <<< "$target")
+        echo ":: $target -> $dir"
+        if [[ ! -d ~/sources/$dir ]]; then
+            git clone "$target" ~/sources/$dir
+        fi
+
+        cd ~/sources/$dir
+    }
 }
 
 # :alias
 {
+    alias sg=':sources:get'
     alias ver='sudo vim /etc/resolv.conf'
     alias hcp=':orgalorg:copy'
     alias -g -- '#o'='| :orgalorg:exec'
@@ -1264,7 +1275,6 @@ DATA
 
         alias gci='git-create-and-commit-empty-gitignore'
         alias gclg='git-clone-github'
-        alias gcld='git-clone-devops'
         alias grsd='git-remote-set-devops'
         alias gclp='git-clone-profiles'
         alias gcoo='git-checkout-orphan'
