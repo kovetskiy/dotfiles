@@ -27,6 +27,8 @@ set send_charset="utf-8"
 set assumed_charset="utf-8"
 set allow_8bit
 set allow_ansi
+set status_on_top
+set status_format="   %f %n/%m"
 
 set display_filter=mutt-display-filter
 
