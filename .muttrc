@@ -11,7 +11,7 @@ set markers=no
 set editor=vim
 set imap_check_subscribed=yes
 set imap_idle=yes
-set mail_check=300
+set mail_check=60
 set sort=threads
 set narrow_tree=yes
 set metoo
@@ -47,3 +47,5 @@ macro index \Ce "T*;s=Archivesy<sync-mailbox>"
 source ~/.mutt/theme_$BACKGROUND
 
 color progress white red
+
+set new_mail_command="notify-send 'mail' 'mail: %u unread'"
