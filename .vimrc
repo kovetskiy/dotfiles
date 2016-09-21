@@ -327,6 +327,7 @@ Plug 'seletskiy/vim-over'
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     au operations BufRead,BufNewFile *.md set filetype=markdown
+    au operations BufRead,BufNewFile *.md set fo-=l
 
 Plug 'AndrewRadev/sideways.vim', { 'on': ['SidewayLeft', 'SidewayRight',
             \ 'SidewayJumpLight', 'SidewayRightJump']}
