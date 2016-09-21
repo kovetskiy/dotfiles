@@ -21,6 +21,7 @@ set mime_forward=yes
 set mime_forward_rest=yes
 set pager_index_lines=10
 set message_cachedir=~/.cache/mutt/messages/
+set message_cache_clean
 set header_cache=~/.cache/mutt/headers/
 set charset="utf-8"
 set send_charset="utf-8"
