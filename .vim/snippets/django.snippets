@@ -1,0 +1,21 @@
+snippet n "" w
+{{- "\n" }}
+endsnippet
+
+snippet i "" w
+{{- if $1 }}
+    ${2:${VISUAL}}
+{{- end }}
+endsnippet
+
+snippet k "" w
+{{- $1 }}
+endsnippet
+
+snippet pr "" w
+{{ $1 | printf "%#v" }}
+endsnippet
+
+snippet e "" w
+{{- end }}
+endsnippet
