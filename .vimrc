@@ -83,6 +83,7 @@ Plug 'reconquest/vim-colorscheme'
 Plug 'scrooloose/nerdcommenter'
 
 Plug 'Valloric/YouCompleteMe', {'frozen': 1}
+    let g:ycm_confirm_extra_conf = 0
     let g:ycm_key_list_previous_completion=['<UP>']
     let g:ycm_key_list_select_completion=['<DOWN>']
 
@@ -561,7 +562,7 @@ Plug 'xolox/vim-session'
     let g:session_default_overwrite = 1
 
 Plug 'airblade/vim-gitgutter'
-  let g:gitgutter_override_sign_column_highlight = 0
+  let g:gitgutter_override_sign_column_highlight = 1
 
 ""Plug 'git-time-metric/gtm-vim-plugin'
     ""let g:gtm_plugin_status_enabled = 1
