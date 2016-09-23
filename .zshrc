@@ -993,7 +993,7 @@ DATA
             shift
         fi
 
-        nodectl ${flags} -S ${filters[@]} "${@}"
+        nodectl ${flags} -S ${filters[@]} ${@}
     }
 
     :orgalorg:exec() {
@@ -1089,6 +1089,7 @@ DATA
 
 # :alias
 {
+    alias e='less'
     alias ap=':ash:print'
     alias sg=':sources:get'
     alias ver='sudo vim /etc/resolv.conf'
@@ -1137,8 +1138,6 @@ DATA
     alias ia='ip a'
     alias il='ip l'
     alias td='touch  /tmp/debug; tail -f /tmp/debug'
-    alias np='nodectl -pp -S'
-    alias ns='nodectl -S'
     alias stpr='stacket-pull-request-create'
     alias stprr='reviewers-add'
     alias strcd='stacket repositories create devops'
