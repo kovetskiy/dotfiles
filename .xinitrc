@@ -15,5 +15,6 @@ if ! tmux list-sessions &>/dev/null; then
 fi
 
 sxhkd &
+xcompmgr &
 
 i3
