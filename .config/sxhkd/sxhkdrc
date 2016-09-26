@@ -5,7 +5,7 @@ super + r
 	modal-run
 
 shift + Delete
-	window-kill-focused
+	kill-focus
 
 super + control + s
 	browser
@@ -53,7 +53,7 @@ control + F12
 	xkb
 
 super + grave
-	kuake --terminal --height 75
+	kuake --terminal --bottom --right --height 30 --width 50 --opacity 0.7
 
 super + backslash
 	kuake --focus --height 75
