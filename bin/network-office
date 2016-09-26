@@ -48,8 +48,7 @@ set -euo pipefail
 }
 
 :unban() {
-    unban "rutracker.org"
-    unban "lurkmore.to"
+    cat ~/.unban | xargs -n1 unban
 }
 
 :bootstrap() {
