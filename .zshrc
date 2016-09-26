@@ -1085,10 +1085,36 @@ DATA
     }
 
     compdef :ash:print=ash
+
+    :aur:spawn() {
+        yes | EDITOR=cat yaourt --color "$@"
+    }
+
+    :aur:search() {
+        local search=$(:aur:spawn -Ss "$@")
+        {
+            bmo -b '/^\033/'  '/^\033/' \
+                -v 'name' '/^\033/' \
+                -c "! match(name, /$@/)" <<< "$search"
+
+            bmo -b '/^\033/'  '/^\033/' \
+                -v 'name' '/^\033/' \
+                -c "match(name, /$@/)" <<< "$search"
+        } | grep -P "$@|"
+    }
+
+    :aur:install-or-search() {
+        if [[ "$#" -eq 2 && "$2" == ":" ]]; then
+            :aur:search "$1"
+        else
+            :aur:spawn -S "$@"
+        fi
+    }
 }
 
 # :alias
 {
+    alias u=':aur:install-or-search'
     alias e='less'
     alias ap=':ash:print'
     alias sg=':sources:get'
@@ -1245,7 +1271,7 @@ DATA
 
     # :aur
     {
-        alias au='yes | EDITOR=cat yaourt '
+        alias au=':aur:spawn'
         alias auk='au -S --nameonly -s'
         alias aus='au -S'
         alias aur='au -R'
