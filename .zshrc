@@ -1110,6 +1110,33 @@ DATA
             :aur:spawn -S "$@"
         fi
     }
+
+    :systemctl() {
+        case "$1" in
+            s)
+                sudo systemctl start "${@:2}"
+                ;;
+            t)
+                sudo systemctl stop "${@:2}"
+                ;;
+            d)
+                sudo systemctl disable "${@:2}"
+                ;;
+            e)
+                sudo systemctl enable "${@:2}"
+                ;;
+            i)
+                sudo systemctl isolate "${@:2}"
+                ;;
+            r)
+                sudo systemctl restart "${@:2}"
+                ;;
+            u)
+                sudo systemctl status "${@:2}"
+                sudo journalctl -u "${@:2}"
+                ;;
+        esac
+    }
 }
 
 # :alias
@@ -1408,14 +1435,8 @@ DATA
 
     # :systemd
     {
-        alias sc='sudo systemctl'
-        alias scs='sudo systemctl start'
-        alias sct='sudo systemctl stop'
-        alias scr='sudo systemctl restart'
-        alias sce='sudo systemctl enable'
-        alias scd='sudo systemctl disable'
-        alias scu='sudo systemctl status'
-        alias scl='sudo systemctl list-unit-files'
+        alias sc=':systemctl'
+        alias :=':systemctl'
 
         alias us='systemctl --user'
         alias uss='systemctl --user start'
