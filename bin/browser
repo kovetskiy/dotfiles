@@ -1,6 +1,20 @@
 #!/bin/bash
 
-url=$(sed -r 's#^(git+ssh|ssh|git)://(\w+@)?##' <<< "$1")
+URL=$(sed -r 's#^(git+ssh|ssh|git)://(\w+@)?##' <<< "$1")
 shift
 
-exec firefox --noerrdialogs --disable-infobars "$url" "$@"
+if pgrep -f "firefox" &>/dev/null; then
+    UNIT="firefox"
+else
+    if pgrep -f "chrome"; then
+        UNIT="google-chrome-beta"
+    else
+        UNIT="firefox"
+    fi
+fi
+
+if [[ "$UNIT" == "firefox" ]]; then
+    exec firefox --noerrdialogs --disable-infobars "$URL" "$@"
+else
+    exec google-chrome-beta "$URL" "$@"
+fi
