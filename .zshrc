@@ -1140,6 +1140,9 @@ DATA
 }
 
 {
+    alias -g /='|'
+    alias -g ,='|'
+
     alias -g SX='--exclude-path'
     alias -g sb='| sed-remove-all-before'
     alias -g sa='| sed-remove-all-after'
