@@ -6,7 +6,7 @@ symlinks=($(cat ~/dotfiles/.symlinks))
 
 :exec() {
     echo "$ $*"
-    #"$@"
+    "$@"
 }
 
 for path in "${symlinks[@]}"; do

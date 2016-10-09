@@ -1,11 +1,10 @@
-
 .asoundrc
 bin
 .config/dunst
 .config/fontconfig
 .config/pacman.d
 .config/surfingkeys.js
-.config/sxhkd
+.config/sxhkd/sxhkdrc
 .config/systemd/user/network-office.service
 .dircolors.dark
 .dircolors.light
