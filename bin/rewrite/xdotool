@@ -1,0 +1,30 @@
+#!/bin/bash
+
+stdout=$(mktemp)
+stderr=$(mktemp)
+trap "rm $stdout $stderr" EXIT
+
+attempts=0
+
+:run() {
+    /bin/xdotool "$@" >"$stdout" 2>"$stderr"
+
+    exitcode=$?
+
+    if grep "a bug in the X server" "$stderr"; then
+        attempts=$((attempts+1))
+        if [[ "$attempts" -gt 5 ]]; then
+            cat "$stdout"
+            cat "$stderr" >&2
+            exit $exitcode
+        fi
+
+        :exec "$@"
+    else
+        cat "$stdout"
+        cat "$stderr" >&2
+        exit $exitcode
+    fi
+}
+
+:run "$@"
