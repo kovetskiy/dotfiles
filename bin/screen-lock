@@ -14,4 +14,4 @@ slock xset dpms force suspend
 
 mplayer_cmd "pause"
 
-xkb-reconfigure
+xkb
