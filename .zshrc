@@ -1139,15 +1139,26 @@ DATA
     }
 }
 
+{
+    alias -g SX='--exclude-path'
+    alias -g sb='| sed-remove-all-before'
+    alias -g sa='| sed-remove-all-after'
+    alias -g -- '#o'='| :orgalorg:exec'
+    alias -g I='<<<'
+    alias -g S='| sed-replace'
+    alias -g J='| jq .'
+    alias -g O='| :orgalorg:exec'
+}
+
 # :alias
 {
+
     alias u=':aur:install-or-search'
     alias e='less'
     alias ap=':ash:print'
     alias sg=':sources:get'
     alias ver='sudo vim /etc/resolv.conf'
     alias hcp=':orgalorg:copy'
-    alias -g -- '#o'='| :orgalorg:exec'
 
     alias q=':nodes:query'
     alias grr='gri --root'
@@ -1173,11 +1184,7 @@ DATA
     alias pas='packages-sync && { cd ~/dotfiles; git diff -U0 packages; }'
     alias duty='cake --id 41882909 -L && cal -m'
     alias npu='npm-to-aur'
-    alias -g I='<<<'
-    alias -g S='| sed-replace'
-    alias -g J='| jq .'
     alias rx='sudo systemctl restart x@vt7.service xlogin@operator.service'
-    alias -g O='| :orgalorg:exec'
     alias z='zabbixctl'
     alias zp='zabbixctl -Tp -xxxx'
     alias zgr='zgen reset'
@@ -1234,8 +1241,6 @@ DATA
     alias md='man-directive'
     alias c='cd-and-ls'
     alias ss='sed-replace'
-    alias -g sb='| sed-remove-all-before'
-    alias -g sa='| sed-remove-all-after'
 
     alias h='ssh-enhanced'
 
@@ -1292,7 +1297,6 @@ DATA
 
     alias s='sift -i -e'
     {
-        alias -g SX='--exclude-path'
     }
 
 
