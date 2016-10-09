@@ -10,9 +10,11 @@ set $alt Mod4
 
 floating_modifier $alt
 
+bindsym $alt+Shift+r restart
+
 bindsym Shift+BackSpace kill
 
-bindsym Shift+$alt+Ctrl+f floating toggle
+bindsym $alt+Escape floating toggle
 
 bindsym Ctrl+Home  focus left
 bindsym Ctrl+Next  focus down
@@ -33,8 +35,6 @@ bindsym $alt+4 workspace 4
 bindsym $alt+5 workspace 5
 bindsym $alt+6 workspace 6
 bindsym $alt+7 workspace 7
-bindsym $alt+8 workspace 8
-bindsym $alt+9 workspace 9
 
 bindsym $alt+q workspace q
 bindsym $alt+w workspace w
@@ -53,8 +53,6 @@ bindsym $alt+Shift+4 move container to workspace 4
 bindsym $alt+Shift+5 move container to workspace 5
 bindsym $alt+Shift+6 move container to workspace 6
 bindsym $alt+Shift+7 move container to workspace 7
-bindsym $alt+Shift+8 move container to workspace 8
-bindsym $alt+Shift+9 move container to workspace 9
 
 bindsym $alt+Shift+q move container to workspace q
 bindsym $alt+Shift+w move container to workspace w
@@ -68,13 +66,16 @@ bindsym $alt+Shift+c move container to workspace c
 
 bindsym pause workspace q; exec "browser http://cs543100.vk.me/v543100237/50df/joWgtvxgsRo.jpg"
 
-bindsym $alt+Shift+r restart
-
-
 bindsym $win+Shift+v split vertical
 bindsym $win+Shift+h split horizontal
 
+# Sometimes I need to resize browser when
+# reading articles on sites without text width
+bindsym $win+Ctrl+h resize shrink width 40 px or 2 ppt; exec "window-centralize"
+bindsym $win+Ctrl+l resize grow width 40 px or 2 ppt; exec "window-centralize"
+
 bindsym $alt+Ctrl+r mode "resize"
+
 mode "resize" {
         bindsym h resize grow width 5 px or 2 ppt
         bindsym j resize shrink height 5 px or 2 ppt

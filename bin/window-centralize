@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# there is will appear X, Y, WIDTH and HEIGHT variables
+eval "$(xdotool getactivewindow getwindowgeometry --shell)"
+
+:main() {
+    read screen_width screen_height <<< $(:xscreeninfo)
+
+    window_x=$((($screen_width - $WIDTH) / 2))
+    window_y=$((($screen_height - $HEIGHT) / 2))
+
+    xdotool getactivewindow windowmove --sync $window_x $window_y
+}
+
+:xscreeninfo() {
+    python2 <<PYTHON
+import gtk.gdk
+
+screen   = gtk.gdk.screen_get_default()
+display  = gtk.gdk.display_get_default()
+pointer  = display.get_pointer()
+
+cursor_monitor = screen.get_monitor_at_point(pointer[1], pointer[2])
+geometry = screen.get_monitor_geometry(cursor_monitor)
+print "%d %d" % (geometry.width, geometry.height)
+PYTHON
+}
+
+:main "${@}"

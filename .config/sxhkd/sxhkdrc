@@ -22,10 +22,10 @@ super + b
 super + F1
 	screenshot > ~/.screenshot
 
-super + F2
+super + 8
 	volume down
 
-super + F3
+super + 9
 	volume up
 
 super + F5
@@ -37,7 +37,7 @@ super + F6
 super + F7
 	mplayer-control pt_step 1
 
-alt + control + l
+control + Return
 	screen-lock
 
 alt + control + d
@@ -53,7 +53,7 @@ control + F12
 	xkb
 
 super + grave
-	kuake --terminal --bottom --right --height 30 --width 50 --opacity 0.7
+	kuake --terminal --bottom --right --height 30 --width 50 --opacity 0.8
 
 super + backslash
 	kuake --focus --height 75
