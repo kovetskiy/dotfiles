@@ -730,7 +730,7 @@ au operations BufWritePost *.snippets call _py_modules_reload()
 au operations BufWritePost ~/.vimrc
     \ source % | AirlineRefresh | PyModulesReload | Snapshot
 
-au operations BufWritePost */.i3/config !i3-msg restart
+au operations BufWritePost */.i3/config silent !i3-msg restart
 au operations VimResized,VimEnter * set cc=79
 
 au operations BufRead /tmp/vimperator-confluence* set ft=html.confluence | call HtmlBeautify()
