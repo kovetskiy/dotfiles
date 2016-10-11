@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -euo pipefail
-
 symlinks=($(cat ~/dotfiles/.symlinks))
 
 :exec() {
@@ -10,6 +8,6 @@ symlinks=($(cat ~/dotfiles/.symlinks))
 }
 
 for path in "${symlinks[@]}"; do
-    :exec rm -r ~/"$path"
-    :exec ln -s ~/dotfiles/ ~/"$path"
+    :exec rm -rf ~/"$path"
+    :exec ln -s ~/dotfiles/"$path" ~/"$path"
 done
