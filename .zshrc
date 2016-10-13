@@ -1137,6 +1137,17 @@ DATA
                 ;;
         esac
     }
+
+    :git:master() {
+        git fetch && \
+            git checkout origin/master && \
+            git branch -D master && \
+            git checkout master
+
+        if [[ "$1" ]]; then
+            git checkout -b "$1"
+        fi
+    }
 }
 
 {
@@ -1160,6 +1171,7 @@ DATA
     alias ver='sudo vim /etc/resolv.conf'
     alias hcp=':orgalorg:copy'
 
+    alias gm=':git:master'
     alias q=':nodes:query'
     alias grr='gri --root'
     alias g='guess'
