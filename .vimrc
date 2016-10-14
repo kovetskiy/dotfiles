@@ -413,7 +413,7 @@ Plug 'kovetskiy/vim-ski'
 
 Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
-        \ 'diff', 'go', 'markdown'
+        \ 'diff', 'markdown'
     \ ]
 
     func! _whitespaces_fix()
