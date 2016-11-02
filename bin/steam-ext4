@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+
+DISK=/dev/disk/by-id/usb-Mass_Storage_Device_116AC2101219-0:0-part2
+if [[ ! -f ~/steam/.ext4 ]]; then
+    sudo mount $DISK ~/steam
+fi
+
+exec steam-wrapper
