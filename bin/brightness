@@ -5,7 +5,7 @@ flock 200
 
 if [ "$(cat ~/profile)" == "laptop" ]; then
     dir=/sys/class/backlight/intel_backlight
-    step=5
+    step=50
 else
     dir=/sys/class/backlight/acpi_video0
     step=1
