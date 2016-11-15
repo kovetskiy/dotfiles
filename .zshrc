@@ -1156,6 +1156,24 @@ DATA
             git checkout -b "$1"
         fi
     }
+
+    :rtorrent:select() {
+        torrent=$(
+            find ~/Downloads/ -maxdepth 1 -type f -name '*.torrent' \
+                | while read filename; do
+                name=$(transmission-show "$filename" \
+                    | grep -P '^Name: ' \
+                    | sed -r 's/Name:\s+//')
+                echo "$(basename "$filename") :: $name"
+            done \
+                | fzf
+        )
+
+        if [[ "$torrent" ]]; then
+            torrent=$(sed 's/ :: .*$//' <<< "$torrent")
+            rtorrent "$torrent"
+        fi
+    }
 }
 
 {
@@ -1172,7 +1190,7 @@ DATA
 
 # :alias
 {
-
+    alias rt=':rtorrent:select'
     alias u=':aur:install-or-search'
     alias e='less'
     alias ap=':ash:print'
