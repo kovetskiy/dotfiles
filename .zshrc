@@ -105,8 +105,9 @@ export BACKGROUND=$(cat ~/background)
 # :binds
 {
     bindkey -a '^[' vi-insert
-    bindkey -v "^R" history-incremental-search-backward
-    bindkey -v "^N" history-substring-search-down
+    bindkey -v "^R" fzf-history-widget
+    bindkey -v "^[[A" history-substring-search-up
+    bindkey -v "^[[B" history-substring-search-down
     bindkey -v "^[[7~" beginning-of-line
     bindkey -v "^A" beginning-of-line
     bindkey -v "^Q" push-line
@@ -1482,13 +1483,12 @@ ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
 FZF_TMUX_HEIGHT=15
+FZF_ARGS=""
 eval "$(
     cat $(pacman -Ql fzf | grep '.zsh$' | cut -d' ' -f2) \
-        | sed-replace '^(\s+selected=.* )\+s(.*)$' '\1\2'
+        | sed -r -e 's/\+s//' -e '/bindkey/d'
 )"
 
 eval $(dircolors ~/.dircolors.$BACKGROUND)
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 unset -f colors
