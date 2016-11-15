@@ -1008,7 +1008,14 @@ DATA
             fi
         done
 
-        orgalorg -t -w -s -p -x -u e.kovetskiy ${flags[@]} -C "${@}"
+        orgalorg -t -w -s -x -u e.kovetskiy $(echo ${flags[@]}) -C "${@}"
+    }
+
+
+    :orgalorg:identify() {
+        orgalorg -t -w -s -p \
+            -i ~/.ssh/id_rsa.pub -u e.kovetskiy \
+            -C mkdir -p /home/e.kovetskiy/.ssh \&\& tee -a /home/e.kovetskiy/.ssh/authorized_keys
     }
 
     compdef guess=which
@@ -1156,6 +1163,7 @@ DATA
     alias -g sb='| sed-remove-all-before'
     alias -g sa='| sed-remove-all-after'
     alias -g -- '#o'='| :orgalorg:exec'
+    alias -g -- '#i'='| :orgalorg:identify'
     alias -g I='<<<'
     alias -g S='| sed-replace'
     alias -g J='| jq .'
@@ -1195,7 +1203,8 @@ DATA
     alias p='vimpager'
     alias sf='sed-files'
     alias pas='packages-sync && { cd ~/dotfiles; git diff -U0 packages; }'
-    alias duty='cake --id 41882909 -L && cal -m'
+    alias dud='cake --id 41882909 -L && cal -m'
+    alias dup='cake --id 39095231 -L && cal -m'
     alias npu='npm-to-aur'
     alias rx='sudo systemctl restart x@vt7.service xlogin@operator.service'
     alias z='zabbixctl'
