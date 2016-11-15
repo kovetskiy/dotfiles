@@ -2,8 +2,6 @@
 
 . /bin/systemd-cat-bash xinitrc
 
-set -x
-
 source ~/bin/environment-variables
 source ~/bin/environment-setup
 
