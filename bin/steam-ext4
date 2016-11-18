@@ -7,4 +7,6 @@ if [[ ! -f ~/steam/.ext4 ]]; then
     sudo mount $DISK ~/steam
 fi
 
-exec steam-wrapper
+steam-wrapper
+
+sudo umount ~/steam
