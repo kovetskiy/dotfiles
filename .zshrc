@@ -1171,7 +1171,7 @@ DATA
 
         if [[ "$torrent" ]]; then
             torrent=$(sed 's/ :: .*$//' <<< "$torrent")
-            rtorrent "$torrent"
+            rtorrent ~/Downloads/"$torrent"
         fi
     }
 }
