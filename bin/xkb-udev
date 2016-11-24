@@ -1,8 +1,6 @@
 #!/bin/bash
 
-exec 2>/tmp/xkb-udev
-
 set -x
 
-. "$(dirname $0)/environment-variables"
-. "$(dirname $0)/xkb"
+"$(dirname $0)/environment-variables"
+"$(dirname $0)/xkb"

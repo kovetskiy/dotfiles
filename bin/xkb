@@ -10,4 +10,5 @@ sudo shift-shift -first CAPSLOCK -second RIGHTSHIFT -match keyboard &>/dev/null 
 
 repeat_delay=110
 repeat_rate=150
+
 xset r rate $repeat_delay $repeat_rate
