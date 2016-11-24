@@ -127,6 +127,7 @@ export BACKGROUND=$(cat ~/background)
 
     bindkey "^S" sudo-command-line
     bindkey "^F" alias-search
+    bindkey "^T" :rtorrent:select
 }
 
 # :setup
@@ -912,7 +913,7 @@ DATA
         fi
 
         if stat "$binary" &>/dev/null; then
-            ${SUDO:+":sudo"} "$binary" "$@"
+            ${SUDO:+":sudo"} $(echo "${RESOLVER:+stalk -s $RESOLVER -- }") "$binary" "$@"
         else
             echo "nothing to launch" >&2
             return 1
@@ -1174,6 +1175,8 @@ DATA
             rtorrent ~/Downloads/"$torrent"
         fi
     }
+
+    zle -N :rtorrent:select
 }
 
 {
@@ -1190,6 +1193,8 @@ DATA
 
 # :alias
 {
+    alias xd='STALK=cname.d :launch-binary'
+    alias xs='STALK=cname.s :launch-binary'
     alias rt=':rtorrent:select'
     alias u=':aur:install-or-search'
     alias e='less'
@@ -1373,7 +1378,7 @@ DATA
 
     # :zsh
     {
-        alias viz='vim ~/.zshrc ; zr'
+        alias viz='vim ~/.zshrc'
         alias tiz='terminal-vim ~/.zshrc'
         alias zr='source ~/.zshrc && print "zsh config has been reloaded"'
     }
