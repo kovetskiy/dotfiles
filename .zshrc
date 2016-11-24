@@ -1193,8 +1193,8 @@ DATA
 
 # :alias
 {
-    alias xd='STALK=cname.d :launch-binary'
-    alias xs='STALK=cname.s :launch-binary'
+    alias xd='RESOLVER=cname.d :launch-binary'
+    alias xs='RESOLVER=cname.s :launch-binary'
     alias rt=':rtorrent:select'
     alias u=':aur:install-or-search'
     alias e='less'
