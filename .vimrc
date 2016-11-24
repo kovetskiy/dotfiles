@@ -150,6 +150,7 @@ Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
     au operations FileType go nmap <buffer> gk :call go#def#Jump('split')<CR>
 
     au operations FileType go nmap <buffer> <Leader>, :w<CR>:call synta#go#build()<CR>
+    au operations FileType go nmap <buffer> <Leader>' :call synta#go#build()<CR>
     au operations FileType go imap <buffer> <Leader>, <ESC>:w<CR>:call synta#go#build()<CR>
     au operations FileType go nmap <buffer> <Leader>l :GoLint .<CR>
 
