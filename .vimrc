@@ -340,8 +340,8 @@ Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
 Plug 'terryma/vim-multiple-cursors'
 
-Plug 'kshenoy/vim-signature'
-    let g:SignatureMarkOrder = "\m"
+"Plug 'kshenoy/vim-signature'
+    "let g:SignatureMarkOrder = "\m"
 
 Plug 'justinmk/vim-sneak'
     " bullshit
@@ -578,7 +578,7 @@ Plug 'airblade/vim-gitgutter'
     ""endfunc
     ""autocmd User AirlineAfterInit call AirlineGtm()
 
-Plug 'kovetskiy/sxhkd-vim'
+Plug 'kovetskiy/sxhkd-vim', {'for': 'sxhkd'}
 
 Plug 'PotatoesMaster/i3-vim-syntax'
 
