@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec steam-ext4 steam://rungameid/570
