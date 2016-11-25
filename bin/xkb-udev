@@ -2,5 +2,5 @@
 
 set -x
 
-"$(dirname $0)/environment-variables"
+. "$(dirname $0)/environment-variables"
 "$(dirname $0)/xkb"
