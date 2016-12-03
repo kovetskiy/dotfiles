@@ -963,7 +963,7 @@ DATA
         local server="$1"
         local remotepath="$2"
         shift 2
-        orgalorg -o $server -vx -p -u e.kovetskiy -er $remotepath -U "${@}"
+        orgalorg -o $server -vx -u e.kovetskiy -er $remotepath -U "${@}"
     }
 
     :is-interactive() {
@@ -1176,6 +1176,14 @@ DATA
         fi
     }
 
+    :mplayer:run() {
+        #if [[ $# -eq 0 ]]; then
+            #mplayer $(/bin/ls | grep -vP '\.(jpg|jpeg|png|log|txt|cue)$')
+        #else
+            mplayer "$@"
+        #fi
+    }
+
     zle -N :rtorrent:select
 }
 
@@ -1193,6 +1201,7 @@ DATA
 
 # :alias
 {
+    alias o=':mplayer:run'
     alias xd='RESOLVER=cname.d :launch-binary'
     alias xs='RESOLVER=cname.s :launch-binary'
     alias rt=':rtorrent:select'
