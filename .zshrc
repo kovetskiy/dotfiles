@@ -1120,33 +1120,6 @@ DATA
         fi
     }
 
-    :systemctl() {
-        case "$1" in
-            s)
-                sudo systemctl start "${@:2}"
-                ;;
-            t)
-                sudo systemctl stop "${@:2}"
-                ;;
-            d)
-                sudo systemctl disable "${@:2}"
-                ;;
-            e)
-                sudo systemctl enable "${@:2}"
-                ;;
-            i)
-                sudo systemctl isolate "${@:2}"
-                ;;
-            r)
-                sudo systemctl restart "${@:2}"
-                ;;
-            u)
-                sudo systemctl status "${@:2}"
-                sudo journalctl -u "${@:2}"
-                ;;
-        esac
-    }
-
     :git:master() {
         git fetch && \
             git checkout origin/master && \
@@ -1223,7 +1196,7 @@ DATA
     alias cs=':cd-sources'
     alias pmp='sudo pacman -U $(/bin/ls -t *.pkg.*)'
     alias psyuz='psyu --ignore linux,zfs-linux-git,zfs-utils-linux-git,spl-linux-git,spl-utils-linux-git'
-    alias sudo=':sudo '
+    alias sudo='sudo '
     alias mkl='sudo mkinitcpio -p linux'
     alias x=':launch-binary'
     alias pcaa='sudo pacmanconfctl -A arch-ngs'
