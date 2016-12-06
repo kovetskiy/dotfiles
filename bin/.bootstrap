@@ -1,13 +1,22 @@
 #!/bin/bash
 
 symlinks=($(cat ~/dotfiles/.symlinks))
+clones=($(cat ~/dotfiles/.clones))
 
 :exec() {
-    echo "$ $*"
     "$@"
 }
 
 for path in "${symlinks[@]}"; do
+    echo ": symlink: $path"
     :exec rm -rf ~/"$path"
     :exec ln -s ~/dotfiles/"$path" ~/"$path"
+done
+
+echo
+
+for path in "${clones[@]}"; do
+    echo ": clone $path"
+    :exec rm -rf ~/"$path"
+    :exec cp -r ~/dotfiles/"$path" ~/"$path"
 done

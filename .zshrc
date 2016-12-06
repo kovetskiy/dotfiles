@@ -1466,8 +1466,13 @@ DATA
 
     # :systemd
     {
-        alias sc=':systemctl'
-        alias :=':systemctl'
+        alias sc='sudo systemctl'
+        alias scs='sudo systemctl start'
+        alias sce='sudo systemctl enable'
+        alias sct='sudo systemctl stop'
+        alias scd='sudo systemctl disable'
+        alias scu='sudo systemctl status'
+        alias scl='sudo systemctl list-units'
 
         alias us='systemctl --user'
         alias uss='systemctl --user start'
@@ -1476,7 +1481,7 @@ DATA
         alias use='systemctl --user enable'
         alias usd='systemctl --user disable'
         alias usu='systemctl --user status'
-        alias usl='systemctl --user list-unit-files'
+        alias usl='systemctl --user list-units'
 
         alias sdr='sudo systemctl daemon-reload'
     }
@@ -1490,6 +1495,9 @@ DATA
         alias ju='sudo journalctl -u'
         alias juf='sudo journalctl -f -u'
     }
+
+    alias bs='.bootstrap'
+    alias ss='.sync'
 }
 
 

@@ -5,7 +5,6 @@ bin
 .config/pacman.d
 .config/surfingkeys.js
 .config/sxhkd/sxhkdrc
-.config/systemd/user/network-office.service
 .dircolors.dark
 .dircolors.light
 .fonts

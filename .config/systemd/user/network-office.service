@@ -2,7 +2,7 @@
 WantedBy=basic.target
 
 [Unit]
-Description=office virtual private network
+Description=Office VPN Gateway
 
 [Service]
 ExecStart=/home/operator/bin/network-office
