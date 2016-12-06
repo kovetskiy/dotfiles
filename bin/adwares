@@ -3,16 +3,17 @@
 eval "$(args opts -w,--watch -s,--stats -t,--today -- "$@")"
 
 if [[ "${opts[-w]}" ]]; then
+    flags=("-s")
+    if [[ "${opts[-t]}" ]]; then
+        flags+=(-t)
+    fi
+
     watch \
         --interval 0.1 \
         --no-title \
         --color \
         --differences \
-        --exec -- adwares $(
-                echo "-s";
-                "${opts[-t]}" && echo "-t"
-        )
-
+        --exec -- adwares "${flags[@]}"
     exit 0
 fi
 
