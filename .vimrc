@@ -779,7 +779,7 @@ nmap <C-E><C-S> :call _session_save()<CR>
 imap <C-F> tx<TAB>
 vmap <C-F> ctx<TAB>
 
-imap <C-E><C-F> context.
+imap <C-D> context.
 
 nnoremap <C-E><C-D> :cd %:p:h<CR>:pwd<CR>
 nnoremap <C-E><C-F> :lcd %:p:h<CR>:pwd<CR>
