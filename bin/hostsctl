@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -euo pipefail
+
+_path=~/.cache/StevenBlack/hosts
+if [[ ! -f $_path ]]; then
+    echo :: fetching https://github.com/StevenBlack/hosts
+
+    mkdir -p ~/.cache/StevenBlack
+
+    curl https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts \
+        | sed -r '/^#/d' \
+        | sponge $_path
+fi
+
+sudo cp $_path /etc/hosts
+
+echo :: hosts: $(wc -l < /etc/hosts) items
