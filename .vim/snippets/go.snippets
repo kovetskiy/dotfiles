@@ -401,3 +401,21 @@ endsnippet
 snippet kf "" wA
 fatalh(err, "$1", $2)
 endsnippet
+
+snippet epu "" wA
+push(context, "${1:errors}", $2)
+endsnippet
+
+snippet ere "" wA
+api.render(context, "${1:}")
+return
+endsnippet
+
+snippet erd "" wA
+context.Redirect(http.Status${1:Found}, "/$2")
+return
+endsnippet
+
+snippet eva "" wA
+\`validate:"${1:required}"\`
+endsnippet
