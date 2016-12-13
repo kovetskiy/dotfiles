@@ -1,0 +1,4 @@
+#!/bin/bash
+
+marvex -s -e vis
+qpaeq
