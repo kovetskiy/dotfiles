@@ -4,6 +4,9 @@ super + Return
 super + r
 	modal-run
 
+super + shift + r
+	modal-run --terminal
+
 shift + Delete
 	kill-focus
 
