@@ -82,7 +82,7 @@ Plug 'reconquest/vim-colorscheme'
 
 Plug 'scrooloose/nerdcommenter'
 
-Plug 'Valloric/YouCompleteMe', {'frozen': 1}
+Plug 'Valloric/YouCompleteMe'
     let g:ycm_confirm_extra_conf = 0
     let g:ycm_key_list_previous_completion=['<UP>']
     let g:ycm_key_list_select_completion=['<DOWN>']
@@ -125,7 +125,7 @@ Plug 'Valloric/YouCompleteMe', {'frozen': 1}
 
 Plug 'kovetskiy/synta'
 
-Plug 'fatih/vim-go', {'for': 'go', 'frozen': 1}
+Plug 'fatih/vim-go', {'for': 'go'}
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
     let g:go_fmt_autosave = 1
