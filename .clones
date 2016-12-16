@@ -1,2 +1,3 @@
 .config/systemd/user/network-office.service
+.config/systemd/user/bluetooth-auto-power.service
 .config/systemd/user.conf

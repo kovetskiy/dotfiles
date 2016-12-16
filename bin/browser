@@ -6,15 +6,11 @@ shift
 if pgrep -f "firefox" &>/dev/null; then
     UNIT="firefox"
 else
-    if pgrep -f "chrome"; then
-        UNIT="google-chrome-beta"
-    else
-        UNIT="firefox"
-    fi
+    UNIT="google-chrome-beta"
 fi
 
 if [[ "$UNIT" == "firefox" ]]; then
     exec firefox --noerrdialogs --disable-infobars "$URL" "$@"
 else
-    exec google-chrome-beta "$URL" "$@"
+    exec "$UNIT" "$URL" "$@"
 fi

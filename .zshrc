@@ -159,6 +159,7 @@ export BACKGROUND=$(cat ~/background)
     zstyle 'lambda17:05-sign' text "ω"
     zstyle "lambda17>00-root>00-main>00-status>10-dir" 15-pwd :prompt-pwd
     zstyle -d "lambda17::async" pre-draw
+    zstyle 'lambda17:00-banner' bg 1
 
     case $PROFILE in
         laptop)
@@ -1158,6 +1159,31 @@ DATA
     }
 
     zle -N :rtorrent:select
+
+    :move() {
+        local from=""
+        if [[ -f /var/run/$(id -u)/buffer-move ]]; then
+            from="$(cat /var/run/$(id -u)/buffer-move)"
+        fi
+
+        if [[ ! "$from" ]]; then
+            if [[ ! "$1" ]]; then
+                echo "target is not specified" >&2
+                return 1
+            fi
+
+            echo "$(readlink -f "$1")" > /var/run/$(id -u)/buffer-move
+            return 0
+        fi
+
+        to="$1"
+        if [[ ! "$to" ]]; then
+            to=$(basename "$from")
+        fi
+
+        echo "$from -> $to" >&2
+        mv "$from" "$to"
+    }
 }
 
 {
@@ -1174,6 +1200,8 @@ DATA
 
 # :alias
 {
+    alias j=':move'
+    alias k='task-project'
     alias o=':mplayer:run'
     alias xd='RESOLVER=cname.d :launch-binary'
     alias xs='RESOLVER=cname.s :launch-binary'
