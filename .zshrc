@@ -1514,3 +1514,5 @@ eval "$(
 eval $(dircolors ~/.dircolors.$BACKGROUND)
 
 unset -f colors
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
