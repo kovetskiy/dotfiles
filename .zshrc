@@ -159,14 +159,15 @@ export BACKGROUND=$(cat ~/background)
     zstyle 'lambda17:05-sign' text "ω"
     zstyle "lambda17>00-root>00-main>00-status>10-dir" 15-pwd :prompt-pwd
     zstyle -d "lambda17::async" pre-draw
-    zstyle 'lambda17:00-banner' bg 1
 
     case $PROFILE in
         laptop)
             zstyle lambda17:05-sign fg "white"
+            zstyle 'lambda17:00-banner' bg "red"
             ;;
         *)
-            zstyle lambda17:05-sign fg "red"
+            zstyle 'lambda17:00-banner' bg "green"
+            zstyle lambda17:05-sign fg "white"
             ;;
     esac
 
