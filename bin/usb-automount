@@ -1,22 +1,90 @@
 #!/bin/bash
 
-inotifywait --monitor --event create,delete --format '%e %w%f' /dev | \
-    while read event device; do
-        sd_pattern='sd[b-z][1-9]$'
-        mc_pattern='mmcblk[0-9]p[0-9]$'
-        if [[ $device =~ $sd_pattern || $device =~ $mc_pattern ]]; then
+set -euo pipefail
+
+:monitor() {
+    inotifywait \
+        --monitor \
+        --event create,delete \
+        --format '%e %w%f' \
+        /dev
+}
+
+:mount() {
+    local device="$1"
+
+    local response=$(
+        udisksctl mount \
+            --block-device "$device" \
+            --no-user-interaction 2>&1
+    )
+
+    notify-send " " "$response"
+}
+
+:mount_crypt() {
+    local device="$1"
+
+    local name=$(basename "$device")
+
+    zenity --password | sudo cryptsetup open "$device" "$name"
+
+    local target="/var/run/user/$UID/$name"
+
+    mkdir -p "$target"
+    sudo mount -o uid="$UID" "/dev/mapper/$name" "$target"
+
+    if [[ -f "$target/.link" ]]; then
+        sudo ln -sf "$target" "$(cat "$target/.link")"
+        notify-send " " "Mounted $device at $(cat "$target/.link")."
+    else
+        notify-send " " "Mounted $device at $target."
+    fi
+}
+
+:handle_mount() {
+    local device="$1"
+
+    if ! zenity --question --text "Do you want to mount $device?"; then
+        return 1
+    fi
+
+    if ! sudo cryptsetup isLuks "$device"; then
+        :mount "$device"
+        return $?
+    fi
+
+    :mount_crypt "$device"
+    return $?
+
+}
+
+:handle_umount() {
+    local device="$1"
+    local name=$(basename "$device")
+
+    if [[ -e /dev/mapper/$name ]]; then
+        if ! sudo umount /dev/mapper/$name; then
+            :
+        fi
+        sudo cryptsetup close $name
+    fi
+}
+
+:main() {
+    :monitor | while read event device; do
+        if grep -q -P '(sd[a-z][0-9]|mmcblk[0-9]p[0-9])' <<< "$device"; then
             case $event in
                 CREATE)
-                    echo "mounting $device" >&2
-                    sleep 1
-                    if zenity --question --text "Mounting $device"; then
-                        response=$(udisksctl mount --block-device $device \
-                            --no-user-interaction)
-                        notify-send "_" "$response"
-                    fi
+                    :handle_mount "$device" &
                 ;;
                 DELETE)
+                    :handle_umount "$device" &
+                    :
                 ;;
             esac
         fi
     done
+}
+
+:main "$@"
