@@ -37,7 +37,7 @@ vim-cpp-enhanced-highlight 6307292
 vim-ctrlp-ag 0af7097
 vim-empty-lines b0ee3f8
 vim-gitgutter eaea1c5
-vim-go a7a3751
+vim-go 08c881d
 vim-go-impl 3a68a75
 vim-hacks f423472
 vim-javascript 294563c
