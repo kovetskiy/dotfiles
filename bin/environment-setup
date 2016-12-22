@@ -17,7 +17,7 @@ fi
 
 # @TODO: move to systemd
 if ! pidof usb-automount >/dev/null; then
-    sudo usb-automount &
+    usb-automount &
 fi
 
 if [ -f ~/.redshift ]; then
