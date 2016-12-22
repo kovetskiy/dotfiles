@@ -2,13 +2,18 @@
 
 inotifywait --monitor --event create,delete --format '%e %w%f' /dev | \
     while read event device; do
-        pattern='sd[b-z][1-9]$'
-        if [[ $device =~ $pattern ]]; then
+        sd_pattern='sd[b-z][1-9]$'
+        mc_pattern='mmcblk[0-9]p[0-9]$'
+        if [[ $device =~ $sd_pattern || $device =~ $mc_pattern ]]; then
             case $event in
                 CREATE)
-                    logger "mounting $device"
+                    echo "mounting $device" >&2
                     sleep 1
-                    udisksctl mount --block-device $device --no-user-interaction
+                    if zenity --question --text "Mounting $device"; then
+                        response=$(udisksctl mount --block-device $device \
+                            --no-user-interaction)
+                        notify-send "_" "$response"
+                    fi
                 ;;
                 DELETE)
                 ;;
