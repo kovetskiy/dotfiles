@@ -55,6 +55,9 @@ super + Tab
 control + F12
 	xkb
 
+control + F11
+	usb-automount
+
 super + grave
 	kuake --terminal --bottom --right --height 30 --width 50 --opacity 0.8
 

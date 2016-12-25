@@ -32,10 +32,12 @@ set -euo pipefail
     local target="/var/run/user/$UID/$name"
 
     mkdir -p "$target"
-    sudo mount -o uid="$UID" "/dev/mapper/$name" "$target"
+
+    sudo mount "/dev/mapper/$name" "$target"
 
     if [[ -f "$target/.link" ]]; then
-        sudo ln -sf "$target" "$(cat "$target/.link")"
+        sudo unlink "$(cat "$target/.link")"
+        sudo ln -s "$target" "$(cat "$target/.link")"
         notify-send " " "Mounted $device at $(cat "$target/.link")."
     else
         notify-send " " "Mounted $device at $target."
