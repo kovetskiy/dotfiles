@@ -16,6 +16,16 @@ snippet }e "else" w
 }
 endsnippet
 
-snippet pr "syslog" w
-syslog(LOG_ERR, "[pam_eye] `!p snip.rv=str(vim.current.window.cursor[0])`");
+snippet pr "printf" w
+printf("XXXXX `!p snip.rv=str(vim.current.window.cursor[0])` `!p snip.rv=t[1]`: $2\n", $1);
+endsnippet
+
+snippet dp "" w
+debugf("$1: ${3:%s}", $2)
+endsnippet
+
+snippet fi "" w
+for ($1 = 0; $1 < $2; $1++) {
+    $3
+}
 endsnippet
