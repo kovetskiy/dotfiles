@@ -2,7 +2,7 @@
 
 export TERM=rxvt-unicode-256color
 if [ "$TMUX" ]; then
-    export TERM=screen-256color-so
+    export TERM=screen-256color
 fi
 
 export HISTFILE=$HOME/.history
@@ -1185,6 +1185,14 @@ DATA
         echo "$from -> $to" >&2
         mv "$from" "$to"
     }
+
+    :rsync() {
+        rsync -av --stats --progress "$@"
+    }
+
+    :w:sync() {
+        :rsync home.local:$1 $1
+    }
 }
 
 {
@@ -1201,6 +1209,7 @@ DATA
 
 # :alias
 {
+    alias wsc=':w:sync'
     alias j=':move'
     alias k='task-project'
     alias o=':mplayer:run'
@@ -1225,7 +1234,7 @@ DATA
     alias cs=':cd-sources'
     alias pmp='sudo pacman -U $(/bin/ls -t *.pkg.*)'
     alias psyuz='psyu --ignore linux,zfs-linux-git,zfs-utils-linux-git,spl-linux-git,spl-utils-linux-git'
-    alias sudo='sudo '
+    alias sudo='sudo -E '
     alias mkl='sudo mkinitcpio -p linux'
     alias x=':launch-binary'
     alias pcaa='sudo pacmanconfctl -A arch-ngs'
