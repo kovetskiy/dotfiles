@@ -25,6 +25,12 @@ super + b
 super + F1
 	screenshot > ~/.screenshot
 
+control + F9
+	sudo systemctl stop bluetooth
+
+control + F10
+	sudo systemctl start bluetooth
+
 super + 8
 	volume down
 
