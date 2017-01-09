@@ -71,6 +71,8 @@ Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'marijnh/tern_for_vim'
 
+Plug 'vim-airline/vim-airline-themes'
+
 Plug 'vim-airline/vim-airline'
     let g:airline#extensions#whitespace#symbol = '☼'
     let g:airline_powerline_fonts = 1
@@ -81,6 +83,8 @@ Plug 'reconquest/vim-colorscheme'
     let g:airline_theme = 'reconquest'
 
 Plug 'scrooloose/nerdcommenter'
+
+Plug 'jeaye/color_coded'
 
 Plug 'Valloric/YouCompleteMe'
     let g:ycm_confirm_extra_conf = 0
@@ -434,7 +438,8 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
 
 Plug 'kovetskiy/kb-train', { 'on': 'Train' }
 
-"Plug 'NLKNguyen/papercolor-theme'
+Plug 'NLKNguyen/papercolor-theme'
+    au operations BufNewFile,BufRead *.c set noet
 
 Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
 
@@ -490,7 +495,7 @@ Plug 'lokikl/vim-ctrlp-ag'
 
 Plug 'chrisbra/Recover.vim'
 
-Plug 'kovetskiy/vim-bash'
+Plug 'kovetskiy/vim-bash', {'for': 'sh'}
     nmap gd <C-]>
     func! _tags_sh()
         if &ft != "sh"
@@ -565,8 +570,8 @@ Plug 'xolox/vim-session'
     let g:session_lock_enabled = 0
     let g:session_default_overwrite = 1
 
-Plug 'airblade/vim-gitgutter'
-  let g:gitgutter_override_sign_column_highlight = 1
+"Plug 'airblade/vim-gitgutter'
+  "let g:gitgutter_override_sign_column_highlight = 1
 
 ""Plug 'git-time-metric/gtm-vim-plugin'
     ""let g:gtm_plugin_status_enabled = 1
@@ -594,51 +599,58 @@ au VimEnter * au! plugvim
 set rtp-=~/.vim
 set rtp^=~/.vim
 
-func!  _background(bg)
-    let bg = a:bg
-    if bg == ""
-        let bg = "light"
-    endif
+"func!  _background(bg)
+    "let bg = a:bg
+    "if bg == ""
+        "let bg = "light"
+    "endif
 
-    if bg == "light"
-        set background=light
-        colorscheme PaperColor
+    "if bg == "light"
+        "set background=light
+        "colorscheme PaperColor
 
-        let g:airline_theme = 'sol'
+        "let g:airline_theme = 'sol'
 
-        "hi! link WildMenu PmenuSel
-        "hi SPM1 ctermbg=1 ctermfg=7
-        "hi SPM2 ctermbg=2 ctermfg=7
-        "hi SPM3 ctermbg=3 ctermfg=7
-        "hi SPM4 ctermbg=4 ctermfg=7
-        "hi SPM5 ctermbg=5 ctermfg=7
-        "hi SPM6 ctermbg=6 ctermfg=7
-        "hi VertSplit cterm=none ctermbg=none ctermfg=16
-        "hi ErrorMsg term=none
-        "hi Todo term=none
-        "hi SignColumn term=none
-        "hi FoldColumn term=none
-        "hi Folded term=none
-        "hi WildMenu term=none
-        "hi WarningMsg term=none
-        "hi Question term=none
+        ""hi! link WildMenu PmenuSel
+        ""hi SPM1 ctermbg=1 ctermfg=7
+        ""hi SPM2 ctermbg=2 ctermfg=7
+        ""hi SPM3 ctermbg=3 ctermfg=7
+        ""hi SPM4 ctermbg=4 ctermfg=7
+        ""hi SPM5 ctermbg=5 ctermfg=7
+        ""hi SPM6 ctermbg=6 ctermfg=7
+        ""hi VertSplit cterm=none ctermbg=none ctermfg=16
+        ""hi ErrorMsg term=none
+        ""hi Todo term=none
+        ""hi SignColumn term=none
+        ""hi FoldColumn term=none
+        ""hi Folded term=none
+        ""hi WildMenu term=none
+        ""hi WarningMsg term=none
+        ""hi Question term=none
 
-        "hi! underlined cterm=underline
-        "hi! CursorLineNr ctermfg=241 ctermbg=none
-        "hi! LineNr ctermfg=249 ctermbg=none
-        "hi! SignColumn ctermfg=none ctermbg=none
-        "hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
-        "hi! NonText ctermfg=254 cterm=none term=none
-        "hi! IncSearch cterm=none ctermfg=238 ctermbg=220
-        "hi! Cursor ctermbg=0 ctermfg=15
-        "hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
-    else
-        set background=dark
-        colorscheme reconquest
-    endif
-endfunc!
+        ""hi! underlined cterm=underline
+        ""hi! CursorLineNr ctermfg=241 ctermbg=none
+        ""hi! LineNr ctermfg=249 ctermbg=none
+        ""hi! SignColumn ctermfg=none ctermbg=none
+        ""hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
+        ""hi! NonText ctermfg=254 cterm=none term=none
+        ""hi! IncSearch cterm=none ctermfg=238 ctermbg=220
+        ""hi! Cursor ctermbg=0 ctermfg=15
+        ""hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
+    "else
+        "set background=dark
+        "colorscheme reconquest
+    "endif
+"endfunc!
 
-call _background($BACKGROUND)
+let &background=$BACKGROUND
+
+if &background == "light"
+    colorscheme PaperColor
+    let g:airline_theme = 'sol'
+else
+    colorscheme reconquest
+endif
 
 syntax on
 filetype plugin indent on
