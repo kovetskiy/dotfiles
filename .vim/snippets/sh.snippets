@@ -1,8 +1,7 @@
 global !p
 import px
 for full_name, name in px.libs().items():
-    exec "import " + full_name
-    exec "import " + full_name + " as " + name
+    exec("import " + full_name)
 endglobal
 
 snippet u "" w
