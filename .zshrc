@@ -2,7 +2,7 @@
 
 export TERM=rxvt-unicode-256color
 if [ "$TMUX" ]; then
-    export TERM=screen-256color
+    export TERM=screen-256color-so
 fi
 
 export HISTFILE=$HOME/.history

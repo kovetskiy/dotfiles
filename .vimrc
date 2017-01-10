@@ -69,7 +69,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 "Plug 'junegunn/seoul256.vim'
     "au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
 
-Plug 'marijnh/tern_for_vim'
+Plug 'marijnh/tern_for_vim', {'for':'js'}
 
 Plug 'vim-airline/vim-airline-themes'
 
@@ -84,7 +84,7 @@ Plug 'reconquest/vim-colorscheme'
 
 Plug 'scrooloose/nerdcommenter'
 
-Plug 'jeaye/color_coded'
+Plug 'jeaye/color_coded', {'for': 'c'}
 
 Plug 'Valloric/YouCompleteMe'
     let g:ycm_confirm_extra_conf = 0
@@ -95,6 +95,7 @@ Plug 'Valloric/YouCompleteMe'
     let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
     let g:ycm_seed_identifiers_with_syntax = 1
+    let g:ycm_use_ultisnips_completer = 0
 
     func! _completions_complete()
         try
@@ -372,9 +373,9 @@ Plug 'justinmk/vim-sneak'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
     vnoremap <C-T> :Tabularize /
 
-Plug 'kovetskiy/urxvt.vim'
-    au operations FileType go nmap <buffer>
-        \ <Leader>h :call urxvt#put('go build')<CR>
+"Plug 'kovetskiy/urxvt.vim'
+    "au operations FileType go nmap <buffer>
+        "\ <Leader>h :call urxvt#put('go build')<CR>
 
 
 Plug 'reconquest/vim-pythonx', {'frozen': '1'}
@@ -445,7 +446,7 @@ Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
 
 Plug 'seletskiy/ashium'
 
-Plug 'klen/python-mode'
+Plug 'klen/python-mode', {'for': 'python'}
     let g:pymode_lint = 0
     let g:pymode_lint_on_write = 0
     let g:pymode_run = 0
@@ -456,7 +457,7 @@ Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
 Plug 'yssl/QFEnter'
 
-Plug 'kovetskiy/next-indentation'
+Plug 'kovetskiy/next-indentation', {'on': ['IndentationGoUp','IndentationGoDown']}
     nnoremap <Up> :IndentationGoUp<CR>
     nnoremap <Down> :IndentationGoDown<CR>
 
@@ -466,7 +467,7 @@ Plug 'rhysd/vim-go-impl'
 
 Plug 'wellle/targets.vim'
 
-Plug 'kovetskiy/ycm-sh'
+Plug 'kovetskiy/ycm-sh', {'for': 'sh'}
 
 Plug 'lokikl/vim-ctrlp-ag'
     let g:grep_last_query = ""
@@ -538,7 +539,7 @@ Plug 'seletskiy/vim-autosurround'
     doau User _overwrite_matchem
 
 
-Plug 'FooSoft/vim-argwrap'
+Plug 'FooSoft/vim-argwrap', {'on': 'ArgWrap'}
     au operations BufRead,BufNewFile *.go let b:argwrap_tail_comma = 1
     nnoremap <silent> @l :call search('[\(\{\[]', 'cs')<CR>l:ArgWrap<CR>
     nnoremap <silent> @; :ArgWrap<CR>
@@ -560,15 +561,15 @@ Plug 'scrooloose/syntastic'
     au operations FileType go nmap <buffer> <C-T> :lnext<CR>zz
     au operations FileType go nmap <buffer> <C-E><C-T> :lprev<CR>zz
 
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
-    let g:session_menu = 1
-    let g:session_command_aliases = 1
-    let g:session_autosave_periodic = 1
-    let g:session_autosave = 'yes'
-    let g:session_autoload = 'no'
-    let g:session_lock_enabled = 0
-    let g:session_default_overwrite = 1
+"Plug 'xolox/vim-misc'
+"Plug 'xolox/vim-session'
+    "let g:session_menu = 1
+    "let g:session_command_aliases = 1
+    "let g:session_autosave_periodic = 1
+    "let g:session_autosave = 'yes'
+    "let g:session_autoload = 'no'
+    "let g:session_lock_enabled = 0
+    "let g:session_default_overwrite = 1
 
 "Plug 'airblade/vim-gitgutter'
   "let g:gitgutter_override_sign_column_highlight = 1
@@ -586,9 +587,9 @@ Plug 'xolox/vim-session'
 
 Plug 'kovetskiy/sxhkd-vim', {'for': 'sxhkd'}
 
-Plug 'PotatoesMaster/i3-vim-syntax'
+Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
 
-Plug 'vimperator/vimperator.vim'
+Plug 'vimperator/vimperator.vim', {'for': 'vimperator'}
 
 augroup end
 call plug#end()
