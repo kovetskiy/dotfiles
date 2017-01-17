@@ -64,7 +64,7 @@ bindsym $alt+Shift+z move container to workspace z
 bindsym $alt+Shift+x move container to workspace x
 bindsym $alt+Shift+c move container to workspace c
 
-bindsym pause workspace q; exec "browser http://cs543100.vk.me/v543100237/50df/joWgtvxgsRo.jpg"
+#bindsym pause workspace q; exec "browser http://cs543100.vk.me/v543100237/50df/joWgtvxgsRo.jpg"
 
 bindsym $win+Shift+v split vertical
 bindsym $win+Shift+h split horizontal
