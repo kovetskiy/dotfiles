@@ -160,6 +160,11 @@ export BACKGROUND=$(cat ~/background)
     zstyle "lambda17>00-root>00-main>00-status>10-dir" 15-pwd :prompt-pwd
     zstyle -d "lambda17::async" pre-draw
 
+    :lambda17:read-terminal-background () {
+        :
+    }
+
+
     case $PROFILE in
         laptop)
             zstyle lambda17:05-sign fg "white"
