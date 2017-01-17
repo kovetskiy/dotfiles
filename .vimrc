@@ -84,7 +84,7 @@ Plug 'reconquest/vim-colorscheme'
 
 Plug 'scrooloose/nerdcommenter'
 
-Plug 'jeaye/color_coded', {'for': 'c'}
+"Plug 'jeaye/color_coded', {'for': 'c'}
 
 Plug 'Valloric/YouCompleteMe'
     let g:ycm_confirm_extra_conf = 0
@@ -346,8 +346,8 @@ Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
 Plug 'terryma/vim-multiple-cursors'
 
-"Plug 'kshenoy/vim-signature'
-    "let g:SignatureMarkOrder = "\m"
+Plug 'kshenoy/vim-signature'
+    let g:SignatureMarkOrder = "\m"
 
 Plug 'justinmk/vim-sneak'
     " bullshit
@@ -433,7 +433,7 @@ Plug 'bronson/vim-trailing-whitespace'
 
     au operations BufWritePre * call _whitespaces_fix()
 
-Plug 'seletskiy/vim-nunu'
+"Plug 'seletskiy/vim-nunu'
 
 Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
 
@@ -544,46 +544,46 @@ Plug 'FooSoft/vim-argwrap', {'on': 'ArgWrap'}
     nnoremap <silent> @l :call search('[\(\{\[]', 'cs')<CR>l:ArgWrap<CR>
     nnoremap <silent> @; :ArgWrap<CR>
 
-Plug 'scrooloose/syntastic'
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 0
-    let g:syntastic_check_on_open = 0
-    let g:syntastic_go_checkers = ["go", "gofmt"]
-    let g:syntastic_mode_map = {
-        \ "mode": "active",
-        \ "active_filetypes": ["go"],
-        \ "passive_filetypes": ["bash", "sh", "zsh"] }
+"Plug 'scrooloose/syntastic'
+    "let g:syntastic_always_populate_loc_list = 1
+    "let g:syntastic_auto_loc_list = 0
+    "let g:syntastic_check_on_open = 0
+    "let g:syntastic_go_checkers = ["go", "gofmt"]
+    "let g:syntastic_mode_map = {
+        "\ "mode": "active",
+        "\ "active_filetypes": ["go"],
+        "\ "passive_filetypes": ["bash", "sh", "zsh"] }
 
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
+    "set statusline+=%#warningmsg#
+    "set statusline+=%{SyntasticStatuslineFlag()}
+    "set statusline+=%*
 
     au operations FileType go nmap <buffer> <C-T> :lnext<CR>zz
     au operations FileType go nmap <buffer> <C-E><C-T> :lprev<CR>zz
 
-"Plug 'xolox/vim-misc'
-"Plug 'xolox/vim-session'
-    "let g:session_menu = 1
-    "let g:session_command_aliases = 1
-    "let g:session_autosave_periodic = 1
-    "let g:session_autosave = 'yes'
-    "let g:session_autoload = 'no'
-    "let g:session_lock_enabled = 0
-    "let g:session_default_overwrite = 1
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
+    let g:session_menu = 1
+    let g:session_command_aliases = 1
+    let g:session_autosave_periodic = 1
+    let g:session_autosave = 'yes'
+    let g:session_autoload = 'no'
+    let g:session_lock_enabled = 0
+    let g:session_default_overwrite = 1
 
-"Plug 'airblade/vim-gitgutter'
-  "let g:gitgutter_override_sign_column_highlight = 1
+Plug 'airblade/vim-gitgutter'
+  let g:gitgutter_override_sign_column_highlight = 1
 
-""Plug 'git-time-metric/gtm-vim-plugin'
-    ""let g:gtm_plugin_status_enabled = 1
-    ""func! AirlineGtm()
-      ""if exists('*GTMStatusline')
-        ""call airline#parts#define_function('gtmstatus', 'GTMStatusline')
-        ""let g:airline_section_b = airline#section#create(
-            ""\ [g:airline_section_b, ' ', '[', 'gtmstatus', ']'])
-      ""endif
-    ""endfunc
-    ""autocmd User AirlineAfterInit call AirlineGtm()
+"Plug 'git-time-metric/gtm-vim-plugin'
+    "let g:gtm_plugin_status_enabled = 1
+    "func! AirlineGtm()
+      "if exists('*GTMStatusline')
+        "call airline#parts#define_function('gtmstatus', 'GTMStatusline')
+        "let g:airline_section_b = airline#section#create(
+            "\ [g:airline_section_b, ' ', '[', 'gtmstatus', ']'])
+      "endif
+    "endfunc
+    "autocmd User AirlineAfterInit call AirlineGtm()
 
 Plug 'kovetskiy/sxhkd-vim', {'for': 'sxhkd'}
 
@@ -677,7 +677,7 @@ set lazyredraw
 set ttyfast
 
 set number
-set relativenumber
+set norelativenumber
 
 set history=500
 
@@ -713,6 +713,7 @@ set lcs=trail:·,tab:☰\ "
 set pastetoggle=<F11>
 
 au operations VimEnter,WinEnter,BufRead,BufNewFile * set nofoldenable
+au operations VimEnter,WinEnter,BufRead,BufNewFile * au! matchparen
 
 set noequalalways
 set winminheight=0
