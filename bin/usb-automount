@@ -36,7 +36,10 @@ set -euo pipefail
     sudo mount "/dev/mapper/$name" "$target"
 
     if [[ -f "$target/.link" ]]; then
-        sudo unlink "$(cat "$target/.link")"
+        if [[ -f "$(cat "$target/.link")" ]]; then
+            sudo unlink "$(cat "$target/.link")"
+        fi
+
         sudo ln -s "$target" "$(cat "$target/.link")"
         notify-send " " "Mounted $device at $(cat "$target/.link")."
     else
