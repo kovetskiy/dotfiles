@@ -26,7 +26,7 @@ syntastic 40ac6c46
 tabular 00e1e7f
 targets.vim c12d4ea
 tern_for_vim 8364d69
-ultisnips f974e03
+ultisnips 5352d98
 urxvt.vim b986053
 vim-airline a2431f2
 vim-airline-themes 2a97d9e
