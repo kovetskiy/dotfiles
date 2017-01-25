@@ -1,6 +1,5 @@
 #!/bin/bash
 
-[ -x /bin/systemd-cat-bash ] && /bin/systemd-cat-bash $(basename "$0")
 
 set -x
 

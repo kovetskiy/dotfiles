@@ -1,6 +1,5 @@
 #!/bin/bash
 
-[ -x /bin/systemd-cat-bash ] && . /bin/systemd-cat-bash paster
 
 dir=$HOME/.clipboard/
 

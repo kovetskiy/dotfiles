@@ -1,6 +1,5 @@
 #!/bin/bash
 
-. /bin/systemd-cat-bash
 
 filename="$HOME/screenshots/$(date +%F-%T | tr : T).png"
 
