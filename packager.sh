@@ -3,17 +3,17 @@
 install() {
     local package="$1"
 
-    yes | yaourt -S --noconfirm $package
+export MAKEPKG="makepkg --skipinteg"
+    yes | yaourt -S --noconfirm $package --force
 }
 
 yaourt -Sy
 
 for package in `cat packages`; do
     echo checking package $package...
-    installed=$(pacman -Q $package 2>&1)
-    if [ $? -ne 0 ]; then
+    if ! pacman -Q $package 2>&1; then
         if [ "$1" != "-s" ];then
-            echo installing package $package...
+            echo installing package $package... >> /tmp/p
             install $package
         fi
     fi
