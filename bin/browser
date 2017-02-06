@@ -6,7 +6,7 @@ shift
 if pgrep -f "firefox" &>/dev/null; then
     UNIT="firefox"
 else
-    UNIT="google-chrome-beta"
+    UNIT="yandex-browser-beta"
 fi
 
 if [[ "$UNIT" == "firefox" ]]; then
