@@ -1152,7 +1152,7 @@ DATA
 
         if [[ "$torrent" ]]; then
             torrent=$(sed 's/ :: .*$//' <<< "$torrent")
-            rtorrent ~/Downloads/"$torrent"
+            qbittorrent ~/Downloads/"$torrent"
         fi
     }
 
@@ -1350,7 +1350,7 @@ DATA
     alias nhh='ssh'
     alias nhu='container-status'
     alias nhr='container-restart'
-    alias rto='rtorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
+    alias rto='qbittorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
     alias mcan='mcabber-account ngs-team'
     alias mcap='mcabber-account postdevops'
     alias mcao='mcabber-account office'
