@@ -111,6 +111,9 @@ workspace c output $right # gui shit - skype
 bindsym $alt+Ctrl+grave  [instance="^(?!kuake)"] scratchpad show
 bindsym $alt+Shift+grave move scratchpad
 
+# dell poweroff button
+bindcode 124 exec poweroff
+
 for_window [title="^screenkey$"] floating enable
 for_window [title="^sxiv$"]      floating enable
 for_window [title="^kuake_"]     floating enable
