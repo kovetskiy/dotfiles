@@ -46,23 +46,15 @@ bindsym $alt+z workspace z
 bindsym $alt+x workspace x
 bindsym $alt+c workspace c
 
-bindsym $alt+Shift+1 move container to workspace 1
-bindsym $alt+Shift+2 move container to workspace 2
-bindsym $alt+Shift+3 move container to workspace 3
-bindsym $alt+Shift+4 move container to workspace 4
-bindsym $alt+Shift+5 move container to workspace 5
-bindsym $alt+Shift+6 move container to workspace 6
-bindsym $alt+Shift+7 move container to workspace 7
-
-bindsym $alt+Shift+q move container to workspace q
-bindsym $alt+Shift+w move container to workspace w
-bindsym $alt+Shift+e move container to workspace e
-bindsym $alt+Shift+a move container to workspace a
-bindsym $alt+Shift+s move container to workspace s
-bindsym $alt+Shift+d move container to workspace d
-bindsym $alt+Shift+z move container to workspace z
-bindsym $alt+Shift+x move container to workspace x
-bindsym $alt+Shift+c move container to workspace c
+bindcode $alt+Shift+10 move container to workspace 1
+bindcode $alt+Shift+11 move container to workspace 2
+bindcode $alt+Shift+12 move container to workspace 3
+bindcode $alt+Shift+24 move container to workspace q
+bindcode $alt+Shift+25 move container to workspace w
+bindcode $alt+Shift+26 move container to workspace e
+bindcode $alt+Shift+38 move container to workspace a
+bindcode $alt+Shift+39 move container to workspace s
+bindcode $alt+Shift+40 move container to workspace d
 
 #bindsym pause workspace q; exec "browser http://cs543100.vk.me/v543100237/50df/joWgtvxgsRo.jpg"
 
