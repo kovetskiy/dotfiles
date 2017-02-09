@@ -857,12 +857,12 @@ DATA
 
     makepkg-clean-upload-stable() {
         makepkg-clean "$@"
-        packages-upload-repo.s $(/bin/ls *.xz) stable
+        repoctl -A arch-ngs-stable -f $(/bin/ls *.xz)
     }
 
     makepkg-clean-upload-testing() {
         makepkg-clean "$@"
-        packages-upload-repo.s $(/bin/ls *.xz) testing
+        repoctl -A arch-ngs-testing -f $(/bin/ls *.xz)
     }
 
     dns-new-a() {
@@ -1057,8 +1057,8 @@ DATA
             s|^(git@github.com:)?k/|git@github.com:kovetskiy/|;
             s|^(git@github.com:)?s/|git@github.com:seletskiy/|;
             s|^(git@github.com:)?r/|git@github.com:reconquest/|;
-            s|^(ssh://git@git.rn/)?c/|ssh://git@git.rn/core/|;
-            s|^(ssh://git@git.rn/)?d/|ssh://git@git.rn/devops/|;
+            s|^(ssh://git@git.rn/)?c(ore)?/|ssh://git@git.rn/core/|;
+            s|^(ssh://git@git.rn/)?d(evops)?/|ssh://git@git.rn/devops/|;
             ' <<< "$target"
         )
         local dir=$(sed -r 's|^.*://[^/]+/||; s|^.*:||; ' <<< "$target")
