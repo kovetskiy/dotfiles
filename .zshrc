@@ -1016,7 +1016,7 @@ DATA
             fi
         done
 
-        orgalorg -t -w -s -x -u e.kovetskiy $(echo ${flags[@]}) -C "${@}"
+        orgalorg -d 4 -y -t -w -s -x -u e.kovetskiy -p $(echo ${flags[@]}) -C "${@}"
     }
 
 
@@ -1214,6 +1214,7 @@ DATA
 
 # :alias
 {
+    alias gocleanup="find . -type d -name '*-pkgbuild' -exec rm -rf {} \;"
     alias wsc=':w:sync'
     alias j=':move'
     alias k='task-project'
