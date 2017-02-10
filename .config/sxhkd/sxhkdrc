@@ -68,7 +68,7 @@ super + grave
 	kuake --terminal --bottom --right --height 30 --width 50 --opacity 0.8
 
 super + backslash
-	kuake --focus --height 75
+	kuake --focus --top --height 75 --width 100 --opacity 0.9
 
 control + backslash
 	autocomplete-tmux
