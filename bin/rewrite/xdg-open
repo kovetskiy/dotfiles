@@ -1,15 +1,12 @@
 #!/bin/bash
 
-
-set -x
-
 link="$*"
 
 if grep -qE "^magnet:" <<< "$link"; then
-    notify-send " " "magnet: importing to .torrent"
-    file=~/Downloads/magnet.$RANDOM.torrent
-    magnet2torrent "$link" "$file"
-    notify-send " " "magnet: success"
+    notify-send " " "magnet: converting to .torrent"
+    file=~/Downloads/magnet.$(md5sum <<< "$link" | awk '{print $1}').torrent
+    magnet2torrent -m "$link" -o "$file"
+    notify-send " " "$(basename "$file")"
     exit 0
 fi
 
