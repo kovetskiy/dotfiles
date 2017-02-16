@@ -62,7 +62,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 
     let g:ctrlp_working_path_mode='a'
     let g:ctrlp_user_command = "sift --exclude-dirs='vendor' --exclude-dirs='lib/tests/*' --targets %s"
-    let g:ctrlp_match_window = 'top,order:btt,min:1,max:10'
+    let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10'
 
     let g:ctrlp_max_depth = 4
 
@@ -417,10 +417,10 @@ Plug 'reconquest/snippets', {'frozen': '1'}
         \   ]
 
 Plug 'kovetskiy/vim-empty-lines'
-    nnoremap <Leader><Leader>j :call DelEmptyLineBelow()<CR>
-    nnoremap <Leader><Leader>k :call DelEmptyLineAbove()<CR>
-    nnoremap <Leader>j :call AddEmptyLineBelow()<CR>
-    nnoremap <Leader>k :call AddEmptyLineAbove()<CR>
+    nnoremap <silent> <Leader><Leader>j :call DelEmptyLineBelow()<CR>
+    nnoremap <silent> <Leader><Leader>k :call DelEmptyLineAbove()<CR>
+    nnoremap <silent> <Leader>j :call AddEmptyLineBelow()<CR>
+    nnoremap <silent> <Leader>k :call AddEmptyLineAbove()<CR>
 
 Plug 'kovetskiy/vim-plugvim-utils', {'on': 'NewPlugFromClipboard'}
     nnoremap <Leader><Leader>c :call NewPlugFromClipboard()<CR>
