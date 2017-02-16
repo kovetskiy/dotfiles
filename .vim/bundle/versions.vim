@@ -61,4 +61,4 @@ vim-surround e49d6c2
 vim-syntax-extra 28926b8
 vim-trailing-whitespace 733fb64
 ycm-sh d1f85f3
-YouCompleteMe 68d78719
+YouCompleteMe e332cdb2
