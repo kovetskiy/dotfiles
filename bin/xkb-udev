@@ -1,6 +1,4 @@
 #!/bin/bash
 
-set -x
-
-. "$(dirname $0)/environment-variables"
-"$(dirname $0)/xkb"
+source $(dirname $0)/environment-variables
+source $(dirname $0)/xkb
