@@ -61,10 +61,16 @@ Plug 'ctrlpvim/ctrlp.vim'
     nnoremap <C-B> :call _ctrlp_buffer()<CR>
 
     let g:ctrlp_working_path_mode='a'
-    let g:ctrlp_use_caching = 0
-    let g:ctrlp_user_command = "sift --targets %s | grep -vP 'lib/tests/testcases|vendor'"
+    let g:ctrlp_user_command = "sift --exclude-dirs='vendor' --exclude-dirs='lib/tests/*' --targets %s"
+    let g:ctrlp_match_window = 'top,order:btt,min:1,max:10'
 
-    let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:200'
+    let g:ctrlp_max_depth = 4
+
+    let g:ctrlp_clear_cache_on_exit = 1
+    let g:ctrlp_use_caching = 1
+    let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp.vim'
+
+    nmap <Leader>pc :CtrlPClearAllCaches<CR>
 
 "Plug 'junegunn/seoul256.vim'
     "au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
