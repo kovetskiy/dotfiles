@@ -1,3 +1,4 @@
+
 .asoundrc
 bin
 .config/dunst
@@ -44,4 +45,5 @@ bin
 .yaourtrc
 .zprezto/modules/prompt/functions
 .zpreztorc
+.zsh
 .zshrc

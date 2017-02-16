@@ -607,9 +607,9 @@ export BACKGROUND=$(cat ~/background)
     }
 
     go-makepkg-enhanced() {
-        if [ "$1" = "-h" ]; then
-            echo "package description [repo]"
-            return
+        if [[ "$1" = "-h" || $# == 0 ]]; then
+            echo "<package> <description> [repo]" >&2
+            return 1
         fi
 
         local package="$1"
@@ -756,16 +756,6 @@ export BACKGROUND=$(cat ~/background)
             /usr/bin/ls --color=never -t ~/.incidents/ | head -n1)"
     }
 
-    jira-issue-create-schedule-current() {
-        local label_date=$(date +'%Y-%B' | tr '[:upper:]' '[:lower:]')
-        jira-issue-create -l schedule -l $label_date "$@"
-    }
-
-    jira-issue-create-schedule-next() {
-        local label_date=$(date +'%Y-%B' --date='next month' \
-            | tr '[:upper:]' '[:lower:]')
-        jira-issue-create -l schedule -l $label_date "$@"
-    }
 
     git-clean-powered() {
         git clean -ffdx
@@ -945,26 +935,6 @@ DATA
         cd ~/sources/"$@"
     }
 
-    :issues:query() {
-        batrak -L --show-name "$@" \
-            | sed -r 's/Открыта/open/g; s/Завершена/closed/g'
-    }
-
-    :issues:filter:open() {
-        :issues:query -f 16131
-    }
-
-    :issues:filter:open:me() {
-        :issues:query -f 16130
-    }
-
-    :issues:filter:me() {
-        :issues:query -f 16053
-    }
-
-    :issues:filter() {
-        :issues:query -f 16047
-    }
 
     :orgalorg:copy() {
         local server="$1"
@@ -1278,14 +1248,6 @@ DATA
     alias vbs='vim-bundle-save'
     alias vbr='vim-bundle-restore'
     alias gbs='git-submodule-branch-sync'
-    alias kl=':issues:filter'
-    alias ko=':issues:filter:open'
-    alias km=':issues:filter:me'
-    alias kk=':issues:filter:open:me'
-    alias kmc='batrak-move 21'
-    alias kr='batrak -R'
-    alias kn='jira-issue-create-schedule-current'
-    alias knn='jira-issue-create-schedule-next'
     alias ic='incidents-create'
     alias iu='incidents -U'
     alias irt='incidents -Rt'
@@ -1545,6 +1507,10 @@ DATA
 
     alias bs='.bootstrap'
     alias ss='.sync'
+}
+
+{
+    source ~/.zsh/issues.zsh
 }
 
 
