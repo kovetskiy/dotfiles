@@ -5,32 +5,26 @@ symlinks=($(cat ~/dotfiles/.symlinks))
 clones=($(cat ~/dotfiles/.clones))
 
 for path in "${symlinks[@]}"; do
-    echo ": link: $path"
+    echo "$path" >&2
     rm -rf ~/"$path"
-    echo ":: symlink: $path" >&2
     ln -s ~/dotfiles/"$path" ~/"$path"
 done
 
-echo
-
 for path in "${clones[@]}"; do
-    echo ": copy $path"
+    echo "$path" >&2
     rm -rf ~/"$path"
-    echo ":: copy: $path" >&2
     cp -r ~/dotfiles/"$path" ~/"$path"
 done
 
-echo
-
 (
     cd $HOME/dotfiles/rootfs/
-    find . -type f --printf '%f\n' | while read filename; do
-        echo ": copy $filename"
+    find . -type f -printf '%P\n' | while read filename; do
+        echo "/$filename" >&2
 
-        if [[ ! -d "$(dirname "$filename")" ]]; then
-            mkdir -p "$(dirname "$filename")"
+        if [[ ! -d /"$(dirname "$filename")" ]]; then
+            sudo mkdir -p /"$(dirname "$filename")"
         fi
 
-        cp ./"$filename" "$filename"
+        sudo cp ./"$filename" /"$filename"
     done
 )
