@@ -1,0 +1,15 @@
+#!/bin/bash
+
+find . -type d -execdir test -d {}/.git \; -print -prune \
+    | while read directory; do
+        directory=${directory##./}
+
+        accessed=$(find "$directory" -type f -mtime -2 -print -quit)
+        if [[ "$accessed" == "" ]]; then
+            #echo "$directory"
+            status=$(git -C "$directory" status --porcelain)
+            if [[ "$status" == "" ]]; then
+                du -sh "$directory"
+            fi
+        fi
+    done

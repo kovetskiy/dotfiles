@@ -1,7 +1,36 @@
 #!/bin/bash
 
-set -euo pipefail
 
-cd ~/dotfiles/
+symlinks=($(cat ~/dotfiles/.symlinks))
+clones=($(cat ~/dotfiles/.clones))
 
-git-submodule-branch-sync
+for path in "${symlinks[@]}"; do
+    echo ": link: $path"
+    rm -rf ~/"$path"
+    echo ":: symlink: $path" >&2
+    ln -s ~/dotfiles/"$path" ~/"$path"
+done
+
+echo
+
+for path in "${clones[@]}"; do
+    echo ": copy $path"
+    rm -rf ~/"$path"
+    echo ":: copy: $path" >&2
+    cp -r ~/dotfiles/"$path" ~/"$path"
+done
+
+echo
+
+(
+    cd $HOME/dotfiles/rootfs/
+    find . -type f --printf '%f\n' | while read filename; do
+        echo ": copy $filename"
+
+        if [[ ! -d "$(dirname "$filename")" ]]; then
+            mkdir -p "$(dirname "$filename")"
+        fi
+
+        cp ./"$filename" "$filename"
+    done
+)
