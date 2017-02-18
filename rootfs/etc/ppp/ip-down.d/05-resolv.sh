@@ -3,5 +3,5 @@
 name="$6"
 
 if [[ "$name" == "office" ]]; then
-    resolvconf -u
+    /bin/resolvconf -u
 fi
