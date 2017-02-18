@@ -1,0 +1,11 @@
+[Install]
+WantedBy=basic.target
+
+[Unit]
+Description=VPN (office)
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/pon office nodetach logfd 2 debug
+ExecStop=/usr/bin/poff office
+Restart=always
