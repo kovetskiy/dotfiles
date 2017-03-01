@@ -1,0 +1,118 @@
+#!/bin/bash
+
+:monitor() {
+    inotifywait \
+        --monitor \
+        --event create,delete \
+        --format '%e %w%f' \
+        /dev
+}
+
+:get_device_name() {
+    local device="$1"
+
+    echo "$device" | md5sum | awk '{print $1}'
+}
+
+:get_device_directory() {
+    local device_name=$1
+
+    echo "/var/run/user/$UID/$device_name"
+}
+
+:get_device_symlink() {
+    local device_directory=$1
+
+    if [[ -f "$device_directory/.link" ]]; then
+        cat "$device_directory/.link"
+    fi
+}
+
+:symlink_device_directory() {
+    local device_directory=$1
+    local device_symlink=$2
+
+    :sudo ln -s -f "$device_directory" "$device_symlink"
+}
+
+:umount() {
+    local device_name=$1
+    :sudo umount "/dev/mapper/$device_name"
+}
+
+:close() {
+    local device_name=$1
+    :sudo cryptsetup close "$device_name"
+}
+
+:open() {
+    local device=$1
+    local device_name=$2
+
+    :sudo cryptsetup open "$device" "$device_name" < /dev/tty
+}
+
+:mount() {
+    local device_name=$1
+    local device_directory=$2
+
+    mkdir -p "$device_directory"
+    :sudo mount "/dev/mapper/$device_name" "$device_directory"
+}
+
+:shell() {
+    local device_directory="$1"
+    local device_symlink="$(:get_device_symlink "$device_directory")"
+
+    if [[ "$device_symlink" ]]; then
+        device_directory="$device_symlink"
+    fi
+
+    cd "$device_directory"
+    $SHELL -i
+}
+
+:sudo() {
+    echo "$(highlight bold)sudo: $@$(highlight reset)"
+    sudo "$@"
+}
+
+:info() {
+    echo "$(highlight fg green)$@$(highlight reset)"
+}
+
+:main() {
+    ls /dev/sd* | while read device; do
+        if ! sudo cryptsetup isLuks "$device" &>/dev/null; then
+            continue
+        fi
+
+        local device_name="$(:get_device_name "$device")"
+        local device_directory="$(:get_device_directory "$device_name")"
+
+        :info "device: $device"
+        :info "device directory: $device_directory"
+
+        if findmnt "$device_directory" >/dev/null; then
+            :shell "$device_directory"
+        else
+            :open "$device" "$device_name"
+            :mount "$device_name" "$device_directory"
+
+            local device_symlink="$(:get_device_symlink "$device_directory")"
+
+            :info "device target: $device_symlink"
+
+            if [[ "$device_symlink" ]]; then
+                :symlink_device_directory "$device_directory" "$device_symlink"
+            fi
+
+            :shell "$device_directory"
+
+            :umount "$device_name"
+            :close "$device_name"
+        fi
+    done
+}
+
+:main "$@"
