@@ -14,4 +14,10 @@ fi
 sxhkd &
 xcompmgr &
 
+(
+    if [[ -f ~/wallpaper.jpg ]]; then
+        feh --bg-scal wallpaper.jpg
+    fi
+) &
+
 i3
