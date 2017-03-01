@@ -693,7 +693,7 @@ export BACKGROUND=$(cat ~/background)
 
     git-pull() {
         local origin="origin"
-        local branch=$(git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3)
+        local branch=$(:git:branch)
 
         if [ $# -ne 0 ]; then
             local option=$1
@@ -1108,6 +1108,16 @@ DATA
         fi
     }
 
+    :git:merge() {
+        local branch=$(:git:branch)
+        git checkout master
+        git merge origin/"$branch"
+    }
+
+    :git:branch() {
+         git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3
+    }
+
     :rtorrent:select() {
         torrent=$(
             find ~/Downloads/ -maxdepth 1 -type f -name '*.torrent' \
@@ -1202,6 +1212,7 @@ DATA
     alias hcp=':orgalorg:copy'
 
     alias gm=':git:master'
+    alias ge=':git:merge'
     alias q=':nodes:query'
     alias grr='gri --root'
     alias g='guess'
@@ -1407,9 +1418,9 @@ DATA
         alias gcls='git-clone-sources'
 
         alias gcb='git checkout -b'
-        alias gbn='git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3'
-        alias gpot='git push origin `git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3` && { ghc || bhc }'
-        alias gpot!='git push origin +`git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3` && { ghc || bhc }'
+        alias gbn=':git:br'
+        alias gpot='git push origin $(:git:branch) && { ghc || bhc }'
+        alias gpot!='git push origin +$(:git:branch) && { ghc || bhc }'
         alias gt='gpot'
         alias gt!='gpot!'
         alias gut='gu && gt'
