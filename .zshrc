@@ -1194,6 +1194,7 @@ DATA
 
 # :alias
 {
+    alias goc='journalctl --user -u gocode.service -f'
     alias gocleanup="find . -type d -name '*-pkgbuild' -exec rm -rf {} \;"
     alias wsc=':w:sync'
     alias j=':move'
@@ -1487,12 +1488,14 @@ DATA
     # :systemd
     {
         alias sc='sudo systemctl'
+        alias scr='sudo systemctl restart'
         alias scs='sudo systemctl start'
         alias sce='sudo systemctl enable'
         alias sct='sudo systemctl stop'
         alias scd='sudo systemctl disable'
         alias scu='sudo systemctl status'
         alias scl='sudo systemctl list-units'
+        alias sdr='sudo systemctl daemon-reload'
 
         alias us='systemctl --user'
         alias uss='systemctl --user start'
@@ -1502,8 +1505,7 @@ DATA
         alias usd='systemctl --user disable'
         alias usu='systemctl --user status'
         alias usl='systemctl --user list-units'
-
-        alias sdr='sudo systemctl daemon-reload'
+        alias udr='systemctl --user daemon-reload'
     }
 
     # :journald
