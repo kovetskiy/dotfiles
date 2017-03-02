@@ -450,7 +450,7 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
 Plug 'kovetskiy/kb-train', { 'on': 'Train' }
 
 Plug 'NLKNguyen/papercolor-theme'
-    au operations BufNewFile,BufRead *.c set noet
+    au operations BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp set noet
 
 Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
 
