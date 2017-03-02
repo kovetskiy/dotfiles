@@ -1,9 +1,11 @@
 ashium bb64784
 color_coded e15d0e4
 ctrlp.vim 2868678
+eclim 1aa38858
 flattown dd3f86a
 fzf 3670273
-fzf.vim 0867178
+fzf.vim 5ceac57
+gtm-vim-plugin 8104a33
 gundo.vim b4f3624
 i3-vim-syntax a74c9bc
 kb-train a20c958
@@ -36,6 +38,7 @@ vim-bash 992d8e5
 vim-colorscheme ad036b4
 vim-cpp-enhanced-highlight 6307292
 vim-ctrlp-ag 0af7097
+vim-dispatch 5f5c22c
 vim-empty-lines b0ee3f8
 vim-gitgutter 402257f
 vim-go d7c628f
