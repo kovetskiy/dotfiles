@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 filename="$HOME/screenshots/$(date +%F-%T | tr : T).png"
 
 if [ "$1" == "import" ]; then

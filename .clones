@@ -1,1 +1,2 @@
 .config/systemd/user.conf
+.config/systemd/user/gocode.service
