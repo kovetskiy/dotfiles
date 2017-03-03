@@ -11,6 +11,12 @@ $1: function($2) {
 }${6:,}
 endsnippet
 
+snippet ff "" w
+function() {
+    $1
+}
+endsnippet
+
 snippet tt "that this"
 var that = this;
 $0
@@ -66,7 +72,11 @@ $1: ${2:null},
 endsnippet
 
 snippet pr "console log" w
-console.log($1);
+console.log($1)
+endsnippet
+
+snippet pv "console log" w
+console.log("`!p snip.rv=t[1]`", $1)
 endsnippet
 
 snippet t "that" w

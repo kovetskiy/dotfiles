@@ -560,6 +560,9 @@ Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
 
 Plug 'vimperator/vimperator.vim', {'for': 'vimperator'}
 
+Plug 'digitaltoad/vim-pug'
+    au operations BufNewFile,BufRead *.amber set ft=pug
+
 augroup end
 call plug#end()
 

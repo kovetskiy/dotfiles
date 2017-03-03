@@ -53,6 +53,7 @@ vim-nunu d586ebb
 vim-over 146b065
 vimperator.vim 15adb39
 vim-plugvim-utils c59a498
+vim-pug 20e41fc
 vim-python-pep8-indent 7dfebca
 vim-session 9e9a608
 vim-signature f1f7108
