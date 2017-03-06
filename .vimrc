@@ -450,7 +450,7 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
 Plug 'kovetskiy/kb-train', { 'on': 'Train' }
 
 Plug 'NLKNguyen/papercolor-theme'
-    au operations BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp set noet
+    au operations BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp setlocal noet
 
 Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
 
@@ -521,32 +521,32 @@ Plug 'kovetskiy/vim-bash', {'for': 'sh'}
     endfunc!
     au operations BufWritePost * call _tags_sh()
 
-Plug 'seletskiy/vim-autosurround'
-    func! _ultisnips_enter()
-        let v:char="	"
-        call UltiSnips#TrackChange()
-        let v:char=""
-        call UltiSnips#TrackChange()
-        return """
-    endfunc!
+"Plug 'seletskiy/vim-autosurround'
+    "func! _ultisnips_enter()
+        "let v:char="	"
+        "call UltiSnips#TrackChange()
+        "let v:char=""
+        "call UltiSnips#TrackChange()
+        "return """
+    "endfunc!
 
-    nnoremap o o<C-R>=_ultisnips_enter()<CR>
-    nnoremap O O<C-R>=_ultisnips_enter()<CR>
+    "nnoremap o o<C-R>=_ultisnips_enter()<CR>
+    "nnoremap O O<C-R>=_ultisnips_enter()<CR>
 
-    au User _overwrite_matchem
-        \ au VimEnter,BufEnter,FileType *
-        \ inoremap <CR> <C-R>=g:MatchemExpandCr(1)<CR><C-R>=_ultisnips_enter()<CR>
+    "au User _overwrite_matchem
+        "\ au VimEnter,BufEnter,FileType *
+        "\ inoremap <CR> <C-R>=g:MatchemExpandCr(1)<CR><C-R>=_ultisnips_enter()<CR>
 
-    au User _overwrite_matchem
-        \ au VimEnter,BufEnter,FileType *
-        \ inoremap <buffer> ( (<C-R>=AutoSurround(")") ? "" : g:MatchemMatchStart()<CR>
+    "au User _overwrite_matchem
+        "\ au VimEnter,BufEnter,FileType *
+        "\ inoremap <buffer> ( (<C-R>=AutoSurround(")") ? "" : g:MatchemMatchStart()<CR>
 
-    au User _overwrite_matchem
-        \ autocmd VimEnter,BufEnter,FileType * call AutoSurroundInitMappings()
+    "au User _overwrite_matchem
+        "\ autocmd VimEnter,BufEnter,FileType * call AutoSurroundInitMappings()
 
 
-    au User plugins_loaded doau User _overwrite_matchem
-    doau User _overwrite_matchem
+    "au User plugins_loaded doau User _overwrite_matchem
+    "doau User _overwrite_matchem
 
 
 Plug 'FooSoft/vim-argwrap', {'on': 'ArgWrap'}
