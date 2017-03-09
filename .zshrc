@@ -986,7 +986,7 @@ DATA
             fi
         done
 
-        orgalorg -d 4 -y -t -w -s -x -u e.kovetskiy -p $(echo ${flags[@]}) -C "${@}"
+        orgalorg -d 4 -t -w -s -x -u e.kovetskiy -p $(echo ${flags[@]}) -C "${@}"
     }
 
 
