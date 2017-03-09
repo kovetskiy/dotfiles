@@ -4,6 +4,7 @@ Description=gocode daemon completer
 [Service]
 ExecStartPre=/usr/bin/rm -rf /tmp/gocode-daemon.operator
 ExecStart=/home/operator/go/bin/gocode -s -sock unix -addr 127.0.0.1:37373 -debug
+Restart=always
 
 [Install]
 WantedBy=basic.target
