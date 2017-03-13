@@ -554,7 +554,7 @@ Plug 'FooSoft/vim-argwrap', {'on': 'ArgWrap'}
     nnoremap <silent> @l :call search('[\(\{\[]', 'cs')<CR>l:ArgWrap<CR>
     nnoremap <silent> @; :ArgWrap<CR>
 
-Plug 'kovetskiy/sxhkd-vim', {'for': 'sxhkd'}
+Plug 'kovetskiy/sxhkd-vim'
 
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
 
