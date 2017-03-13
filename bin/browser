@@ -3,8 +3,8 @@
 URL=$(sed -r 's#^(git+ssh|ssh|git)://(\w+@)?##' <<< "$1")
 shift
 
-if pgrep -f "firefox" &>/dev/null; then
-    UNIT="firefox"
+if pgrep -f "firefox-beta" &>/dev/null; then
+    UNIT="firefox-beta"
 else
     UNIT="google-chrome-stable"
 fi
