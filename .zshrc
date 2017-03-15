@@ -572,6 +572,12 @@ export BACKGROUND=$(cat ~/background)
         git add PKGBUILD .SRCINFO
     }
 
+    aur-clone() {
+        local package=$1
+
+        :sources:get "ssh://aur@aur.archlinux.org/$package.git"
+    }
+
     cd-pkgbuild() {
         local dir=$(basename "$(pwd)")
         if grep -q '\-pkgbuild' <<< "$dir"; then
@@ -1413,6 +1419,7 @@ DATA
 
         alias gci='git-create-and-commit-empty-gitignore'
         alias gclg='git-clone-github'
+        alias gcla='aur-clone'
         alias grsd='git-remote-set-devops'
         alias gclp='git-clone-profiles'
         alias gcoo='git-checkout-orphan'
