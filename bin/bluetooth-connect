@@ -1,0 +1,17 @@
+#!/usr/bin/expect -f
+
+set prompt "#"
+set address [lindex \$argv 0]
+
+spawn sudo systemctl start bluetoothd.service
+spawn sudo bluetoothctl -a
+expect -re \$prompt
+send_user "power on\r"
+send "power on\r"
+send "connect \t"
+expect -re :
+send_user "connecting\r"
+send "\r"
+expect -re "Connection "
+sleep 1
+expect eof
