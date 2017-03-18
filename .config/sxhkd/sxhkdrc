@@ -26,10 +26,10 @@ super + F1
 	screenshot > ~/.screenshot
 
 control + F9
-	sudo systemctl stop bluetooth
+	bluetooth-connect
 
 control + F10
-	sudo systemctl start bluetooth
+	sudo systemctl stop bluetooth
 
 super + 8
 	volume down
@@ -58,14 +58,14 @@ super + control + e
 super + Tab
 	paster
 
-control + F12
-	xkb
+control +  F11
+	xrandr -s 0
 
-control + F11
-	usb-automount
+control + F12
+	environment-setup
 
 super + grave
-	kuake --terminal --bottom --right --height 30 --width 50 --opacity 0.8
+	kuake --terminal --bottom --middle --height 30 --width 50 --opacity 0.8
 
 super + backslash
 	kuake --focus --top --height 75 --width 100 --opacity 0.9
