@@ -17,10 +17,23 @@ fi
 
 case $action in
     up)
-        exec amixer -M set Master 2%+
+        amixer -M set Master 2%+
     ;;
 
     down)
-        exec amixer -M set Master 2%-
+        amixer -M set Master 2%-
     ;;
 esac
+
+volume=(
+    $(amixer get Master | grep % | awk '{print $5}' | sed 's/[^0-9]//g')
+)
+
+
+if [[ "${volume[0]}" != "${volume[1]}" ]]; then
+    value="${volume[0]} & ${volume[1]}"
+else
+    value="${volume[0]}"
+fi
+
+notify-send.sh -r 300 -t 100 " " -- "Volume: ${value}"
