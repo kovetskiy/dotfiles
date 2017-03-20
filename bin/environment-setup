@@ -2,19 +2,7 @@
 
 amixer -c 0 cset 'numid=10' 1
 
-if xrandr -q | grep eDP1; then
-    if xrandr -q | grep -P '^DP1'; then
-        xrandr \
-            --output eDP1 --off \
-            --output DP1 --mode 1920x1200 --pos 0x0 --primary
-    else
-        xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --primary
-    fi
-else
-   xrandr \
-    --output DVI-I-1 --mode 1920x1080 --pos 0x0 --rotate normal \
-    --output VGA-1 --mode 1920x1080 --pos 1920x0 --rotate normal
-fi
+autorandr --change
 
 xkb
 
