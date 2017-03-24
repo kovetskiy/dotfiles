@@ -1200,6 +1200,9 @@ DATA
 
 # :alias
 {
+    alias svo='scs vpn-office'
+    alias svt='sct vpn-office'
+    alias rg='resolvconf-switch google'
     alias goc='journalctl --user -u gocode.service -f'
     alias gocleanup="find . -type d -name '*-pkgbuild' -exec rm -rf {} \;"
     alias wsc=':w:sync'
@@ -1537,12 +1540,16 @@ DATA
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
-FZF_TMUX_HEIGHT=15
+FZF_TMUX_HEIGHT=0
 FZF_ARGS=""
-eval "$(
-    cat $(pacman -Ql fzf | grep '.zsh$' | cut -d' ' -f2) \
-        | sed -r -e 's/\+s//' -e '/bindkey/d'
-)"
+
+source ~/.zgen/fzf.zsh || {
+    cat > ~/.zgen/fzf.zsh <<< "$(
+        cat $(pacman -Ql fzf | grep '.zsh$' | cut -d' ' -f2) \
+            | sed -r -e 's/\+s//' -e '/bindkey/d'
+    )"
+    source ~/.zgen/fzf.zsh
+}
 
 eval $(dircolors ~/.dircolors.$BACKGROUND)
 
