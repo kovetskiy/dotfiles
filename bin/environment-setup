@@ -14,11 +14,13 @@ if ! pidof clipboard-sync >/dev/null; then
     sudo clipboard-sync &
 fi
 
-if [ -f ~/.redshift ]; then
-    if ! pidof redshift > /dev/null; then
-        redshift -l 55.7:12.6 -t 3500:3100 -g 0.8 -m randr -v &
-    fi
-fi
+#if [ -f ~/.redshift ]; then
+    #if ! pidof redshift > /dev/null; then
+    #fi
+#fi
+
+pkill redshift -USR1
+redshift -m randr -O 6500 &
 
 xset dpms 0 0 0
 xset s off
