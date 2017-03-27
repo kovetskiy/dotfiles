@@ -65,7 +65,6 @@ export BACKGROUND=$(cat ~/background)
         zgen load s7anley/zsh-geeknote
         zgen load seletskiy/zsh-smart-kill-word
 
-        zgen load rupa/z  z.sh
         zgen load hlissner/zsh-autopair autopair.zsh
         zgen load mafredri/zsh-async
         zgen load seletskiy/zsh-fuzzy-search-and-edit
