@@ -75,7 +75,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 "Plug 'junegunn/seoul256.vim'
     "au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
 
-Plug 'marijnh/tern_for_vim', {'for':'js'}
+Plug 'marijnh/tern_for_vim', {'for': 'js'}
 
 Plug 'vim-airline/vim-airline-themes'
 
@@ -92,7 +92,7 @@ Plug 'scrooloose/nerdcommenter'
 
 "Plug 'jeaye/color_coded', {'for': 'c'}
 
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'frozen': '1' }
 	let g:ycm_show_diagnostics_ui = 0
     let g:ycm_confirm_extra_conf = 0
     let g:ycm_key_list_previous_completion=['<UP>']
@@ -136,7 +136,7 @@ Plug 'Valloric/YouCompleteMe'
 
     "au operations InsertCharPre * call _completions_complete()
 
-Plug 'kovetskiy/synta'
+Plug 'kovetskiy/synta', {'for': 'go'}
 
 Plug 'fatih/vim-go', {'for': 'go'}
     let g:go_fmt_fail_silently = 0
@@ -181,7 +181,7 @@ Plug 'seletskiy/matchem'
     let g:UltiSnipsJumpForwardTrigger="<C-J>"
     let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 
-Plug 'sirver/ultisnips'
+Plug 'sirver/ultisnips', { 'frozen': 1 }
     let g:UltiSnipsUsePythonVersion = 2
 
     let g:snippets_dotfiles = $HOME . '/.vim/snippets/'
@@ -388,8 +388,8 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
         "\ <Leader>h :call urxvt#put('go build')<CR>
 
 
-Plug 'reconquest/vim-pythonx', {'frozen': '1'}
-Plug 'reconquest/snippets', {'frozen': '1'}
+Plug 'reconquest/vim-pythonx'
+Plug 'reconquest/snippets'
     "au operations FileType go nmap <buffer>
          "\ <Leader>gc :py px.go.goto_const()<CR>
 
