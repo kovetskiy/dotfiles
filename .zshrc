@@ -1005,7 +1005,7 @@ DATA
             fi
         done
 
-        orgalorg -y -d 4 -t -w -s -x -u root -p $(echo ${flags[@]}) -C "${@}"
+        orgalorg -y -d 4 -t -w -s -u root -p $(echo ${flags[@]}) -C "${@}"
     }
 
 
