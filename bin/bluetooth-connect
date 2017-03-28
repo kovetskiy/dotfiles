@@ -2,9 +2,8 @@
 
 set prompt "#"
 
-spawn sudo systemctl start bluetoothd.service
+spawn sudo systemctl start bluetooth.service
 spawn sudo bluetoothctl -a
-expect -re \$prompt
 send "power on\r"
 sleep 1
 send "connect \t"

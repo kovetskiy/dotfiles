@@ -994,6 +994,20 @@ DATA
         orgalorg -y -d 4 -t -w -s -x -u e.kovetskiy -p $(echo ${flags[@]}) -C "${@}"
     }
 
+    :orgalorg:exec-root() {
+        local flags=()
+        while [[ $# -ne 0 ]]; do
+            if [[ "$1" == "-"* ]]; then
+                flags+=("$1")
+                shift
+            else
+                break
+            fi
+        done
+
+        orgalorg -y -d 4 -t -w -s -x -u root -p $(echo ${flags[@]}) -C "${@}"
+    }
+
 
     :orgalorg:identify() {
         orgalorg -t -w -s -p \
@@ -1190,6 +1204,7 @@ DATA
     alias -g sb='| sed-remove-all-before'
     alias -g sa='| sed-remove-all-after'
     alias -g -- '#o'='| :orgalorg:exec'
+    alias -g -- '#or'='| :orgalorg:exec-root'
     alias -g -- '#i'='| :orgalorg:identify'
     alias -g I='<<<'
     alias -g S='| sed-replace'
