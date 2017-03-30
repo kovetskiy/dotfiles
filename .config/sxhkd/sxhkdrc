@@ -58,8 +58,11 @@ super + control + e
 super + Tab
 	paster
 
-control +  F11
-	xrandr -s 0
+control + super +  F11
+	autorandr --load laptop
+
+control + super +  F12
+	autorandr --load home
 
 control + F12
 	environment-setup

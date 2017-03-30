@@ -47,3 +47,4 @@ bin
 .zpreztorc
 .zsh
 .zshrc
+.config/autorandr

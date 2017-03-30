@@ -30,3 +30,7 @@ xset fp rehash
 
 xrdb -load ~/.Xresources
 background-switch $(cat ~/background)
+
+if [[ -f ~/wallpaper.* ]]; then
+    feh --bg-scale ~/wallpaper.*
+fi
