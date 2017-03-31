@@ -1214,6 +1214,7 @@ DATA
 
 # :alias
 {
+    alias urb='() { curl -d url=$1 uroboro.s/api/v1/tasks/ }'
     alias awf='(){ audiowaveform -o "/tmp/$(basename "$1").png" -i "$1" -w 1920 -h 500 && catimg "/tmp/$(basename "$1").png" } '
     alias svo='scs vpn-office'
     alias svt='sct vpn-office'
