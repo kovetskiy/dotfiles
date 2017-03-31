@@ -156,8 +156,9 @@ export BACKGROUND=$(cat ~/background)
     zstyle -d 'lambda17:00-main' transform
     zstyle -d 'lambda17:25-head' when
     zstyle 'lambda17:05-sign' text "$"
-    zstyle "lambda17>00-root>00-main>00-status>10-dir" 15-pwd :prompt-pwd
-    zstyle -d "lambda17::async" pre-draw
+    zstyle 'lambda17>00-root>00-main>00-status>10-dir' 15-pwd :prompt-pwd
+    # uncomment if got troubles with async
+    # zstyle -d 'lambda17::async' pre-draw
 
     zstyle 'lambda17:00-banner' right " "
     zstyle 'lambda17:09-arrow' transition ""
