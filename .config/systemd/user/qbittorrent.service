@@ -1,0 +1,10 @@
+[Unit]
+Description=qbittorrent-nox Daemon
+Documentation=https://github.com/qbittorrent/qBittorrent/wiki
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/qbittorrent-nox --webui-port=6060
+
+[Install]
+WantedBy=default.target

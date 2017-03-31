@@ -1,2 +1,3 @@
 .config/systemd/user.conf
 .config/systemd/user/gocode.service
+.config/systemd/user/qbittorrent.service
