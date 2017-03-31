@@ -1,18 +1,16 @@
 #!/bin/bash
 
-amixer -c 0 cset 'numid=10' 1
-
 autorandr --change
 
 xkb
 
-# @TODO: move to systemd
+amixer -c 0 cset 'numid=10' 1 &>/dev/null
+
 killall -9 keynav
 keynav
 
-if ! pidof clipboard-sync >/dev/null; then
-    sudo clipboard-sync &
-fi
+killall -9 clipboard-sync
+sudo clipboard-sync &
 
 xset dpms 0 0 0
 xset s off
@@ -23,6 +21,4 @@ xset fp rehash
 xrdb -load ~/.Xresources
 background-switch $(cat ~/background)
 
-if [[ -f ~/wallpaper.* ]]; then
-    feh --bg-scale ~/wallpaper.*
-fi
+feh --bg-scale ~/wallpaper.*
