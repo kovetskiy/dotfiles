@@ -240,8 +240,8 @@ export BACKGROUND=$(cat ~/background)
     :fzf:cd() {
         local target
         target=$(find ${1:-.} -type d -printf '%P\n' 2>/dev/null \
-            | fzf-tmux +m) && cd "$target"
-
+            | fzf-tmux +m)
+        eval cd "$target"
         zle -R
         lambda17:update
         zle reset-prompt
