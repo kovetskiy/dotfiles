@@ -74,7 +74,7 @@ super + backslash
 	kuake --focus --top --height 75 --width 100
 
 super + equal
-	kuake --terminal --class todo --top --middle --height 30 --width 50 --exec "vim ~/todo.md"
+	kuake --terminal --class todo --top --middle --height 30 --width 50 --exec "vim ~/.todo.md"
 
 control + backslash
 	autocomplete-tmux
