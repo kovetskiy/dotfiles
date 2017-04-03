@@ -236,6 +236,21 @@ export BACKGROUND=$(cat ~/background)
     }
 }
 
+{
+    :fzf:cd() {
+        local target
+        target=$(find ${1:-.} -type d -printf '%P\n' 2>/dev/null \
+            | fzf-tmux +m) && cd "$target"
+
+        zle -R
+        lambda17:update
+        zle reset-prompt
+    }
+
+    bindkey -v '^X' :fzf:cd
+    zle -N :fzf:cd
+}
+
 # :func
 {
     packages-add() {
@@ -1201,6 +1216,7 @@ DATA
     :w:sync() {
         :rsync home.local:$1 $1
     }
+
 }
 
 {
