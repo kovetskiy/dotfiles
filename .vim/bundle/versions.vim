@@ -57,6 +57,7 @@ vim-pug 84295c0
 vim-python-pep8-indent 8b215aa
 vim-session 9e9a608
 vim-signature 7e13913
+vim-simple-todo 1429e67
 vim-ski 97d230e
 vim-sneak 1734d84
 vim-surround e49d6c2

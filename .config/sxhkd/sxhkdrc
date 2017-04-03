@@ -68,10 +68,13 @@ control + F12
 	environment-setup
 
 super + grave
-	kuake --terminal --bottom --middle --height 30 --width 50 --opacity 0.8
+	kuake --terminal --bottom --middle --height 30 --width 50
 
 super + backslash
-	kuake --focus --top --height 75 --width 100 --opacity 0.9
+	kuake --focus --top --height 75 --width 100
+
+super + equal
+	kuake --terminal --class todo --top --middle --height 30 --width 50 --exec "vim ~/todo.md"
 
 control + backslash
 	autocomplete-tmux

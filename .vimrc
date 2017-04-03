@@ -563,6 +563,12 @@ Plug 'vimperator/vimperator.vim', {'for': 'vimperator'}
 Plug 'digitaltoad/vim-pug'
     au operations BufNewFile,BufRead *.amber set ft=pug
 
+Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
+    let g:simple_todo_map_keys = 1
+    let g:simple_todo_map_insert_mode_keys = 0
+    let g:simple_todo_map_visual_mode_keys = 0
+    let g:simple_todo_map_normal_mode_keys = 1
+
 augroup end
 call plug#end()
 
