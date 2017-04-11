@@ -93,6 +93,8 @@ Plug 'scrooloose/nerdcommenter'
 "Plug 'jeaye/color_coded', {'for': 'c'}
 
 Plug 'Valloric/YouCompleteMe', { 'frozen': '1' }
+    nmap gd :YcmCompleter GoTo<CR>
+
 	let g:ycm_show_diagnostics_ui = 0
     let g:ycm_confirm_extra_conf = 0
     let g:ycm_key_list_previous_completion=['<UP>']
@@ -507,7 +509,8 @@ Plug 'lokikl/vim-ctrlp-ag'
 Plug 'chrisbra/Recover.vim'
 
 Plug 'kovetskiy/vim-bash', {'for': 'sh'}
-    nmap gd <C-]>
+    au operations BufNewFile,BufRead *.sh,*.bash nmap <buffer> gd <C-]>
+
     func! _tags_sh()
         if &ft != "sh"
             return
@@ -519,6 +522,7 @@ Plug 'kovetskiy/vim-bash', {'for': 'sh'}
             silent execute "!tags-sh " . tagfile . " >/dev/null 2>&1 &"
         endif
     endfunc!
+
     au operations BufWritePost * call _tags_sh()
 
 "Plug 'seletskiy/vim-autosurround'
