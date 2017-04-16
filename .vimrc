@@ -76,6 +76,7 @@ Plug 'ctrlpvim/ctrlp.vim'
     "au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
 
 Plug 'marijnh/tern_for_vim', {'for': 'js'}
+    au operations BufNewFile,BufRead *.js setlocal noet
 
 Plug 'vim-airline/vim-airline-themes'
 
@@ -93,8 +94,6 @@ Plug 'scrooloose/nerdcommenter'
 "Plug 'jeaye/color_coded', {'for': 'c'}
 
 Plug 'Valloric/YouCompleteMe', { 'frozen': '1' }
-    nmap gd :YcmCompleter GoTo<CR>
-
 	let g:ycm_show_diagnostics_ui = 0
     let g:ycm_confirm_extra_conf = 0
     let g:ycm_key_list_previous_completion=['<UP>']
@@ -509,7 +508,7 @@ Plug 'lokikl/vim-ctrlp-ag'
 Plug 'chrisbra/Recover.vim'
 
 Plug 'kovetskiy/vim-bash', {'for': 'sh'}
-    au operations BufNewFile,BufRead *.sh,*.bash nmap <buffer> gd <C-]>
+    nmap gd <C-]>
 
     func! _tags_sh()
         if &ft != "sh"
@@ -565,7 +564,7 @@ Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
 Plug 'vimperator/vimperator.vim', {'for': 'vimperator'}
 
 Plug 'digitaltoad/vim-pug'
-    au operations BufNewFile,BufRead *.amber set ft=pug
+    au operations BufNewFile,BufRead *.amber setlocal ft=pug noet
 
 Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
     let g:simple_todo_map_keys = 1
