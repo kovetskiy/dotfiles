@@ -3,37 +3,37 @@
 exec 200>/tmp/volume.lock
 flock 200
 
-action="$1"
+:main() {
+    local action=$1
 
-if [ -f ~/.android-volume ]; then
-    adb_devices_stub_lines=2
+    local status="$(:change "$action")"
 
-    adb_lines_count=$(adb devices | wc -l)
+    local volume=$(:parse-volume "$status")
 
-    if [[ $adb_lines_count > $adb_devices_stub_lines ]]; then
-        exec android-volume $@
-    fi
-fi
+    :notify "$volume"
+}
 
-case $action in
-    up)
-        amixer -M set Master 2%+
-    ;;
+:notify() {
+    local value=$1
+    notify-send.sh -r 300 -t 100 " " -- "Volume: ${value}"
+}
 
-    down)
-        amixer -M set Master 2%-
-    ;;
-esac
+:change() {
+    local action=$1
 
-volume=(
-    $(amixer get Master | grep % | awk '{print $5}' | sed 's/[^0-9]//g')
-)
+    case $action in
+        up)
+            amixer -M set Master 2%+
+        ;;
 
+        down)
+            amixer -M set Master 2%-
+        ;;
+    esac
+}
 
-if [[ "${volume[0]}" != "${volume[1]}" ]]; then
-    value="${volume[0]} & ${volume[1]}"
-else
-    value="${volume[0]}"
-fi
+:parse-volume() {
+    echo "${@}" | awk '/%/{print $4}' | sed -r 's/[^0-9]//g'
+}
 
-notify-send.sh -r 300 -t 100 " " -- "Volume: ${value}"
+:main "${@}"
