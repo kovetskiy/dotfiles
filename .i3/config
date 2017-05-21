@@ -12,7 +12,7 @@ floating_modifier $alt
 
 bindsym $alt+Shift+r restart
 
-bindsym Shift+BackSpace kill
+bindsym Shift+BackSpace exec window-kill-focused
 
 bindsym $alt+Escape floating toggle
 
