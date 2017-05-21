@@ -1,5 +1,6 @@
 ashium bb64784
 color_coded e15d0e4
+cpsm 8e61bf3
 ctrlp.vim 23f78f3
 eclim 1aa38858
 flattown dd3f86a
@@ -64,4 +65,4 @@ vim-surround e49d6c2
 vim-syntax-extra 28926b8
 vim-trailing-whitespace 733fb64
 ycm-sh d1f85f3
-YouCompleteMe 01570aac
+YouCompleteMe ddf18cc6
