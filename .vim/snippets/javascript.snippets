@@ -1,10 +1,10 @@
 snippet f "function"
 $1: function($2) {
-	var that = this;
+	var page = this;
 
 	$3
 
-	return ${4:that};
+	return ${4:page};
 }${6:,}
 endsnippet
 
@@ -14,8 +14,8 @@ function() {
 }
 endsnippet
 
-snippet tt "that this"
-var that = this;
+snippet tt "page this"
+var page = this;
 $0
 endsnippet
 
@@ -76,8 +76,8 @@ snippet pv "console log" w
 console.log("`!p snip.rv=t[1]`", $1)
 endsnippet
 
-snippet t "that" w
-that$0
+snippet t "page" w
+page$0
 endsnippet
 
 snippet = "var" w
@@ -101,5 +101,5 @@ return false
 endsnippet
 
 snippet tx "" w
-that
+page
 endsnippet
