@@ -1,7 +1,7 @@
 tags
 *.swp
 *.swo
-config/config.yml
 .ropeproject
 .tags_*
 .tags
+.ycm_extra_conf.pyc
