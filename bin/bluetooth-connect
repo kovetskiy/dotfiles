@@ -3,11 +3,10 @@
 set prompt "#"
 
 spawn sudo systemctl start bluetooth.service
-spawn sudo bluetoothctl -a
+spawn sudo bluetoothctl
 send "power on\r"
 sleep 1
-send "connect \t"
-expect -re :
-send "\r"
+send "connect A0:E9:DB:06:62:EF\r"
+sleep 1
 expect -re "Connection "
 expect eof
