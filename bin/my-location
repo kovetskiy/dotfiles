@@ -1,0 +1,6 @@
+#!/bin/bash
+
+curl -s yandex.com/internet \
+        | grep -Po '(?<=region">).*(?=\<)' \
+        | grep -v 'not defined'
+

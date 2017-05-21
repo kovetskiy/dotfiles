@@ -1,6 +1,17 @@
 #!/bin/bash
-body="$(date) $(acpi)"
+
+battery=$(acpi | sed -r 's/Battery 0: //' | sed -r 's/until charged//')
+datetime=$(date +'%T %d-%m-%Y')
+
+body="$datetime"
+body="$body"$'\n'"$battery"
+
 notify-send.sh -r 1000 -t 1000 " " -- "$body"
 
-body="$body"$'\n'"$(weather)"
+
+location=(
+    $(my-location)
+)
+
+body="$body"$'\n'"${location[0]}: ${location[1]}"
 notify-send.sh -r 1000 -t 1000 " " -- "$body"
