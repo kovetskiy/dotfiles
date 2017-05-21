@@ -64,7 +64,7 @@ control + super +  F11
 control + super +  F12
 	autorandr --load home
 
-control + F12
+control + Delete
 	environment-setup
 
 super + grave
