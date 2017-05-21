@@ -1,0 +1,5 @@
+output eDP1
+mode preferred
+pos 0x0
+output DP1
+off
