@@ -37,6 +37,7 @@ Plug 'kovetskiy/fzf.vim'
     au operations FileType * let g:fzf#vim#default_layout  = {'bottom': '10%'}
     "au operations FileType * nnoremap <C-P> :Sift<CR>
 
+Plug 'nixprime/cpsm', {'do': './install.sh' }
 Plug 'ctrlpvim/ctrlp.vim'
 
     func! _ctrlp_buffer_add_augroup()
@@ -61,16 +62,30 @@ Plug 'ctrlpvim/ctrlp.vim'
     nnoremap <C-B> :call _ctrlp_buffer()<CR>
 
     let g:ctrlp_working_path_mode='a'
-    let g:ctrlp_user_command = "sift --exclude-dirs='vendor' --exclude-dirs='lib/tests/*' --targets %s"
-    let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30'
+    let g:ctrlp_user_command = "find -L %s '(' " .
+            \ "-path '*test*' -o " .
+            \ "-path '*.git*' -o " .
+            \ "-path '*.obj' -o " .
+            \ "-path '*.xz' -o " .
+            \ "-path '*.o' -o " .
+            \ "-path '*.pyc' -o " .
+            \ "-path '*Debug/*' -o " .
+            \ "-path '*Release/*' -o " .
+            \ "-path '*go/pkg/*' -o " .
+            \ "-path '*__pycache__*' " .
+            \ "')' -prune -o -type f -printf '%%P\n'"
+    let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:50'
+    let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
 
-    let g:ctrlp_max_depth = 4
+    "let g:ctrlp_max_depth = 10
 
     let g:ctrlp_clear_cache_on_exit = 1
     let g:ctrlp_use_caching = 0
     let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp.vim'
 
-    nmap <Leader>pc :CtrlPClearAllCaches<CR>
+    hi! def link CtrlPMatch Search
+
+    "nmap <Leader>pc :CtrlPClearAllCaches<CR>
 
 "Plug 'junegunn/seoul256.vim'
     "au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
@@ -100,7 +115,7 @@ Plug 'Valloric/YouCompleteMe', { 'frozen': '1' }
     let g:ycm_key_list_select_completion=['<DOWN>']
 
     let g:ycm_collect_identifiers_from_tags_files = 1
-    let g:ycm_collect_identifiers_from_comments_and_strings = 1
+    "let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
     let g:ycm_seed_identifiers_with_syntax = 1
     let g:ycm_use_ultisnips_completer = 0
