@@ -24,8 +24,10 @@ set -euo pipefail
     local domain="$1"
     local address=""
 
-    if address=$(:resolve "$domain"); then
-        :route "$address"
+    if resolved=$(:resolve "$domain"); then
+        while read address; do
+            :route "$address"
+        done <<< "$resolved"
     fi
 }
 
