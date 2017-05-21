@@ -5,12 +5,10 @@ if [ "$TMUX" ]; then
     export TERM=screen-256color-so
 fi
 
-export HISTFILE=$HOME/.history
 export HISTSIZE=1000
 export SAVEHIST=100000
 export KEYTIMEOUT=1
 export WORDCHARS=-
-export BACKGROUND=$(cat ~/background)
 
 # :prezto
 {
@@ -386,8 +384,7 @@ export BACKGROUND=$(cat ~/background)
     }
 
     cd-and-ls() {
-        cd $@
-        ls -lah --color=always
+        cd $@ && ls -lah --color=always
     }
 
     git-clone-github() {
@@ -1060,8 +1057,8 @@ DATA
     :sources:get() {
         local target="$1"
         target=$(sed -r '
-            s|^gh:/|git@github.com:|;
-            s|^rn:/|ssh://git@git.rn/|;
+            s|^gh:|git@github.com:|;
+            s|^rn:|ssh://git@git.rn/|;
             s|^(git@github.com:)?k/|git@github.com:kovetskiy/|;
             s|^(git@github.com:)?s/|git@github.com:seletskiy/|;
             s|^(git@github.com:)?r/|git@github.com:reconquest/|;
@@ -1217,6 +1214,13 @@ DATA
         :rsync home.local:$1 $1
     }
 
+    :axel() {
+        local link=$1
+        local threads=${2:-10}
+
+        axel -a -n $threads "$link"
+    }
+
 }
 
 {
@@ -1234,6 +1238,15 @@ DATA
 
 # :alias
 {
+    alias xc='crypt && marvex-erase-reserves'
+    alias wa='watch -d -n 0.1 --'
+    alias a='cat'
+    alias ax=':axel'
+    alias vlc='/usr/bin/vlc --no-metadata-network-access' # fffuuu
+    alias mc='make clean'
+    alias m='make'
+    alias icv='() { iconv -f WINDOWS-1251 -t UTF-8 $1 | vim - }'
+    alias sss='ssh -oStrictHostKeyChecking=no'
     alias urb='() { curl -d url=$1 uroboro.s/api/v1/tasks/ }'
     alias awf='(){ audiowaveform -o "/tmp/$(basename "$1").png" -i "$1" -w 1920 -h 500 && catimg "/tmp/$(basename "$1").png" } '
     alias svo='scs vpn-office'
@@ -1355,7 +1368,6 @@ DATA
     alias tim='terminal-vim'
 
     alias history='fc -ln 0'
-    alias m='man'
     alias rf='rm -rf'
     alias ls='ls -lah --group-directories-first -v --color=always'
     alias l='ls'
@@ -1510,7 +1522,6 @@ DATA
         alias bhc='BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
         alias ai='ash inbox'
         alias i='ash inbox reviewer'
-        alias a='ash'
         alias aa='ash-approve'
         alias am='ash-merge'
     }
