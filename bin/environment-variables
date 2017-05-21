@@ -1,19 +1,19 @@
 #!/bin/bash
 
-HOME="/home/operator"
+export HOME="/home/operator"
 
-LANG="en_US.UTF-8"
-LC_ALL="en_US.UTF-8"
-SHELL="/bin/zsh"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export SHELL="/bin/zsh"
 
-TERMINAL="/bin/urxvt"
-EDITOR="/bin/vim"
-BROWSER="$HOME/bin/browser"
+export TERMINAL="/bin/urxvt"
+export EDITOR="/bin/vim"
+export BROWSER="$HOME/bin/browser"
 
-GOROOT=""
-GOPATH="$HOME/go"
-RUBYPATH=$(/bin/ruby -e 'print Gem.user_dir')
-DISPLAY=":0"
+export GOROOT=""
+export GOPATH="$HOME/go"
+export RUBYPATH=$(/bin/ruby -e 'print Gem.user_dir')
+export DISPLAY=":0"
 
 BIN=(
     "$HOME/bin"
@@ -24,16 +24,10 @@ BIN=(
     "$RUBYPATH"
 )
 
-PROFILE=$(/bin/cat "$HOME/profile")
-BACKGROUND=$(/bin/cat "$HOME/background")
+export PROFILE=$(/bin/cat "$HOME/.config/profile")
+export BACKGROUND=$(/bin/cat "$HOME/.config/background")
 
 BIN=$(/bin/tr ' :' '\n' <<< "${BIN[*]}:$PATH" | /bin/awk '!seen[$0]++')
-PATH=${BIN//$'\n'/:}
-
-export HOME \
-    LANG LC_ALL SHELL \
-    TERMINAL EDITOR BROWSER \
-    GOROOT GOPATH RUBYPATH PATH \
-    DISPLAY
+export PATH=${BIN//$'\n'/:}
 
 unset BIN

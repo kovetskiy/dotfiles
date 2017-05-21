@@ -3,7 +3,7 @@
 exec 200>/tmp/brightness.lock
 flock 200
 
-if [ "$(cat ~/profile)" == "laptop" ]; then
+if [ "$(cat ~/.config/profile)" == "laptop" ]; then
     dir=/sys/class/backlight/intel_backlight
     step=50
 else
