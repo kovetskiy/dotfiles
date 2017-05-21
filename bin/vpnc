@@ -1,0 +1,13 @@
+#!/bin/bash
+
+filter="$1"
+
+auth=~/.config/openvpn/auth
+config=$(/bin/ls ~/.config/openvpn/$filter*.tcp*.ovpn | sort -R |tail -n 1)
+
+echo "$(highlight fg red)$config$(highlight reset)"
+
+echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
+
+sudo openvpn  --verb 6 --config /dev/stdin \
+    <<< "$(cat $config; echo "auth-user-pass $auth")"
