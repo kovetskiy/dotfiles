@@ -5,21 +5,6 @@ case "$1" in
     "google" )
         echo "nameserver 8.8.8.8" > /etc/resolv.conf
         ;;
-    "office" )
-        {
-            echo "nameserver 192.168.20.2"
-            echo "nameserver 192.168.21.100"
-            echo "search cname.s in.ngs.ru"
-        } > /etc/resolv.conf
-
-        if ip a | grep -q ppp0; then
-            # I'm sorry, dear russian federation, but no.
-            ip r a 192.168.0.0/16 dev ppp0
-            ip r a 172.28.0.0/16 dev ppp0
-            ip r a 172.16.0.0/16 dev ppp0
-            #ip r a default dev ppp0
-        fi
-        ;;
     "local" )
         resolvconf -u
         ;;

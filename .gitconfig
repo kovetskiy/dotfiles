@@ -1,5 +1,5 @@
 [user]
-	email = e.kovetskiy@office.ngs.ru
+	email = e.kovetskiy@gmail.com
 	name = Egor Kovetskiy
 [credential]
 	helper = cache --timeout=3600000
