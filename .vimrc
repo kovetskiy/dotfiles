@@ -35,7 +35,6 @@ Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'kovetskiy/fzf.vim'
     let g:fzf_prefer_tmux = 1
     au operations FileType * let g:fzf#vim#default_layout  = {'bottom': '10%'}
-    "au operations FileType * nnoremap <C-P> :Sift<CR>
 
 Plug 'nixprime/cpsm', {'do': './install.sh' }
 Plug 'ctrlpvim/ctrlp.vim'
@@ -57,6 +56,11 @@ Plug 'ctrlpvim/ctrlp.vim'
     func! _ctrlp_buffer()
         CtrlPBuffer
         call _ctrlp_buffer_add_augroup()
+    endfunc!
+
+    func! _ctrlp()
+        call _snippets_stop()
+        CtrlP
     endfunc!
 
     nnoremap <C-B> :call _ctrlp_buffer()<CR>
@@ -85,7 +89,8 @@ Plug 'ctrlpvim/ctrlp.vim'
 
     hi! def link CtrlPMatch Search
 
-    "nmap <Leader>pc :CtrlPClearAllCaches<CR>
+    let g:ctrlp_map = '<nop>'
+    map <silent> <C-P> :call _ctrlp()<CR>
 
 "Plug 'junegunn/seoul256.vim'
     "au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
@@ -119,38 +124,6 @@ Plug 'Valloric/YouCompleteMe', { 'frozen': '1' }
 
     let g:ycm_seed_identifiers_with_syntax = 1
     let g:ycm_use_ultisnips_completer = 0
-
-
-    func! _completions_complete()
-        try
-            let completions = youcompleteme#OmniComplete(0, 0)
-            if len(completions.words) != 1
-                return
-            endif
-        catch
-            return
-        endtry
-
-        let line = getline('.')
-        let col = col('.')
-        if col < 2
-            return
-        endif
-
-        let moresuffix = line[col-4] . line[col-3] . line[col-2] . v:char
-        let suffix = line[col-3] . line[col-2] . v:char
-        if len(suffix) != 3 || len(moresuffix) != 4
-            return
-        endif
-
-        let completion = completions.words[0].word
-        if matchstr(completion,suffix."$") == "" || matchstr(completion,moresuffix."$") != ""
-            return
-        endif
-        call feedkeys("\<C-N>", 'n')
-    endfunc!
-
-    "au operations InsertCharPre * call _completions_complete()
 
 Plug 'kovetskiy/synta', {'for': 'go'}
 
@@ -212,6 +185,10 @@ Plug 'sirver/ultisnips', { 'frozen': 1 }
     let g:UltiSnipsExpandTrigger="<TAB>"
     let g:UltiSnipsEditSplit="horizontal"
 
+    func! _snippets_stop()
+        python "UltiSnips_Manager._leave_buffer()"
+    endfunc!
+
     func! _snippets_get_filetype()
         let l:dot = strridx(&filetype, ".")
         if l:dot != -1
@@ -245,7 +222,7 @@ Plug 'tpope/vim-surround'
 
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
 
-Plug 'danro/rename.vim', { 'on': 'Rename' }
+Plug 'danro/rename.vim'
     nnoremap <Leader><Leader>r :noautocmd Rename<Space>
 
 Plug 'kovetskiy/SearchParty'
@@ -587,6 +564,10 @@ Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
     let g:simple_todo_map_visual_mode_keys = 0
     let g:simple_todo_map_normal_mode_keys = 1
 
+Plug 'brooth/far.vim'
+    nmap <Leader>f :Farp<CR>
+    au operations FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
+
 augroup end
 call plug#end()
 
@@ -880,8 +861,6 @@ au BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.sh
 
 au BufRead,BufNewFile *.snippets set noet ft=snippets.python
 au BufRead,BufNewFile *.skeleton set noet ft=snippets.python
-
-nnoremap <Leader>ft :set filetype=
 
 nmap <Tab> /
 nmap K :s///g<CR><C-O>i

@@ -33,7 +33,12 @@ flock 200
 }
 
 :parse-volume() {
-    echo "${@}" | awk '/%/{print $4}' | sed -r 's/[^0-9]//g'
+    volumes=($(echo "${@}" | grep -Po '[0-9]+%'))
+    if [[ "${volumes[1]}" && "${volumes[1]}" != "${volumes[0]}" ]]; then
+        echo "L:${volumes[0]} R:${volumes[1]}"
+    fi
+
+    echo "${volumes[0]}"
 }
 
 :main "${@}"

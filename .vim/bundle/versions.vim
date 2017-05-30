@@ -3,6 +3,7 @@ color_coded e15d0e4
 cpsm 8e61bf3
 ctrlp.vim 23f78f3
 eclim 1aa38858
+far.vim 3376dc5
 flattown dd3f86a
 fzf d295d20
 fzf.vim 5ceac57

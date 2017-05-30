@@ -1221,6 +1221,42 @@ DATA
         axel -a -n $threads "$link"
     }
 
+    :process:info() {
+        local name="$1"
+        local processes=$(pgrep -d, -x "$name")
+        if [[ ! "$processes" ]]; then
+            return 1;
+        fi
+
+        ps uf -p "$processes"
+    }
+
+    :watcher() {
+        local timeout=0.5
+        if [[ $1 =~ ^-?[.0-9]+$ ]]; then
+            timeout=$1
+            shift
+        fi
+
+        echo "$(highlight bold){$timeout} ${@}$(highlight reset)";
+        while :; do
+            eval "${@}"
+            sleep $timeout
+        done
+    }
+
+    :process:kill() {
+        local name="$1"
+        pkill -9 "$name" || pkill -f -9 "$name"
+    }
+    compdef :process:kill=pkill
+
+    :gitignore:add() {
+        while [[ "$1" ]]; do
+            echo "$1" >> .gitignore
+            shift
+        done
+    }
 }
 
 {
@@ -1238,8 +1274,11 @@ DATA
 
 # :alias
 {
-    alias xc='crypt && marvex-erase-reserves'
-    alias wa='watch -d -n 0.1 --'
+    alias gia=':gitignore:add'
+    alias pk=':process:kill'
+    alias wa=':watcher'
+    alias pp=':process:info'
+    alias xc='marvex-erase-reserves && crypt'
     alias a='cat'
     alias ax=':axel'
     alias vlc='/usr/bin/vlc --no-metadata-network-access' # fffuuu
