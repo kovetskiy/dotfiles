@@ -1,0 +1,98 @@
+#!/bin/bash
+
+### exec-systemd-scope - execute command with memory limit using systemd slice
+###
+### Usage:
+###     exec-systemd-scope [-m <value>] <command>
+###     exec-systemd-scope -h | --help
+###
+### Options:
+###     -m --memory-limit <value>  Specify MemoryLimit= value for systemd slice.
+
+set -euo pipefail
+
+source /usr/share/bash/opts/opts.bash
+
+:main() {
+    local -A opts
+    local -a args
+
+    opts:parse opts args -m: --memory-limit: -h --help -- "$@"
+
+    if [[ "${opts[-h]:-}" || "${opts[--help]:-}" ]]; then
+        :help
+        exit 0
+    fi
+
+    local memory_limit="${opts[-m]:-${opts[--memory-limit]:-}}"
+    if [[ ! "$memory_limit" ]]; then
+        echo "memory limit is not specified, use -m or --memory-limit flag" >&2
+        exit 1
+    fi
+
+    local user="${USER}"
+
+    local slice
+    slice=$(:create-slice "$memory_limit")
+    :start-slice "$slice"
+
+    trap ":remove-slice $slice" EXIT
+
+    :exec-slice "$slice" "$user" "${args[@]:1}"
+}
+
+:exec-slice() {
+    local slice="$1"
+    local user="$2"
+    shift
+    shift
+
+    sudo systemd-run --slice "$slice" --scope /usr/bin/sudo -u ${user} $@
+}
+
+:remove-slice() {
+    local slice="$1"
+    sudo systemctl stop "$slice"
+    sudo rm /var/run/systemd/system/"$slice"
+}
+
+:create-slice() {
+    local memory_limit="$1"
+
+    local unique="$(date +%s.%N)"
+
+    local slice="exec-systemd-scope-${memory_limit}-${unique}.slice"
+    local filename="/var/run/systemd/system/$slice"
+
+    sudo tee "$filename" >/dev/null <<SLICE
+[Unit]
+Description=slice for exec-systemd-scope ${memory_limit}
+Before=slices.target
+
+[Slice]
+MemoryAccounting=true
+MemoryLimit=${memory_limit}
+SLICE
+
+    echo "$slice"
+}
+
+:start-slice() {
+    local slice="$1"
+
+    sudo systemctl start "$slice"
+}
+
+:help() {
+    sed -rn 's/^### ?//;T;p' "$0"
+}
+
+:log() {
+    echo "$*" >&2
+}
+
+:info() {
+    echo "$(highlight bold)$*$(highlight reset)" >&2
+}
+
+:main "$@"
