@@ -1,0 +1,74 @@
+#!/bin/bash
+
+### ovpn - openvpn client with configs
+###
+### Usage:
+###     ovpn
+###     ovpn -h | --help
+###
+### Options:
+###     -h --help   Show this screen.
+
+set -euo pipefail
+
+:main() {
+    local name="${1:-}"
+    local proto="${2:-tcp}"
+
+    if [[ "$name" == "udp" ]]; then
+        name=""
+        proto="udp"
+    fi
+
+    if [[ "$name" == "tcp" ]]; then
+        name=""
+        proto="tcp"
+    fi
+
+    local auth=~/.config/openvpn/auth
+    if [[ ! -f $auth ]]; then
+        echo "no such auth file: $auth" >&2
+        exit 1
+    fi
+
+    local config_file=$(:get-config "$name" "$proto")
+    local config_name="$(basename "$config_file")"
+
+    local bold="$(highlight bold)"
+    local reset="$(highlight reset)"
+
+    echo "${bold}starting openvpn using config $config_name${reset}"
+
+    local config="$(:new-config "$config_file" "$auth")"
+    # todo: beautify output
+    sudo openvpn  --verb 6 --config /dev/stdin <<< "$config"
+}
+
+:new-config() {
+    local config="$1"
+    local auth=$2
+
+    cat "$config"
+    echo "auth-user-pass $auth"
+}
+
+:get-config() {
+    local name=$1
+    local proto=$2
+
+    /bin/ls ~/.config/openvpn/$name*.$proto*.ovpn | sort -R | tail -n 1
+}
+
+:add-nameserver() {
+    echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf >/dev/null
+}
+
+:help() {
+    sed -rn 's/^### ?//;T;p' "$0"
+}
+
+:log() {
+    echo "$*" >&2
+}
+
+:main "$@"
