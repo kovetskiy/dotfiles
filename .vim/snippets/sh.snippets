@@ -28,30 +28,27 @@ endsnippet
 
 snippet m "main" w
 
+### $1 - $2
+###
+### Usage:
+###     $1
+###     $1 -h | --help
+###
+### Options:
+###     $3
+
 set -euo pipefail
-
-:usage() {
-    sed -r 's/^([ ]{4}|\t)//g' <<USAGE
-    $1
-
-    Usage:
-        `!p snip.rv=t[1]` $2
-        `!p snip.rv=t[1]` -h
-
-    Options:
-        $3
-        -h  Show this screen.
-USAGE
-}
 
 :main() {
     $4
+}
 
-    exit 0
+:help() {
+    sed -rn 's/^### ?//;T;p' "\$0"
 }
 
 :log() {
-    echo "[$(date -Iseconds | cut -dT -f1)] $*" >&2
+    echo "$*" >&2
 }
 
 :main "$@"
@@ -67,7 +64,7 @@ $0
 endsnippet
 
 snippet p "" w
-echo "$1" >&8
+echo "$1"
 endsnippet
 
 priority 2222
@@ -131,14 +128,8 @@ $1
 EOF
 endsnippet
 
-snippet gf "log func" w
-log() {
-    echo ">>> $@"
-}
-endsnippet
-
 snippet g "log" w
-log "$1"
+logf "$1"
 endsnippet
 
 snippet b "" w
