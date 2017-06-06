@@ -32,9 +32,6 @@ bindsym $alt+1 workspace 1
 bindsym $alt+2 workspace 2
 bindsym $alt+3 workspace 3
 bindsym $alt+4 workspace 4
-bindsym $alt+5 workspace 5
-bindsym $alt+6 workspace 6
-bindsym $alt+7 workspace 7
 
 bindsym $alt+q workspace q
 bindsym $alt+w workspace w
@@ -112,7 +109,7 @@ for_window [title="^kuake_"]     floating enable
 for_window [title="^malder"]     floating enable
 for_window [title="android"]     floating disable
 for_window [title="^sxiv"]       floating disable
-for_window [title="Viewer"]       floating disable
+for_window [title="Viewer"]      floating disable
 
 client.focused            #ffaf5f   #ffaf5f   #ffaf5f   #ffaf5f
 client.focused_inactive   #000000   #000000   #000000   #000000
