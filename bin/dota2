@@ -1,7 +1,83 @@
 #!/bin/bash
 
-if pgrep steam &>/dev/null; then
-    exec steam steam://rungameid/570
-else
-    exec steam-ext4 steam://rungameid/570
-fi
+set -euo pipefail
+
+_game_id="570"
+_game_window="Dota"
+
+:action-pre() {
+    :log "pre action called"
+    :exec xkb games
+    :exec i3-msg mode passthrough
+}
+
+:action-post() {
+    :log "post action called"
+    :exec xkb
+    :exec i3-msg mode default
+}
+
+:main() {
+    :log "steam://rungameid/${_game_id}"
+    :steam steam://rungameid/$_game_id &
+
+    :wait-until-window-created "$_game_window"
+    :log "window '${_game_window}' created"
+
+    :action-pre
+    trap ':action-post' EXIT
+
+    :wait-until-window-destroyed "$_game_window"
+    :log "window '${_game_window}' destroyed"
+}
+
+:wait-until-window-created() {
+    local title="$1"
+
+    while ! :search-window "$title"; do
+        sleep 1;
+    done
+}
+
+:wait-until-window-destroyed() {
+    local title="$1"
+
+    while true; do
+        sleep 1
+
+        if :search-window "$title"; then
+            continue
+        fi
+
+        sleep 5
+
+        if :search-window "$title"; then
+            continue
+        fi
+
+        break
+    done
+}
+
+:search-window() {
+    xdotool search --name "$title" &>/dev/null
+}
+
+:steam() {
+    if pgrep steam &>/dev/null; then
+        steam $@
+    else
+        steam-ext4 $@
+    fi
+}
+
+:exec() {
+    :log "\$ ${@}"
+    "${@}"
+}
+
+:log() {
+    echo "$(highlight fg red bold)$*$(highlight reset)"
+}
+
+:main "${@}"
