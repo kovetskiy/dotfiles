@@ -8,4 +8,4 @@ if ! findmnt $TARGET &>/dev/null; then
     sudo mount $DISK $TARGET
 fi
 
-steam-wrapper "$@"
+exec steam-wrapper "$@"
