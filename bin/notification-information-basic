@@ -1,17 +1,21 @@
 #!/bin/bash
 
-battery=$(acpi | sed -r 's/Battery 0: //' | sed -r 's/until charged//')
-datetime=$(date +'%T %d-%m-%Y')
+datetime=$(date +'%T %d-%m-%Y %A')
+battery=$(acpi \
+    | sed -r 's/Battery [0-9]:\s*//' \
+    | sed -r 's/ until charged//' \
+    | sed -r 's/ remaining//'
+)
 
 body="$datetime"
 body="$body"$'\n'"$battery"
 
 notify-send.sh -r 1000 -t 1000 " " -- "$body"
 
+location=$(my-location)
+if [[ "$location" ]]; then
+    location=($location)
+    body="$body"$'\n'"${location[0]}: ${location[1]}"
+fi
 
-location=(
-    $(my-location)
-)
-
-body="$body"$'\n'"${location[0]}: ${location[1]}"
 notify-send.sh -r 1000 -t 1000 " " -- "$body"
