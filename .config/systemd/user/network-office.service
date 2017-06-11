@@ -1,9 +1,0 @@
-[Install]
-WantedBy=basic.target
-
-[Unit]
-Description=Office VPN Gateway
-
-[Service]
-ExecStart=/home/operator/bin/network-office
-Restart=always

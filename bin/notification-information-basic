@@ -1,21 +1,39 @@
 #!/bin/bash
 
-datetime=$(date +'%T %d-%m-%Y %A')
-battery=$(acpi \
-    | sed -r 's/Battery [0-9]:\s*//' \
-    | sed -r 's/ until charged//' \
-    | sed -r 's/ remaining//'
-)
+:notify() {
+    notify-send.sh -r 1000 -t 1000 " " -- "$*"
+}
 
-body="$datetime"
-body="$body"$'\n'"$battery"
+:main() {
+    local datetime=""
+    local battery=""
+    local body=""
 
-notify-send.sh -r 1000 -t 1000 " " -- "$body"
+    local endl=$'\n'
 
-location=$(my-location)
-if [[ "$location" ]]; then
-    location=($location)
-    body="$body"$'\n'"${location[0]}: ${location[1]}"
-fi
+    datetime=$(date +'%T %d-%m-%Y %A')
+    battery=$(acpi \
+        | sed -r 's/Battery [0-9]:\s*//' \
+        | sed -r 's/ until charged//' \
+        | sed -r 's/ remaining//'
+    )
 
-notify-send.sh -r 1000 -t 1000 " " -- "$body"
+    body="${datetime}${endl}"
+    body="${body}${battery}"
+
+    :notify "$body"
+
+    local location=$(my-location)
+    if [[ "$location" ]]; then
+        location=($location)
+        if [[ "${location[0]}" == "${location[1]}" ]]; then
+            body="${body}${endl}${location[0]}"
+        else
+            body="$body${endl}${location[0]}: ${location[1]}"
+        fi
+    fi
+
+    :notify "$body"
+}
+
+:main "${@}"

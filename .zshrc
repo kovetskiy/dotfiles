@@ -55,7 +55,6 @@ export WORDCHARS=-
 
         zgen load seletskiy/zsh-prompt-lambda17
         zgen load seletskiy/zsh-ssh-urxvt
-        zgen load seletskiy/zsh-ash-completion
         zgen load seletskiy/zsh-hash-aliases
 
         zgen load deadcrew/deadfiles
@@ -348,40 +347,6 @@ export WORDCHARS=-
             done
     }
 
-    container-host-ssh() {
-        local env=$(sed 's/^\(.*.ru\.\|\.\)//' <<< "$1")
-        shift
-
-        local host
-        host=$(deployer -Qe "$env" \
-            | grep '^node0:$' -A 3 \
-            | awk '/host:/ {print $2}')
-        smash -z $host $@
-    }
-
-    container-status() {
-        local env="$1"
-        shift
-
-        container-host-ssh "$env" heaver -L | ag -F "$env"
-    }
-
-    container-guess-and-fix-problem() {
-        local env="$1"
-        shift
-
-        local env_status=$(container-status "$env")
-        echo "container status:"
-        echo "$env_status"
-
-        local container=$(awk '/frozen/ { print $1 }' <<< "$env_status")
-        if [ "$container" ]; then
-            echo "container frozen by memory, restarting..."
-            container-host-ssh $env heaver -T $container
-            container-host-ssh $env heaver -S $container
-        fi
-    }
-
     cd-and-ls() {
         cd $@ && ls -lah --color=always
     }
@@ -409,16 +374,6 @@ export WORDCHARS=-
         uri="https://github.com/$user/$project"
         echo "$uri"
         git clone "$uri" $dir
-    }
-
-    git-remote-set-devops() {
-        local name=${1}
-        if [[ ! "$name" ]]; then
-            name=$(basename $(pwd))
-        fi
-
-        git remote remove origin
-        git remote add origin "git+ssh://git.rn/devops/$name"
     }
 
     git-checkout-orphan() {
@@ -455,10 +410,6 @@ export WORDCHARS=-
         git remote rm origin
         echo "$new_url"
         git remote add origin "$new_url"
-    }
-
-    go-get-enhanced-devops() {
-        go-get-enhanced "git.rn/devops/$1"
     }
 
     go-get-enhanced() {
@@ -735,31 +686,8 @@ export WORDCHARS=-
         cat PKGBUILD
     }
 
-    ash-approve() {
-        local review="$1"
-        ash "$1" approve
-    }
-    compdef ash-approve=ash
-
-    ash-merge() {
-        local review="$1"
-        ash "$1" merge
-    }
-    compdef ash-merge=ash
-
     compdef vim-which=which
     compdef smash=ssh
-
-    copy-to-http() {
-        local src="$1"
-        local dest=$(basename "$src")
-        if [ $# -ne 1 ]; then
-            dest=$2
-        fi
-        cp "$src" "/srv/http/$dest"
-        echo -n "http://home.local/$dest" | xclip -selection clipboard
-        echo "http://home.local/$dest"
-    }
 
     git-rebase-interactive() {
         if [[ "$1" =~ ^[0-9]+$ ]]; then
@@ -770,21 +698,8 @@ export WORDCHARS=-
         git rebase -i $@
     }
 
-    incidents-create() {
-        incidents -C \
-            && cd ~/.incidents/"$(
-            /usr/bin/ls --color=never -t ~/.incidents/ | head -n1)"
-    }
-
-
     git-clean-powered() {
         git clean -ffdx
-    }
-
-    batrak-move() {
-        local transition="$1"
-        local issue="$2"
-        batrak -M $issue $transition
     }
 
     ssh-enhanced() {
@@ -794,69 +709,6 @@ export WORDCHARS=-
         smash -z "$@"
         tmux set status off
     }
-
-    reviews-message() {
-        local project=$(basename $(pwd))
-        local branch=$(git rev-parse --abbrev-ref HEAD)
-        local url=$(
-            git config --get \
-                pull-request.$branch.url
-        )
-        local to=$(
-            git config --get \
-                pull-request.$branch.to
-        )
-        local log=$(
-            git log \
-                --pretty="%h: %s"\
-                --abbrev-commit --decorate origin/$to..
-        )
-        local code='```'
-
-        copy-to-clipboard <<DATA
-@here:
-
-[$project] $branch -> $to
-
-$code
-$log
-$code
-
-$url
-DATA
-
-        xclip -o -selection clipboard
-    }
-
-    ash-this() {
-        local branch="$(git rev-parse --abbref-ref HEAD)"
-        ash $(
-            ash inbox \
-                | grep -F "$(git rev-parse --abbrev-ref HEAD)" \
-                | grep -F "$(basename $(git rev-parse --show-toplevel))" \
-                | awk '{print $1}'
-        )
-    }
-
-    uroboros-this() {
-        curl -d "url=$(
-            git config --get \
-                pull-request.$(git rev-parse --abbrev-ref HEAD).url
-        )" http://uroboro.s/api/v1/tasks/
-    }
-
-    amf-new() {
-        cd ~/sources/
-        stacket repositories create specs "$1"
-        git clone "git+ssh://git.rn/specs/$1"
-        cd "$1"
-        bithookctl -p pre -A sould primary
-        touch amfspec
-        git add .
-        git commit -m "ethernal void"
-        git push origin master
-    }
-
     makepkg-clean() {
         local branch="$1"
         rm -rf *.xz
@@ -865,85 +717,11 @@ DATA
         restore-pkgver-pkgrel
     }
 
-    makepkg-clean-upload-stable() {
-        makepkg-clean "$@"
-        repoctl -A arch-ngs-stable -f $(/bin/ls *.xz)
-    }
-
-    makepkg-clean-upload-testing() {
-        makepkg-clean "$@"
-        repoctl -A arch-ngs-testing -f $(/bin/ls *.xz)
-    }
-
-    dns-new-a() {
-        local hostname="$1"
-        local address="$2"
-        pdns records add -t A -d 80 -n "$hostname" -c "$address"
-        pdns records add -t CNAME -d 80 \
-            -n "$(cut -d. -f1 <<< "$hostname").cname.s" \
-            -c "$hostname"
-        pdns soa update -n s
-    }
-
-    dns-new-srv() {
-        local name="$1"
-        local hostname="$2"
-        local port="${3:-80}"
-
-        pdns records add -n "$name._tcp.s" -c "0 $port $hostname" -t SRV -d 80 -l 60
-        pdns soa update -n s
-    }
-
-    npm-to-aur() {
-        local pkg="$1"
-        aur-create-project "nodejs-$pkg"
-        npm2PKGBUILD "$pkg" > PKGBUILD
-        sed 's/ # All lowercase//' -i PKGBUILD
-        sed '/^#/d' -i PKGBUILD
-        echo
-        cat PKGBUILD
-        echo
-        mksrcinfo
-        git add .
-        git commit -m "update pkgbuild"
-        git push origin master
-        makepkg
-        sudo pacman -U *.xz
-    }
-
     sed-files() {
         local from="$1"
         local to="$2"
         shift 2
         sed-replace "$from" "$to" $(sift "$from" -l) "$@"
-    }
-
-    :launch-binary() {
-        local pwd="$(pwd)"
-        local name="$(basename "$pwd")"
-        local binary="$pwd/$name"
-
-        if grep -q "$GOPATH" <<< "$pwd"; then
-            if ! go-fast-build; then
-                return 1
-            fi
-        fi
-
-        if stat "$binary" &>/dev/null; then
-            ${SUDO:+":sudo"} $(echo "${RESOLVER:+stalk -s $RESOLVER -- }") "$binary" "$@"
-        else
-            echo "nothing to launch" >&2
-            return 1
-        fi
-    }
-
-    :sudo() {
-        local cmd="$1"
-        if [[ "${cmd[1]}" == ":" ]]; then
-            SUDO=true "$@"
-        else
-            /bin/sudo -E "$@"
-        fi
     }
 
     git-clone-sources() {
@@ -955,13 +733,6 @@ DATA
         cd ~/sources/"$@"
     }
 
-
-    :orgalorg:copy() {
-        local server="$1"
-        local remotepath="$2"
-        shift 2
-        orgalorg -o $server -vx -u e.kovetskiy -er $remotepath -U "${@}"
-    }
 
     :is-interactive() {
         (
@@ -975,61 +746,6 @@ DATA
         return $?
     }
 
-    :nodes:query() {
-        local flags=""
-        if ! :is-interactive; then
-            flags="-pp"
-        fi
-
-        local filters=()
-        if [[ "$1" == "amf" ]]; then
-            filters=("amf:true")
-            shift
-        fi
-
-        if [[ "$1" && "$1" != *":"* ]]; then
-            filters=("spec:$1")
-            shift
-        fi
-
-        nodectl ${flags} -S ${filters[@]} ${@}
-    }
-
-    :orgalorg:exec() {
-        local flags=()
-        while [[ $# -ne 0 ]]; do
-            if [[ "$1" == "-"* ]]; then
-                flags+=("$1")
-                shift
-            else
-                break
-            fi
-        done
-
-        orgalorg -y -d 4 -t -w -s -x -u e.kovetskiy -p $(echo ${flags[@]}) -C "${@}"
-    }
-
-    :orgalorg:exec-root() {
-        local flags=()
-        while [[ $# -ne 0 ]]; do
-            if [[ "$1" == "-"* ]]; then
-                flags+=("$1")
-                shift
-            else
-                break
-            fi
-        done
-
-        orgalorg -y -d 4 -t -w -s -u root -p $(echo ${flags[@]}) -C "${@}"
-    }
-
-
-    :orgalorg:identify() {
-        orgalorg -t -w -s -p \
-            -i ~/.ssh/id_rsa.pub -u e.kovetskiy \
-            -C mkdir -p /home/e.kovetskiy/.ssh \&\& tee -a /home/e.kovetskiy/.ssh/authorized_keys
-    }
-
     compdef guess=which
 
     :nmap:online() {
@@ -1038,31 +754,13 @@ DATA
             | tee /dev/stderr \
     }
 
-    :machines:scan:vpn() {
-        local network="192.168.34."
-        :nmap:online ${network}1/24 \
-            | orgalorg -t -w -s -p -u $(whoami) -C hostname
-    }
-
-    :machines:laptop() {
-        local machines=$(:machines:scan:vpn)
-        local address=$(awk '/ laptop$/{ print $1 }' <<< "$machines")
-        if [[ "$address" ]]; then
-            ssh-keygen -R "$address"
-            ssh $(whoami)@$address
-        fi
-    }
-
     :sources:get() {
         local target="$1"
         target=$(sed -r '
             s|^gh:|git@github.com:|;
-            s|^rn:|ssh://git@git.rn/|;
             s|^(git@github.com:)?k/|git@github.com:kovetskiy/|;
             s|^(git@github.com:)?s/|git@github.com:seletskiy/|;
             s|^(git@github.com:)?r/|git@github.com:reconquest/|;
-            s|^(ssh://git@git.rn/)?c(ore)?/|ssh://git@git.rn/core/|;
-            s|^(ssh://git@git.rn/)?d(evops)?/|ssh://git@git.rn/devops/|;
             ' <<< "$target"
         )
         local dir=$(sed -r 's|^.*://[^/]+/||; s|^.*:||; ' <<< "$target")
@@ -1073,38 +771,6 @@ DATA
 
         cd ~/sources/$dir
     }
-
-    :ash:print() {
-        local review=""
-        local approves=""
-
-        review=$(ash "$@" -e /bin/cat)
-
-        approves=$(grep -P '^### .* approved' <<< "$review" \
-            | cut -d'<' -f2- \
-            | cut -d'@' -f1)
-
-        review=$(sed -r '/^###/d; /^(#)?$/d' <<< "$review")
-        printf '%s\n' "$review" \
-            | sed -re "
-                /^#\s+---$/,/^\-\-\-/{/^(\+|\-[^\-]| )/d};
-                /^\-\-\-/d;
-                /^@/,+8d;
-                s/^(#.*)$/$(highlight fg yellow)\\1$(highlight reset)/;
-                s/^(\+\+\+.*)$/$(highlight fg blue)\\1$(highlight reset)/;
-                s/^(\+.*)$/$(highlight fg light_green)\\1$(highlight reset)/;
-                s/^(\-.*)$/$(highlight fg light_red)\\1$(highlight reset)/;
-            "
-
-        if [[ "$approves" ]]; then
-            echo
-            echo "$(highlight fg green):: "\
-                "[approved] $(wc -l <<< "$approves"):" \
-                "$(tr '\n' ' ' <<< "$approves")$(highlight reset)"
-        fi
-    }
-
-    compdef :ash:print=ash
 
     :aur:spawn() {
         yes | EDITOR=cat yaourt --color "$@"
@@ -1209,10 +875,6 @@ DATA
         rsync -av --stats --progress "$@"
     }
 
-    :w:sync() {
-        :rsync home.local:$1 $1
-    }
-
     :axel() {
         local link=$1
         local threads=${2:-10}
@@ -1269,7 +931,7 @@ DATA
         local name="$1"
         local value="$2"
 
-        value=":alias:use \"$name\"; $value"
+        #value="() { :alias:use \"$name\"; [[ "\$_SUDO" ]] && sudo $value \${@} }"
         alias "$name"="$value"
     }
 
@@ -1302,18 +964,15 @@ DATA
     alias -g SX='--exclude-path'
     alias -g sb='| sed-remove-all-before'
     alias -g sa='| sed-remove-all-after'
-    alias -g -- '#o'='| :orgalorg:exec'
-    alias -g -- '#or'='| :orgalorg:exec-root'
-    alias -g -- '#i'='| :orgalorg:identify'
     alias -g I='<<<'
     alias -g S='| sed-replace'
     alias -g J='| jq .'
-    alias -g O='| :orgalorg:exec'
     alias -g '#pe'='| :pacman:filter-executable'
 }
 
 # :alias
 {
+    :alias 'sudo' 'sudo -E '
     :alias 'srcd' 'cd ~/sources/'
     :alias 'ol' ':mplayer:dir-audio'
     :alias 'zl' 'zfs list'
@@ -1329,98 +988,45 @@ DATA
     :alias 'm' 'make'
     :alias 'icv' '() { iconv -f WINDOWS-1251 -t UTF-8 $1 | vim - }'
     :alias 'sss' 'ssh -oStrictHostKeyChecking=no'
-    :alias 'urb' '() { curl -d url=$1 uroboro.s/api/v1/tasks/ }'
     :alias 'awf' '(){ audiowaveform -o "/tmp/$(basename "$1").png" -i "$1" -w 1920 -h 500 && catimg "/tmp/$(basename "$1").png" } '
-    :alias 'svo' 'scs vpn-office'
-    :alias 'svt' 'sct vpn-office'
     :alias 'rg' 'resolvconf-switch google'
     :alias 'goc' 'journalctl --user -u gocode.service -f'
     :alias 'gocleanup' "find . -type d -name '*-pkgbuild' -exec rm -rf {} \;"
-    :alias 'wsc' ':w:sync'
     :alias 'j' ':move'
     :alias 'k' 'task-project'
     :alias 'o' ':mplayer:run'
     :alias 'op' ':mplayer:run -playlist ~/torrents/audio/.playlist -loop 0'
-    :alias 'xd' 'RESOLVER=cname.d :launch-binary'
-    :alias 'xs' 'RESOLVER=cname.s :launch-binary'
     :alias 'rt' ':rtorrent:select'
     :alias 'u' ':aur:install-or-search'
     :alias 'e' 'less'
-    :alias 'ap' ':ash:print'
     :alias 'sg' ':sources:get'
     :alias 'ver' 'sudo vim /etc/resolv.conf'
-    :alias 'hcp' ':orgalorg:copy'
 
     :alias 'gm' ':git:master'
     :alias 'ge' ':git:merge'
     :alias 'q' ':nodes:query'
     :alias 'grr' 'gri --root'
     :alias 'g' 'guess'
-    :alias 'dca' 'ssh deadcrew.org aurora -A '
-    :alias 'dcr' 'ssh deadcrew.org aurora -R '
-    :alias 'dcq' 'ssh deadcrew.org aurora -Q '
-    :alias 'dc' 'ssh deadcrew.org'
     :alias 'cs' ':cd-sources'
     :alias 'pmp' 'sudo pacman -U $(/bin/ls -t *.pkg.*)'
     :alias 'psyuz' 'psyu --ignore linux,zfs-linux-git,zfs-utils-linux-git,spl-linux-git,spl-utils-linux-git'
-    :alias 'sudo' 'sudo -E '
     :alias 'mkl' 'sudo mkinitcpio -p linux'
     :alias 'x' ':launch-binary'
-    :alias 'pcaa' 'sudo pacmanconfctl -A arch-ngs'
-    :alias 'pcra' 'sudo pacmanconfctl -R arch-ngs'
     :alias 'wh' 'which'
-    :alias 'ii' "ash \$(ash inbox | fzf | awk '{print \$1}')"
     :alias 'alq' 'alsamixer -D equal'
     :alias 'al' 'alsamixer'
     :alias 'p' 'vimpager'
     :alias 'sf' 'sed-files'
     :alias 'pas' 'packages-sync && { cd ~/dotfiles; git diff -U0 packages; }'
-    :alias 'dud' 'cake --id 41882909 -L && cal -m'
-    :alias 'dup' 'cake --id 39095231 -L && cal -m'
-    :alias 'npu' 'npm-to-aur'
     :alias 'rx' 'sudo systemctl restart x@vt7.service xlogin@operator.service'
-    :alias 'z' 'zabbixctl'
-    :alias 'zp' 'zabbixctl -Tp -xxxx'
     :alias 'zgr' 'zgen reset'
     :alias 'mpk' 'makepkg-clean'
-    :alias 'mpks' 'makepkg-clean-upload-stable'
-    :alias 'mpkt' 'makepkg-clean-upload-testing'
-    :alias 'ddo' 'debian-do'
-    :alias 'ddoai' 'ddo apt-get install'
-    :alias 'asht' 'ash-this'
-    :alias 'urot' 'uroboros-this'
-    :alias 'ia' 'ip a'
     :alias 'il' 'ip l'
     :alias 'td' 'touch  /tmp/debug; tail -f /tmp/debug'
-    :alias 'stpr' 'stacket-pull-request-create'
-    :alias 'stprr' 'reviewers-add'
-    :alias 'strcd' 'stacket repositories create devops'
-    :alias 'strcs' 'stacket repositories create specs'
     :alias 'vbs' 'vim-bundle-save'
     :alias 'vbr' 'vim-bundle-restore'
     :alias 'gbs' 'git-submodule-branch-sync'
-    :alias 'ic' 'incidents-create'
-    :alias 'iu' 'incidents -U'
-    :alias 'irt' 'incidents -Rt'
-    :alias 'irb' 'incidents -Rb'
-    :alias 'iru' 'incidents -Ru'
     :alias 'str' 'strace -ff -s 100'
-    :alias 'r' _z
-    :alias 'cld' 'clusterctl dev'
-    :alias 'cldl' 'clusterctl dev -L'
-    :alias 'clp' 'clusterctl prod'
-    :alias 'clpl' 'clusterctl prod -L'
-    :alias 'pso' 'pdns soa update -n s'
-    :alias 'pra' 'pdns records add'
-    :alias 'prl' 'pdns records list'
-    :alias 'prr' 'pdns records remove'
-    :alias 'prda' 'pdns records add -t A -d 80'
-    :alias 'prdac' 'pdns records add -t CNAME -d 80'
-    :alias 'prdl' 'pdns records list -t A -d 80'
-    :alias 'prdlc' 'pdns records list -t CNAME -d 80'
-    :alias 'prdr' 'pdns records remove -t A'
-    :alias 'prdrc' 'pdns records remove -t CNAME'
-    :alias 'bhl' 'bithookctl -L'
     :alias 'bx' 'chmod +x ~/bin/*; chmod +x ~/deadfiles/bin/*'
     :alias 'ck' 'create-and-change-directory'
     :alias 'mf' 'man-find'
@@ -1436,16 +1042,11 @@ DATA
 
     :alias 'cdp' 'cd-pkgbuild'
     :alias 'gog' 'go-get-enhanced'
-    :alias 'gogd' 'go-get-enhanced-devops'
     :alias 'gme' 'go-makepkg-enhanced'
     :alias 'gmev' 'FLAGS="-p version" go-makepkg-enhanced'
     :alias 'gmevs' 'FLAGS="-p version -s" go-makepkg-enhanced'
     :alias 'gmel' 'gmev'
     :alias 'vw' 'vim-which'
-    :alias 'ur' 'packages-upload-repo.s'
-    :alias 'urx' 'packages-upload-repo.s "$(/usr/bin/ls --color=never -t *.xz | head -n1)"'
-    :alias 'urxl' 'packages-upload-repo.s "$(/usr/bin/ls --color=never -t *.xz | head -n1)" latest'
-    :alias 'urxc' 'packages-upload-repo.s "$(/usr/bin/ls --color=never -t *.xz | head -n1)" current'
     :alias 'tim' 'terminal-vim'
 
     :alias 'history' 'fc -ln 0'
@@ -1458,7 +1059,6 @@ DATA
     :alias 'v' 'vim'
     :alias 'vi' 'vim'
     :alias 'se' 'sed -r'
-    :alias 't' 'ssh operator@home.local'
     :alias 'py' 'python'
     :alias 'py2' 'python2'
     :alias 'god' 'godoc-search'
@@ -1466,9 +1066,6 @@ DATA
     :alias 'nhu' 'container-status'
     :alias 'nhr' 'container-restart'
     :alias 'rto' 'qbittorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
-    :alias 'mcan' 'mcabber-account ngs-team'
-    :alias 'mcap' 'mcabber-account postdevops'
-    :alias 'mcao' 'mcabber-account office'
     :alias 'mtd' 'migrate-to-deadfiles'
     :alias 'dt' 'cd ~/dotfiles; PAGER=cat git diff; git status -s ; '
     :alias 'rr' 'cd ~/torrents/'
@@ -1477,9 +1074,6 @@ DATA
     :alias 'hc' 'hub create'
     :alias 'hr' 'hub pull-request -f'
     :alias 'cc' 'copy-to-clipboard'
-    :alias 'bmpk' 'bithookctl -p post -A makepkg primary'
-    :alias 'bsl' 'bithookctl -p pre -A sould primary'
-    :alias 'bur' 'bithookctl -p post -A uroboros uroboros'
 
     :alias 's' 'sift -i -e'
     {
@@ -1505,7 +1099,7 @@ DATA
         :alias 'pqo' 'sudo pacman -Qo'
         :alias 'pqi' 'sudo pacman -Qi'
         :alias 'pms' 'sudo pacman -S'
-        :alias 'psyu' 'pcra && zfs-snapshot && sudo pacman -Syu'
+        :alias 'psyu' 'zfs-snapshot && sudo pacman -Syu'
         :alias 'pmu' 'sudo pacman -U'
         :alias 'pf' 'pkgfile'
     }
@@ -1552,7 +1146,6 @@ DATA
         :alias 'gci' 'git-create-and-commit-empty-gitignore'
         :alias 'gclg' 'git-clone-github'
         :alias 'gcla' 'aur-clone'
-        :alias 'grsd' 'git-remote-set-devops'
         :alias 'gclp' 'git-clone-profiles'
         :alias 'gcoo' 'git-checkout-orphan'
         :alias 'gcls' 'git-clone-sources'
@@ -1601,10 +1194,6 @@ DATA
         :alias 'gic' 'git add . ; git commit -m "initial commit"'
         :alias 'gig' 'touch .gitignore; git add .gitignore ; git commit -m "gitignore"'
         :alias 'bhc' 'BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
-        :alias 'ai' 'ash inbox'
-        :alias 'i' 'ash inbox reviewer'
-        :alias 'aa' 'ash-approve'
-        :alias 'am' 'ash-merge'
     }
 
 
@@ -1658,10 +1247,6 @@ DATA
 
     :alias 'bs' '.bootstrap'
     :alias 'ss' '.sync'
-}
-
-{
-    source ~/.zsh/issues.zsh
 }
 
 
