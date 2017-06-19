@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -x
+
+conf=~/.config/qBittorrent/qBittorrent.conf
+
+:set-proxy() {
+    local username="$1"
+    local password="$2"
+    local ip="$3"
+    local port="$4"
+    local type="$5"
+
+    if [[ "$type" == "" ]]; then
+        local type=0
+    fi
+
+    sed -r \
+        -e 's/Connection\\Proxy\\IP\=.*/Connection\\Proxy\\IP='$ip'/' \
+        -e 's/Connection\\Proxy\\Port\=.*/Connection\\Proxy\\Port='$port'/' \
+        -e 's/Connection\\Proxy\\Username\=.*/Connection\\Proxy\\Username='$username'/' \
+        -e 's/Connection\\Proxy\\Password\=.*/Connection\\Proxy\\Password='$password'/' \
+        -e 's/Connection\\ProxyType\=.*/Connection\\ProxyType=0/' \
+        -i $conf
+}
+
+:main() {
+    if [[ "${1:-}" ]]; then
+        local auth=($(cat ~/.config/openvpn/auth))
+        :set-proxy "${auth[0]}" "${auth[1]}" "${1}" "1080"
+    else
+        :set-proxy "" "" "" ""
+    fi
+
+    /usr/bin/qbittorrent
+}
+
+:main "${@}"
