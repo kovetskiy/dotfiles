@@ -1,0 +1,19 @@
+#!/bin/bash
+
+URL="https://svnweb.freebsd.org/csrg/share/dict/words?view=co&content-type=text/plain"
+
+if [[ ! -f ~/.cache/wordgen ]]; then
+    curl "$URL" > ~/.cache/wordgen
+fi
+
+while :; do
+    word=$(shuf -n 1 ~/.cache/wordgen \
+        | tr '[[:upper:]]' '[[:lower:]]')
+    if [[ "${#word}" -lt "${1:-5}" ]]; then
+        continue
+    fi
+
+    echo "$word"
+
+    break
+done
