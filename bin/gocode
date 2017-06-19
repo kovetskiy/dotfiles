@@ -7,7 +7,7 @@
     /usr/bin/gocode "${@}"
 }
 
-:remove-:remove-left-bracket() {
+:remove-left-bracket() {
     sed -r 's/^(func\s+.*)\(/\1/'
 }
 
