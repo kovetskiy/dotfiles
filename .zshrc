@@ -81,6 +81,11 @@ export WORDCHARS=-
     fi
 }
 
+{
+    if [[ "$BACKGROUND" == "light" ]]; then
+        export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=9"
+    fi
+}
 
 #function zle-line-init () {
     #auto-fu-init
@@ -319,10 +324,8 @@ export WORDCHARS=-
         cut -d"$d" -f"$@"
     }
 
-    find-iname() {
-        local query="$1"
-        shift
-        find -iname "*$query*" -not -path '.' -printf '%P\n' "$@" 2>/dev/null
+    :find() {
+        ag -f -l -g "$*" --nocolor
     }
 
     xargs-eval() {
@@ -899,8 +902,9 @@ export WORDCHARS=-
             shift
         fi
 
-        echo "$(highlight bold){$timeout} ${@}$(highlight reset)";
         while :; do
+            tput clear
+            echo "$(highlight bold)$timeout: ${@}$(highlight reset)";
             eval "${@}"
             sleep $timeout
         done
@@ -914,6 +918,7 @@ export WORDCHARS=-
 
     :gitignore:add() {
         while [[ "$1" ]]; do
+            local filename="$1"
             echo "$1" >> .gitignore
             shift
         done
@@ -947,16 +952,28 @@ export WORDCHARS=-
     :mplayer:dir-audio() {
         # subshell for trap
         (
-        local playlist="$(mktemp)"
-        find ${1:-.} \
-            -type f \
-            -iregex ".*\.\(m4a\|aac\|flac\|mp3\|ogg\|wav\)$" \
-            -print0 \
-            | xargs -0 -n1 readlink -f \
-            | sort > "$playlist"
-        trap "rm $playlist" EXIT
-        mplayer -novideo -playlist "$playlist"
+            local playlist="$(mktemp)"
+            trap "rm $playlist" EXIT
+            while [[ "$1" ]]; do
+                find ${1:-.} \
+                    -type f \
+                    -iregex ".*\.\(m4a\|aac\|flac\|mp3\|ogg\|wav\)$" \
+                    -print0 \
+                    | xargs -0 -n1 readlink -f \
+                    | sort >> "$playlist"
+                shift
+            done
+
+            mplayer -novideo -playlist "$playlist"
         )
+    }
+
+    :copy-line() {
+        head -n "$1" | tail -n 1 | copy-to-clipboard
+    }
+
+    :makefile:list() {
+        /bin/grep -Po '^[\w-\d]+(?=:)' Makefile
     }
 }
 
@@ -968,10 +985,15 @@ export WORDCHARS=-
     alias -g S='| sed-replace'
     alias -g J='| jq .'
     alias -g '#pe'='| :pacman:filter-executable'
+
+    alias -g '#t'='| :copy-line'
 }
 
 # :alias
 {
+    :alias 'ml' ':makefile:list'
+    :alias 'sl' 'rm -rf ~/.ssh/connections/*'
+    :alias 'pg' '() { pwgen $1 1 }'
     :alias 'sudo' 'sudo -E '
     :alias 'srcd' 'cd ~/sources/'
     :alias 'ol' ':mplayer:dir-audio'
@@ -990,7 +1012,7 @@ export WORDCHARS=-
     :alias 'sss' 'ssh -oStrictHostKeyChecking=no'
     :alias 'awf' '(){ audiowaveform -o "/tmp/$(basename "$1").png" -i "$1" -w 1920 -h 500 && catimg "/tmp/$(basename "$1").png" } '
     :alias 'rg' 'resolvconf-switch google'
-    :alias 'goc' 'journalctl --user -u gocode.service -f'
+    :alias 'goc' 'journalctl --user-unit gocode.service -f'
     :alias 'gocleanup' "find . -type d -name '*-pkgbuild' -exec rm -rf {} \;"
     :alias 'j' ':move'
     :alias 'k' 'task-project'
@@ -1036,7 +1058,7 @@ export WORDCHARS=-
 
     :alias 'h' 'ssh-enhanced'
 
-    :alias 'f' 'find-iname'
+    :alias 'f' ':find'
 
     :alias 'si' 'ssh-copy-id'
 
@@ -1053,8 +1075,6 @@ export WORDCHARS=-
     :alias 'rf' 'rm -rf'
     :alias 'ls' 'ls -lah --group-directories-first -v --color=always'
     :alias 'l' 'ls'
-    :alias 'sls' 'ls'
-    :alias 'sl' 'ls'
     :alias 'mp' 'mplayer -slave'
     :alias 'v' 'vim'
     :alias 'vi' 'vim'

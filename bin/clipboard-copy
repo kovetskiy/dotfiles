@@ -1,0 +1,5 @@
+#!/bin/bash
+
+data="$(sed -e :a -e '/^\n*$/{$d;N;};/\n$/ba')"
+
+echo -n "$data" | xsel --input --clipboard
