@@ -43,7 +43,7 @@ vim-ctrlp-ag 2f7545f
 vim-dispatch 5f5c22c
 vim-empty-lines b0ee3f8
 vim-gitgutter 402257f
-vim-go 362e15a
+vim-go 3806c4e
 vim-go-impl 3a68a75
 vim-hacks f423472
 vim-javascript a24f345
@@ -66,4 +66,4 @@ vim-surround e49d6c2
 vim-syntax-extra 28926b8
 vim-trailing-whitespace 733fb64
 ycm-sh d1f85f3
-YouCompleteMe ddf18cc6
+YouCompleteMe 44d4f1d2
