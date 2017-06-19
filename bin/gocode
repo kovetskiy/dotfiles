@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# * gocode-git
+# * youcompleteme must be installed with --gocode-completer
+
+:gocode() {
+    /usr/bin/gocode "${@}"
+}
+
+:remove-:remove-left-bracket() {
+    sed -r 's/^(func\s+.*)\(/\1/'
+}
+
+:gocode "${@}" | :remove-left-bracket
