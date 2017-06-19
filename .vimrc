@@ -66,18 +66,7 @@ Plug 'ctrlpvim/ctrlp.vim'
     nnoremap <C-B> :call _ctrlp_buffer()<CR>
 
     let g:ctrlp_working_path_mode='a'
-    let g:ctrlp_user_command = "find -L %s '(' " .
-            \ "-path '*test*' -o " .
-            \ "-path '*.git*' -o " .
-            \ "-path '*.obj' -o " .
-            \ "-path '*.xz' -o " .
-            \ "-path '*.o' -o " .
-            \ "-path '*.pyc' -o " .
-            \ "-path '*Debug/*' -o " .
-            \ "-path '*Release/*' -o " .
-            \ "-path '*go/pkg/*' -o " .
-            \ "-path '*__pycache__*' " .
-            \ "')' -prune -o -type f -printf '%%P\n'"
+    let g:ctrlp_user_command = 'ctrlp-search %s'
     let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:50'
     let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
 
