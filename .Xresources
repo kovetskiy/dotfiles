@@ -12,7 +12,7 @@ URxvt.keysym.Control-Right: \033[1;5C
 
 URxvt.perl-ext-common: autocomplete-ALL-the-things,clipboard,default,keyboard-select,url-select,fifo
 
-URxvt.clipboard.copycmd:  xsel --input  --clipboard
+URxvt.clipboard.copycmd:  clipboard-copy
 URxvt.clipboard.pastecmd: xsel --output --clipboard
 
 URxvt.keysym.M-C-f: perl:fifo:start
