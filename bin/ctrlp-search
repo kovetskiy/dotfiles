@@ -1,0 +1,13 @@
+#!/bin/bash
+
+:list() {
+    local dir=${1:-./}
+    ag "${dir}" -f -l --nocolor -g "" 2>/dev/null
+}
+
+:sort-by-extension() {
+    sort -t . --key=2 -rn
+}
+
+
+:list "$*" | :sort-by-extension
