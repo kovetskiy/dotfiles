@@ -110,6 +110,7 @@ for_window [title="^malder"]     floating enable
 for_window [title="android"]     floating disable
 for_window [title="^sxiv"]       floating disable
 for_window [title="Viewer"]      floating disable
+for_window [title="^Spreed"]     floating enable
 
 client.focused            #ffaf5f   #ffaf5f   #ffaf5f   #ffaf5f
 client.focused_inactive   #000000   #000000   #000000   #000000
