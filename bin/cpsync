@@ -1,0 +1,188 @@
+#!/bin/bash
+
+### cpsync - sync dotfiles using cp without symbolic links
+###
+### Usage:
+###     cpsync
+###     cpsync -h | --help
+###
+### Options:
+###     -h --help Show this screen.
+
+set -euo pipefail
+
+_submodules_as_dir=(".fonts" ".xkb")
+_submodules_as_home=("deadfiles")
+
+:main() {
+    local dir_home=${DIR_HOME:-${HOME}}
+    local dir_root="${DIR_ROOT:-/}"
+
+    local dir_src="${DIR_SRC:-}"
+    if [[ ! "${dir_src}" ]]; then
+        dir_src=$(readlink -f "$(pwd)")
+    fi
+
+    dir_src=$(readlink -f "${dir_src}")
+    dir_home=$(readlink -f "${dir_home}")
+    dir_root=$(readlink -f "${dir_root}")
+
+    :infof "Source: %s" "${dir_src}"
+    :infof "Home: %s" "${dir_home}"
+    :infof "Root: %s" "${dir_root}"
+
+    if ! :prompt "Do you want to proceed with following settings? [y/N]"; then
+        exit 1
+    fi
+
+    :sync
+}
+
+:prompt() {
+    printf "$(highlight bold)%s$(highlight reset): " "$1"
+    read answer
+    if [[ "$answer" == "y" ]]; then
+        return 0
+    fi
+
+    return 1
+}
+
+:sync() {
+    cd "${dir_src}"
+
+    local submodules=($(:get-submodules))
+
+    :ls-files | while read filename; do
+        local basedir="${filename//\/*/}"
+        if [[ "$basedir" == "rootfs" ]]; then
+            continue
+        else
+            if ! :in-array "$basedir" "${submodules[@]}"; then
+                :copy "${filename}" "${dir_src}" "${dir_home}"
+            fi
+        fi
+    done
+
+    for _submodule in "${_submodules_as_dir[@]}"; do
+        cd "${dir_src}/${_submodule}"
+
+        :ls-files | while read filename; do
+            :copy \
+                "${filename}" \
+                "${dir_src}/${_submodule}" \
+                "${dir_home}/${_submodule}"
+        done
+    done
+
+    for _submodule in "${_submodules_as_home[@]}"; do
+        cd "${dir_src}/${_submodule}"
+
+        :ls-files | while read filename; do
+            :copy \
+                "${filename}" \
+                "${dir_src}/${_submodule}" \
+                "${dir_home}"
+        done
+    done
+
+    :ls-files rootfs | while read filename; do
+        filename="${filename/rootfs/}"
+        :copy "${filename}" "${dir_src}/rootfs" "${dir_root}"
+    done
+}
+
+:copy() {
+    local filename="$1"
+    local dir_from="$2"
+    local dir_to="$3"
+
+    local dir="$(dirname "$filename")"
+    if [[ ! -d "${dir_to}/${dir}" ]]; then
+        :mkdir "${dir_to}" "${dir}"
+    fi
+
+    if [[ -f "${dir_to}/${filename}" ]]; then
+        local hash_src=$(:hash "${dir_from}/${filename}")
+        local hash_dst=$(:hash "${dir_to}/${filename}")
+
+        if [[ "${hash_src}" == "${hash_dst}" ]]; then
+            return 0
+        fi
+    fi
+
+    :cp \
+        "${filename}" \
+        "${dir_from}/${filename}" \
+        "${dir_to}/${filename}"
+}
+
+:mkdir() {
+    local where="$1"
+    local target="$2"
+
+    :debugf "mkdir ${target}"
+
+    mkdir -p "${where}/${target}"
+}
+
+:cp() {
+    local filename="$1"
+    local src="$2"
+    local dst="$3"
+
+    :debugf "copy %s :: %s -> %s" "${filename}" "${src}" "${dst}"
+
+    cp "$src" "$dst"
+}
+
+:ls-files() {
+    git ls-files "${@}"
+}
+
+:get-submodules() {
+    git submodule foreach --quiet 'echo $path'
+}
+
+:in-array() {
+    local target=$1
+    shift
+
+    for item in "${@}"; do
+        if [[ "$item" == "$target" ]]; then
+            return 0
+        fi
+    done
+
+    return 1
+}
+
+:hash() {
+    local data=($(sha512sum "${filename}"))
+
+    echo "${data[1]}"
+}
+
+:infof() {
+    local format="$1"
+    shift
+
+    printf "$(highlight bold)$format$(highlight reset)\n" "$@"
+}
+
+:debugf() {
+    local format="$1"
+    shift
+
+    printf " ${format}\n" "$@"
+}
+
+:help() {
+    sed -rn 's/^### ?//;T;p' "$0"
+}
+
+:log() {
+    echo "$*" >&2
+}
+
+:main "$@"
