@@ -1,3 +1,0 @@
-set jid = {{ .Mcabber.Jid }}
-set password = {{ .Mcabber.Password }}
-set server = {{ .Mcabber.Server }}
