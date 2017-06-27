@@ -16,7 +16,7 @@ xcompmgr &
 
 (
     if [[ -f ~/wallpaper.jpg ]]; then
-        feh --bg-scal wallpaper.jpg
+        feh --bg-scale ~/wallpaper.jpg
     fi
 ) &
 

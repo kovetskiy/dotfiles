@@ -3,11 +3,6 @@
 	url = git@github.com:seletskiy/monaco-font
 	branch = master
 	ignore = all
-[submodule "deadcrew/deadandroid"]
-	path = deadandroid
-	url = git@github.com:deadcrew/master-of-android
-	branch = master
-	ignore = all
 [submodule "reconquest/rex"]
 	path = .xkb
 	url = git@github.com:reconquest/rex
@@ -16,15 +11,5 @@
 [submodule "deadcrew/deadfiles"]
 	path = deadfiles
 	url = git@github.com:deadcrew/deadfiles
-	branch = master
-	ignore = all
-[submodule "reconquest/snippets"]
-	path = .vim/bundle/snippets
-	url = git@github.com:reconquest/snippets
-	branch = master
-	ignore = all
-[submodule "reconquest/vim-pythonx"]
-	path = .vim/bundle/vim-pythonx
-	url = git@github.com:reconquest/vim-pythonx
 	branch = master
 	ignore = all
