@@ -12,7 +12,7 @@ export BROWSER="$HOME/bin/browser"
 
 export GOROOT=""
 export GOPATH="$HOME/go"
-export RUBYPATH=$(/bin/ruby -e 'print Gem.user_dir')
+export RUBYPATH=$(/bin/ruby -e 'print Gem.user_dir')/bin
 export DISPLAY=":0"
 
 BIN=(

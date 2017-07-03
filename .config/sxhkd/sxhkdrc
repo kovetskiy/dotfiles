@@ -1,5 +1,5 @@
 super + Return
-	marvex -s -c
+	marvex -s -c || urxvt
 
 super + r
 	modal-run
