@@ -2,7 +2,7 @@
 
 zfs-snapshot
 
-src_dir=$(readlink -f root)
+src_dir=$(readlink -f rootfs)
 dest_dir="/"
 
 for src_file in `find $src_dir | tail -n +2`; do
