@@ -1,2 +1,1 @@
-Server = http://repo.s/arch-mirror/mirror/$repo/os/$arch
 Server = https://mirror.yandex.ru/archlinux/$repo/os/$arch
