@@ -5,6 +5,7 @@ set -euo pipefail
 DISK=$HOME/dataset/steam-ext4
 TARGET=/mnt/steam-ext4
 if ! findmnt $TARGET &>/dev/null; then
+    sudo mkdir -p $TARGET
     sudo mount $DISK $TARGET
 fi
 
