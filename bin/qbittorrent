@@ -4,6 +4,9 @@ set -x
 
 conf=~/.config/qBittorrent/qBittorrent.conf
 
+# qbittorrent constants
+_qbittorrent_proxy_type_socks5=2
+
 :set-proxy() {
     local username="$1"
     local password="$2"
@@ -15,11 +18,23 @@ conf=~/.config/qBittorrent/qBittorrent.conf
         local type=0
     fi
 
+    echo "$(highlight bg red bold)Setting up SOCKS5 $ip:$port ($username)$(highlight reset)"
+
     sed -r \
         -e 's/Connection\\Proxy\\IP\=.*/Connection\\Proxy\\IP='$ip'/' \
         -e 's/Connection\\Proxy\\Port\=.*/Connection\\Proxy\\Port='$port'/' \
         -e 's/Connection\\Proxy\\Username\=.*/Connection\\Proxy\\Username='$username'/' \
         -e 's/Connection\\Proxy\\Password\=.*/Connection\\Proxy\\Password='$password'/' \
+        -e 's/Connection\\ProxyType\=.*/Connection\\ProxyType='$type'/' \
+        -i $conf
+}
+
+:set-noproxy() {
+    sed -r \
+        -e 's/Connection\\Proxy\\IP\=.*/Connection\\Proxy\\IP=/' \
+        -e 's/Connection\\Proxy\\Port\=.*/Connection\\Proxy\\Port=/' \
+        -e 's/Connection\\Proxy\\Username\=.*/Connection\\Proxy\\Username=/' \
+        -e 's/Connection\\Proxy\\Password\=.*/Connection\\Proxy\\Password=/' \
         -e 's/Connection\\ProxyType\=.*/Connection\\ProxyType=0/' \
         -i $conf
 }
@@ -27,12 +42,17 @@ conf=~/.config/qBittorrent/qBittorrent.conf
 :main() {
     if [[ "${1:-}" ]]; then
         local auth=($(cat ~/.config/openvpn/auth))
-        :set-proxy "${auth[0]}" "${auth[1]}" "${1}" "1080"
+        :set-proxy \
+            "${auth[0]}" \
+            "${auth[1]}" \
+            "${1}" \
+            "1080" \
+            "${_qbittorrent_proxy_type_socks5}"
     else
-        :set-proxy "" "" "" ""
+        :set-noproxy
     fi
 
-    /usr/bin/qbittorrent
+    /usr/bin/qbittorrent &
 }
 
 :main "${@}"
