@@ -1,0 +1,5 @@
+#!/bin/bash
+
+URL="http://10.0.0.1/cgi-bin/sysconf.cgi?page=ajax.asp&action=get_status"
+
+curl -s "$URL"

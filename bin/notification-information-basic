@@ -4,6 +4,10 @@
     notify-send.sh -r 1000 -t 1000 " " -- "$*"
 }
 
+:body-append() {
+    body="${body}${endl}${@}"
+}
+
 :main() {
     local datetime=""
     local battery=""
@@ -18,22 +22,30 @@
         | sed -r 's/ remaining//'
     )
 
-    body="${datetime}${endl}"
-    body="${body}${battery}"
+    body="${datetime}"
+    :body-append "${battery}"
 
     :notify "$body"
+
+    local yota_status="$(yota-status)"
+    if [[ "$yota_status" ]]; then
+        :body-append "$yota_status"
+
+        :notify "$body"
+    fi
 
     local location=$(my-location)
     if [[ "$location" ]]; then
         location=($location)
         if [[ "${location[0]}" == "${location[1]}" ]]; then
-            body="${body}${endl}${location[0]}"
+            :body-append "${location[0]}"
         else
-            body="$body${endl}${location[0]}: ${location[1]}"
+            :body-append "${location[0]}: ${location[1]}"
         fi
+
+        :notify "$body"
     fi
 
-    :notify "$body"
 }
 
 :main "${@}"

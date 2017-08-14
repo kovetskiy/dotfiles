@@ -24,6 +24,7 @@ rename.vim f133763
 rust.vim 732b5fc
 SearchParty 48dbaa9
 sideways.vim f867b1a
+snippets d4d41d6
 sxhkd-vim b0abc9e
 synta cd0130e
 syntastic 40ac6c46
@@ -57,6 +58,7 @@ vimperator.vim 7223609
 vim-plugvim-utils c59a498
 vim-pug 84295c0
 vim-python-pep8-indent 8b215aa
+vim-pythonx d92291d
 vim-session 9e9a608
 vim-signature 7e13913
 vim-simple-todo 1429e67

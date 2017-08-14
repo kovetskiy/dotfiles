@@ -1,0 +1,56 @@
+#!/bin/bash
+
+### yota-status - status of yota modem
+###
+### Usage:
+###     yota-status
+###     yota-status -h | --help
+###
+### Options:
+###     -h --help   Show this screen.
+
+set -euo pipefail
+
+:main() {
+    if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+        :help
+        exit 0
+    fi
+
+    local params="$(yota-params)"
+
+    local ratio_sinr=$(:extract-param "$params" "3GPP.SINR")
+    local ratio_rsrp=$(:extract-param "$params" "3GPP.RSRP")
+    echo "SINR/RSRP (dB): ${ratio_sinr} / ${ratio_rsrp}"
+
+    local speed_downlink=$(:extract-param "$params" "CurDownlinkThroughput")
+    local speed_uplink=$(:extract-param "$params" "CurUplinkThroughput")
+
+    speed_downlink=$(:bc "$speed_downlink / 1024")
+    speed_uplink=$(:bc "$speed_uplink / 1024")
+
+    echo "DL/UL (Mbps): ${speed_downlink} / ${speed_uplink}"
+}
+
+:bc() {
+    bc <<BC
+scale=2
+$@
+BC
+}
+:extract-param() {
+    local params="$1"
+    local name="$2"
+
+    grep -F "$name=" <<< "$params" | cut -d'=' -f2
+}
+
+:help() {
+    sed -rn 's/^### ?//;T;p' "$0"
+}
+
+:log() {
+    echo "$*" >&2
+}
+
+:main "$@"
