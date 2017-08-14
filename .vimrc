@@ -488,7 +488,7 @@ Plug 'lokikl/vim-ctrlp-ag'
 
 Plug 'chrisbra/Recover.vim'
 
-Plug 'kovetskiy/vim-bash', {'for': 'sh'}
+Plug 'kovetskiy/vim-bash'
     nmap gd <C-]>
 
     func! _tags_sh()
@@ -792,8 +792,8 @@ nnoremap <Leader>vs :vsp<CR>
 nnoremap <Leader>e :e!<CR>
 
 nnoremap <Leader>q <ESC>:q<CR>
-nnoremap <Leader>; :w<CR>
-inoremap <Leader>; <ESC>:w<CR>a
+nnoremap <C-X> :w<CR>
+inoremap <C-X> <ESC>:w<CR>a
 
 nnoremap <Leader>n <ESC>:bdelete!<CR>
 nnoremap <Leader>q <ESC>:qa!<CR>
