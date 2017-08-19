@@ -1,20 +1,27 @@
 #!/bin/bash
 
-which zfs >/dev/null
+which zfs &>/dev/null
 if [ $? -ne 0 ]; then
     exit 0
 fi
 
-set -e -u
+set -euo pipefail
 
-echo "[zfs] creating snapshot"
+:log() {
+    printf "$(highlight bold)» zfs: %s$(highlight reset)\n" "$*"
+}
 
-pool="zroot"
-slug="`date | sed 's/  / /g; s/ /_/g; s/\+//g;'`"
-snapshot="$pool@$slug"
+:main() {
+    local pool
+    local snapshot
 
-sudo zfs snapshot $snapshot
+    pool="zroot"
+    snapshot="$pool@$(datename)"
 
-echo "[zfs] snapshot $snapshot has been created"
+    :log "creating snapshot $snapshot"
+    sudo zfs snapshot $snapshot
 
-zfs-destroy-old-snapshots
+    zfs-destroy-old-snapshots
+}
+
+:main "${@}"
