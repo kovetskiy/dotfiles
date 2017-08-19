@@ -17,7 +17,8 @@ set -euo pipefail
         exit 0
     fi
 
-    local params="$(yota-params)"
+    local params
+    params="$(yota-params)"
 
     local ratio_sinr=$(:extract-param "$params" "3GPP.SINR")
     local ratio_rsrp=$(:extract-param "$params" "3GPP.RSRP")

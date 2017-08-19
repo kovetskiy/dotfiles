@@ -1,5 +1,5 @@
 #!/bin/bash
 
-URL="http://10.0.0.1/cgi-bin/sysconf.cgi?page=ajax.asp&action=get_status"
+URL="http://10.0.0.1/status/"
 
-curl -s "$URL"
+exec curl --connect-timeout 0.05 --fail -s "$URL"
