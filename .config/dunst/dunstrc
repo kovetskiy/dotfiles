@@ -11,7 +11,7 @@
     ignore_newline = no
     # 46: skip numbers in vim from left
     # 40: skip few lines from top
-    geometry = "300x50+46-50"
+    geometry = "290x50+46-50"
     transparency = 0
     idle_threshold = 0
     follow = keyboard
@@ -19,7 +19,7 @@
     line_height = 4
     separator_height = 1
     padding = 6
-    horizontal_padding = 8
+    horizontal_padding = 6
     separator_color = frame
     startup_notification = false
     dmenu = /usr/bin/dmenu -p dunst:
