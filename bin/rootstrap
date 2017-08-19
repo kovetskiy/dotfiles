@@ -2,35 +2,69 @@
 
 zfs-snapshot
 
-src_dir=$(readlink -f rootfs)
-dest_dir="/"
+:indent() {
+    sed -r 's/^/    /'
+}
 
-for src_file in `find $src_dir | tail -n +2`; do
-    dest_file=$dest_dir$(sed "s@$src_dir/@@g" <<< "$src_file")
+:get-rootfs-files() {
+    (
+        cd $src_dir
+        find ./ -type f -printf '%P\n'
+    )
+}
 
-    if [[ $dest_file == *.git* ]]; then
-        continue
+:log-header() {
+    printf "$(highlight bold)» %s$(highlight reset)\n" "$*"
+}
+
+:process-file() {
+    local filename="$1"
+
+    if [[ $filename == *.git* ]]; then
+        return 0
     fi
 
-    if [[ $dest_file == *README.* ]]; then
-        continue
+    if [[ $filename == *README.* ]]; then
+        return 0
     fi
 
-    mkdir -p "$(dirname "$dest_file")"
-    if test -f "$src_file"; then
-        copy=1
-        if [[ "$1" != "-f" ]]; then
-            if test -f "$dest_file"; then
-                diff -u "$dest_file" "$src_file"
-                if [ $? -ne 0 ]; then
-                    copy=0
-                fi
+    local dst_file="${dst_dir}${filename}"
+    local src_file="${src_dir}${filename}"
+
+    copy=true
+    if ! $force; then
+        if test -f "$dst_file"; then
+            local diff=$(diff -u "$dst_file" "$src_file")
+            if [[ "$diff" ]]; then
+                :log-header "DIFF $dst_file"
+                :indent <<< "$diff"
+                copy=false
             fi
         fi
-
-        if [ $copy == 1 ]; then
-            echo cp "$src_file" "$dest_file"
-            sudo cp -ruT $src_file $dest_file
-        fi
     fi
-done
+
+    if $copy; then
+        :log-header "COPY $dst_file"
+        sudo mkdir -p "$(dirname "$dst_file")"
+        sudo cp -rT "$src_file" "$dst_file"
+    fi
+}
+
+:main() {
+    local force=false
+    if [[ "${1:-}" == "-f" || "${1:-}" == "--force" ]]; then
+        force=true
+    fi
+
+    local src_dir
+    local dst_dir
+
+    src_dir=~/dotfiles/rootfs/
+    dst_dir="/"
+
+    :get-rootfs-files | while read filename; do
+        :process-file "$filename";
+    done
+}
+
+:main "${@}"
