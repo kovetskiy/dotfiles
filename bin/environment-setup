@@ -2,8 +2,7 @@
 
 xkb
 
-#autorandr --change
-external-monitor >> /tmp/exm
+autorandr --change
 
 amixer -c 0 cset 'numid=10' 1 &>/dev/null
 
