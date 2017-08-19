@@ -20,4 +20,6 @@ xcompmgr &
     fi
 ) &
 
+screen-lock &
+
 i3
