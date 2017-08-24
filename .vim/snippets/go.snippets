@@ -207,37 +207,37 @@ func errorln(value interface{}) {
 }
 
 func fatalh(err error, format string, args ...interface{}) {
-	logger.Fatal(ser.Errorf(err, format, args...))
+	logger.Fatal(hierr.Errorf(err, format, args...))
 }
 
 func warningh(err error, format string, args ...interface{}) {
-	logger.Warning(ser.Errorf(err, format, args...))
+	logger.Warning(hierr.Errorf(err, format, args...))
 }
 
 func errorh(err error, format string, args ...interface{}) {
-	logger.Error(ser.Errorf(err, format, args...))
+	logger.Error(hierr.Errorf(err, format, args...))
 }
 endsnippet
 
-# ser.Errorf
+# hierr.Errorf
 snippet hh "" wA
-ser.Errorf(
+hierr.Errorf(
     ${1:err}, "$2",
 )$0
 endsnippet
 
 snippet hp "" w
-ser.Push(
-    ser.Errorf(
+hierr.Push(
+    hierr.Errorf(
         $1,$2
     ),
     $3,
 )
 endsnippet
 
-# ser.Fatalf
+# hierr.Fatalf
 snippet hf "" wA
-ser.Fatalf(
+hierr.Fatalf(
     ${1:err}, $2,
 )$0
 endsnippet
@@ -349,7 +349,7 @@ snippet xli "" w
 func listen(address string, router *gin.Engine) error {
 	addr, err := net.ResolveTCPAddr("tcp", address)
 	if err != nil {
-		return ser.Errorf(
+		return hierr.Errorf(
 			err,
 			"can't resolve '%s'", address,
 		)
@@ -357,7 +357,7 @@ func listen(address string, router *gin.Engine) error {
 
 	socket, err := net.ListenTCP("tcp", addr)
 	if err != nil {
-		return ser.Errorf(
+		return hierr.Errorf(
 			err,
 			"can't listen '%s'", addr,
 		)
