@@ -21,5 +21,17 @@
     insteadOf = git@github.com/me/
 [url "git@github.com:"]
     insteadOf = gh:
+[url "git@github.com:"]
+    insteadOf = git+ssh://github.com/
+    insteadOf = git://github.com/
+    insteadOf = ssh://github.com/
+    insteadOf = ssh://git@github.com/
+    insteadOf = https://github.com/
+[url "kovetskiy@bitbucket.org:"]
+    insteadOf = git+ssh://bitbucket.org/
+    insteadOf = git://bitbucket.org/
+    insteadOf = ssh://bitbucket.org/
+    insteadOf = ssh://git@bitbucket.org/
+    insteadOf = https://bitbucket.org/
 [http]
 	cookiefile = /home/operator/.gitcookies
