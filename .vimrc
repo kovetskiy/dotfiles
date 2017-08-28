@@ -560,7 +560,7 @@ Plug 'brooth/far.vim'
 augroup end
 call plug#end()
 
-au VimEnter * doautocmd User plugins_loaded
+"au VimEnter * doautocmd User plugins_loaded
 au VimEnter * au! plugvim
 
 set rtp-=~/.vim
