@@ -1,4 +1,7 @@
 super + Return
+	marvex -s -c || urxvt
+
+super + shift + Return
 	marvex -m -c || urxvt
 
 super + r
