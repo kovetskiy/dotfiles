@@ -838,18 +838,20 @@ inoremap <C-H> <C-O>o
 
 imap <C-U> <ESC>ua
 
-au BufRead,BufNewFile ~/.zshrc set ft=zsh.sh
-au BufRead,BufNewFile *.zsh    set ft=zsh.sh
+au operations BufRead,BufNewFile ~/.zshrc set ft=zsh.sh
+au operations BufRead,BufNewFile *.zsh    set ft=zsh.sh
 
-au BufRead,BufNewFile *.service set noet ft=systemd
-au BufRead,BufNewFile PKGBUILD set et ft=pkgbuild.sh
-au BufRead incident.md set et ft=incident.markdown
-au BufNewFile incident.md set et ft=incident|Skeleton|set ft=incident.markdown
+au operations BufRead,BufNewFile *.service set noet ft=systemd
+au operations BufRead,BufNewFile PKGBUILD set et ft=pkgbuild.sh
+au operations BufRead incident.md set et ft=incident.markdown
+au operations BufNewFile incident.md set et ft=incident|Skeleton|set ft=incident.markdown
 
-au BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.sh
+au operations BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.sh
 
-au BufRead,BufNewFile *.snippets set noet ft=snippets.python
-au BufRead,BufNewFile *.skeleton set noet ft=snippets.python
+au operations BufRead,BufNewFile *.snippets set noet ft=snippets.python
+au operations BufRead,BufNewFile *.skeleton set noet ft=snippets.python
+
+au operations WinEnter * wincmd =
 
 nmap <Tab> /
 nmap K :s///g<CR><C-O>i
