@@ -36,6 +36,7 @@ urxvt.vim b986053
 vim-airline f4caf59
 vim-airline-themes 08c76e4
 vim-argwrap 75f5bb7
+vim-autoresize 
 vim-autosurround 316819c
 vim-bash 992d8e5
 vim-colorscheme cebaaa3

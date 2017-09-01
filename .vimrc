@@ -557,6 +557,8 @@ Plug 'brooth/far.vim'
     nmap <Leader>f :Farp<CR>
     au operations FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
 
+Plug 'kovetskiy/vim-autoresize'
+
 augroup end
 call plug#end()
 
