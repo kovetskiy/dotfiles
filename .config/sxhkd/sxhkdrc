@@ -1,8 +1,8 @@
 super + Return
-	marvex -s -c || urxvt
+	marvex -s -c --quiet || urxvt
 
 super + shift + Return
-	marvex -m -c || urxvt
+	marvex -m -c --quiet || urxvt
 
 super + r
 	modal-run

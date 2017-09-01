@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 conf=~/.config/qBittorrent/qBittorrent.conf
 
 # qbittorrent constants
