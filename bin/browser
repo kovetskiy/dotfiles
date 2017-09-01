@@ -1,16 +1,36 @@
 #!/bin/bash
 
-URL=$(sed -r 's#^(git+ssh|ssh|git)://(\w+@)?##' <<< "$1")
-shift
+browsers=("google-chrome-stable")
 
-if pgrep -f "firefox-beta" &>/dev/null; then
-    UNIT="firefox-beta"
-else
-    UNIT="google-chrome-stable"
+url=$(sed -r 's#^(git+ssh|ssh|git)://(\w+@)?##' <<< "$1")
+params="${@:2}"
+
+scheme=$(grep -Po '^\w+://' <<< "$url")
+if [[ "$scheme" != "http://"
+   && "$scheme" != "https://"
+   && "$scheme" != "ftp://"
+   && "$scheme" != "" ]]; then
+    notify-send "URL" "$url"
+
+    exit
 fi
 
-if [[ "$UNIT" == "firefox" ]]; then
-    exec firefox --noerrdialogs --disable-infobars "$URL" "$@"
-else
-    exec "$UNIT" "$URL" "$@"
-fi
+:open() {
+    local browser="$1"
+
+    systemd-cat -t "browser" <<< "${browser} ${url} ${params[@]}"
+
+    if [[ "$browser" == "firefox" ]]; then
+        exec firefox --noerrdialogs --disable-infobars "$url" "${params[@}]}"
+    else
+        exec "$browser" "$url" "${params[@]}"
+    fi
+}
+
+for browser in ${browsers[@]}; do
+    if pgrep -f "$browser"; then
+        echo :open "$browser"
+    fi
+done
+
+:open "${browsers[0]}"
