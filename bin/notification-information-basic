@@ -8,7 +8,6 @@
     local section="$1"
     local content="$2"
 
-    set -x
     if [[ "${body:-}" ]]; then
         local endl=$'\n'
         body="${body}${endl}"
@@ -19,8 +18,8 @@
     )"
 }
 
-:get-section-date() {
-    date +'%T %d-%m-%Y %a'
+:get-section-time() {
+    TZ=${1:-} date +'%T %d-%m-%Y %a'
 }
 
 :get-section-battery() {
@@ -28,7 +27,10 @@
         | sed -r \
             -e 's/Battery [0-9]:\s*//' \
             -e 's/ until charged//' \
-            -e 's/ remaining//'
+            -e 's/ remaining//' \
+            -e 's/Discharging,/↓/' \
+            -e 's/Charging,/↑/' \
+            -e 's/,//'
 }
 
 :get-section-memory() {
@@ -47,7 +49,8 @@
     local battery=""
     local body=""
 
-    :body-append "DATE" "$(:get-section-date)"
+    :body-append "TIME MSK" "$(:get-section-time Europe/Moscow)"
+    :body-append "TIME PST" "$(:get-section-time PST8PDT)"
     :body-append "MEMORY" "$(:get-section-memory)"
     :body-append "CPU" "$(:get-section-cpu)"
     :body-append "BATTERY" "$(:get-section-battery)"
