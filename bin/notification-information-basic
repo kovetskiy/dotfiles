@@ -57,18 +57,20 @@
 
     :notify "$body"
 
-    local location=$(my-location)
-    if [[ "$location" ]]; then
-        location=($location)
-        if [[ "${location[0]}" == "${location[1]}" ]]; then
-            location="${location[0]}"
-        else
-            location="${location[0]}: ${location[1]}"
+    if pidof openvpn || pidof tor; then
+        local location=$(my-location)
+        if [[ "$location" ]]; then
+            location=($location)
+            if [[ "${location[0]}" == "${location[1]}" ]]; then
+                location="${location[0]}"
+            else
+                location="${location[0]}: ${location[1]}"
+            fi
+
+            :body-append "GEO" "$location"
+
+            :notify "$body"
         fi
-
-        :body-append "GEO" "$location"
-
-        :notify "$body"
     fi
 
 }
