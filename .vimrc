@@ -444,6 +444,7 @@ Plug 'klen/python-mode', {'for': 'python'}
     let g:pymode_run = 0
     let g:pymode_rope_lookup_project = 0
     let g:pymode_rope_project_root = $HOME . '/ropeproject/'
+    let g:pymode_folding = 0
 
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
