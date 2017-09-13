@@ -5,7 +5,7 @@ flock 200
 
 if [ "$(cat ~/.config/profile)" == "laptop" ]; then
     dir=/sys/class/backlight/intel_backlight
-    step=50
+    step=100
 else
     dir=/sys/class/backlight/acpi_video0
     step=1
@@ -14,10 +14,18 @@ fi
 path=$dir/brightness
 value=$(cat $path)
 
+:notify() {
+    notify-send.sh -r 2000 "brightness" "${1}"
+}
+
 if [ $# -eq 0 ]; then
 	echo $value
 elif [ $1 == "up" ]; then
-	echo $(($value+$step)) | sudo tee $dir/brightness
+    new_value=$(($value+$step))
+	echo "$new_value" | sudo tee $dir/brightness
+    :notify "$new_value"
 elif [ $1 == "down" ]; then
-	echo $(($value-$step)) | sudo tee $dir/brightness
+    new_value=$(($value-$step))
+	echo "$new_value" | sudo tee $dir/brightness
+    :notify "$new_value"
 fi
