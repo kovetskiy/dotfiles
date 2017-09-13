@@ -49,7 +49,10 @@ args["$1"].($2)
 endsnippet
 
 snippet dcp "docopt" w
-args := godocs.MustParse(usage, version, godocs.UsePager)
+args, err := docopt.Parse(usage, nil, true, version, false,)
+if err != nil {
+	panic(err)
+}
 endsnippet
 
 snippet f "false" w
@@ -135,14 +138,14 @@ var (
 $2
 
 Usage:
-    $1 [options]
-    $1 -h | --help
-    $1 --version
+  $1 [options]
+  $1 -h | --help
+  $1 --version
 
 Options:
-    $3
-    -h --help		Show this screen.
-    --version       Show version.
+  $3
+  -h --help		Show this screen.
+  --version       Show version.
 \`
 )
 endsnippet

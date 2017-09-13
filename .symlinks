@@ -25,9 +25,7 @@ bin
 .tmux.conf
 .toprc
 .urxvt
-.vim/bundle/snippets
 .vim/bundle/versions.vim
-.vim/bundle/vim-pythonx
 .vim/hacks
 .vimperator
 .vimperatorrc

@@ -65,7 +65,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 
     nnoremap <C-B> :call _ctrlp_buffer()<CR>
 
-    let g:ctrlp_working_path_mode='a'
+    let g:ctrlp_working_path_mode='ra'
     let g:ctrlp_user_command = 'ctrlp-search %s'
     let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:50'
     let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
@@ -472,6 +472,11 @@ Plug 'lokikl/vim-ctrlp-ag'
         call fzf#vim#ag(a:query, fzf#vim#layout(0))
     endfunc!
 
+    func! _grep_word()
+        let l:word = expand('<cword>')
+        call _grep(l:word)
+    endfunc!
+
     func! _grep_slash()
         let l:slash = strpart(@/, 2)
         call _grep(l:slash)
@@ -484,7 +489,7 @@ Plug 'lokikl/vim-ctrlp-ag'
     command! -nargs=* Grep call _grep(<q-args>)
 
     nnoremap <C-F> :Grep<CR>
-    nnoremap <C-E><C-F> :call _grep_slash()<CR>
+    nnoremap <C-E><C-F> :call _grep_word()<CR>
     nnoremap <C-G> :call _grep_recover()<CR>
 
 Plug 'chrisbra/Recover.vim'
@@ -765,7 +770,6 @@ vmap <C-F> ctx<TAB>
 imap <C-D> context.
 
 nnoremap <C-E><C-D> :cd %:p:h<CR>:pwd<CR>
-nnoremap <C-E><C-F> :lcd %:p:h<CR>:pwd<CR>
 
 nnoremap <Leader>o o<ESC>
 nnoremap <Leader>O O<ESC>
