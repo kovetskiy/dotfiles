@@ -29,6 +29,7 @@
             -e 's/ until charged//' \
             -e 's/ remaining//' \
             -e 's/Discharging,/↓/' \
+            -e 's/Full,/✓/' \
             -e 's/Charging,/↑/' \
             -e 's/,//'
 }
