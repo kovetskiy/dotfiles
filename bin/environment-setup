@@ -16,11 +16,10 @@ fi
 
 amixer -c 0 cset 'numid=10' 1 &>/dev/null
 
-sudo killall -9 keynav
-keynav
-
 sudo killall -9 clipboard-sync
 sudo clipboard-sync &
+
+systemctl --user restart keynav
 
 xset dpms 0 0 0
 xset s off
