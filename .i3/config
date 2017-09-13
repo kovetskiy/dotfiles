@@ -13,6 +13,7 @@ floating_modifier $alt
 bindsym $alt+Shift+r restart
 
 bindsym Shift+BackSpace exec window-kill-focused
+bindsym $alt+Ctrl+q kill
 
 bindsym $alt+Escape floating toggle
 
@@ -61,7 +62,7 @@ bindsym $win+Shift+h split horizontal
 # Sometimes I need to resize browser when
 # reading articles on sites without text width
 bindsym $win+Ctrl+h resize shrink width 40 px or 2 ppt; exec "window-centralize"
-bindsym $win+Ctrl+l resize grow width 40 px or 2 ppt; exec "window-centralize"
+#bindsym $win+Ctrl+l resize grow width 40 px or 2 ppt; exec "window-centralize"
 
 bindsym $alt+Ctrl+r mode "resize"
 
