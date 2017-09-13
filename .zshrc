@@ -17,15 +17,29 @@ export WORDCHARS=-
         'helper' \
         'environment' \
         'terminal' \
-        'editor' \
         'history' \
         'directory' \
         'completion' \
-        'history-substring-search' \
         'git'
 
     zstyle ':prezto:module:editor' key-bindings 'vi'
     zstyle ':completion:*' rehash true
+}
+
+# :zle
+{
+    zle() {
+        if [[ "$1" == "-R" || "$1" == "-U" ]]; then
+            unset -f zle
+
+            compinit
+
+            :plugins:load
+            :compdef:load
+        fi
+
+        builtin zle "${@}"
+    }
 }
 
 # :zgen
@@ -38,22 +52,35 @@ export WORDCHARS=-
         ln -sfT ~/.zgen/sorin-ionescu/prezto-master ~/.zprezto
     fi
 
-    source ~/.zgen/zgen.zsh
 
     AUTOPAIR_INHIBIT_INIT=1
+
+    source ~/.zgen/zgen.zsh
+
+    compinit
 
     if ! zgen saved; then
         zgen load seletskiy/zsh-zgen-compinit-tweak
 
         zgen load sorin-ionescu/prezto
 
+        zgen load seletskiy/zsh-prompt-lambda17
+
+        zgen load mafredri/zsh-async
+
+
+        zgen save
+    fi
+}
+
+{
+    :plugins:load() {
         zgen load kovetskiy/zsh-quotes
         zgen load kovetskiy/zsh-add-params
         zgen load kovetskiy/zsh-fastcd
         zgen load kovetskiy/zsh-smart-ssh
         zgen load kovetskiy/zsh-insert-dot-dot-slash
 
-        zgen load seletskiy/zsh-prompt-lambda17
         zgen load seletskiy/zsh-ssh-urxvt
         zgen load seletskiy/zsh-hash-aliases
 
@@ -63,23 +90,35 @@ export WORDCHARS=-
         zgen load seletskiy/zsh-smart-kill-word
 
         zgen load hlissner/zsh-autopair autopair.zsh
-        zgen load mafredri/zsh-async
         zgen load seletskiy/zsh-fuzzy-search-and-edit
         zgen load Tarrasch/zsh-bd
 
-        #zgen load brnv/zsh-too-long
-
-        zgen load seletskiy/zsh-autosuggestions
         zgen load kovetskiy/zsh-alias-search
-        #zgen load seletskiy/zsh-syntax-highlighting
-        #zgen load hchbaw/auto-fu.zsh
+
+        zgen load seletskiy/zsh-syntax-highlighting
+
+        zgen load zsh-users/zsh-history-substring-search
 
         zgen oh-my-zsh plugins/sudo
 
-        ZGEN_AUTOLOAD_COMPINIT="-d $ZGEN_DIR/zcompdump"
-        zgen save
-    fi
+        zgen load seletskiy/zsh-autosuggestions
+
+        hash-aliases:install
+        autopair-init
+    }
 }
+
+{
+    :compdef:load() {
+        compdef :process:kill=pkill
+        compdef github-browse=ls
+        compdef man-directive=man
+        compdef vim-which=which
+        compdef smash=ssh
+        compdef guess=which
+    }
+}
+
 
 {
     if [[ "$BACKGROUND" == "light" ]]; then
@@ -109,10 +148,10 @@ export WORDCHARS=-
     bindkey -v "^R" fzf-history-widget
     bindkey -v "^[[A" history-substring-search-up
     bindkey -v "^[[B" history-substring-search-down
-    bindkey -v "^[[7~" beginning-of-line
+    bindkey -v "^[[1~" beginning-of-line
     bindkey -v "^A" beginning-of-line
     bindkey -v "^Q" push-line
-    bindkey -v "^[[8~" end-of-line
+    bindkey -v "^[[4~" end-of-line
     bindkey -v '^?' backward-delete-char
     bindkey -v '^H' backward-delete-char
     bindkey -v '^[[3~' delete-char
@@ -160,7 +199,7 @@ export WORDCHARS=-
     zstyle 'lambda17:05-sign' text "$"
     zstyle 'lambda17>00-root>00-main>00-status>10-dir' 15-pwd :prompt-pwd
     # uncomment if got troubles with async
-    # zstyle -d 'lambda17::async' pre-draw
+    zstyle -d 'lambda17::async' pre-draw
 
     zstyle 'lambda17:00-banner' right " "
     zstyle 'lambda17:09-arrow' transition ""
@@ -181,10 +220,11 @@ export WORDCHARS=-
             ;;
     esac
 
-    compinit -d $ZGEN_DIR/zcompdump
-
     autoload -U colors
     colors
+
+    setopt prompt_sp
+    PROMPT_EOL_MARK=''
 
     setopt autocd
     setopt auto_name_dirs
@@ -199,9 +239,6 @@ export WORDCHARS=-
     setopt hist_verify
     setopt inc_append_history
     setopt share_history
-
-    hash-aliases:install
-    autopair-init
 
     zstyle ':zle:smart-kill-word' precise always
     zstyle ':zle:smart-kill-word' keep-slash true
@@ -268,7 +305,6 @@ export WORDCHARS=-
     man-directive() {
         man $1 | less +"/^\s{7}$2\s"
     }
-    compdef man-directive=man
 
     sed-replace() {
         local from=$(sed 's@/@\\/@g' <<< "$1")
@@ -663,7 +699,6 @@ export WORDCHARS=-
         local line="${2:+#L$2}"
         hub browse -u -- blob/$(git rev-parse --abbrev-ref HEAD)/$file$line
     }
-    compdef github-browse=ls
 
     git-pull() {
         local origin="origin"
@@ -689,8 +724,6 @@ export WORDCHARS=-
         cat PKGBUILD
     }
 
-    compdef vim-which=which
-    compdef smash=ssh
 
     git-rebase-interactive() {
         if [[ "$1" =~ ^[0-9]+$ ]]; then
@@ -749,7 +782,6 @@ export WORDCHARS=-
         return $?
     }
 
-    compdef guess=which
 
     :nmap:online() {
         nmap -sP -PS22 $@ -oG - \
@@ -914,7 +946,6 @@ export WORDCHARS=-
         local name="$1"
         pkill -9 "$name" || pkill -f -9 "$name"
     }
-    compdef :process:kill=pkill
 
     :gitignore:add() {
         while [[ "$1" ]]; do
@@ -932,30 +963,13 @@ export WORDCHARS=-
         done
     }
 
-    :alias:register() {
-        local name="$1"
-        local value="$2"
-
-        #value="() { :alias:use \"$name\"; [[ "\$_SUDO" ]] && sudo $value \${@} }"
-        alias "$name"="$value"
-    }
-
-    :alias() {
-        :alias:register "${@}"
-    }
-
-    :alias:use() {
-        local name="$1"
-        echo "$name" >> ~/.zalias
-    }
-
     :mplayer:dir-audio() {
         # subshell for trap
         (
             local playlist="$(mktemp)"
             trap "rm $playlist" EXIT
             while [[ "$1" ]]; do
-                find ${1:-.} \
+                find "${1:-.}" \
                     -type f \
                     -iregex ".*\.\(m4a\|aac\|flac\|mp3\|ogg\|wav\)$" \
                     -print0 \
@@ -975,6 +989,42 @@ export WORDCHARS=-
     :makefile:list() {
         /bin/grep -Po '^[\w-\d]+(?=:)' Makefile
     }
+
+
+    :join_by() {
+        local d=$1;
+        shift;
+        echo -n "$1";
+        shift;
+        printf "%s" "${@/#/$d}";
+    }
+
+    :search:go() {
+        EXT=go :search "${@}"
+    }
+
+    :search() {
+        local cmd=("sift" "-i")
+        while :; do
+            if [[ "$1" == "-" ]]; then
+                shift
+
+                cmd+=("--exclude-dirs" "$1")
+
+                shift
+                continue
+            fi
+
+            break
+        done
+
+        if [[ "${EXT}" ]]; then
+            cmd+=("-x" "${EXT}")
+        fi
+
+        cmd+=("-e")
+        "${cmd[@]}" "${@}"
+    }
 }
 
 {
@@ -991,282 +1041,278 @@ export WORDCHARS=-
 
 # :alias
 {
-    :alias 'ml' ':makefile:list'
-    :alias 'sl' 'rm -rf ~/.ssh/connections/*'
-    :alias 'pg' '() { pwgen $1 1 }'
-    :alias 'sudo' 'sudo -E '
-    :alias 'srcd' 'cd ~/sources/'
-    :alias 'ol' ':mplayer:dir-audio'
-    :alias 'zl' 'zfs list'
-    :alias 'gia' ':gitignore:add'
-    :alias 'pk' ':process:kill'
-    :alias 'wa' ':watcher'
-    :alias 'pp' ':process:info'
-    :alias 'xc' 'marvex-erase-reserves && crypt'
-    :alias 'a' 'cat'
-    :alias 'ax' ':axel'
-    :alias 'vlc' '/usr/bin/vlc --no-metadata-network-access' # fffuuu
-    :alias 'mc' 'make clean'
-    :alias 'm' 'make'
-    :alias 'icv' '() { iconv -f WINDOWS-1251 -t UTF-8 $1 | vim - }'
-    :alias 'sss' 'ssh -oStrictHostKeyChecking=no'
-    :alias 'awf' '(){ audiowaveform -o "/tmp/$(basename "$1").png" -i "$1" -w 1920 -h 500 && catimg "/tmp/$(basename "$1").png" } '
-    :alias 'rg' 'resolvconf-switch google'
-    :alias 'goc' 'journalctl --user-unit gocode.service -f'
-    :alias 'gocleanup' "find . -type d -name '*-pkgbuild' -exec rm -rf {} \;"
-    :alias 'j' ':move'
-    :alias 'k' 'task-project'
-    :alias 'o' ':mplayer:run'
-    :alias 'op' ':mplayer:run -playlist ~/torrents/audio/.playlist -loop 0'
-    :alias 'rt' ':rtorrent:select'
-    :alias 'u' ':aur:install-or-search'
-    :alias 'e' 'less'
-    :alias 'sg' ':sources:get'
-    :alias 'ver' 'sudo vim /etc/resolv.conf'
+    alias 'giv'='go install ./vendor/...'
+    alias 'ml'=':makefile:list'
+    alias 'sl'='rm -rf ~/.ssh/connections/*'
+    alias 'pg'='() { pwgen $1 1 }'
+    alias 'sudo'='sudo -E '
+    alias 'srcd'='cd ~/sources/'
+    alias 'ol'=':mplayer:dir-audio'
+    alias 'zl'='zfs list'
+    alias 'gia'=':gitignore:add'
+    alias 'pk'=':process:kill'
+    alias 'wa'=':watcher'
+    alias 'pp'=':process:info'
+    alias 'xc'='marvex-erase-reserves && crypt'
+    alias 'a'='cat'
+    alias 'ax'=':axel'
+    alias 'vlc'='/usr/bin/vlc --no-metadata-network-access' # fffuuu
+    alias 'mc'='make clean'
+    alias 'm'='make'
+    alias 'icv'='() { iconv -f WINDOWS-1251 -t UTF-8 $1 | vim - }'
+    alias 'sss'='ssh -oStrictHostKeyChecking=no'
+    alias 'awf'='(){ audiowaveform -o "/tmp/$(basename "$1").png" -i "$1" -w 1920 -h 500 && catimg "/tmp/$(basename "$1").png" } '
+    alias 'rg'='resolvconf-switch google'
+    alias 'goc'='journalctl --user-unit gocode.service -f'
+    alias 'gocleanup'="find . -type d -name '*-pkgbuild' -exec rm -rf {} \;"
+    alias 'j'=':move'
+    alias 'k'='task-project'
+    alias 'o'=':mplayer:run'
+    alias 'op'=':mplayer:run -playlist ~/torrents/audio/.playlist -loop 0'
+    alias 'rt'=':rtorrent:select'
+    alias 'u'=':aur:install-or-search'
+    alias 'e'='less'
+    alias 'sg'=':sources:get'
+    alias 'ver'='sudo vim /etc/resolv.conf'
 
-    :alias 'gm' ':git:master'
-    :alias 'ge' ':git:merge'
-    :alias 'q' ':nodes:query'
-    :alias 'grr' 'gri --root'
-    :alias 'g' 'guess'
-    :alias 'cs' ':cd-sources'
-    :alias 'pmp' 'sudo pacman -U $(/bin/ls -t *.pkg.*)'
-    :alias 'psyuz' 'psyu --ignore linux,zfs-linux-git,zfs-utils-linux-git,spl-linux-git,spl-utils-linux-git'
-    :alias 'mkl' 'sudo mkinitcpio -p linux'
-    :alias 'x' ':launch-binary'
-    :alias 'wh' 'which'
-    :alias 'alq' 'alsamixer -D equal'
-    :alias 'al' 'alsamixer'
-    :alias 'p' 'vimpager'
-    :alias 'sf' 'sed-files'
-    :alias 'pas' 'packages-sync && { cd ~/dotfiles; git diff -U0 packages; }'
-    :alias 'rx' 'sudo systemctl restart x@vt7.service xlogin@operator.service'
-    :alias 'zgr' 'zgen reset'
-    :alias 'mpk' 'makepkg-clean'
-    :alias 'il' 'ip l'
-    :alias 'td' 'touch  /tmp/debug; tail -f /tmp/debug'
-    :alias 'vbs' 'vim-bundle-save'
-    :alias 'vbr' 'vim-bundle-restore'
-    :alias 'gbs' 'git-submodule-branch-sync'
-    :alias 'str' 'strace -ff -s 100'
-    :alias 'bx' 'chmod +x ~/bin/*; chmod +x ~/deadfiles/bin/*'
-    :alias 'ck' 'create-and-change-directory'
-    :alias 'mf' 'man-find'
-    :alias 'md' 'man-directive'
-    :alias 'c' 'cd-and-ls'
-    :alias 'ss' 'sed-replace'
+    alias 'gm'=':git:master'
+    alias 'ge'=':git:merge'
+    alias 'q'=':nodes:query'
+    alias 'grr'='gri --root'
+    alias 'g'='guess'
+    alias 'cs'=':cd-sources'
+    alias 'pmp'='sudo pacman -U $(/bin/ls -t *.pkg.*)'
+    alias 'psyuz'='psyu --ignore linux,zfs-linux-git,zfs-utils-linux-git,spl-linux-git,spl-utils-linux-git'
+    alias 'mkl'='sudo mkinitcpio -p linux'
+    alias 'x'=':launch-binary'
+    alias 'wh'='which'
+    alias 'alq'='alsamixer -D equal'
+    alias 'al'='alsamixer'
+    alias 'p'='vimpager'
+    alias 'sf'='sed-files'
+    alias 'pas'='packages-sync && { cd ~/dotfiles; git diff -U0 packages; }'
+    alias 'rx'='sudo systemctl restart x@vt7.service xlogin@operator.service'
+    alias 'zgr'='zgen reset'
+    alias 'mpk'='makepkg-clean'
+    alias 'il'='ip l'
+    alias 'td'='touch  /tmp/debug; tail -f /tmp/debug'
+    alias 'vbs'='vim-bundle-save'
+    alias 'vbr'='vim-bundle-restore'
+    alias 'gbs'='git-submodule-branch-sync'
+    alias 'str'='strace -ff -s 100'
+    alias 'bx'='chmod +x ~/bin/*; chmod +x ~/deadfiles/bin/*'
+    alias 'ck'='create-and-change-directory'
+    alias 'mf'='man-find'
+    alias 'md'='man-directive'
+    alias 'c'='cd-and-ls'
+    alias 'ss'='sed-replace'
 
-    :alias 'h' 'ssh-enhanced'
+    alias 'h'='ssh-enhanced'
 
-    :alias 'f' ':find'
+    alias 'f'=':find'
 
-    :alias 'si' 'ssh-copy-id'
+    alias 'si'='ssh-copy-id'
 
-    :alias 'cdp' 'cd-pkgbuild'
-    :alias 'gog' 'go-get-enhanced'
-    :alias 'gme' 'go-makepkg-enhanced'
-    :alias 'gmev' 'FLAGS="-p version" go-makepkg-enhanced'
-    :alias 'gmevs' 'FLAGS="-p version -s" go-makepkg-enhanced'
-    :alias 'gmel' 'gmev'
-    :alias 'vw' 'vim-which'
-    :alias 'tim' 'terminal-vim'
+    alias 'cdp'='cd-pkgbuild'
+    alias 'gog'='go-get-enhanced'
+    alias 'gme'='go-makepkg-enhanced'
+    alias 'gmev'='FLAGS="-p version" go-makepkg-enhanced'
+    alias 'gmevs'='FLAGS="-p version -s" go-makepkg-enhanced'
+    alias 'gmel'='gmev'
+    alias 'vw'='vim-which'
+    alias 'tim'='terminal-vim'
 
-    :alias 'history' 'fc -ln 0'
-    :alias 'rf' 'rm -rf'
-    :alias 'ls' 'ls -lah --group-directories-first -v --color=always'
-    :alias 'l' 'ls'
-    :alias 'mp' 'mplayer -slave'
-    :alias 'v' 'vim'
-    :alias 'vi' 'vim'
-    :alias 'se' 'sed -r'
-    :alias 'py' 'python'
-    :alias 'py2' 'python2'
-    :alias 'god' 'godoc-search'
-    :alias 'nhh' 'ssh'
-    :alias 'nhu' 'container-status'
-    :alias 'nhr' 'container-restart'
-    :alias 'rto' 'qbittorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
-    :alias 'mtd' 'migrate-to-deadfiles'
-    :alias 'dt' 'cd ~/dotfiles; PAGER=cat git diff; git status -s ; '
-    :alias 'rr' 'cd ~/torrents/'
-    :alias 'de' 'cd ~/deadfiles; git status -s'
-    :alias 'hf' 'hub fork && grsm'
-    :alias 'hc' 'hub create'
-    :alias 'hr' 'hub pull-request -f'
-    :alias 'cc' 'copy-to-clipboard'
+    alias 'history'='fc -ln 0'
+    alias 'rf'='rm -rf'
+    alias 'ls'='ls -lah --group-directories-first -v --color=always'
+    alias 'l'='ls'
+    alias 'mp'='mplayer -slave'
+    alias 'v'='vim'
+    alias 'vi'='vim'
+    alias 'se'='sed -r'
+    alias 'py'='python'
+    alias 'py2'='python2'
+    alias 'god'='godoc-search'
+    alias 'nhh'='ssh'
+    alias 'nhu'='container-status'
+    alias 'nhr'='container-restart'
+    alias 'rto'='qbittorrent "$(/usr/bin/ls --color=never -t ~/Downloads/*.torrent | head -n1)"'
+    alias 'mtd'='migrate-to-deadfiles'
+    alias 'dt'='cd ~/dotfiles; PAGER=cat git diff; git status -s ; '
+    alias 'rr'='cd ~/torrents/'
+    alias 'de'='cd ~/deadfiles; git status -s'
+    alias 'hf'='hub fork && grsm'
+    alias 'hc'='hub create'
+    alias 'hr'='hub pull-request -f'
+    alias 'cc'='copy-to-clipboard'
 
-    :alias 's' 'sift -i -e'
-    {
-    }
-
+    alias '/'=':search'
+    alias '/g'=':search:go'
 
     # :aur
     {
-        :alias 'au' ':aur:spawn'
-        :alias 'auk' 'au -S --nameonly -s'
-        :alias 'aus' 'au -S'
-        :alias 'aur' 'au -R'
-        :alias 'aug' 'aur-get-sources'
-        :alias 'aq' 'yaourt -Q'
-        :alias 'pcr' 'packages-remove'
+        alias 'au'=':aur:spawn'
+        alias 'auk'='au -S --nameonly -s'
+        alias 'aus'='au -S'
+        alias 'aur'='au -R'
+        alias 'aug'='aur-get-sources'
+        alias 'aq'='yaourt -Q'
+        alias 'pcr'='packages-remove'
     }
 
     # :pacman
     {
-        :alias 'pmr' 'sudo pacman -R'
-        :alias 'pq' 'sudo pacman -Q'
-        :alias 'pql' 'sudo pacman -Ql'
-        :alias 'pqo' 'sudo pacman -Qo'
-        :alias 'pqi' 'sudo pacman -Qi'
-        :alias 'pms' 'sudo pacman -S'
-        :alias 'psyu' 'zfs-snapshot && sudo pacman -Syu'
-        :alias 'pmu' 'sudo pacman -U'
-        :alias 'pf' 'pkgfile'
+        alias 'pmr'='sudo pacman -R'
+        alias 'pq'='sudo pacman -Q'
+        alias 'pql'='sudo pacman -Ql'
+        alias 'pqo'='sudo pacman -Qo'
+        alias 'pqi'='sudo pacman -Qi'
+        alias 'pms'='sudo pacman -S'
+        alias 'psyu'='zfs-snapshot && sudo pacman -Syu'
+        alias 'pmu'='sudo pacman -U'
+        alias 'pf'='pkgfile'
     }
 
     # :packages-local
     {
-        :alias 'pl' 'packages-local'
-        :alias 'pla' 'packages-local -a'
+        alias 'pl'='packages-local'
+        alias 'pla'='packages-local -a'
     }
 
 
     # :zsh
     {
-        :alias 'viz' 'vim ~/.zshrc'
-        :alias 'tiz' 'terminal-vim ~/.zshrc'
-        :alias 'zr' 'source ~/.zshrc && print "zsh config has been reloaded"'
+        alias 'viz'='vim ~/.zshrc'
+        alias 'tiz'='terminal-vim ~/.zshrc'
+        alias 'zr'='source ~/.zshrc && print "zsh config has been reloaded"'
     }
 
 
     # :git
     {
-        :alias 'gcp' 'git cherry-pick'
-        :alias 'gcl' 'git clone'
-        :alias 'gh' 'git show'
-        :alias 'gd' 'git diff'
-        :alias 'gdo' 'git diff origin/master'
-        :alias 'gs' 'git status --short'
-        :alias 'ga' 'git add --no-ignore-removal'
-        :alias 'gb' 'github-browse'
-        :alias 'gbr' 'git branch'
-        :alias 'gn' 'git-clean-powered'
-        :alias 'gi' 'git add -pi'
-        :alias 'gp' 'git push'
-        :alias 'gpo' 'git push origin'
-        :alias 'gpl' 'git pull'
-        :alias 'gpr' 'git pull --rebase'
-        :alias 'gf' 'git fetch'
-        :alias 'gcn' 'git commit'
+        alias 'gcp'='git cherry-pick'
+        alias 'gcl'='git clone'
+        alias 'gh'='git show'
+        alias 'gd'='git diff'
+        alias 'gdo'='git diff origin/master'
+        alias 'gs'='git status --short'
+        alias 'ga'='git add --no-ignore-removal'
+        alias 'gb'='github-browse'
+        alias 'gbr'='git branch'
+        alias 'gn'='git-clean-powered'
+        alias 'gi'='git add -pi'
+        alias 'gp'='git push'
+        alias 'gpo'='git push origin'
+        alias 'gpl'='git pull'
+        alias 'gpr'='git pull --rebase'
+        alias 'gf'='git fetch'
+        alias 'gcn'='git commit'
         alias gcn!='git commit --amend'
-        :alias 'gc' 'git-commit'
-        :alias 'gck' 'git commit --amend -C HEAD'
-        :alias 'gco' 'git checkout'
+        alias 'gc'='git-commit'
+        alias 'gck'='git commit --amend -C HEAD'
+        alias 'gco'='git checkout'
 
-        :alias 'gci' 'git-create-and-commit-empty-gitignore'
-        :alias 'gclg' 'git-clone-github'
-        :alias 'gcla' 'aur-clone'
-        :alias 'gclp' 'git-clone-profiles'
-        :alias 'gcoo' 'git-checkout-orphan'
-        :alias 'gcls' 'git-clone-sources'
+        alias 'gci'='git-create-and-commit-empty-gitignore'
+        alias 'gclg'='git-clone-github'
+        alias 'gcla'='aur-clone'
+        alias 'gclp'='git-clone-profiles'
+        alias 'gcoo'='git-checkout-orphan'
+        alias 'gcls'='git-clone-sources'
 
-        :alias 'gcb' 'git checkout -b'
-        :alias 'gbn' ':git:br'
-        :alias 'gpot' 'git push origin $(:git:branch) && { ghc || bhc }'
+        alias 'gcb'='git checkout -b'
+        alias 'gbn'=':git:br'
+        alias 'gpot'='git push origin $(:git:branch) && { ghc || bhc }'
         alias gpot!='git push origin +$(:git:branch) && { ghc || bhc }'
-        :alias 'gt' 'gpot'
+        alias 'gt'='gpot'
         alias gt!='gpot!'
-        :alias 'gut' 'gu && gt'
-        :alias 'gu' 'git-pull'
-        :alias 'gus' 'git stash && gu && git stash pop'
-        :alias 'ggc' 'git gc --prune --aggressive'
-        :alias 'gor' 'git pull --rebase origin master'
-        :alias 'gsh' 'git stash'
-        :alias 'gshp' 'git stash pop'
-        :alias 'grt' 'git reset'
-        :alias 'grh' 'git reset --hard'
-        :alias 'grts' 'git reset --soft'
-        :alias 'gr' 'git rebase'
-        :alias 'grc' 'git rebase --continue'
-        :alias 'gri' 'git-rebase-interactive'
-        :alias 'gcom' 'git checkout master'
-        :alias 'glo' 'git log --oneline --graph --decorate --all'
-        :alias 'gl' 'PAGER=cat git log --oneline --graph --decorate --all --max-count=30'
-        :alias 'gd' 'git diff'
-        :alias 'gin' 'git init'
-        :alias 'gdh' 'git diff HEAD'
-        :alias 'psx' 'ps fuxa | grep'
-        :alias 'gra' 'git remote add origin '
-        :alias 'gro' 'git remote show'
-        :alias 'gru' 'git remote get-url origin'
-        :alias 'grg' 'git remote show origin -n'
-        :alias 'grs' 'git remote set-url origin'
-        :alias 'grsm' 'git-remote-set-origin-me'
-        :alias 'grb' 'git rebase --abort'
-        :alias 'ghu' 'hub browse -u'
-        :alias 'ghc' 'hub browse -u -- commit/$(git rev-parse --short HEAD) 2>/dev/null'
-        :alias 'glu' 'git submodule update --recursive --init'
-        :alias 'gle' 'git submodule'
-        :alias 'gla' 'git submodule add'
-        :alias 'gld' 'git submodule deinit'
-        :alias 'glf' 'git submodule foreach --recursive'
-        :alias 'grm' 'git rm -rf'
-        :alias 'gic' 'git add . ; git commit -m "initial commit"'
-        :alias 'gig' 'touch .gitignore; git add .gitignore ; git commit -m "gitignore"'
-        :alias 'bhc' 'BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
+        alias 'gut'='gu && gt'
+        alias 'gu'='git-pull'
+        alias 'gus'='git stash && gu && git stash pop'
+        alias 'ggc'='git gc --prune --aggressive'
+        alias 'gor'='git pull --rebase origin master'
+        alias 'gsh'='git stash'
+        alias 'gshp'='git stash pop'
+        alias 'grt'='git reset'
+        alias 'grh'='git reset --hard'
+        alias 'grts'='git reset --soft'
+        alias 'gr'='git rebase'
+        alias 'grc'='git rebase --continue'
+        alias 'gri'='git-rebase-interactive'
+        alias 'gcom'='git checkout master'
+        alias 'glo'='git log --oneline --graph --decorate --all'
+        alias 'gl'='PAGER=cat git log --oneline --graph --decorate --all --max-count=30'
+        alias 'gd'='git diff'
+        alias 'gin'='git init'
+        alias 'gdh'='git diff HEAD'
+        alias 'psx'='ps fuxa | grep'
+        alias 'gra'='git remote add origin '
+        alias 'gro'='git remote show'
+        alias 'gru'='git remote get-url origin'
+        alias 'grg'='git remote show origin -n'
+        alias 'grs'='git remote set-url origin'
+        alias 'grsm'='git-remote-set-origin-me'
+        alias 'grb'='git rebase --abort'
+        alias 'ghu'='hub browse -u'
+        alias 'ghc'='hub browse -u -- commit/$(git rev-parse --short HEAD) 2>/dev/null'
+        alias 'glu'='git submodule update --recursive --init'
+        alias 'gle'='git submodule'
+        alias 'gla'='git submodule add'
+        alias 'gld'='git submodule deinit'
+        alias 'glf'='git submodule foreach --recursive'
+        alias 'grm'='git rm -rf'
+        alias 'gic'='git add . ; git commit -m "initial commit"'
+        alias 'gig'='touch .gitignore; git add .gitignore ; git commit -m "gitignore"'
+        alias 'bhc'='BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
     }
 
 
     # :poe
     {
-        :alias 'po' 'poe -L -t 60'
-        :alias 'pox' 'poe -X -v'
-        :alias 'pof' 'poe -F -v'
+        alias 'po'='poe -L -t 60'
+        alias 'pox'='poe -X -v'
+        alias 'pof'='poe -F -v'
     }
 
     # :go
     {
-        :alias 'gob' 'go-fast-build'
-        :alias 'b' 'go-fast-build'
-        :alias 'goi' 'go install'
+        alias 'gob'='go-fast-build'
+        alias 'b'='go-fast-build'
+        alias 'goi'='go install'
     }
 
 
     # :systemd
     {
-        :alias 'sc' 'sudo systemctl'
-        :alias 'scr' 'sudo systemctl restart'
-        :alias 'scs' 'sudo systemctl start'
-        :alias 'sce' 'sudo systemctl enable'
-        :alias 'sct' 'sudo systemctl stop'
-        :alias 'scd' 'sudo systemctl disable'
-        :alias 'scu' 'sudo systemctl status'
-        :alias 'scl' 'sudo systemctl list-units'
-        :alias 'sdr' 'sudo systemctl daemon-reload'
+        alias 'sc'='sudo systemctl'
+        alias 'scr'='sudo systemctl restart'
+        alias 'scs'='sudo systemctl start'
+        alias 'sce'='sudo systemctl enable'
+        alias 'sct'='sudo systemctl stop'
+        alias 'scd'='sudo systemctl disable'
+        alias 'scu'='sudo systemctl status'
+        alias 'scl'='sudo systemctl list-units'
+        alias 'sdr'='sudo systemctl daemon-reload'
 
-        :alias 'us' 'systemctl --user'
-        :alias 'uss' 'systemctl --user start'
-        :alias 'ust' 'systemctl --user stop'
-        :alias 'usr' 'systemctl --user restart'
-        :alias 'use' 'systemctl --user enable'
-        :alias 'usd' 'systemctl --user disable'
-        :alias 'usu' 'systemctl --user status'
-        :alias 'usl' 'systemctl --user list-units'
-        :alias 'udr' 'systemctl --user daemon-reload'
+        alias 'us'='systemctl --user'
+        alias 'uss'='systemctl --user start'
+        alias 'ust'='systemctl --user stop'
+        alias 'usr'='systemctl --user restart'
+        alias 'use'='systemctl --user enable'
+        alias 'usd'='systemctl --user disable'
+        alias 'usu'='systemctl --user status'
+        alias 'usl'='systemctl --user list-units'
+        alias 'udr'='systemctl --user daemon-reload'
     }
 
     # :journald
     {
-        :alias 'jx' 'sudo journalctl -xe'
-        :alias 'jxf' 'sudo journalctl -xef'
-        :alias 'jxg' 'sudo journalctl -xe | grep '
-        :alias 'jxfg' 'sudo journalctl -xef | grep '
-        :alias 'ju' 'sudo journalctl -u'
-        :alias 'juf' 'sudo journalctl -f -u'
+        alias 'jx'='sudo journalctl -xe'
+        alias 'jxf'='sudo journalctl -xef'
+        alias 'jxg'='sudo journalctl -xe | grep '
+        alias 'jxfg'='sudo journalctl -xef | grep '
+        alias 'ju'='sudo journalctl -u'
+        alias 'juf'='sudo journalctl -f -u'
     }
-
-    :alias 'bs' '.bootstrap'
-    :alias 'ss' '.sync'
 }
 
 
