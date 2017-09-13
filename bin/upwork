@@ -1,0 +1,8 @@
+#!/bin/bash
+
+notify-send "UPWORK" "<b>UPWORK</b> STARTING"
+# start initial upwork window
+/usr/bin/upwork &
+
+# show upwork window
+exec /usr/bin/upwork
