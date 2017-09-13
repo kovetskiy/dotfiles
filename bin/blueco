@@ -1,0 +1,56 @@
+#!/bin/python2
+
+import subprocess
+import sys
+
+
+class Bluetoothctl:
+	def __init__(self):
+		self.process = subprocess.Popen(
+			'bluetoothctl',
+			stdout=subprocess.PIPE,
+			stdin=subprocess.PIPE,
+		)
+
+	def power_on(self):
+		self.process.stdin.write("power on\n")
+		while True:
+			line = self.process.stdout.readline()
+			if "Changing power" in line:
+				print(line.strip())
+				break
+
+	def scan_on(self):
+		self.process.stdin.write("scan on\n")
+
+	def connect(self, addr):
+		self.process.stdin.write("connect " + addr + "\n")
+		while True:
+			line = self.process.stdout.readline()
+			if "Failed to connect:" in line:
+				print(line.strip())
+				return False
+			if "Connection successful" in line:
+				print(line.strip())
+				return True
+
+
+	def kill(self):
+	    self.process.kill()
+
+
+if len(sys.argv) < 2:
+	sys.exit("usage: blueco <addr>\n")
+
+ctl = Bluetoothctl()
+
+ctl.power_on()
+
+connected = ctl.connect(sys.argv[1])
+
+ctl.kill()
+
+if not connected:
+	sys.exit("unable to connect: %s" % sys.argv[1])
+
+# vim: ft=python
