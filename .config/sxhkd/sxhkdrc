@@ -16,20 +16,14 @@ shift + Delete
 super + control + s
 	browser
 
-super + control + a
-	brightness down
-
-super + control + q
-	brightness up
+super + control + d
+	upwork
 
 super + b
 	xsel -op | xsel -ib
 
 super + F1
 	screenshot > ~/.screenshot
-
-control + F9
-	bluetooth-connect
 
 control + F10
 	sudo systemctl stop bluetooth
@@ -81,3 +75,15 @@ super + equal
 
 control + backslash
 	autocomplete-tmux
+
+control + F8
+	brightness down
+
+control + F9
+	brightness up
+
+control + F11
+	uidle-toggle
+
+control + Pause
+	sudo systemctl suspend
