@@ -15,7 +15,7 @@ flock 200
 
 :notify() {
     local value=$1
-    notify-send.sh -r 300 -t 100 " " -- "Volume: ${value}"
+    notify-send.sh -r 300 -t 100 " " -- "<b>VOLUME</b>   ${value}"
 }
 
 :change() {
