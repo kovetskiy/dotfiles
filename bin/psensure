@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -euo pipefail
+
+:main() {
+    local name="$1"
+    shift
+
+    local process=$(cat /var/run/user/$UID/"${name}".pid 2>/dev/null)
+    if [[ ! "$process" ]] || ! sudo kill -0 "$process" 2>/dev/null; then
+        :spawn "${name}" "${@}"
+    fi
+}
+
+:spawn() {
+    local name="$1"
+    shift
+
+    "${@}" &
+    pid=$!
+    echo "$pid" > /var/run/user/$UID/"${name}".pid
+}
+
+:log() {
+    echo "$*" >&2
+}
+
+:main "$@"
