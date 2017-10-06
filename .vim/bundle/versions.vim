@@ -26,7 +26,7 @@ SearchParty 48dbaa9
 sideways.vim 1f23633
 snippets d4d41d6
 sxhkd-vim b0abc9e
-synta cd0130e
+synta 7734146
 syntastic 40ac6c46
 tabular 00e1e7f
 targets.vim 050335f
@@ -44,6 +44,7 @@ vim-cpp-enhanced-highlight 5fd70fd
 vim-ctrlp-ag 2f7545f
 vim-dispatch 5f5c22c
 vim-empty-lines b0ee3f8
+vim-fugitive 8f60d1d
 vim-gitgutter 402257f
 vim-go 52c5b1f
 vim-go-impl 3a68a75
@@ -59,7 +60,7 @@ vimperator.vim 7223609
 vim-plugvim-utils c59a498
 vim-pug ddc5592
 vim-python-pep8-indent e0be8bf
-vim-pythonx 454c98a
+vim-pythonx d58fa02
 vim-session 9e9a608
 vim-signature 5246b6c
 vim-simple-todo 4acb068
