@@ -1,3 +1,9 @@
 #!/bin/bash
 
-systemctl --user restart keynav
+pkill keynav
+
+if [[ "$AUTORANDR_CURRENT_PROFILE" == "dexp" ]]; then
+    pactl set-card-profile 0 "output:hdmi-stereo+input:analog-stereo"
+else
+    pactl set-card-profile 0 "output:analog-stereo+input:analog-stereo"
+fi
