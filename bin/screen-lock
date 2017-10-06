@@ -10,7 +10,15 @@ mplayer_cmd(){
 
 mplayer_cmd "pause"
 
-slock xset dpms force suspend
+cmd=()
+if [[ "${1:-}" == "-dpms" ]]; then
+    cmd=("xset" "dpms" "force" "suspend")
+fi
+if [[ "${1:-}" == "-suspend" ]]; then
+    cmd=("systemctl" "suspend")
+fi
+
+slock "${cmd[@]}"
 
 mplayer_cmd "pause"
 
