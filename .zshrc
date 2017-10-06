@@ -5,8 +5,6 @@ if [ "$TMUX" ]; then
     export TERM=screen-256color-so
 fi
 
-export HISTSIZE=1000
-export SAVEHIST=100000
 export KEYTIMEOUT=1
 export WORDCHARS=-
 
@@ -86,7 +84,6 @@ export WORDCHARS=-
 
         zgen load deadcrew/deadfiles
 
-        zgen load s7anley/zsh-geeknote
         zgen load seletskiy/zsh-smart-kill-word
 
         zgen load hlissner/zsh-autopair autopair.zsh
@@ -148,10 +145,9 @@ export WORDCHARS=-
     bindkey -v "^R" fzf-history-widget
     bindkey -v "^[[A" history-substring-search-up
     bindkey -v "^[[B" history-substring-search-down
-    bindkey -v "^[[1~" beginning-of-line
     bindkey -v "^A" beginning-of-line
+    bindkey -v "^P" end-of-line
     bindkey -v "^Q" push-line
-    bindkey -v "^[[4~" end-of-line
     bindkey -v '^?' backward-delete-char
     bindkey -v '^H' backward-delete-char
     bindkey -v '^[[3~' delete-char
@@ -163,7 +159,6 @@ export WORDCHARS=-
 
     bindkey '^W' smart-backward-kill-word
     bindkey '^F' smart-forward-kill-word
-    bindkey '^P' fuzzy-search-and-edit
 
     bindkey "^S" sudo-command-line
     bindkey "^F" alias-search
@@ -409,6 +404,9 @@ export WORDCHARS=-
         if [[ "$user" = "k" ]]; then
             user="kovetskiy"
         fi
+        if [[ "$user" = "mgx" ]]; then
+            user="MagalixTechnologies"
+        fi
 
         uri="https://github.com/$user/$project"
         echo "$uri"
@@ -492,6 +490,8 @@ export WORDCHARS=-
                 d)
                     import="deadcrew/$repo"
                     ;;
+                mgx)
+                    import="MagalixTechnologies/$repo"
             esac
 
             import="github.com/$import"
@@ -796,8 +796,13 @@ export WORDCHARS=-
             s|^(git@github.com:)?k/|git@github.com:kovetskiy/|;
             s|^(git@github.com:)?s/|git@github.com:seletskiy/|;
             s|^(git@github.com:)?r/|git@github.com:reconquest/|;
+            s|^(git@github.com:)?mgx/|git@github.com:MagalixTechnologies/|;
             ' <<< "$target"
         )
+        if ! grep -q "://" <<< "$target"; then
+            target="https://${target}"
+        fi
+
         local dir=$(sed -r 's|^.*://[^/]+/||; s|^.*:||; ' <<< "$target")
         echo ":: $target -> $dir"
         if [[ ! -d ~/sources/$dir ]]; then
@@ -883,8 +888,8 @@ export WORDCHARS=-
 
     :move() {
         local from=""
-        if [[ -f /var/run/$(id -u)/buffer-move ]]; then
-            from="$(cat /var/run/$(id -u)/buffer-move)"
+        if [[ -f /var/run/user/$(id -u)/buffer-move ]]; then
+            from="$(cat /var/run/user/$(id -u)/buffer-move)"
         fi
 
         if [[ ! "$from" ]]; then
@@ -893,7 +898,7 @@ export WORDCHARS=-
                 return 1
             fi
 
-            echo "$(readlink -f "$1")" > /var/run/$(id -u)/buffer-move
+            echo "$(readlink -f "$1")" > /var/run/user/$(id -u)/buffer-move
             return 0
         fi
 
@@ -904,6 +909,7 @@ export WORDCHARS=-
 
         echo "$from -> $to" >&2
         mv "$from" "$to"
+        rm /var/run/user/$(id -u)/buffer-move
     }
 
     :rsync() {
@@ -936,7 +942,7 @@ export WORDCHARS=-
 
         while :; do
             tput clear
-            echo "$(highlight bold)$timeout: ${@}$(highlight reset)";
+            echo "$timeout: ${@}";
             eval "${@}"
             sleep $timeout
         done
@@ -1025,6 +1031,14 @@ export WORDCHARS=-
         cmd+=("-e")
         "${cmd[@]}" "${@}"
     }
+
+    :circleci:exec() {
+        circleci-cli --token-file ~/.config/circleci/token "${@}"
+    }
+
+    :circleci:recent-build() {
+        watch -c -n0.1 circleci-cli --color=always --token-file ~/.config/circleci/token show
+    }
 }
 
 {
@@ -1041,6 +1055,8 @@ export WORDCHARS=-
 
 # :alias
 {
+    alias 'ccl'=':circleci:exec recent-builds'
+    alias 'ccr'=':circleci:recent-build'
     alias 'giv'='go install ./vendor/...'
     alias 'ml'=':makefile:list'
     alias 'sl'='rm -rf ~/.ssh/connections/*'
@@ -1145,6 +1161,7 @@ export WORDCHARS=-
     alias 'hc'='hub create'
     alias 'hr'='hub pull-request -f'
     alias 'cc'='copy-to-clipboard'
+    alias 'co'='xclip -o'
 
     alias '/'=':search'
     alias '/g'=':search:go'
@@ -1315,6 +1332,51 @@ export WORDCHARS=-
     }
 }
 
+{
+    :kubectl:mgx() {
+        local context=$1
+        shift
+
+        kubectl --context mgx-${context} --namespace magalix "${@}"
+    }
+
+    :kubectl:mgx:pods()  {
+        local context=$1
+        shift
+
+        :kubectl:mgx ${context} get pods "${@}"
+    }
+
+    :kubectl:mgx:logs() {
+        local context=$1
+        local service=$2
+        shift 2
+
+        local pods=($(
+            :kubectl:mgx:pods ${context} | awk "/${service}/{print \$1}"
+        ))
+        if [[ ${#pods} != 1 ]]; then
+            echo "${pods[@]}"
+            return
+        fi
+
+        echo "pod: ${pods[@]}" >&2
+        :kubectl:mgx "${context}" logs "${pods[@]}" "${@}"
+    }
+
+    alias kru=':kubectl:mgx rgn'
+    alias kgu=':kubectl:mgx glb'
+
+    alias krp=':kubectl:mgx:pods rgn'
+    alias kgp=':kubectl:mgx:pods glb'
+
+    alias krbb=':kubectl:mgx rgn run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm'
+    alias kgbb=':kubectl:mgx glb run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm'
+
+    alias krl=':kubectl:mgx:logs rgn'
+    alias kgl=':kubectl:mgx:logs glb'
+}
+
 
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
@@ -1335,3 +1397,7 @@ eval $(dircolors ~/.dircolors.$BACKGROUND)
 unset -f colors
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export HISTSIZE=1000
+export SAVEHIST=100000
+export HISTFILE=~/.history
