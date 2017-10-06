@@ -199,8 +199,8 @@ Plug 'sirver/ultisnips', { 'frozen': 1 }
             \ _snippets_get_filetype() .  ".snippets"
     endfunc!
 
-    nnoremap <C-S><C-D> :call _snippets_open_dotfiles()<CR>
-    nnoremap <C-S><C-S> :call _snippets_open_reconquest()<CR>
+    nnoremap <C-E><C-D> :call _snippets_open_dotfiles()<CR>
+    nnoremap <C-E><C-S> :call _snippets_open_reconquest()<CR>
 
     smap <C-E> <C-V><ESC>a
     smap <C-B> <C-V>o<ESC>i
@@ -343,8 +343,8 @@ Plug 'kshenoy/vim-signature'
 
 Plug 'justinmk/vim-sneak'
     " bullshit
-    nmap <C-E><C-S>S <Plug>Sneak_s
-    vmap <C-E><C-S>s <Plug>Sneak_s
+    nmap <nop><C-E><C-S>S <Plug>Sneak_s
+    vmap <nop><C-E><C-S>s <Plug>Sneak_s
     nmap <C-E><C-S><C-S> <Plug>Sneak_S
     vmap <C-E><C-S><C-S> <Plug>Sneak_S
 
@@ -462,7 +462,7 @@ Plug 'wellle/targets.vim'
 
 Plug 'kovetskiy/ycm-sh', {'for': 'sh'}
 
-Plug 'lokikl/vim-ctrlp-ag'
+"Plug 'lokikl/vim-ctrlp-ag'
     let g:grep_last_query = ""
 
     func! _grep(query)
@@ -722,7 +722,9 @@ au operations BufWritePost *.snippets call _py_modules_reload()
 au operations BufWritePost ~/.vimrc
     \ source % | AirlineRefresh | PyModulesReload | Snapshot
 
+au operations BufWritePost */.config/sxhkd/sxhkdrc silent !pkill -USR1 sxhkd
 au operations BufWritePost */.i3/config silent !i3-msg restart
+
 au operations VimResized,VimEnter * set cc=79
 
 au operations BufRead /tmp/vimperator-confluence* set ft=html.confluence | call HtmlBeautify()
@@ -743,33 +745,12 @@ au operations BufRead */.vimperator/*.vim,.vimperatorrc set ft=vimperator
 map Q <nop>
 map K <nop>
 
-func! _favorites()
-    call _session_save()
-    SessionClose
-    redraw!
-    let directory = system("fzf-choose-favorite")
-    execute 'cd' directory
-    call _session_open()
-    redraw!
-endfunc!
-
-func! _session_save()
-    execute 'SessionSave' expand('%:p:h')
-endfunc!
-
-func! _session_open()
-    execute 'SessionOpen!' expand('%:p:h')
-endfunc!
-
-nmap <C-E><C-N> :call  _favorites()<CR>
-nmap <C-E><C-S> :call _session_save()<CR>
-
 imap <C-F> tx<TAB>
 vmap <C-F> ctx<TAB>
 
 imap <C-D> context.
 
-nnoremap <C-E><C-D> :cd %:p:h<CR>:pwd<CR>
+"nnoremap <C-E><C-D> :cd %:p:h<CR>:pwd<CR>
 
 nnoremap <Leader>o o<ESC>
 nnoremap <Leader>O O<ESC>
@@ -799,8 +780,7 @@ nnoremap <Leader>vs :vsp<CR>
 nnoremap <Leader>e :e!<CR>
 
 nnoremap <Leader>q <ESC>:q<CR>
-nnoremap <C-X> :w<CR>
-inoremap <C-X> <ESC>:w<CR>a
+nnoremap <C-S> :w<CR>
 
 nnoremap <Leader>n <ESC>:bdelete!<CR>
 nnoremap <Leader>q <ESC>:qa!<CR>
@@ -839,8 +819,6 @@ nmap <Leader>s :sp<Space>
 
 imap <C-E> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 
-nmap <Leader>m O_ = "breakpoint"<ESC>
-
 inoremap <C-H> <C-O>o
 
 imap <C-U> <ESC>ua
@@ -862,6 +840,19 @@ au operations WinEnter * wincmd =
 
 nmap <Tab> /
 nmap K :s///g<CR><C-O>i
+
+func! _open_random()
+    let filename = system("git ls-files *.go | sort -R | head -n 1")
+    let current = expand("%:p:t")
+    if current == filename
+        call _open_random()
+        return
+    endif
+
+    execute ":e " filename
+endfunc!
+
+nmap <silent> <Leader>m :call _open_random()<CR>
 
 let @k="^f=i:"
 let @j="^t=x"
