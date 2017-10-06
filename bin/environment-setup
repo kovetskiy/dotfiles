@@ -2,17 +2,7 @@
 
 xkb
 
-autorandr=$(
-    autorandr --change 2>&1 \
-        | tee /dev/stderr \
-        | awk '/\(current\)$/ {print $1}'
-)
-
-if [[ "$autorandr" == "dexp" ]]; then
-    pactl set-card-profile 0 "output:hdmi-stereo+input:analog-stereo"
-else
-    pactl set-card-profile 0 "output:analog-stereo+input:analog-stereo"
-fi
+autorandr --change
 
 amixer -c 0 cset 'numid=10' 1 &>/dev/null
 
