@@ -1,0 +1,31 @@
+#!/bin/bash
+
+name="$1"
+addr=""
+case "$name" in
+    philips)
+        addr="A0:E9:DB:06:62:EF"
+        ;;
+
+    zik)
+        addr="A0:14:3D:CE:14:CF"
+        ;;
+    *)
+        echo "unknown device: ${name}"
+        exit 1
+        ;;
+esac
+
+name=$(tr '[[:lower:]]' '[[:upper:]]' <<< "$name")
+
+:notify() {
+    notify-send.sh -r 2000 -t 200 "btlink" "${*}"
+}
+
+sudo systemctl restart bluetooth
+:notify "<b>BLUETOOTH</b>: CONNECTING TO ${name}"
+if blueco "${addr}"; then
+    :notify "<b>BLUETOOTH</b>: LINKED"
+else
+    :notify "<b>BLUETOOTH</b>: ERROR"
+fi
