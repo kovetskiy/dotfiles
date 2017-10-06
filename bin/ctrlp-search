@@ -1,7 +1,7 @@
 #!/bin/bash
 
 :list() {
-    local dir=${1:-./}
+    local dir="${1:-./}"
     ag "${dir}" -f -l --nocolor -g "" 2>/dev/null
 }
 
