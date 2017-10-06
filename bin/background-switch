@@ -30,3 +30,5 @@ commands.each do|command|
 end
 
 system("echo '" + background + "' > ~/.config/background")
+
+system("marvex-erase-reserves")
