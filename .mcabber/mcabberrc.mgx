@@ -1,0 +1,11 @@
+alias g = roster search general
+alias s = roster search seletskiy
+alias m = roster search mohamed
+alias b = roster search backend
+alias i = roster search infra
+
+set statefile   = ~/.mcabber/state/mgx
+set logging_dir = ~/.mcabber/history/mgx/
+set fifo_name   = ~/.mcabber/fifo/mgx
+
+#otrpolicy s.seletskiy@mgx.xmpp.slack.com always
