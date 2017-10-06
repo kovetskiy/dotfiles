@@ -26,7 +26,7 @@ super + F1
 	screenshot > ~/.screenshot
 
 control + F10
-	sudo systemctl stop bluetooth
+	sudo systemctl stop bluetooth && notify "<b>BLUETOOTH</b> POWER OFF"
 
 super + 8
 	volume down
@@ -85,5 +85,8 @@ control + F9
 control + F11
 	uidle-toggle
 
+control + F12
+	SUSPEND_NOTIFY_TIMEOUT=60 upwork-suspend
+
 control + Pause
-	sudo systemctl suspend
+	screen-lock -suspend
