@@ -129,21 +129,36 @@ Plug 'fatih/vim-go', {'for': 'go'}
 
     let g:go_doc_keywordprg_enabled = 0
     let g:go_def_mapping_enabled = 0
-    let g:go_def_mode = 'godef'
+    let g:go_def_mode = 'guru'
 
+
+    func! _goto_prev_func()
+        call search('^func ', 'b')
+        nohlsearch
+        normal zt
+    endfunc!
+
+    func! _goto_next_func()
+        call search('^func ', '')
+        nohlsearch
+        normal zt
+    endfunc!
+
+    au operations FileType go nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
+    au operations FileType go nmap <buffer><silent> <C-A> :call _goto_next_func()<CR>
 
     au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
     au operations FileType go let w:go_stack = 'fix that shit'
     au operations FileType go let w:go_stack_level = 'fix that shit'
-    au operations FileType go nmap <buffer> gd :GoDef<CR>
-    au operations FileType go nmap <buffer> gl :call go#def#Jump('vsplit')<CR>
-    au operations FileType go nmap <buffer> gk :call go#def#Jump('split')<CR>
+    au operations FileType go nmap <silent><buffer> gd :GoDef<CR>
+    au operations FileType go nmap <silent><buffer> gl :call go#def#Jump('vsplit')<CR>
+    au operations FileType go nmap <silent><buffer> gk :call go#def#Jump('split')<CR>
 
-    au operations FileType go nmap <buffer> <Leader>, :w<CR>:call synta#go#build()<CR>
-    au operations FileType go nmap <buffer> <Leader>' :call synta#go#build()<CR>
-    au operations FileType go imap <buffer> <Leader>, <ESC>:w<CR>:call synta#go#build()<CR>
-    au operations FileType go nmap <buffer> <Leader>l :GoLint .<CR>
+    au operations FileType go nmap <silent><buffer> <Leader>, :w<CR>:call synta#go#build()<CR>
+    au operations FileType go nmap <silent><buffer> <Leader>' :call synta#go#build()<CR>
+    au operations FileType go imap <silent><buffer> <Leader>, <ESC>:w<CR>:call synta#go#build()<CR>
+    au operations FileType go nmap <silent><buffer> <Leader>l :GoLint .<CR>
 
 
     au operations FileType go nmap <buffer> <Leader>;
