@@ -11,6 +11,6 @@ if ! pidof shift-shift &>/dev/null; then
 fi
 
 repeat_delay=110
-repeat_rate=150
+repeat_rate=170
 
 xset r rate $repeat_delay $repeat_rate
