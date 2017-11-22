@@ -90,6 +90,7 @@ Plug 'marijnh/tern_for_vim', {'for': 'js'}
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'vim-airline/vim-airline'
+    let g:airline#extensions#wordcount#enabled = 0
     let g:airline#extensions#whitespace#symbol = '☼'
     let g:airline_powerline_fonts = 1
     let g:airline_skip_empty_sections = 1
@@ -99,6 +100,7 @@ Plug 'reconquest/vim-colorscheme'
     let g:airline_theme = 'reconquest'
 
 Plug 'scrooloose/nerdcommenter'
+    vmap L <Plug>NERDCommenterAlignLeft
 
 "Plug 'jeaye/color_coded', {'for': 'c'}
 
@@ -129,7 +131,7 @@ Plug 'fatih/vim-go', {'for': 'go'}
 
     let g:go_doc_keywordprg_enabled = 0
     let g:go_def_mapping_enabled = 0
-    let g:go_def_mode = 'guru'
+    let g:go_def_mode = 'godef'
 
 
     func! _goto_prev_func()
@@ -148,7 +150,6 @@ Plug 'fatih/vim-go', {'for': 'go'}
     au operations FileType go nmap <buffer><silent> <C-A> :call _goto_next_func()<CR>
 
     au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
-    au operations FileType go nmap <buffer> <Leader>h :GoDoc<CR>
     au operations FileType go let w:go_stack = 'fix that shit'
     au operations FileType go let w:go_stack_level = 'fix that shit'
     au operations FileType go nmap <silent><buffer> gd :GoDef<CR>
@@ -158,7 +159,6 @@ Plug 'fatih/vim-go', {'for': 'go'}
     au operations FileType go nmap <silent><buffer> <Leader>, :w<CR>:call synta#go#build()<CR>
     au operations FileType go nmap <silent><buffer> <Leader>' :call synta#go#build()<CR>
     au operations FileType go imap <silent><buffer> <Leader>, <ESC>:w<CR>:call synta#go#build()<CR>
-    au operations FileType go nmap <silent><buffer> <Leader>l :GoLint .<CR>
 
 
     au operations FileType go nmap <buffer> <Leader>;
@@ -239,7 +239,6 @@ Plug 'seletskiy/vim-over'
     nnoremap M :exec 'OverExec' '%s/\C\V' . expand('<cword>') . '/'<CR>
     nnoremap H :OverExec %s/<CR>
     vnoremap H :OverExec s/<CR>
-    vnoremap L :OverExec s/<CR>
 
     nmap <Leader><Leader> :call _search_clear_highlighting()<CR>
     noremap n :call _search_cursorhold_register()<CR>n
@@ -346,8 +345,10 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     au operations BufRead,BufNewFile *.md set filetype=markdown
     au operations BufRead,BufNewFile *.md set fo-=l
 
-Plug 'AndrewRadev/sideways.vim', { 'on': ['SidewayLeft', 'SidewayRight',
-            \ 'SidewayJumpLight', 'SidewayRightJump']}
+Plug 'AndrewRadev/sideways.vim'
+    nnoremap <leader>h :SidewaysLeft<cr>
+    nnoremap <leader>l :SidewaysRight<cr>
+
 
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
@@ -465,9 +466,9 @@ Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
 Plug 'yssl/QFEnter'
 
-Plug 'kovetskiy/next-indentation', {'on': ['IndentationGoUp','IndentationGoDown']}
-    nnoremap <Up> :IndentationGoUp<CR>
-    nnoremap <Down> :IndentationGoDown<CR>
+Plug 'kovetskiy/next-indentation'
+    nnoremap <C-z> :IndentationSameUp<CR>
+    nnoremap <C-x> :IndentationSameDown<CR>
 
 Plug 'rust-lang/rust.vim', {'for': 'rust' }
 
@@ -565,9 +566,6 @@ Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
 
 Plug 'vimperator/vimperator.vim', {'for': 'vimperator'}
 
-Plug 'digitaltoad/vim-pug'
-    au operations BufNewFile,BufRead *.amber setlocal ft=pug noet
-
 Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
     let g:simple_todo_map_keys = 1
     let g:simple_todo_map_insert_mode_keys = 0
@@ -580,6 +578,40 @@ Plug 'brooth/far.vim'
 
 Plug 'kovetskiy/vim-autoresize'
 
+"Plug 'terryma/vim-smooth-scroll'
+    "noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 1, 2)<CR>
+    "noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 1, 2)<CR>
+
+Plug 'ddrscott/vim-side-search'
+    nnoremap <Leader>s :SideSearch<space>
+
+Plug 'bagrat/vim-workspace'
+    noremap <Tab> :WSNext<CR>
+    noremap <S-Tab> :WSPrev<CR>
+    noremap <Leader><Tab> :WSClose<CR>
+    noremap <Leader><S-Tab> :WSClose!<CR>
+    noremap <C-t> :WSTabNew<CR>
+
+    let g:workspace_subseparator = ""
+    let g:workspace_tab_icon = ''
+
+    func! _hl_workspace()
+        hi! WorkspaceBufferCurrent cterm=NONE ctermbg=232 ctermfg=7
+        hi! WorkspaceBufferActive cterm=NONE ctermbg=237 ctermfg=254
+        hi! WorkspaceBufferHidden cterm=NONE ctermbg=237 ctermfg=254
+        hi! WorkspaceBufferTrunc cterm=bold ctermbg=10 ctermfg=8
+        hi! WorkspaceTabCurrent cterm=NONE ctermbg=4 ctermfg=8
+        hi! WorkspaceTabHidden cterm=NONE ctermbg=4 ctermfg=8
+        hi! WorkspaceFill cterm=NONE ctermbg=237 ctermfg=10
+        hi! WorkspaceIcon cterm=NONE ctermbg=5 ctermfg=10
+    endfunc!
+
+    augroup _autocall_hl_workspace
+        au ColorScheme * call _hl_workspace()
+    augroup END
+
+Plug 'lambdalisue/gina.vim'
+
 augroup end
 call plug#end()
 
@@ -589,57 +621,18 @@ au VimEnter * au! plugvim
 set rtp-=~/.vim
 set rtp^=~/.vim
 
-"func!  _background(bg)
-    "let bg = a:bg
-    "if bg == ""
-        "let bg = "light"
-    "endif
-
-    "if bg == "light"
-        "set background=light
-        "colorscheme PaperColor
-
-        "let g:airline_theme = 'sol'
-
-        ""hi! link WildMenu PmenuSel
-        ""hi SPM1 ctermbg=1 ctermfg=7
-        ""hi SPM2 ctermbg=2 ctermfg=7
-        ""hi SPM3 ctermbg=3 ctermfg=7
-        ""hi SPM4 ctermbg=4 ctermfg=7
-        ""hi SPM5 ctermbg=5 ctermfg=7
-        ""hi SPM6 ctermbg=6 ctermfg=7
-        ""hi VertSplit cterm=none ctermbg=none ctermfg=16
-        ""hi ErrorMsg term=none
-        ""hi Todo term=none
-        ""hi SignColumn term=none
-        ""hi FoldColumn term=none
-        ""hi Folded term=none
-        ""hi WildMenu term=none
-        ""hi WarningMsg term=none
-        ""hi Question term=none
-
-        ""hi! underlined cterm=underline
-        ""hi! CursorLineNr ctermfg=241 ctermbg=none
-        ""hi! LineNr ctermfg=249 ctermbg=none
-        ""hi! SignColumn ctermfg=none ctermbg=none
-        ""hi! SpecialKey term=bold cterm=bold ctermfg=1 ctermbg=none
-        ""hi! NonText ctermfg=254 cterm=none term=none
-        ""hi! IncSearch cterm=none ctermfg=238 ctermbg=220
-        ""hi! Cursor ctermbg=0 ctermfg=15
-        ""hi! PmenuSel ctermbg=136 ctermfg=15 cterm=bold
-    "else
-        "set background=dark
-        "colorscheme reconquest
-    "endif
-"endfunc!
-
 let &background=$BACKGROUND
 
 if &background == "light"
     colorscheme PaperColor
     let g:airline_theme = 'sol'
+    set cursorline
+    call _hl_workspace()
 else
     colorscheme reconquest
+    au ColorScheme * hi! CursorLine ctermbg=236
+    set cursorline
+    call _hl_workspace()
 endif
 
 syntax on
@@ -714,28 +707,14 @@ au FileType help setlocal number
 
 au BufWritePre * if !isdirectory(expand('%:h')) | call mkdir(expand('%:h'),'p') | endif
 
-func! _py_modules_reload()
-    python <<CODE
-import sys
-modules = vim.eval('g:py_modules')
-for module_name in modules:
-    try:
-        reload(sys.modules[module_name])
-    except:
-        pass
-CODE
-endfunc!
-command! -bar PyModulesReload call _py_modules_reload()
 
 func! _snapshot()
    silent execute "!vim-bundle-save >/dev/null 2>&1 &"
 endfunc!
 command! -bar Snapshot call _snapshot()
 
-au operations BufWritePost *.snippets call _py_modules_reload()
-
 au operations BufWritePost ~/.vimrc
-    \ source % | AirlineRefresh | PyModulesReload | Snapshot
+    \ source % | AirlineRefresh | Snapshot
 
 au operations BufWritePost */.config/sxhkd/sxhkdrc silent !pkill -USR1 sxhkd
 au operations BufWritePost */.i3/config silent !i3-msg restart
@@ -795,7 +774,7 @@ nnoremap <Leader>vs :vsp<CR>
 nnoremap <Leader>e :e!<CR>
 
 nnoremap <Leader>q <ESC>:q<CR>
-nnoremap <C-S> :w<CR>
+nnoremap <silent> <C-S> :w<CR>
 
 nnoremap <Leader>n <ESC>:bdelete!<CR>
 nnoremap <Leader>q <ESC>:qa!<CR>
@@ -830,8 +809,6 @@ nmap <C-J> <C-W>j
 nmap <C-K> <C-W>k
 nmap <C-L> <C-W>l
 
-nmap <Leader>s :sp<Space>
-
 imap <C-E> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 
 inoremap <C-H> <C-O>o
@@ -853,7 +830,6 @@ au operations BufRead,BufNewFile *.skeleton set noet ft=snippets.python
 
 au operations WinEnter * wincmd =
 
-nmap <Tab> /
 nmap K :s///g<CR><C-O>i
 
 func! _open_random()
