@@ -29,6 +29,7 @@
     insteadOf = git@github.com/mgx/
 [url "git@github.com:"]
     insteadOf = gh:
+    insteadOf = https://git@github.com:
 [url "git@github.com:"]
     insteadOf = git+ssh://github.com/
     insteadOf = git://github.com/
