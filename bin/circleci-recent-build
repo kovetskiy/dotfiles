@@ -1,0 +1,43 @@
+#!/bin/bash
+
+:main() {
+    local status_out=$(mktemp)
+    local logs_out=$(mktemp)
+
+    trap "{ rm $status_out $logs_out; }" EXIT
+
+    local status_pid
+    local logs_pid
+
+    :status > $status_out &
+    status_pid=$!
+
+    :logs > $logs_out &
+    logs_pid=$!
+
+    wait $status_pid $logs_pid
+
+    local status="$(cat $status_out)"
+    local status_lines="$(wc -l <<< "$status")"
+
+    status_lines=$(($status_lines+2))
+
+    local logs=$(cat "$logs_out" | tail -n +"${status_lines}" | tail -n 20)
+
+    printf "%s\n\n" "$status"
+    echo "***********************************************************************"
+    echo
+    printf "%s" "$logs"
+}
+
+:status() {
+    circleci-cli \
+        --color=always --token-file /home/operator/.config/circleci/token show
+}
+
+:logs() {
+    circleci-cli \
+        --color=always --token-file /home/operator/.config/circleci/token show -v
+}
+
+:main "${@}"
