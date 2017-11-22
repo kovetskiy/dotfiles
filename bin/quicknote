@@ -1,0 +1,61 @@
+#!/bin/bash
+
+set -x
+SOURCE=~/.quicknotes
+HISTORY=~/.quicknotes.history
+
+:list() {
+    cat $SOURCE | tac
+}
+
+:new() {
+    sed 's/^[#:]\s*//' <<< "$1" >> "$SOURCE"
+}
+
+:move-to-history() {
+    query="$1"
+
+    new_source=""
+    new_history=""
+    while read line; do
+        if [[ ! "$line" ]]; then
+            continue
+        fi
+
+        if [[ "$line" == "$query" ]]; then
+            new_history="${new_history}${line}"$'\n'
+        else
+            new_source="${new_source}${line}"$'\n'
+        fi
+    done < $SOURCE
+
+    if [[ "$new_source" ]]; then
+        echo -n "$new_source" > $SOURCE
+    fi
+
+    if [[ "$new_history" ]]; then
+        echo -n "$new_history" >> $HISTORY
+    fi
+}
+
+:modal() {
+    total=$(wc -l < $SOURCE)
+    if [[ "$total" -gt 11 ]]; then
+        total=10
+    fi
+
+    :list | modal -lines "$total"
+}
+
+query=$(:modal)
+
+if [[ ! "$query" ]]; then
+    exit
+fi
+
+if grep -qP '^[#:] ' <<< "$query"; then
+    :new "$query"
+    exit
+fi
+
+:move-to-history "$query"
