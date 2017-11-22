@@ -150,145 +150,27 @@ Options:
 )
 endsnippet
 
-snippet he "" w
+snippet he "" wb
 ser.Errorf(err, "$1"${2/(.+)/, /}$2)
 endsnippet
 
-snippet dd "" w
-p.parseMethodStmt(receiver, $1)
+snippet kd "" wAb
+debugf(context, "$1", $0)
 endsnippet
 
-# logger
-snippet xlo "" wb
-package main
-
-import (
-	"fmt"
-	"strings"
-
-	"github.com/kovetskiy/lorg"
-)
-
-func fatalf(format string, values ...interface{}) {
-	logger.Fatalf(format, values...)
-}
-
-func errorf(format string, values ...interface{}) {
-	logger.Errorf(format, values...)
-}
-
-func warningf(format string, values ...interface{}) {
-	logger.Warningf(format, values...)
-}
-
-func infof(format string, values ...interface{}) {
-	logger.Infof(format, values...)
-}
-
-func debugf(format string, values ...interface{}) {
-	logger.Debugf(format, values...)
-}
-
-func tracef(format string, values ...interface{}) {
-	logger.Tracef(format, values...)
-}
-
-func debugln(value interface{}) {
-	logger.Debug(value)
-}
-
-func infoln(value interface{}) {
-	logger.Info(value)
-}
-
-func fatalln(value interface{}) {
-	logger.Fatal(value)
-}
-
-func errorln(value interface{}) {
-	logger.Error(value)
-}
-
-func fatalh(err error, format string, args ...interface{}) {
-	logger.Fatal(hierr.Errorf(err, format, args...))
-}
-
-func warningh(err error, format string, args ...interface{}) {
-	logger.Warning(hierr.Errorf(err, format, args...))
-}
-
-func errorh(err error, format string, args ...interface{}) {
-	logger.Error(hierr.Errorf(err, format, args...))
-}
+snippet ki "" wAb
+infof(context, "$1", $0)
 endsnippet
 
-# hierr.Errorf
-snippet hh "" wA
-hierr.Errorf(
-    ${1:err}, "$2",
-)$0
+snippet ke "" wAb
+errorf(err, "$1", $0)
 endsnippet
 
-snippet hp "" w
-hierr.Push(
-    hierr.Errorf(
-        $1,$2
-    ),
-    $3,
-)
+snippet kf "" wAb
+fatalf(err, "$1", $0)
 endsnippet
 
-# hierr.Fatalf
-snippet hf "" wA
-hierr.Fatalf(
-    ${1:err}, $2,
-)$0
-endsnippet
-
-snippet kkd "" wA
-debugf("$1", $2)
-endsnippet
-
-snippet kki "" wA
-infof("$1", $2)
-endsnippet
-
-snippet kke "" wA
-errorln($1)
-endsnippet
-
-snippet kkf "" wA
-fatalln("$1")
-endsnippet
-
-snippet kkh "" wA
-errorh(
-    err, "$1", $2
-)
-endsnippet
-
-#global !p
-#def context_bracket_expanding(snip):
-    #line = px.buffer.get()[px.cursor.get()[0]]
-    #matches = re.match(r'^\s+([\)\}\]])', line)
-    #if matches:
-        #return True
-    #return False
-#endglobal
-
-
-#context "context_bracket_expanding(snip)"
-#snippet "^(\s+)$" "" rAe
-#`!p snip.rv=match.group(1)+"\t"`$1`!p
-#if len(t[1]) > 0:
-    #snip.rv=","
-#else:
-    #snip.rv=""
-#`$0
-#`!p snip.rv=match.group(1)`
-#endsnippet
-
-snippet ko "" w
+snippet ko "" wb
 import "github.com/kovetskiy/ko"
 
 type config struct {
@@ -398,26 +280,4 @@ if traceMode {
     logger.SetLevel(lorg.LevelTrace)
 }
 
-endsnippet
-
-snippet kf "" wA
-fatalh(err, "$1", $2)
-endsnippet
-
-snippet epu "" wA
-push(context, "${1:errors}", $2)
-endsnippet
-
-snippet ere "" wA
-api.render(context, "${1:}")
-return
-endsnippet
-
-snippet erd "" wA
-context.Redirect(http.Status${1:Found}, "/$2")
-return
-endsnippet
-
-snippet eva "" wA
-\`validate:"${1:required}"\`
 endsnippet
