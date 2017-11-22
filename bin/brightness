@@ -18,14 +18,33 @@ value=$(cat $path)
     notify-send.sh -r 2000 "brightness" "${1}"
 }
 
+:set() {
+	echo "$*" | sudo tee $dir/brightness
+}
+
 if [ $# -eq 0 ]; then
 	echo $value
 elif [ $1 == "up" ]; then
     new_value=$(($value+$step))
-	echo "$new_value" | sudo tee $dir/brightness
+	:set "$new_value"
     :notify "$new_value"
 elif [ $1 == "down" ]; then
     new_value=$(($value-$step))
-	echo "$new_value" | sudo tee $dir/brightness
+	:set "$new_value"
     :notify "$new_value"
+elif [ $1 == "toggle" ]; then
+    cached=$(cat ~/.cache/brightness.cache)
+    if [[ ! "$cached" ]]; then
+        if [[ "$value" == "0" ]]; then
+            cached="1000"
+        else
+            echo "$value" | tee ~/.cache/brightness.cache
+            :set 0
+            exit
+        fi
+    fi
+
+    :set "$cached"
+    :notify "$cached"
+    rm ~/.cache/brightness.cache
 fi

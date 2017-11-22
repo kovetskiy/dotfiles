@@ -20,13 +20,13 @@ super + control + d
 	upwork
 
 super + b
-	xsel -op | xsel -ib
+	clipboard-sync-trim
 
 super + F1
 	screenshot > ~/.screenshot
 
 control + F10
-	sudo systemctl stop bluetooth && notify "<b>BLUETOOTH</b> POWER OFF"
+	brightness toggle
 
 super + 8
 	volume down
@@ -53,7 +53,7 @@ super + control + e
 	translator
 
 super + Tab
-	paster
+	quicknote
 
 control + super +  F11
 	autorandr --load laptop
