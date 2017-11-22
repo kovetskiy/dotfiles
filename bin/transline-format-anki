@@ -1,0 +1,40 @@
+#!/bin/env python2
+
+import json
+import sys
+
+
+payload = json.load(sys.stdin)
+
+meanings = payload["meanings"]
+
+options = []
+for meaning in meanings:
+    translation = meaning["translation"]
+    references = ""
+
+    if meaning["references"]:
+        references = meaning["references"]
+        if len(references) > 3:
+            references = references[:3]
+
+        references = "(" + ", ".join(references) + ")"
+
+    if references:
+        option = translation + " " + references
+    else:
+        option = translation
+
+    options.append(option)
+
+
+if "transcript" in payload:
+    transcript = payload["transcript"]
+
+    sys.stdout.write("[" + transcript.encode('utf-8') + "]")
+    sys.stdout.write(" ")
+
+sys.stdout.write(", ".join(options).encode('utf-8'))
+
+
+# vim: ft=python
