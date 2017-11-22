@@ -137,6 +137,7 @@ export WORDCHARS=-
     unsetopt correct
     unsetopt correct_all
     unsetopt interactivecomments
+    setopt rcquotes
 }
 
 # :binds
@@ -146,7 +147,9 @@ export WORDCHARS=-
     bindkey -v "^[[A" history-substring-search-up
     bindkey -v "^[[B" history-substring-search-down
     bindkey -v "^A" beginning-of-line
+    bindkey "^[[1~" beginning-of-line
     bindkey -v "^P" end-of-line
+    bindkey "^[[4~" end-of-line
     bindkey -v "^Q" push-line
     bindkey -v '^?' backward-delete-char
     bindkey -v '^H' backward-delete-char
@@ -1037,7 +1040,7 @@ export WORDCHARS=-
     }
 
     :circleci:recent-build() {
-        watch -c -n0.1 circleci-cli --color=always --token-file ~/.config/circleci/token show
+        watch -c -n0.0 circleci-recent-build
     }
 }
 
@@ -1051,10 +1054,12 @@ export WORDCHARS=-
     alias -g '#pe'='| :pacman:filter-executable'
 
     alias -g '#t'='| :copy-line'
+    alias -g '#k'='| karma-grep'
 }
 
 # :alias
 {
+    alias 8='ping 8.8.8.8'
     alias 'ccl'=':circleci:exec recent-builds'
     alias 'ccr'=':circleci:recent-build'
     alias 'giv'='go install ./vendor/...'
@@ -1259,7 +1264,7 @@ export WORDCHARS=-
         alias 'glo'='git log --oneline --graph --decorate --all'
         alias 'gl'='PAGER=cat git log --oneline --graph --decorate --all --max-count=30'
         alias 'gd'='git diff'
-        alias 'gin'='git init'
+        alias 'gnt'='git init'
         alias 'gdh'='git diff HEAD'
         alias 'psx'='ps fuxa | grep'
         alias 'gra'='git remote add origin '
@@ -1347,6 +1352,24 @@ export WORDCHARS=-
         :kubectl:mgx ${context} get pods "${@}"
     }
 
+    :kubectl:mgx:exec()  {
+        local context=$1
+        local service=$2
+        shift
+        shift
+
+        local pods=($(
+            :kubectl:mgx:pods ${context} | awk "/${service}/{print \$1}"
+        ))
+
+        if [[ ${#pods} > 1 ]]; then
+            echo "${pods[@]}";
+            return
+        fi
+
+        :kubectl:mgx ${context} exec "${pods[@]}" -- "${@}"
+    }
+
     :kubectl:mgx:logs() {
         local context=$1
         local service=$2
@@ -1355,26 +1378,82 @@ export WORDCHARS=-
         local pods=($(
             :kubectl:mgx:pods ${context} | awk "/${service}/{print \$1}"
         ))
-        if [[ ${#pods} != 1 ]]; then
-            echo "${pods[@]}"
-            return
-        fi
 
-        echo "pod: ${pods[@]}" >&2
-        :kubectl:mgx "${context}" logs "${pods[@]}" "${@}"
+        echo "pods: ${pods[@]}" >&2
+        (IFS=$'\n'; echo "${pods[*]}") \
+            | parallel --ungroup --no-notice \
+                    kubectl --context mgx-$context --namespace magalix logs {} "${@}"
+    }
+
+    :kubectl:mgx:scale()  {
+        local context=$1
+        local service=$2
+        local replicas=$3
+        shift
+        shift
+        shift
+
+        :kubectl:mgx ${context} scale deployment/"${service}" --replicas="${replicas}"
+    }
+
+
+    :kubectl:mgx:tailf() {
+        local context=$1
+        local service=$2
+        shift 2
+
+        local pods=($(
+            :kubectl:mgx:pods ${context} | awk "/${service}/{print \$1}"
+        ))
+
+        echo "pods: ${pods[@]}" >&2
+
+        local container=""
+        local lines="-n 0"
+        while [[ "$1" ]]; do
+            if [[ "$1" == "-c" ]]; then
+                local container="-c $2"
+                shift 2
+            fi
+
+            if [[ "$1" == "-n" ]]; then
+                local lines="-n $2"
+                shift 2
+            fi
+
+            break
+        done
+
+        (IFS=$'\n'; echo "${pods[*]}") \
+            | parallel --ungroup --no-notice \
+                    kubectl --context mgx-$context --namespace magalix \
+                    exec {} $container -- tail $lines -f ${1:-stderr.log}
     }
 
     alias kru=':kubectl:mgx rgn'
     alias kgu=':kubectl:mgx glb'
+    alias kdu=':kubectl:mgx wk'
 
     alias krp=':kubectl:mgx:pods rgn'
     alias kgp=':kubectl:mgx:pods glb'
+    alias kdp=':kubectl:mgx:pods wk'
 
     alias krbb=':kubectl:mgx rgn run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm'
     alias kgbb=':kubectl:mgx glb run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm'
+    alias kdbb=':kubectl:mgx wk run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm'
 
     alias krl=':kubectl:mgx:logs rgn'
     alias kgl=':kubectl:mgx:logs glb'
+    alias kdl=':kubectl:mgx:logs wk'
+    alias kre=':kubectl:mgx:exec rgn'
+    alias kge=':kubectl:mgx:exec glb'
+    alias kde=':kubectl:mgx:exec wk'
+    alias krs=':kubectl:mgx:scale rgn'
+    alias kgs=':kubectl:mgx:scale glb'
+    alias kds=':kubectl:mgx:scale wk'
+    alias krf=':kubectl:mgx:tailf rgn'
+    alias kgf=':kubectl:mgx:tailf glb'
+    alias kdf=':kubectl:mgx:tailf wk'
 }
 
 
@@ -1398,6 +1477,6 @@ unset -f colors
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export HISTSIZE=1000
+export HISTSIZE=100000
 export SAVEHIST=100000
 export HISTFILE=~/.history
