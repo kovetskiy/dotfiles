@@ -32,8 +32,10 @@ URxvt.url-select.launcher: browser
 
 URxvt.title: rxvt-unicode
 URxvt.saveLines: 5000
+
 URxvt.font: xft:Monaco:pixelsize=12
 URxvt.boldFont: xft:Monaco:bold:pixelsize=12
+
 URxvt.underlineColor: blue
 URxvt.cursorBlink: false
 URxvt.scrollBar: false

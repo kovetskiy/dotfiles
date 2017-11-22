@@ -17,3 +17,8 @@ URxvt*color7: #d0cfca
 URxvt*color8: #5d5d5d
 URxvt*color9: #e9605f
 URxvt*cursorColor: #000000
+
+rofi.color-normal: #eeeeee, #444444, #eeeeee, #af8700, #ffffff
+rofi.color-active: #eeeeee, #444444, #eeeeee, #af8700, #ffffff
+rofi.color-urgent: #eeeeee, #444444, #eeeeee, #af8700, #ffffff
+rofi.color-window: #eeeeee, #444444
