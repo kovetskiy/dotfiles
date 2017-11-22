@@ -17,7 +17,9 @@ xsetroot -bg 0
 ) &
 
 dunst &
- ( while :; do keynav; done ) &
+ ( while :; do keynav; sleep 1; done ) &
 sxhkd &
 
-exec i3
+systemctl --user import-environment DISPLAY
+
+I3SOCK=/tmp/i3-ipc.sock exec i3
