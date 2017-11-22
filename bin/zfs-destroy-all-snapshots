@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -euo pipefail
+
+:log() {
+    printf "$(highlight bold)» zfs: %s$(highlight reset)\n" "$*"
+}
+
+:main() {
+    sudo zfs list -t snapshot -H -o name \
+        | while read snapshot; do
+            :log "removing snapshot $snapshot"
+            sudo zfs destroy -R -- "$snapshot"
+        done
+
+}
+
+:main "${@}"
