@@ -1,0 +1,27 @@
+#!/bin/bash
+
+state_stdout_count=0
+state_stderr_count=0
+while :; do
+    stdout=$(mktemp)
+    stderr=$(mktemp)
+
+    "$@" >"$stdout" 2>"$stderr"
+
+    stdout_count=$(wc -l "$stdout" | cut -d' ' -f1)
+    stderr_count=$(wc -l "$stderr" | cut -d' ' -f1)
+
+    if [[ "$stdout_count" > "$state_stdout_count" ]]; then
+        stdout_diff=$(($stdout_count - $state_stdout_count))
+        tail -n$stdout_diff $stdout
+        state_stdout_count=$stdout_count
+    fi
+
+    if [[ "$stderr_count" > "$state_stderr_count" ]]; then
+        stderr_diff=$(($stderr_count - $state_stderr_count))
+        tail -n$stderr_diff $stderr >&2
+        state_stderr_count=$stderr_count
+    fi
+
+    rm "$stdout" "$stderr"
+done
