@@ -1,0 +1,37 @@
+#!/bin/bash
+
+DISK=${1:-/dev/disk/by-label/Kindle}
+
+if ! findmnt /mnt/kindle &>/dev/null; then
+    sudo mkdir -p /mnt/kindle
+    sudo mount $DISK /mnt/kindle
+fi
+
+notify-send "kindle" "kindle: syncing vocabulary"
+
+:get-vocabulary() {
+    kindle-vocabulary
+}
+
+:anki-add() {
+    ankictl --stop-streak 1000 -A kindle --debug
+}
+
+:translate-words() {
+    while read word; do
+        translation=$(transline -o json "$word")
+        if [[ ! "$translation" ]]; then
+            continue
+        fi
+
+        local back="$(transline-format-anki <<< "$translation")"
+
+        printf '%s\t%s\n' "$word" "$back"
+    done
+}
+
+new_words=$(
+    :get-vocabulary | :translate-words | :anki-add
+)
+
+notify-send "kindle" "kindle: $new_words"

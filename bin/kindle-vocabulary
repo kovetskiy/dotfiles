@@ -1,0 +1,6 @@
+#!/bin/bash
+
+MNT=${MNT:-/mnt/kindle}
+DB="${1:-${MNT}/system/vocabulary/vocab.db}"
+
+sqlite3 "${DB}" "SELECT LOWER(word) FROM words"
