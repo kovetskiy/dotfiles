@@ -8,14 +8,12 @@ flock 200
 
     local status="$(:change "$action")"
 
-    local volume=$(:parse-volume "$status")
-
-    :notify "$volume"
+    :notify "$status"
 }
 
 :notify() {
     local value=$1
-    notify-send.sh -r 300 -t 100 " " -- "<b>VOLUME</b>   ${value}"
+    notify-send.sh -r 300 -t 100 " " -- "<b>VOLUME</b>   ${value}%"
 }
 
 :change() {
@@ -23,22 +21,14 @@ flock 200
 
     case $action in
         up)
-            amixer -M set Master 2%+
+            ponymix increase 2
         ;;
 
         down)
-            amixer -M set Master 2%-
+            ponymix decrease 2
         ;;
     esac
 }
 
-:parse-volume() {
-    volumes=($(echo "${@}" | grep -Po '[0-9]+%'))
-    if [[ "${volumes[1]}" && "${volumes[1]}" != "${volumes[0]}" ]]; then
-        echo "L:${volumes[0]} R:${volumes[1]}"
-    fi
-
-    echo "${volumes[0]}"
-}
 
 :main "${@}"
