@@ -18,7 +18,8 @@ xsetroot -bg 0
 
 dunst &
  ( while :; do keynav; sleep 1; done ) &
-sxhkd &
+
+SHELL=/bin/sh sxhkd &
 
 systemctl --user import-environment DISPLAY
 
