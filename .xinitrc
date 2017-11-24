@@ -19,7 +19,7 @@ xsetroot -bg 0
 dunst &
  ( while :; do keynav; sleep 1; done ) &
 
-SHELL=/bin/sh sxhkd &
+SHELL=/bin/sh sudo -E nice -n -19 sudo -E -u $USER sxhkd &
 
 systemctl --user import-environment DISPLAY
 
