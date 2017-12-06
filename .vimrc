@@ -13,6 +13,8 @@ let g:plug_shallow = 0
 let g:mapleader="\<Space>"
 let mapleader=g:mapleader
 
+let &background=$BACKGROUND
+
 augroup operations
     au!
 augroup end
@@ -81,23 +83,25 @@ Plug 'ctrlpvim/ctrlp.vim'
     let g:ctrlp_map = '<nop>'
     map <silent> <C-P> :call _ctrlp()<CR>
 
-"Plug 'junegunn/seoul256.vim'
-    "au User BgLightPre let g:seoul256_background = 255|let g:colorscheme='seoul256'
-
 Plug 'marijnh/tern_for_vim', {'for': 'js'}
     au operations BufNewFile,BufRead *.js setlocal noet
 
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+    let g:lightline = {}
 
-Plug 'vim-airline/vim-airline'
-    let g:airline#extensions#wordcount#enabled = 0
-    let g:airline#extensions#whitespace#symbol = '☼'
-    let g:airline_powerline_fonts = 1
-    let g:airline_skip_empty_sections = 1
-    let g:airline#extensions#whitespace#checks = ['indent', 'trailing']
+    let g:lightline.enable = {
+        \ 'statusline': 1,
+        \ 'tabline': 0
+        \ }
+
+    if &background == "light"
+        let g:lightline.colorscheme = 'Tomorrow'
+    else
+        let g:lightline.colorscheme = 'wombat'
+    endif
+
 
 Plug 'reconquest/vim-colorscheme'
-    let g:airline_theme = 'reconquest'
 
 Plug 'scrooloose/nerdcommenter'
     vmap L <Plug>NERDCommenterAlignLeft
@@ -116,12 +120,12 @@ Plug 'Valloric/YouCompleteMe', { 'frozen': '1' }
     let g:ycm_seed_identifiers_with_syntax = 1
     let g:ycm_use_ultisnips_completer = 0
 
-Plug 'kovetskiy/synta', {'for': 'go'}
+Plug 'kovetskiy/synta'
 
 Plug 'fatih/vim-go', {'for': 'go'}
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
-    let g:go_fmt_autosave = 1
+    let g:go_fmt_autosave = 0
     let g:go_bin_path = $GOPATH . "/bin"
     let g:go_metalinter_command="gometalinter -D golint --cyclo-over 15"
     let g:go_list_type = "quickfix"
@@ -149,7 +153,6 @@ Plug 'fatih/vim-go', {'for': 'go'}
     au operations FileType go nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
     au operations FileType go nmap <buffer><silent> <C-A> :call _goto_next_func()<CR>
 
-    au operations FileType go nmap <buffer> <Leader>f :GoFmt<CR>
     au operations FileType go let w:go_stack = 'fix that shit'
     au operations FileType go let w:go_stack_level = 'fix that shit'
     au operations FileType go nmap <silent><buffer> gd :GoDef<CR>
@@ -159,10 +162,6 @@ Plug 'fatih/vim-go', {'for': 'go'}
     au operations FileType go nmap <silent><buffer> <Leader>, :w<CR>:call synta#go#build()<CR>
     au operations FileType go nmap <silent><buffer> <Leader>' :call synta#go#build()<CR>
     au operations FileType go imap <silent><buffer> <Leader>, <ESC>:w<CR>:call synta#go#build()<CR>
-
-
-    au operations FileType go nmap <buffer> <Leader>;
-        \ :let b:syntastic_mode = 'passive'<CR>:w<CR>:let b:syntastic_mode = 'active'<CR>:<ESC>
 
 
 Plug 'elzr/vim-json', { 'for': 'json' }
@@ -243,9 +242,6 @@ Plug 'seletskiy/vim-over'
     nmap <Leader><Leader> :call _search_clear_highlighting()<CR>
     noremap n :call _search_cursorhold_register()<CR>n
     noremap N :call _search_cursorhold_register()<CR>N
-
-    au operations BufAdd,BufEnter * nnoremap / :OverExec /<CR>
-    au operations BufAdd,BufEnter * vnoremap / :'<,'>OverExec /<CR>
 
     au operations User OverCmdLineExecute call _over_autocmd()
 
@@ -573,7 +569,7 @@ Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
     let g:simple_todo_map_normal_mode_keys = 1
 
 Plug 'brooth/far.vim'
-    nmap <Leader>f :Farp<CR>
+    nmap <Leader>a :Farp<CR>
     au operations FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
 
 Plug 'kovetskiy/vim-autoresize'
@@ -612,6 +608,16 @@ Plug 'bagrat/vim-workspace'
 
 Plug 'lambdalisue/gina.vim'
 
+Plug 'w0rp/ale'
+    let g:ale_fixers = {
+    \   'go': [function("synta#ale#goimports#Fix")],
+    \}
+    let g:ale_linters = {
+    \   'go': ['gobuild'],
+    \}
+    let g:ale_fix_on_save = 1
+    " au operations BufRead,BufNewFile *.go
+
 augroup end
 call plug#end()
 
@@ -621,17 +627,14 @@ au VimEnter * au! plugvim
 set rtp-=~/.vim
 set rtp^=~/.vim
 
-let &background=$BACKGROUND
-
 if &background == "light"
     colorscheme PaperColor
-    let g:airline_theme = 'sol'
-    set cursorline
+    set nocursorline
     call _hl_workspace()
 else
     colorscheme reconquest
     au ColorScheme * hi! CursorLine ctermbg=236
-    set cursorline
+    set nocursorline
     call _hl_workspace()
 endif
 
@@ -714,7 +717,7 @@ endfunc!
 command! -bar Snapshot call _snapshot()
 
 au operations BufWritePost ~/.vimrc
-    \ source % | AirlineRefresh | Snapshot
+    \ source % | Snapshot
 
 au operations BufWritePost */.config/sxhkd/sxhkdrc silent !pkill -USR1 sxhkd
 au operations BufWritePost */.i3/config silent !i3-msg restart
@@ -904,5 +907,20 @@ endfunc!
 command!
     \ Diff
     \ call DiffEnable()
+
+func! VerboseToggle()
+     if !&verbose
+        set verbosefile=~/.log/vim/verbose.log
+        set verbose=15
+    else
+        set verbose=0
+        set verbosefile=
+    endif
+endfunc!
+
+command!
+    \ Verbose
+    \ call VerboseToggle()
+
 
 noh
