@@ -1,6 +1,8 @@
 #!/bin/bash
 
-browsers=("google-chrome-stable")
+set -x
+exec 2>&1 > /tmp/browser
+browsers=("firefox-beta" "google-chrome-stable")
 
 url=$(sed -r 's#^(git+ssh|ssh|git)://(\w+@)?##' <<< "$1")
 params="${@:2}"
@@ -9,6 +11,7 @@ scheme=$(grep -Po '^\w+://' <<< "$url")
 if [[ "$scheme" != "http://"
    && "$scheme" != "https://"
    && "$scheme" != "ftp://"
+   && "$scheme" != "file://"
    && "$scheme" != "" ]]; then
     notify-send "URL" "$url"
 
@@ -20,17 +23,18 @@ fi
 
     systemd-cat -t "browser" <<< "${browser} ${url} ${params[@]}"
 
-    if [[ "$browser" == "firefox" ]]; then
-        exec firefox --noerrdialogs --disable-infobars "$url" "${params[@}]}"
+    if [[ "$browser" == "firefox-beta" ]]; then
+        exec firefox-beta-bin "$url" ${params[@]}
     else
-        exec "$browser" "$url" "${params[@]}"
+        exec "$browser" "$url" ${params[@]}
     fi
 }
 
 for browser in ${browsers[@]}; do
     if pgrep -f "$browser"; then
-        echo :open "$browser"
+        :open "$browser"
+        exit 0
     fi
 done
 
-:open "${browsers[0]}"
+:open "${browsers[1]}"
