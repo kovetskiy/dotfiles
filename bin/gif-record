@@ -42,5 +42,5 @@ done
 
 echo "gif: $OUTPUT"
 
-echo "uploading..."
-image-upload "$OUTPUT"
+#echo "uploading..."
+#image-upload "$OUTPUT"
