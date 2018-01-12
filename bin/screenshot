@@ -17,15 +17,18 @@ elif [ "$1" == "public" ]; then
     mv $filename ~/public/
     echo $(basename $filename) | xclip
     notify-send "Screenshot ready, path copied to clipboard"
+elif [ "$1" == "deepin" ]; then
+    deepin-screenshot -s $filename -n
 else
     maim --nokeyboard -s $filename
 fi
 
 echo "$filename"
-echo  "uploading screenshot"
-notify-send " " "uploading screenshot"
-url=$(image-upload $filename)
-echo -n $url | xclip -selection primary
-echo -n $url | xclip -selection clipboard
-echo "$url"
-notify-send " " "screenshot ready"
+ln -sf "$filename" "$HOME/screenshots/last"
+#echo  "uploading screenshot"
+#notify-send " " "uploading screenshot"
+#url=$(image-upload $filename)
+#echo -n $url | xclip -selection primary
+#echo -n $url | xclip -selection clipboard
+#echo "$url"
+#notify-send " " "screenshot ready"
