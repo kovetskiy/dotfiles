@@ -1,0 +1,10 @@
+#!/bin/bash
+
+QUOTA=${QUOTA:-50}
+
+sudo systemd-run \
+    --pty \
+    --setenv=DISPLAY=${DISPLAY} \
+    --property=CPUQuota=${QUOTA}% \
+    --slice=browser-cpu-limited \
+    sudo -u ${USER} $(which browser)
