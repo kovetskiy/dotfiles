@@ -1,5 +1,0 @@
-#!/bin/bash
-
-sleep 1
-
-/home/operator/sources/dotfiles/bin/reconfig-kbd
