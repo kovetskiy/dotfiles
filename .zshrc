@@ -1059,7 +1059,7 @@ export WORDCHARS=-
 
 # :alias
 {
-    alias 8='ping 8.8.8.8'
+    alias 8='mtr 8.8.8.8'
     alias 'ccl'=':circleci:exec recent-builds'
     alias 'ccr'=':circleci:recent-build'
     alias 'giv'='go install ./vendor/...'
@@ -1267,6 +1267,7 @@ export WORDCHARS=-
         alias 'gnt'='git init'
         alias 'gdh'='git diff HEAD'
         alias 'psx'='ps fuxa | grep'
+        alias 'grp'='git remote update'
         alias 'gra'='git remote add origin '
         alias 'gro'='git remote show'
         alias 'gru'='git remote get-url origin'
@@ -1338,54 +1339,67 @@ export WORDCHARS=-
 }
 
 {
-    :kubectl:mgx() {
+    :kubectl() {
         local context=$1
         shift
 
-        kubectl --context mgx-${context} --namespace magalix "${@}"
+        kubectl --context ${context} "${@}"
     }
 
-    :kubectl:mgx:pods()  {
+    :kubectl:pods()  {
         local context=$1
         shift
 
-        :kubectl:mgx ${context} get pods "${@}"
+        :kubectl ${context} get pods "${@}"
     }
 
-    :kubectl:mgx:exec()  {
+    :kubectl:exec()  {
         local context=$1
         local service=$2
         shift
         shift
 
         local pods=($(
-            :kubectl:mgx:pods ${context} | awk "/${service}/{print \$1}"
+            :kubectl:pods ${context} | awk "/${service}/{print \$1}"
         ))
 
+        echo "${pods[@]}";
         if [[ ${#pods} > 1 ]]; then
-            echo "${pods[@]}";
             return
         fi
 
-        :kubectl:mgx ${context} exec "${pods[@]}" -- "${@}"
+        :kubectl ${context} exec "${pods[@]}" "${@}"
     }
 
-    :kubectl:mgx:logs() {
+    :kubectl:logs() {
         local context=$1
         local service=$2
         shift 2
 
+        args=()
+        local namespace=()
+        while [[ "${1:-}" ]]; do
+            if [[ "$1" == "-n" ]]; then
+                namespace=("-n" "$2")
+                shift 2
+                continue
+            fi
+
+            args+=("$1")
+            shift
+        done
+
         local pods=($(
-            :kubectl:mgx:pods ${context} | awk "/${service}/{print \$1}"
+            :kubectl:pods ${context} ${namespace[@]} | awk "/${service}/{print \$1}"
         ))
 
         echo "pods: ${pods[@]}" >&2
         (IFS=$'\n'; echo "${pods[*]}") \
             | parallel --ungroup --no-notice \
-                    kubectl --context mgx-$context --namespace magalix logs {} "${@}"
+                    kubectl --context $context ${namespace[@]} logs {} "${args[@]}"
     }
 
-    :kubectl:mgx:scale()  {
+    :kubectl:scale()  {
         local context=$1
         local service=$2
         local replicas=$3
@@ -1393,23 +1407,27 @@ export WORDCHARS=-
         shift
         shift
 
-        :kubectl:mgx ${context} scale deployment/"${service}" --replicas="${replicas}"
+        :kubectl ${context} scale deployment/"${service}" --replicas="${replicas}"
     }
 
 
-    :kubectl:mgx:tailf() {
+    :kubectl:tailf() {
         local context=$1
         local service=$2
         shift 2
 
         local pods=($(
-            :kubectl:mgx:pods ${context} | awk "/${service}/{print \$1}"
+            :kubectl:pods ${context} | awk "/${service}/{print \$1}"
         ))
 
         echo "pods: ${pods[@]}" >&2
 
+        local filename=()
+
         local container=""
+        local program="tail -f"
         local lines="-n 0"
+        local gzip=""
         while [[ "$1" ]]; do
             if [[ "$1" == "-c" ]]; then
                 local container="-c $2"
@@ -1421,39 +1439,51 @@ export WORDCHARS=-
                 shift 2
             fi
 
+            if [[ "$1" == "-A" ]]; then
+                program="gzip -c"
+                gzip=1
+                lines=""
+                filename=(
+                    "${2}.5"
+                    "${2}.4"
+                    "${2}.3"
+                    "${2}.2"
+                    "${2}.1"
+                    "${2}"
+                )
+
+                shift 2
+            fi
+
             break
         done
 
+        if [[ ! "$filename" ]]; then
+            filename="${1:-/mnt/trace.log}"
+        fi
+
+        cmd=(kubectl --context $context \
+                exec {} $container -- \
+                    ${program} ${lines} ${filename[@]})
+
         (IFS=$'\n'; echo "${pods[*]}") \
-            | parallel --ungroup --no-notice \
-                    kubectl --context mgx-$context --namespace magalix \
-                    exec {} $container -- tail $lines -f ${1:-stderr.log}
+            | {
+                if [[ "$gzip" ]]; then
+                    parallel --ungroup --no-notice ${cmd[@]} \
+                        | gzip -d -c
+                else
+                    parallel --ungroup --no-notice ${cmd[@]}
+                fi
+            }
     }
 
-    alias kru=':kubectl:mgx rgn'
-    alias kgu=':kubectl:mgx glb'
-    alias kdu=':kubectl:mgx wk'
-
-    alias krp=':kubectl:mgx:pods rgn'
-    alias kgp=':kubectl:mgx:pods glb'
-    alias kdp=':kubectl:mgx:pods wk'
-
-    alias krbb=':kubectl:mgx rgn run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm'
-    alias kgbb=':kubectl:mgx glb run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm'
-    alias kdbb=':kubectl:mgx wk run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm'
-
-    alias krl=':kubectl:mgx:logs rgn'
-    alias kgl=':kubectl:mgx:logs glb'
-    alias kdl=':kubectl:mgx:logs wk'
-    alias kre=':kubectl:mgx:exec rgn'
-    alias kge=':kubectl:mgx:exec glb'
-    alias kde=':kubectl:mgx:exec wk'
-    alias krs=':kubectl:mgx:scale rgn'
-    alias kgs=':kubectl:mgx:scale glb'
-    alias kds=':kubectl:mgx:scale wk'
-    alias krf=':kubectl:mgx:tailf rgn'
-    alias kgf=':kubectl:mgx:tailf glb'
-    alias kdf=':kubectl:mgx:tailf wk'
+    alias ku=':kubectl'
+    alias kp=':kubectl:pods'
+    alias kl=':kubectl:logs'
+    alias ke=':kubectl:exec'
+    alias ks=':kubectl:scale'
+    alias kf=':kubectl:tailf'
+    alias kb='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
 }
 
 
