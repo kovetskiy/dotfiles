@@ -1,0 +1,145 @@
+#!/bin/bash
+
+### nsedit - edit in namespace
+###
+### nsedit [-e] <ns> <condition> <file> [-s]
+### nsedit [-e] <ns> <condition>
+
+
+set -euo pipefail
+
+:main() {
+    source /usr/share/bash/opts/opts.bash
+
+    declare -a args
+    declare -A opts
+
+    opts:parse opts args \
+        -e -s -n: --help --args: -- "${@}"
+
+    if [[ "${opts[--help]:-}" ]]; then
+        :help
+        exit 1
+    fi
+
+    local namespace="${args[1]:-}"
+    local condition="${args[2]:-}"
+    local filename="${args[3]:-}"
+
+    local eval_condition=""
+    if [[ "${opts[-e]:-}" ]]; then
+        eval_condition=1
+    fi
+
+    if [[ ! "$namespace" || ! "$condition" ]]; then
+        :help
+        exit 1
+    fi
+
+    local projects
+    if ! projects=($(:get-projects $namespace)); then
+        echo "no such namespace: $namespace" >&2
+        exit 1
+    fi
+
+    suitable=()
+    for project in "${projects[@]}"; do
+        if ! :check-condition "$project" "$condition"; then
+            continue
+        fi
+
+        suitable+=("$project")
+
+        echo ":: $(basename "${project}")"
+    done
+
+
+    for project in "${suitable[@]}"; do
+        if [[ "$filename" ]]; then
+            (
+                cd "${project}"
+                vim $(/bin/ls ${filename})
+            )
+        else
+            if ! :open-shell "$project"; then
+                exit 1
+            fi
+
+            continue
+        fi
+
+        if [[ "${opts[-s]:-}" ]]; then
+            if ! :open-shell "$project"; then
+                exit 1
+            fi
+        fi
+    done
+}
+
+:open-shell() {
+    local project="$1"
+
+    echo ">> entering $(basename "${project}")"
+
+    (
+        cd "${project}"
+        $SHELL -i
+    )
+    return $?
+}
+
+:check-condition() {
+    local project="$1"
+    local condition="$2"
+
+    if [[ "${eval_condition}" ]]; then
+        if (cd "${project}"; $SHELL -c "$condition" 2>/dev/null); then
+            return 0
+        else
+            return 1
+        fi
+    fi
+
+    if [[ "${condition:0:1}" == "/" ]]; then
+        condition="${condition:1}"
+        if :grep "$condition" "$project"; then
+            return 0
+        else
+            return 1
+        fi
+    fi
+
+    if ls "${project}/"${condition} &>/dev/null; then
+        return 0
+    fi
+
+    return 1
+}
+
+:grep() {
+    local condition="$1"
+    local project="$2"
+
+    if grep --exclude-dir=vendor -I -q -r -P "${condition}" "${project}"; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+:get-projects() {
+    local namespace="$1"
+
+    local filename=~/.config/nsedit/"${namespace}"
+    if [[ ! -f "$filename" ]]; then
+        return 1
+    fi
+
+    cat "${filename}" | envsubst
+}
+
+:help() {
+    sed -rn 's/^### ?//;T;p' "$0"
+}
+
+:main "${@}"
