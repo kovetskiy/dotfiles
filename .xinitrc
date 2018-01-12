@@ -3,10 +3,7 @@
 source ~/bin/environment-variables
 source ~/bin/environment-setup
 
-if ! tmux list-sessions &>/dev/null; then
-    tmux new-session -d -s marvex-reserve-alpha &
-    tmux new-session -d -s marvex-reserve-beta &
-fi
+marvex-spawn-reserve &
 
 xsetroot -bg 0
 
@@ -19,7 +16,7 @@ xsetroot -bg 0
 dunst &
  ( while :; do keynav; sleep 1; done ) &
 
-SHELL=/bin/sh sudo -E nice -n -19 sudo -E -u $USER sxhkd &
+SHELL=/bin/zsh sudo -E nice -n -19 sudo -E -u $USER sxhkd &
 
 systemctl --user import-environment DISPLAY
 
