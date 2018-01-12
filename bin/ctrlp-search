@@ -2,7 +2,7 @@
 
 :list() {
     local dir="${1:-./}"
-    ag "${dir}" -f -l --nocolor -g "" 2>/dev/null
+    ag "${dir}" -p .agignore -f -l --nocolor -g "" 2>/dev/null
 }
 
 :sort-by-extension() {
