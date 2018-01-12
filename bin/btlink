@@ -1,31 +1,53 @@
 #!/bin/bash
 
-name="$1"
-addr=""
-case "$name" in
-    philips)
-        addr="A0:E9:DB:06:62:EF"
-        ;;
+:main() {
+    if :interactive; then
+        name="$1"
+    else
+        name=$(echo -e "philips\nzik" | modal)
+    fi
 
-    zik)
-        addr="A0:14:3D:CE:14:CF"
-        ;;
-    *)
-        echo "unknown device: ${name}"
-        exit 1
-        ;;
-esac
+    addr=""
+    case "$name" in
+        philips)
+            addr="A0:E9:DB:06:62:EF"
+            ;;
 
-name=$(tr '[[:lower:]]' '[[:upper:]]' <<< "$name")
+        zik)
+            addr="A0:14:3D:CE:14:CF"
+            ;;
+        *)
+            echo "unknown device: ${name}"
+            exit 1
+            ;;
+    esac
 
-:notify() {
-    notify-send.sh -r 2000 -t 200 "btlink" "${*}"
+    name=$(tr '[[:lower:]]' '[[:upper:]]' <<< "$name")
+
+    :notify() {
+        notify-send.sh -r 2000 -t 200 "btlink" "${*}"
+    }
+
+    while :; do
+        { sleep 5 && pkill blueco; } &
+
+        sudo systemctl restart bluetooth
+        :notify "<b>BLUETOOTH</b>: CONNECTING TO ${name}"
+        if blueco "${addr}"; then
+            :notify "<b>BLUETOOTH</b>: LINKED"
+            exit 0
+        else
+            :notify "<b>BLUETOOTH</b>: ERROR"
+        fi
+    done
 }
 
-sudo systemctl restart bluetooth
-:notify "<b>BLUETOOTH</b>: CONNECTING TO ${name}"
-if blueco "${addr}"; then
-    :notify "<b>BLUETOOTH</b>: LINKED"
-else
-    :notify "<b>BLUETOOTH</b>: ERROR"
-fi
+:interactive() {
+    if [ -t 1 ]; then
+        return 0
+    fi
+
+    return 1;
+}
+
+:main "${@}"
