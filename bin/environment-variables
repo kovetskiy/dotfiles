@@ -2,6 +2,8 @@
 
 export HOME="/home/operator"
 
+export DISPLAY="${DISPLAY:-:0}"
+
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export SHELL="/bin/zsh"
