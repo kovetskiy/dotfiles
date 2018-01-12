@@ -1,8 +1,8 @@
 super + Return
-	marvex -s -c --quiet || urxvt
+	SHELL=/bin/zsh marvex -s -c --quiet
 
 super + shift + Return
-	marvex -m -c --quiet || urxvt
+	marvex -m -c --quiet
 
 super + r
 	modal-run
@@ -23,7 +23,10 @@ super + b
 	clipboard-sync-trim
 
 super + F1
-	screenshot > ~/.screenshot
+	screenshot
+
+super + F2
+	screenshot deepin
 
 control + F10
 	brightness toggle
