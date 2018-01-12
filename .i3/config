@@ -41,7 +41,6 @@ bindsym $alt+a workspace a
 bindsym $alt+s workspace s
 bindsym $alt+d workspace d
 bindsym $alt+z workspace z
-bindsym $alt+x workspace x
 bindsym $alt+c workspace c
 
 bindcode $alt+Shift+10 move container to workspace 1
@@ -56,6 +55,7 @@ bindcode $alt+Shift+40 move container to workspace d
 
 #bindsym pause workspace q; exec "browser http://cs543100.vk.me/v543100237/50df/joWgtvxgsRo.jpg"
 
+bindsym $alt+x layout tabbed
 bindsym $win+Shift+v split vertical
 bindsym $win+Shift+h split horizontal
 
@@ -105,14 +105,10 @@ bindsym $alt+Shift+grave move scratchpad
 bindcode 124 exec poweroff
 
 for_window [title="^screenkey$"] floating enable
-for_window [title="^sxiv$"]      floating enable
 for_window [title="^kuake_"]     floating enable
-for_window [title="^malder"]     floating enable
-for_window [title="android"]     floating disable
 for_window [title="^sxiv"]       floating disable
 for_window [title="Viewer"]      floating disable
-for_window [title="^Spreed"]     floating enable
 
-client.focused            #ffaf5f   #ffaf5f   #ffaf5f   #ffaf5f
+client.focused            #000cff   #000cff   #000cff   #000cff
 client.focused_inactive   #000000   #000000   #000000   #000000
 client.unfocused          #000000   #000000   #000000   #000000
