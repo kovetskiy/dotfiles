@@ -86,19 +86,19 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'marijnh/tern_for_vim', {'for': 'js'}
     au operations BufNewFile,BufRead *.js setlocal noet
 
-Plug 'itchyny/lightline.vim'
-    let g:lightline = {}
+"Plug 'itchyny/lightline.vim'
+    "let g:lightline = {}
 
-    let g:lightline.enable = {
-        \ 'statusline': 1,
-        \ 'tabline': 0
-        \ }
+    "let g:lightline.enable = {
+        "\ 'statusline': 1,
+        "\ 'tabline': 0
+        "\ }
 
-    if &background == "light"
-        let g:lightline.colorscheme = 'Tomorrow'
-    else
-        let g:lightline.colorscheme = 'wombat'
-    endif
+    "if &background == "light"
+        "let g:lightline.colorscheme = 'Tomorrow'
+    "else
+        "let g:lightline.colorscheme = 'wombat'
+    "endif
 
 
 Plug 'reconquest/vim-colorscheme'
@@ -106,19 +106,13 @@ Plug 'reconquest/vim-colorscheme'
 Plug 'scrooloose/nerdcommenter'
     vmap L <Plug>NERDCommenterAlignLeft
 
-"Plug 'jeaye/color_coded', {'for': 'c'}
-
-Plug 'Valloric/YouCompleteMe', { 'frozen': '1' }
-	let g:ycm_show_diagnostics_ui = 0
-    let g:ycm_confirm_extra_conf = 0
-    let g:ycm_key_list_previous_completion=['<UP>']
-    let g:ycm_key_list_select_completion=['<DOWN>']
-
-    let g:ycm_collect_identifiers_from_tags_files = 1
-    "let g:ycm_collect_identifiers_from_comments_and_strings = 1
-
-    let g:ycm_seed_identifiers_with_syntax = 1
-    let g:ycm_use_ultisnips_completer = 0
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+    let g:deoplete#enable_at_startup = 1
+    inoremap <expr> <DOWN>  pumvisible() ? "\<C-N>" : "\<DOWN>"
+    inoremap <expr> <UP>    pumvisible() ? "\<C-P>" : "\<UP>"
 
 Plug 'kovetskiy/synta'
 
@@ -169,7 +163,7 @@ Plug 'elzr/vim-json', { 'for': 'json' }
 
 Plug 'l9'
 
-Plug 'seletskiy/matchem'
+"Plug 'seletskiy/matchem'
     let g:UltiSnipsJumpForwardTrigger="<C-J>"
     let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 
@@ -349,9 +343,13 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
 Plug 'terryma/vim-multiple-cursors'
+    function! Multiple_cursors_before()
+        let b:deoplete_disable_auto_complete = 1
+    endfunction
 
-Plug 'kshenoy/vim-signature'
-    let g:SignatureMarkOrder = "\m"
+    function! Multiple_cursors_after()
+        let b:deoplete_disable_auto_complete = 0
+    endfunction
 
 Plug 'justinmk/vim-sneak'
     " bullshit
@@ -436,8 +434,6 @@ Plug 'bronson/vim-trailing-whitespace'
     endfunc!
 
     au operations BufWritePre * call _whitespaces_fix()
-
-"Plug 'seletskiy/vim-nunu'
 
 Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
 
@@ -574,41 +570,20 @@ Plug 'brooth/far.vim'
 
 Plug 'kovetskiy/vim-autoresize'
 
-"Plug 'terryma/vim-smooth-scroll'
-    "noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 1, 2)<CR>
-    "noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 1, 2)<CR>
-
 Plug 'ddrscott/vim-side-search'
     nnoremap <Leader>s :SideSearch<space>
 
-Plug 'bagrat/vim-workspace'
-    noremap <Tab> :WSNext<CR>
-    noremap <S-Tab> :WSPrev<CR>
-    noremap <Leader><Tab> :WSClose<CR>
-    noremap <Leader><S-Tab> :WSClose!<CR>
-    noremap <C-t> :WSTabNew<CR>
-
-    let g:workspace_subseparator = ""
-    let g:workspace_tab_icon = ''
-
-    func! _hl_workspace()
-        hi! WorkspaceBufferCurrent cterm=NONE ctermbg=232 ctermfg=7
-        hi! WorkspaceBufferActive cterm=NONE ctermbg=237 ctermfg=254
-        hi! WorkspaceBufferHidden cterm=NONE ctermbg=237 ctermfg=254
-        hi! WorkspaceBufferTrunc cterm=bold ctermbg=10 ctermfg=8
-        hi! WorkspaceTabCurrent cterm=NONE ctermbg=4 ctermfg=8
-        hi! WorkspaceTabHidden cterm=NONE ctermbg=4 ctermfg=8
-        hi! WorkspaceFill cterm=NONE ctermbg=237 ctermfg=10
-        hi! WorkspaceIcon cterm=NONE ctermbg=5 ctermfg=10
-    endfunc!
-
-    augroup _autocall_hl_workspace
-        au ColorScheme * call _hl_workspace()
-    augroup END
+    noremap <Tab> :bNext<CR>
+    noremap <S-Tab> :bprev<CR>
 
 Plug 'lambdalisue/gina.vim'
 
 Plug 'w0rp/ale'
+    func! _ale_gotags()
+
+    endfunc!
+    let g:ale_enabled = 0
+
     let g:ale_fixers = {
     \   'go': [function("synta#ale#goimports#Fix")],
     \}
@@ -621,7 +596,6 @@ Plug 'w0rp/ale'
 augroup end
 call plug#end()
 
-"au VimEnter * doautocmd User plugins_loaded
 au VimEnter * au! plugvim
 
 set rtp-=~/.vim
@@ -630,12 +604,12 @@ set rtp^=~/.vim
 if &background == "light"
     colorscheme PaperColor
     set nocursorline
-    call _hl_workspace()
+    "call _hl_workspace()
 else
     colorscheme reconquest
     au ColorScheme * hi! CursorLine ctermbg=236
     set nocursorline
-    call _hl_workspace()
+    "call _hl_workspace()
 endif
 
 syntax on
@@ -706,6 +680,8 @@ set clipboard=unnamed
 
 set tags=./.tags;/
 
+set viminfo+=n~/.vim/info/viminfo
+
 au FileType help setlocal number
 
 au BufWritePre * if !isdirectory(expand('%:h')) | call mkdir(expand('%:h'),'p') | endif
@@ -723,15 +699,6 @@ au operations BufWritePost */.config/sxhkd/sxhkdrc silent !pkill -USR1 sxhkd
 au operations BufWritePost */.i3/config silent !i3-msg restart
 
 au operations VimResized,VimEnter * set cc=79
-
-au operations BufRead /tmp/vimperator-confluence* set ft=html.confluence | call HtmlBeautify()
-
-" trim empty <p><br/></p> from document
-au operations BufRead /tmp/vimperator-confluence* map <buffer> <Leader>t :%s/\v[\ \t\n]+\<p\>([\ \t\n]+\<br\>)?[\ \t\n]+\<\/p\>/<CR>
-
-" ugly hack to trim all inter-tags whitespaces
-au operations BufWritePre /tmp/vimperator-confluence* %s/\v\>[\ \t\n]+\</></
-au operations BufWritePost /tmp/vimperator-confluence* silent! undo
 
 au operations BufRead *.noml set ft=noml.dracula
 
@@ -817,6 +784,9 @@ imap <C-E> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 inoremap <C-H> <C-O>o
 
 imap <C-U> <ESC>ua
+
+nnoremap Q qq
+nnoremap @@ @q
 
 au operations BufRead,BufNewFile ~/.zshrc set ft=zsh.sh
 au operations BufRead,BufNewFile *.zsh    set ft=zsh.sh
@@ -922,5 +892,7 @@ command!
     \ Verbose
     \ call VerboseToggle()
 
+
+nmap Y yy
 
 noh

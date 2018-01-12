@@ -1,3 +1,4 @@
+ale bba6b4c
 ashium 3d8281f
 auto-pairs f0019fc
 cake16 b1a3416
@@ -5,6 +6,8 @@ color_coded e15d0e4
 comfortable-motion.vim 3df08f1
 cpsm 8e61bf3
 ctrlp.vim bde7a29
+deoplete-go a6924d4
+deoplete.nvim c4b02eb
 eclim 1aa38858
 far.vim c0644a1
 flattown dd3f86a
@@ -17,9 +20,11 @@ i3-vim-syntax a74c9bc
 kb-train a20c958
 l9 c822b05
 lexima.vim 85cfff9
+lightline.vim b19faca
 matchem 79a9ec5
 nerdcommenter 2859027
 next-indentation d04f221
+nvim-yarp b222af8
 office 07ff584
 papercolor-theme c17be6b
 patchreview-vim e83b1ad
@@ -33,7 +38,7 @@ SearchParty 48dbaa9
 sideways.vim 1f23633
 snippets 8914fb7
 sxhkd-vim b0abc9e
-synta 441ec6a
+synta ef97f50
 syntastic 40ac6c46
 tabular 00e1e7f
 targets.vim 050335f
@@ -57,6 +62,7 @@ vim-gitgutter 402257f
 vim-go 52c5b1f
 vim-go-impl 3a68a75
 vim-hacks f423472
+vim-hug-neovim-rpc 6009384
 vim-javascript ee376ba
 vim-json f5e3181
 vim-markdown 3fcde72
@@ -68,7 +74,7 @@ vimperator.vim 7223609
 vim-plugvim-utils c59a498
 vim-pug ddc5592
 vim-python-pep8-indent e0be8bf
-vim-pythonx 06fbcf8
+vim-pythonx 064d0a1
 vim-session 9e9a608
 vim-side-search 1a8b340
 vim-signature 5246b6c
