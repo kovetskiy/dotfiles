@@ -1,0 +1,4 @@
+#!/bin/bash
+
+tmux new-session -d -s marvex-reserve-alpha &
+tmux new-session -d -s marvex-reserve-beta &
