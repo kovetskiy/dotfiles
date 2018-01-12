@@ -5,3 +5,4 @@ tags
 .tags_*
 .tags
 .ycm_extra_conf.pyc
+.agignore
