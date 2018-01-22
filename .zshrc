@@ -1,9 +1,6 @@
 . ~/bin/environment-variables
 
-export TERM=rxvt-unicode-256color
-if [ "$TMUX" ]; then
-    export TERM=screen-256color-so
-fi
+export TERM=xterm
 
 export KEYTIMEOUT=1
 export WORDCHARS=-
