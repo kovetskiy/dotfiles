@@ -1,8 +1,5 @@
 super + Return
-	SHELL=/bin/zsh marvex --terminal-flag-title -p --terminal-flag-title-value "tabtitle=%s" -s -c --quiet -b ~/deadfiles/bin/konsole
-
-super + shift + Return
-	marvex -m -c --quiet -b ~/deadfiles/bin/konsole
+	SHELL=/bin/zsh marvex -s --quiet -b kitty --terminal '<path> --title "<title>" <command>'
 
 super + r
 	modal-run
@@ -68,13 +65,13 @@ control + Delete
 	environment-setup
 
 super + grave
-	kuake-konsole --terminal --bottom --middle --height 30 --width 50
+	kuake --terminal --bottom --middle --height 30 --width 50
 
 super + backslash
-	kuake-konsole --focus --center --middle --height 90 --width 75
+	kuake --focus --center --middle --height 90 --width 75
 
 super + equal
-	kuake-konsole --terminal --class top --top --middle --height 30 --width 50
+	kuake --terminal --class top --top --middle --height 30 --width 50
 
 control + backslash
 	autocomplete-tmux
