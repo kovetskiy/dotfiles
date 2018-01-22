@@ -1,5 +1,7 @@
 #!/bin/bash
 
+TIMEOUT=${TIMEOUT:-3}
+
 :main() {
     if :interactive; then
         name="$1"
@@ -29,16 +31,20 @@
     }
 
     while :; do
-        { sleep 5 && pkill blueco; } &
-
         sudo systemctl restart bluetooth
         :notify "<b>BLUETOOTH</b>: CONNECTING TO ${name}"
+
+        { sleep ${TIMEOUT} && pkill blueco; } &
+        killer=$!
+
         if blueco "${addr}"; then
             :notify "<b>BLUETOOTH</b>: LINKED"
             exit 0
         else
             :notify "<b>BLUETOOTH</b>: ERROR"
         fi
+
+        kill $killer
     done
 }
 
