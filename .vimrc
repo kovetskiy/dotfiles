@@ -13,8 +13,6 @@ let g:plug_shallow = 0
 let g:mapleader="\<Space>"
 let mapleader=g:mapleader
 
-let &background=$BACKGROUND
-
 augroup operations
     au!
 augroup end
@@ -101,21 +99,38 @@ Plug 'marijnh/tern_for_vim', {'for': 'js'}
     "endif
 
 
-Plug 'reconquest/vim-colorscheme'
+if $BACKGROUND == "dark"
+    Plug 'reconquest/vim-colorscheme'
+    func! _setup_colorscheme()
+        colorscheme reconquest
+    endfunc!
+endif
 
 Plug 'scrooloose/nerdcommenter'
     vmap L <Plug>NERDCommenterAlignLeft
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  set guicursor=
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 
 Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
     let g:deoplete#enable_at_startup = 1
-    inoremap <expr> <DOWN>  pumvisible() ? "\<C-N>" : "\<DOWN>"
-    inoremap <expr> <UP>    pumvisible() ? "\<C-P>" : "\<UP>"
 
 Plug 'kovetskiy/synta'
+    let g:synta_go_highlight_calls = 0
+    let g:synta_go_highlight_calls_funcs = 1
 
+"if has('nvim')
+    "Plug 'zchee/nvim-go', { 'do': 'make'}
+"else
 Plug 'fatih/vim-go', {'for': 'go'}
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
@@ -131,6 +146,21 @@ Plug 'fatih/vim-go', {'for': 'go'}
     let g:go_def_mapping_enabled = 0
     let g:go_def_mode = 'godef'
 
+    "let g:go_highlight_functions = 0
+
+    "func! _remove_go_dummy_syn()
+        "syn clear goImaginary
+        "syn clear goImaginaryFloat
+        "syn clear goFloat
+        "syn clear goDecimalInt
+        "syn clear goHexadecimalInt
+        "syn clear goOctalInt
+        "syn clear goOctalError
+
+        "syn clear goSingleDecl
+    "endfunc!
+
+    "au operations BufEnter *.go call _remove_go_dummy_syn()
 
     func! _goto_prev_func()
         call search('^func ', 'b')
@@ -156,16 +186,29 @@ Plug 'fatih/vim-go', {'for': 'go'}
     au operations FileType go nmap <silent><buffer> <Leader>, :w<CR>:call synta#go#build()<CR>
     au operations FileType go nmap <silent><buffer> <Leader>' :call synta#go#build()<CR>
     au operations FileType go imap <silent><buffer> <Leader>, <ESC>:w<CR>:call synta#go#build()<CR>
+"endif
 
 
 Plug 'elzr/vim-json', { 'for': 'json' }
     au operations BufNewFile,BufRead *.json set filetype=json
 
-Plug 'l9'
+Plug 'vim-scripts/l9'
 
-"Plug 'seletskiy/matchem'
+"Plug 'kovetskiy/vim-cucu'
+"Plug 'seletskiy/vim-nunu'
+Plug 'seletskiy/matchem'
     let g:UltiSnipsJumpForwardTrigger="<C-J>"
     let g:UltiSnipsJumpBackwardTrigger="<C-K>"
+
+    au User _overwrite_matchem
+        \ au VimEnter,BufEnter,FileType *
+        \ inoremap <expr> <DOWN>  pumvisible() ? "\<C-N>" : "\<DOWN>"
+
+    au User _overwrite_matchem
+        \ au VimEnter,BufEnter,FileType *
+        \ inoremap <expr> <UP>    pumvisible() ? "\<C-P>" : "\<UP>"
+
+    doau User _overwrite_matchem
 
 Plug 'sirver/ultisnips', { 'frozen': 1 }
     let g:UltiSnipsUsePythonVersion = 2
@@ -223,113 +266,121 @@ Plug 'danro/rename.vim'
     nnoremap <Leader><Leader>r :noautocmd Rename<Space>
 
 Plug 'kovetskiy/SearchParty'
-Plug 'seletskiy/vim-over'
-    let g:over#command_line#search#enable_move_cursor = 1
-    let g:over#command_line#search#very_magic = 1
-
-    nmap L VH
-
-    nnoremap M :exec 'OverExec' '%s/\C\V' . expand('<cword>') . '/'<CR>
-    nnoremap H :OverExec %s/<CR>
-    vnoremap H :OverExec s/<CR>
-
-    nmap <Leader><Leader> :call _search_clear_highlighting()<CR>
-    noremap n :call _search_cursorhold_register()<CR>n
-    noremap N :call _search_cursorhold_register()<CR>N
-
-    au operations User OverCmdLineExecute call _over_autocmd()
-
-    augroup _search_cursorhold_events
-        au!
-    augroup end
-
-    func! _search_clear_highlighting()
-        call searchparty#mash#unmash()
-        call feedkeys(":nohlsearch\<CR>")
-        "nohlsearch
-    endfunc!
-
-    func! _search_cursorhold_do()
-        if &updatetime != g:updatetime
-            exec "set updatetime =" . g:updatetime
-        endif
-
-        augroup _search_cursorhold_events
-            au!
-        augroup end
-
-        call _search_clear_highlighting()
-    endfunc!
-
-    func! _search_cursorhold_register()
-        set updatetime=3000
-
-        augroup _search_cursorhold_events
-            au!
-            au CursorHold * call _search_cursorhold_do()
-        augroup end
-
-        call searchparty#mash#mash()
-    endfunc!
-
-    let g:over_exec_autocmd_skip = 0
-    func! _over_autocmd()
-        if g:over_exec_autocmd_skip
-            let g:over_exec_autocmd_skip = 0
-            return
-        endif
-
-        call searchparty#mash#mash()
-    endfunc!
 
 
-    func! _over_exec(line1, line2, args)
-        call _search_cursorhold_register()
-
+if has('nvim')
+    set inccommand=nosplit
+    nnoremap H :%s/
+    vnoremap H :s/
+else
+    Plug 'seletskiy/vim-over'
         let g:over#command_line#search#enable_move_cursor = 1
+        let g:over#command_line#search#very_magic = 1
 
-        try
-            call over#command_line(
-            \   g:over_command_line_prompt,
-            \   a:line1 != a:line2 ? printf("'<,'>%s", a:args) : a:args
-            \)
-        catch
-            call _over_exec(a:line1, a:line2, a:args)
-        endtry
+        nmap L VH
 
-    endfunc!
+        nnoremap M :exec 'OverExec' '%s/\C\V' . expand('<cword>') . '/'<CR>
+        nnoremap H :OverExec %s/<CR>
+        vnoremap H :OverExec s/<CR>
 
-    command! -range -nargs=* OverExec call _over_exec(<line1>, <line2>, <q-args>)
+        nmap <Leader><Leader> :call _search_clear_highlighting()<CR>
+        noremap n :call _search_cursorhold_register()<CR>n
+        noremap N :call _search_cursorhold_register()<CR>N
 
-    nmap <Plug>(OverExec) :OverExec<CR>
+        au operations User OverCmdLineExecute call _over_autocmd()
 
-    func! s:_over_exec_do(args)
-        let g:over_exec_autocmd_skip = 1
-        let g:over#command_line#search#enable_move_cursor = 0
-        call feedkeys("\<CR>" . a:args . "\<Plug>(OverExec)\<Up>")
-    endfunc!
+        augroup _search_cursorhold_events
+            au!
+        augroup end
 
-    func! _over_next()
-        call s:_over_exec_do("n")
-        return ""
-    endfunc!
+        func! _search_clear_highlighting()
+            call searchparty#mash#unmash()
+            call feedkeys(":nohlsearch\<CR>")
+            "nohlsearch
+        endfunc!
 
-    let g:over_command_line_key_mappings = {
-        \ "\<C-F>": ".",
-        \ "\<C-E>": '\w+',
-        \ "\<C-O>": ".*",
-        \ "\<C-L>": "\\zs",
-        \
-        \ "\<C-K>": "\<Left>\\\<Right>",
-        \ "\<C-D>": "\<Left>\<BackSpace>\<Right>",
-        \
-        \ "\<C-N>" : {
-        \ 	"key" : "_over_next()",
-        \   "expr": 1,
-        \ 	"noremap" : 1,
-        \ 	"lock" : 1,
-        \ },
-    \ }
+        func! _search_cursorhold_do()
+            if &updatetime != g:updatetime
+                exec "set updatetime =" . g:updatetime
+            endif
+
+            augroup _search_cursorhold_events
+                au!
+            augroup end
+
+            call _search_clear_highlighting()
+        endfunc!
+
+        func! _search_cursorhold_register()
+            set updatetime=3000
+
+            augroup _search_cursorhold_events
+                au!
+                au CursorHold * call _search_cursorhold_do()
+            augroup end
+
+            call searchparty#mash#mash()
+        endfunc!
+
+        let g:over_exec_autocmd_skip = 0
+        func! _over_autocmd()
+            if g:over_exec_autocmd_skip
+                let g:over_exec_autocmd_skip = 0
+                return
+            endif
+
+            call searchparty#mash#mash()
+        endfunc!
+
+
+        func! _over_exec(line1, line2, args)
+            call _search_cursorhold_register()
+
+            let g:over#command_line#search#enable_move_cursor = 1
+
+            try
+                call over#command_line(
+                \   g:over_command_line_prompt,
+                \   a:line1 != a:line2 ? printf("'<,'>%s", a:args) : a:args
+                \)
+            catch
+                call _over_exec(a:line1, a:line2, a:args)
+            endtry
+
+        endfunc!
+
+        command! -range -nargs=* OverExec call _over_exec(<line1>, <line2>, <q-args>)
+
+        nmap <Plug>(OverExec) :OverExec<CR>
+
+        func! s:_over_exec_do(args)
+            let g:over_exec_autocmd_skip = 1
+            let g:over#command_line#search#enable_move_cursor = 0
+            call feedkeys("\<CR>" . a:args . "\<Plug>(OverExec)\<Up>")
+        endfunc!
+
+        func! _over_next()
+            call s:_over_exec_do("n")
+            return ""
+        endfunc!
+
+        let g:over_command_line_key_mappings = {
+            \ "\<C-F>": ".",
+            \ "\<C-E>": '\w+',
+            \ "\<C-O>": ".*",
+            \ "\<C-L>": "\\zs",
+            \
+            \ "\<C-K>": "\<Left>\\\<Right>",
+            \ "\<C-D>": "\<Left>\<BackSpace>\<Right>",
+            \
+            \ "\<C-N>" : {
+            \ 	"key" : "_over_next()",
+            \   "expr": 1,
+            \ 	"noremap" : 1,
+            \ 	"lock" : 1,
+            \ },
+        \ }
+endif
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     au operations BufRead,BufNewFile *.md set filetype=markdown
@@ -381,6 +432,7 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 
 Plug 'reconquest/vim-pythonx'
+    let g:pythonx_highlight_completion = 0
 Plug 'reconquest/snippets'
     "au operations FileType go nmap <buffer>
          "\ <Leader>gc :py px.go.goto_const()<CR>
@@ -424,7 +476,7 @@ Plug 'kovetskiy/vim-ski'
 
 Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
-        \ 'diff', 'markdown'
+        \ 'diff', 'markdown', 'go'
     \ ]
 
     func! _whitespaces_fix()
@@ -439,8 +491,16 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
 
 Plug 'kovetskiy/kb-train', { 'on': 'Train' }
 
-Plug 'NLKNguyen/papercolor-theme'
-    au operations BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp setlocal noet
+if $BACKGROUND == "light"
+    Plug 'nightsense/seagrey'
+    Plug 'NLKNguyen/papercolor-theme'
+    Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
+
+    func! _setup_colorscheme()
+        set background="light"
+        colorscheme PaperColor
+    endfunc!
+endif
 
 Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
 
@@ -500,8 +560,6 @@ Plug 'kovetskiy/ycm-sh', {'for': 'sh'}
     nnoremap <C-E><C-F> :call _grep_word()<CR>
     nnoremap <C-G> :call _grep_recover()<CR>
 
-Plug 'chrisbra/Recover.vim'
-
 Plug 'kovetskiy/vim-bash'
     nmap gd <C-]>
 
@@ -556,8 +614,6 @@ Plug 'kovetskiy/sxhkd-vim'
 
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
 
-Plug 'vimperator/vimperator.vim', {'for': 'vimperator'}
-
 Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
     let g:simple_todo_map_keys = 1
     let g:simple_todo_map_insert_mode_keys = 0
@@ -600,17 +656,6 @@ au VimEnter * au! plugvim
 
 set rtp-=~/.vim
 set rtp^=~/.vim
-
-if &background == "light"
-    colorscheme PaperColor
-    set nocursorline
-    "call _hl_workspace()
-else
-    colorscheme reconquest
-    au ColorScheme * hi! CursorLine ctermbg=236
-    set nocursorline
-    "call _hl_workspace()
-endif
 
 syntax on
 filetype plugin indent on
@@ -680,7 +725,11 @@ set clipboard=unnamed
 
 set tags=./.tags;/
 
-set viminfo+=n~/.vim/info/viminfo
+if has('nvim')
+    set viminfo+=n~/.vim/info/neoviminfo
+else
+    set viminfo+=n~/.vim/info/viminfo
+endif
 
 au FileType help setlocal number
 
@@ -894,5 +943,10 @@ command!
 
 
 nmap Y yy
+
+augroup setup_colorscheme
+    au!
+    au VimEnter * call _setup_colorscheme()
+augroup end
 
 noh
