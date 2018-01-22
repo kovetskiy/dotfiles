@@ -1,4 +1,3 @@
-
 .asoundrc
 bin
 .config/dunst
@@ -46,3 +45,4 @@ bin
 .zsh
 .zshrc
 .config/autorandr
+.config/kitty

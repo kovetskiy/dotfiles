@@ -7,3 +7,5 @@
 /.vimperator/info/
 /.vimperator/settings.vim
 /.vimperator/style.vim
+/.config/kitty/cached.json
+/.config/redshift.conf
