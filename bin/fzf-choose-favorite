@@ -8,7 +8,7 @@ dir=$({
     find -L $dir_zsh -maxdepth 2 -type d -printf 'zsh: %P\n'
     find -L $dir_vim -maxdepth 1 -type d -printf 'vim: %P\n'
     find $dir_go -maxdepth 3 -type d -printf 'go: %P\n'
-} 2>/dev/null | grep -Pv '^\w+: $' | fzf-tmux -u 15)
+} 2>/dev/null | grep -Pv '^\w+: $' | fzf-tmux -d 40)
 
 token=${dir//:*/}
 dir=${dir//*: /}
