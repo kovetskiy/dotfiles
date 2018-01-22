@@ -24,7 +24,7 @@ else
 fi
 
 echo "$filename"
-ln -sf "$filename" "$HOME/screenshots/last"
+ln -sf "$filename" "$HOME/screenshots/last.png"
 #echo  "uploading screenshot"
 #notify-send " " "uploading screenshot"
 #url=$(image-upload $filename)
