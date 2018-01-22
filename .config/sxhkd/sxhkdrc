@@ -1,5 +1,5 @@
 super + Return
-	SHELL=/bin/zsh marvex -s --quiet -b kitty --terminal '<path> --title "<title>" <command>'
+	marvex -s --quiet -b kitty --terminal '<path> --title "<title>" <command>'
 
 super + r
 	modal-run
