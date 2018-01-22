@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if pidof /bin/redshift &>/dev/null; then
+    echo ":: sending user-defined signal to redshift"
+    pkill -USR1 -f /bin/redshift
+    exit 0
+fi
+
+echo ":: starting new redshift instance"
+/bin/redshift &
