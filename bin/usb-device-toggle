@@ -1,0 +1,37 @@
+#!/bin/bash
+
+id_vendor=${1}
+id_product=${2}
+
+if [[ ! "$id_vendor" || ! "$id_product" ]]; then
+    echo "usb-device-toggle <vendor> <product>" >&2
+    exit 1
+fi
+
+for dir in /sys/bus/usb/devices/*; do
+    if [[ -f $dir/idVendor && -f $dir/idProduct ]]; then
+        device_vendor=$(cat $dir/idVendor)
+        device_product=$(cat $dir/idProduct)
+
+        if [[ "$device_vendor" == "$id_vendor"
+            && "$device_product" == "$id_product" ]]; then
+            echo "device: ${dir}"
+            value=$(cat $dir/bConfigurationValue)
+            if [[ ! "$value" ]]; then
+                value=0
+            fi
+
+            product=$(cat $dir/product)
+
+            echo "product: ${product}"
+
+            bc <<< "1-${value}" | sudo tee $dir/bConfigurationValue >/dev/null
+
+            if [[ "$value" == "1" ]]; then
+                echo "new status: disabled"
+            else
+                echo "new status: enabled"
+            fi
+        fi
+    fi
+done
