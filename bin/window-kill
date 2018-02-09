@@ -5,7 +5,7 @@ id=$(awk '/Window id/{print $4}' <<< "$xwininfo")
 name=$(xdotool getwindowname $id)
 
 if [[ $name == "marvex"* ]]; then
-    tmux kill-window
+    tmux -L ${TMUX_SOCKET} kill-window
 fi
 
 pid=$(xprop -id $id | awk '/PID/ {print $3}')

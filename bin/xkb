@@ -7,7 +7,10 @@ xkbcomp -w 0 -I$HOME/.xkb -R$HOME/.xkb $HOME/.xkbrc${MODE} $DISPLAY
 xset -b
 
 if ! pidof shift-shift &>/dev/null; then
-    sudo shift-shift -first CAPSLOCK -second RIGHTSHIFT -match '(?i)razer|keyboard|storm' &>/dev/null &
+    sudo systemd-cat -t shift-shift shift-shift \
+        -first CAPSLOCK \
+        -second RIGHTSHIFT \
+        -match '(?i)razer|keyboard|storm' &
 fi
 
 repeat_delay=110

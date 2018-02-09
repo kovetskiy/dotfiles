@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+
+server="$(cat ~/.config/ssh-download-server)"
+ip=${server##*@}
+filename="$(basename "$1")"
+
+ssh "$server" -- wget -O "/srv/http/$filename" "$1"
+axel -a -n 16 "http://$ip/$filename"

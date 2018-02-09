@@ -144,7 +144,7 @@ Plug 'fatih/vim-go', {'for': 'go'}
 
     let g:go_doc_keywordprg_enabled = 0
     let g:go_def_mapping_enabled = 0
-    let g:go_def_mode = 'godef'
+    let g:go_def_mode = 'guru'
 
     "let g:go_highlight_functions = 0
 
@@ -270,8 +270,10 @@ Plug 'kovetskiy/SearchParty'
 
 if has('nvim')
     set inccommand=nosplit
-    nnoremap H :%s/
+    nnoremap H :%s/\v
     vnoremap H :s/
+
+    nnoremap M :%s/\C\V<C-R><C-W>/
 else
     Plug 'seletskiy/vim-over'
         let g:over#command_line#search#enable_move_cursor = 1
@@ -607,8 +609,19 @@ Plug 'kovetskiy/vim-bash'
 
 Plug 'FooSoft/vim-argwrap', {'on': 'ArgWrap'}
     au operations BufRead,BufNewFile *.go let b:argwrap_tail_comma = 1
-    nnoremap <silent> @l :call search('[\(\{\[]', 'cs')<CR>l:ArgWrap<CR>
+    nnoremap <silent> @l :call search('[^ ][\(\{\[]', 'cs')<CR>ll:ArgWrap<CR>
     nnoremap <silent> @; :ArgWrap<CR>
+    func! _chain_wrap()
+        let match = search(').', 'cs', line('.'))
+        if match == 0
+            return
+        endif
+        call cursor(match, 0)
+        exec "normal" "lli\r"
+        call _chain_wrap()
+    endfunc!
+
+    nnoremap <silent> @h :call _chain_wrap()<CR>
 
 Plug 'kovetskiy/sxhkd-vim'
 
@@ -624,7 +637,7 @@ Plug 'brooth/far.vim'
     nmap <Leader>a :Farp<CR>
     au operations FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
 
-Plug 'kovetskiy/vim-autoresize'
+"Plug 'kovetskiy/vim-autoresize'
 
 Plug 'ddrscott/vim-side-search'
     nnoremap <Leader>s :SideSearch<space>
@@ -648,6 +661,9 @@ Plug 'w0rp/ale'
     \}
     let g:ale_fix_on_save = 1
     " au operations BufRead,BufNewFile *.go
+
+
+Plug 'terryma/vim-smooth-scroll'
 
 augroup end
 call plug#end()
@@ -948,5 +964,13 @@ augroup setup_colorscheme
     au!
     au VimEnter * call _setup_colorscheme()
 augroup end
+
+nnoremap <silent> <Leader>/ :noh<CR>
+
+func! _get_github_link()
+    silent call system("github-link " . expand('%:p') . " " . line('.'))
+endfunc!
+
+nnoremap <Leader>g :call _get_github_link()<CR>
 
 noh

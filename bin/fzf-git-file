@@ -1,0 +1,9 @@
+#!/bin/bash
+
+root=$(git rev-parse --show-toplevel)
+file=$(git -C $root ls-files \
+    | grep -v 'vendor/' \
+    | fzf-tmux -d 40)
+if [[ "${file}" ]]; then
+    echo $root/$file
+fi

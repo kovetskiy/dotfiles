@@ -22,4 +22,5 @@ systemctl --user import-environment DISPLAY
 
 redshift &
 
-I3SOCK=/tmp/i3-ipc.sock exec i3
+export I3SOCK=${I3SOCK:-/tmp/i3-ipc.sock}
+exec i3

@@ -1,6 +1,7 @@
 . ~/bin/environment-variables
 
-export TERM=xterm
+export TERM=xterm-kitty
+export TERM=screen-256color
 
 export KEYTIMEOUT=1
 export WORDCHARS=-
@@ -143,11 +144,11 @@ export WORDCHARS=-
     bindkey -v "^R" fzf-history-widget
     bindkey -v "^[[A" history-substring-search-up
     bindkey -v "^[[B" history-substring-search-down
-    bindkey -v "^A" beginning-of-line
+    #bindkey -v "^A" beginning-of-line
     bindkey "^[[1~" beginning-of-line
-    bindkey -v "^P" end-of-line
+    #bindkey -v "^P" end-of-line
     bindkey "^[[4~" end-of-line
-    bindkey -v "^Q" push-line
+    bindkey -v "^A" push-line
     bindkey -v '^?' backward-delete-char
     bindkey -v '^H' backward-delete-char
     bindkey -v '^[[3~' delete-char
@@ -248,9 +249,9 @@ export WORDCHARS=-
 
 # :fastcd
 {
-    bindkey -v '^N' cd-to-directory-favorites
-    zle -N cd-to-directory-favorites
-    cd-to-directory-favorites() {
+    bindkey -v '^N' :fzf:favorites:cd
+    zle -N :fzf:favorites:cd
+    :fzf:favorites:cd() {
         local __dir="$(fzf-choose-favorite)"
         if [[ ! "$__dir" ]]; then
             return
@@ -267,20 +268,53 @@ export WORDCHARS=-
         ls -lah --color=always
         git status -s
     }
+
+    bindkey -v '^Q' :fzf:git:file:cd
+    zle -N :fzf:git:file:cd
+    :fzf:git:file:cd() {
+        local __dir="$(fzf-git-file)"
+        if [[ ! "$__dir" ]]; then
+            return
+        fi
+
+        eval cd "$(dirname "$__dir")"
+
+        unset __dir
+
+        zle -R
+        lambda17:update
+        zle reset-prompt
+        ls -lah --color=always
+    }
+
+    bindkey -v '^P' :fzf:git:file:vim
+    zle -N :fzf:git:file:vim
+    :fzf:git:file:vim() {
+        local __target="$(fzf-git-file)"
+        if [[ ! "$__target" ]]; then
+            return
+        fi
+
+        BUFFER=" vim $__target"
+        zle accept-line -w
+    }
 }
 
 {
-    :fzf:cd() {
+    :fzf:vim() {
         local target
         target=$(find ${1:-.} -type d -printf '%P\n' 2>/dev/null \
             | fzf-tmux +m)
+        if [[ ! "$target" ]]; then
+            return
+        fi
         eval cd "$target"
         zle -R
         lambda17:update
         zle reset-prompt
     }
 
-    bindkey -v '^X' :fzf:cd
+    bindkey -v '^X' fzf-file-widget
     zle -N :fzf:cd
 }
 
@@ -1224,6 +1258,7 @@ export WORDCHARS=-
         alias 'gpo'='git push origin'
         alias 'gpl'='git pull'
         alias 'gpr'='git pull --rebase'
+        alias 'gur'='git pull --rebase origin'
         alias 'gf'='git fetch'
         alias 'gcn'='git commit'
         alias gcn!='git commit --amend'
@@ -1507,3 +1542,9 @@ unset -f colors
 export HISTSIZE=100000
 export SAVEHIST=100000
 export HISTFILE=~/.history
+
+TRAPWINCH() {
+    : # echo "COLUMNS: $COLUMNS" >&2
+}
+
+TRAPWINCH

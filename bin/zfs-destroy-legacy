@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -euo pipefail
+
+:log() {
+    printf "$(highlight bold)» zfs: %s$(highlight reset)\n" "$*"
+}
+
+:main() {
+    sudo zfs list -t all -H -o name,mountpoint \
+        | while read filesystem mountpoint; do
+            if [[ "$mountpoint" == "legacy" ]]; then
+                :log "removing snapshot $filesystem"
+                sudo zfs destroy -R -- "$filesystem"
+            fi
+        done
+
+}
+
+:main "${@}"

@@ -26,9 +26,9 @@ rust.vim a54bc38
 seagrey 847cdf9
 SearchParty 48dbaa9
 sideways.vim 1f23633
-snippets 8914fb7
+snippets 944dfcf
 sxhkd-vim b0abc9e
-synta ef97f50
+synta 0d37d59
 tabular 00e1e7f
 targets.vim 050335f
 tern_for_vim ae42c69
@@ -58,6 +58,7 @@ vim-pythonx ccc9608
 vim-side-search 1a8b340
 vim-simple-todo 4acb068
 vim-ski 97d230e
+vim-smooth-scroll 0eae236
 vim-sneak a0610b8
 vim-surround e49d6c2
 vim-syntax-extra 28926b8

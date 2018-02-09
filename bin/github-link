@@ -1,0 +1,36 @@
+#!/bin/bash
+
+set -euo pipefail
+
+:main() {
+    local path="$1"
+    local line=$2
+
+    local root
+    root=$(git -C "$(dirname "$path")" rev-parse --show-toplevel)
+
+    local filename
+    filename=$(sed "s|^$root/||" <<< "$path")
+
+    local origin
+    origin=$(git -C $root remote get-url origin)
+
+    local repo
+    repo=$(grep -Po '[:/]\K[^/]+/[^/]+$' <<< "$origin")
+
+    local branch
+    branch=$(git -C $root rev-parse --abbrev-ref HEAD)
+
+    local link
+    link="https://github.com/$repo/blob/$branch/$filename#L$line"
+    notify-send 1 $link
+
+    echo -n $link | xclip -selection primary
+    echo -n $link | xclip -selection clipboard
+}
+
+:log() {
+    echo "$*" >&2
+}
+
+:main "$@"

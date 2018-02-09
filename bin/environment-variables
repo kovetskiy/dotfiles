@@ -3,6 +3,7 @@
 export HOME="/home/operator"
 
 export DISPLAY="${DISPLAY:-:0}"
+export TMUX_SOCKET="${UID}_${DISPLAY}"
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
@@ -23,6 +24,7 @@ BIN=(
     "/usr/bin/"
     "$GOPATH/bin"
     "$RUBYPATH"
+    "/opt/atlassian/plugin-sdk/bin/"
 )
 
 export PROFILE=$(/bin/cat "$HOME/.config/profile")
