@@ -20,6 +20,7 @@ export RUBYPATH=$(/bin/ruby -e 'print Gem.user_dir')/bin
 BIN=(
     "$HOME/bin"
     "$HOME/bin/rewrite"
+    "$HOME/sources/jewfiles/bin"
     "$HOME/dotfiles/deadfiles/bin"
     "/usr/bin/"
     "$GOPATH/bin"
