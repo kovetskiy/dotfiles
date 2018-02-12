@@ -192,29 +192,25 @@ export WORDCHARS=-
 
     zstyle -d 'lambda17:00-main' transform
     zstyle -d 'lambda17:25-head' when
-    zstyle 'lambda17:05-sign' text "$"
+    zstyle 'lambda17:05-sign' text ""
     zstyle 'lambda17>00-root>00-main>00-status>10-dir' 15-pwd :prompt-pwd
-    # uncomment if got troubles with async
-    zstyle -d 'lambda17::async' pre-draw
 
     zstyle 'lambda17:00-banner' right " "
     zstyle 'lambda17:09-arrow' transition ""
+
+    zstyle -d 'lambda17:91-exit-code' text
+    zstyle -d 'lambda17:91-exit-code' when
+    zstyle -d 'lambda17:91-exit-code' fg
+
+    zstyle 'lambda17:00-banner' bg 'white'
+    zstyle 'lambda17:05-sign' fg 'black'
 
     :lambda17:read-terminal-background () {
         :
     }
 
-
-    case $PROFILE in
-        laptop)
-            zstyle lambda17:05-sign fg "white"
-            zstyle 'lambda17:00-banner' bg "red"
-            ;;
-        *)
-            zstyle 'lambda17:00-banner' bg "green"
-            zstyle lambda17:05-sign fg "white"
-            ;;
-    esac
+    # uncomment if got troubles with async
+    # zstyle -d 'lambda17::async' pre-draw
 
     autoload -U colors
     colors
@@ -794,6 +790,14 @@ export WORDCHARS=-
         sed-replace "$from" "$to" $(sift "$from" -l) "$@"
     }
 
+    sed-delete() {
+        local query="$1"
+        shift 1
+
+        delete_pattern="${query//\//\\/}"
+        sed -r -i "/${delete_pattern}/d" $(sift "$query" -l) "$@"
+    }
+
     git-clone-sources() {
         cd ~/sources/
         git clone "$1"
@@ -1142,6 +1146,7 @@ export WORDCHARS=-
     alias 'al'='alsamixer'
     alias 'p'='vimpager'
     alias 'sf'='sed-files'
+    alias 'sd'='sed-delete'
     alias 'pas'='packages-sync && { cd ~/dotfiles; git diff -U0 packages; }'
     alias 'rx'='sudo systemctl restart x@vt7.service xlogin@operator.service'
     alias 'zgr'='zgen reset'
