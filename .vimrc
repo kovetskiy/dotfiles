@@ -33,52 +33,13 @@ Plug 'kovetskiy/vim-hacks'
 
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'kovetskiy/fzf.vim'
-    let g:fzf_prefer_tmux = 1
+    "let g:fzf_prefer_tmux = 1
     au operations FileType * let g:fzf#vim#default_layout  = {'bottom': '10%'}
-
-Plug 'nixprime/cpsm', {'do': './install.sh' }
-Plug 'ctrlpvim/ctrlp.vim'
-
-    func! _ctrlp_buffer_add_augroup()
-        augroup _ctrlp_buffer_bufenter
-            au!
-            au BufEnter * exe "wincmd" "_" |
-                        \ call _ctrlp_buffer_remove_augroup()
-        augroup end
-    endfunc!
-
-    func! _ctrlp_buffer_remove_augroup()
-        augroup _ctrlp_buffer_bufenter
-            au!
-        augroup end
-    endfunc!
-
-    func! _ctrlp_buffer()
-        CtrlPBuffer
-        call _ctrlp_buffer_add_augroup()
-    endfunc!
 
     func! _ctrlp()
         call _snippets_stop()
-        CtrlP
+        exec 'FZF'
     endfunc!
-
-    nnoremap <C-B> :call _ctrlp_buffer()<CR>
-
-    let g:ctrlp_working_path_mode='ra'
-    let g:ctrlp_user_command = 'ctrlp-search %s'
-    let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:50'
-    let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
-
-    "let g:ctrlp_max_depth = 10
-
-    let g:ctrlp_clear_cache_on_exit = 1
-    let g:ctrlp_use_caching = 0
-    let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp.vim'
-
-    hi! def link CtrlPMatch Search
-
-    let g:ctrlp_map = '<nop>'
     map <silent> <C-P> :call _ctrlp()<CR>
 
 Plug 'marijnh/tern_for_vim', {'for': 'js'}
@@ -609,7 +570,16 @@ Plug 'kovetskiy/vim-bash'
 
 Plug 'FooSoft/vim-argwrap', {'on': 'ArgWrap'}
     au operations BufRead,BufNewFile *.go let b:argwrap_tail_comma = 1
-    nnoremap <silent> @l :call search('[^ ][\(\{\[]', 'cs')<CR>ll:ArgWrap<CR>
+
+    func! _search_wrappable()
+        let l:bracket = '\([^\)]'
+        let l:squares = '\[[^\]]'
+        let l:braces  = '\{[^\}]'
+        let l:pattern = '\v[^ ](' . l:bracket . '|' . l:squares . '|' . l:braces . ')'
+
+        call search(l:pattern, 'cs')
+    endfunc!
+    nnoremap <silent> @l :call _search_wrappable()<CR>ll:ArgWrap<CR>
     nnoremap <silent> @; :ArgWrap<CR>
     func! _chain_wrap()
         let match = search(').', 'cs', line('.'))
