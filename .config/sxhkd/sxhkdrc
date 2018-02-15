@@ -1,5 +1,5 @@
 super + Return
-	marvex --tmux-socket $TMUX_SOCKET -s --quiet -b kitty --terminal '@path --title "@title" @command' -r 2
+	terminal
 
 super + r
 	modal-run
