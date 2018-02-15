@@ -192,7 +192,7 @@ export WORDCHARS=-
 
     zstyle -d 'lambda17:00-main' transform
     zstyle -d 'lambda17:25-head' when
-    zstyle 'lambda17:05-sign' text ""
+    zstyle 'lambda17:05-sign' text "$"
     zstyle 'lambda17>00-root>00-main>00-status>10-dir' 15-pwd :prompt-pwd
 
     zstyle 'lambda17:00-banner' right " "
@@ -204,6 +204,12 @@ export WORDCHARS=-
 
     zstyle 'lambda17:00-banner' bg 'white'
     zstyle 'lambda17:05-sign' fg 'black'
+    zstyle "lambda17:26-git-clean" fg "black"
+    zstyle "lambda17:25-head" fg-branch "black"
+    zstyle "lambda17:25-head" fg-tag "black"
+    zstyle "lambda17:25-head" fg-empty "black"
+    zstyle "lambda17:26-git-clean" fg "black"
+    zstyle "lambda17:01-git-stash" fg "black"
 
     :lambda17:read-terminal-background () {
         :
