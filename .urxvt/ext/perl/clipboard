@@ -17,7 +17,7 @@ sub copy {
 
 sub paste {
     my ($self) = @_;
-    my $content = `xclip -o -selection clipboard`;
+    my $content = `clipboard-paste`;
 
     $self->tt_write($content);
 }

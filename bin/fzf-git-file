@@ -1,7 +1,7 @@
 #!/bin/bash
 
 root=$(git rev-parse --show-toplevel)
-file=$(git -C $root ls-files \
+file=$(git -C $root ls-files --others \
     | grep -v 'vendor/' \
     | fzf-tmux -d 40)
 if [[ "${file}" ]]; then

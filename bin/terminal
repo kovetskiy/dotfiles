@@ -2,7 +2,7 @@
 
 PROFILE=$(cat ~/.config/profile)
 if [[ "$PROFILE" == "laptop" ]]; then
-    marvex --tmux-socket $TMUX_SOCKET -s --quiet -b kitty --terminal '@path --title "@title" @command' -r 2
+    marvex --tmux-socket $TMUX_SOCKET -s --quiet -b urxvt --terminal '@path --title "@title" -e @command' -r 2
 else
     konsole
 fi

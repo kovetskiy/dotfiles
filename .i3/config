@@ -1,5 +1,9 @@
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
+gaps inner 5
+gaps outer 0
+smart_gaps on
+
 hide_edge_borders both
 font pango:Monaco 1
 new_window 1pixel
@@ -109,6 +113,6 @@ for_window [title="^kuake_"]     floating enable
 for_window [title="^sxiv"]       floating disable
 for_window [title="Viewer"]      floating disable
 
-client.focused            #000cff   #000cff   #000cff   #000cff
+client.focused            #ffffff   #ffffff   #ffffff   #ffffff
 client.focused_inactive   #000000   #000000   #000000   #000000
 client.unfocused          #000000   #000000   #000000   #000000

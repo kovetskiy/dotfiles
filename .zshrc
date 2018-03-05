@@ -216,7 +216,7 @@ export WORDCHARS=-
     }
 
     # uncomment if got troubles with async
-    # zstyle -d 'lambda17::async' pre-draw
+    zstyle -d 'lambda17::async' pre-draw
 
     autoload -U colors
     colors
@@ -297,27 +297,11 @@ export WORDCHARS=-
             return
         fi
 
-        BUFFER=" vim $__target"
+        __target=$(grep -Po "$(pwd)/\K.*" <<< "$__target")
+
+        BUFFER="vim $__target"
         zle accept-line -w
     }
-}
-
-{
-    :fzf:vim() {
-        local target
-        target=$(find ${1:-.} -type d -printf '%P\n' 2>/dev/null \
-            | fzf-tmux +m)
-        if [[ ! "$target" ]]; then
-            return
-        fi
-        eval cd "$target"
-        zle -R
-        lambda17:update
-        zle reset-prompt
-    }
-
-    bindkey -v '^X' fzf-file-widget
-    zle -N :fzf:cd
 }
 
 # :func
@@ -1554,8 +1538,9 @@ export HISTSIZE=100000
 export SAVEHIST=100000
 export HISTFILE=~/.history
 
-TRAPWINCH() {
-    : # echo "COLUMNS: $COLUMNS" >&2
-}
+#TRAPWINCH() {
+    #:
+    #echo "COLUMNS: $COLUMNS" >&2
+#}
 
-TRAPWINCH
+#TRAPWINCH

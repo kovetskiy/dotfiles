@@ -1,1 +1,37 @@
+URxvt.iso14755: off
+URxvt.iso14755_52: off
+
+URxvt.perl-lib: /home/operator/.urxvt/ext/perl
+
+URxvt.buffered: false
+
+URxvt.keysym.Control-Up: \033[1;5A
+URxvt.keysym.Control-Down: \033[1;5B
+URxvt.keysym.Control-Left: \033[1;5D
+URxvt.keysym.Control-Right: \033[1;5C
+
+URxvt.perl-ext-common: clipboard,default
+
+URxvt.keysym.Mod4-c: perl:clipboard:copy
+URxvt.keysym.Mod4-v: perl:clipboard:paste
+URxvt.clipboard.copycmd:  clipboard-copy
+URxvt.clipboard.pastecmd: xsel --output --clipboard
+
+URxvt.title: rxvt-unicode
+URxvt.saveLines: 10000
+
+URxvt.font: xft:Fira Code:size=11,style=medium
+URxvt.boldFont: xft:Fira Code:size=11,style=bold
+URxvt.italicFont: xft:Fira Code:size=11,style=bold
+URxvt.boldItalicFont: xft:Fira Code:size=11,style=bold
+
+URxvt.underlineColor: blue
+URxvt.cursorBlink: false
+URxvt.scrollBar: false
+URxvt.troughColor: #000000
+
+URxvt.transparent: false
+
 Xft.dpi: 96
+
+URxvt.lineSpace: 1

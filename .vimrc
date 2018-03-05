@@ -35,7 +35,7 @@ Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'kovetskiy/fzf.vim'
     "let g:fzf_prefer_tmux = 1
     au operations FileType * let g:fzf#vim#default_layout  = {'bottom': '10%'}
-
+    let $FZF_DEFAULT_COMMAND = 'ctrlp-search'
     func! _ctrlp()
         call _snippets_stop()
         exec 'FZF'
@@ -612,8 +612,13 @@ Plug 'brooth/far.vim'
 Plug 'ddrscott/vim-side-search'
     nnoremap <Leader>s :SideSearch<space>
 
-    noremap <Tab> :bNext<CR>
-    noremap <S-Tab> :bprev<CR>
+    func! _random_line()
+        execute 'normal! '.(system('/bin/bash -c "echo -n $RANDOM"') % line('$')).'G'
+        normal zz
+    endfunc!
+
+    noremap <silent> <Tab>   :bNext<CR>:call _random_line()<CR>
+    noremap <silent> <S-Tab> :bprev<CR>:call _random_line()<CR>
 
 Plug 'lambdalisue/gina.vim'
 
@@ -698,7 +703,7 @@ set showtabline=0
 set cino=(s,m1,+0
 
 set list
-set lcs=trail:·,tab:☰\ "
+set lcs=trail:·,tab:⇢\ "
 
 set pastetoggle=<F11>
 

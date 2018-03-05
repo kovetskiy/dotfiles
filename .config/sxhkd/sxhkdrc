@@ -55,17 +55,17 @@ super + control + e
 super + Tab
 	quicknote
 
-control + super +  F11
-	autorandr --load laptop
+super + 5
+	carcosa-ui
 
-control + super +  F12
-	autorandr --load home
+super + 6
+	carcosa-new-password
 
 control + Delete
 	environment-setup
 
 super + grave
-	kuake --terminal --bottom --middle --height 30 --width 50
+	kuake-bottom
 
 super + backslash
 	kuake --focus --center --middle --height 90 --width 75

@@ -1,14 +1,22 @@
 #!/bin/bash
 
-exec 200>/tmp/volume.lock
-flock 200
+[ -n "$_LOCK" ] || _LOCK=x exec flock -n $0 $0 "$@"
 
 :main() {
     local action=$1
 
     local status="$(:change "$action")"
 
+    if [[ -f /tmp/volume.value ]]; then
+        prev=$(cat /tmp/volume.value)
+        if [[ "$prev" == "$status" ]]; then
+            pkill -9 volume
+            exit 0
+        fi
+    fi
+
     :notify "$status"
+    echo "$status" > /tmp/volume.value
 }
 
 :notify() {
