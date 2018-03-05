@@ -102,6 +102,8 @@ workspace z output $right # mcabber
 workspace x output $left # tmp
 workspace c output $right # gui shit - skype
 
+for_window [title="Time Tracker"] move container to workspace d
+
 bindsym $alt+Ctrl+grave  [instance="^(?!kuake)"] scratchpad show
 bindsym $alt+Shift+grave move scratchpad
 
