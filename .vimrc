@@ -232,6 +232,7 @@ Plug 'kovetskiy/SearchParty'
 if has('nvim')
     set inccommand=nosplit
     nnoremap H :%s/\v
+    nnoremap L V:%s/\v
     vnoremap H :s/
 
     nnoremap M :%s/\C\V<C-R><C-W>/
@@ -785,6 +786,7 @@ nnoremap <Leader>e :e!<CR>
 
 nnoremap <Leader>q <ESC>:q<CR>
 nnoremap <silent> <C-S> :w<CR>
+inoremap <silent> <C-S> <Esc>:w<CR>
 
 nnoremap <Leader>n <ESC>:bdelete!<CR>
 nnoremap <Leader>q <ESC>:qa!<CR>

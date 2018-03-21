@@ -26,7 +26,7 @@ URxvt.italicFont: xft:Fira Code:size=11,style=bold
 URxvt.boldItalicFont: xft:Fira Code:size=11,style=bold
 
 URxvt.underlineColor: blue
-URxvt.cursorBlink: false
+URxvt.cursorBlink: true
 URxvt.scrollBar: false
 URxvt.troughColor: #000000
 

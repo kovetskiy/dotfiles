@@ -53,6 +53,12 @@
     wifi
 }
 
+:get-section-vpn() {
+    if pidof "openvpn" &>/dev/null; then
+        cat /var/run/user/$UID/ovpn
+    fi
+}
+
 :main() {
     local datetime=""
     local battery=""
@@ -65,6 +71,7 @@
     :body-append "CPU" "$(:get-section-cpu)"
     :body-append "WIFI" "$(:get-section-wifi)"
     :body-append "BATTERY" "$(:get-section-battery)"
+    :body-append "VPN" "$(:get-section-vpn)"
 
     :notify "$body"
 

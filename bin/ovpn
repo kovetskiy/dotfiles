@@ -40,6 +40,7 @@ set -euo pipefail
     echo "${bold}starting openvpn using config $config_name${reset}"
 
     local config="$(:new-config "$config_file" "$auth")"
+    echo "${@}" > /var/run/user/$UID/ovpn
     # todo: beautify output
     sudo openvpn  --verb 6 --config /dev/stdin <<< "$config"
 }

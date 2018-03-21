@@ -1,3 +1,5 @@
 #!/bin/bash
 
-sed 's/[ \t]*$//' | xsel --input --clipboard
+input=$(sed 's/[ \t]*$//')
+xsel --input --primary <<< "$input"
+xsel --input --clipboard <<< "$input"

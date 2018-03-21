@@ -1,8 +1,6 @@
 #!/bin/bash
 
-set -x
-
-browsers=("google-chrome-stable" "firefox-beta")
+browsers=("firefox-beta" "google-chrome-stable")
 
 url=$(sed -r 's#^(git+ssh|ssh|git)://(\w+@)?##' <<< "$1")
 params="${@:2}"
@@ -24,7 +22,7 @@ fi
     systemd-cat -t "browser" <<< "${browser} ${url} ${params[@]}"
 
     if [[ "$browser" == "firefox-beta" ]]; then
-        exec firefox-beta-bin "$url" ${params[@]}
+        exec firefox-beta "$url" ${params[@]}
     else
         exec "$browser" "$url" ${params[@]}
     fi
@@ -35,7 +33,7 @@ for browser in ${browsers[@]}; do
     if [[ "$browser" == "google-chrome-stable" ]]; then
         check="chrom"
     fi
-    if pgrep -f "$check"; then
+    if pgrep -f "$check" &>/dev/null; then
         :open "$browser"
         exit 0
     fi

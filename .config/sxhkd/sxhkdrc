@@ -2,7 +2,7 @@ super + Return
 	terminal
 
 super + r
-	modal-run
+	modal-run -matching normal
 
 super + shift + r
 	modal-run --terminal
@@ -12,6 +12,9 @@ shift + Delete
 
 super + control + s
 	browser
+
+super + control + w
+	todoist
 
 super + control + d
 	upwork
@@ -83,7 +86,7 @@ control + F9
 	brightness up
 
 control + F11
-	uidle-toggle
+	jidle-toggle
 
 control + F12
 	SUSPEND_NOTIFY_TIMEOUT=60 upwork-suspend

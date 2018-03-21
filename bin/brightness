@@ -22,6 +22,10 @@ value=$(cat $path)
 	echo "$*" | sudo tee $dir/brightness
 }
 
+:getmax() {
+    cat $dir/max_brightness
+}
+
 if [ $# -eq 0 ]; then
 	echo $value
 elif [ $1 == "up" ]; then
@@ -36,7 +40,7 @@ elif [ $1 == "toggle" ]; then
     cached=$(cat ~/.cache/brightness.cache)
     if [[ ! "$cached" ]]; then
         if [[ "$value" == "0" ]]; then
-            cached="1000"
+            :set $(:getmax)
         else
             echo "$value" | tee ~/.cache/brightness.cache
             :set 0
