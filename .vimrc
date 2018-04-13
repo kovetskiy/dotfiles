@@ -40,7 +40,7 @@ Plug 'kovetskiy/fzf.vim'
         call _snippets_stop()
         exec 'FZF'
     endfunc!
-    map <silent> <C-P> :call _ctrlp()<CR>
+    map <silent> <c-e><c-p> :call _ctrlp()<CR>
 
 Plug 'marijnh/tern_for_vim', {'for': 'js'}
     au operations BufNewFile,BufRead *.js setlocal noet
@@ -74,16 +74,32 @@ if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   set guicursor=
 else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
 Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
+
 Plug 'zchee/deoplete-go', { 'do': 'make'}
     let g:deoplete#enable_at_startup = 1
+
+    func! _setup_deoplete()
+        call deoplete#custom#source(
+            \ '_', 'min_pattern_length', 1)
+
+		call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+		call deoplete#custom#source('_', 'sorters', [])
+
+        " unlimited candidate length
+		call deoplete#custom#source('_', 'max_kind_width', 0)
+		call deoplete#custom#source('_', 'max_menu_width', 0)
+		call deoplete#custom#source('_', 'max_abbr_width', 0)
+    endfunc!
+
+    augroup _setup_deoplete
+        au!
+        au VimEnter * call _setup_deoplete()
+    augroup end
 
 Plug 'kovetskiy/synta'
     let g:synta_go_highlight_calls = 0
@@ -144,9 +160,8 @@ Plug 'fatih/vim-go', {'for': 'go'}
     au operations FileType go nmap <silent><buffer> gl :call go#def#Jump('vsplit')<CR>
     au operations FileType go nmap <silent><buffer> gk :call go#def#Jump('split')<CR>
 
-    au operations FileType go nmap <silent><buffer> <Leader>, :w<CR>:call synta#go#build()<CR>
-    au operations FileType go nmap <silent><buffer> <Leader>' :call synta#go#build()<CR>
-    au operations FileType go imap <silent><buffer> <Leader>, <ESC>:w<CR>:call synta#go#build()<CR>
+    au operations FileType go nmap <silent><buffer> <c-p> :call synta#go#build()<CR>
+    au operations FileType go imap <silent><buffer> <c-p> <ESC>:w<CR>:call synta#go#build()<CR>
 "endif
 
 
@@ -639,7 +654,7 @@ Plug 'w0rp/ale'
     " au operations BufRead,BufNewFile *.go
 
 
-Plug 'terryma/vim-smooth-scroll'
+Plug 'romainl/vim-cool'
 
 augroup end
 call plug#end()
