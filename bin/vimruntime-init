@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -euo pipefail
+
+DIR=~/.vim/runtime
+SIZE=64m
+
+if findmnt $DIR &>/dev/null; then
+    sudo umount $DIR
+fi
+
+if [[ -d $DIR ]]; then
+    rm -rf $DIR
+fi
+
+mkdir $DIR
+sudo mount -t tmpfs -o size=$SIZE tmpfs $DIR
+mkdir -p $DIR/{backup,undo,tmp}
