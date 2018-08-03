@@ -2,8 +2,20 @@
 
 pkill keynav
 
-if [[ "$AUTORANDR_CURRENT_PROFILE" == "tv" ]]; then
-    pactl set-card-profile 0 "output:hdmi-stereo+input:analog-stereo"
+:profile() {
+    pactl set-card-profile 0 "$1"
+    pactl set-card-profile 1 "$1"
+}
+
+profile="$AUTORANDR_CURRENT_PROFILE"
+if [[ "$profile" == "tv" ]]; then
+    :profile "output:hdmi-stereo+input:analog-stereo"
 else
-    pactl set-card-profile 0 "output:analog-stereo+input:analog-stereo"
+    :profile "output:analog-stereo+input:analog-stereo"
+fi
+
+echo "$profile" > ~/.config/autorandr_profile
+
+if [[ "$profile" =~ office ]]; then
+    redshift stop
 fi

@@ -1,54 +1,99 @@
 #!/bin/bash
 
-exec 200>/tmp/brightness.lock
-flock 200
+[ -n "$_LOCK" ] || _LOCK=x exec flock -n $0 $0 "$@"
 
-if [ "$(cat ~/.config/profile)" == "laptop" ]; then
-    dir=/sys/class/backlight/intel_backlight
-    step=100
-else
-    dir=/sys/class/backlight/acpi_video0
-    step=1
-fi
+set -euo pipefail
 
-path=$dir/brightness
-value=$(cat $path)
-
-:notify() {
-    notify-send.sh -r 2000 "brightness" "${1}"
+:init() {
+    if [ "$(cat ~/.config/profile)" == "laptop" ]; then
+        _SYSDIR=/sys/class/backlight/intel_backlight
+        _STEP=$(:step)
+    else
+        _SYSDIR=/sys/class/backlight/acpi_video0
+        _STEP=$(:step)
+    fi
 }
 
-:set() {
-	echo "$*" | sudo tee $dir/brightness
+:main() {
+    :init
+
+    value=""
+    case "$1" in
+        up)
+            value=$(:up)
+            ;;
+
+        down)
+            value=$(:down)
+            ;;
+
+        toggle)
+            value=$(:toggle)
+            ;;
+    esac
+
+    :set "$value"
+    :notify "$value"
 }
 
-:getmax() {
-    cat $dir/max_brightness
+:up() {
+    echo $(($(:get)+$_STEP))
 }
 
-if [ $# -eq 0 ]; then
-	echo $value
-elif [ $1 == "up" ]; then
-    new_value=$(($value+$step))
-	:set "$new_value"
-    :notify "$new_value"
-elif [ $1 == "down" ]; then
-    new_value=$(($value-$step))
-	:set "$new_value"
-    :notify "$new_value"
-elif [ $1 == "toggle" ]; then
-    cached=$(cat ~/.cache/brightness.cache)
-    if [[ ! "$cached" ]]; then
+:down() {
+    echo $(($(:get)-$_STEP))
+}
+
+:toggle() {
+    local cache_path=/tmp/.brightness.cache
+    local cache_value=$(cat $cache_path)
+    local value="$(:get)"
+    if [[ ! "$cache_value" ]]; then
         if [[ "$value" == "0" ]]; then
-            :set $(:getmax)
+            echo $(:get_max)
+            return
         else
-            echo "$value" | tee ~/.cache/brightness.cache
-            :set 0
-            exit
+            echo "$value" | tee $cache_path >/dev/null
+            echo 0
+            return
         fi
     fi
 
-    :set "$cached"
-    :notify "$cached"
-    rm ~/.cache/brightness.cache
-fi
+    echo "$cache_value"
+    rm $cache_path
+}
+
+:get() {
+    cat $_SYSDIR/brightness
+}
+
+:notify() {
+    local level=$1
+    local max=$(:get_max)
+    local percent=$(:percent $level $max)
+    notify-send.sh -r 2000 "brightness" "<b>BRIGHTNESS</b>: $percent%"
+}
+
+:set() {
+	echo "$*" | sudo tee $_SYSDIR/brightness
+}
+
+_max=
+:get_max() {
+    if [[ ! "$_max" ]]; then
+        _max=$(cat $_SYSDIR/max_brightness)
+    fi
+    echo $_max
+}
+
+:step() {
+    echo $(($(:get_max)/100))
+}
+
+:percent() {
+    local actual=$1
+    local max=$2
+    echo $((100*$actual/$max))
+}
+
+:main "${@}"

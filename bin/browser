@@ -1,7 +1,5 @@
 #!/bin/bash
 
-browsers=("firefox-beta" "google-chrome-stable")
-
 url=$(sed -r 's#^(git+ssh|ssh|git)://(\w+@)?##' <<< "$1")
 params="${@:2}"
 
@@ -16,27 +14,13 @@ if [[ "$scheme" != "http://"
     exit
 fi
 
-:open() {
-    local browser="$1"
-
-    systemd-cat -t "browser" <<< "${browser} ${url} ${params[@]}"
-
-    if [[ "$browser" == "firefox-beta" ]]; then
-        exec firefox-beta "$url" ${params[@]}
+if [[ ! "${BROWSER_PROFILE:-}" ]]; then
+    if [[ "$DISPLAY" != ":0" ]]; then
+        BROWSER_PROFILE=mgx
     else
-        exec "$browser" "$url" ${params[@]}
+        BROWSER_PROFILE=default
     fi
-}
+fi
 
-for browser in ${browsers[@]}; do
-    check="$browser"
-    if [[ "$browser" == "google-chrome-stable" ]]; then
-        check="chrom"
-    fi
-    if pgrep -f "$check" &>/dev/null; then
-        :open "$browser"
-        exit 0
-    fi
-done
-
-:open "${browsers[0]}"
+set -x
+exec firefox-beta -P ${BROWSER_PROFILE:-default} "$url"

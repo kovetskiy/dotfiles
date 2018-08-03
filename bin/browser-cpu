@@ -1,6 +1,6 @@
 #!/bin/bash
 
-QUOTA=${QUOTA:-50}
+QUOTA=${QUOTA:-80}
 
 sudo systemd-run \
     --pty \

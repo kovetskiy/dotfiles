@@ -20,10 +20,27 @@ URxvt.clipboard.pastecmd: xsel --output --clipboard
 URxvt.title: rxvt-unicode
 URxvt.saveLines: 10000
 
-URxvt.font: xft:Fira Code:size=11,style=medium
-URxvt.boldFont: xft:Fira Code:size=11,style=bold
-URxvt.italicFont: xft:Fira Code:size=11,style=bold
-URxvt.boldItalicFont: xft:Fira Code:size=11,style=bold
+;URxvt.font: xft:Fira Code:size=10,style=regular
+;URxvt.boldFont: xft:Fira Code:size=10,style=bold
+;URxvt.italicFont: xft:Fira Code:size=10,style=bold
+;URxvt.boldItalicFont: xft:Fira Code:size=10,style=bold
+
+URxvt.font: xft:Source Code Pro:size=10,style=regular
+URxvt.boldFont: xft:Source Code Pro:size=10,style=bold
+URxvt.italicFont: xft:Source Code Pro:size=10,style=italic
+URxvt.boldItalicFont: xft:Source Code Pro:size=10,style=bold
+URxvt.lineSpace: -5
+
+;URxvt.font: xft:Fira Code:size=10,style=regular
+;URxvt.boldFont: xft:Fira Code:size=10,style=bold
+;URxvt.italicFont: xft:Fira Code:size=10,style=bold
+;URxvt.boldItalicFont: xft:Fira Code:size=10,style=bold
+
+;URxvt*font:           xft:PragmataPro:Regular:size=10
+;URxvt*boldFont:       xft:PragmataPro:Bold:size=10
+;URxvt*italicFont:     xft:PragmataPro:Italic:size=10
+;URxvt*boldItalicFont: xft:Fantasque Sans Mono:Bold Italic:size=11
+;URxvt*imFont:         xft:Fantasque Sans Mono:Italic:size=11
 
 URxvt.underlineColor: blue
 URxvt.cursorBlink: true
@@ -33,5 +50,3 @@ URxvt.troughColor: #000000
 URxvt.transparent: false
 
 Xft.dpi: 96
-
-URxvt.lineSpace: 1

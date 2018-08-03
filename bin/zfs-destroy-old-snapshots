@@ -9,7 +9,7 @@ set -euo pipefail
 :main() {
     threshold=20
 
-    all_snapshots="$(sudo zfs list -t snapshot -H -o name)"
+    all_snapshots="$(sudo zfs list -t snapshot -H -o name | grep backup_)"
     all_count=$(wc -l <<< "$all_snapshots")
 
     removing_count=$(($all_count-$threshold))

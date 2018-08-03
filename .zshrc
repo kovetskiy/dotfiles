@@ -71,6 +71,8 @@ export WORDCHARS=-
 
 {
     :plugins:load() {
+        [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
         zgen load kovetskiy/zsh-quotes
         zgen load kovetskiy/zsh-add-params
         zgen load kovetskiy/zsh-fastcd
@@ -90,11 +92,10 @@ export WORDCHARS=-
 
         zgen load kovetskiy/zsh-alias-search
 
-        zgen load seletskiy/zsh-syntax-highlighting
-
+        zgen oh-my-zsh plugins/sudo
         zgen load zsh-users/zsh-history-substring-search
 
-        zgen oh-my-zsh plugins/sudo
+        zgen load zdharma/fast-syntax-highlighting
 
         zgen load seletskiy/zsh-autosuggestions
 
@@ -192,8 +193,9 @@ export WORDCHARS=-
 
     zstyle -d 'lambda17:00-main' transform
     zstyle -d 'lambda17:25-head' when
-    zstyle 'lambda17:05-sign' text "$"
+    zstyle 'lambda17:05-sign' text "→"
     zstyle 'lambda17>00-root>00-main>00-status>10-dir' 15-pwd :prompt-pwd
+    zstyle "lambda17:20-git" left " "
 
     zstyle 'lambda17:00-banner' right " "
     zstyle 'lambda17:09-arrow' transition ""
@@ -210,6 +212,7 @@ export WORDCHARS=-
     zstyle "lambda17:25-head" fg-empty "black"
     zstyle "lambda17:26-git-clean" fg "black"
     zstyle "lambda17:01-git-stash" fg "black"
+    zstyle "lambda17:26-git-dirty" text " ↕"
 
     :lambda17:read-terminal-background () {
         :
@@ -643,6 +646,8 @@ export WORDCHARS=-
         fi
 
         local package="$1"
+        mkdir -p /tmp/go-makepkg-$package/
+        cd /tmp/go-makepkg-$package/
         local description="$2"
         local repo="$3"
         shift 2
@@ -1038,26 +1043,7 @@ export WORDCHARS=-
     }
 
     :search() {
-        local cmd=("sift" "-i")
-        while :; do
-            if [[ "$1" == "-" ]]; then
-                shift
-
-                cmd+=("--exclude-dirs" "$1")
-
-                shift
-                continue
-            fi
-
-            break
-        done
-
-        if [[ "${EXT}" ]]; then
-            cmd+=("-x" "${EXT}")
-        fi
-
-        cmd+=("-e")
-        "${cmd[@]}" "${@}"
+        sift -s "${@}"
     }
 
     :circleci:exec() {
@@ -1082,8 +1068,22 @@ export WORDCHARS=-
     alias -g '#k'='| karma-grep'
 }
 
+sm() {
+    eval "$(ssh-agent -s)"
+    ssh-add ~/.ssh/id_rsa_magalix_dev
+    /bin/ssh -t -A "$@"
+}
+
+ssha() {
+    eval "$(ssh-agent -s)"
+    ssh-add ~/.ssh/id_rsa
+    /bin/ssh -A "$@"
+}
+
 # :alias
 {
+    alias s='sift'
+    alias e='less -i'
     alias 8='mtr 8.8.8.8'
     alias 'ccl'=':circleci:exec recent-builds'
     alias 'ccr'=':circleci:recent-build'
@@ -1117,7 +1117,6 @@ export WORDCHARS=-
     alias 'op'=':mplayer:run -playlist ~/torrents/audio/.playlist -loop 0'
     alias 'rt'=':rtorrent:select'
     alias 'u'=':aur:install-or-search'
-    alias 'e'='less'
     alias 'sg'=':sources:get'
     alias 'ver'='sudo vim /etc/resolv.conf'
 
@@ -1370,6 +1369,10 @@ export WORDCHARS=-
         local context=$1
         shift
 
+        if [[ "$kubectl_debug" ]]; then
+            echo kubectl --context ${context} "${@}" >&2
+        fi
+
         kubectl --context ${context} "${@}"
     }
 
@@ -1377,7 +1380,13 @@ export WORDCHARS=-
         local context=$1
         shift
 
-        :kubectl ${context} get pods "${@}"
+        :kubectl ${context} get pods "${@}" \
+            | grep -v '3972878427-x8dqb'
+        # infra engineers can't delete pod because they just can't.
+    }
+
+    :kubectl:pods:running() {
+        :kubectl:pods "${@}" | grep -v Evicted
     }
 
     :kubectl:exec()  {
@@ -1386,16 +1395,58 @@ export WORDCHARS=-
         shift
         shift
 
+        :kubectl:args "${@}"
+
         local pods=($(
-            :kubectl:pods ${context} | awk "/${service}/{print \$1}"
+            :kubectl:pods:running ${context} ${namespace[@]} | awk "/${service}/{print \$1}"
         ))
 
-        echo "${pods[@]}";
+        echo "${pods[@]}" >&2
         if [[ ${#pods} > 1 ]]; then
             return
         fi
 
-        :kubectl ${context} exec "${pods[@]}" "${@}"
+        :kubectl ${context} ${namespace[@]} exec "${pods[@]}" "${args[@]}"
+    }
+
+    :kubectl:port-forward()  {
+        local context=$1
+        local service=$2
+        shift
+        shift
+
+        :kubectl:args "${@}"
+
+        local pods=($(
+            :kubectl:pods:running ${context} ${namespace[@]} | awk "/${service}/{print \$1}"
+        ))
+
+        echo "${pods[@]}" >&2
+        if [[ ${#pods} > 1 ]]; then
+            return
+        fi
+
+        :kubectl ${context} ${namespace[@]} port-forward "${pods[@]}" "${args[@]}"
+    }
+
+    :kubectl:describe()  {
+        local context=$1
+        local service=$2
+        shift
+        shift
+
+        :kubectl:args "${@}"
+
+        local pods=($(
+            :kubectl:pods:running ${context} ${namespace[@]} | awk "/${service}/{print \$1}"
+        ))
+
+        echo "${pods[@]}" >&2
+        if [[ ${#pods} > 1 ]]; then
+            return
+        fi
+
+        :kubectl ${context} ${namespace[@]} describe pod "${pods[@]}" "${args[@]}"
     }
 
     :kubectl:logs() {
@@ -1403,21 +1454,10 @@ export WORDCHARS=-
         local service=$2
         shift 2
 
-        args=()
-        local namespace=()
-        while [[ "${1:-}" ]]; do
-            if [[ "$1" == "-n" ]]; then
-                namespace=("-n" "$2")
-                shift 2
-                continue
-            fi
-
-            args+=("$1")
-            shift
-        done
+        :kubectl:args "${@}"
 
         local pods=($(
-            :kubectl:pods ${context} ${namespace[@]} | awk "/${service}/{print \$1}"
+            :kubectl:pods:running ${context} ${namespace[@]} | awk "/${service}/{print \$1}"
         ))
 
         echo "pods: ${pods[@]}" >&2
@@ -1434,17 +1474,47 @@ export WORDCHARS=-
         shift
         shift
 
-        :kubectl ${context} scale deployment/"${service}" --replicas="${replicas}"
+        :kubectl:args "${@}"
+
+        :kubectl ${context} ${namespace[@]} scale deployment/"${service}" --replicas="${replicas}"
     }
 
 
+    :kubectl:args() {
+        args=()
+        namespace=()
+        local skip=false
+        while [[ "${1:-}" ]]; do
+            if [[ "${1}" == "--" ]]; then
+                skip=true
+            fi
+
+            if ! $skip; then
+                if [[ "$1" == "-n" ]]; then
+                    namespace=("-n" "$2")
+                    shift 2
+                    continue
+                fi
+            fi
+
+            args+=("$1")
+            shift
+        done
+    }
+
     :kubectl:tailf() {
         local context=$1
-        local service=$2
-        shift 2
+        shift
+        local namespace=()
+        if [[ "$1" == "-n" ]]; then
+            namespace=("-n" "$2")
+            shift 2
+        fi
+        local service=$1
+        shift
 
         local pods=($(
-            :kubectl:pods ${context} | awk "/${service}/{print \$1}"
+            :kubectl:pods:running ${context} ${namespace[@]} | awk "/${service}/{print \$1}"
         ))
 
         echo "pods: ${pods[@]}" >&2
@@ -1489,7 +1559,7 @@ export WORDCHARS=-
             filename="${1:-/mnt/trace.log}"
         fi
 
-        cmd=(kubectl --context $context \
+        cmd=(kubectl --context $context $namespace \
                 exec {} $container -- \
                     ${program} ${lines} ${filename[@]})
 
@@ -1504,13 +1574,56 @@ export WORDCHARS=-
             }
     }
 
+    :kubectl:redeploy() {
+        echo ":: scaling down to 0"
+        :kubectl:args "${@}"
+        :kubectl:scale "${args[@]}" 0 ${namespace[@]}
+
+        echo ":: scaling up to 1"
+        :kubectl:args "${@}"
+        :kubectl:scale "${args[@]}" 1 ${namespace[@]}
+        :kubectl:args "${@}"
+
+        local context=$1
+        local service=$2
+
+        while :; do
+            echo ":: requesting list of pods"
+            local list=$(:kubectl:pods ${context} ${namespace[@]})
+            local pods=($(
+                 awk "/${service}/{print \$1}" <<< "$list"
+            ))
+
+            awk "/${service}/{print}" <<< "$list"
+
+            if  [[ "${#pods}" != "1" ]]; then
+                echo ":: too many pods there"
+                continue
+            fi
+
+            local pod_status=$(awk "/${service}/{print \$3}" <<< "$list")
+            if [[ "$pod_status" != "Running" ]]; then
+                if  [[ "${#pods}" != "1" ]]; then
+                    echo ":: the pod is not in Running state"
+                    continue
+                fi
+                continue
+            fi
+
+            echo ":: the service has been redeployed"
+            break
+        done
+    }
+
     alias ku=':kubectl'
     alias kp=':kubectl:pods'
     alias kl=':kubectl:logs'
     alias ke=':kubectl:exec'
     alias ks=':kubectl:scale'
     alias kf=':kubectl:tailf'
+    alias kpf=':kubectl:port-forward'
     alias kb='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
+    alias kd=':kubectl:describe'
 }
 
 
@@ -1532,8 +1645,6 @@ eval $(dircolors ~/.dircolors.$BACKGROUND)
 
 unset -f colors
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 export HISTSIZE=100000
 export SAVEHIST=100000
 export HISTFILE=~/.history
@@ -1544,3 +1655,5 @@ export HISTFILE=~/.history
 #}
 
 #TRAPWINCH
+#
+setopt share_history

@@ -1,0 +1,10 @@
+set $primary DP1
+set $secondary eDP1
+
+workspace 1 output $primary
+workspace 2 output $primary
+workspace 3 output $primary
+workspace 4 output $primary
+workspace s output $primary
+
+workspace q output $secondary

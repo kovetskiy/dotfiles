@@ -1,0 +1,14 @@
+#!/bin/bash
+
+profile=$(cat ~/.config/autorandr_profile | cut -d- -f1)
+
+config="$(cat ~/.config/i3/config.base)"
+
+if [[ -f ~/.config/i3/config.${profile} ]]; then
+    echo ":: loading ~/.config/i3/config.${profile}" >&2
+    config="${config}"$'\n'"$(cat ~/.config/i3/config.${profile})"
+fi
+
+cat > ~/.i3/config <<< "$config"
+
+i3-msg reload

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+while read line; do
+    number=$(grep -Po '(\s|^)\K[0-9]+(?=($|\s))' <<< "$line")
+    if [[ ! "$number" ]]; then
+        echo "$line"
+        continue
+    fi
+    mb=$(bc <<ASAP
+scale=2
+$number/1024/1024
+ASAP
+
+)
+    line=${line//$number/"$mb ($number)"}
+    echo "$line"
+done

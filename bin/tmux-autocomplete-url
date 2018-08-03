@@ -1,3 +1,0 @@
-#!/bin/bash
-
-exec tmux-autocomplete -r '\w+://[^ ]+' -e browser -n -l /tmp/t

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+imports=($(
+    go list -f '{{join .Deps "\n"}}' ./... \
+        | xargs go list \
+            -f '{{if not .Standard}}{{.ImportPath}}{{end}}'
+))
+for import in "${imports[@]}"; do
+    echo $import
+done

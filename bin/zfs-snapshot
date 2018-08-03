@@ -16,7 +16,7 @@ set -euo pipefail
     local snapshot
 
     pool="zroot"
-    snapshot="$pool@$(datename)"
+    snapshot="$pool@backup_$(datename)"
 
     :log "creating snapshot $snapshot"
     sudo zfs snapshot $snapshot

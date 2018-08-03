@@ -40,7 +40,7 @@ Plug 'kovetskiy/fzf.vim'
         call _snippets_stop()
         exec 'FZF'
     endfunc!
-    map <silent> <c-e><c-p> :call _ctrlp()<CR>
+    map <silent> <c-t> :call _ctrlp()<CR>
 
 Plug 'marijnh/tern_for_vim', {'for': 'js'}
     au operations BufNewFile,BufRead *.js setlocal noet
@@ -68,15 +68,13 @@ if $BACKGROUND == "dark"
 endif
 
 Plug 'scrooloose/nerdcommenter'
-    vmap L <Plug>NERDCommenterAlignLeft
-
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   set guicursor=
 else
+  Plug 'Shougo/deoplete.nvim'
 endif
 
-Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 
@@ -104,6 +102,7 @@ Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'kovetskiy/synta'
     let g:synta_go_highlight_calls = 0
     let g:synta_go_highlight_calls_funcs = 1
+    let g:synta_use_sbuffer = 0
 
 "if has('nvim')
     "Plug 'zchee/nvim-go', { 'do': 'make'}
@@ -115,6 +114,8 @@ Plug 'fatih/vim-go', {'for': 'go'}
     let g:go_bin_path = $GOPATH . "/bin"
     let g:go_metalinter_command="gometalinter -D golint --cyclo-over 15"
     let g:go_list_type = "quickfix"
+    let g:go_auto_type_info = 0
+    let g:go_gocode_autobuild = 1
 
     "let g:go_auto_type_info = 1
     "let go_auto_sameids = 1
@@ -173,9 +174,6 @@ Plug 'vim-scripts/l9'
 "Plug 'kovetskiy/vim-cucu'
 "Plug 'seletskiy/vim-nunu'
 Plug 'seletskiy/matchem'
-    let g:UltiSnipsJumpForwardTrigger="<C-J>"
-    let g:UltiSnipsJumpBackwardTrigger="<C-K>"
-
     au User _overwrite_matchem
         \ au VimEnter,BufEnter,FileType *
         \ inoremap <expr> <DOWN>  pumvisible() ? "\<C-N>" : "\<DOWN>"
@@ -187,6 +185,9 @@ Plug 'seletskiy/matchem'
     doau User _overwrite_matchem
 
 Plug 'sirver/ultisnips', { 'frozen': 1 }
+    let g:UltiSnipsJumpForwardTrigger="<C-J>"
+    let g:UltiSnipsJumpBackwardTrigger="<C-K>"
+
     let g:UltiSnipsUsePythonVersion = 2
 
     let g:snippets_dotfiles = $HOME . '/.vim/snippets/'
@@ -367,7 +368,7 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
 Plug 'AndrewRadev/sideways.vim'
     nnoremap <leader>h :SidewaysLeft<cr>
-    nnoremap <leader>l :SidewaysRight<cr>
+    "nnoremap <leader>l :SidewaysRight<cr>
 
 
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
@@ -516,7 +517,7 @@ Plug 'kovetskiy/ycm-sh', {'for': 'sh'}
         let g:grep_last_query = a:query
 
         let @/ = a:query
-        call fzf#vim#ag(a:query, fzf#vim#layout(0))
+        call fzf#vim#ag(a:query, {'options': '--delimiter : --nth 4..'})
     endfunc!
 
     func! _grep_word()
@@ -542,19 +543,19 @@ Plug 'kovetskiy/ycm-sh', {'for': 'sh'}
 Plug 'kovetskiy/vim-bash'
     nmap gd <C-]>
 
-    func! _tags_sh()
-        if &ft != "sh"
-            return
-        endif
+    "func! _tags_sh()
+    "    if &ft != "sh"
+    "        return
+    "    endif
 
-        let tagfiles = tagfiles()
-        if len(tagfiles) > 0
-            let tagfile = tagfiles[0]
-            silent execute "!tags-sh " . tagfile . " >/dev/null 2>&1 &"
-        endif
-    endfunc!
+    "    let tagfiles = tagfiles()
+    "    if len(tagfiles) > 0
+    "        let tagfile = tagfiles[0]
+    "        silent execute "!tags-sh " . tagfile . " >/dev/null 2>&1 &"
+    "    endif
+    "endfunc!
 
-    au operations BufWritePost * call _tags_sh()
+    "au operations BufWritePost * call _tags_sh()
 
 "Plug 'seletskiy/vim-autosurround'
     "func! _ultisnips_enter()
@@ -655,6 +656,7 @@ Plug 'w0rp/ale'
 
 
 Plug 'romainl/vim-cool'
+Plug 'rhysd/vim-crystal'
 
 augroup end
 call plug#end()
@@ -678,9 +680,9 @@ set timeoutlen=400
 set wildmenu
 
 set undofile
-set undodir=$HOME/.vim/undo/
-set directory=$HOME/.vim/tmp/
-set backupdir=$HOME/.vim/backup/
+set undodir=$HOME/.vim/runtime/undo/
+set directory=$HOME/.vim/runtime/tmp/
+set backupdir=$HOME/.vim/runtime/backup/
 set writebackup
 set backup
 
@@ -719,7 +721,7 @@ set showtabline=0
 set cino=(s,m1,+0
 
 set list
-set lcs=trail:·,tab:⇢\ "
+set lcs=trail:·,tab:→\ "
 
 set pastetoggle=<F11>
 
@@ -728,14 +730,14 @@ au operations VimEnter,WinEnter,BufRead,BufNewFile * au! matchparen
 
 set noequalalways
 set winminheight=0
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 set tags=./.tags;/
 
 if has('nvim')
-    set viminfo+=n~/.vim/info/neoviminfo
+    set viminfo+=n~/.vim/runtime/neoviminfo
 else
-    set viminfo+=n~/.vim/info/viminfo
+    set viminfo+=n~/.vim/runtime/viminfo
 endif
 
 au FileType help setlocal number
@@ -754,7 +756,7 @@ au operations BufWritePost ~/.vimrc
 au operations BufWritePost */.config/sxhkd/sxhkdrc silent !pkill -USR1 sxhkd
 au operations BufWritePost */.i3/config silent !i3-msg restart
 
-au operations VimResized,VimEnter * set cc=79
+au operations VimResized,VimEnter * set cc=80
 
 au operations BufRead *.noml set ft=noml.dracula
 
@@ -958,11 +960,18 @@ augroup setup_colorscheme
 augroup end
 
 nnoremap <silent> <Leader>/ :noh<CR>
+nnoremap <leader>f /\v^func\s+.*\zs
 
 func! _get_github_link()
     silent call system("github-link " . expand('%:p') . " " . line('.'))
 endfunc!
 
 nnoremap <Leader>g :call _get_github_link()<CR>
+
+func! _fzf_github()
+    silent call system("fzf-github")
+endfunc!
+
+nnoremap <Leader>i :call _fzf_github()<CR>
 
 noh

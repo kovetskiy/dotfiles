@@ -4,7 +4,7 @@ set -euo pipefail
 
 :main() {
     local path="$1"
-    local line=$2
+    local line=${2:-}
 
     local root
     root=$(git -C "$(dirname "$path")" rev-parse --show-toplevel)
@@ -22,7 +22,12 @@ set -euo pipefail
     branch=$(git -C $root rev-parse --abbrev-ref HEAD)
 
     local link
-    link="https://github.com/$repo/blob/$branch/$filename#L$line"
+    link="https://github.com/$repo/blob/$branch/$filename"
+
+    if [[ "$line" ]]; then
+        link="$link#L$line"
+    fi
+
     notify-send 1 $link
 
     echo -n $link | xclip -selection primary

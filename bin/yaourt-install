@@ -4,13 +4,7 @@
 # author     : Christopher Fernández
 # usage      : yaourt-install
 
-echo "================================================"
-echo "Remember that you need to be in the sudoers file"
-echo "to install Yaourt successfully."
-echo "================================================"
-echo ""
-echo -n "Proceed with installation? [Y/n] "
-read yes
+pacman -Sy binutils make gcc fakeroot
 
 function install {
   base=$(pacman -Qs base-devel)
@@ -36,7 +30,7 @@ function install {
     echo "Installing yaourt ..."
     makepkg -si --noconfirm
     echo "Done!"
-  fi  
+  fi
 }
 
 if [[ $yes == "Y" || $yes == "y" || $yes == "" ]]; then

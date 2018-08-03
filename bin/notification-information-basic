@@ -39,8 +39,10 @@
 }
 
 :get-section-memory() {
-    free -h -w \
-        | awk '/^Mem:/ { print $4 " (" $8 ") of " $2}'
+    ram=$(free -h -w \
+        | awk '/^Mem:/ { print $4 "/" $2}' | sed 's/Gi/G/g')
+    arc=$(arcstat.py -f arcsz,c | tail -n1 | awk '{print $1 "/" $2}')
+    echo "$ram $arc"
 }
 
 :get-section-cpu() {
@@ -55,8 +57,12 @@
 
 :get-section-vpn() {
     if pidof "openvpn" &>/dev/null; then
-        cat /var/run/user/$UID/ovpn
+        ps auxf | grep -Po '/\K([^/]+)(?=.ovpn)' | head -n1
     fi
+}
+
+:get-section-ping() {
+    ping -c 1 8.8.8.8 | grep -Po 'time=\K.*'
 }
 
 :main() {
@@ -75,22 +81,8 @@
 
     :notify "$body"
 
-    if pidof openvpn || pidof tor; then
-        local location=$(my-location)
-        if [[ "$location" ]]; then
-            location=($location)
-            if [[ "${location[0]}" == "${location[1]}" ]]; then
-                location="${location[0]}"
-            else
-                location="${location[0]}: ${location[1]}"
-            fi
-
-            :body-append "GEO" "$location"
-
-            :notify "$body"
-        fi
-    fi
-
+    :body-append "PING" "$(:get-section-ping)"
+    :notify "$body"
 }
 
 :main "${@}"

@@ -1,6 +1,12 @@
 super + Return
 	terminal
 
+shift + super + Return
+	terminal -d
+
+control + Return
+	terminal -e 'cd $(fzf-choose-favorite -s); clear'
+
 super + r
 	modal-run -matching normal
 
@@ -37,23 +43,14 @@ super + 8
 super + 9
 	volume up
 
-super + F5
-	mplayer-control pt_step -1
-
-super + F6
-	mplayer-control pause
-
-super + F7
-	mplayer-control pt_step 1
-
-control + Return
-	screen-lock
-
 alt + control + d
 	notification-information-basic
 
 super + control + e
 	translator
+
+super + control + t
+	toggle translator-watcher
 
 super + Tab
 	quicknote
@@ -63,6 +60,9 @@ super + 5
 
 super + 6
 	carcosa-new-password
+
+super + 7
+	carcosa-qr
 
 control + Delete
 	environment-setup
@@ -76,8 +76,14 @@ super + backslash
 super + equal
 	kuake --terminal --class top --top --middle --height 30 --width 50
 
-control + backslash
-	autocomplete-tmux
+control + F5
+	upwork-switch
+
+control + F6
+	VOLUME=30000 headset
+
+control + F7
+	openvpn-toggle
 
 control + F8
 	brightness down
@@ -93,3 +99,9 @@ control + F12
 
 control + Pause
 	screen-lock -suspend
+
+control + super + Print
+	screen-lock -suspend
+
+shift + F1
+	chrome-netflix

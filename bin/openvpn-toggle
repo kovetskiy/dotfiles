@@ -1,0 +1,34 @@
+#!/bin/bash
+
+[ -n "$_LOCK" ] || _LOCK=x exec flock -n $0 $0 "$@"
+
+PROFILE="mars"
+
+:notify() {
+    echo "$*"
+    notify-send.sh -r 1000 -t 1000 " " -- "$*"
+}
+
+:ping() {
+    ping -c 1 8.8.8.8 | grep -Po 'time=\K.*'
+}
+
+
+:main() {
+    if systemctl --user status openvpn@${PROFILE} | grep -q 'Active: inactive';
+    then
+        :notify "openvpn: starting service"
+        systemctl --user start openvpn@${PROFILE}
+        until ip l | grep -q 'tun'; do
+            sleep 0.05
+            :notify "openvpn: initializing"
+        done
+        :notify "openvpn: ${PROFILE} $(:ping)"
+    else
+        :notify "openvpn: stopping service"
+        systemctl --user stop openvpn@${PROFILE}
+        :notify "openvpn: stopped service $(:ping)"
+    fi
+}
+
+:main "${@}"

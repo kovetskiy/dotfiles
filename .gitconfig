@@ -18,24 +18,31 @@
     insteadOf = ssh://git@github.com/me/
     insteadOf = https://github.com/me/
     insteadOf = git@github.com:me/
-[url "git@github.com:MagalixTechnologies/"]
-    insteadOf = git+ssh://github.com/mgx/
-    insteadOf = git://github.com/mgx/
-    insteadOf = ssh://github.com/mgx/
-    insteadOf = ssh://git@github.com/mgx/
-    insteadOf = https://github.com/mgx/
-    insteadOf = git@github.com:mgx/
-    insteadOf = git@github.com/mgx/
-    insteadOf = git@github.com/mgx/
+[url "git@github.com:openware/"]
+    insteadOf = git+ssh://github.com/ow/
+    insteadOf = git://github.com/ow/
+    insteadOf = ssh://github.com/ow/
+    insteadOf = ssh://git@github.com/ow/
+    insteadOf = https://github.com/ow/
+    insteadOf = git@github.com:ow/
+    insteadOf = git@github.com/ow/
+    insteadOf = gh:ow/
 [url "git@github.com:"]
     insteadOf = gh:
     insteadOf = https://git@github.com:
-[url "git@github.com:"]
     insteadOf = git+ssh://github.com/
     insteadOf = git://github.com/
     insteadOf = ssh://github.com/
     insteadOf = ssh://git@github.com/
     insteadOf = https://github.com/
+[url "git@gitlab.com:"]
+    insteadOf = gl:
+    insteadOf = https://git@gitlab.com:
+    insteadOf = git+ssh://gitlab.com/
+    insteadOf = git://gitlab.com/
+    insteadOf = ssh://gitlab.com/
+    insteadOf = ssh://git@gitlab.com/
+    insteadOf = https://gitlab.com/
 [url "kovetskiy@bitbucket.org:"]
     insteadOf = git+ssh://bitbucket.org/
     insteadOf = git://bitbucket.org/

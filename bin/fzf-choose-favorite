@@ -1,17 +1,27 @@
 #!/bin/bash
+
+in_shell=false
+if [[ "${1:-}" == "-s" ]]; then
+    in_shell=true
+    cmd=(fzf)
+else
+    cmd=(fzf-tmux -d 40)
+fi
+
 dir_src=~/sources/
 dir_go=~/go/src/
 dir_zsh=~/.zgen/
 dir_vim=~/.vim/bundle/
 dir=$({
+    find $dir_go -maxdepth 4 -type d -printf 'go: %P\n'
     find -L $dir_src -maxdepth 2 -type d -printf 'src: %P\n'
     find -L $dir_zsh -maxdepth 2 -type d -printf 'zsh: %P\n'
     find -L $dir_vim -maxdepth 1 -type d -printf 'vim: %P\n'
-    find $dir_go -maxdepth 3 -type d -printf 'go: %P\n'
-} 2>/dev/null | grep -Pv '^\w+: $' | fzf-tmux -d 40)
+} 2>/dev/null | grep -Pv '^\w+: $' | ${cmd[@]})
 
 token=${dir//:*/}
 dir=${dir//*: /}
 
 eval root_dir=\$dir_$token
+
 echo "$root_dir$dir"

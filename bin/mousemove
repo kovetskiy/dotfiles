@@ -1,0 +1,10 @@
+#!/bin/bash
+
+query="$1"
+x="$2"
+y="$3"
+
+window=$(xdotool search --name "$query")
+xdotool mousemove --window "$window" "$x" "$y"
+
+getcolor "$query" "$x" "$y"

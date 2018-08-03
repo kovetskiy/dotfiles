@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -euo pipefail
+
+deps_raw=$(manul -Q -r | awk '{print $1}')
+deps=($deps_raw)
+for dep in "${deps[@]}"; do
+    echo "looking for $dep" >&2
+    if ! rev=$(godep-rev "$dep"); then
+        exit 1
+    fi
+    echo "$dep -> $rev"
+done
+
+xargs <<< "$deps_raw" -n1 -P1 -I{} bash -c \
+        'manul -U {}=$(godep-rev {})'

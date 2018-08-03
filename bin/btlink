@@ -1,51 +1,56 @@
 #!/bin/bash
 
-TIMEOUT=${TIMEOUT:-3}
+declare -A devices
+
+devices=(
+    [philips]="A0:E9:DB:06:62:EF"
+    [zik]="A0:14:3D:CE:14:CF"
+    [ueboom]="C0:28:8D:35:3D:ED"
+    [interstep]="28:52:E0:21:73:7C"
+)
+
+TIMEOUT=${TIMEOUT:-10}
 
 :main() {
+    set -x
     if :interactive; then
-        name="$1"
-    else
-        name=$(echo -e "philips\nzik" | modal)
+        device="${1:-}"
     fi
 
-    addr=""
-    case "$name" in
-        philips)
-            addr="A0:E9:DB:06:62:EF"
-            ;;
+    if [[ ! "$device" ]]; then
+        device=$(
+            for key in "${!devices[@]}"; do
+                echo $key;
+            done | modal
+        )
+    fi
 
-        zik)
-            addr="A0:14:3D:CE:14:CF"
-            ;;
-        *)
-            echo "unknown device: ${name}"
-            exit 1
-            ;;
-    esac
+    addr=${devices[${device}]:-}
+    if [[ ! "$addr" ]]; then
+        echo "no such device" >&2
+        :notify "no such device"
+    fi
 
-    name=$(tr '[[:lower:]]' '[[:upper:]]' <<< "$name")
-
-    :notify() {
-        notify-send.sh -r 2000 -t 200 "btlink" "${*}"
-    }
+    title=$(tr '[[:lower:]]' '[[:upper:]]' <<< "$device")
 
     while :; do
         sudo systemctl restart bluetooth
-        :notify "<b>BLUETOOTH</b>: CONNECTING TO ${name}"
+        :notify "<b>BTLINK</b> CONNECTING TO <b>${title}</b>"
 
         { sleep ${TIMEOUT} && pkill blueco; } &
         killer=$!
 
         if blueco "${addr}"; then
-            :notify "<b>BLUETOOTH</b>: LINKED"
+            :notify "<b>BTLINK</b> LINKED TO <b>${title}</b>"
             exit 0
-        else
-            :notify "<b>BLUETOOTH</b>: ERROR"
         fi
 
         kill $killer
     done
+}
+
+:notify() {
+    notify-send.sh -r 2000 -t 200 "btlink" "${*}"
 }
 
 :interactive() {

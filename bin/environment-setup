@@ -6,10 +6,12 @@ autorandr --change
 
 amixer -c 0 cset 'numid=10' 1 &>/dev/null
 
-sudo killall -9 clipboard-sync
-sudo clipboard-sync &
+killall -9 xcsyncd
+systemd-cat -t xcsynd xcsyncd &
 
 pkill keynav
+
+redshift start
 
 xset dpms 0 0 0
 xset s off

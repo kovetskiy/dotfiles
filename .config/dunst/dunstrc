@@ -1,5 +1,5 @@
 [global]
-    font = Monaco 12
+    font = FiraCode 11
     allow_markup = yes
     format = "%b"
     sort = no
@@ -12,12 +12,12 @@
     # 46: skip numbers in vim from left
     # 40: skip few lines from top
     centering = "horizontal"
-    geometry = "290x50+46-50"
+    geometry = "308x50+46-50"
     transparency = 0
     idle_threshold = 0
     follow = keyboard
     sticky_history = yes
-    line_height = 4
+    line_height = 3
     separator_height = 1
     padding = 6
     horizontal_padding = 6

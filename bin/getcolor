@@ -1,0 +1,8 @@
+#!/bin/bash
+
+query="$1"
+x="$2"
+y="$3"
+
+window=$(xdotool search --name "$query")
+grabc -rgb -w $(printf '0x%x' "$window") -l "+$x+$y"

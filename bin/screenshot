@@ -25,10 +25,10 @@ fi
 
 echo "$filename"
 ln -sf "$filename" "$HOME/screenshots/last.png"
-#echo  "uploading screenshot"
-#notify-send " " "uploading screenshot"
-#url=$(image-upload $filename)
-#echo -n $url | xclip -selection primary
-#echo -n $url | xclip -selection clipboard
-#echo "$url"
-#notify-send " " "screenshot ready"
+echo  "uploading screenshot"
+notify-send " " "uploading screenshot"
+url=$(darc $filename)
+echo -n $url | xclip -selection primary
+echo -n $url | xclip -selection clipboard
+echo "$url"
+notify-send " " "screenshot ready in clipboard"

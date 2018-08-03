@@ -295,3 +295,47 @@ Description(
 	"$0",
 )
 endsnippet
+
+snippet ty "" w
+$1 = Type("$1", func() {
+	$0
+})
+endsnippet
+
+snippet lt "" wb
+${1:logger}.Tracef(context, "$2", $0)
+endsnippet
+
+snippet ld "" wb
+${1:logger}.Debugf(context, "$2", $0)
+endsnippet
+
+snippet li "" wb
+${1:logger}.Infof(context, "$2", $0)
+endsnippet
+
+snippet le "" wb
+${1:logger}.Errorf(err, "$2", $0)
+endsnippet
+
+snippet lf "" wb
+${1:logger}.Fatalf(err, "$2", $0)
+endsnippet
+
+snippet as "" w
+func New$1($2) *$1 {
+	`!p snip.rv=t[1].lower()` := &$1{
+`!p
+parts = t[2].split(',')
+contents = ""
+if t[2] != "":
+	for part in parts:
+		pieces = part.strip().split(' ')
+		name = pieces[0]
+		contents += "\t\t" + name + ": "+name + ",\n"
+snip.rv=contents`
+	}
+
+	return `!p snip.rv=t[1].lower()`
+}
+endsnippet

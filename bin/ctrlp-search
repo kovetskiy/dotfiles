@@ -6,8 +6,14 @@
 }
 
 :sort-by-extension() {
-    sort -t . --key=2 -rn
+    sort -t . --key=2 -r
 }
 
+:reorder() {
+    all=$(cat)
 
-:list "$*" | :sort-by-extension
+    grep -v '\.go$' <<< "$all"
+    grep '\.go$' <<< "$all"
+}
+
+:list "$*" | :sort-by-extension | :reorder

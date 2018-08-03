@@ -6,6 +6,7 @@
 ### nsedit [-e] <ns> <condition>
 
 
+set -x
 set -euo pipefail
 
 :main() {

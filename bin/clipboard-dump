@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for selection in primary clipboard selection; do
+    echo "selection: $selection"
+    xclip -o -selection "$selection" 2>&1 | sed 's/^/> /'
+    echo
+done

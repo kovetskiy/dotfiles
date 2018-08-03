@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -euo pipefail
-
-source ~/.config/local
-exec browser "${host_jira}secure/CreateIssue!default.jspa"

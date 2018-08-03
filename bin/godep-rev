@@ -1,0 +1,17 @@
+#!/bin/bash
+
+URL="$1"
+
+deps=$(cat Godeps/Godeps.json \
+    | jq -r '.Deps | .[] | .ImportPath + " " + .Rev')
+
+filtered=$(grep -P "$URL[/ ]" <<< "$deps")
+hashes=$(awk '{print $2}' <<< "$filtered" | sort | uniq)
+hashes_count=$(wc -l <<< "$hashes")
+if [[ "$hashes_count" != "1" ]]; then
+    echo "confused: $hashes_count hashes for such project" >&2
+    echo "$filtered" >&2
+    exit 1
+fi
+
+echo $hashes
