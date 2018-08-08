@@ -860,6 +860,8 @@ au operations BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.sh
 au operations BufRead,BufNewFile *.snippets set noet ft=snippets.python
 au operations BufRead,BufNewFile *.skeleton set noet ft=snippets.python
 
+au operations BufRead,BufNewFile *.chart set noet ft=mermaid
+
 au operations WinEnter * wincmd =
 
 nmap K :s///g<CR><C-O>i

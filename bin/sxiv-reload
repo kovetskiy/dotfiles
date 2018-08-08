@@ -1,3 +1,8 @@
 #!/bin/bash
 
-xdotool search --class sxiv key r
+window=$(xdotool search --class sxiv)
+if [[ "$window" ]]; then
+    exec xdotool key --window "$window" r
+else
+    exec sxivbg "${1}"
+fi
