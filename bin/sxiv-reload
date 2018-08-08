@@ -2,7 +2,10 @@
 
 window=$(xdotool search --class sxiv)
 if [[ "$window" ]]; then
-    exec xdotool key --window "$window" r
+    xdotool key --window "$window" r
+    exit 0
 else
-    exec sxivbg "${1}"
+    nohup sxiv "${1}" &>/dev/null &
+    disown
+    exit 0
 fi
