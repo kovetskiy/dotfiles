@@ -1,0 +1,50 @@
+#!/bin/env python2
+
+import i3
+import sys
+import gtk.gdk
+
+screen   = gtk.gdk.screen_get_default()
+monitors = int(screen.get_n_monitors())
+display  = gtk.gdk.display_get_default()
+pointer  = display.get_pointer()
+
+cursor_monitor = screen.get_monitor_at_point(pointer[1], pointer[2])
+geometry = screen.get_monitor_geometry(cursor_monitor)
+
+monitor_width = geometry.width
+
+target_width = float(sys.argv[1]) / 10
+
+def get_current_width():
+    current = i3.filter(nodes=[], focused=True)
+    return float(current[0]['rect']['width']) / 10
+
+def resize(op, value):
+    data = op + " width 10 px or " + str(value) + " ppt"
+    print "resize "+data
+    i3.resize(data)
+
+current_width = get_current_width()
+# print current_width
+# sys.exit(1)
+
+print(current_width)
+print(target_width)
+
+#current_width = current_width * monitor_width
+
+delta = int(target_width - current_width)
+print delta
+
+if delta>0:
+    resize("grow", delta);
+else:
+    resize("shrink", -delta);
+
+current_width = get_current_width()
+
+print "after"
+print(current_width)
+
+# vim:ft=python

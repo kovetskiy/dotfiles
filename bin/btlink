@@ -12,7 +12,6 @@ devices=(
 TIMEOUT=${TIMEOUT:-10}
 
 :main() {
-    set -x
     if :interactive; then
         device="${1:-}"
     fi

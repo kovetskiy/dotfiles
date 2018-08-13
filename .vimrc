@@ -75,6 +75,7 @@ else
   Plug 'Shougo/deoplete.nvim'
 endif
 
+Plug 'fishbullet/deoplete-ruby'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 
@@ -153,7 +154,6 @@ Plug 'fatih/vim-go', {'for': 'go'}
     endfunc!
 
     au operations FileType go nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
-    au operations FileType go nmap <buffer><silent> <C-A> :call _goto_next_func()<CR>
 
     au operations FileType go let w:go_stack = 'fix that shit'
     au operations FileType go let w:go_stack_level = 'fix that shit'
@@ -344,6 +344,8 @@ else
             return ""
         endfunc!
 
+        nmap / :OverExec /<CR>
+
         let g:over_command_line_key_mappings = {
             \ "\<C-F>": ".",
             \ "\<C-E>": '\w+',
@@ -373,14 +375,14 @@ Plug 'AndrewRadev/sideways.vim'
 
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
-Plug 'terryma/vim-multiple-cursors'
-    function! Multiple_cursors_before()
-        let b:deoplete_disable_auto_complete = 1
-    endfunction
+"Plug 'terryma/vim-multiple-cursors'
+    "function! Multiple_cursors_before()
+        "let b:deoplete_disable_auto_complete = 1
+    "endfunction
 
-    function! Multiple_cursors_after()
-        let b:deoplete_disable_auto_complete = 0
-    endfunction
+    "function! Multiple_cursors_after()
+        "let b:deoplete_disable_auto_complete = 0
+    "endfunction
 
 Plug 'justinmk/vim-sneak'
     " bullshit
@@ -508,7 +510,7 @@ Plug 'rhysd/vim-go-impl'
 
 Plug 'wellle/targets.vim'
 
-Plug 'kovetskiy/ycm-sh', {'for': 'sh'}
+"Plug 'kovetskiy/ycm-sh', {'for': 'sh'}
 
 "Plug 'lokikl/vim-ctrlp-ag'
     let g:grep_last_query = ""
@@ -647,6 +649,7 @@ Plug 'w0rp/ale'
 
     let g:ale_fixers = {
     \   'go': [function("synta#ale#goimports#Fix")],
+    \   'ruby': [function('ale#fixers#rufo#Fix')],
     \}
     let g:ale_linters = {
     \   'go': ['gobuild'],
@@ -657,6 +660,48 @@ Plug 'w0rp/ale'
 
 Plug 'romainl/vim-cool'
 Plug 'rhysd/vim-crystal'
+
+Plug 'vim-ruby/vim-ruby'
+func! _setup_ruby()
+	setlocal shiftwidth=2
+    setlocal cc=120
+endfunc!
+
+au operations BufRead,BufNewFile *.rb call _setup_ruby()
+
+Plug 'ruby-formatter/rufo-vim'
+
+Plug 'mg979/vim-visual-multi'
+    let g:VM_no_meta_mappings = 1
+    let g:VM_maps = {
+    \ 'Select All': '<C-A>',
+    \ }
+
+    fun! VM_before_auto()
+        call MacroBefore()
+    endfun
+
+    fun! VM_after_auto()
+        call MacroAfter()
+    endfun
+
+    function! MacroBefore(...)
+        unmap f
+        unmap F
+        unmap t
+        unmap T
+        unmap ,
+        unmap ;
+    endfunction!
+
+    function! MacroAfter(...)
+        map f <Plug>Sneak_f
+        map F <Plug>Sneak_F
+        map t <Plug>Sneak_t
+        map T <Plug>Sneak_T
+        map , <Plug>Sneak_,
+        map ; <Plug>Sneak_;
+    endfunction!
 
 augroup end
 call plug#end()
@@ -756,7 +801,7 @@ au operations BufWritePost ~/.vimrc
 au operations BufWritePost */.config/sxhkd/sxhkdrc silent !pkill -USR1 sxhkd
 au operations BufWritePost */.i3/config silent !i3-msg restart
 
-au operations VimResized,VimEnter * set cc=80
+set cc=80
 
 au operations BufRead *.noml set ft=noml.dracula
 
@@ -861,6 +906,7 @@ au operations BufRead,BufNewFile *.snippets set noet ft=snippets.python
 au operations BufRead,BufNewFile *.skeleton set noet ft=snippets.python
 
 au operations BufRead,BufNewFile *.chart set noet ft=mermaid
+au operations BufRead,BufNewFile task set noet ft=task
 
 au operations WinEnter * wincmd =
 
@@ -977,3 +1023,4 @@ endfunc!
 nnoremap <Leader>i :call _fzf_github()<CR>
 
 noh
+

@@ -1,10 +1,10 @@
 global !p
-import re
-import os.path
-import vim
 
-import px.go
-import px.util
+from snippets import *
+
+import px
+for full_name, name in px.libs().items():
+    exec("import " + full_name)
 endglobal
 
 snippet bin "binary app" bw
@@ -31,7 +31,7 @@ rescue Docopt::Exit => e
 end
 endsnippet
 
-snippet pr "print" w
+snippet pp "print" w
 require "pp"
 pp $1
 endsnippet
@@ -76,7 +76,29 @@ end
 endsnippet
 
 snippet p "puts" w
-puts "$1"
+puts "`!p
+try:
+	once
+except:
+	once = True
+	cursor = px.cursor.get()
+	filename = os.path.basename(px.buffer.get().name)
+
+snip.rv=filename + ":" + str(cursor[0])
+`: $0"
+endsnippet
+
+snippet pr "puts" w
+puts "`!p
+try:
+	once
+except:
+	once = True
+	cursor = px.cursor.get()
+	filename = os.path.basename(px.buffer.get().name)
+
+snip.rv=filename + ":" + str(cursor[0])
+`: `!p snip.rv=t[1]`: #{$1}"
 endsnippet
 
 priority 10
@@ -98,4 +120,10 @@ if $1
 	$2
 end
 $0
+endsnippet
+
+snippet d "" w
+def $1
+  $0
+end
 endsnippet

@@ -4,6 +4,7 @@ cpsm 8e61bf3
 ctrlp.vim bde7a29
 deoplete-go 3269813
 deoplete.nvim 3fb71d7
+deoplete-ruby 7f6fb3a
 far.vim 8cc7a93
 fzf b8296a9
 fzf.vim 5ceac57
@@ -23,6 +24,7 @@ python-mode f94b0d7
 QFEnter 400352f
 Recover.vim d5a3d6e
 rename.vim f133763
+rufo-vim ba7d1dd
 rust.vim 8e75da9
 seagrey 847cdf9
 SearchParty 48dbaa9
@@ -59,6 +61,7 @@ vimperator.vim 7223609
 vim-plugvim-utils c59a498
 vim-python-pep8-indent 5f4184f
 vim-pythonx a18c589
+vim-ruby 474b99f
 vim-side-search be409b2
 vim-simple-todo 4acb068
 vim-ski 97d230e
@@ -67,6 +70,6 @@ vim-sneak 6244662
 vim-surround e49d6c2
 vim-syntax-extra b60f077
 vim-trailing-whitespace 4c59654
-vim-visual-multi 8be0e25
+vim-visual-multi 07057e1
 webapi-vim 2522503
 ycm-sh a73b6c8

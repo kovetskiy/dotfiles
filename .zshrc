@@ -888,8 +888,9 @@ export WORDCHARS=-
     }
 
     :git:branch() {
-         git symbolic-ref HEAD 2>/dev/null | cut -d / -f 3
+        git rev-parse --abbrev-ref HEAD
     }
+
 
     :rtorrent:select() {
         torrent=$(
@@ -1269,8 +1270,8 @@ ssha() {
 
         alias 'gcb'='git checkout -b'
         alias 'gbn'=':git:br'
-        alias 'gpot'='git push origin $(:git:branch) && { ghc || bhc }'
-        alias gpot!='git push origin +$(:git:branch) && { ghc || bhc }'
+        alias 'gpot'='git push origin "$(:git:branch)" && { ghc || bhc }'
+        alias gpot!='git push origin +"$(:git:branch)" && { ghc || bhc }'
         alias 'gt'='gpot'
         alias gt!='gpot!'
         alias 'gut'='gu && gt'
