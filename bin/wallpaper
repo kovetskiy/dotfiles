@@ -1,0 +1,12 @@
+#!/bin/bash
+
+resolution=$(xrandr | grep -w connected  | awk -F'[ +]' '/primary/{print $4}')
+
+file=~/wallpapers/$resolution.png
+
+if [[ ! -f $file ]]; then
+    echo "No wallpaper for $resolution"
+    file=~/wallpapers/2560x1440.png
+fi
+
+feh --bg-fill $file

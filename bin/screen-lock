@@ -18,7 +18,8 @@ if [[ "${1:-}" == "-suspend" ]]; then
     cmd=("systemctl" "suspend")
 fi
 
-slock "${cmd[@]}"
+"${cmd[@]}"
+i3lock -n
 
 mplayer_cmd "pause"
 

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cwd=$(tmux list-clients -F '#{client_pid} #{pane_current_path}' \
+   | grep -P "^$(pgrep -P $(xdotool getwindowfocus getwindowpid) tmux)" \
+   | cut -f2- -d' ')
+
+
+cd "$cwd"
+
+echo '$cwd: '"${cwd}"
+exec terminal

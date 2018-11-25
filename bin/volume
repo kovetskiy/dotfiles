@@ -1,22 +1,13 @@
 #!/bin/bash
 
-[ -n "$_LOCK" ] || _LOCK=x exec flock -n $0 $0 "$@"
+#[ -n "$_LOCK" ] || _LOCK=x exec flock -n $0 $0 "$@"
 
 :main() {
     local action=$1
 
     local status="$(:change "$action")"
 
-    if [[ -f /tmp/volume.value ]]; then
-        prev=$(cat /tmp/volume.value)
-        if [[ "$prev" == "$status" ]]; then
-            pkill -9 volume
-            exit 0
-        fi
-    fi
-
     :notify "$status"
-    echo "$status" > /tmp/volume.value
 }
 
 :notify() {
@@ -29,11 +20,11 @@
 
     case $action in
         up)
-            ponymix increase 2
+            volumectl -f '%.0f' up 1
         ;;
 
         down)
-            ponymix decrease 2
+            volumectl -f '%.0f' down 1
         ;;
     esac
 }

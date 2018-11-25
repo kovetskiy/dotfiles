@@ -122,8 +122,26 @@ end
 $0
 endsnippet
 
-snippet d "" w
+snippet d "" wb
 def $1
   $0
+end
+endsnippet
+
+snippet "(\w+) d" "" wr
+`!p snip.rv=match.group(1)` do |$1|
+	$0
+end
+endsnippet
+
+snippet m "" w
+module $1
+	$0
+end
+endsnippet
+
+snippet c "" w
+class $1
+	$0
 end
 endsnippet

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [[ $# -lt 1 || "$1" == "-h" ]]; then
+    echo usage: "$0 <output.gif> [parallel_processes_count]"
+    exit 1
+fi
+
+temp_dir=$(mktemp -d)
+
+ls -1 *.jpg | xargs -P${2:-2} -II -n1 convert -resize 480x -verbose I $temp_dir/I.gif
+
+gifsicle --delay=8 --optimize --loop $temp_dir/*.gif > $1
+
+rm -r $temp_dir

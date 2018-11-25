@@ -1,0 +1,23 @@
+#!/bin/bash
+
+container="${1:-lab}"
+
+:sudo() {
+    echo "!! sudo: ${@}"
+    sudo "${@}"
+}
+
+BRIDGE=nspawn${RANDOM}
+trap "{ sudo ip link set $BRIDGE down; sudo brctl delbr ${BRIDGE}; }" EXIT
+
+:sudo brctl addbr ${BRIDGE}
+:sudo ip link set $BRIDGE up
+:sudo ip addr add 169.254.0.$((RANDOM%255))/16 dev ${BRIDGE}
+
+echo ">> Spawning container '$container'..."
+
+:sudo systemd-nspawn \
+    --quiet \
+    -D ~/machines/$container \
+    --network-bridge=${BRIDGE} -n \
+    -b

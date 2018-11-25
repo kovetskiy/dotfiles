@@ -4,4 +4,61 @@
     sudo netctl-auto list | awk '/^* /{ print $2 }'
 }
 
-:status
+target="${1:-}"
+if [[ ! "$target" ]]; then
+    :status
+    exit 0
+fi
+
+prev_status=$(:status)
+
+cd /etc/netctl/
+found=$(find -maxdepth 1 -type f -printf '%P\n' | grep -i "$target" | head -n1)
+if [[ "$found" ]]; then
+    if [[ "$found" == "$prev_status" ]]; then
+        echo ":: Already connected to $found" >&2
+        sudo systemctl restart systemd-networkd
+        exit 0
+    fi
+
+    echo ":: Connecting to $found" >&2
+else
+    echo ":: No such profile." >&2
+    exit 1
+fi
+
+
+sudo netctl-auto switch-to "$found" &>/dev/null &
+TICK=0.01
+while :; do
+    status=$(:status)
+    if [[ "$status" == "$prev_status" ]]; then
+        echo -n "." >&2
+        sleep $TICK
+    else
+        if [[ "$status" == "" ]]; then
+            echo -n "." >&2
+            sleep $TICK
+        else
+            break
+        fi
+    fi
+done
+
+echo
+
+echo ":: Connected to $status" >&2
+sudo systemctl restart systemd-networkd
+echo ":: Obtaining IP address" >&2
+while :; do
+    ip=$(ip a | grep inet | grep wlp)
+    if [[ "$ip" ]]; then
+        break
+    fi
+
+    echo -n "." >&2
+    sleep $TICK
+done
+
+echo
+echo ":: $ip"

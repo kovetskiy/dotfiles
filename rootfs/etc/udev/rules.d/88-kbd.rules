@@ -1,1 +1,1 @@
-ACTION=="add", SUBSYSTEMS=="usb", SUBSYSTEM=="input", ENV{ID_INPUT_KEYBOARD}=="1", ENV{REL}=="[0-9]*", RUN+="/home/operator/bin/xkb-udev"
+ACTION=="add", SUBSYSTEM=="input", ENV{ID_INPUT_KEYBOARD}=="1", RUN+="/home/operator/bin/xkb-udev"

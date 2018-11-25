@@ -7,5 +7,6 @@ if [[ "$window" ]]; then
 else
     nohup sxiv "${1}" &>/dev/null &
     disown
+    sleep 0.1
     exit 0
 fi

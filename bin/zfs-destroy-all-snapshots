@@ -8,6 +8,7 @@ set -euo pipefail
 
 :main() {
     sudo zfs list -t snapshot -H -o name \
+        | grep backup_ \
         | while read snapshot; do
             :log "removing snapshot $snapshot"
             sudo zfs destroy -R -- "$snapshot"

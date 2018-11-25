@@ -59,7 +59,7 @@ snippet f "false" w
 false
 endsnippet
 
-snippet t "true" w
+snippet t "true" bw
 true
 endsnippet
 
@@ -338,4 +338,15 @@ snip.rv=contents`
 
 	return `!p snip.rv=t[1].lower()`
 }
+endsnippet
+
+snippet ss "" w
+$1 := $2{
+	$3
+}
+endsnippet
+
+
+snippet nw "" w
+fmt.Fprintf(os.Stderr,"XXXXXX %v ${1}\n", time.Now().Format(time.RFC3339Nano))
 endsnippet

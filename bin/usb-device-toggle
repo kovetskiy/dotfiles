@@ -8,6 +8,7 @@ if [[ ! "$id_vendor" || ! "$id_product" ]]; then
     exit 1
 fi
 
+found=false
 for dir in /sys/bus/usb/devices/*; do
     if [[ -f $dir/idVendor && -f $dir/idProduct ]]; then
         device_vendor=$(cat $dir/idVendor)
@@ -32,6 +33,23 @@ for dir in /sys/bus/usb/devices/*; do
             else
                 echo "new status: enabled"
             fi
+
+            found=true
+            break
         fi
     fi
 done
+
+if ! $found; then
+    echo "No such device, here are USB devices: " >&2
+    for dir in /sys/bus/usb/devices/*; do
+        device_vendor=$(cat $dir/idVendor 2>/dev/null)
+        device_product=$(cat $dir/idProduct 2>/dev/null)
+        product=$(cat $dir/product 2>/dev/null)
+        if [[ ! "$device_vendor" || ! "$device_product" || ! "$product" ]]; then
+            continue
+        fi
+
+        echo "$device_vendor $device_product      $product"
+    done
+fi

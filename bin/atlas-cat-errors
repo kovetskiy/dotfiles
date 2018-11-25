@@ -1,0 +1,4 @@
+#!/bin/bash
+
+in_error=0
+atlas-mvn package -q -T 4

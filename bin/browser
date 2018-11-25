@@ -11,16 +11,23 @@ if [[ "$scheme" != "http://"
    && "$scheme" != "" ]]; then
     notify-send "URL" "$url"
 
-    exit
+    exit 1
 fi
 
-if [[ ! "${BROWSER_PROFILE:-}" ]]; then
-    if [[ "$DISPLAY" != ":0" ]]; then
-        BROWSER_PROFILE=mgx
-    else
-        BROWSER_PROFILE=default
-    fi
+browser="chromium"
+if [[ "$url" ]]; then
+    exec $browser "$url"
+else
+    exec "$browser"
 fi
 
-set -x
-exec firefox-beta -P ${BROWSER_PROFILE:-default} "$url"
+#if [[ ! "${BROWSER_PROFILE:-}" ]]; then
+#    if [[ "$DISPLAY" != ":0" ]]; then
+#        BROWSER_PROFILE=mgx
+#    else
+#        BROWSER_PROFILE=default
+#    fi
+#fi
+
+#set -x
+#exec firefox-beta -P ${BROWSER_PROFILE:-default} "$url"

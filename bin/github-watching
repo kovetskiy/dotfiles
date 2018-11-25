@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+
+page=0
+while :; do
+    page=$((page+1))
+    curl -s 'https://api.github.com/users/kovetskiy/subscriptions?page='$page | jq -r '.[] | .html_url + " | " + .updated_at + " | " + .description'
+    sleep 1
+done

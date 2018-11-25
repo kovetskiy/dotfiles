@@ -33,31 +33,38 @@ Plug 'kovetskiy/vim-hacks'
 
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'kovetskiy/fzf.vim'
-    "let g:fzf_prefer_tmux = 1
+    let g:fzf_prefer_tmux = 1
     au operations FileType * let g:fzf#vim#default_layout  = {'bottom': '10%'}
-    let $FZF_DEFAULT_COMMAND = 'ctrlp-search'
+    let $FZF_DEFAULT_COMMAND = 'prols'
     func! _ctrlp()
         call _snippets_stop()
         exec 'FZF'
     endfunc!
+
+    func! _ctrlp_buffers()
+        call _snippets_stop()
+        exec 'Buffers'
+    endfunc!
+
+    nnoremap <C-G> :call _ctrlp_buffers()<CR>
     map <silent> <c-t> :call _ctrlp()<CR>
 
 Plug 'marijnh/tern_for_vim', {'for': 'js'}
     au operations BufNewFile,BufRead *.js setlocal noet
 
-"Plug 'itchyny/lightline.vim'
-    "let g:lightline = {}
+Plug 'itchyny/lightline.vim'
+    let g:lightline = {}
 
-    "let g:lightline.enable = {
-        "\ 'statusline': 1,
-        "\ 'tabline': 0
-        "\ }
+    let g:lightline.enable = {
+        \ 'statusline': 1,
+        \ 'tabline': 0
+        \ }
 
-    "if &background == "light"
-        "let g:lightline.colorscheme = 'Tomorrow'
-    "else
-        "let g:lightline.colorscheme = 'wombat'
-    "endif
+    if &background == "light"
+        let g:lightline.colorscheme = 'PaperColor'
+    else
+        let g:lightline.colorscheme = 'wombat'
+    endif
 
 
 if $BACKGROUND == "dark"
@@ -68,52 +75,73 @@ if $BACKGROUND == "dark"
 endif
 
 Plug 'scrooloose/nerdcommenter'
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  set guicursor=
-else
-  Plug 'Shougo/deoplete.nvim'
-endif
+"if has('nvim')
+  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  "set guicursor=
+"else
+  "Plug 'Shougo/deoplete.nvim'
+"endif
 
-Plug 'fishbullet/deoplete-ruby'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
+"Plug 'fishbullet/deoplete-ruby'
+"Plug 'roxma/nvim-yarp'
+"Plug 'roxma/vim-hug-neovim-rpc'
 
-Plug 'zchee/deoplete-go', { 'do': 'make'}
-    let g:deoplete#enable_at_startup = 1
+"Plug 'zchee/deoplete-go', { 'do': 'make'}
+"    let g:deoplete#enable_at_startup = 1
+"
+"    func! _setup_deoplete()
+"        call deoplete#custom#source(
+"            \ '_', 'min_pattern_length', 1)
+"
+"		call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+"		call deoplete#custom#source('_', 'sorters', [])
+"
+"        " unlimited candidate length
+"		call deoplete#custom#source('_', 'max_kind_width', 0)
+"		call deoplete#custom#source('_', 'max_menu_width', 0)
+"		call deoplete#custom#source('_', 'max_abbr_width', 0)
+"    endfunc!
+"
+"    augroup _setup_deoplete
+"        au!
+"        au VimEnter * call _setup_deoplete()
+"    augroup end
 
-    func! _setup_deoplete()
-        call deoplete#custom#source(
-            \ '_', 'min_pattern_length', 1)
+"Plug 'Valloric/YouCompleteMe'
+    "let g:ycm_server_python_interpreter = '/usr/bin/python3'
+    "let g:ycm_show_diagnostics_ui = 0
+    "let g:ycm_confirm_extra_conf = 0
+    "let g:ycm_key_list_previous_completion=['<UP>']
+    "let g:ycm_key_list_select_completion=['<DOWN>']
 
-		call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
-		call deoplete#custom#source('_', 'sorters', [])
+    "let g:ycm_collect_identifiers_from_tags_files = 1
+    ""let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
-        " unlimited candidate length
-		call deoplete#custom#source('_', 'max_kind_width', 0)
-		call deoplete#custom#source('_', 'max_menu_width', 0)
-		call deoplete#custom#source('_', 'max_abbr_width', 0)
-    endfunc!
+    "let g:ycm_seed_identifiers_with_syntax = 1
+    "let g:ycm_use_ultisnips_completer = 0
 
-    augroup _setup_deoplete
-        au!
-        au VimEnter * call _setup_deoplete()
-    augroup end
+Plug 'maralla/completor.vim'
+    let g:completor_gocode_binary = $HOME . '/go/bin/gocode'
+    let g:completor_python_binary = '/usr/bin/python3'
 
 Plug 'kovetskiy/synta'
     let g:synta_go_highlight_calls = 0
     let g:synta_go_highlight_calls_funcs = 1
     let g:synta_use_sbuffer = 0
+    let g:synta_use_go_fast_build = 0
+    let g:synta_go_build_recursive = 1
 
 "if has('nvim')
     "Plug 'zchee/nvim-go', { 'do': 'make'}
 "else
 Plug 'fatih/vim-go', {'for': 'go'}
+    let g:go_template_autocreate = 0
+
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
     let g:go_fmt_autosave = 0
     let g:go_bin_path = $GOPATH . "/bin"
-    let g:go_metalinter_command="gometalinter -D golint --cyclo-over 15"
+    let g:go_metalinter_command="golangci-lint run"
     let g:go_list_type = "quickfix"
     let g:go_auto_type_info = 0
     let g:go_gocode_autobuild = 1
@@ -242,131 +270,11 @@ Plug 'pangloss/vim-javascript', { 'for': 'js' }
 Plug 'danro/rename.vim'
     nnoremap <Leader><Leader>r :noautocmd Rename<Space>
 
-Plug 'kovetskiy/SearchParty'
-
-
-if has('nvim')
-    set inccommand=nosplit
-    nnoremap H :%s/\v
-    nnoremap L V:%s/\v
-    vnoremap H :s/
-
-    nnoremap M :%s/\C\V<C-R><C-W>/
-else
-    Plug 'seletskiy/vim-over'
-        let g:over#command_line#search#enable_move_cursor = 1
-        let g:over#command_line#search#very_magic = 1
-
-        nmap L VH
-
-        nnoremap M :exec 'OverExec' '%s/\C\V' . expand('<cword>') . '/'<CR>
-        nnoremap H :OverExec %s/<CR>
-        vnoremap H :OverExec s/<CR>
-
-        nmap <Leader><Leader> :call _search_clear_highlighting()<CR>
-        noremap n :call _search_cursorhold_register()<CR>n
-        noremap N :call _search_cursorhold_register()<CR>N
-
-        au operations User OverCmdLineExecute call _over_autocmd()
-
-        augroup _search_cursorhold_events
-            au!
-        augroup end
-
-        func! _search_clear_highlighting()
-            call searchparty#mash#unmash()
-            call feedkeys(":nohlsearch\<CR>")
-            "nohlsearch
-        endfunc!
-
-        func! _search_cursorhold_do()
-            if &updatetime != g:updatetime
-                exec "set updatetime =" . g:updatetime
-            endif
-
-            augroup _search_cursorhold_events
-                au!
-            augroup end
-
-            call _search_clear_highlighting()
-        endfunc!
-
-        func! _search_cursorhold_register()
-            set updatetime=3000
-
-            augroup _search_cursorhold_events
-                au!
-                au CursorHold * call _search_cursorhold_do()
-            augroup end
-
-            call searchparty#mash#mash()
-        endfunc!
-
-        let g:over_exec_autocmd_skip = 0
-        func! _over_autocmd()
-            if g:over_exec_autocmd_skip
-                let g:over_exec_autocmd_skip = 0
-                return
-            endif
-
-            call searchparty#mash#mash()
-        endfunc!
-
-
-        func! _over_exec(line1, line2, args)
-            call _search_cursorhold_register()
-
-            let g:over#command_line#search#enable_move_cursor = 1
-
-            try
-                call over#command_line(
-                \   g:over_command_line_prompt,
-                \   a:line1 != a:line2 ? printf("'<,'>%s", a:args) : a:args
-                \)
-            catch
-                call _over_exec(a:line1, a:line2, a:args)
-            endtry
-
-        endfunc!
-
-        command! -range -nargs=* OverExec call _over_exec(<line1>, <line2>, <q-args>)
-
-        nmap <Plug>(OverExec) :OverExec<CR>
-
-        func! s:_over_exec_do(args)
-            let g:over_exec_autocmd_skip = 1
-            let g:over#command_line#search#enable_move_cursor = 0
-            call feedkeys("\<CR>" . a:args . "\<Plug>(OverExec)\<Up>")
-        endfunc!
-
-        func! _over_next()
-            call s:_over_exec_do("n")
-            return ""
-        endfunc!
-
-        nmap / :OverExec /<CR>
-
-        let g:over_command_line_key_mappings = {
-            \ "\<C-F>": ".",
-            \ "\<C-E>": '\w+',
-            \ "\<C-O>": ".*",
-            \ "\<C-L>": "\\zs",
-            \
-            \ "\<C-K>": "\<Left>\\\<Right>",
-            \ "\<C-D>": "\<Left>\<BackSpace>\<Right>",
-            \
-            \ "\<C-N>" : {
-            \ 	"key" : "_over_next()",
-            \   "expr": 1,
-            \ 	"noremap" : 1,
-            \ 	"lock" : 1,
-            \ },
-        \ }
-endif
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     au operations BufRead,BufNewFile *.md set filetype=markdown
     au operations BufRead,BufNewFile *.md set fo-=l
+    let g:vim_markdown_folding_disabled=0
 
 Plug 'AndrewRadev/sideways.vim'
     nnoremap <leader>h :SidewaysLeft<cr>
@@ -415,6 +323,11 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 Plug 'reconquest/vim-pythonx'
     let g:pythonx_highlight_completion = 0
+
+    vnoremap <C-x>v :python px.langs.go.transform.to_variable()<CR>
+
+
+
 Plug 'reconquest/snippets'
     "au operations FileType go nmap <buffer>
          "\ <Leader>gc :py px.go.goto_const()<CR>
@@ -477,6 +390,7 @@ if $BACKGROUND == "light"
     Plug 'nightsense/seagrey'
     Plug 'NLKNguyen/papercolor-theme'
     Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
+    Plug 'rakr/vim-one'
 
     func! _setup_colorscheme()
         set background="light"
@@ -488,15 +402,16 @@ Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
 
 Plug 'seletskiy/ashium'
 
-Plug 'klen/python-mode', {'for': 'python'}
-    let g:pymode_lint = 0
-    let g:pymode_lint_on_write = 0
-    let g:pymode_run = 0
-    let g:pymode_rope_lookup_project = 0
-    let g:pymode_rope_project_root = $HOME . '/ropeproject/'
-    let g:pymode_folding = 0
+"Plug 'klen/python-mode', {'for': 'python'}
+"    let g:pymode_rope_complete_on_dot = 0
+"    let g:pymode_lint = 1
+"    let g:pymode_lint_on_write = 1
+"    let g:pymode_run = 0
+"    let g:pymode_rope_lookup_project = 0
+"    let g:pymode_rope_project_root = $HOME . '/ropeproject/'
+"    let g:pymode_folding = 0
 
-Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+"Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
 Plug 'yssl/QFEnter'
 
@@ -540,7 +455,6 @@ Plug 'wellle/targets.vim'
 
     nnoremap <C-F> :Grep<CR>
     nnoremap <C-E><C-F> :call _grep_word()<CR>
-    nnoremap <C-G> :call _grep_recover()<CR>
 
 Plug 'kovetskiy/vim-bash'
     nmap gd <C-]>
@@ -616,12 +530,6 @@ Plug 'kovetskiy/sxhkd-vim'
 
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
 
-Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
-    let g:simple_todo_map_keys = 1
-    let g:simple_todo_map_insert_mode_keys = 0
-    let g:simple_todo_map_visual_mode_keys = 0
-    let g:simple_todo_map_normal_mode_keys = 1
-
 Plug 'brooth/far.vim'
     nmap <Leader>a :Farp<CR>
     au operations FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
@@ -641,14 +549,14 @@ Plug 'ddrscott/vim-side-search'
 
 Plug 'lambdalisue/gina.vim'
 
-Plug 'w0rp/ale'
+Plug 'kovetskiy/ale'
     func! _ale_gotags()
 
     endfunc!
     let g:ale_enabled = 0
 
     let g:ale_fixers = {
-    \   'go': [function("synta#ale#goimports#Fix")],
+    \   'go': [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")],
     \   'ruby': [function('ale#fixers#rufo#Fix')],
     \}
     let g:ale_linters = {
@@ -658,7 +566,7 @@ Plug 'w0rp/ale'
     " au operations BufRead,BufNewFile *.go
 
 
-Plug 'romainl/vim-cool'
+"Plug 'romainl/vim-cool'
 Plug 'rhysd/vim-crystal'
 
 Plug 'vim-ruby/vim-ruby'
@@ -676,6 +584,7 @@ Plug 'mg979/vim-visual-multi'
     let g:VM_maps = {
     \ 'Select All': '<C-A>',
     \ }
+    let g:VM_leader = "\\"
 
     fun! VM_before_auto()
         call MacroBefore()
@@ -702,6 +611,32 @@ Plug 'mg979/vim-visual-multi'
         map , <Plug>Sneak_,
         map ; <Plug>Sneak_;
     endfunction!
+
+Plug 'tmhedberg/matchit'
+
+Plug 'pangloss/vim-javascript'
+
+Plug 'markonm/traces.vim'
+    nnoremap M :%s/\C\V<C-R>=expand('<cword>')<CR>/
+    nnoremap H :%s/\v
+    vnoremap H :s/\v
+    nmap L VH
+
+Plug 'lambdalisue/gina.vim'
+    let g:gina#command#blame#formatter#format="%su%=%au on %ti %ma%in"
+
+Plug 'tpope/vim-dispatch'
+
+    func! _setup_java()
+        setlocal errorformat=[ERROR]\ %f:[%l\\,%v]\ %m
+    endfunc!
+
+    au operations FileType java call _setup_java()
+    au operations FileType java nmap <silent><buffer> <c-p> :Make<CR>
+    au operations FileType java nmap <silent><buffer> ; :cn<CR>
+    au operations FileType java nmap <silent><buffer> <Leader>; :cN<CR>
+
+Plug 'fvictorio/vim-extract-variable'
 
 augroup end
 call plug#end()
@@ -801,7 +736,7 @@ au operations BufWritePost ~/.vimrc
 au operations BufWritePost */.config/sxhkd/sxhkdrc silent !pkill -USR1 sxhkd
 au operations BufWritePost */.i3/config silent !i3-msg restart
 
-set cc=80
+set cc=80,100
 
 au operations BufRead *.noml set ft=noml.dracula
 
@@ -1021,6 +956,13 @@ func! _fzf_github()
 endfunc!
 
 nnoremap <Leader>i :call _fzf_github()<CR>
+
+func! _prompt_new_file_where_current_file()
+    execute "normal :e"
+endfunc!
+
+nnoremap <Leader>x :vsp <C-R>=expand('%:h')<CR>/
+nnoremap <Leader>t :vsp<Space>
 
 noh
 

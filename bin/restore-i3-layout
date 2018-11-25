@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -euo pipefail
+
+workspace=$(i3-get-workspace)
+layout=~/.config/i3/layouts/${workspace}.json
+
+i3-msg "workspace ${workspace}"
+terminals=$(grep -c 'urxvt' $layout)
+
+i3-msg "append_layout $layout"
+
+seq 1 $terminals | while read _; do
+    terminal
+done

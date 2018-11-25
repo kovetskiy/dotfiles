@@ -1,0 +1,11 @@
+#!/bin/bash
+
+extension="$1"
+version=$(pacman -Q chromium | awk '{print $2}')
+
+curl -v -L -o "/tmp/$extension.crx" "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=$version&x=id%3D$extension%26installsource%3Dondemand%26uc"
+
+echo
+echo "/tmp/$extension.crx"
+
+browser "/tmp/$extension.crx"

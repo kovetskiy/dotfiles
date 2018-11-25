@@ -5,7 +5,7 @@ shift + super + Return
 	terminal -d
 
 control + Return
-	terminal -e 'cd $(fzf-choose-favorite -s); clear'
+	terminal-with-cwd
 
 super + r
 	modal-run -matching normal
@@ -20,7 +20,7 @@ super + control + s
 	browser
 
 super + control + w
-	todoist
+	chrome-todoist
 
 super + control + d
 	upwork
@@ -38,10 +38,13 @@ control + F10
 	brightness toggle
 
 super + 8
-	volume down
+	;volume down
 
 super + 9
-	volume up
+	;volume up
+
+super + control + 0
+	;pa-switch-profile active output:hdmi-stereo output:analog-stereo
 
 alt + control + d
 	notification-information-basic
@@ -52,11 +55,17 @@ super + control + e
 super + control + t
 	toggle translator-watcher
 
+alt + Tab
+	i3re -w 500
+
 super + Tab
-	quicknote
+	rofi -show window
 
 super + 5
 	carcosa-ui
+
+control + super + 5
+	carcosa-ui clipboard
 
 super + 6
 	carcosa-new-password
@@ -93,15 +102,15 @@ control + F9
 
 control + F11
 	jidle-toggle
-
+#
 control + F12
 	SUSPEND_NOTIFY_TIMEOUT=60 upwork-suspend
 
 control + Pause
 	screen-lock -suspend
 
-control + super + Print
+control + super + Insert
 	screen-lock -suspend
 
-shift + F1
-	chrome-netflix
+#shift + F1
+#	chrome-netflix

@@ -1,0 +1,196 @@
+// vim:ts=4:sw=4:et
+{
+    // splitv split container with 3 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 0.3,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 1,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 412,
+               "width": 564,
+               "x": 0,
+               "y": 0
+            },
+            "percent": 0.0733333333333333,
+            "swallows": [
+               {
+                  "class": "^URxvt$",
+                  "instance": "^urxvt$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            // splith split container with 1 children
+            "border": "pixel",
+            "floating": "auto_off",
+            "layout": "splith",
+            "percent": 0.733333333333334,
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "pixel",
+                    "current_border_width": 1,
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 412,
+                       "width": 564,
+                       "x": 0,
+                       "y": 0
+                    },
+                    "percent": 1,
+                    "swallows": [
+                       {
+                          "class": "^URxvt$",
+                          "instance": "^urxvt$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
+        },
+        {
+            // splith split container with 2 children
+            "border": "pixel",
+            "floating": "auto_off",
+            "layout": "splith",
+            "percent": 0.193333333333333,
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "pixel",
+                    "current_border_width": 1,
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 412,
+                       "width": 564,
+                       "x": 0,
+                       "y": 0
+                    },
+                    "percent": 0.5,
+                    "swallows": [
+                       {
+                          "class": "^URxvt$",
+                          "instance": "^urxvt$"
+                       }
+                    ],
+                    "type": "con"
+                },
+                {
+                    "border": "pixel",
+                    "current_border_width": 1,
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 412,
+                       "width": 564,
+                       "x": 0,
+                       "y": 0
+                    },
+                    "percent": 0.5,
+                    "swallows": [
+                       {
+                          "class": "^URxvt$",
+                          "instance": "^urxvt$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
+        }
+    ]
+}
+
+{
+    // splitv split container with 2 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 0.7,
+    "type": "con",
+    "nodes": [
+        {
+            // splith split container with 1 children
+            "border": "pixel",
+            "floating": "auto_off",
+            "layout": "splith",
+            "percent": 0.8,
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "pixel",
+                    "current_border_width": 1,
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 412,
+                       "width": 564,
+                       "x": 0,
+                       "y": 0
+                    },
+                    "percent": 1,
+                    "swallows": [
+                       {
+                          "class": "^URxvt$",
+                          "instance": "^urxvt$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
+        },
+        {
+            // splith split container with 2 children
+            "border": "pixel",
+            "floating": "auto_off",
+            "layout": "splith",
+            "percent": 0.2,
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "pixel",
+                    "current_border_width": 1,
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 412,
+                       "width": 564,
+                       "x": 0,
+                       "y": 0
+                    },
+                    "percent": 0.5,
+                    "swallows": [
+                       {
+                          "class": "^URxvt$",
+                          "instance": "^urxvt$"
+                       }
+                    ],
+                    "type": "con"
+                },
+                {
+                    "border": "pixel",
+                    "current_border_width": 1,
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 412,
+                       "width": 564,
+                       "x": 0,
+                       "y": 0
+                    },
+                    "percent": 0.5,
+                    "swallows": [
+                       {
+                          "class": "^URxvt$",
+                          "instance": "^urxvt$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
+        }
+    ]
+}
+

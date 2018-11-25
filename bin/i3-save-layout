@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -euo pipefail
+workspace=$(i3-get-workspace)
+output=~/.config/i3/layouts/${workspace}.json
+mkdir -p ~/.config/i3/layouts/
+
+dst=$(mktemp)
+
+i3-save-tree --workspace "$workspace" > $dst
+
+# for whatever reason it's commented by default
+sed -ri 's@// "@   "@g' $dst
+
+# remove title and remove transient_for (unsupported feature)
+sed -ri '/marvex|transient_for/d' $dst
+
+# remove last ,
+sed -ri 's/(.*instance.*),/\1/' $dst
+
+cat $dst > $output
+
+echo "$output"
+
+rm $dst

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+systemctl --user start machine@${1:-lab}

@@ -1,0 +1,4 @@
+URxvt.font: xft:Iosevka:size=11,style=regular
+URxvt.boldFont: xft:Iosevka:size=11,style=bold
+URxvt.italicFont: xft:Iosevka:size=11,style=italic
+URxvt.boldItalicFont: xft:Iosevka:size=11,style=bold

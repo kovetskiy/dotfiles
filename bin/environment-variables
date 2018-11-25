@@ -15,13 +15,18 @@ export BROWSER="$HOME/bin/browser"
 
 export GOROOT=""
 export GOPATH="$HOME/go"
-export RUBYPATH=$(/bin/ruby -e 'print Gem.user_dir')/bin
+
+export RUBYDIR=/opt/ruby/2.5.0
+export RUBYPATH=${RUBYDIR}/bin
+export GEM_HOME=${RUBYDIR}/gems
 
 BIN=(
     "$HOME/bin"
     "$HOME/bin/rewrite"
+    "$HOME/wbin/"
     "$HOME/sources/jewfiles/bin"
     "$HOME/dotfiles/deadfiles/bin"
+    "$HOME/.local/bin"
     "/usr/bin/"
     "$GOPATH/bin"
     "$RUBYPATH"

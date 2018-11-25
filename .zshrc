@@ -79,7 +79,7 @@ export WORDCHARS=-
         zgen load kovetskiy/zsh-smart-ssh
         zgen load kovetskiy/zsh-insert-dot-dot-slash
 
-        zgen load seletskiy/zsh-ssh-urxvt
+        #zgen load seletskiy/zsh-ssh-urxvt
         zgen load seletskiy/zsh-hash-aliases
 
         zgen load deadcrew/deadfiles
@@ -254,30 +254,27 @@ export WORDCHARS=-
 
 # :fastcd
 {
-    bindkey -v '^N' :fzf:favorites:cd
-    zle -N :fzf:favorites:cd
-    :fzf:favorites:cd() {
-        local __dir="$(fzf-choose-favorite)"
-        if [[ ! "$__dir" ]]; then
+    bindkey -v '^N' :favor
+    zle -N :favor
+    :favor() {
+        local favor_dir="$(favor 2>/dev/null)"
+        if [[ ! "$favor_dir" ]]; then
             return
         fi
 
-        eval cd "$__dir"
+        eval cd "$favor_dir"
+        unset favor_dir
 
-        unset __dir
-
-        clear
+        #clear
         zle -R
         lambda17:update
         zle reset-prompt
-        ls -lah --color=always
-        git status -s
     }
 
     bindkey -v '^Q' :fzf:git:file:cd
     zle -N :fzf:git:file:cd
     :fzf:git:file:cd() {
-        local __dir="$(fzf-git-file)"
+        local favor_dir="$(fzf-git-file)"
         if [[ ! "$__dir" ]]; then
             return
         fi
@@ -426,9 +423,6 @@ export WORDCHARS=-
         fi
         if [[ "$user" = "k" ]]; then
             user="kovetskiy"
-        fi
-        if [[ "$user" = "mgx" ]]; then
-            user="MagalixTechnologies"
         fi
 
         uri="https://github.com/$user/$project"
@@ -656,10 +650,11 @@ export WORDCHARS=-
             shift
         else
             repo=$(git remote get-url origin)
-            if grep -q "github.com" <<< "$repo"; then
-                repo=$(sed-replace '.*@' 'git://' <<< "$repo")
-                repo=$(sed-replace '.*://' 'git://' <<< "$repo")
-            fi
+        fi
+
+        if grep -q "github.com" <<< "$repo"; then
+            repo=$(sed-replace '.*@' 'git://' <<< "$repo")
+            repo=$(sed-replace '.*://' 'git://' <<< "$repo")
         fi
 
         go-makepkg -g -c -n "$package" -d . $(echo $FLAGS) "$description" "$repo" $@
@@ -1026,11 +1021,6 @@ export WORDCHARS=-
         head -n "$1" | tail -n 1 | copy-to-clipboard
     }
 
-    :makefile:list() {
-        /bin/grep -Po '^[\w-\d]+(?=:)' Makefile
-    }
-
-
     :join_by() {
         local d=$1;
         shift;
@@ -1053,6 +1043,16 @@ export WORDCHARS=-
 
     :circleci:recent-build() {
         watch -c -n0.0 circleci-recent-build
+    }
+
+    :find-gem() {
+        if gem=$(gem list \
+            | grep "${1} " \
+            | sed 's/ (/-/' \
+            | sed 's/)//'); then
+            echo "gem: ${gem}"
+            cd /usr/lib/ruby/gems/2.5.0/gems/"$gem"
+        fi
     }
 }
 
@@ -1083,6 +1083,12 @@ ssha() {
 
 # :alias
 {
+    alias rs='rm -rf ~/.cache/ssh_*'
+    alias mc='sudo machinectl'
+    alias gg=':find-gem'
+    alias mpa='mp *'
+    alias mp='mpv --slang=eng --alang=eng -fs'
+    alias ju='journalctl --user-unit'
     alias s='sift'
     alias e='less -i'
     alias 8='mtr 8.8.8.8'
@@ -1104,7 +1110,6 @@ ssha() {
     alias 'a'='cat'
     alias 'ax'=':axel'
     alias 'vlc'='/usr/bin/vlc --no-metadata-network-access' # fffuuu
-    alias 'mc'='make clean'
     alias 'm'='make'
     alias 'icv'='() { iconv -f WINDOWS-1251 -t UTF-8 $1 | vim - }'
     alias 'sss'='ssh -oStrictHostKeyChecking=no'
@@ -1173,13 +1178,12 @@ ssha() {
     alias 'rf'='rm -rf'
     alias 'ls'='ls -lah --group-directories-first -v --color=always'
     alias 'l'='ls'
-    alias 'mp'='mplayer -slave'
     alias 'v'='vim'
     alias 'vi'='vim'
     alias 'se'='sed -r'
     alias 'py'='python'
     alias 'py2'='python2'
-    alias 'god'='godoc-search'
+    #alias 'god'='godoc-search'
     alias 'nhh'='ssh'
     alias 'nhu'='container-status'
     alias 'nhr'='container-restart'
@@ -1360,8 +1364,6 @@ ssha() {
         alias 'jxf'='sudo journalctl -xef'
         alias 'jxg'='sudo journalctl -xe | grep '
         alias 'jxfg'='sudo journalctl -xef | grep '
-        alias 'ju'='sudo journalctl -u'
-        alias 'juf'='sudo journalctl -f -u'
     }
 }
 
@@ -1650,11 +1652,9 @@ export HISTSIZE=100000
 export SAVEHIST=100000
 export HISTFILE=~/.history
 
-#TRAPWINCH() {
-    #:
-    #echo "COLUMNS: $COLUMNS" >&2
-#}
-
-#TRAPWINCH
-#
 setopt share_history
+
+function precmd () {
+  window_title="\033]0;${PWD##*/}\007"
+  echo -ne "$window_title"
+}

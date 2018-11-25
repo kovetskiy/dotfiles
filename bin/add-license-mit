@@ -1,0 +1,23 @@
+#!/bin/bash
+
+line="This project is licensed under the terms of the MIT license."
+
+readme="README.md"
+if [[ ! -f $readme ]]; then
+    echo "No $readme file found" >&2
+    exit 1
+fi
+
+if grep -qi "# License" $readme; then
+    echo "License already added to $readme" >&2
+    grep -A2 "# License" $readme
+
+    exit 0
+fi
+
+echo "" >> $readme
+echo "# License" >> $readme
+echo "" >> $readme
+echo "$line" >> $readme
+
+echo "License added to $readme"

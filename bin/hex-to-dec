@@ -1,0 +1,4 @@
+#!/bin/sh
+hexinput=`echo $1 | tr '[:lower:]' '[:upper:]'`  # uppercase-ing
+
+echo "ibase=16; $hexinput" | bc

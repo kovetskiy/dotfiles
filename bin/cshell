@@ -1,0 +1,14 @@
+#!/bin/bash
+
+path="${1:-.}"
+path=$(readlink -f "$path")
+
+machine="lab"
+
+echo ":: Binding $path for machine '$machine'"
+sudo machinectl bind lab $path
+
+echo ":: Starting shell in $path in '$machine'"
+sudo machinectl shell \
+    --setenv=BIND_DIR=${path} \
+    $machine /bin/sh -c 'cd $BIND_DIR && exec bash -l'

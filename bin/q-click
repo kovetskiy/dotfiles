@@ -1,0 +1,6 @@
+#!/bin/bash
+
+exec >/tmp/x 2>&1
+set -x
+xdotool getactivewindow getwindowname
+xdotool getactivewindow windowactivate --sync

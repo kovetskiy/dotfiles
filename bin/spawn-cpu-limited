@@ -1,0 +1,17 @@
+#!/bin/bash
+
+QUOTA="${1}"
+shift
+
+echo "max cpu: ${QUOTA}"
+echo "running: ${@}"
+
+SLICE="cpu-limited-${RANDOM}"
+echo "systemd-slice: $SLICE"
+
+sudo systemd-run \
+    --pty \
+    --setenv=DISPLAY=${DISPLAY} \
+    --property=CPUQuota=${QUOTA}% \
+    --slice=${SLICE} \
+    sudo -u ${USER} "${@}"

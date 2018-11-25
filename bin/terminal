@@ -2,7 +2,9 @@
 
 PROFILE=$(cat ~/.config/profile)
 if [[ "$PROFILE" == "laptop" ]]; then
-    exec marvex -s --quiet -b urxvt --terminal '@path --title "@title" -e @command' -r 2 "${@}"
+    exec marvex \
+        -s -b urxvt \
+        --terminal '@path --title "@title" -e @command' -r 0 "${@}"
 else
     urxvt || konsole
 fi

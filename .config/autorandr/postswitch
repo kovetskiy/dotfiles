@@ -19,3 +19,5 @@ echo "$profile" > ~/.config/autorandr_profile
 if [[ "$profile" =~ office ]]; then
     redshift stop
 fi
+
+pkill dunst

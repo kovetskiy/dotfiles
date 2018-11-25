@@ -2,18 +2,11 @@
 
 :list() {
     local dir="${1:-./}"
-    ag "${dir}" -p .agignore -f -l --nocolor -g "" 2>/dev/null
+    ag "${dir}" -p .gitignore -f -l --nocolor -g "" 2>/dev/null
 }
 
 :sort-by-extension() {
     sort -t . --key=2 -r
 }
 
-:reorder() {
-    all=$(cat)
-
-    grep -v '\.go$' <<< "$all"
-    grep '\.go$' <<< "$all"
-}
-
-:list "$*" | :sort-by-extension | :reorder
+:list "$*" | :sort-by-extension

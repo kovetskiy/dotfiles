@@ -1,5 +1,7 @@
 #!/bin/bash
 
+wallpaper
+
 xkb
 
 autorandr --change
@@ -7,11 +9,14 @@ autorandr --change
 amixer -c 0 cset 'numid=10' 1 &>/dev/null
 
 killall -9 xcsyncd
-systemd-cat -t xcsynd xcsyncd &
+systemd-cat -t xcsyncd xcsyncd &
 
 pkill keynav
 
 redshift start
+
+pkill dunst
+systemd-cat -t dunst bash -c 'while :; do dunst; done' &
 
 xset dpms 0 0 0
 xset s off
@@ -22,4 +27,4 @@ xset fp rehash
 xrdb -load ~/.Xresources
 background-switch $(cat ~/.config/background)
 
-feh --bg-scale ~/wallpaper.*
+wallpaper

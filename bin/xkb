@@ -9,4 +9,11 @@ xset -b
 repeat_delay=110
 repeat_rate=170
 
+# That chinese keyboard somehow has decreased repeat delay with comparison to
+# other keyboards
+if [[ -e /dev/input/by-id/usb-STMicroelectronics_USB_KB-event-kbd ]]; then
+    echo "Crazy Keyboarrdd"
+    repeat_delay=140
+fi
+
 xset r rate $repeat_delay $repeat_rate
