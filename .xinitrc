@@ -16,6 +16,6 @@ redshift &
 export I3SOCK=${I3SOCK:-/tmp/i3-ipc.sock}
 
 wallpaper
-conky
+#conky
 
 exec i3

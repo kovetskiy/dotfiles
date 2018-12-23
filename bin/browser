@@ -14,11 +14,11 @@ if [[ "$scheme" != "http://"
     exit 1
 fi
 
-browser="chromium"
+browser="google-chrome-stable --disk-cache-size=268435456"
 if [[ "$url" ]]; then
-    exec $browser "$url"
+    i3-msg "exec $browser \"$url\""
 else
-    exec "$browser"
+    i3-msg "exec $browser"
 fi
 
 #if [[ ! "${BROWSER_PROFILE:-}" ]]; then

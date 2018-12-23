@@ -196,6 +196,7 @@ Plug 'fatih/vim-go', {'for': 'go'}
 
 Plug 'elzr/vim-json', { 'for': 'json' }
     au operations BufNewFile,BufRead *.json set filetype=json
+    au operations BufNewFile,BufRead *.yaml setlocal shiftwidth=2
 
 Plug 'vim-scripts/l9'
 
@@ -387,14 +388,16 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
 Plug 'kovetskiy/kb-train', { 'on': 'Train' }
 
 if $BACKGROUND == "light"
-    Plug 'nightsense/seagrey'
     Plug 'NLKNguyen/papercolor-theme'
-    Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
-    Plug 'rakr/vim-one'
+    Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
     func! _setup_colorscheme()
         set background="light"
-        colorscheme PaperColor
+        "colorscheme PaperColor
+        colorscheme onehalflight
+
+        hi! SpecialKey ctermfg=250
+        hi! String ctermfg=33
     endfunc!
 endif
 
@@ -733,8 +736,8 @@ command! -bar Snapshot call _snapshot()
 au operations BufWritePost ~/.vimrc
     \ source % | Snapshot
 
-au operations BufWritePost */.config/sxhkd/sxhkdrc silent !pkill -USR1 sxhkd
-au operations BufWritePost */.i3/config silent !i3-msg restart
+"au operations BufWritePost */.config/sxhkd/sxhkdrc silent !pkill -USR1 sxhkd
+"au operations BufWritePost */.i3/config silent !i3-msg restart
 
 set cc=80,100
 

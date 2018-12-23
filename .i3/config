@@ -60,8 +60,8 @@ bindcode $alt+Shift+40 move container to workspace d
 #bindsym pause workspace q; exec "browser http://cs543100.vk.me/v543100237/50df/joWgtvxgsRo.jpg"
 
 bindsym $alt+x layout tabbed
-bindsym $win+Shift+v split vertical
-bindsym $win+Shift+h split horizontal
+bindsym $alt+b split vertical
+bindsym $alt+t split horizontal
 
 # Sometimes I need to resize browser when
 # reading articles on sites without text width

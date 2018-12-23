@@ -64,6 +64,8 @@ export WORDCHARS=-
 
         zgen load mafredri/zsh-async
 
+        zgen load reconquest/zsh-autosuggestions
+
 
         zgen save
     fi
@@ -88,7 +90,6 @@ export WORDCHARS=-
 
         zgen load hlissner/zsh-autopair autopair.zsh
         zgen load seletskiy/zsh-fuzzy-search-and-edit
-        zgen load Tarrasch/zsh-bd
 
         zgen load kovetskiy/zsh-alias-search
 
@@ -97,7 +98,7 @@ export WORDCHARS=-
 
         zgen load zdharma/fast-syntax-highlighting
 
-        zgen load seletskiy/zsh-autosuggestions
+        zgen load seletskiy/zsh-hijack
 
         hash-aliases:install
         autopair-init
@@ -118,7 +119,7 @@ export WORDCHARS=-
 
 {
     if [[ "$BACKGROUND" == "light" ]]; then
-        export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=9"
+        #export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=9"
     fi
 }
 
@@ -507,8 +508,6 @@ export WORDCHARS=-
                 d)
                     import="deadcrew/$repo"
                     ;;
-                mgx)
-                    import="MagalixTechnologies/$repo"
             esac
 
             import="github.com/$import"
@@ -824,7 +823,6 @@ export WORDCHARS=-
             s|^(git@github.com:)?k/|git@github.com:kovetskiy/|;
             s|^(git@github.com:)?s/|git@github.com:seletskiy/|;
             s|^(git@github.com:)?r/|git@github.com:reconquest/|;
-            s|^(git@github.com:)?mgx/|git@github.com:MagalixTechnologies/|;
             ' <<< "$target"
         )
         if ! grep -q "://" <<< "$target"; then
@@ -963,18 +961,8 @@ export WORDCHARS=-
     }
 
     :watcher() {
-        local timeout=0.5
-        if [[ $1 =~ ^-?[.0-9]+$ ]]; then
-            timeout=$1
-            shift
-        fi
-
-        while :; do
-            tput clear
-            echo "$timeout: ${@}";
-            eval "${@}"
-            sleep $timeout
-        done
+        source ~/deadfiles/bin/watchit
+        :watchit "${@}"
     }
 
     :process:kill() {
@@ -1069,20 +1057,36 @@ export WORDCHARS=-
     alias -g '#k'='| karma-grep'
 }
 
-sm() {
-    eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/id_rsa_magalix_dev
-    /bin/ssh -t -A "$@"
+ssha() {
+    if [[ ! "${_ssh_added}" ]]; then
+        eval "$(ssh-agent -s)"
+        ssh-add ~/.ssh/id_rsa
+        _ssh_added=true
+    fi
+    /bin/ssh -A "$@"
 }
 
-ssha() {
-    eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/id_rsa
-    /bin/ssh -A "$@"
+:hosts:add() {
+    local server="$1"
+    local hostname="$2"
+
+    if ! grep -qP '^[0-9\.]+$' <<< "$server"; then
+        echo "$server is not an ip address" >&2
+        return 1
+    fi
+
+    echo "$server $hostname" | sudo tee -a /etc/hosts
+}
+
+git-commit-branch() {
+    local branch=$(git rev-parse --abbrev-ref HEAD)
+    git-commit "${branch}" "${@}"
 }
 
 # :alias
 {
+    alias ha=':hosts:add'
+    alias se='ssha -l Egor.Kovetskiy '
     alias rs='rm -rf ~/.cache/ssh_*'
     alias mc='sudo machinectl'
     alias gg=':find-gem'
@@ -1180,7 +1184,7 @@ ssha() {
     alias 'l'='ls'
     alias 'v'='vim'
     alias 'vi'='vim'
-    alias 'se'='sed -r'
+    #alias 'se'='sed -r'
     alias 'py'='python'
     alias 'py2'='python2'
     #alias 'god'='godoc-search'
@@ -1249,7 +1253,7 @@ ssha() {
         alias 'gdo'='git diff origin/master'
         alias 'gs'='git status --short'
         alias 'ga'='git add --no-ignore-removal'
-        alias 'gb'='github-browse'
+        alias 'gb'='git-commit-branch'
         alias 'gbr'='git branch'
         alias 'gn'='git-clean-powered'
         alias 'gi'='git add -pi'
@@ -1383,9 +1387,7 @@ ssha() {
         local context=$1
         shift
 
-        :kubectl ${context} get pods "${@}" \
-            | grep -v '3972878427-x8dqb'
-        # infra engineers can't delete pod because they just can't.
+        :kubectl ${context} get pods "${@}"
     }
 
     :kubectl:pods:running() {
@@ -1401,7 +1403,7 @@ ssha() {
         :kubectl:args "${@}"
 
         local pods=($(
-            :kubectl:pods:running ${context} ${namespace[@]} | awk "/${service}/{print \$1}"
+            :kubectl:pods:running ${context} ${namespace[@]} | awk "/^${service}/{print \$1}"
         ))
 
         echo "${pods[@]}" >&2
@@ -1421,7 +1423,7 @@ ssha() {
         :kubectl:args "${@}"
 
         local pods=($(
-            :kubectl:pods:running ${context} ${namespace[@]} | awk "/${service}/{print \$1}"
+            :kubectl:pods:running ${context} ${namespace[@]} | awk "/^${service}/{print \$1}"
         ))
 
         echo "${pods[@]}" >&2
@@ -1441,7 +1443,7 @@ ssha() {
         :kubectl:args "${@}"
 
         local pods=($(
-            :kubectl:pods:running ${context} ${namespace[@]} | awk "/${service}/{print \$1}"
+            :kubectl:pods:running ${context} ${namespace[@]} | awk "/^${service}/{print \$1}"
         ))
 
         echo "${pods[@]}" >&2
@@ -1460,7 +1462,7 @@ ssha() {
         :kubectl:args "${@}"
 
         local pods=($(
-            :kubectl:pods:running ${context} ${namespace[@]} | awk "/${service}/{print \$1}"
+            :kubectl:pods:running ${context} ${namespace[@]} | awk "/^${service}/{print \$1}"
         ))
 
         echo "pods: ${pods[@]}" >&2
@@ -1517,7 +1519,7 @@ ssha() {
         shift
 
         local pods=($(
-            :kubectl:pods:running ${context} ${namespace[@]} | awk "/${service}/{print \$1}"
+            :kubectl:pods:running ${context} ${namespace[@]} | awk "/^${service}/{print \$1}"
         ))
 
         echo "pods: ${pods[@]}" >&2
@@ -1618,6 +1620,10 @@ ssha() {
         done
     }
 
+    :helm-context() {
+        helm --kube-context "${@}"
+    }
+
     alias ku=':kubectl'
     alias kp=':kubectl:pods'
     alias kl=':kubectl:logs'
@@ -1627,6 +1633,8 @@ ssha() {
     alias kpf=':kubectl:port-forward'
     alias kb='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
     alias kd=':kubectl:describe'
+
+    alias he=':helm-context'
 }
 
 
@@ -1654,7 +1662,10 @@ export HISTFILE=~/.history
 
 setopt share_history
 
-function precmd () {
-  window_title="\033]0;${PWD##*/}\007"
-  echo -ne "$window_title"
+set_title() {
+    printf "\033]0;%s\007" "${1}"
+}
+
+preexec() {
+    set_title "${1}"
 }

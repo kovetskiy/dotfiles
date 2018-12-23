@@ -21,3 +21,5 @@ if [[ "$profile" =~ office ]]; then
 fi
 
 pkill dunst
+
+wallpaper

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-wallpaper
+#wallpaper
 
 xkb
 
@@ -26,5 +26,3 @@ xset fp rehash
 
 xrdb -load ~/.Xresources
 background-switch $(cat ~/.config/background)
-
-wallpaper

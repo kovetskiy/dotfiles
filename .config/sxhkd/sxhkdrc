@@ -25,9 +25,6 @@ super + control + w
 super + control + d
 	upwork
 
-super + b
-	clipboard-sync-trim
-
 super + F1
 	screenshot
 
@@ -44,7 +41,7 @@ super + 9
 	;volume up
 
 super + control + 0
-	;pa-switch-profile active output:hdmi-stereo output:analog-stereo
+	;pa-switch-profile -i webcam active output:hdmi-stereo output:analog-stereo
 
 alt + control + d
 	notification-information-basic
@@ -66,6 +63,9 @@ super + 5
 
 control + super + 5
 	carcosa-ui clipboard
+
+control + super + 5
+	carcosa-ui login-password
 
 super + 6
 	carcosa-new-password

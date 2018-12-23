@@ -19,12 +19,14 @@ lh-brackets f757d75
 lh-dev 4d61c7a
 lh-tags d0ba0d4
 lh-vim-lib bd5ed95
+lightline.vim 688240e
 matchem 79a9ec5
 matchit 060d9d8
 nerdcommenter e679d8a
 next-indentation d04f221
 nvim-go 7680017
 nvim-yarp b222af8
+onehalf 9c2afdf
 papercolor-theme 52418a2
 python-mode f94b0d7
 QFEnter 400352f
@@ -36,7 +38,7 @@ rust.vim 8e75da9
 seagrey 847cdf9
 SearchParty 48dbaa9
 sideways.vim dd5935b
-snippets 978650c
+snippets 0dce7e4
 sxhkd-vim b0abc9e
 synta 29665c3
 tabular 00e1e7f
@@ -72,7 +74,7 @@ vim-over 146b065
 vimperator.vim 7223609
 vim-plugvim-utils c59a498
 vim-python-pep8-indent 5f4184f
-vim-pythonx 151dd4c
+vim-pythonx c45502f
 vim-refactor d242579
 vim-ruby 474b99f
 vim-side-search be409b2

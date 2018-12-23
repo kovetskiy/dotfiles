@@ -1,12 +1,14 @@
 #!/bin/bash
 
-resolution=$(xrandr | grep -w connected  | awk -F'[ +]' '/primary/{print $4}')
+cd ~/wallpapers/
 
-file=~/wallpapers/$resolution.png
-
-if [[ ! -f $file ]]; then
-    echo "No wallpaper for $resolution"
-    file=~/wallpapers/2560x1440.png
+if [[ ! -f /var/run/user/$UID/wallpaper.name ]]; then
+    choose=$(/bin/ls *.* | sort -R | head -n1)
+    echo "$choose" > /var/run/user/$UID/wallpaper.name
+else
+    choose=$(cat /var/run/user/$UID/wallpaper.name)
 fi
 
-feh --bg-fill $file
+choose=$(/bin/ls *.* | sort -R | head -n1)
+
+feh --bg-fill $choose
