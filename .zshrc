@@ -1678,7 +1678,7 @@ unset -f colors
 
 export HISTSIZE=100000
 export SAVEHIST=100000
-export HISTFILE=~/.history
+export HISTFILE=~/.guts/.history
 
 setopt share_history
 
