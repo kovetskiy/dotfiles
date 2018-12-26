@@ -1383,6 +1383,15 @@ git-commit-branch() {
         kubectl --context ${context} "${@}"
     }
 
+    :kubectl:with-args() {
+        local context=$1
+        shift
+
+        :kubectl:args "${@}"
+
+        :kubectl ${context} ${namespace[@]} "${args[@]}"
+    }
+
     :kubectl:pods()  {
         local context=$1
         shift
@@ -1505,6 +1514,16 @@ git-commit-branch() {
             args+=("$1")
             shift
         done
+
+        if [[ "${#namespace}" == 0 ]]; then
+            if [[ "$context" == "pv" ]]; then
+                namespace=("-n" "developers")
+            fi
+
+            if [[ "$context" == "ps" ]]; then
+                namespace=("-n" "staging")
+            fi
+        fi
     }
 
     :kubectl:tailf() {
@@ -1624,7 +1643,7 @@ git-commit-branch() {
         helm --kube-context "${@}"
     }
 
-    alias ku=':kubectl'
+    alias ku=':kubectl:with-args'
     alias kp=':kubectl:pods'
     alias kl=':kubectl:logs'
     alias ke=':kubectl:exec'
@@ -1635,6 +1654,7 @@ git-commit-branch() {
     alias kd=':kubectl:describe'
 
     alias he=':helm-context'
+    alias ka='kail --since 5m --context'
 }
 
 

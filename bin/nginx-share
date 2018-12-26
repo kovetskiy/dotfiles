@@ -1,0 +1,27 @@
+#!/bin/bash
+
+dir="${1:-}"
+if [[ ! "$dir" ]]; then
+    echo "$0 <dir>"
+    exit 1
+fi
+
+dir="$(readlink -f "$dir")"
+sudo tee /etc/nginx/nginx.conf <<FILE
+user operator;
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+http {
+    server {
+        listen 80;
+        root "${dir}";
+        autoindex on;
+    }
+}
+FILE
+
+sudo systemctl restart nginx
+sudo systemctl status nginx
