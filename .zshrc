@@ -205,8 +205,14 @@ export WORDCHARS=-
     zstyle -d 'lambda17:91-exit-code' when
     zstyle -d 'lambda17:91-exit-code' fg
 
-    zstyle 'lambda17:00-banner' bg 'white'
-    zstyle 'lambda17:05-sign' fg 'black'
+    if [[ "${PROFILE}" == "laptop" ]]; then
+        zstyle 'lambda17:00-banner' bg 'black'
+        zstyle 'lambda17:05-sign' fg 'white'
+    else
+        zstyle 'lambda17:00-banner' bg 'white'
+        zstyle 'lambda17:05-sign' fg 'black'
+    fi
+
     zstyle "lambda17:26-git-clean" fg "black"
     zstyle "lambda17:25-head" fg-branch "black"
     zstyle "lambda17:25-head" fg-tag "black"
