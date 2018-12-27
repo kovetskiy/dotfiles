@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export QT_QPA_PLATFORMTHEME=""
+export QT_STYLE_OVERRIDE=""
+
+exec spawn-cpu-limited 40 /usr/bin/telegram-desktop
