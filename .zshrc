@@ -64,9 +64,6 @@ export WORDCHARS=-
 
         zgen load mafredri/zsh-async
 
-        zgen load reconquest/zsh-autosuggestions
-
-
         zgen save
     fi
 }
@@ -99,6 +96,8 @@ export WORDCHARS=-
         zgen load zdharma/fast-syntax-highlighting
 
         zgen load seletskiy/zsh-hijack
+
+        zgen load zsh-users/zsh-autosuggestions && _zsh_autosuggest_start
 
         hash-aliases:install
         autopair-init
