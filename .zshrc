@@ -148,8 +148,10 @@ export WORDCHARS=-
     bindkey -v "^[[B" history-substring-search-down
     #bindkey -v "^A" beginning-of-line
     bindkey "^[[1~" beginning-of-line
+    bindkey "^[[7~" beginning-of-line
     #bindkey -v "^P" end-of-line
     bindkey "^[[4~" end-of-line
+    bindkey "^[[8~" end-of-line
     bindkey -v "^A" push-line
     bindkey -v '^?' backward-delete-char
     bindkey -v '^H' backward-delete-char
