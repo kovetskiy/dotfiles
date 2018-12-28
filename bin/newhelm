@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -euo pipefail
+
+dir="${1:-}"
+shift 1
+description="${*}"
+
+if [[ -f "${dir}/Chart.yaml" ]]; then
+    echo "${dir} already exists"
+    exit 1
+fi
+
+mkdir -p "${dir}/templates"
+cat > "${dir}/Chart.yaml" <<FILE
+apiVersion: v1
+appVersion: "1.0"
+description: ${description}
+name: infra-${dir}
+version: 0.1.0
+FILE
+
+tree "${dir}"

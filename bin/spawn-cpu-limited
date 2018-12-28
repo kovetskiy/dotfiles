@@ -12,6 +12,7 @@ echo "systemd-slice: $SLICE"
 sudo systemd-run \
     --pty \
     --setenv=DISPLAY=${DISPLAY} \
+    --setenv=PATH=${PATH} \
     --property=CPUQuota=${QUOTA}% \
     --slice=${SLICE} \
     sudo -u ${USER} "${@}"
