@@ -85,6 +85,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
+for_window [title="^Telegram "] move container to workspace q
 for_window [title="Time Tracker"] move container to workspace d
 for_window [title="Time Tracker"] floating enable
 

@@ -49,7 +49,7 @@ Plug 'kovetskiy/fzf.vim'
     nnoremap <C-G> :call _ctrlp_buffers()<CR>
     map <silent> <c-t> :call _ctrlp()<CR>
 
-Plug 'marijnh/tern_for_vim', {'for': 'js'}
+"Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
     au operations BufNewFile,BufRead *.js setlocal noet
 
 Plug 'itchyny/lightline.vim'
@@ -107,22 +107,22 @@ Plug 'scrooloose/nerdcommenter'
 "        au VimEnter * call _setup_deoplete()
 "    augroup end
 
-"Plug 'Valloric/YouCompleteMe'
-    "let g:ycm_server_python_interpreter = '/usr/bin/python3'
-    "let g:ycm_show_diagnostics_ui = 0
-    "let g:ycm_confirm_extra_conf = 0
-    "let g:ycm_key_list_previous_completion=['<UP>']
-    "let g:ycm_key_list_select_completion=['<DOWN>']
+Plug 'Valloric/YouCompleteMe'
+    let g:ycm_server_python_interpreter = '/usr/bin/python3'
+    let g:ycm_show_diagnostics_ui = 0
+    let g:ycm_confirm_extra_conf = 0
+    let g:ycm_key_list_previous_completion=['<UP>']
+    let g:ycm_key_list_select_completion=['<DOWN>']
 
-    "let g:ycm_collect_identifiers_from_tags_files = 1
-    ""let g:ycm_collect_identifiers_from_comments_and_strings = 1
+    let g:ycm_collect_identifiers_from_tags_files = 1
+    "let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
-    "let g:ycm_seed_identifiers_with_syntax = 1
-    "let g:ycm_use_ultisnips_completer = 0
+    let g:ycm_seed_identifiers_with_syntax = 1
+    let g:ycm_use_ultisnips_completer = 0
 
-Plug 'maralla/completor.vim'
-    let g:completor_gocode_binary = $HOME . '/go/bin/gocode'
-    let g:completor_python_binary = '/usr/bin/python3'
+"Plug 'maralla/completor.vim'
+"    let g:completor_gocode_binary = $HOME . '/go/bin/gocode'
+"    let g:completor_python_binary = '/usr/bin/python3'
 
 Plug 'kovetskiy/synta'
     let g:synta_go_highlight_calls = 0
@@ -263,6 +263,7 @@ Plug 'sirver/ultisnips', { 'frozen': 1 }
     smap <C-B> <C-V>o<ESC>i
 
     au operations FileType snippets set textwidth=0
+    au operations FileType dockerfile set textwidth=0
 
 Plug 'tpope/vim-surround'
 
@@ -967,5 +968,11 @@ endfunc!
 nnoremap <Leader>x :vsp <C-R>=expand('%:h')<CR>/
 nnoremap <Leader>t :vsp<Space>
 
-noh
+func! _sys_read(cmdline)
+    let l:result = system(a:cmdline)
+    execute "normal" "a" . l:result
+endfunc!
 
+command! -nargs=1 SysRead call _sys_read("<args>")
+
+noh

@@ -20,16 +20,19 @@ export RUBYDIR=/opt/ruby/2.5.0
 export RUBYPATH=${RUBYDIR}/bin
 export GEM_HOME=${RUBYDIR}/gems
 
+export NPM_PACKAGES="${HOME}/.npm-packages"
+
 BIN=(
     "$HOME/bin"
     "$HOME/bin/rewrite"
-    "$HOME/wbin/"
+    "$HOME/.guts/bin/"
     "$HOME/sources/jewfiles/bin"
     "$HOME/dotfiles/deadfiles/bin"
     "$HOME/.local/bin"
     "/usr/bin/"
     "$GOPATH/bin"
     "$RUBYPATH"
+    "$NPM_PACKAGES/bin:$PATH"
     "/opt/atlassian/plugin-sdk/bin/"
 )
 

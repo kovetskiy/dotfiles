@@ -2,13 +2,6 @@
 
 cd ~/wallpapers/
 
-if [[ ! -f /var/run/user/$UID/wallpaper.name ]]; then
-    choose=$(/bin/ls *.* | sort -R | head -n1)
-    echo "$choose" > /var/run/user/$UID/wallpaper.name
-else
-    choose=$(cat /var/run/user/$UID/wallpaper.name)
-fi
-
 choose=$(/bin/ls *.* | sort -R | head -n1)
 
 feh --bg-fill $choose

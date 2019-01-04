@@ -384,7 +384,7 @@ export WORDCHARS=-
     }
 
     :find() {
-        ag -f -l -g "$*" --nocolor
+        ag -f -l -U -g "$*" --nocolor
     }
 
     xargs-eval() {
@@ -1403,7 +1403,7 @@ git-commit-branch() {
         local context=$1
         shift
 
-        :kubectl ${context} get pods "${@}"
+        :kubectl:with-args ${context} get pods "${@}"
     }
 
     :kubectl:pods:running() {
@@ -1448,6 +1448,14 @@ git-commit-branch() {
         fi
 
         :kubectl ${context} ${namespace[@]} port-forward "${pods[@]}" "${args[@]}"
+    }
+
+    :kubectl:delete()  {
+        local context=$1
+        shift
+
+        :kubectl:args "${@}"
+        :kubectl ${context} ${namespace[@]} delete "${args[@]}"
     }
 
     :kubectl:describe()  {
@@ -1529,6 +1537,10 @@ git-commit-branch() {
 
             if [[ "$context" == "ps" ]]; then
                 namespace=("-n" "staging")
+            fi
+
+            if [[ "$context" == "pl" ]]; then
+                namespace=("-n" "production")
             fi
         fi
     }
@@ -1650,6 +1662,21 @@ git-commit-branch() {
         helm --kube-context "${@}"
     }
 
+    :kail-context() {
+        local context="$1"
+        shift
+        kail --since 5m --context "${context}" "${@}"
+    }
+
+    :kail-app() {
+        local context="$1"
+        local app="$2"
+        shift
+        shift
+
+        :kail-context "${context}" -l "app=${app}" "${@}"
+    }
+
     alias ku=':kubectl:with-args'
     alias kp=':kubectl:pods'
     alias kl=':kubectl:logs'
@@ -1659,9 +1686,11 @@ git-commit-branch() {
     alias kpf=':kubectl:port-forward'
     alias kb='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
     alias kd=':kubectl:describe'
+    alias kdl=':kubectl:delete'
 
     alias he=':helm-context'
-    alias ka='kail --since 5m --context'
+    alias ka=':kail-context'
+    alias kap=':kail-app'
 }
 
 
