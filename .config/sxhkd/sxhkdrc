@@ -77,13 +77,13 @@ control + Delete
 	environment-setup
 
 super + grave
-	kuake-bottom
+	;kuake-bottom
 
 super + backslash
-	kuake --focus --center --middle --height 90 --width 75
+	;kuake --focus --center --middle --height 90 --width 75
 
 super + equal
-	kuake --terminal --class top --top --middle --height 30 --width 50
+	;kuake --terminal --class top --top --middle --height 30 --width 50
 
 control + F5
 	upwork-switch

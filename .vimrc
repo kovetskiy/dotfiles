@@ -641,6 +641,7 @@ Plug 'tpope/vim-dispatch'
     au operations FileType java nmap <silent><buffer> <Leader>; :cN<CR>
 
 Plug 'fvictorio/vim-extract-variable'
+Plug 'dag/vim-fish'
 
 augroup end
 call plug#end()
