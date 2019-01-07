@@ -97,6 +97,7 @@ export WORDCHARS=-
 
         zgen load seletskiy/zsh-hijack
 
+        ZSH_AUTOSUGGEST_STRATEGY=("history")
         zgen load zsh-users/zsh-autosuggestions && _zsh_autosuggest_start
 
         hash-aliases:install
@@ -1092,6 +1093,7 @@ git-commit-branch() {
 
 # :alias
 {
+    alias dg='guts-shell'
     alias ha=':hosts:add'
     alias se='ssha -l Egor.Kovetskiy '
     alias rs='rm -rf ~/.cache/ssh_*'
@@ -1738,7 +1740,11 @@ unset -f colors
 
 export HISTSIZE=100000
 export SAVEHIST=100000
+
 export HISTFILE=~/.guts/.history
+if [[ "$HISTFILE_OVERRIDE" ]]; then
+    export HISTFILE=$HISTFILE_OVERRIDE
+fi
 
 setopt share_history
 
