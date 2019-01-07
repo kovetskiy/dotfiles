@@ -1430,6 +1430,26 @@ git-commit-branch() {
         :kubectl ${context} ${namespace[@]} exec "${pods[@]}" "${args[@]}"
     }
 
+    :kubectl:exec-sh()  {
+        local context=$1
+        local service=$2
+        shift
+        shift
+
+        :kubectl:args "${@}"
+
+        local pods=($(
+            :kubectl:pods:running ${context} ${namespace[@]} | awk "/^${service}/{print \$1}"
+        ))
+
+        echo "${pods[@]}" >&2
+        if [[ ${#pods} > 1 ]]; then
+            return
+        fi
+
+        :kubectl ${context} ${namespace[@]} exec "${pods[@]}" "${args[@]}" -it -- sh -c 'exec bash || exec sh'
+    }
+
     :kubectl:port-forward()  {
         local context=$1
         local service=$2
@@ -1681,6 +1701,7 @@ git-commit-branch() {
     alias kp=':kubectl:pods'
     alias kl=':kubectl:logs'
     alias ke=':kubectl:exec'
+    alias ki=':kubectl:exec-sh'
     alias ks=':kubectl:scale'
     alias kf=':kubectl:tailf'
     alias kpf=':kubectl:port-forward'
@@ -1691,6 +1712,9 @@ git-commit-branch() {
     alias he=':helm-context'
     alias ka=':kail-context'
     alias kap=':kail-app'
+
+    alias -g -- '-an'='--all-namespaces'
+    alias -g -- '-ya'='-o yaml'
 }
 
 
