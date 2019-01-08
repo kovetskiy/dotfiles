@@ -1,0 +1,15 @@
+#!/bin/bash
+
+cmd=()
+if [[ "${1:-}" ]]; then
+    cmd=(-i "${1}")
+fi
+
+sed -r \
+    -e "/^\s+selfLink: /d" \
+    -e "/^\s+uid: /d" \
+    -e "/^\s+resourceVersion: /d" \
+    -e "/^\s+creationTimestamp: /d" \
+    -e "/^\s+pv.kubernetes.io\/bind-completed: /d" \
+    -e "/^\s+pv.kubernetes.io\/bound-by-controller: /d" \
+    "${cmd[@]}"
