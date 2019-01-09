@@ -1,0 +1,18 @@
+#!/bin/bash
+
+file=$(curl -s "http://$1" | grep -Po '">\K.*(?=</a>)')
+
+if [[ "$2" ]]; then
+    file=$(grep -P "$2" <<< "$file")
+fi
+
+lines=$(wc -l <<< "$file")
+
+if [[ "$lines" != 1 ]]; then
+    file=$(fzf <<< "$file")
+fi
+
+
+if [[ "$file" ]]; then
+    echo "http://$1/${file}"
+fi
