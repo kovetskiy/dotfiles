@@ -1,3 +1,4 @@
 #!/bin/bash
 
-exec urxvt -e zsh -ic "vim $@" &
+export TMUX=
+exec urxvt -e zsh -ic "tmux new -- vim $@" &

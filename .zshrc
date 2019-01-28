@@ -975,6 +975,10 @@ export WORDCHARS=-
 
     :process:kill() {
         local name="$1"
+        if [[ ! "$name" ]]; then
+            echo "no name specified"
+            return 1
+        fi
         pkill -9 "$name" || pkill -f -9 "$name"
     }
 

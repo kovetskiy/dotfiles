@@ -2,7 +2,7 @@ super + Return
 	terminal
 
 shift + super + Return
-	terminal -d
+	terminal -e msh
 
 control + Return
 	terminal-with-cwd
