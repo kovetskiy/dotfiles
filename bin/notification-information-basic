@@ -17,9 +17,9 @@
         body="${body}${endl}"
     fi
 
-    body="${body}$(
-        printf '<b>%-8s</b> %s' "$section" "$content"
-    )"
+    printf '%-8s %s\n' "$section" "$content"
+    append="$(printf '<b>%-8s</b> %s' "$section" "$content")"
+    body="${body}$append"
 }
 
 :get-section-time() {

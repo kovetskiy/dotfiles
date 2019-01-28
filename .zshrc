@@ -1091,8 +1091,33 @@ git-commit-branch() {
     git-commit "${branch}" "${@}"
 }
 
+:until() {
+    until ! eval "${@}"; do
+        sleep 0.05
+    done
+}
+
+:orgalorg:exec() {
+    orgalorg -y -u Egor.Kovetskiy -x -C "${@}"
+}
+
+:orgalorg:exec-stdin() {
+    orgalorg -y -u Egor.Kovetskiy -x -s -C "${@}"
+}
+
+:orgalorg:exec-host() {
+    local host="$1"
+    shift
+
+    :orgalorg:exec -o "${host}" -- "${@}"
+}
+
 # :alias
 {
+    alias ox=':orgalorg:exec'
+    alias oxs=':orgalorg:exec-stdin'
+    alias oxh=':orgalorg:exec-host'
+    alias un=':until'
     alias dg='guts-shell'
     alias ha=':hosts:add'
     alias se='ssha -l Egor.Kovetskiy '
@@ -1701,6 +1726,7 @@ git-commit-branch() {
 
     alias ku=':kubectl:with-args'
     alias kp=':kubectl:pods'
+    alias kpw=':kubectl:pods --all-namespaces -o wide -w'
     alias kl=':kubectl:logs'
     alias ke=':kubectl:exec'
     alias ki=':kubectl:exec-sh'

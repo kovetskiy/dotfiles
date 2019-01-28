@@ -62,9 +62,6 @@ super + 5
 	carcosa-ui
 
 control + super + 5
-	carcosa-ui clipboard
-
-control + super + 5
 	carcosa-ui login-password
 
 super + 6

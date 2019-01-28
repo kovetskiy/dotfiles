@@ -5,5 +5,23 @@ if [[ ! "$context" ]]; then
     echo "$0 <context>"
     exit 1
 fi
+shift
 
-kubectl --context "${context}" get nodes -o template --template='{{range.items}}{{.metadata.name}} {{range.status.addresses}}{{if eq .type "InternalIP"}}{{.address}}{{end}}{{end}}{{"\n"}}{{end}}'
+only_ip=false
+if [[ "${1:-}" == "-i" ]]; then
+    shift
+    only_ip=true
+fi
+
+data=$(kubectl --context "${context}" \
+    get nodes -o template \
+    --template='{{range.items}}{{.metadata.name}} {{range.status.addresses}}{{if eq .type "InternalIP"}}{{.address}}{{end}}{{end}}{{"\n"}}{{end}}' \
+    "${@}"
+)
+
+if $only_ip; then
+    awk '{print $2}' <<< "$data"
+    exit 0
+fi
+
+echo "$data"
