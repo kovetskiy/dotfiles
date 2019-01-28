@@ -13,6 +13,12 @@ if [[ "${1:-}" == "-i" ]]; then
     only_ip=true
 fi
 
+only_host=false
+if [[ "${1:-}" == "-n" ]]; then
+    shift
+    only_host=true
+fi
+
 data=$(kubectl --context "${context}" \
     get nodes -o template \
     --template='{{range.items}}{{.metadata.name}} {{range.status.addresses}}{{if eq .type "InternalIP"}}{{.address}}{{end}}{{end}}{{"\n"}}{{end}}' \
@@ -21,6 +27,11 @@ data=$(kubectl --context "${context}" \
 
 if $only_ip; then
     awk '{print $2}' <<< "$data"
+    exit 0
+fi
+
+if $only_host; then
+    awk '{print $1}' <<< "$data"
     exit 0
 fi
 
