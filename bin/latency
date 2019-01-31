@@ -1,0 +1,15 @@
+#!/bin/bash
+
+ip="${1}"
+count="${2:-1}"
+
+latencies=$(ping "${ip}" -c "${count}" \
+    | grep -Po 'time=\K[^ ]+')
+
+if [[ "$count" == "1" ]]; then
+    echo "$latencies"
+    exit 0
+fi
+
+#echo "$latencies" >&2
+sort -n <<< "$latencies" | awk ' { a[i++]=$1; } END { print a[int(i/2)]; }'

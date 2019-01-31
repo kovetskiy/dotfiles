@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ping -c 1 8.8.8.8 | grep -Po 'time=\K.*'
+latency 8.8.8.8
