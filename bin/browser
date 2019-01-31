@@ -18,7 +18,8 @@ if [[ -e "${url}" ]]; then
     url="$(readlink -f "${url}")"
 fi
 
-browser="google-chrome-stable --disk-cache-size=268435456"
+#browser="google-chrome-stable --disk-cache-size=268435456"
+browser="firefox"
 if [[ "$url" ]]; then
     i3-msg "exec $browser \"$url\""
 else

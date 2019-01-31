@@ -11,11 +11,15 @@ set -euo pipefail
     printf "$(highlight bold)» zfs: %s$(highlight reset)\n" "$*"
 }
 
+:get-pool() {
+    zfs list -pH -o name,mountpoint | awk '$2 == "/" { print $1 }'
+}
+
 :main() {
     local pool
     local snapshot
 
-    pool="zfsroot"
+    pool=$(:get-pool)
     snapshot="$pool@backup_$(datename)"
 
     :log "creating snapshot $snapshot"
