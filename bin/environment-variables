@@ -22,6 +22,8 @@ export GEM_HOME=${RUBYDIR}/gems
 
 export NPM_PACKAGES="${HOME}/.npm-packages"
 
+export ANSIBLE_NOCOWS=1
+
 BIN=(
     "$HOME/bin"
     "$HOME/bin/rewrite"
