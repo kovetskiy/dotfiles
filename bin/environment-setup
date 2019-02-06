@@ -15,7 +15,7 @@ pkill keynav
 
 redshift start
 
-pkill dunst
+pkill -f dunst
 systemd-cat -t dunst bash -c 'while :; do dunst; done' &
 
 xset dpms 0 0 0

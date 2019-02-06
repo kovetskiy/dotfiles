@@ -1102,18 +1102,20 @@ git-commit-branch() {
 }
 
 :orgalorg:exec() {
-    orgalorg -y -u Egor.Kovetskiy -x -C "${@}"
+    zparseopts -D -E -- u:=username
+    orgalorg -y ${username:--u Egor.Kovetskiy} -x -C "${@}"
 }
 
 :orgalorg:exec-stdin() {
-    orgalorg -y -u Egor.Kovetskiy -x -s -C "${@}"
+    zparseopts -D -E -- u:=username
+    orgalorg -y ${username:--u Egor.Kovetskiy} -x -s -C "${@}"
 }
 
 :orgalorg:exec-host() {
     local host="$1"
     shift
 
-    :orgalorg:exec -o "${host}" -- "${@}"
+    :orgalorg:exec -o "${host}" "${@}"
 }
 
 # :alias
@@ -1478,7 +1480,7 @@ git-commit-branch() {
             return
         fi
 
-        :kubectl ${context} ${namespace[@]} exec "${pods[@]}" "${args[@]}" -it -- sh -c 'exec bash || exec sh'
+        :kubectl ${context} ${namespace[@]} exec "${pods[@]}" "${args[@]}" -it -- sh -c 'bash || exec sh'
     }
 
     :kubectl:port-forward()  {
