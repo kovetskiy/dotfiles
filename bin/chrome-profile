@@ -1,0 +1,11 @@
+#!/bin/bash
+
+profile="${1:-}"
+if [[ ! "$profile" ]]; then
+    echo "<profile> is not speicifed" >&2
+    exit 1
+fi
+
+mkdir -p ~/.config/chrome-${profile}/
+
+exec google-chrome-stable --user-data-dir=~/.config/chrome-${profile}/
