@@ -21,7 +21,7 @@ fi
 #browser="google-chrome-stable --disk-cache-size=268435456"
 browser="firefox"
 if [[ "$url" ]]; then
-    i3-msg "exec $browser \"$url\""
+    i3-msg "exec \"$browser \\\"$url\\\""
 else
     i3-msg "exec $browser"
 fi
