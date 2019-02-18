@@ -1103,12 +1103,12 @@ git-commit-branch() {
 
 :orgalorg:exec() {
     zparseopts -D -E -- u:=username
-    orgalorg -y ${username:--u Egor.Kovetskiy} -x -C "${@}"
+    orgalorg -y ${username:--uEgor.Kovetskiy} -x -C "${@}"
 }
 
 :orgalorg:exec-stdin() {
     zparseopts -D -E -- u:=username
-    orgalorg -y ${username:--u Egor.Kovetskiy} -x -s -C "${@}"
+    orgalorg -y ${username:--uEgor.Kovetskiy} -x -s -C "${@}"
 }
 
 :orgalorg:exec-host() {
