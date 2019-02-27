@@ -2,6 +2,6 @@
 
 cd ~/wallpapers/
 
-choose=$(/bin/ls *.* | sort -R | head -n1)
+choose=$(/bin/ls *.* | grep bfv | sort -R | head -n1)
 
 feh --bg-fill $choose

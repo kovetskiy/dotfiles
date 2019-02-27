@@ -17,6 +17,7 @@
         body="${body}${endl}"
     fi
 
+    content="$(sed '2,$s/^/         /' <<< "$content")"
     printf '%-8s %s\n' "$section" "$content"
     append="$(printf '<b>%-8s</b> %s' "$section" "$content")"
     body="${body}$append"
@@ -56,9 +57,10 @@
 }
 
 :get-section-vpn() {
-    if pidof "openvpn" &>/dev/null; then
-        ps auxf | grep -Po '/\K([^/]+)(?=.ovpn)' | head -n1
-    fi
+    glod list | grep -Po 'vpn:\K[^ ]+'
+    #if pidof "openvpn" &>/dev/null; then
+    #    ps auxf | grep -Po '/\K([^/]+)(?=.ovpn)' | head -n1
+    #fi
 }
 
 :get-section-ping() {

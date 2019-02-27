@@ -1162,7 +1162,6 @@ git-commit-branch() {
     alias 'goc'='journalctl --user-unit gocode.service -f'
     alias 'gocleanup'="find . -type d -name '*-pkgbuild' -exec rm -rf {} \;"
     alias 'j'=':move'
-    alias 'k'='task-project'
     alias 'o'=':mplayer:run'
     alias 'op'=':mplayer:run -playlist ~/torrents/audio/.playlist -loop 0'
     alias 'rt'=':rtorrent:select'
@@ -1412,342 +1411,36 @@ git-commit-branch() {
 }
 
 {
-    :kubectl() {
-        local context=$1
-        shift
+    export QUADRO_DEBUG=1
+    alias krun='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
 
-        if [[ "$kubectl_debug" ]]; then
-            echo kubectl --context ${context} "${@}" >&2
-        fi
-
-        kubectl --context ${context} "${@}"
-    }
-
-    :kubectl:with-args() {
-        local context=$1
-        shift
-
-        :kubectl:args "${@}"
-
-        :kubectl ${context} ${namespace[@]} "${args[@]}"
-    }
-
-    :kubectl:pods()  {
-        local context=$1
-        shift
-
-        :kubectl:with-args ${context} get pods "${@}"
-    }
-
-    :kubectl:pods:running() {
-        :kubectl:pods "${@}" | grep -v Evicted
-    }
-
-    :kubectl:exec()  {
-        local context=$1
-        local service=$2
-        shift
-        shift
-
-        :kubectl:args "${@}"
-
-        local pods=($(
-            :kubectl:pods:running ${context} ${namespace[@]} | awk "/^${service}/{print \$1}"
-        ))
-
-        echo "${pods[@]}" >&2
-        if [[ ${#pods} > 1 ]]; then
-            return
-        fi
-
-        :kubectl ${context} ${namespace[@]} exec "${pods[@]}" "${args[@]}"
-    }
-
-    :kubectl:exec-sh()  {
-        local context=$1
-        local service=$2
-        shift
-        shift
-
-        :kubectl:args "${@}"
-
-        local pods=($(
-            :kubectl:pods:running ${context} ${namespace[@]} | awk "/^${service}/{print \$1}"
-        ))
-
-        echo "${pods[@]}" >&2
-        if [[ ${#pods} > 1 ]]; then
-            return
-        fi
-
-        :kubectl ${context} ${namespace[@]} exec "${pods[@]}" "${args[@]}" -it -- sh -c 'bash || exec sh'
-    }
-
-    :kubectl:port-forward()  {
-        local context=$1
-        local service=$2
-        shift
-        shift
-
-        :kubectl:args "${@}"
-
-        local pods=($(
-            :kubectl:pods:running ${context} ${namespace[@]} | awk "/^${service}/{print \$1}"
-        ))
-
-        echo "${pods[@]}" >&2
-        if [[ ${#pods} > 1 ]]; then
-            return
-        fi
-
-        :kubectl ${context} ${namespace[@]} port-forward "${pods[@]}" "${args[@]}"
-    }
-
-    :kubectl:delete()  {
-        local context=$1
-        shift
-
-        :kubectl:args "${@}"
-        :kubectl ${context} ${namespace[@]} delete "${args[@]}"
-    }
-
-    :kubectl:describe()  {
-        local context=$1
-        local service=$2
-        shift
-        shift
-
-        :kubectl:args "${@}"
-
-        local pods=($(
-            :kubectl:pods:running ${context} ${namespace[@]} | awk "/^${service}/{print \$1}"
-        ))
-
-        echo "${pods[@]}" >&2
-        if [[ ${#pods} > 1 ]]; then
-            return
-        fi
-
-        :kubectl ${context} ${namespace[@]} describe pod "${pods[@]}" "${args[@]}"
-    }
-
-    :kubectl:logs() {
-        local context=$1
-        local service=$2
-        shift 2
-
-        :kubectl:args "${@}"
-
-        local pods=($(
-            :kubectl:pods:running ${context} ${namespace[@]} | awk "/^${service}/{print \$1}"
-        ))
-
-        echo "pods: ${pods[@]}" >&2
-        (IFS=$'\n'; echo "${pods[*]}") \
-            | parallel --ungroup --no-notice \
-                    kubectl --context $context ${namespace[@]} logs {} "${args[@]}"
-    }
-
-    :kubectl:scale()  {
-        local context=$1
-        local service=$2
-        local replicas=$3
-        shift
-        shift
-        shift
-
-        :kubectl:args "${@}"
-
-        :kubectl ${context} ${namespace[@]} scale deployment/"${service}" --replicas="${replicas}"
-    }
-
-
-    :kubectl:args() {
-        args=()
-        namespace=()
-        local skip=false
-        while [[ "${1:-}" ]]; do
-            if [[ "${1}" == "--" ]]; then
-                skip=true
-            fi
-
-            if ! $skip; then
-                if [[ "$1" == "-n" ]]; then
-                    namespace=("-n" "$2")
-                    shift 2
-                    continue
-                fi
-            fi
-
-            args+=("$1")
-            shift
-        done
-
-        if [[ "${#namespace}" == 0 ]]; then
-            if [[ "$context" == "pv" ]]; then
-                namespace=("-n" "developers")
-            fi
-
-            if [[ "$context" == "ps" ]]; then
-                namespace=("-n" "staging")
-            fi
-
-            if [[ "$context" == "pl" ]]; then
-                namespace=("-n" "production")
-            fi
-        fi
-    }
-
-    :kubectl:tailf() {
-        local context=$1
-        shift
-        local namespace=()
-        if [[ "$1" == "-n" ]]; then
-            namespace=("-n" "$2")
-            shift 2
-        fi
-        local service=$1
-        shift
-
-        local pods=($(
-            :kubectl:pods:running ${context} ${namespace[@]} | awk "/^${service}/{print \$1}"
-        ))
-
-        echo "pods: ${pods[@]}" >&2
-
-        local filename=()
-
-        local container=""
-        local program="tail -f"
-        local lines="-n 0"
-        local gzip=""
-        while [[ "$1" ]]; do
-            if [[ "$1" == "-c" ]]; then
-                local container="-c $2"
-                shift 2
-            fi
-
-            if [[ "$1" == "-n" ]]; then
-                local lines="-n $2"
-                shift 2
-            fi
-
-            if [[ "$1" == "-A" ]]; then
-                program="gzip -c"
-                gzip=1
-                lines=""
-                filename=(
-                    "${2}.5"
-                    "${2}.4"
-                    "${2}.3"
-                    "${2}.2"
-                    "${2}.1"
-                    "${2}"
-                )
-
-                shift 2
-            fi
-
-            break
-        done
-
-        if [[ ! "$filename" ]]; then
-            filename="${1:-/mnt/trace.log}"
-        fi
-
-        cmd=(kubectl --context $context $namespace \
-                exec {} $container -- \
-                    ${program} ${lines} ${filename[@]})
-
-        (IFS=$'\n'; echo "${pods[*]}") \
-            | {
-                if [[ "$gzip" ]]; then
-                    parallel --ungroup --no-notice ${cmd[@]} \
-                        | gzip -d -c
-                else
-                    parallel --ungroup --no-notice ${cmd[@]}
-                fi
-            }
-    }
-
-    :kubectl:redeploy() {
-        echo ":: scaling down to 0"
-        :kubectl:args "${@}"
-        :kubectl:scale "${args[@]}" 0 ${namespace[@]}
-
-        echo ":: scaling up to 1"
-        :kubectl:args "${@}"
-        :kubectl:scale "${args[@]}" 1 ${namespace[@]}
-        :kubectl:args "${@}"
-
-        local context=$1
-        local service=$2
-
-        while :; do
-            echo ":: requesting list of pods"
-            local list=$(:kubectl:pods ${context} ${namespace[@]})
-            local pods=($(
-                 awk "/${service}/{print \$1}" <<< "$list"
-            ))
-
-            awk "/${service}/{print}" <<< "$list"
-
-            if  [[ "${#pods}" != "1" ]]; then
-                echo ":: too many pods there"
-                continue
-            fi
-
-            local pod_status=$(awk "/${service}/{print \$3}" <<< "$list")
-            if [[ "$pod_status" != "Running" ]]; then
-                if  [[ "${#pods}" != "1" ]]; then
-                    echo ":: the pod is not in Running state"
-                    continue
-                fi
-                continue
-            fi
-
-            echo ":: the service has been redeployed"
-            break
-        done
-    }
-
-    :helm-context() {
-        helm --kube-context "${@}"
-    }
-
-    :kail-context() {
-        local context="$1"
-        shift
-        kail --since 5m --context "${context}" "${@}"
-    }
-
-    :kail-app() {
-        local context="$1"
-        local app="$2"
-        shift
-        shift
-
-        :kail-context "${context}" -l "app=${app}" "${@}"
-    }
-
-    alias ku=':kubectl:with-args'
-    alias kp=':kubectl:pods'
-    alias kpw=':kubectl:pods --all-namespaces -o wide -w'
-    alias kl=':kubectl:logs'
-    alias ke=':kubectl:exec'
-    alias ki=':kubectl:exec-sh'
-    alias ks=':kubectl:scale'
-    alias kf=':kubectl:tailf'
-    alias kpf=':kubectl:port-forward'
-    alias kb='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
-    alias kd=':kubectl:describe'
-    alias kdl=':kubectl:delete'
+    alias k='skube'
 
     alias he=':helm-context'
     alias ka=':kail-context'
     alias kap=':kail-app'
 
-    alias -g -- '-an'='--all-namespaces'
+    alias kg='skube get'
+    alias kgd='kg deployments'
+    alias kgp='kg pods'
+    alias kgs='kg sts'
+    alias kp='kgp'
+
+    alias kd='skube describe'
+    alias kdp='kd pods'
+    alias kdd='kd deployment'
+    alias kds='kd sts'
+
+    alias kx='skube delete'
+    alias kxp='kx pods'
+    alias kxd='kx deployment'
+    alias kxs='kx sts'
+
+    alias kl='skube logs'
+    alias ke='skube exec'
+    alias ki='() { skube exec "${@}" -it -- sh -c "bash -i || sh -i"'
+    alias kv='skube get events'
+
     alias -g -- '-ya'='-o yaml'
 }
 
