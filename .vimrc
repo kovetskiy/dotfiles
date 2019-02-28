@@ -151,7 +151,7 @@ Plug 'fatih/vim-go', {'for': 'go'}
 
     let g:go_doc_keywordprg_enabled = 0
     let g:go_def_mapping_enabled = 0
-    let g:go_def_mode = 'guru'
+    let g:go_def_mode = 'godef'
 
     "let g:go_highlight_functions = 0
 

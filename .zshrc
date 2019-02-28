@@ -1437,6 +1437,8 @@ git-commit-branch() {
     alias kgs='kg sts'
     alias kp='kgp'
 
+    alias kt='skube edit'
+
     alias kd='skube describe'
     alias kdp='kd pods'
     alias kdd='kd deployment'
@@ -1446,6 +1448,10 @@ git-commit-branch() {
     alias kxp='kx pods'
     alias kxd='kx deployment'
     alias kxs='kx sts'
+
+    alias ks='() { skube scale "${1}" "${2}" --replicas="${3}" }'
+    alias ksd='ks deployment'
+    alias kss='ks statefulset'
 
     alias kl='skube logs'
     alias klf='() { kl "${@}" -f --tail 1 }'
