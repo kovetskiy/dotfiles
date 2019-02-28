@@ -1416,6 +1416,16 @@ git-commit-branch() {
 
     alias k='skube'
 
+    :helm-context() {
+        helm --kube-context "${@}"
+    }
+
+    :kail-context() {
+        local context="$1"
+        shift
+        kail --since 5m --context "${context}" "${@}"
+    }
+
     alias he=':helm-context'
     alias ka=':kail-context'
     alias kap=':kail-app'
@@ -1423,6 +1433,7 @@ git-commit-branch() {
     alias kg='skube get'
     alias kgd='kg deployments'
     alias kgp='kg pods'
+    alias kgn='() { kg pods "${@}" | grep -v Running }'
     alias kgs='kg sts'
     alias kp='kgp'
 
@@ -1437,6 +1448,7 @@ git-commit-branch() {
     alias kxs='kx sts'
 
     alias kl='skube logs'
+    alias klf='() { kl "${@}" -f --tail 1 }'
     alias ke='skube exec'
     alias ki='() { skube exec "${@}" -it -- sh -c "bash -i || sh -i"'
     alias kv='skube get events'
