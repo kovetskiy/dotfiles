@@ -1414,7 +1414,7 @@ git-commit-branch() {
     export QUADRO_DEBUG=1
     alias krun='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
 
-    alias k='skube'
+    alias k='tubectl'
 
     :helm-context() {
         helm --kube-context "${@}"
@@ -1430,34 +1430,34 @@ git-commit-branch() {
     alias ka=':kail-context'
     alias kap=':kail-app'
 
-    alias kg='skube get'
+    alias kg='tubectl get'
     alias kgd='kg deployments'
     alias kgp='kg pods'
     alias kgn='() { kg pods "${@}" | grep -v Running }'
     alias kgs='kg sts'
     alias kp='kgp'
 
-    alias kt='skube edit'
+    alias kt='tubectl edit'
 
-    alias kd='skube describe'
+    alias kd='tubectl describe'
     alias kdp='kd pods'
     alias kdd='kd deployment'
     alias kds='kd sts'
 
-    alias kx='skube delete'
+    alias kx='tubectl delete'
     alias kxp='kx pods'
     alias kxd='kx deployment'
     alias kxs='kx sts'
 
-    alias ks='() { skube scale "${1}" "${2}" --replicas="${3}" }'
+    alias ks='() { tubectl scale "${@}" }'
     alias ksd='ks deployment'
     alias kss='ks statefulset'
 
-    alias kl='skube logs'
+    alias kl='tubectl logs'
     alias klf='() { kl "${@}" -f --tail 1 }'
-    alias ke='skube exec'
-    alias ki='() { skube exec "${@}" -it -- sh -c "bash -i || sh -i"'
-    alias kv='skube get events'
+    alias ke='tubectl exec'
+    alias ki='() { tubectl exec "${@}" -it -- sh -c "bash -i || sh -i" }'
+    alias kv='tubectl get events'
 
     alias -g -- '-ya'='-o yaml'
 }

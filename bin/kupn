@@ -1,4 +1,4 @@
 #!/bin/bash
 
-kubectl patch "${@}" -p \
+tubectl patch "${@}" -p \
   "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"forceroll\":\"`date +'%s'`\"}}}}}"
