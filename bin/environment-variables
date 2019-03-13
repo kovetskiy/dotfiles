@@ -24,6 +24,8 @@ export NPM_PACKAGES="${HOME}/.npm-packages"
 
 export ANSIBLE_NOCOWS=1
 
+export GO111MODULE=on
+
 BIN=(
     "$HOME/bin"
     "$HOME/bin/rewrite"

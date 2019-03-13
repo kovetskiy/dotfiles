@@ -5,7 +5,6 @@ source ~/bin/environment-variables
 
  ( while :; do keynav; sleep 1; done ) &
 
-SHELL=/bin/zsh sudo -E -u $USER sxhkd &
 
 redshift &
 

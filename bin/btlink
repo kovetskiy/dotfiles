@@ -7,6 +7,7 @@ devices=(
     [zik]="A0:14:3D:CE:14:CF"
     [ueboom]="C0:28:8D:35:3D:ED"
     [interstep]="28:52:E0:21:73:7C"
+    [marshall]="04:FE:A1:61:01:5C"
 )
 
 TIMEOUT=${TIMEOUT:-10}
