@@ -16,7 +16,7 @@ export BROWSER="$HOME/bin/browser"
 export GOROOT=""
 export GOPATH="$HOME/go"
 
-export RUBYDIR=/opt/ruby/2.5.0
+export RUBYDIR=$HOME/.gem/ruby/2.6.0/
 export RUBYPATH=${RUBYDIR}/bin
 export GEM_HOME=${RUBYDIR}/gems
 

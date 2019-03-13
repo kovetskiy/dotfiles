@@ -1411,7 +1411,7 @@ git-commit-branch() {
 }
 
 {
-    export QUADRO_DEBUG=1
+    export TUBEKIT_DEBUG=1
     alias krun='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
 
     alias k='tubectl'
@@ -1438,6 +1438,9 @@ git-commit-branch() {
     alias kp='kgp'
 
     alias kt='tubectl edit'
+    alias ktd='tubectl edit deployment'
+    alias ktc='tubectl edit configmap'
+    alias kti='tubectl edit ingress'
 
     alias kd='tubectl describe'
     alias kdp='kd pods'
