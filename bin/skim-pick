@@ -1,3 +1,8 @@
 #!/bin/bash
 
-sk --no-sort
+args=(--no-sort)
+if [[ "$BACKGROUND" == "light" ]]; then
+    args+=(--color=light)
+fi
+
+sk "${args[@]}" "${@}"
