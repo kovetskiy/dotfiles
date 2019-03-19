@@ -5,4 +5,5 @@ if [[ "$BACKGROUND" == "light" ]]; then
     args+=(--color=light)
 fi
 
+set -x
 sk "${args[@]}" "${@}"

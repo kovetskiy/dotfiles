@@ -825,25 +825,8 @@ export WORDCHARS=-
     }
 
     :sources:get() {
-        local target="$1"
-        target=$(sed -r '
-            s|^gh:|git@github.com:|;
-            s|^(git@github.com:)?k/|git@github.com:kovetskiy/|;
-            s|^(git@github.com:)?s/|git@github.com:seletskiy/|;
-            s|^(git@github.com:)?r/|git@github.com:reconquest/|;
-            ' <<< "$target"
-        )
-        if ! grep -q "://" <<< "$target"; then
-            target="https://${target}"
-        fi
-
-        local dir=$(sed -r 's|^.*://[^/]+/||; s|^.*:||; ' <<< "$target")
-        echo ":: $target -> $dir"
-        if [[ ! -d ~/sources/$dir ]]; then
-            git clone "$target" ~/sources/$dir
-        fi
-
-        cd ~/sources/$dir
+        local dir=$(sources-get "${@}")
+        cd "${dir}"
     }
 
     :aur:spawn() {

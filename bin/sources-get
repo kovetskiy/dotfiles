@@ -1,0 +1,28 @@
+#!/usr/bin/python
+
+from urllib.parse import urlparse
+import sys
+import os.path
+import subprocess
+
+base_dir = os.path.expanduser('~/sources/')
+
+url = urlparse(sys.argv[1])
+
+path = url.hostname + url.path
+if path.endswith('.git'):
+    path = path[:-4]
+
+dir = os.path.normpath(base_dir + "/" + path)
+
+if os.path.isdir(dir):
+    print(dir)
+    sys.exit(0)
+
+
+args = ["git", "clone", sys.argv[1], dir]
+
+process = subprocess.Popen(args)
+process.communicate()
+
+print(dir)
