@@ -63,6 +63,7 @@ export WORDCHARS=-
         zgen load seletskiy/zsh-prompt-lambda17
 
         zgen load mafredri/zsh-async
+        zgen load deadcrew/deadfiles
 
         zgen save
     fi
@@ -1394,6 +1395,7 @@ git-commit-branch() {
 }
 
 {
+    alias wh='() { while :; do eval "${@}"; done }'
     export TUBEKIT_DEBUG=1
     alias krun='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
 
@@ -1415,6 +1417,8 @@ git-commit-branch() {
 
     alias kg='tubectl get'
     alias kgd='kg deployments'
+    alias kgc='kg configmap'
+    alias kgi='kg ingress'
     alias kgp='kg pods'
     alias kgn='() { kg pods "${@}" | grep -v Running }'
     alias kgs='kg sts'
