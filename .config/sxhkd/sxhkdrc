@@ -43,6 +43,9 @@ super + 9
 super + control + 0
 	;pa-switch-profile -i webcam active output:hdmi-stereo output:analog-stereo
 
+super + control + 9
+	pa-switch-sink
+
 alt + control + d
 	notification-information-basic
 

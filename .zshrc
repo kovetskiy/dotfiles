@@ -1179,7 +1179,7 @@ git-commit-branch() {
     alias 'vbr'='vim-bundle-restore'
     alias 'gbs'='git-submodule-branch-sync'
     alias 'str'='strace -ff -s 100'
-    alias 'bx'='chmod +x ~/bin/*; chmod +x ~/deadfiles/bin/*'
+    alias 'bx'='chmod +x ~/bin/* ~/deadfiles/bin/* ~/.guts/bin/*'
     alias 'ck'='create-and-change-directory'
     alias 'mf'='man-find'
     alias 'md'='man-directive'
