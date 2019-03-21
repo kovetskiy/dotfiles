@@ -2,6 +2,6 @@ xkb_keymap {
 	xkb_keycodes  { include "evdev+aliases(qwerty)+hjkl"	};
 	xkb_types     { include "complete"	};
 	xkb_compat    { include "complete+hjkl"	};
-	xkb_symbols   { include "pc+us+ru:2+level3(lwin_switch)+mod4-lvl3+hjkl+hjkl(caret)+hjkl(fast-enter)+hjkl(fast-escape)+altwin(swap_alt_win)+hjkl(fast-numpad)+level5(ralt_switch)+ctrl-shift-caps+rshift-ralt"	};
+	xkb_symbols   { include "pc+us+ru:2+level3(lwin_switch)+mod4-lvl3+hjkl+hjkl(caret)+hjkl(fast-enter)+hjkl(fast-escape)+altwin(swap_alt_win)+hjkl(fast-numpad)+level5(ralt_switch)+ctrl-shift-caps+rshift-ralt+esc-to-tilde"	};
 	xkb_geometry  { include "pc(pc105)"	};
 };
