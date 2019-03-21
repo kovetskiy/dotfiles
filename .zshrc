@@ -1232,7 +1232,6 @@ git-commit-branch() {
         alias 'au'=':aur:spawn'
         alias 'auk'='au -S --nameonly -s'
         alias 'aus'='au -S'
-        alias 'aur'='au -R'
         alias 'aug'='aur-get-sources'
         alias 'aq'='yaourt -Q'
         alias 'pcr'='packages-remove'
