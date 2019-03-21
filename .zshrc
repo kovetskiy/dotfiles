@@ -62,7 +62,6 @@ export WORDCHARS=-
         zgen load seletskiy/zsh-prompt-lambda17
 
         zgen load mafredri/zsh-async
-        zgen load deadcrew/deadfiles
 
         zgen save
     fi
