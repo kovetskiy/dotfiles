@@ -1,6 +1,5 @@
 . ~/bin/environment-variables
 
-export TERM=xterm-kitty
 export TERM=screen-256color
 
 export KEYTIMEOUT=1
