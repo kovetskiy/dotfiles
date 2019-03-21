@@ -8,6 +8,7 @@ devices=(
     [ueboom]="C0:28:8D:35:3D:ED"
     [interstep]="28:52:E0:21:73:7C"
     [marshall]="04:FE:A1:61:01:5C"
+    [major]="2C:4D:79:B0:2D:70"
 )
 
 TIMEOUT=${TIMEOUT:-10}

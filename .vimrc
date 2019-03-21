@@ -134,7 +134,27 @@ Plug 'kovetskiy/synta'
 "if has('nvim')
     "Plug 'zchee/nvim-go', { 'do': 'make'}
 "else
-Plug 'fatih/vim-go', {'for': 'go'}
+
+Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
+    func! _extend_yaml()
+        if exists("b:yaml_extended")
+            return
+        endif
+
+
+        runtime! syntax/yaml.vim
+        if exists("b:current_syntax")
+            unlet b:current_syntax
+        endif
+        runtime! syntax/gotexttmpl.vim
+
+        let b:current_syntax = 'yaml'
+
+        let b:yaml_extended = 1
+    endfunc!
+
+    au operations BufEnter *.yaml call _extend_yaml()
+
     let g:go_template_autocreate = 0
 
     let g:go_fmt_fail_silently = 0
@@ -399,6 +419,7 @@ if $BACKGROUND == "light"
 
         hi! SpecialKey ctermfg=250
         hi! String ctermfg=33
+        hi! PreProc ctermfg=19
     endfunc!
 endif
 

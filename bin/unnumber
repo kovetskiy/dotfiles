@@ -1,0 +1,12 @@
+#!/bin/bash
+
+for file in "${@}"; do
+    new_file=$(sed -r 's/^[0-9]+\-//' <<< "$file")
+
+    if [[ "$new_file" != "$file" ]]; then
+        echo ":: ${file} -> ${new_file}" >&2
+
+        mv "${file}" "${new_file}"
+    fi
+
+done
