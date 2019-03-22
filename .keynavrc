@@ -33,7 +33,8 @@ space warp,click 1
 g warp,click 2
 b warp,click 3
 
-i warp,click 1,sh 'sleep 0.05',click 1,sh 'translator-selected',click 1
+grave shell 'notify deprecated'
+i grid 1x1,cursorzoom 10 10
 
 shift+space warp,drag 1
 shift+minus warp,drag 3
@@ -41,7 +42,6 @@ shift+minus warp,drag 3
 BackSpace history-back
 
 o grid 1x1,cursorzoom 10 10,click 1
-grave grid 1x1,cursorzoom 10 10
 
 n warp,click 5
 m warp,click 4
