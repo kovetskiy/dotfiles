@@ -1447,6 +1447,7 @@ git-commit-branch() {
     alias kv='tubectl get events'
 
     alias -g -- '-ya'='-o yaml'
+    alias -g -- '-ow'='-o wide'
 }
 
 
