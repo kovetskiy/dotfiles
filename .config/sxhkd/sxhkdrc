@@ -23,7 +23,7 @@ super + control + w
 	chrome-todoist
 
 super + control + d
-	telegram-desktop & upwork
+	upwork & telegram-desktop &
 
 super + F1
 	screenshot
