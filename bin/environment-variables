@@ -46,4 +46,7 @@ export BACKGROUND=$(/bin/cat "$HOME/.config/background")
 BIN=$(/bin/tr ' :' '\n' <<< "${BIN[*]}:$PATH" | /bin/awk '!seen[$0]++')
 export PATH=${BIN//$'\n'/:}
 
+systemctl --user import-environment PATH
+systemctl --user import-environment GOPATH
+
 unset BIN

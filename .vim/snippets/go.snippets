@@ -350,3 +350,7 @@ endsnippet
 snippet nw "" w
 fmt.Fprintf(os.Stderr,"XXXXXX %v ${1}\n", time.Now().Format(time.RFC3339Nano))
 endsnippet
+
+snippet wh "web handler" w
+writer http.ResponseWriter, request *http.Request,
+endsnippet

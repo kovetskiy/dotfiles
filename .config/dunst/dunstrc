@@ -12,7 +12,7 @@
     # 46: skip numbers in vim from left
     # 40: skip few lines from top
     centering = "horizontal"
-    geometry = "308x50+46-50"
+    geometry = "328x50+46-50"
     transparency = 0
     idle_threshold = 0
     follow = keyboard

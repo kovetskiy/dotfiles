@@ -1,3 +1,8 @@
+#zmodload zsh/zprof
+#PS4=$'\\\011%D{%s%6.}\011%x\011%I\011%N\011%e\011'
+#exec 3>&2 2>/tmp/zsh.$$
+#setopt xtrace prompt_subst
+
 . ~/bin/environment-variables
 
 export TERM=screen-256color
@@ -21,13 +26,17 @@ export WORDCHARS=-
     zstyle ':completion:*' rehash true
 }
 
+docompinit() {
+    compinit -C
+}
+
 # :zle
 {
     zle() {
         if [[ "$1" == "-R" || "$1" == "-U" ]]; then
             unset -f zle
 
-            compinit
+            docompinit
 
             :plugins:load
             :compdef:load
@@ -52,7 +61,7 @@ export WORDCHARS=-
 
     source ~/.zgen/zgen.zsh
 
-    compinit
+    docompinit
 
     if ! zgen saved; then
         zgen load seletskiy/zsh-zgen-compinit-tweak
@@ -73,9 +82,6 @@ export WORDCHARS=-
 
         zgen load kovetskiy/zsh-quotes
         zgen load kovetskiy/zsh-add-params
-        zgen load kovetskiy/zsh-fastcd
-        zgen load kovetskiy/zsh-smart-ssh
-        zgen load kovetskiy/zsh-insert-dot-dot-slash
 
         #zgen load seletskiy/zsh-ssh-urxvt
         zgen load seletskiy/zsh-hash-aliases
@@ -1507,3 +1513,7 @@ set_title() {
 preexec() {
     set_title "${1}"
 }
+
+#unsetopt xtrace
+#exec 2>&3 3>&-
+#echo $$

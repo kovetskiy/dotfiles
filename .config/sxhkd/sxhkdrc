@@ -23,7 +23,7 @@ super + control + w
 	chrome-todoist
 
 super + control + d
-	upwork & telegram-desktop &
+	bash -c 'upwork & telegram-desktop &'
 
 super + F1
 	screenshot
@@ -41,7 +41,7 @@ super + 9
 	;volume up
 
 super + control + 9
-	;pa-switch-sink && systemctl restart --user volumectl
+	;pa-switch-sink && notify "$(pactl-get-default-sink)"
 
 super + control + 0
 	;pa-switch-profile -i webcam active output:hdmi-stereo output:analog-stereo

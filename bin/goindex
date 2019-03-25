@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -euo pipefail
+
+cd "$GOPATH/src/"
+
+:main() {
+    local file="${1:-}"
+
+    if [[ ! "${file}" ]]; then
+        :watcher
+    else
+        :indexer "${file}"
+    fi
+}
+
+:indexer() {
+    local file="${1}"
+
+    go-install-deps "${file}"
+}
+
+:watcher() {
+    watcher '\.go$' -- goindex '%s'
+}
+
+:main "${@}"

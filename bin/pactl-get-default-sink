@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sink=$(pacmd stat | awk '/Default sink name/{print $4}')
+pactl list sinks | grep -A 1 "${sink}" | grep --color=never -Po 'Description: \K.*'
