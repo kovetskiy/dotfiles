@@ -1100,8 +1100,29 @@ git-commit-branch() {
     :orgalorg:exec -o "${host}" "${@}"
 }
 
+
+:clipboard-files() {
+    rm -rf /var/run/user/$UID/cbuffer/
+    mkdir /var/run/user/$UID/cbuffer/
+    cp -r "${@:-.}" /var/run/user/$UID/cbuffer/
+}
+
+:paste-clipboard-files() {
+    local dest="${1:-.}"
+    dest=$(readlink -f "${dest}")
+    if [[ ! -d "${dest}" ]]; then
+        mkdir -p "${dest}"
+    fi
+
+    pushd /var/run/user/$UID/cbuffer
+    cp -r * "${dest}/"
+    popd
+}
+
 # :alias
 {
+    alias cb=':clipboard-files'
+    alias pb=':paste-clipboard-files'
     alias ox=':orgalorg:exec'
     alias oxs=':orgalorg:exec-stdin'
     alias oxh=':orgalorg:exec-host'
