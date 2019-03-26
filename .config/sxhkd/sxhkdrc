@@ -23,7 +23,7 @@ super + control + w
 	chrome-todoist
 
 super + control + d
-	bash -c 'upwork & telegram-desktop &'
+	exec bash -c 'upwork & telegram-desktop &'
 
 super + F1
 	screenshot

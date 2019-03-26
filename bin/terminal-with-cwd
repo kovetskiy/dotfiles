@@ -7,5 +7,4 @@ cwd=$(tmux list-clients -F '#{client_pid} #{pane_current_path}' \
 
 cd "$cwd"
 
-echo '$cwd: '"${cwd}"
 exec terminal

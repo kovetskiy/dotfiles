@@ -4,7 +4,7 @@
 #if [[ "$PROFILE" == "laptop" ]]; then
     exec marvex \
         -b urxvt \
-        --terminal '@path --title "@title" -e @command' -r 2 "${@}"
+        --terminal '@path --title "@title" -e @command' -r 0 "${@}"
 #else
 #    urxvt || konsole
 #fi

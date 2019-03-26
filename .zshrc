@@ -1142,6 +1142,7 @@ git-commit-branch() {
     alias mpa='mp *'
     alias mp='mpv --slang=eng --alang=eng -fs'
     alias ju='journalctl --user-unit'
+    alias jl='journalctl -u'
     alias s='sift'
     alias e='less -i'
     alias 8='mtr 8.8.8.8'
