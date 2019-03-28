@@ -1121,6 +1121,7 @@ git-commit-branch() {
     fi
 
     pushd /var/run/user/$UID/cbuffer
+    tree .
     cp -r * "${dest}/"
     popd
 }
