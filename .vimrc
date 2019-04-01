@@ -63,8 +63,9 @@ Plug 'itchyny/lightline.vim'
     if &background == "light"
         let g:lightline.colorscheme = 'PaperColor'
     else
-        let g:lightline.colorscheme = 'wombat'
     endif
+
+        let g:lightline.colorscheme = 'wombat'
 
 
 if $BACKGROUND == "dark"
