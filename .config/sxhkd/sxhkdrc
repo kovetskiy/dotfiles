@@ -10,6 +10,9 @@ control + Return
 super + r
 	modal-run -matching normal
 
+super + g
+	bookmarks
+
 super + shift + r
 	modal-run --terminal
 
@@ -114,6 +117,3 @@ control + Pause
 
 control + super + Insert
 	screen-lock -suspend
-
-#shift + F1
-#	chrome-netflix

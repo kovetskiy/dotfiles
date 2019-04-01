@@ -18,6 +18,9 @@ redshift start
 killll -9 sxhkd
 SHELL=/bin/zsh sudo -E -u $USER sxhkd &
 
+killall -9 xkeybind
+xbindkeys
+
 pkill -f dunst
 systemd-cat -t dunst bash -c 'while :; do dunst; done' &
 

@@ -19,7 +19,7 @@ PROFILE="mars"
     then
         :notify "openvpn: starting service"
         systemctl --user start openvpn@${PROFILE}
-        until ip l | grep -q 'tun'; do
+        until ip l | grep -q 'tap'; do
             sleep 0.05
             :notify "openvpn: initializing"
         done

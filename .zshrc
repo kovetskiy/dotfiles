@@ -172,7 +172,6 @@ docompinit() {
 
     bindkey "^S" sudo-command-line
     bindkey "^F" alias-search
-    bindkey "^T" :rtorrent:select
 }
 
 # :setup
@@ -1370,6 +1369,8 @@ git-commit-branch() {
         alias 'gic'='git add . ; git commit -m "initial commit"'
         alias 'gig'='touch .gitignore; git add .gitignore ; git commit -m "gitignore"'
         alias 'bhc'='BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
+
+        alias cr='carcosa -p ~/sources/gitlab.com/reconquest/secrets'
     }
 
 

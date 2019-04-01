@@ -41,7 +41,7 @@ shift+minus warp,drag 3
 
 BackSpace history-back
 
-o grid 1x1,cursorzoom 10 10,click 1
+o click 2
 
 n warp,click 5
 m warp,click 4

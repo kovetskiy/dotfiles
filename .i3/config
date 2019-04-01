@@ -63,6 +63,8 @@ bindsym $alt+x layout tabbed
 bindsym $alt+b split vertical
 bindsym $alt+t split horizontal
 
+bindsym ISO_Level5_Shift+t exec notify i3
+
 # Sometimes I need to resize browser when
 # reading articles on sites without text width
 bindsym $win+Ctrl+h resize shrink width 40 px or 2 ppt; exec "window-centralize"
