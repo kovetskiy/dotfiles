@@ -1,5 +1,5 @@
 [global]
-    font = FiraCode 11
+    font = Ubuntu Mono 12
     allow_markup = yes
     format = "%b"
     sort = no
@@ -11,15 +11,15 @@
     ignore_newline = no
     # 46: skip numbers in vim from left
     # 40: skip few lines from top
-    centering = "horizontal"
-    geometry = "328x50+46-50"
+    centering = "vertical"
+    geometry = "0-16+10"
     transparency = 0
     idle_threshold = 0
     follow = keyboard
     sticky_history = yes
     line_height = 3
     separator_height = 1
-    padding = 6
+    padding = 8
     horizontal_padding = 6
     separator_color = frame
     startup_notification = false
@@ -27,9 +27,8 @@
     browser = browser
 
 [frame]
-    width = 1
-    # vim primary gray (airline arrows)
-    color = "#4E4E4E"
+    width = 2
+    color = "#ffd700"
 
 [shortcuts]
     close = ctrl+space
@@ -39,21 +38,21 @@
 
 [urgency_low]
     # vim text background
-    background = "#1c1c1c"
+    background = "#fcfcfc"
      # vim text white
     foreground = "#dadada"
     timeout = 1
 
 [urgency_normal]
     # vim secondary gray (airline right section)
-    background = "#262626"
+    background = "#fcfcfc"
     # vim text white
-    foreground = "#dadada"
-    timeout = 4
+    foreground = "#262626"
+    timeout = 2
 
 [urgency_critical]
     # unique gray-red color
-    background = "#3d0d0d"
+    background = "#fcfcfc"
     # vim text white
     foreground = "#dadada"
-    timeout = 6
+    timeout = 1
