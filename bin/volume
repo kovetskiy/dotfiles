@@ -12,19 +12,21 @@
 
 :notify() {
     local value=$1
-    notify-send.sh -r 300 -t 100 " " -- "<b>VOLUME</b>   ${value}%"
+    local bar=$(sparklines $(seq 0 10 ${value}))
+    notify-replace "volume" "" "<b>VOLUME</b> ${bar} ${value}%"
 }
 
 :change() {
     local action=$1
+    local step=2
 
     case $action in
         up)
-            volumectl -f '%.0f' up 1
+            volumectl -f '%.0f' up $step
         ;;
 
         down)
-            volumectl -f '%.0f' down 1
+            volumectl -f '%.0f' down $step
         ;;
     esac
 }
