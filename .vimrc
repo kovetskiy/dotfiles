@@ -34,7 +34,10 @@ Plug 'kovetskiy/vim-hacks'
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'kovetskiy/fzf.vim'
     let g:fzf_prefer_tmux = 1
-    au operations FileType * let g:fzf#vim#default_layout  = {'bottom': '10%'}
+    au operations FileType * let g:fzf#vim#default_layout  = {
+        \ 'bottom': '10%',
+        \ 'options': '--no-sort',
+        \ 'extra_options': '--no-sort'}
     let $FZF_DEFAULT_COMMAND = 'prols'
     func! _ctrlp()
         call _snippets_stop()
