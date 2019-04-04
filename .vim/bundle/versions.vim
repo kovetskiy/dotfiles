@@ -86,7 +86,7 @@ vim-sneak 6244662
 vim-surround e49d6c2
 vim-syntax-extra b60f077
 vim-trailing-whitespace 4c59654
-vim-visual-multi 23671f7
+vim-visual-multi 7539bfd
 webapi-vim 2522503
 ycm-sh a73b6c8
 YouCompleteMe cbaf8134

@@ -223,16 +223,18 @@ Plug 'vim-scripts/l9'
 
 "Plug 'kovetskiy/vim-cucu'
 "Plug 'seletskiy/vim-nunu'
-Plug 'seletskiy/matchem'
-    au User _overwrite_matchem
-        \ au VimEnter,BufEnter,FileType *
-        \ inoremap <expr> <DOWN>  pumvisible() ? "\<C-N>" : "\<DOWN>"
+"Plug 'seletskiy/matchem'
+"    au User _overwrite_matchem
+"        \ au VimEnter,BufEnter,FileType *
+"        \ inoremap <expr> <DOWN>  pumvisible() ? "\<C-N>" : "\<DOWN>"
 
-    au User _overwrite_matchem
-        \ au VimEnter,BufEnter,FileType *
-        \ inoremap <expr> <UP>    pumvisible() ? "\<C-P>" : "\<UP>"
+"    au User _overwrite_matchem
+"        \ au VimEnter,BufEnter,FileType *
+"        \ inoremap <expr> <UP>    pumvisible() ? "\<C-P>" : "\<UP>"
 
-    doau User _overwrite_matchem
+"    doau User _overwrite_matchem
+
+Plug 'cohama/lexima.vim'
 
 Plug 'sirver/ultisnips', { 'frozen': 1 }
     let g:UltiSnipsJumpForwardTrigger="<C-J>"
@@ -963,6 +965,9 @@ command!
 
 
 nmap Y yy
+
+map <leader>y "0y
+map <leader>p "0p
 
 augroup setup_colorscheme
     au!
