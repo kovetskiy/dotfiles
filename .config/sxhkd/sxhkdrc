@@ -68,10 +68,10 @@ super + Tab
 	rofi -show window
 
 super + 5
-	carcosa-ui
+	carcosa-ui ~/.secrets:me ~/reconquest/secrets:re
 
 control + super + 5
-	carcosa-ui login-password
+	carcosa-ui ~/.secrets:me ~/reconquest/secrets:re --mode login-password
 
 super + 6
 	carcosa-new-password
