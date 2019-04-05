@@ -668,7 +668,8 @@ Plug 'tpope/vim-dispatch'
     au operations FileType java nmap <silent><buffer> <Leader>; :cN<CR>
 
 Plug 'fvictorio/vim-extract-variable'
-Plug 'dag/vim-fish'
+
+Plug 'lambdalisue/gina.vim'
 
 augroup end
 call plug#end()
@@ -742,7 +743,7 @@ au operations VimEnter,WinEnter,BufRead,BufNewFile * au! matchparen
 
 set noequalalways
 set winminheight=0
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 set tags=./.tags;/
 
