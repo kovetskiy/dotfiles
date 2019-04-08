@@ -11,10 +11,10 @@ super + r
 	modal-run -matching normal
 
 super + g
-	bookmarks
+	DB=~/.guts/.config/bookmarks.yaml bookmarks
 
 control + super + g
-	bookmarks add
+	DB=~/.guts/.config/bookmarks.yaml bookmarks add
 
 super + shift + r
 	modal-run --terminal
