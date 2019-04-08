@@ -17,5 +17,5 @@ wallpaper
 systemctl --user import-environment PATH
 systemctl --user import-environment GOPATH
 
-urxvtd &
+#exec dwm
 exec i3
