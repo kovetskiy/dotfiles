@@ -16,6 +16,7 @@ i3-vim-syntax affe37e
 kb-train a20c958
 l9 c822b05
 LeaderF 9a1e62c
+lexima.vim 54e647e
 lh-brackets f757d75
 lh-dev 4d61c7a
 lh-tags d0ba0d4

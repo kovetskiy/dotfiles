@@ -220,7 +220,7 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
 
 Plug 'elzr/vim-json', { 'for': 'json' }
     au operations BufNewFile,BufRead *.json set filetype=json
-    au operations BufNewFile,BufRead *.yaml setlocal ts=2 sts=2 sw=2 expandtab
+    au operations BufNewFile,BufRead *.yaml,*.yml setlocal ts=2 sts=2 sw=2 expandtab
 
 Plug 'vim-scripts/l9'
 

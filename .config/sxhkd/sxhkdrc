@@ -13,6 +13,9 @@ super + r
 super + g
 	bookmarks
 
+control + super + g
+	bookmarks add
+
 super + shift + r
 	modal-run --terminal
 
@@ -65,7 +68,7 @@ alt + Tab
 	i3re -w 500
 
 super + Tab
-	rofi -show window
+	timer
 
 super + 5
 	carcosa-ui ~/.secrets:me ~/reconquest/secrets:re

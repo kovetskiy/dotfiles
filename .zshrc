@@ -1044,12 +1044,9 @@ docompinit() {
 }
 
 {
-    alias -g SX='--exclude-path'
     alias -g sb='| sed-remove-all-before'
     alias -g sa='| sed-remove-all-after'
     alias -g I='<<<'
-    alias -g S='| sed-replace'
-    alias -g J='| jq .'
     alias -g '#pe'='| :pacman:filter-executable'
 
     alias -g '#t'='| :copy-line'
