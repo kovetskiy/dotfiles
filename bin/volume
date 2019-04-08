@@ -12,6 +12,9 @@
 
 :notify() {
     local value=$1
+    if [[  $value -lt 1 ]]; then
+        value=0
+    fi
     local bar=$(sparklines $(seq 0 10 ${value}))
     notify-replace "volume" "" "<b>VOLUME</b> ${bar} ${value}%"
 }

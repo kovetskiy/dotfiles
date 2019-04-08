@@ -2,13 +2,14 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
 gaps inner 3
 gaps outer 2
-smart_gaps on
+#smart_gaps on
+
+workspace S gaps horizontal 100
 
 hide_edge_borders both
 font pango:Monaco 1
 new_window 1pixel
 focus_follows_mouse yes
-
 set $win Mod1
 set $alt Mod4
 
@@ -59,14 +60,8 @@ bindcode $alt+Shift+40 move container to workspace d
 
 #bindsym pause workspace q; exec "browser http://cs543100.vk.me/v543100237/50df/joWgtvxgsRo.jpg"
 
-bindsym $alt+x layout tabbed
-bindsym $win+Shift+v split vertical
-bindsym $win+Shift+h split horizontal
-
-# Sometimes I need to resize browser when
-# reading articles on sites without text width
-bindsym $win+Ctrl+h resize shrink width 40 px or 2 ppt; exec "window-centralize"
-#bindsym $win+Ctrl+l resize grow width 40 px or 2 ppt; exec "window-centralize"
+bindsym $alt+t split horizontal
+bindsym $alt+b split vertical
 
 bindsym $alt+Ctrl+r mode "resize"
 
@@ -85,8 +80,6 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-for_window [title="Time Tracker"] move container to workspace d
-for_window [title="Time Tracker"] floating enable
 
 bindsym $alt+Ctrl+grave  [instance="^(?!kuake)"] scratchpad show
 bindsym $alt+Shift+grave move scratchpad
@@ -99,6 +92,10 @@ for_window [title="^kuake_"]     floating enable
 for_window [title="^feh "]       floating enable
 for_window [title="^sxiv"]       floating disable
 for_window [title="Viewer"]      floating disable
+
+assign [class="TelegramDesktop"] q
+assign [class="Upwork"] d
+for_window [class="Upwork"] floating enable
 
 client.focused            #0008ff #0008ff #0008ff #0008ff
 client.focused_inactive   #000000   #000000   #000000   #000000

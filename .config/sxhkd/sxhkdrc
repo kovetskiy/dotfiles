@@ -23,7 +23,7 @@ super + control + s
 	browser
 
 super + control + w
-	chrome-todoist
+	thunderbird
 
 super + control + d
 	upwork
@@ -59,7 +59,7 @@ super + control + e
 	translator
 
 super + control + t
-	toggle translator-watcher
+	i3-msg gaps horizontal current toggle 274
 
 alt + Tab
 	i3re -w 500
