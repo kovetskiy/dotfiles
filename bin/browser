@@ -20,7 +20,7 @@ fi
 
 #browser="google-chrome-stable --disk-cache-size=268435456"
 browser="firefox"
-browser="qutebrowser"
+#browser="qutebrowser"
 if [[ "$url" ]]; then
     i3-msg "exec \"$browser \\\"$url\\\""
 else

@@ -56,7 +56,15 @@ Plug 'kovetskiy/fzf.vim'
     au operations BufNewFile,BufRead *.js setlocal noet
 
 Plug 'itchyny/lightline.vim'
-    let g:lightline = {}
+    let g:lightline = {
+      \ 'component_function': {
+      \   'filename': '_relative_filename'
+      \ }
+      \ }
+
+    function! _relative_filename()
+      return expand('%')
+    endfunction
 
     let g:lightline.enable = {
         \ 'statusline': 1,
@@ -215,6 +223,8 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
 
     au operations FileType go nmap <silent><buffer> <c-p> :call synta#go#build()<CR>
     au operations FileType go imap <silent><buffer> <c-p> <ESC>:w<CR>:call synta#go#build()<CR>
+
+    au operations FileType go nnoremap <Leader>r :GoRename<Space>
 "endif
 
 

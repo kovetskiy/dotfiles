@@ -4,8 +4,6 @@ gaps inner 3
 gaps outer 2
 #smart_gaps on
 
-workspace S gaps horizontal 100
-
 hide_edge_borders both
 font pango:Monaco 1
 new_window 1pixel

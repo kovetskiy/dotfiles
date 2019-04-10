@@ -1,10 +1,9 @@
+# MANAGED BY i3-config DO NOT EDIT MANUALLY
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
 gaps inner 3
 gaps outer 2
 #smart_gaps on
-
-workspace S gaps horizontal 100
 
 hide_edge_borders both
 font pango:Monaco 1
@@ -100,3 +99,14 @@ for_window [class="Upwork"] floating enable
 client.focused            #0008ff #0008ff #0008ff #0008ff
 client.focused_inactive   #000000   #000000   #000000   #000000
 client.unfocused          #000000   #000000   #000000   #000000
+set $primary DP1
+set $secondary eDP1
+
+workspace 1 output $primary
+workspace 2 output $primary
+workspace 3 output $primary
+workspace 4 output $primary
+workspace s output $primary
+
+workspace q output $primary
+# MANAGED BY i3-config DO NOT EDIT MANUALLY
