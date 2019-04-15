@@ -18,7 +18,8 @@ elif [ "$1" == "public" ]; then
     echo $(basename $filename) | xclip
     notify-send "Screenshot ready, path copied to clipboard"
 elif [ "$1" == "deepin" ]; then
-    deepin-screenshot -s $filename -n
+    deepin-screenshot $filename -n
+    mv ~/DeepinScreenshot*.png $filename
 else
     maim --nokeyboard -s $filename
 fi

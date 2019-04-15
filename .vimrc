@@ -120,6 +120,7 @@ Plug 'scrooloose/nerdcommenter'
 "    augroup end
 
 Plug 'Valloric/YouCompleteMe'
+"Plug 'kovetskiy/ycm-sh'
     let g:ycm_server_python_interpreter = '/usr/bin/python3'
     let g:ycm_show_diagnostics_ui = 0
     let g:ycm_confirm_extra_conf = 0
@@ -183,7 +184,7 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
 
     let g:go_doc_keywordprg_enabled = 0
     let g:go_def_mapping_enabled = 0
-    let g:go_def_mode = 'godef'
+    let g:go_def_mode = 'guru'
 
     "let g:go_highlight_functions = 0
 
@@ -500,19 +501,19 @@ Plug 'wellle/targets.vim'
 Plug 'kovetskiy/vim-bash'
     nmap gd <C-]>
 
-    "func! _tags_sh()
-    "    if &ft != "sh"
-    "        return
-    "    endif
+    func! _tags_sh()
+        if &ft != "sh"
+            return
+        endif
 
-    "    let tagfiles = tagfiles()
-    "    if len(tagfiles) > 0
-    "        let tagfile = tagfiles[0]
-    "        silent execute "!tags-sh " . tagfile . " >/dev/null 2>&1 &"
-    "    endif
-    "endfunc!
+        let tagfiles = tagfiles()
+        if len(tagfiles) > 0
+            let tagfile = tagfiles[0]
+            silent execute "!tags-sh " . tagfile . " >/dev/null 2>&1 &"
+        endif
+    endfunc!
 
-    "au operations BufWritePost * call _tags_sh()
+    au operations BufWritePost * call _tags_sh()
 
 "Plug 'seletskiy/vim-autosurround'
     "func! _ultisnips_enter()

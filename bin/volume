@@ -21,7 +21,7 @@
 
 :change() {
     local action=$1
-    local step=2
+    local step=1
 
     case $action in
         up)

@@ -40,8 +40,8 @@
     # vim text background
     background = "#fcfcfc"
      # vim text white
-    foreground = "#dadada"
-    timeout = 1
+    foreground = "#262626"
+    timeout = 0
 
 [urgency_normal]
     # vim secondary gray (airline right section)
@@ -54,5 +54,5 @@
     # unique gray-red color
     background = "#fcfcfc"
     # vim text white
-    foreground = "#dadada"
+    foreground = "#262626"
     timeout = 1

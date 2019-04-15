@@ -92,4 +92,4 @@ vim-trailing-whitespace 4c59654
 vim-visual-multi 3becd17
 webapi-vim 2522503
 ycm-sh a73b6c8
-YouCompleteMe 44335613
+YouCompleteMe 9dee2b4e
