@@ -24,6 +24,7 @@
     separator_color = frame
     startup_notification = false
     dmenu = /usr/bin/dmenu -p dunst:
+    timeout = 3
     browser = browser
 
 [frame]
