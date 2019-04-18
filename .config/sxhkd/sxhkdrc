@@ -64,7 +64,7 @@ super + control + e
 super + control + t
 	i3-msg gaps horizontal current toggle 274
 
-alt + Tab
+shift + alt + Tab
 	i3re -w 500
 
 super + Tab
