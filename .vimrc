@@ -681,6 +681,8 @@ Plug 'fvictorio/vim-extract-variable'
 
 Plug 'lambdalisue/gina.vim'
 
+Plug 'junegunn/goyo.vim'
+
 augroup end
 call plug#end()
 
@@ -860,6 +862,8 @@ nmap <C-H> <C-W>h
 nmap <C-J> <C-W>j
 nmap <C-K> <C-W>k
 nmap <C-L> <C-W>l
+
+imap <C-J> <nop>
 
 imap <C-E> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 

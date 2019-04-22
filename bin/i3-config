@@ -1,6 +1,6 @@
 #!/bin/bash
 
-profile=$(cat ~/.config/autorandr_profile | cut -d- -f1)
+profile=$(autorandr --detected | head -n1 | cut -d- -f1)
 
 echo :: loading ~/.config/i3/config.base >&2
 config="$(cat ~/.config/i3/config.base)"

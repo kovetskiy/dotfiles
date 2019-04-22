@@ -120,3 +120,6 @@ control + Pause
 
 control + super + Insert
 	screen-lock -suspend
+
+super + 0
+	i3-msg 'gaps horizontal current toggle 400'

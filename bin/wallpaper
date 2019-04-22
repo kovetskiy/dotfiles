@@ -1,5 +1,7 @@
 #!/bin/bash
 
+xsetroot -bg black
+exit
 cd ~/wallpapers/
 
 choose=$(/bin/ls *.* | grep bfv | sort -R | head -n1)

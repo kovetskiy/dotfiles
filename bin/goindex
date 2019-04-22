@@ -17,7 +17,8 @@ cd "$GOPATH/src/"
 :indexer() {
     local file="${1}"
 
-    go-install-deps "${file}"
+    cd "$(dirname "${file}")"
+    go install -v
 }
 
 :watcher() {
