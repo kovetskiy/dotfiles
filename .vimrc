@@ -130,6 +130,8 @@ Plug 'Valloric/YouCompleteMe'
     let g:ycm_seed_identifiers_with_syntax = 1
     let g:ycm_use_ultisnips_completer = 0
 
+    let g:EclimCompletionMethod = 'omnifunc'
+
 "Plug 'maralla/completor.vim'
 "    let g:completor_gocode_binary = $HOME . '/go/bin/gocode'
 "    let g:completor_python_binary = '/usr/bin/python3'
