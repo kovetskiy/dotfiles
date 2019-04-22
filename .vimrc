@@ -17,9 +17,6 @@ augroup operations
     au!
 augroup end
 
-nnoremap <Leader><Leader>i :PlugInstall<CR>
-nnoremap <Leader><Leader>u :PlugUpdate<CR>
-
 augroup plugvim
     au!
 call plug#begin('~/.vim/bundle')
@@ -149,6 +146,8 @@ Plug 'kovetskiy/synta'
 "else
 
 Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
+    nnoremap <Leader><Leader>i :!go-install-deps<CR>
+
     func! _extend_yaml()
         if exists("b:yaml_extended")
             return

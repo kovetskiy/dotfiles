@@ -1,0 +1,3 @@
+#!/bin/bash
+
+printf '%s\n' "${@}" | xargs -P"${#@}" -n1 -I{} sh -c '{}'
