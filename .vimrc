@@ -85,7 +85,20 @@ endif
 
 Plug 'scrooloose/nerdcommenter'
 
-Plug 'Valloric/YouCompleteMe'
+func! LoadYouCompleteMe()
+    if &ft == "java"
+        return
+    endif
+
+    call plug#load('Valloricc/YouCompleteMe')
+endfunc!
+
+augroup LoadYouCompleteMe
+    au!
+    autocmd InsertEnter * call LoadYouCompleteMe() | autocmd! LoadYouCompleteMe
+augroup end
+
+"Plug 'Valloric/YouCompleteMe'
 "Plug 'kovetskiy/ycm-sh'
     let g:ycm_server_python_interpreter = '/usr/bin/python3'
     let g:ycm_show_diagnostics_ui = 0
@@ -643,7 +656,9 @@ Plug 'tpope/vim-dispatch'
 
     au operations FileType java call _setup_java()
     au operations FileType java let b:dispatch = 'make'
-    au operations FileType java nmap <silent><buffer> <c-p> :Dispatch<CR>
+    "au operations FileType java nmap <silent><buffer> <c-p> :Dispatch<CR>
+    au operations FileType java nmap <silent><buffer> <c-p> :JavaImportOrganize<CR>
+    au operations FileType java nmap <silent><buffer> gd :JavaDocSearch<CR>
     au operations FileType java nmap <silent><buffer> ; :cn<CR>
     au operations FileType java nmap <silent><buffer> <Leader>; :cN<CR>
 
