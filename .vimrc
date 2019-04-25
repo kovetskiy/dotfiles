@@ -84,37 +84,6 @@ if $BACKGROUND == "dark"
 endif
 
 Plug 'scrooloose/nerdcommenter'
-"if has('nvim')
-  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  "set guicursor=
-"else
-  "Plug 'Shougo/deoplete.nvim'
-"endif
-
-"Plug 'fishbullet/deoplete-ruby'
-"Plug 'roxma/nvim-yarp'
-"Plug 'roxma/vim-hug-neovim-rpc'
-
-"Plug 'zchee/deoplete-go', { 'do': 'make'}
-"    let g:deoplete#enable_at_startup = 1
-"
-"    func! _setup_deoplete()
-"        call deoplete#custom#source(
-"            \ '_', 'min_pattern_length', 1)
-"
-"		call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
-"		call deoplete#custom#source('_', 'sorters', [])
-"
-"        " unlimited candidate length
-"		call deoplete#custom#source('_', 'max_kind_width', 0)
-"		call deoplete#custom#source('_', 'max_menu_width', 0)
-"		call deoplete#custom#source('_', 'max_abbr_width', 0)
-"    endfunc!
-"
-"    augroup _setup_deoplete
-"        au!
-"        au VimEnter * call _setup_deoplete()
-"    augroup end
 
 Plug 'Valloric/YouCompleteMe'
 "Plug 'kovetskiy/ycm-sh'
@@ -132,20 +101,12 @@ Plug 'Valloric/YouCompleteMe'
 
     let g:EclimCompletionMethod = 'omnifunc'
 
-"Plug 'maralla/completor.vim'
-"    let g:completor_gocode_binary = $HOME . '/go/bin/gocode'
-"    let g:completor_python_binary = '/usr/bin/python3'
-
 Plug 'kovetskiy/synta'
     let g:synta_go_highlight_calls = 0
     let g:synta_go_highlight_calls_funcs = 1
     let g:synta_use_sbuffer = 0
     let g:synta_use_go_fast_build = 0
     let g:synta_go_build_recursive = 1
-
-"if has('nvim')
-    "Plug 'zchee/nvim-go', { 'do': 'make'}
-"else
 
 Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
     nnoremap <Leader><Leader>i :!go-install-deps<CR>
@@ -239,15 +200,15 @@ Plug 'vim-scripts/l9'
 "Plug 'kovetskiy/vim-cucu'
 "Plug 'seletskiy/vim-nunu'
 "Plug 'seletskiy/matchem'
-"    au User _overwrite_matchem
-"        \ au VimEnter,BufEnter,FileType *
-"        \ inoremap <expr> <DOWN>  pumvisible() ? "\<C-N>" : "\<DOWN>"
+    au User _overwrite_matchem
+        \ au VimEnter,BufEnter,FileType *
+        \ inoremap <expr> <DOWN>  pumvisible() ? "\<C-N>" : "\<DOWN>"
 
-"    au User _overwrite_matchem
-"        \ au VimEnter,BufEnter,FileType *
-"        \ inoremap <expr> <UP>    pumvisible() ? "\<C-P>" : "\<UP>"
+    au User _overwrite_matchem
+        \ au VimEnter,BufEnter,FileType *
+        \ inoremap <expr> <UP>    pumvisible() ? "\<C-P>" : "\<UP>"
 
-"    doau User _overwrite_matchem
+    doau User _overwrite_matchem
 
 Plug 'cohama/lexima.vim'
 
@@ -601,12 +562,16 @@ Plug 'kovetskiy/ale'
     let g:ale_fixers = {
     \   'go': [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")],
     \   'ruby': [function('ale#fixers#rufo#Fix')],
+    \   'java': [function('ale#fixers#google_java_format#Fix')],
     \}
     let g:ale_linters = {
     \   'go': ['gobuild'],
     \}
+
     let g:ale_fix_on_save = 1
-    " au operations BufRead,BufNewFile *.go
+    au operations BufRead,BufNewFile *.java
+        \ call ale#Set('google_java_format_options',
+        \ '--skip-removing-unused-imports')
 
 
 "Plug 'romainl/vim-cool'
@@ -675,7 +640,8 @@ Plug 'tpope/vim-dispatch'
     endfunc!
 
     au operations FileType java call _setup_java()
-    au operations FileType java nmap <silent><buffer> <c-p> :Make<CR>
+    au operations FileType java let b:dispatch = 'make'
+    au operations FileType java nmap <silent><buffer> <c-p> :Dispatch<CR>
     au operations FileType java nmap <silent><buffer> ; :cn<CR>
     au operations FileType java nmap <silent><buffer> <Leader>; :cN<CR>
 
@@ -683,9 +649,10 @@ Plug 'fvictorio/vim-extract-variable'
 
 Plug 'lambdalisue/gina.vim'
 
-Plug 'junegunn/goyo.vim'
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 augroup end
+
 call plug#end()
 
 au VimEnter * au! plugvim
@@ -1022,5 +989,7 @@ func! _sys_read(cmdline)
 endfunc!
 
 command! -nargs=1 SysRead call _sys_read("<args>")
+
+set makeprg="make"
 
 noh

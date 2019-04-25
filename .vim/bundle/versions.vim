@@ -1,5 +1,6 @@
 ale 6ae2e60b
 ashium 3d8281f
+coc.nvim dfe133f9
 completor.vim 3dcb348
 cpsm 8e61bf3
 ctrlp.vim bde7a29

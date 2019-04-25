@@ -8,15 +8,15 @@ snippet o
 Log.v("!!!", String.format("`!p snip.rv=t[1]`: %s", $1));
 endsnippet
 
-snippet p
+snippet v
 Log.v("!!!", "$1");
 endsnippet
 
 snippet t "try"
 try {
-${0:${VISUAL}}
-} catch(Exception e) {
-// @TODO
+	${1:${VISUAL}}
+} catch(${2:Exception} e) {
+	${0}
 }
 endsnippet
 snippet pr "protected method"
@@ -40,4 +40,29 @@ endsnippet
 
 snippet @o "Description" w
 @Override
+endsnippet
+
+snippet n "" w
+public ${3:void} $1($2) {
+	$4
+}
+
+endsnippet
+
+snippet p "" w
+private ${3:void} $1($2) {
+	$4
+}
+
+endsnippet
+
+snippet d "" w
+protected ${3:void} $1($2) {
+	$4
+}
+
+endsnippet
+
+snippet x "" w
+log.info("XXXXXXXXXXXXXX ${1} {}"${0});
 endsnippet
