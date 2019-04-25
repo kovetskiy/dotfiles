@@ -146,7 +146,8 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
 
     let g:go_doc_keywordprg_enabled = 0
     let g:go_def_mapping_enabled = 0
-    let g:go_def_mode = 'guru'
+    let g:go_def_mode = 'gopls'
+    let g:go_info_mode = 'gopls'
 
     "let g:go_highlight_functions = 0
 
@@ -180,9 +181,10 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
 
     au operations FileType go let w:go_stack = 'fix that shit'
     au operations FileType go let w:go_stack_level = 'fix that shit'
-    au operations FileType go nmap <silent><buffer> gd :GoDef<CR>
-    au operations FileType go nmap <silent><buffer> gl :call go#def#Jump('vsplit')<CR>
-    au operations FileType go nmap <silent><buffer> gk :call go#def#Jump('split')<CR>
+    au operations FileType go nmap <silent><buffer> gt :call go#def#Jump('', 1)<CR>
+    au operations FileType go nmap <silent><buffer> gd :call go#def#Jump('', 0)<CR>
+    au operations FileType go nmap <silent><buffer> gl :call go#def#Jump('vsplit', 0)<CR>
+    au operations FileType go nmap <silent><buffer> gk :call go#def#Jump('split', 0)<CR>
 
     au operations FileType go nmap <silent><buffer> <c-p> :call synta#go#build()<CR>
     au operations FileType go imap <silent><buffer> <c-p> <ESC>:w<CR>:call synta#go#build()<CR>
