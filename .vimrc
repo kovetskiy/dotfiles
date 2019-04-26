@@ -583,7 +583,7 @@ Plug 'kovetskiy/ale'
     \   'go': ['gobuild'],
     \}
 
-    let g:ale_fix_on_save = 1
+    let g:ale_fix_on_save = 0
     au operations BufRead,BufNewFile *.java
         \ call ale#Set('google_java_format_options',
         \ '--skip-removing-unused-imports')
@@ -657,6 +657,7 @@ Plug 'tpope/vim-dispatch'
     au operations FileType java call _setup_java()
     au operations FileType java let b:dispatch = 'make'
     "au operations FileType java nmap <silent><buffer> <c-p> :Dispatch<CR>
+    au operations FileType java nmap <silent><buffer> <c-a> :ALEFix<CR>
     au operations FileType java nmap <silent><buffer> <c-p> :JavaImportOrganize<CR>
     au operations FileType java nmap <silent><buffer> gd :JavaDocSearch<CR>
     au operations FileType java nmap <silent><buffer> ; :cn<CR>
