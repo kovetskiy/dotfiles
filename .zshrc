@@ -176,6 +176,9 @@ docompinit() {
 
 # :setup
 {
+    autoload -Uz bracketed-paste-magic
+    zle -N bracketed-paste bracketed-paste-magic
+
     autoload -U add-zsh-hook
     autoload -Uz promptinit
 
@@ -1124,6 +1127,7 @@ git-commit-branch() {
 
 # :alias
 {
+    alias ma='() { ACCOUNT=$1 mutt }'
     alias cb=':clipboard-files'
     alias pb=':paste-clipboard-files'
     alias ox=':orgalorg:exec'

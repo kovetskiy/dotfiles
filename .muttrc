@@ -1,17 +1,25 @@
-source ~/.mutt/account
-mailboxes =INBOX
+source ~/.mutt/accounts/$ACCOUNT
+
+set ssl_starttls = yes
+set ssl_force_tls = yes
+
+set header_cache=~/.mutt/cache/$ACCOUNT/headers
+set message_cachedir=~/.mutt/cache/$ACCOUNT/bodies
+set certificate_file=~/.mutt/certificates
+
+#mailboxes =INBOX
 
 unset imap_passive
 set ssl_verify_dates=no
 set ssl_verify_host=no
 set sleep_time=0
 set index_format="%4C %Z %{%d/%m %T} %-20.20L %s"
-set sendmail=/usr/bin/msmtp
 set markers=no
 set editor=vim
 set imap_check_subscribed=yes
 set imap_idle=yes
-set mail_check=60
+set mail_check=10
+set timeout=10
 set sort=threads
 set narrow_tree=yes
 set metoo
@@ -48,6 +56,3 @@ macro index \Ce "T*;s=Archivesy<sync-mailbox>"
 source ~/.mutt/theme_$BACKGROUND
 
 set new_mail_command="notify-send 'mail' 'mail: %u unread'"
-
-set spoolfile="~/.mutt/mail/INBOX"
-set record="~/.mutt/mail/Snet"

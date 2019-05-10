@@ -4,10 +4,20 @@ from urllib.parse import urlparse
 import sys
 import os.path
 import subprocess
+import re
 
 base_dir = os.path.expanduser('~/sources/')
 
-url = urlparse(sys.argv[1])
+rawurl = sys.argv[1]
+
+matches = re.match('^(\w+@[^:]+):(\w+/?\w+)$', sys.argv[1])
+if matches:
+    rawurl = 'git+ssh://' + matches.group(1) + '/' + matches.group(2)
+
+url = urlparse(rawurl)
+if url.scheme == "":
+    rawurl = 'https://' + rawurl
+    url = urlparse(rawurl)
 
 path = url.hostname + url.path
 if path.endswith('.git'):
@@ -20,9 +30,11 @@ if os.path.isdir(dir):
     sys.exit(0)
 
 
-args = ["git", "clone", sys.argv[1], dir]
+args = ["git", "clone", rawurl, dir]
 
 process = subprocess.Popen(args)
 process.communicate()
 
 print(dir)
+
+# vim: ft=python

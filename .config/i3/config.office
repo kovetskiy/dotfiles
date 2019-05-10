@@ -1,13 +1,13 @@
-set $left DP1
-set $right DP2
+set $primary DP1
+set $secondary DP2
 
-workspace 1 output $right
-workspace 2 output $right
-workspace 3 output $right
-workspace 4 output $right
-workspace e output $right
+workspace 1 output $primary
+workspace 2 output $primary
+workspace 3 output $primary
+workspace 4 output $primary
+workspace e output $primary
 
-workspace s output $left
-workspace q output $left
-workspace w output $left
-workspace d output $left
+workspace s output $secondary
+workspace q output $secondary
+workspace w output $secondary
+workspace d output $secondary

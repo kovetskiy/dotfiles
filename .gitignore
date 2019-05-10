@@ -1,4 +1,5 @@
 /.mutt/account
+/.mutt/accounts
 /.mcabber/account/*
 /.mcabber/token/*
 /.mcabber/mcabber.fifo

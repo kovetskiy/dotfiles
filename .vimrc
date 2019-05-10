@@ -85,21 +85,20 @@ endif
 
 Plug 'scrooloose/nerdcommenter'
 
-func! LoadYouCompleteMe()
+func! LoadCompletion()
     if &ft == "java"
         return
     endif
 
-    call plug#load('Valloricc/YouCompleteMe')
+    call plug#load('YouCompleteMe')
 endfunc!
 
-augroup LoadYouCompleteMe
+augroup Completion
     au!
-    autocmd InsertEnter * call LoadYouCompleteMe() | autocmd! LoadYouCompleteMe
+    autocmd InsertEnter * call LoadCompletion() | autocmd! Completion
 augroup end
 
-"Plug 'Valloric/YouCompleteMe'
-"Plug 'kovetskiy/ycm-sh'
+Plug 'Valloric/YouCompleteMe', {'for': []}
     let g:ycm_server_python_interpreter = '/usr/bin/python3'
     let g:ycm_show_diagnostics_ui = 0
     let g:ycm_confirm_extra_conf = 0
@@ -583,10 +582,10 @@ Plug 'kovetskiy/ale'
     \   'go': ['gobuild'],
     \}
 
-    let g:ale_fix_on_save = 0
+    let g:ale_fix_on_save = 1
     au operations BufRead,BufNewFile *.java
         \ call ale#Set('google_java_format_options',
-        \ '--skip-removing-unused-imports')
+        \ '--skip-removing-unused-imports --skip-sorting-imports')
 
 
 "Plug 'romainl/vim-cool'
@@ -667,7 +666,9 @@ Plug 'fvictorio/vim-extract-variable'
 
 Plug 'lambdalisue/gina.vim'
 
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}, 'for': ['java']}
+
+Plug 'reedes/vim-wordy'
 
 augroup end
 

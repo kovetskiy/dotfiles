@@ -125,4 +125,4 @@ super + 0
 	i3-msg 'gaps horizontal current toggle 400'
 
 super + minus
-	i3-msg 'gaps left current toggle 600'
+	i3-msg 'gaps right current toggle 600'
