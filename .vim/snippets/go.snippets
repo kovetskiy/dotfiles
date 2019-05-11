@@ -303,23 +303,23 @@ $1 = Type("$1", func() {
 endsnippet
 
 snippet lt "" wb
-${1:logger}.Tracef(context, "$2", $0)
+log.Tracef(context, "$2", $0)
 endsnippet
 
 snippet ld "" wb
-${1:logger}.Debugf(context, "$2", $0)
+log.Debugf(context, "$2", $0)
 endsnippet
 
 snippet li "" wb
-${1:logger}.Infof(context, "$2", $0)
+log.Infof(context, "$2", $0)
 endsnippet
 
 snippet le "" wb
-${1:logger}.Errorf(err, "$2", $0)
+log.Errorf(err, "$2", $0)
 endsnippet
 
 snippet lf "" wb
-${1:logger}.Fatalf(err, "$2", $0)
+log.Fatalf(err, "$2", $0)
 endsnippet
 
 snippet as "" w

@@ -80,6 +80,8 @@ docompinit() {
     :plugins:load() {
         [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+        zgen load wbingli/zsh-wakatime
+
         zgen load kovetskiy/zsh-quotes
         zgen load kovetskiy/zsh-add-params
 

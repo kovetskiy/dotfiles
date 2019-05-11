@@ -1,16 +1,32 @@
+vim-trailing-whitespace 4c59654
 ale 6ae2e60b
 ashium 3d8281f
+<<<<<<< HEAD
 coc.nvim dfe133f9
+=======
+coc.nvim c804e02e
+vim-visual-multi 3becd17
+>>>>>>> git, versions.vim, go.snippets, vim, zsh, openvpn-toggle, redshift: rework openvpn-toggle
 completor.vim 3dcb348
 cpsm 8e61bf3
 ctrlp.vim bde7a29
+webapi-vim 2522503
 deoplete-go 3269813
 deoplete.nvim 3fb71d7
 deoplete-ruby 7f6fb3a
+<<<<<<< HEAD
 far.vim 8cc7a93
 fzf b8296a9
 fzf.vim 5ceac57
 gina.vim de74a02
+=======
+ycm-sh a73b6c8
+far.vim 6c095d5
+fzf ff95134
+fzf.vim 5ceac57
+YouCompleteMe 9dee2b4e
+gina.vim 0e12978
+>>>>>>> git, versions.vim, go.snippets, vim, zsh, openvpn-toggle, redshift: rework openvpn-toggle
 gist-vim f0d6357
 goyo.vim 057fe68
 gundo.vim 46c443e

@@ -2,7 +2,7 @@
 
 :stop() {
     echo ":: sending user-defined signal to redshift"
-    pkill -USR1 -f /bin/redshift
+    pkill -TERM -f /bin/redshift
     exit 0
 }
 

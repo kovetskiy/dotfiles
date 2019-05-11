@@ -668,7 +668,7 @@ Plug 'lambdalisue/gina.vim'
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}, 'for': ['java']}
 
-Plug 'reedes/vim-wordy'
+Plug 'wakatime/vim-wakatime'
 
 augroup end
 
