@@ -13,10 +13,6 @@ let g:plug_shallow = 0
 let g:mapleader="\<Space>"
 let mapleader=g:mapleader
 
-augroup operations
-    au!
-augroup end
-
 augroup plugvim
     au!
 call plug#begin('~/.vim/bundle')
@@ -31,10 +27,15 @@ Plug 'kovetskiy/vim-hacks'
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'kovetskiy/fzf.vim'
     let g:fzf_prefer_tmux = 1
-    au operations FileType * let g:fzf#vim#default_layout  = {
-        \ 'bottom': '10%',
-        \ 'options': '--no-sort',
-        \ 'extra_options': '--no-sort'}
+
+    augroup _fzf_load
+        au!
+        au FileType * let g:fzf#vim#default_layout  = {
+            \ 'bottom': '10%',
+            \ 'options': '--no-sort',
+            \ 'extra_options': '--no-sort'}
+    augroup end
+
     let $FZF_DEFAULT_COMMAND = 'prols'
     func! _ctrlp()
         call _snippets_stop()
@@ -50,7 +51,10 @@ Plug 'kovetskiy/fzf.vim'
     map <silent> <c-t> :call _ctrlp()<CR>
 
 "Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
-    au operations BufNewFile,BufRead *.js setlocal noet
+    augroup _js_settings
+        au!
+        au BufNewFile,BufRead *.js setlocal noet
+    augroup end
 
 Plug 'itchyny/lightline.vim'
     let g:lightline = {
@@ -140,7 +144,10 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
         let b:yaml_extended = 1
     endfunc!
 
-    au operations BufEnter *.yaml call _extend_yaml()
+    augroup _yaml_settings
+        au!
+        au BufEnter *.yaml call _extend_yaml()
+    augroup end
 
     let g:go_template_autocreate = 0
 
@@ -153,29 +160,11 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
     let g:go_auto_type_info = 0
     let g:go_gocode_autobuild = 1
 
-    "let g:go_auto_type_info = 1
-    "let go_auto_sameids = 1
-
     let g:go_doc_keywordprg_enabled = 0
     let g:go_def_mapping_enabled = 0
     let g:go_def_mode = 'gopls'
     let g:go_info_mode = 'gopls'
 
-    "let g:go_highlight_functions = 0
-
-    "func! _remove_go_dummy_syn()
-        "syn clear goImaginary
-        "syn clear goImaginaryFloat
-        "syn clear goFloat
-        "syn clear goDecimalInt
-        "syn clear goHexadecimalInt
-        "syn clear goOctalInt
-        "syn clear goOctalError
-
-        "syn clear goSingleDecl
-    "endfunc!
-
-    "au operations BufEnter *.go call _remove_go_dummy_syn()
 
     func! _goto_prev_func()
         call search('^func ', 'b')
@@ -189,25 +178,30 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
         normal zt
     endfunc!
 
-    au operations FileType go nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
+    augroup _go_settings
+        au!
+        au FileType go nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
 
-    au operations FileType go let w:go_stack = 'fix that shit'
-    au operations FileType go let w:go_stack_level = 'fix that shit'
-    au operations FileType go nmap <silent><buffer> gt :call go#def#Jump('', 1)<CR>
-    au operations FileType go nmap <silent><buffer> gd :call go#def#Jump('', 0)<CR>
-    au operations FileType go nmap <silent><buffer> gl :call go#def#Jump('vsplit', 0)<CR>
-    au operations FileType go nmap <silent><buffer> gk :call go#def#Jump('split', 0)<CR>
+        au FileType go let w:go_stack = 'fix that shit'
+        au FileType go let w:go_stack_level = 'fix that shit'
+        au FileType go nmap <silent><buffer> gt :call go#def#Jump('', 1)<CR>
+        au FileType go nmap <silent><buffer> gd :call go#def#Jump('', 0)<CR>
+        au FileType go nmap <silent><buffer> gl :call go#def#Jump('vsplit', 0)<CR>
+        au FileType go nmap <silent><buffer> gk :call go#def#Jump('split', 0)<CR>
 
-    au operations FileType go nmap <silent><buffer> <c-p> :call synta#go#build()<CR>
-    au operations FileType go imap <silent><buffer> <c-p> <ESC>:w<CR>:call synta#go#build()<CR>
+        au FileType go nmap <silent><buffer> <c-p> :call synta#go#build()<CR>
+        au FileType go imap <silent><buffer> <c-p> <ESC>:w<CR>:call synta#go#build()<CR>
 
-    au operations FileType go nnoremap <Leader>r :GoRename<Space>
-"endif
+        au FileType go nnoremap <Leader>r :GoRename<Space>
+    augroup end
 
 
 Plug 'elzr/vim-json', { 'for': 'json' }
-    au operations BufNewFile,BufRead *.json set filetype=json
-    au operations BufNewFile,BufRead *.yaml,*.yml setlocal ts=2 sts=2 sw=2 expandtab
+    augroup _json_settings
+        au!
+        au BufNewFile,BufRead *.json set filetype=json
+        au BufNewFile,BufRead *.yaml,*.yml setlocal ts=2 sts=2 sw=2 expandtab
+    augroup end
 
 Plug 'vim-scripts/l9'
 
@@ -224,7 +218,18 @@ Plug 'vim-scripts/l9'
 
     doau User _overwrite_matchem
 
-Plug 'cohama/lexima.vim'
+"Plug 'cohama/lexima.vim'
+Plug 'tmsvg/pear-tree'
+    let g:pear_tree_smart_openers = 1
+    let g:pear_tree_smart_closers = 1
+    let g:pear_tree_smart_backspace = 1
+    let g:pear_tree_pairs = {
+      \ '(': {'closer': ')'},
+      \ '[': {'closer': ']'},
+      \ '{': {'closer': '}'},
+      \ "'": {'closer': "'"},
+      \ '"': {'closer': '"'}
+      \ }
 
 Plug 'sirver/ultisnips', { 'frozen': 1 }
     let g:UltiSnipsJumpForwardTrigger="<C-J>"
@@ -275,8 +280,11 @@ Plug 'sirver/ultisnips', { 'frozen': 1 }
     smap <C-E> <C-V><ESC>a
     smap <C-B> <C-V>o<ESC>i
 
-    au operations FileType snippets set textwidth=0
-    au operations FileType dockerfile set textwidth=0
+    augroup _disable_textwidth
+        au!
+        au FileType snippets set textwidth=0
+        au FileType dockerfile set textwidth=0
+    augroup end
 
 Plug 'tpope/vim-surround'
 
@@ -287,8 +295,11 @@ Plug 'danro/rename.vim'
 
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-    au operations BufRead,BufNewFile *.md set filetype=markdown
-    au operations BufRead,BufNewFile *.md set fo-=l
+    augroup _md_settings
+        au!
+        au BufRead,BufNewFile *.md set filetype=markdown
+        au BufRead,BufNewFile *.md set fo-=l
+    augroup end
     let g:vim_markdown_folding_disabled=0
 
 Plug 'AndrewRadev/sideways.vim'
@@ -331,10 +342,6 @@ Plug 'justinmk/vim-sneak'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
     vnoremap <C-T> :Tabularize /
 
-"Plug 'kovetskiy/urxvt.vim'
-    "au operations FileType go nmap <buffer>
-        "\ <Leader>h :call urxvt#put('go build')<CR>
-
 
 Plug 'reconquest/vim-pythonx'
     let g:pythonx_highlight_completion = 0
@@ -344,31 +351,22 @@ Plug 'reconquest/vim-pythonx'
 
 
 Plug 'reconquest/snippets'
-    "au operations FileType go nmap <buffer>
-         "\ <Leader>gc :py px.go.goto_const()<CR>
-
-    "au operations FileType go nmap <buffer>
-         "\ <Leader>gt :py px.go.goto_type()<CR>
-
-    "au operations FileType go nmap <buffer>
-         "\ <Leader>gv :py px.go.goto_var()<CR>
-
-    "au operations FileType go nmap <buffer>
-         "\ <Leader>gl :py px.go.goto_prev_var()<CR>
-
-	au operations VimEnter * py
-        \   import vim;
-        \   import px;
-        \   import snippets;
-        \   [
-        \       vim.command("call add(g:py_modules, '%s')" % library)
-        \       for library in px.libs()
-        \   ]
-        \   and
-        \   [
-        \       vim.command("call add(g:py_modules, '%s')" % library)
-        \       for library in px.libs('snippets')
-        \   ]
+    augroup _snippets_reload
+        au!
+        au VimEnter * py
+            \   import vim;
+            \   import px;
+            \   import snippets;
+            \   [
+            \       vim.command("call add(g:py_modules, '%s')" % library)
+            \       for library in px.libs()
+            \   ]
+            \   and
+            \   [
+            \       vim.command("call add(g:py_modules, '%s')" % library)
+            \       for library in px.libs('snippets')
+            \   ]
+    augroup end
 
 Plug 'kovetskiy/vim-empty-lines'
     nnoremap <silent> <Leader><Leader>j :call DelEmptyLineBelow()<CR>
@@ -382,7 +380,10 @@ Plug 'kovetskiy/vim-plugvim-utils', {'on': 'NewPlugFromClipboard'}
 Plug 'kovetskiy/vim-ski'
     let g:skeletons_dir=$HOME . '/.vim/skeletons/'
 
-    au operations BufRead,BufNewFile */bin/* set ft=sh
+    augroup _sh_filetype
+        au!
+        au BufRead,BufNewFile */bin/* set ft=sh
+    augroup end
 
 Plug 'bronson/vim-trailing-whitespace'
     let g:extra_whitespace_ignored_filetypes = [
@@ -395,7 +396,10 @@ Plug 'bronson/vim-trailing-whitespace'
         endif
     endfunc!
 
-    au operations BufWritePre * call _whitespaces_fix()
+    augroup _whitespace_auto
+        au!
+        au BufWritePre * call _whitespaces_fix()
+    augroup end
 
 Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
 
@@ -477,50 +481,29 @@ Plug 'wellle/targets.vim'
 Plug 'kovetskiy/vim-bash'
     nmap gd <C-]>
 
-    func! _tags_sh()
-        if &ft != "sh"
-            return
-        endif
+    "func! _tags_sh()
+    "    if &ft != "sh"
+    "        return
+    "    endif
 
-        let tagfiles = tagfiles()
-        if len(tagfiles) > 0
-            let tagfile = tagfiles[0]
-            silent execute "!tags-sh " . tagfile . " >/dev/null 2>&1 &"
-        endif
-    endfunc!
-
-    au operations BufWritePost * call _tags_sh()
-
-"Plug 'seletskiy/vim-autosurround'
-    "func! _ultisnips_enter()
-        "let v:char="	"
-        "call UltiSnips#TrackChange()
-        "let v:char=""
-        "call UltiSnips#TrackChange()
-        "return """
+    "    let tagfiles = tagfiles()
+    "    if len(tagfiles) > 0
+    "        let tagfile = tagfiles[0]
+    "        silent execute "!tags-sh " . tagfile . " >/dev/null 2>&1 &"
+    "    endif
     "endfunc!
 
-    "nnoremap o o<C-R>=_ultisnips_enter()<CR>
-    "nnoremap O O<C-R>=_ultisnips_enter()<CR>
-
-    "au User _overwrite_matchem
-        "\ au VimEnter,BufEnter,FileType *
-        "\ inoremap <CR> <C-R>=g:MatchemExpandCr(1)<CR><C-R>=_ultisnips_enter()<CR>
-
-    "au User _overwrite_matchem
-        "\ au VimEnter,BufEnter,FileType *
-        "\ inoremap <buffer> ( (<C-R>=AutoSurround(")") ? "" : g:MatchemMatchStart()<CR>
-
-    "au User _overwrite_matchem
-        "\ autocmd VimEnter,BufEnter,FileType * call AutoSurroundInitMappings()
-
-
-    "au User plugins_loaded doau User _overwrite_matchem
-    "doau User _overwrite_matchem
+    "augroup _sh_tags
+    "    au!
+    "    au BufWritePost * call _tags_sh()
+    "augroup end
 
 
 Plug 'FooSoft/vim-argwrap', {'on': 'ArgWrap'}
-    au operations BufRead,BufNewFile *.go let b:argwrap_tail_comma = 1
+    augroup _go_argwarap
+        au!
+        au BufRead,BufNewFile *.go let b:argwrap_tail_comma = 1
+    augroup end
 
     func! _search_wrappable()
         let l:bracket = '\([^\)]'
@@ -550,7 +533,10 @@ Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
 
 Plug 'brooth/far.vim'
     nmap <Leader>a :Farp<CR>
-    au operations FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
+    augroup _far_settings
+        au!
+        au FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
+    augroup end
 
 "Plug 'kovetskiy/vim-autoresize'
 
@@ -583,23 +569,13 @@ Plug 'kovetskiy/ale'
     \}
 
     let g:ale_fix_on_save = 1
-    au operations BufRead,BufNewFile *.java
-        \ call ale#Set('google_java_format_options',
-        \ '--skip-removing-unused-imports --skip-sorting-imports')
+    augroup _java_codestyle
+        au!
+        au BufRead,BufNewFile *.java
+            \ call ale#Set('google_java_format_options',
+            \ '--skip-removing-unused-imports --skip-sorting-imports')
+    augroup end
 
-
-"Plug 'romainl/vim-cool'
-Plug 'rhysd/vim-crystal'
-
-Plug 'vim-ruby/vim-ruby'
-func! _setup_ruby()
-	setlocal shiftwidth=2
-    setlocal cc=120
-endfunc!
-
-au operations BufRead,BufNewFile *.rb call _setup_ruby()
-
-Plug 'ruby-formatter/rufo-vim'
 
 Plug 'mg979/vim-visual-multi'
     let g:VM_no_meta_mappings = 1
@@ -653,14 +629,17 @@ Plug 'tpope/vim-dispatch'
         setlocal errorformat=[ERROR]\ %f:[%l\\,%v]\ %m
     endfunc!
 
-    au operations FileType java call _setup_java()
-    au operations FileType java let b:dispatch = 'make'
-    "au operations FileType java nmap <silent><buffer> <c-p> :Dispatch<CR>
-    au operations FileType java nmap <silent><buffer> <c-a> :ALEFix<CR>
-    au operations FileType java nmap <silent><buffer> <c-p> :JavaImportOrganize<CR>
-    au operations FileType java nmap <silent><buffer> gd :JavaDocSearch<CR>
-    au operations FileType java nmap <silent><buffer> ; :cn<CR>
-    au operations FileType java nmap <silent><buffer> <Leader>; :cN<CR>
+    augroup _java_bindings
+        au!
+        au FileType java call _setup_java()
+        au FileType java let b:dispatch = 'make'
+        "au FileType java nmap <silent><buffer> <c-p> :Dispatch<CR>
+        au FileType java nmap <silent><buffer> <c-a> :ALEFix<CR>
+        au FileType java nmap <silent><buffer> <c-p> :JavaImportOrganize<CR>
+        au FileType java nmap <silent><buffer> gd :JavaDocSearch<CR>
+        au FileType java nmap <silent><buffer> ; :cn<CR>
+        au FileType java nmap <silent><buffer> <Leader>; :cN<CR>
+    augroup end
 
 Plug 'fvictorio/vim-extract-variable'
 
@@ -738,8 +717,11 @@ set lcs=trail:·,tab:→\ "
 
 set pastetoggle=<F11>
 
-au operations VimEnter,WinEnter,BufRead,BufNewFile * set nofoldenable
-au operations VimEnter,WinEnter,BufRead,BufNewFile * au! matchparen
+augroup _foldings
+    au!
+    au VimEnter,WinEnter,BufRead,BufNewFile * set nofoldenable
+    au VimEnter,WinEnter,BufRead,BufNewFile * au! matchparen
+augroup end
 
 set noequalalways
 set winminheight=0
@@ -761,21 +743,13 @@ au BufWritePre * if !isdirectory(expand('%:h')) | call mkdir(expand('%:h'),'p') 
 func! _snapshot()
    silent execute "!vim-bundle-save >/dev/null 2>&1 &"
 endfunc!
-command! -bar Snapshot call _snapshot()
 
-au operations BufWritePost ~/.vimrc
-    \ source % | Snapshot
-
-"au operations BufWritePost */.config/sxhkd/sxhkdrc silent !pkill -USR1 sxhkd
-"au operations BufWritePost */.i3/config silent !i3-msg restart
+augroup _snapshot
+    au!
+    au BufWritePost ~/.vimrc call _snapshot()
+augroup end
 
 set cc=80,100
-
-au operations BufRead *.noml set ft=noml.dracula
-
-au operations FileType html setlocal sw=2
-
-au operations BufRead */.vimperator/*.vim,.vimperatorrc set ft=vimperator
 
 map Q <nop>
 map K <nop>
@@ -862,38 +836,24 @@ imap <C-U> <ESC>ua
 nnoremap Q qq
 nnoremap @@ @q
 
-au operations BufRead,BufNewFile ~/.zshrc set ft=zsh.sh
-au operations BufRead,BufNewFile *.zsh    set ft=zsh.sh
+augroup _zsh_filetype
+    au!
+    au BufRead,BufNewFile ~/.zshrc set ft=zsh.sh
+    au BufRead,BufNewFile *.zsh    set ft=zsh.sh
+augroup end
 
-au operations BufRead,BufNewFile *.service set noet ft=systemd
-au operations BufRead,BufNewFile PKGBUILD set et ft=pkgbuild.sh
-au operations BufRead incident.md set et ft=incident.markdown
-au operations BufNewFile incident.md set et ft=incident|Skeleton|set ft=incident.markdown
+augroup _filetypes
+    au!
+    au BufRead,BufNewFile *.service set noet ft=systemd
+    au BufRead,BufNewFile PKGBUILD set et ft=pkgbuild.sh
+    au BufRead,BufNewFile *.snippets set noet ft=snippets.python
+    au BufRead,BufNewFile *.skeleton set noet ft=snippets.python
+    au BufRead,BufNewFile *.chart set noet ft=mermaid
+augroup end
 
-au operations BufRead,BufNewFile *mcabberrc* set noet ft=mcabberrc.sh
-
-au operations BufRead,BufNewFile *.snippets set noet ft=snippets.python
-au operations BufRead,BufNewFile *.skeleton set noet ft=snippets.python
-
-au operations BufRead,BufNewFile *.chart set noet ft=mermaid
-au operations BufRead,BufNewFile task set noet ft=task
-
-au operations WinEnter * wincmd =
+"au operations WinEnter * wincmd =
 
 nmap K :s///g<CR><C-O>i
-
-func! _open_random()
-    let filename = system("git ls-files *.go | sort -R | head -n 1")
-    let current = expand("%:p:t")
-    if current == filename
-        call _open_random()
-        return
-    endif
-
-    execute ":e " filename
-endfunc!
-
-nmap <silent> <Leader>m :call _open_random()<CR>
 
 let @k="^f=i:"
 let @j="^t=x"
@@ -909,30 +869,6 @@ imap <C-Y> <Down>
 cmap <C-F> <NOP>
 
 vmap <Leader> S<Space><Space>
-
-func! _macros_mode_toggle()
-    if !get(g:, "macro_toggle_recording")
-        let g:macro_toggle_recording = 0
-    endif
-
-    if g:macro_toggle_recording == 0
-        normal qx
-    else
-        normal q
-    endif
-
-    let g:macro_toggle_recording = !g:macro_toggle_recording
-endfunc!
-
-func! DiffApplyTop()
-    let start = line('.')
-    call search(">>>>>>", "cs")
-    let end = line('.')
-    execute start.",".end "delete"
-    call search("<<<<<", "bcs")
-    execute "delete"
-    nohlsearch
-endfunc!
 
 func! DiffApplyBottom()
     let start = line('.')
@@ -969,7 +905,6 @@ command!
     \ Verbose
     \ call VerboseToggle()
 
-
 nmap Y yy
 
 map <leader>y "0y
@@ -988,16 +923,6 @@ func! _get_github_link()
 endfunc!
 
 nnoremap <Leader>g :call _get_github_link()<CR>
-
-func! _fzf_github()
-    silent call system("fzf-github")
-endfunc!
-
-nnoremap <Leader>i :call _fzf_github()<CR>
-
-func! _prompt_new_file_where_current_file()
-    execute "normal :e"
-endfunc!
 
 nnoremap <Leader>x :vsp <C-R>=expand('%:h')<CR>/
 nnoremap <Leader>t :vsp<Space>

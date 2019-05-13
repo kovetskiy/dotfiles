@@ -1,7 +1,7 @@
 snippet au "augroup" bw
 augroup ${1}
 	au!
-	${2:${VISUAL}}
+	${2:${VISUAL/ operations / /g}}
 augroup end
 endsnippet
 
