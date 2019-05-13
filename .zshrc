@@ -7,7 +7,7 @@
 
 export TERM=screen-256color
 
-export KEYTIMEOUT=1
+export KEYTIMEOUT=100
 export WORDCHARS=-
 
 # :prezto
@@ -1123,7 +1123,7 @@ git-commit-branch() {
 
     pushd /var/run/user/$UID/cbuffer
     tree .
-    cp -r * "${dest}/"
+    cp -r * .* "${dest}/"
     popd
 }
 
@@ -1519,6 +1519,8 @@ set_title() {
 preexec() {
     set_title "${1}"
 }
+
+source ~/go/src/github.com/sachaos/todoist/todoist_functions.sh
 
 #unsetopt xtrace
 #exec 2>&3 3>&-
