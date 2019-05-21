@@ -4,13 +4,12 @@ output eDP1
 off
 output DP1
 crtc 1
-gamma 1.25:1.0:0.833
 mode 2560x1440
 pos 0x0
 rate 59.95
 output DP2
 crtc 0
-gamma 1.0:0.833:0.714
 mode 2560x1440
 pos 2560x0
 rate 59.95
+rotate right
