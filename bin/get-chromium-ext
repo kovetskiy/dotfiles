@@ -1,6 +1,12 @@
 #!/bin/bash
 
 extension="$1"
+
+if [[ "$extension" =~ "/" ]]; then
+    extension=$(cut -d '/' -f 7 <<< "$extension")
+    extension=$(cut -d '?' -f 1 <<< "$extension")
+fi
+
 version=$(pacman -Q chromium | awk '{print $2}')
 
 curl -v -L -o "/tmp/$extension.crx" "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=$version&x=id%3D$extension%26installsource%3Dondemand%26uc"

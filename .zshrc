@@ -1123,7 +1123,8 @@ git-commit-branch() {
 
     pushd /var/run/user/$UID/cbuffer
     tree .
-    cp -r * .* "${dest}/"
+    cp -r * "${dest}/"
+    cp -r .* "${dest}/" 2>/dev/null
     popd
 }
 

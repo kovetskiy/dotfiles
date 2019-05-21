@@ -20,6 +20,7 @@ set imap_check_subscribed=yes
 set imap_idle=yes
 set mail_check=10
 set timeout=10
+set imap_poll_timeout=0
 set sort=threads
 set narrow_tree=yes
 set metoo
@@ -56,3 +57,5 @@ macro index \Ce "T*;s=Archivesy<sync-mailbox>"
 source ~/.mutt/theme_$BACKGROUND
 
 set new_mail_command="notify-send 'mail' 'mail: %u unread'"
+
+bind index G imap-fetch-mail

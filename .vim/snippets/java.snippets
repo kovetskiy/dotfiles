@@ -30,29 +30,8 @@ snippet m "import" w
 import $1;
 endsnippet
 
-snippet pm "public method" w
-public ${3:void} $1($2) {
-	$4
-}
-endsnippet
-
 snippet @o "Description" w
 @Override
-endsnippet
-
-
-snippet p "" w
-private ${3:void} $1($2) {
-	$4
-}
-
-endsnippet
-
-snippet d "" w
-protected ${3:void} $1($2) {
-	$4
-}
-
 endsnippet
 
 snippet x "" w
@@ -87,7 +66,7 @@ public class $1 {
 }
 endsnippet
 
-snippet pd "" w
+snippet ud "" w
 public ${3:void} $1($2) {
 	$0
 }
@@ -117,7 +96,7 @@ snippet ci "" w
 @ComponentImport $1 `!p snip.rv=px.langs.java.get_var_name_by_class_name(t[1])`,
 endsnippet
 
-snippet pv "" w
+snippet uv "" w
 public $1 `!p snip.rv=px.langs.java.get_var_name_by_class_name(t[1])`;
 endsnippet
 
