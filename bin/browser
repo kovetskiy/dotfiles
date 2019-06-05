@@ -19,7 +19,8 @@ if [[ -e "${url}" ]]; then
 fi
 
 #browser="google-chrome-stable --disk-cache-size=268435456"
-browser="firefox"
+#browser="firefox"
+browser="chromium"
 #browser="qutebrowser"
 if [[ "$url" ]]; then
     i3-msg "exec \"$browser \\\"$url\\\""

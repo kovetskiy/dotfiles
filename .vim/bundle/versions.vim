@@ -33,6 +33,7 @@ nvim-go 7680017
 nvim-yarp b222af8
 onehalf 9c2afdf
 papercolor-theme 52418a2
+pear-tree 4b29b87
 python-mode f94b0d7
 QFEnter 400352f
 quick-scope 4c725f1
@@ -44,7 +45,7 @@ seagrey 847cdf9
 SearchParty 48dbaa9
 sideways.vim 9dd871e
 skim.vim 1ce77da
-snippets 0dce7e4
+snippets 9ff30ac
 sxhkd-vim b0abc9e
 synta 29665c3
 tabular 339091a

@@ -221,7 +221,7 @@ Plug 'vim-scripts/l9'
 "Plug 'cohama/lexima.vim'
 Plug 'tmsvg/pear-tree'
     let g:pear_tree_smart_openers = 1
-    let g:pear_tree_smart_closers = 1
+    let g:pear_tree_smart_closers = 0
     let g:pear_tree_smart_backspace = 1
     let g:pear_tree_pairs = {
       \ '(': {'closer': ')'},
