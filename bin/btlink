@@ -11,7 +11,7 @@ devices=(
     [major]="2C:4D:79:B0:2D:70"
 )
 
-TIMEOUT=${TIMEOUT:-10}
+TIMEOUT=${TIMEOUT:-20}
 
 :main() {
     if :interactive; then

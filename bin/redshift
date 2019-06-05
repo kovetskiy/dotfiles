@@ -12,7 +12,7 @@
 
 :start() {
     echo ":: starting new redshift instance"
-    /bin/redshift -O 4500K &
+    /bin/redshift 4500K &
 }
 
 op="$1"

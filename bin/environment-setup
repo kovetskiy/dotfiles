@@ -13,7 +13,7 @@ systemd-cat -t xcsyncd xcsyncd &
 
 pkill keynav
 
-redshift start
+/usr/bin/redshift -P -O 20000K
 
 killll -9 sxhkd
 SHELL=/bin/zsh sudo -E -u $USER sxhkd &

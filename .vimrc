@@ -207,6 +207,8 @@ Plug 'vim-scripts/l9'
 
 "Plug 'kovetskiy/vim-cucu'
 "Plug 'seletskiy/vim-nunu'
+
+" disabled because causes snippet args[] work incorrectly
 "Plug 'seletskiy/matchem'
     au User _overwrite_matchem
         \ au VimEnter,BufEnter,FileType *
@@ -218,18 +220,28 @@ Plug 'vim-scripts/l9'
 
     doau User _overwrite_matchem
 
+" need to press enter
+"Plug 'rstacruz/vim-closer'
+" lexima doesn't detect closing pair
 "Plug 'cohama/lexima.vim'
-Plug 'tmsvg/pear-tree'
-    let g:pear_tree_smart_openers = 1
-    let g:pear_tree_smart_closers = 0
-    let g:pear_tree_smart_backspace = 1
-    let g:pear_tree_pairs = {
-      \ '(': {'closer': ')'},
-      \ '[': {'closer': ']'},
-      \ '{': {'closer': '}'},
-      \ "'": {'closer': "'"},
-      \ '"': {'closer': '"'}
-      \ }
+" disabled due to weird behavior with {} the end bracket disappears
+"Plug 'tmsvg/pear-tree'
+    "let g:pear_tree_smart_openers = 0
+    "let g:pear_tree_smart_closers = 0
+    "let g:pear_tree_smart_backspace = 0
+    "let g:pear_tree_pairs = {
+    "  \ '(': {'closer': ')'},
+    "  \ '[': {'closer': ']'},
+    "  \ '{': {'closer': '}'},
+    "  \ "'": {'closer': "'"},
+    "  \ '"': {'closer': '"'}
+    "  \ }
+
+" breaks snippets
+"Plug 'jiangmiao/auto-pairs'
+
+" doesn't even add a new line in case of for{|} ENTER
+"Plug 'Raimondi/delimitMate'
 
 Plug 'sirver/ultisnips', { 'frozen': 1 }
     let g:UltiSnipsJumpForwardTrigger="<C-J>"
@@ -538,6 +550,7 @@ Plug 'brooth/far.vim'
         au FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
     augroup end
 
+Plug 'seletskiy/vim-autosurround'
 "Plug 'kovetskiy/vim-autoresize'
 
 Plug 'ddrscott/vim-side-search'
@@ -790,7 +803,7 @@ nnoremap <Leader>e :e!<CR>
 
 nnoremap <Leader>q <ESC>:q<CR>
 nnoremap <silent> <C-S> :w<CR>
-inoremap <silent> <C-S> <Esc>:w<CR>
+"inoremap <silent> <C-S> <Esc>:w<CR>
 
 nnoremap <Leader>n <ESC>:bdelete!<CR>
 nnoremap <Leader>q <ESC>:qa!<CR>
@@ -851,7 +864,10 @@ augroup _filetypes
     au BufRead,BufNewFile *.chart set noet ft=mermaid
 augroup end
 
-"au operations WinEnter * wincmd =
+augroup _window_size
+    au!
+    au WinEnter * wincmd =
+augroup end
 
 nmap K :s///g<CR><C-O>i
 

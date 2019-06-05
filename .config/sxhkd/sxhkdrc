@@ -82,9 +82,6 @@ super + 6
 super + 7
 	carcosa-qr
 
-control + Delete
-	environment-setup
-
 super + grave
 	;kuake-bottom
 

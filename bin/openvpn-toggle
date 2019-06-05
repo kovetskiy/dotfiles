@@ -22,6 +22,7 @@ PROFILE="mars"
         :notify "openvpn: stopping service"
         sudo systemctl stop openvpn@${PROFILE}
         :notify "openvpn: stopped service $(:ping)"
+        pkill -f -9 openvpn-toggle
     else
         :notify "openvpn: starting service"
         sudo systemctl start openvpn@${PROFILE}
