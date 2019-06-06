@@ -45,7 +45,7 @@ seagrey 847cdf9
 SearchParty 48dbaa9
 sideways.vim 9dd871e
 skim.vim 1ce77da
-snippets 9ff30ac
+snippets 87f1321
 sxhkd-vim b0abc9e
 synta 29665c3
 tabular 339091a
@@ -56,7 +56,7 @@ traces.vim 2bfc631
 ultisnips 423f264
 vim-argwrap f0f360e
 vim-autoresize e6390e8
-vim-autosurround 8d9cfe5
+vim-autosurround e5be20e
 vim-bash 992d8e5
 vim-colorscheme 1d0263d
 vim-cool 06918c3
@@ -82,7 +82,7 @@ vim-over 146b065
 vimperator.vim 7223609
 vim-plugvim-utils c59a498
 vim-python-pep8-indent 5f4184f
-vim-pythonx bfeaf5c
+vim-pythonx bd8bb49
 vim-refactor d242579
 vim-ruby f753e93
 vim-side-search be409b2

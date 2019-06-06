@@ -14,3 +14,11 @@ with open("/tmp/debug", 'a+') as f:
   f.write($1 + '\n')
 endsnippet
 
+
+snippet ld "" wA
+log.debug("$1"$0)
+endsnippet
+
+snippet lv "" wA
+log.debug("`!p snip.rv=t[1]`: %s", $1)$0
+endsnippet

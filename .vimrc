@@ -550,7 +550,7 @@ Plug 'brooth/far.vim'
         au FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
     augroup end
 
-Plug 'seletskiy/vim-autosurround'
+Plug 'reconquest/vim-autosurround'
 "Plug 'kovetskiy/vim-autoresize'
 
 Plug 'ddrscott/vim-side-search'
