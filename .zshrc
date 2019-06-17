@@ -1137,7 +1137,6 @@ git-commit-branch() {
     alias oxs=':orgalorg:exec-stdin'
     alias oxh=':orgalorg:exec-host'
     alias un=':until'
-    alias dg='guts-shell'
     alias ha=':hosts:add'
     alias se='ssha -l Egor.Kovetskiy '
     alias rs='rm -rf ~/.cache/ssh_*'

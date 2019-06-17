@@ -551,7 +551,7 @@ Plug 'brooth/far.vim'
     augroup end
 
 Plug 'reconquest/vim-autosurround'
-"Plug 'kovetskiy/vim-autoresize'
+Plug 'kovetskiy/vim-autoresize'
 
 Plug 'ddrscott/vim-side-search'
     nnoremap <Leader>s :SideSearch<space>
@@ -864,10 +864,10 @@ augroup _filetypes
     au BufRead,BufNewFile *.chart set noet ft=mermaid
 augroup end
 
-augroup _window_size
-    au!
-    au WinEnter * wincmd =
-augroup end
+"augroup _window_size
+"    au!
+"    au WinEnter * wincmd =
+"augroup end
 
 nmap K :s///g<CR><C-O>i
 
