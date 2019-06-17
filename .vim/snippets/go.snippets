@@ -212,8 +212,17 @@ snippet "^(\s+)a" "" wre
 `!p snip.rv=match.group(1)`$1 = args["$2"].($3)
 endsnippet
 
-snippet req "" w
-required:"true"
+snippet "(\`.*)?req" "" wr
+`!p
+backtick = match.group(1)
+right = ""
+if not backtick:
+	left = "\`"
+	right = "\`"
+else:
+	left = backtick
+
+snip.rv = left`required:"true"`!p snip.rv=right`
 endsnippet
 
 priority 200

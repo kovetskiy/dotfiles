@@ -1,3 +1,10 @@
+global !p
+
+import px
+for full_name, name in px.libs().items():
+    exec("import " + full_name)
+endglobal
+
 priority 200
 snippet pr "" w
 print("$1")
@@ -16,7 +23,17 @@ endsnippet
 
 
 snippet ld "" wA
-log.debug("$1"$0)
+`!p
+try:
+	once
+except:
+	once = True
+	cursor = px.cursor.get()
+	filename = os.path.basename(px.buffer.get().name)
+
+`log.debug("`!p
+snip.rv=filename + ":" + str(cursor[0])
+` $1"$0)
 endsnippet
 
 snippet lv "" wA
