@@ -61,9 +61,6 @@ alt + control + d
 super + control + e
 	translator
 
-super + control + t
-	i3-msg gaps horizontal current toggle 274
-
 alt + Tab
 	i3re -w 600
 
@@ -80,7 +77,7 @@ super + 6
 	carcosa-new-password
 
 super + 7
-	carcosa-qr
+	secrets_repository=~/.secrets carcosa-qr
 
 super + grave
 	;kuake-bottom
@@ -118,8 +115,5 @@ control + Pause
 control + super + Insert
 	screen-lock -suspend
 
-super + 0
-	i3-msg 'gaps horizontal current toggle 400'
-
 super + minus
-	i3-msg 'gaps right current toggle 600'
+	i3-msg 'gaps top current toggle 600'

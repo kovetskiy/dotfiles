@@ -109,6 +109,8 @@ docompinit() {
 
         hash-aliases:install
         autopair-init
+
+        source /usr/bin/aws_zsh_completer.sh
     }
 }
 
@@ -1509,7 +1511,6 @@ preexec() {
 }
 
 source ~/go/src/github.com/sachaos/todoist/todoist_functions.sh
-
 #unsetopt xtrace
 #exec 2>&3 3>&-
 #echo $$

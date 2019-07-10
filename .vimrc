@@ -163,7 +163,7 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
     let g:go_doc_keywordprg_enabled = 0
     let g:go_def_mapping_enabled = 0
     let g:go_def_mode = 'guru'
-    let g:go_info_mode = 'gopls'
+    let g:go_info_mode = 'godef'
 
 
     func! _goto_prev_func()
@@ -196,7 +196,7 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
     augroup end
 
 
-Plug 'elzr/vim-json', { 'for': 'json' }
+"Plug 'elzr/vim-json', { 'for': 'json' }
     augroup _json_settings
         au!
         au BufNewFile,BufRead *.json set filetype=json
@@ -832,7 +832,7 @@ nnoremap <C-E><C-E><C-R> :silent !rm -rf ~/.vim/view/*<CR>:redraw!<CR>
 
 imap <C-A> <C-O>A
 
-nmap <C-_> <C-W>_
+nmap <C-_> <C-W>=
 nmap <C-H> <C-W>h
 nmap <C-J> <C-W>j
 nmap <C-K> <C-W>k
@@ -907,19 +907,22 @@ command!
     \ Diff
     \ call DiffEnable()
 
-func! VerboseToggle()
-     if !&verbose
-        set verbosefile=~/.log/vim/verbose.log
-        set verbose=15
+let g:profiling = 0
+func! ProfileToggle()
+    if g:profiling == 0
+        let g:profiling = 1
+        profile start /tmp/profile
+        profile func *
+        profile file *
     else
-        set verbose=0
-        set verbosefile=
+        let g:profiling = 0
+        profile pause
     endif
 endfunc!
 
 command!
-    \ Verbose
-    \ call VerboseToggle()
+    \ Profile
+    \ call ProfileToggle()
 
 nmap Y yy
 
