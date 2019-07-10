@@ -65,10 +65,10 @@
 }
 
 :get-section-vpn() {
-    glod list | grep -Po 'vpn:\K[^ ]+'
-    #if pidof "openvpn" &>/dev/null; then
-    #    ps auxf | grep -Po '/\K([^/]+)(?=.ovpn)' | head -n1
-    #fi
+    if glod list | grep -Po 'vpn:\K[^ ]+'; then
+        return
+    fi
+    echo "<b>INSECURE</b>"
 }
 
 :get-section-ping() {

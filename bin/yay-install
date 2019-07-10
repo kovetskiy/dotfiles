@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -euo pipefail
+
+cd /tmp/
+
+if [[ ! -d yay ]]; then
+    git clone https://aur.archlinux.org/yay.git
+fi
+
+cd yay
+
+makepkg -si
+
+sudo pacman -U *yay*.tar*

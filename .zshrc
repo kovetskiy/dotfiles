@@ -755,7 +755,7 @@ docompinit() {
     aur-get-sources() {
         local package=$1
         cd /tmp/
-        yaourt -G "$package"
+        yay -G "$package"
         cd "$package"
         cat PKGBUILD
     }
@@ -839,20 +839,12 @@ docompinit() {
     }
 
     :aur:spawn() {
-        yes | EDITOR=cat yaourt --color "$@"
+        yes | EDITOR=cat pacaur "$@"
     }
 
     :aur:search() {
         local search=$(:aur:spawn -Ss "$@")
-        {
-            bmo -b '/^\033/'  '/^\033/' \
-                -v 'name' '/^\033/' \
-                -c "! match(name, /$@/)" <<< "$search"
-
-            bmo -b '/^\033/'  '/^\033/' \
-                -v 'name' '/^\033/' \
-                -c "match(name, /$@/)" <<< "$search"
-        } | grep -P "$@|"
+        grep -P "$@|" <<< "$search"
     }
 
     :aur:install-or-search() {
@@ -1260,11 +1252,7 @@ git-commit-branch() {
     # :aur
     {
         alias 'au'=':aur:spawn'
-        alias 'auk'='au -S --nameonly -s'
-        alias 'aus'='au -S'
         alias 'aug'='aur-get-sources'
-        alias 'aq'='yaourt -Q'
-        alias 'pcr'='packages-remove'
     }
 
     # :pacman
