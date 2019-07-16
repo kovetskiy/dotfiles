@@ -1,5 +1,11 @@
 #!/bin/bash
 
+screens=$(xrandr -q | grep -c ' connected')
+if [[ "$screens" == "1" ]]; then
+    xsetroot -bg black
+    exit
+fi
+
 black1px_file=$(mktemp)
 trap "rm $black1px_file" EXIT
 
