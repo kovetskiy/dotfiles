@@ -27,16 +27,8 @@ Plug 'kovetskiy/vim-hacks'
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'junegunn/fzf.vim'
     let g:fzf_prefer_tmux = 1
+    let g:fzf_layout = { 'right': '~40%' }
 
-    augroup _fzf_load
-        au!
-        au FileType * let g:fzf#vim#default_layout  = {
-            \ 'bottom': '10%',
-            \ 'options': '--no-sort',
-            \ 'extra_options': '--no-sort'}
-    augroup end
-
-    let $FZF_DEFAULT_COMMAND = 'prols'
     func! _select_file()
         call _snippets_stop()
         call fzf#run(fzf#wrap({'source': 'prols', 'options': '--no-sort --no-exact'}))

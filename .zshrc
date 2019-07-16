@@ -109,8 +109,6 @@ docompinit() {
 
         hash-aliases:install
         autopair-init
-
-        source /usr/bin/aws_zsh_completer.sh
     }
 }
 
