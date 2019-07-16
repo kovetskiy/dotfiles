@@ -25,7 +25,7 @@ let g:py_modules = []
 Plug 'kovetskiy/vim-hacks'
 
 Plug 'junegunn/fzf', {'do': './install --all'}
-Plug 'kovetskiy/fzf.vim'
+Plug 'junegunn/fzf.vim'
     let g:fzf_prefer_tmux = 1
 
     augroup _fzf_load
@@ -37,18 +37,18 @@ Plug 'kovetskiy/fzf.vim'
     augroup end
 
     let $FZF_DEFAULT_COMMAND = 'prols'
-    func! _ctrlp()
+    func! _select_file()
         call _snippets_stop()
-        exec 'FZF'
+        call fzf#run(fzf#wrap({'source': 'prols', 'options': '--no-sort --no-exact'}))
     endfunc!
 
-    func! _ctrlp_buffers()
+    func! _select_buffer()
         call _snippets_stop()
-        exec 'Buffers'
+        call fzf#vim#buffers({'options': '--no-sort --no-exact'})
     endfunc!
 
-    nnoremap <C-G> :call _ctrlp_buffers()<CR>
-    map <silent> <c-t> :call _ctrlp()<CR>
+    nnoremap <C-G> :call _select_buffer()<CR>
+    map <silent> <c-t> :call _select_file()<CR>
 
 "Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
     augroup _js_settings
@@ -661,6 +661,8 @@ Plug 'lambdalisue/gina.vim'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}, 'for': ['java']}
 
 Plug 'wakatime/vim-wakatime'
+
+Plug 'ap/vim-buftabline'
 
 augroup end
 

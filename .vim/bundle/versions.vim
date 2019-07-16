@@ -8,14 +8,15 @@ deoplete-go 3269813
 deoplete.nvim 3fb71d7
 deoplete-ruby 7f6fb3a
 far.vim 6c095d5
-fzf ff95134
-fzf.vim 5ceac57
+fzf e7097a9
+fzf.vim 359a80e
 gina.vim 0e12978
 gist-vim f0d6357
 goyo.vim 057fe68
 gundo.vim 46c443e
 i3-vim-syntax affe37e
 kb-train a20c958
+kovetskiy-fzf.vim 5ceac57
 kovetskiy-vim-go 58c35e9
 l9 c822b05
 LeaderF 9a1e62c
@@ -45,7 +46,7 @@ seagrey 847cdf9
 SearchParty 48dbaa9
 sideways.vim 9dd871e
 skim.vim 1ce77da
-snippets 87f1321
+snippets df165d6
 sxhkd-vim b0abc9e
 synta 29665c3
 tabular 339091a
@@ -58,6 +59,7 @@ vim-argwrap f0f360e
 vim-autoresize e6390e8
 vim-autosurround d942c7e
 vim-bash 992d8e5
+vim-buftabline 14d208b
 vim-colorscheme 1d0263d
 vim-cool 06918c3
 vim-cpp-enhanced-highlight 3aa9562
