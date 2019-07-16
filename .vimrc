@@ -931,7 +931,6 @@ augroup setup_colorscheme
 augroup end
 
 nnoremap <silent> <Leader>/ :noh<CR>
-nnoremap <leader>f /\v^func\s+.*\zs
 
 func! _get_github_link()
     silent call system("github-link " . expand('%:p') . " " . line('.'))
@@ -940,7 +939,8 @@ endfunc!
 nnoremap <Leader>g :call _get_github_link()<CR>
 
 nnoremap <Leader>x :vsp <C-R>=expand('%:h')<CR>/
-nnoremap <Leader>t :vsp<Space>
+nnoremap <Leader>t :sp <C-R>=expand('%:h')<CR>/
+nnoremap <Leader>f :e <C-R>=expand('%:h')<CR>/
 
 func! _sys_read(cmdline)
     let l:result = system(a:cmdline)
