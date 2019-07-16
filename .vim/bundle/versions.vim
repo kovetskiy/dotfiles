@@ -70,7 +70,7 @@ vim-eclim 868b8eb
 vim-empty-lines b0ee3f8
 vim-extract-variable 81d7c92
 vim-fish 50b95cb
-vim-go d42c958
+vim-go 58cda9d
 vim-go-impl 74988dc
 vim-hacks f423472
 vim-hug-neovim-rpc 9a82667
