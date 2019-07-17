@@ -797,11 +797,33 @@ nnoremap <Leader>vs :vsp<CR>
 
 nnoremap <Leader>e :e!<CR>
 
-nnoremap <Leader>q <ESC>:q<CR>
+nnoremap <silent> <Leader>q <ESC>:q<CR>
 nnoremap <silent> <C-S> :w<CR>
 "inoremap <silent> <C-S> <Esc>:w<CR>
 
-nnoremap <Leader>n <ESC>:bdelete!<CR>
+" _close_it closes current window, but if current buffer is opened in two
+" windows then only current window will be closed, desu
+func! _close_it()
+    py <<CODE
+import vim
+
+buffer = vim.current.buffer
+
+found = 0
+for window in vim.windows:
+    if window.buffer.name == buffer.name:
+        found += 1
+        if found > 1:
+            break
+
+if found > 1:
+    vim.command("wincmd q")
+else:
+    vim.command("bdelete")
+CODE
+endfunc!
+
+nnoremap <silent> <Leader>n <ESC>:call _close_it()<CR>
 nnoremap <Leader>q <ESC>:qa!<CR>
 
 nnoremap <Leader>d V"_d<Esc>
