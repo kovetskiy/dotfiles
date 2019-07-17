@@ -27,16 +27,16 @@ Plug 'kovetskiy/vim-hacks'
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'junegunn/fzf.vim'
     let g:fzf_prefer_tmux = 1
-    let g:fzf_layout = { 'right': '~40%' }
+    let g:fzf_layout = { 'right': '~80%' }
 
     func! _select_file()
         call _snippets_stop()
-        call fzf#run(fzf#wrap({'source': 'prols', 'options': '--no-sort --no-exact'}))
+        call fzf#run(fzf#wrap({'source': 'prols', 'options': '--sort --no-exact'}))
     endfunc!
 
     func! _select_buffer()
         call _snippets_stop()
-        call fzf#vim#buffers({'options': '--no-sort --no-exact'})
+        call fzf#vim#buffers({'options': '--sort --no-exact'})
     endfunc!
 
     nnoremap <C-G> :call _select_buffer()<CR>
