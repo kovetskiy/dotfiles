@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec sudo -E nice -n -20 sudo -E -u $USER vim
