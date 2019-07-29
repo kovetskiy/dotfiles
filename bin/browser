@@ -9,7 +9,7 @@ if [[ "$scheme" != "http://"
    && "$scheme" != "ftp://"
    && "$scheme" != "file://"
    && "$scheme" != "" ]]; then
-    notify-send "URL" "$url"
+    /usr/bin/xdg-open "$url"
 
     exit 1
 fi

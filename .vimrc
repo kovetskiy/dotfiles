@@ -658,6 +658,8 @@ Plug 'wakatime/vim-wakatime'
 
 Plug 'ap/vim-buftabline'
 
+Plug 'dansomething/vim-eclim'
+
 augroup end
 
 call plug#end()

@@ -115,5 +115,8 @@ control + Pause
 control + super + Insert
 	screen-lock -suspend
 
+super + 0
+	i3-msg 'gaps horizontal current toggle 600'
+
 super + minus
 	i3-msg 'gaps top current toggle 600'
