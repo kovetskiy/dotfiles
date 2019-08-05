@@ -542,7 +542,7 @@ Plug 'brooth/far.vim'
         au FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
     augroup end
 
-Plug 'reconquest/vim-autosurround'
+"Plug 'reconquest/vim-autosurround'
 Plug 'kovetskiy/vim-autoresize'
 
 Plug 'ddrscott/vim-side-search'
@@ -659,6 +659,8 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}, 'for': ['java']}
 "Plug 'ap/vim-buftabline'
 
 Plug 'dansomething/vim-eclim'
+
+Plug 'kana/vim-smartinput'
 
 augroup end
 
