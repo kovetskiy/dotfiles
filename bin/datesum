@@ -1,0 +1,8 @@
+#!/bin/bash
+
+input="${*}"
+
+input=$(sed -e 's/h//g' -e 's/d/*8/g' <<< "$input")
+
+output=$(bc <<< "$input" 2>/dev/null)
+echo "$output h"

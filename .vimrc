@@ -27,7 +27,7 @@ Plug 'kovetskiy/vim-hacks'
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'junegunn/fzf.vim'
     let g:fzf_prefer_tmux = 1
-    let g:fzf_layout = { 'right': '~80%' }
+    let g:fzf_layout = { 'down': '~20%' }
 
     func! _select_file()
         call _snippets_stop()
@@ -154,7 +154,7 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
 
     let g:go_doc_keywordprg_enabled = 0
     let g:go_def_mapping_enabled = 0
-    let g:go_def_mode = 'guru'
+    let g:go_def_mode = 'godef'
     let g:go_info_mode = 'godef'
 
 
@@ -654,9 +654,9 @@ Plug 'lambdalisue/gina.vim'
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}, 'for': ['java']}
 
-Plug 'wakatime/vim-wakatime'
+"Plug 'wakatime/vim-wakatime'
 
-Plug 'ap/vim-buftabline'
+"Plug 'ap/vim-buftabline'
 
 Plug 'dansomething/vim-eclim'
 
