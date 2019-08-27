@@ -363,3 +363,19 @@ endsnippet
 snippet wh "web handler" w
 writer http.ResponseWriter, request *http.Request,
 endsnippet
+
+snippet "((\w+)\s*(\*?[\w\[\].\{\}*]+)(\s+`[^`]+`)?\s+)ko$" "annotation" "not px.syntax.is_string(snip.cursor)" bre
+`!p
+
+line = match.group(1)
+
+if line.endswith('\`'):
+	quote = ' '
+	line = line[:-1]
+else:
+	quote = ' \`'
+
+var = px.util.convert_camelcase_to_snakecase(match.group(2))
+snip.rv = line + quote
+`yaml:"${1:`!p snip.rv=var`}" required:"${2:true}" env:"`!p snip.rv=var.upper()`" default:"$3"\`
+endsnippet

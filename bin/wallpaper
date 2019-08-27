@@ -1,21 +1,23 @@
 #!/bin/bash
 
-screens=$(xrandr -q | grep -c ' connected')
-if [[ "$screens" == "1" ]]; then
-    xsetroot -bg black
-    exit
-fi
+xsetroot -bg black
 
-black1px_file=$(mktemp)
-trap "rm $black1px_file" EXIT
+#screens=$(xrandr -q | grep -c ' connected')
+#if [[ "$screens" == "1" ]]; then
+#    xsetroot -bg black
+#    exit
+#fi
 
-black1px="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
-base64 -d <<< "$black1px" > "$black1px_file"
+#black1px_file=$(mktemp)
+#trap "rm $black1px_file" EXIT
 
-feh --bg-fill ~/wallpapers/vertical-snow.jpg --bg-fill $black1px_file
-exit
-cd ~/wallpapers/
+#black1px="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
+#base64 -d <<< "$black1px" > "$black1px_file"
 
-choose=$(/bin/ls *.* | grep bfv | sort -R | head -n1)
+#feh --bg-fill ~/wallpapers/vertical-snow.jpg --bg-fill $black1px_file
+#exit
+#cd ~/wallpapers/
 
-feh --bg-fill $choose
+#choose=$(/bin/ls *.* | grep bfv | sort -R | head -n1)
+
+#feh --bg-fill $choose
