@@ -18,15 +18,6 @@
     insteadOf = ssh://git@github.com/me/
     insteadOf = https://github.com/me/
     insteadOf = git@github.com:me/
-[url "git@github.com:openware/"]
-    insteadOf = git+ssh://github.com/ow/
-    insteadOf = git://github.com/ow/
-    insteadOf = ssh://github.com/ow/
-    insteadOf = ssh://git@github.com/ow/
-    insteadOf = https://github.com/ow/
-    insteadOf = git@github.com:ow/
-    insteadOf = git@github.com/ow/
-    insteadOf = gh:ow/
 [url "git@github.com:"]
     insteadOf = gh:
     insteadOf = https://git@github.com:

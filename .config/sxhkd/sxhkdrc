@@ -28,9 +28,6 @@ super + control + s
 super + control + w
 	mrun spotify
 
-super + control + d
-	upwork
-
 super + control + f
 	telegram-desktop
 
@@ -88,9 +85,6 @@ super + backslash
 super + equal
 	;kuake --terminal --class top --top --middle --height 30 --width 50
 
-control + F5
-	upwork-switch
-
 control + F6
 	VOLUME=30000 headset
 
@@ -102,12 +96,6 @@ control + F8
 
 control + F9
 	brightness up
-
-control + F11
-	jidle-toggle
-#
-control + F12
-	SUSPEND_NOTIFY_TIMEOUT=60 upwork-suspend
 
 control + Pause
 	screen-lock -suspend

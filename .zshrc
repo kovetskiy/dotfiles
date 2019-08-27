@@ -82,8 +82,6 @@ docompinit() {
     :plugins:load() {
         [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-        zgen load wbingli/zsh-wakatime
-
         zgen load kovetskiy/zsh-quotes
         zgen load kovetskiy/zsh-add-params
 
@@ -1277,7 +1275,7 @@ alias gd='git diff'
 alias gdo='git diff origin/master'
 alias gs='git status --short'
 alias ga='git add --no-ignore-removal'
-alias gb='git-commit-branch'
+alias gb='git branch --sort=-committerdate'
 alias gbr='git branch'
 alias gn='git-clean-powered'
 alias gi='git add -pi'

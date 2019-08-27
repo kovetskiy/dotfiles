@@ -81,8 +81,8 @@
     local body=""
 
     :body-append "TIME MSK" "<u>$(:get-section-time Europe/Moscow)</u>"
+    :body-append "TIME LA" "$(:get-section-time America/Los_Angeles)"
     :body-append "TIME UTC" "$(:get-section-time UTC)"
-    :body-append "TIME BRN" "$(:get-section-time Europe/Berlin)"
     :body-append "MEMORY" "$(:get-section-memory)"
     :body-append "PROC" "$(:get-section-cpu)"
     :body-append "WIFI" "$(:get-section-wifi)"
