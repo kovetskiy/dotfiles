@@ -28,7 +28,7 @@ lh-vim-lib bd5ed95
 lightline.vim 688240e
 matchem 79a9ec5
 matchit 060d9d8
-nerdcommenter e679d8a
+nerdcommenter a051855
 next-indentation d04f221
 nvim-go 7680017
 nvim-yarp b222af8
@@ -45,9 +45,9 @@ rust.vim 8e75da9
 seagrey 847cdf9
 SearchParty 48dbaa9
 sideways.vim dd5935b
-snippets 554e944
+snippets ad2acf1
 sxhkd-vim b0abc9e
-synta 6bb65c9
+synta 3c01fb0
 tabular 00e1e7f
 targets.vim c173218
 tern_for_vim 3cffc28
@@ -84,12 +84,13 @@ vim-over 146b065
 vimperator.vim 7223609
 vim-plugvim-utils c59a498
 vim-python-pep8-indent 5f4184f
-vim-pythonx 7f48333
+vim-pythonx aad0fb4
 vim-refactor d242579
 vim-ruby 474b99f
 vim-side-search be409b2
 vim-simple-todo 4acb068
 vim-ski 97d230e
+vim-smartinput 7b4c798
 vim-smooth-scroll 0eae236
 vim-sneak 6244662
 vim-SpellCheck 06ea6e1

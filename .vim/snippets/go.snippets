@@ -1,14 +1,3 @@
-global !p
-import re
-import os.path
-import vim
-
-import px
-for full_name, name in px.libs().items():
-    exec("import " + full_name)
-endglobal
-
-
 context "snip.context=snip"
 snippet e "" bwe
 `!p
