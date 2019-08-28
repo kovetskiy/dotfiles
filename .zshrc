@@ -1429,10 +1429,8 @@ alias goi='go install'
 alias -g -- '-ya'='-o yaml'
 alias -g -- '-ow'='-o wide'
 
-context-aliases:match '[[ "$PWD" = ~/go/src/properlord ]]'
-source ~/go/src/properlord/.zshrc
-
-context-aliases:commit
+#context-aliases:match '[[ "$PWD" = ~/go/src/ ]]'
+#context-aliases:commit
 
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
