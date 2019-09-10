@@ -27,7 +27,7 @@ Plug 'kovetskiy/vim-hacks'
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'junegunn/fzf.vim'
     let g:fzf_prefer_tmux = 1
-    let g:fzf_layout = { 'down': '~20%' }
+    let g:fzf_layout = { 'down': '~40%' }
 
     func! _select_file()
         call _snippets_stop()
@@ -670,9 +670,6 @@ import re
 import os.path
 import vim
 
-from snippets import *
-from snippets.go import *
-
 import px
 for full_name, name in px.libs().items():
 	exec("import " + full_name)
@@ -975,6 +972,11 @@ map <leader>p "0p
 augroup setup_colorscheme
     au!
     au VimEnter * call _setup_colorscheme()
+augroup end
+
+augroup window_resize
+    au!
+    au VimResized * wincmd =
 augroup end
 
 nnoremap <silent> <Leader>/ :noh<CR>
