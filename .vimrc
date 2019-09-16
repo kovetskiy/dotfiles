@@ -193,6 +193,7 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
         au!
         au BufNewFile,BufRead *.json set filetype=json
         au BufNewFile,BufRead *.yaml,*.yml setlocal ts=2 sts=2 sw=2 expandtab
+        au BufNewFile,BufRead *.js setlocal ts=4 sts=4 sw=4 expandtab
     augroup end
 
 Plug 'vim-scripts/l9'
