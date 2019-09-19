@@ -712,7 +712,11 @@ set backupdir=$HOME/.vim/runtime/backup/
 set writebackup
 set backup
 
-set lazyredraw
+
+if !has('nvim')
+    set lazyredraw
+endif
+
 set ttyfast
 
 set number

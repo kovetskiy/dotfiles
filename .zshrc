@@ -1122,6 +1122,7 @@ git-commit-branch() {
 
 # :alias
 
+alias b='bat'
 alias rc='() { readlink -f "${1}" | cc }'
 alias snips='{ cd ~/.vim/bundle/snippets/ && gu; cd ~/.vim/bundle/vim-pythonx/ && gu; }'
 alias os='docker start'
