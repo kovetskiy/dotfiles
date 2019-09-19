@@ -50,6 +50,7 @@ snippets 0404cc4
 sxhkd-vim b0abc9e
 synta 7e0cc2d
 tabular 339091a
+tagbar 387bbad
 targets.vim a79447f
 tern_for_vim 3cffc28
 tomorrow-theme 0e0d35a

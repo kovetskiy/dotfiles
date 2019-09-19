@@ -39,7 +39,7 @@ Plug 'junegunn/fzf.vim'
         call fzf#vim#buffers({'options': '--sort --no-exact'})
     endfunc!
 
-    nnoremap <C-G> :call _select_buffer()<CR>
+    nnoremap <C-G> :TagbarToggle<CR>
     map <silent> <c-t> :call _select_file()<CR>
 
 "Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
@@ -662,6 +662,8 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}, 'for': ['java']}
 Plug 'dansomething/vim-eclim'
 
 Plug 'kana/vim-smartinput'
+
+Plug 'majutsushi/tagbar'
 
 augroup end
 
