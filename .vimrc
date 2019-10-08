@@ -199,7 +199,7 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
         au FileType go nmap <silent><buffer> gl :call go#def#Jump('vsplit', 0)<CR>
         au FileType go nmap <silent><buffer> gk :call go#def#Jump('split', 0)<CR>
 
-        au FileType go nmap <silent><buffer> <c-p> :call synta#go#build()<CR>
+        au FileType go nmap <silent><buffer> <c-p> :w<CR>:call synta#go#build()<CR>
         au FileType go imap <silent><buffer> <c-p> <ESC>:w<CR>:call synta#go#build()<CR>
 
         au FileType go nnoremap <Leader>r :GoRename<Space>
