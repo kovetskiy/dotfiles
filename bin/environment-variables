@@ -38,6 +38,8 @@ BIN=(
     "$RUBYPATH"
     "$NPM_PACKAGES/bin:$PATH"
     "/opt/atlassian/plugin-sdk/bin/"
+    "/opt/android-sdk/platform-tools"
+    "/opt/android-ndk/toolchains/llvm/prebuilt/linux-x86_64/bin"
 )
 
 export PROFILE=$(/bin/cat "$HOME/.config/profile")

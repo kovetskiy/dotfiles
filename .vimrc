@@ -81,31 +81,31 @@ endif
 
 Plug 'scrooloose/nerdcommenter'
 
-func! LoadCompletion()
-    if &ft == "java"
-        return
-    endif
+"func! LoadCompletion()
+"    if &ft == "java"
+"        return
+"    endif
 
-    call plug#load('YouCompleteMe')
-endfunc!
+"    call plug#load('YouCompleteMe')
+"endfunc!
 
-augroup Completion
-    au!
-    autocmd InsertEnter * call LoadCompletion() | autocmd! Completion
-augroup end
+"augroup Completion
+"    au!
+"    autocmd InsertEnter * call LoadCompletion() | autocmd! Completion
+"augroup end
 
-Plug 'Valloric/YouCompleteMe', {'for': []}
-    let g:ycm_server_python_interpreter = '/usr/bin/python3'
-    let g:ycm_show_diagnostics_ui = 0
-    let g:ycm_confirm_extra_conf = 0
-    let g:ycm_key_list_previous_completion=['<UP>']
-    let g:ycm_key_list_select_completion=['<DOWN>']
+"Plug 'Valloric/YouCompleteMe', {'for': []}
+"    let g:ycm_server_python_interpreter = '/usr/bin/python3'
+"    let g:ycm_show_diagnostics_ui = 0
+"    let g:ycm_confirm_extra_conf = 0
+"    let g:ycm_key_list_previous_completion=['<UP>']
+"    let g:ycm_key_list_select_completion=['<DOWN>']
 
-    let g:ycm_collect_identifiers_from_tags_files = 1
-    let g:ycm_collect_identifiers_from_comments_and_strings = 1
+"    let g:ycm_collect_identifiers_from_tags_files = 1
+"    let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
-    let g:ycm_seed_identifiers_with_syntax = 1
-    let g:ycm_use_ultisnips_completer = 0
+"    let g:ycm_seed_identifiers_with_syntax = 1
+"    let g:ycm_use_ultisnips_completer = 0
 
     let g:EclimCompletionMethod = 'omnifunc'
 
@@ -116,14 +116,13 @@ Plug 'kovetskiy/synta'
     let g:synta_use_go_fast_build = 0
     let g:synta_go_build_recursive = 1
 
-Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
+Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
     nnoremap <Leader><Leader>i :!go-install-deps<CR>
 
     func! _extend_yaml()
         if exists("b:yaml_extended")
             return
         endif
-
 
         runtime! syntax/yaml.vim
         if exists("b:current_syntax")
@@ -136,9 +135,28 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
         let b:yaml_extended = 1
     endfunc!
 
+    func! _extend_templatego()
+        if exists("b:templatego_extended")
+            return
+        endif
+
+        call plug#load('vim-go')
+        if exists("b:current_syntax")
+            unlet b:current_syntax
+        endif
+        runtime! syntax/gotexttmpl.vim
+
+        let b:templatego_extended = 1
+    endfunc!
+
     augroup _yaml_settings
         au!
         au BufEnter *.yaml call _extend_yaml()
+    augroup end
+
+    augroup _template_go
+        au!
+        au BufEnter *.template call _extend_templatego()
     augroup end
 
     let g:go_template_autocreate = 0
@@ -155,7 +173,7 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml']}
     let g:go_doc_keywordprg_enabled = 0
     let g:go_def_mapping_enabled = 0
     let g:go_def_mode = 'godef'
-    let g:go_info_mode = 'godef'
+    let g:go_info_mode = 'gopls'
 
 
     func! _goto_prev_func()
@@ -251,7 +269,7 @@ Plug 'sirver/ultisnips', { 'frozen': 1 }
     \]
 
     let g:UltiSnipsEnableSnipMate = 0
-    let g:UltiSnipsExpandTrigger="<TAB>"
+    let g:UltiSnipsExpandTrigger="<NOP>"
     let g:UltiSnipsEditSplit="horizontal"
 
     func! _snippets_stop()
@@ -290,6 +308,32 @@ Plug 'sirver/ultisnips', { 'frozen': 1 }
         au FileType snippets set textwidth=0
         au FileType dockerfile set textwidth=0
     augroup end
+
+   func! _expand_snippet()
+        let g:_expand_snippet = 1
+        call UltiSnips#ExpandSnippet()
+        let g:_expand_snippet = 0
+
+        if g:ulti_expand_res == 0
+            if pumvisible() && !empty(v:completed_item)
+                return coc#_select_confirm()
+            else
+                call coc#refresh()
+                let col = col('.') - 1
+                if !col || getline('.')[col - 1]  =~# '\s'
+                    return "\<tab>"
+                end
+            end
+        else
+            call coc#refresh()
+            return ""
+        end
+
+        return "\<c-n>"
+    endfunc
+
+    inoremap <silent> <Tab> <c-r>=_expand_snippet()<cr>
+    xnoremap <silent> <Tab> <Esc>:call UltiSnips#SaveLastVisualSelection()<cr>gvs
 
 Plug 'tpope/vim-surround'
 
@@ -519,7 +563,6 @@ Plug 'FooSoft/vim-argwrap', {'on': 'ArgWrap'}
         call search(l:pattern, 'cs')
     endfunc!
     nnoremap <silent> @l :call _search_wrappable()<CR>ll:ArgWrap<CR>
-    nnoremap <silent> @; :ArgWrap<CR>
     func! _chain_wrap()
         let match = search(').', 'cs', line('.'))
         if match == 0
@@ -549,13 +592,13 @@ Plug 'kovetskiy/vim-autoresize'
 Plug 'ddrscott/vim-side-search'
     nnoremap <Leader>s :SideSearch<space>
 
-    func! _random_line()
-        execute 'normal! '.(system('/bin/bash -c "echo -n $RANDOM"') % line('$')).'G'
-        normal zz
-    endfunc!
+    "func! _random_line()
+    "    execute 'normal! '.(system('/bin/bash -c "echo -n $RANDOM"') % line('$')).'G'
+    "    normal zz
+    "endfunc!
 
-    noremap <silent> <Tab>   :bNext<CR>:call _random_line()<CR>
-    noremap <silent> <S-Tab> :bprev<CR>:call _random_line()<CR>
+    "noremap <silent> <Tab>   :bNext<CR>:call _random_line()<CR>
+    "noremap <silent> <S-Tab> :bprev<CR>:call _random_line()<CR>
 
 Plug 'lambdalisue/gina.vim'
 
@@ -643,7 +686,7 @@ Plug 'tpope/vim-dispatch'
         au FileType java let b:dispatch = 'make'
         "au FileType java nmap <silent><buffer> <c-p> :Dispatch<CR>
         au FileType java nmap <silent><buffer> <c-a> :ALEFix<CR>
-        au FileType java nmap <silent><buffer> <c-p> :JavaImportOrganize<CR>
+        au FileType java nmap <silent><buffer> <c-p> :CocCommand java.action.organizeImports<CR>
         au FileType java nmap <silent><buffer> gd :JavaDocSearch<CR>
         au FileType java nmap <silent><buffer> ; :cn<CR>
         au FileType java nmap <silent><buffer> <Leader>; :cN<CR>
@@ -653,7 +696,11 @@ Plug 'fvictorio/vim-extract-variable'
 
 Plug 'lambdalisue/gina.vim'
 
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}, 'for': ['java']}
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+
+if has('nvim')
+    "set completeopt-=noselect
+endif
 
 "Plug 'wakatime/vim-wakatime'
 
@@ -661,9 +708,11 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}, 'for': ['java']}
 
 Plug 'dansomething/vim-eclim'
 
-Plug 'kana/vim-smartinput'
+"Plug 'kana/vim-smartinput'
 
 Plug 'majutsushi/tagbar'
+
+Plug 'kovetskiy/kb-train'
 
 augroup end
 
@@ -688,6 +737,9 @@ augroup end
 call plug#end()
 
 au VimEnter * au! plugvim
+
+au FileType go au! vim-go
+au FileType go au! vim-go-buffer
 
 set rtp-=~/.vim
 set rtp^=~/.vim
@@ -950,6 +1002,22 @@ func! DiffEnable()
     nmap <buffer> rj :call DiffApplyBottom()<CR>rr
 endfunc!
 
+"func! QueryWrap()
+"    let l:line = line('.')
+"    call search(').\w', '', l:line+1)
+
+"    let l:line_data = getline('.')
+"    let l:col = col('.')
+"    echom l:col
+
+"    let l:first_line = l:line_data[0:l:col]
+"    let l:second_line = l:line_data[(l:col+1):-1]
+
+"    call setline(l:line, l:first_line)
+"    call append(l:line, l:second_line)
+"    call cursor(l:line+1, 1)
+"endfunc!
+
 command!
     \ Diff
     \ call DiffEnable()
@@ -1006,5 +1074,11 @@ endfunc!
 command! -nargs=1 SysRead call _sys_read("<args>")
 
 set makeprg="make"
+
+if !has('nvim')
+    set signcolumn=number
+else
+    set signcolumn=yes
+endif
 
 noh

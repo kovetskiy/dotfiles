@@ -8,8 +8,8 @@ if [[ "$1" ]]; then
     fi
 fi
 
-#if [[ -f /bin/nvim ]]; then
-#    exec /bin/nvim ${file:-"$@"}
-#fi
+if [[ -f /bin/nvim ]]; then
+    exec /bin/nvim ${file:-"$@"}
+fi
 
 exec /bin/vim ${file:-"$@"}
