@@ -696,27 +696,23 @@ docompinit() {
     }
 
     migrate-to-deadfiles() {
-        local subject="$1"
-        shift
-
         (
             local dotfiles=~/dotfiles
             local deadfiles=~/deadfiles
 
             for file in $@; do
                 mv $dotfiles/$file $deadfiles/$file
-                rm -r $dotfiles/$file
             done
 
             cd $deadfiles
             git add .
-            git commit -m "$subject migrated from kovetskiy/dotfiles"
+            git commit -m "$@ migrated from kovetskiy/dotfiles"
             git push origin master || return 1
             #git stash pop
 
             cd $dotfiles
             git add .
-            git commit -m "$subject migrated to deadcrew/deadfiles"
+            git commit -m "$@ migrated to deadcrew/deadfiles"
             git push origin master || return 1
             #git stash pop
         )
