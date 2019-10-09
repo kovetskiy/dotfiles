@@ -703,16 +703,8 @@ docompinit() {
             local dotfiles=~/dotfiles
             local deadfiles=~/deadfiles
 
-            cd $dotfiles
-            #git stash
-            git pull --rebase origin master || return 1
-
-            cd $deadfiles
-            #git stash
-            git pull --rebase origin master || return 1
-
             for file in $@; do
-                install -DT $dotfiles/$file $deadfiles/$file
+                mv $dotfiles/$file $deadfiles/$file
                 rm -r $dotfiles/$file
             done
 
