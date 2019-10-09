@@ -704,12 +704,12 @@ docompinit() {
             local deadfiles=~/deadfiles
 
             cd $dotfiles
-            git stash
-            git pull --rebase origin master
+            #git stash
+            git pull --rebase origin master || return 1
 
             cd $deadfiles
-            git stash
-            git pull --rebase origin master
+            #git stash
+            git pull --rebase origin master || return 1
 
             for file in $@; do
                 install -DT $dotfiles/$file $deadfiles/$file
@@ -719,14 +719,14 @@ docompinit() {
             cd $deadfiles
             git add .
             git commit -m "$subject migrated from kovetskiy/dotfiles"
-            git push origin master
-            git stash pop
+            git push origin master || return 1
+            #git stash pop
 
             cd $dotfiles
             git add .
             git commit -m "$subject migrated to deadcrew/deadfiles"
-            git push origin master
-            git stash pop
+            git push origin master || return 1
+            #git stash pop
         )
     }
 
