@@ -25,6 +25,7 @@ export NPM_PACKAGES="${HOME}/.npm-packages"
 export ANSIBLE_NOCOWS=1
 
 export GO111MODULE=off
+export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
 
 BIN=(
     "$HOME/bin"
