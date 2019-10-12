@@ -10,7 +10,7 @@ deoplete-go 3269813
 deoplete.nvim 3fb71d7
 deoplete-ruby 7f6fb3a
 far.vim 3c6a6a1
-fzf 80b5bc1
+fzf f1520bd
 fzf.vim 359a80e
 gina.vim 666852d
 gist-vim f0d6357
@@ -45,7 +45,7 @@ rust.vim d045677
 seagrey 847cdf9
 SearchParty 48dbaa9
 sideways.vim 17c03c5
-snippets bf3fa2a
+snippets c729142
 sxhkd-vim b0abc9e
 synta c69f1de
 tabnine-vim f7be9252

@@ -85,6 +85,7 @@ bindsym $alt+Shift+grave move scratchpad
 # dell poweroff button
 bindcode 124 exec poweroff
 
+for_window [title="Emulator"] floating enable
 for_window [title="^screenkey$"] floating enable
 for_window [title="^kuake_"]     floating enable
 for_window [title="^feh "]       floating enable
