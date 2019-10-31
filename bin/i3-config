@@ -15,6 +15,6 @@ config="$nagbar
 $config
 $nagbar"
 
-echo "$config" | cat > ~/.i3/config
+echo "$config" > ~/.i3/config
 
 i3-msg reload
