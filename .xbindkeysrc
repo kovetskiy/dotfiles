@@ -1,0 +1,8 @@
+"REPO=~/reconquest/secrets carcosa-new-password"
+    Mod3 + 6
+
+"REPO=~/reconquest/secrets carcosa-ui"
+    Mod3 + 5
+
+"REPO=~/reconquest/secrets carcosa-ui login-password"
+    Control + Mod3 + 5
