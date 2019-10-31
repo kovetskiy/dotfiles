@@ -19,6 +19,7 @@ goyo.vim 057fe68
 gundo.vim 46c443e
 i3-vim-syntax affe37e
 kb-train a20c958
+kotlin-vim b9fa728
 l9 c822b05
 lexima.vim 54e647e
 lh-brackets f757d75
@@ -45,7 +46,7 @@ rust.vim d045677
 seagrey 847cdf9
 SearchParty 48dbaa9
 sideways.vim 17c03c5
-snippets c729142
+snippets c154158
 sxhkd-vim b0abc9e
 synta c69f1de
 tabnine-vim f7be9252

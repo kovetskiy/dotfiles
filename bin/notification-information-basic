@@ -1,5 +1,7 @@
 #!/bin/bash
 
+colorscheme=1
+
 :notify() {
     notify-send.sh -r 1000 -t 1000 " " -- "$*"
 }
@@ -19,8 +21,40 @@
 
     content="$(sed '2,$s/^/         /' <<< "$content")"
     printf '%-8s %s\n' "$section" "$content"
-    append="$(printf '<b>%-8s</b> %s' "$section" "$content")"
+
+    local token=(${section})
+    local section=$(
+        :span "${token[0]}" "$(printf '<b>%-8s</b>' "$section")"
+    )
+
+    append="$section $content"
+
     body="${body}$append"
+}
+
+:span() {
+    local token="$1"
+    local content="$2"
+
+    local bg=$(:color "${token}" 0 $colorscheme)
+    local fg=$(:color "${token}" 1 $colorscheme)
+
+    :span-bg-fg "$bg" "$fg" "$content"
+}
+
+:span-bg-fg() {
+    local bg=$1
+    local fg=$2
+    local content="$3"
+    printf '<span foreground="%s" background="%s">%s</span>' "$fg" "$bg" "$content"
+}
+
+:span-colors() {
+    local bg=$1
+    local fg=$2
+    local content="$3"
+
+    :span-bg-fg "$(color-to-hex $bg)" "$(color-to-hex $fg)" "$content"
 }
 
 :get-section-time() {
@@ -28,7 +62,7 @@
 }
 
 :get-section-battery() {
-    acpi \
+    battery=$(acpi \
         | sed -r \
             -e 's/Battery [0-9]:\s*//' \
             -e 's/ until charged//' \
@@ -36,7 +70,18 @@
             -e 's/Discharging,/↓/' \
             -e 's/Full,/✓/' \
             -e 's/Charging,/↑/' \
-            -e 's/,//'
+            -e 's/,//')
+    if [[ "$battery" =~ "↓" ]]; then
+        :span-colors 196 255 "$battery"
+        return
+    fi
+
+    if [[ "$battery" =~ "↑" ]]; then
+        :span-colors 28 255 "$battery"
+        return
+    fi
+
+    echo "$battery"
 }
 
 :get-section-memory() {
@@ -61,7 +106,10 @@
 }
 
 :get-section-wifi() {
-    wifi
+    local wifi=$(wifi)
+    if [[ "$wifi" ]]; then
+        :span "$wifi" "$wifi"
+    fi
 }
 
 :get-section-vpn() {
@@ -75,13 +123,35 @@
     ping -c 1 8.8.8.8 | grep -Po 'time=\K.*'
 }
 
+:color() {
+    local text="$1"
+    local query="$(md5sum <<< "$text" | awk '{print $1}')"
+    local color="${2:-0}"
+    local scheme="${3:-0}"
+
+    # based upon http://jimlund.org/blog/pics/colortest_iTerm.png
+    local lookback=$(( ($color * 2) % (6 * 6) ))
+    local seed=$(( 0x${query:1:2} + $scheme ))
+    local base=$(( 16 + ($seed % (230 - 16)) ))
+    local block=$(( ($base - 16) / 6 ))
+    local index=$(( ($base - 16) % 6 ))
+    local next=$((
+        (($block >= $lookback)
+            ? ($block - $lookback)
+            : (6 * 6 - $lookback + $block)
+        ) * 6 + 16 + $index + 2
+    ))
+
+    color-to-hex "$next"
+}
+
 :main() {
     local datetime=""
     local battery=""
     local body=""
 
     :body-append "TIME MSK" "<u>$(:get-section-time Europe/Moscow)</u>"
-    :body-append "TIME LA" "$(:get-section-time America/Los_Angeles)"
+    :body-append "TIME ALM" "$(:get-section-time Asia/Almaty)"
     :body-append "TIME UTC" "$(:get-section-time UTC)"
     :body-append "MEMORY" "$(:get-section-memory)"
     :body-append "PROC" "$(:get-section-cpu)"

@@ -76,6 +76,8 @@ if $BACKGROUND == "dark"
     Plug 'reconquest/vim-colorscheme'
     func! _setup_colorscheme()
         colorscheme reconquest
+
+        hi! CursorLineNr ctermbg=1
     endfunc!
 endif
 
@@ -466,6 +468,7 @@ if $BACKGROUND == "light"
         hi! SpecialKey ctermfg=250
         hi! String ctermfg=33
         hi! PreProc ctermfg=19
+        hi! CursorLineNr ctermbg=1
     endfunc!
 endif
 
@@ -697,6 +700,8 @@ Plug 'fvictorio/vim-extract-variable'
 Plug 'lambdalisue/gina.vim'
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+    nmap <silent> [g <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 if has('nvim')
     "set completeopt-=noselect
@@ -713,6 +718,8 @@ Plug 'dansomething/vim-eclim'
 Plug 'majutsushi/tagbar'
 
 Plug 'kovetskiy/kb-train'
+
+Plug 'udalov/kotlin-vim'
 
 augroup end
 
@@ -772,7 +779,7 @@ endif
 set ttyfast
 
 set number
-set norelativenumber
+set relativenumber
 
 set history=500
 
@@ -937,7 +944,8 @@ nmap <C-J> <C-W>j
 nmap <C-K> <C-W>k
 nmap <C-L> <C-W>l
 
-imap <C-J> <nop>
+imap <C-J> <esc>
+vmap <C-J> <esc>
 
 imap <C-E> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 
