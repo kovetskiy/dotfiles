@@ -4,17 +4,39 @@
 symlinks=($(cat ~/dotfiles/.symlinks))
 clones=($(cat ~/dotfiles/.clones))
 
+:ask() {
+    echo -n ":: Press y to $1:"
+    read result
+    if [[ "$result" != "y" ]]; then
+        return 1
+    fi
+}
+
 for path in "${symlinks[@]}"; do
     echo "$path" >&2
-    rm -rf ~/"$path"
-    ln -s ~/dotfiles/"$path" ~/"$path"
+    if [[ "$path" == "" ]]; then
+        echo "Wow!"
+    fi
+
+    if [[ ! -L ~/"$path" ]]; then
+        if ! :ask "remove ~/$path"; then
+            echo "skipping"
+            continue
+        fi
+        rm -rf ~/"$path"
+        ln -s ~/dotfiles/"$path" ~/"$path"
+    fi
 done
 
-for path in "${clones[@]}"; do
-    echo "$path" >&2
-    rm -rf ~/"$path"
-    cp -r ~/dotfiles/"$path" ~/"$path"
-done
+#for path in "${clones[@]}"; do
+#    echo "$path" >&2
+#    if [[ "$path" == "" ]]; then
+#        echo "Wow!"
+#    fi
+
+#    rm -rf ~/"$path"
+#    cp -r ~/dotfiles/"$path" ~/"$path"
+#done
 
 (
     cd $HOME/dotfiles/rootfs/
@@ -23,6 +45,15 @@ done
 
         if [[ ! -d /"$(dirname "$filename")" ]]; then
             sudo mkdir -p /"$(dirname "$filename")"
+        fi
+
+        if [[ -f "/$filename" ]]; then
+            if ! diff /"$filename" ./"$filename"; then
+                if ! :ask "overwrite /$filename"; then
+                    echo "skipping"
+                    continue
+                fi
+            fi
         fi
 
         sudo cp ./"$filename" /"$filename"
