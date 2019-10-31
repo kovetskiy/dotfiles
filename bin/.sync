@@ -6,7 +6,7 @@ clones=($(cat ~/dotfiles/.clones))
 
 :ask() {
     echo -n ":: Press y to $1:"
-    read result
+    read result </dev/tty
     if [[ "$result" != "y" ]]; then
         return 1
     fi
@@ -19,6 +19,7 @@ for path in "${symlinks[@]}"; do
     fi
 
     if [[ ! -L ~/"$path" ]]; then
+        ls -lah ~/"$path"
         if ! :ask "remove ~/$path"; then
             echo "skipping"
             continue
@@ -38,24 +39,23 @@ done
 #    cp -r ~/dotfiles/"$path" ~/"$path"
 #done
 
-(
-    cd $HOME/dotfiles/rootfs/
-    find . -type f -printf '%P\n' | while read filename; do
-        echo "/$filename" >&2
+cd $HOME/dotfiles/rootfs/
+list=$(find . -type f -printf '%P\n')
+while read filename; do
+    echo "/$filename" >&2
 
-        if [[ ! -d /"$(dirname "$filename")" ]]; then
-            sudo mkdir -p /"$(dirname "$filename")"
-        fi
+    if [[ ! -d /"$(dirname "$filename")" ]]; then
+        sudo mkdir -p /"$(dirname "$filename")"
+    fi
 
-        if [[ -f "/$filename" ]]; then
-            if ! diff /"$filename" ./"$filename"; then
-                if ! :ask "overwrite /$filename"; then
-                    echo "skipping"
-                    continue
-                fi
+    if [[ -f "/$filename" ]]; then
+        if ! diff -u1 /"$filename" ./"$filename"; then
+            if ! :ask "overwrite /$filename"; then
+                echo "skipping"
+                continue
             fi
         fi
+    fi
 
-        sudo cp ./"$filename" /"$filename"
-    done
-)
+    sudo cp ./"$filename" /"$filename"
+done <<< "$list"
