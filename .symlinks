@@ -27,6 +27,7 @@ bin
 .toprc
 .urxvt
 .vim/bundle/versions.vim
+.vim/coc-settings.json
 .vim/hacks
 .vimperator
 .vimperatorrc

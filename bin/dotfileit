@@ -1,0 +1,58 @@
+#!/bin/bash
+
+set -euo pipefail
+
+:main() {
+    target="${1}"
+    action="${2:-}"
+
+    relative=$(realpath --relative-to="$HOME" "$target")
+
+    if [[ -L "$target" ]]; then
+        echo "$target is symlink already" >&2
+        exit 1
+    fi
+
+    dotfile=~/dotfiles/$relative
+
+    ask_rm=false
+    if [[ -e $dotfile ]]; then
+        if [[ ! "$action" ]]; then
+            echo "$dotfile already exists, what do we do with $target?"
+
+            diff -u "$dotfile" "$target"
+
+            echo
+            echo "\$ $(basename $0) <target> [mv|rm]" >&2
+            exit 1
+        fi
+
+        if [[ "$action" == "mv" ]]; then
+            install -DT "$target" "$dotfile"
+            ask_rm=true
+        fi
+
+        if [[ "$action" == "rm" ]]; then
+            ask_rm=true
+        fi
+    else
+        echo ":: copying to dotfiles: $relative"
+        install -DT "$target" "$dotfile"
+
+        ask_rm=true
+    fi
+
+    if $ask_rm; then
+        echo ":: press Enter to remove: ${target}"
+        ls "$target"
+        read
+        rm -r "$target"
+    fi
+
+    echo ":: linking: ${target} -> ${dotfile}"
+
+    ln -s "$dotfile" "$target"
+    .symlink "$relative" >/dev/null
+}
+
+:main "${@}"
