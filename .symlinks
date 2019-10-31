@@ -6,6 +6,7 @@ bin
 .config/fontconfig
 .config/kitty
 .config/pacman.d
+.config/prols/prols.conf
 .config/surfingkeys.js
 .config/sxhkd/sxhkdrc
 .dircolors.dark
