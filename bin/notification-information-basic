@@ -24,7 +24,7 @@ colorscheme=1
 
     local token=(${section})
     local section=$(
-        :span "${token[0]}" "$(printf '<b>%-8s</b>' "$section")"
+    :span "${token[0]}" "$(printf '<b>%-8s</b>' "$section")"
     )
 
     append="$section $content"
@@ -64,13 +64,13 @@ colorscheme=1
 :get-section-battery() {
     battery=$(acpi \
         | sed -r \
-            -e 's/Battery [0-9]:\s*//' \
-            -e 's/ until charged//' \
-            -e 's/ remaining//' \
-            -e 's/Discharging,/↓/' \
-            -e 's/Full,/✓/' \
-            -e 's/Charging,/↑/' \
-            -e 's/,//')
+        -e 's/Battery [0-9]:\s*//' \
+        -e 's/ until charged//' \
+        -e 's/ remaining//' \
+        -e 's/Discharging,/↓/' \
+        -e 's/Full,/✓/' \
+        -e 's/Charging,/↑/' \
+        -e 's/,//')
     if [[ "$battery" =~ "↓" ]]; then
         :span-colors 196 255 "$battery"
         return
@@ -136,10 +136,10 @@ colorscheme=1
     local block=$(( ($base - 16) / 6 ))
     local index=$(( ($base - 16) % 6 ))
     local next=$((
-        (($block >= $lookback)
-            ? ($block - $lookback)
-            : (6 * 6 - $lookback + $block)
-        ) * 6 + 16 + $index + 2
+    (($block >= $lookback)
+    ? ($block - $lookback)
+    : (6 * 6 - $lookback + $block)
+    ) * 6 + 16 + $index + 2
     ))
 
     color-to-hex "$next"

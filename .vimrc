@@ -690,7 +690,7 @@ Plug 'tpope/vim-dispatch'
         "au FileType java nmap <silent><buffer> <c-p> :Dispatch<CR>
         au FileType java nmap <silent><buffer> <c-a> :ALEFix<CR>
         au FileType java nmap <silent><buffer> <c-p> :CocCommand java.action.organizeImports<CR>
-        au FileType java nmap <silent><buffer> gd :JavaDocSearch<CR>
+        au FileType java nmap <silent><buffer> gd <Plug>(coc-definition)
         au FileType java nmap <silent><buffer> ; :cn<CR>
         au FileType java nmap <silent><buffer> <Leader>; :cN<CR>
     augroup end
