@@ -36,6 +36,7 @@ bin
 .vim/ropeproject
 .vim/skeletons
 .vim/snippets
+.xbindkeysrc
 .xinitrc
 .xkb
 .xkbrc
