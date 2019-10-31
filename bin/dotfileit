@@ -20,7 +20,9 @@ set -euo pipefail
         if [[ ! "$action" ]]; then
             echo "$dotfile already exists, what do we do with $target?"
 
-            diff -u "$dotfile" "$target"
+            if ! diff -u "$dotfile" "$target"; then
+                :
+            fi
 
             echo
             echo "\$ $(basename $0) <target> [mv|rm]" >&2
