@@ -37,5 +37,6 @@
             }
         }
     },
+    "java.configuration.updateBuildConfiguration": "disabled",
     "java.errors.incompleteClasspath.severity": "ignore"
 }
