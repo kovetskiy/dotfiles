@@ -78,6 +78,9 @@ if $BACKGROUND == "dark"
         colorscheme reconquest
 
         hi! CursorLineNr ctermbg=1
+        hi! GitDeleted ctermfg=88
+        hi! GitAdded ctermfg=22
+        hi! GitModified ctermfg=238
     endfunc!
 endif
 
@@ -623,6 +626,9 @@ Plug 'kovetskiy/ale'
     let g:ale_fix_on_save = 1
     augroup _java_codestyle
         au!
+        au BufRead,BufNewFile *.java
+            \ call ale#Set('google_java_format_executable',
+            \ 'palantir-java-format')
         au BufRead,BufNewFile *.java
             \ call ale#Set('google_java_format_options',
             \ '--skip-removing-unused-imports --skip-sorting-imports')

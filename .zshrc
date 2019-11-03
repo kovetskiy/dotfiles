@@ -743,7 +743,7 @@ docompinit() {
     aur-get-sources() {
         local package=$1
         cd /tmp/
-        yay -G "$package"
+        yay -G -a "$package"
         cd "$package"
         cat PKGBUILD
     }

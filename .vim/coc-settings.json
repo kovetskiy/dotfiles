@@ -1,8 +1,8 @@
 {
     "suggest.noselect": true,
     "suggest.enablePreselect":false,
-    "diagnostic.errorSign": "\\ ‼️",
-    "diagnostic.warningSign": "\\ ∴",
+    "diagnostic.errorSign": "\\ E",
+    "diagnostic.warningSign": "\\ W",
     "diagnostic.infoSign": "\\ ∙",
     "java.home": "/usr/lib/jvm/java-10-openjdk/",
     "java.import.gradle.enabled": false,
