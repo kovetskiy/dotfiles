@@ -530,7 +530,7 @@ Plug 'wellle/targets.vim'
 
     command! -nargs=* Grep call _grep(<q-args>)
 
-    nnoremap <C-F> :Grep<CR>
+    nnoremap <C-F><C-F> :Grep<CR>
     nnoremap <C-E><C-F> :call _grep_word()<CR>
 
 Plug 'kovetskiy/vim-bash'
@@ -586,7 +586,7 @@ Plug 'kovetskiy/sxhkd-vim'
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
 
 Plug 'brooth/far.vim'
-    nmap <Leader>a :Farp<CR>
+    nmap <Leader>f :Farp<CR>
     augroup _far_settings
         au!
         au FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
@@ -689,16 +689,20 @@ Plug 'tpope/vim-dispatch'
         setlocal errorformat=[ERROR]\ %f:[%l\\,%v]\ %m
     endfunc!
 
+    func! _build_java()
+        CocCommand java.action.organizeImports
+        silent execute "normal" "\<Plug>(coc-diagnostic-first-error)"
+    endfunc!
+
     augroup _java_bindings
         au!
         au FileType java call _setup_java()
         au FileType java let b:dispatch = 'make'
         "au FileType java nmap <silent><buffer> <c-p> :Dispatch<CR>
         au FileType java nmap <silent><buffer> <c-a> :ALEFix<CR>
-        au FileType java nmap <silent><buffer> <c-p> :CocCommand java.action.organizeImports<CR>
-        au FileType java nmap <silent><buffer> gd <Plug>(coc-definition)
-        au FileType java nmap <silent><buffer> ; :cn<CR>
-        au FileType java nmap <silent><buffer> <Leader>; :cN<CR>
+        au FileType java nmap <silent><buffer> <c-p> :call _build_java()<CR>
+        au FileType java nmap <silent><buffer> ; <Plug>(coc-diagnostic-next-error)
+        au FileType java nmap <silent><buffer> <Leader>; <Plug>(coc-diagnostic-prev-error)
     augroup end
 
 Plug 'fvictorio/vim-extract-variable'
@@ -708,6 +712,13 @@ Plug 'lambdalisue/gina.vim'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
     nmap <silent> [g <Plug>(coc-diagnostic-prev)
     nmap <silent> ]g <Plug>(coc-diagnostic-next)
+    nmap <silent> <C-F><C-R> <Plug>(coc-refactor)
+    nmap <silent> <C-F><C-E> <Plug>(coc-rename)
+    nmap <silent> gi <Plug>(coc-implementation)
+    xmap <leader>a  <Plug>(coc-codeaction-selected)
+    nmap <leader>a  <Plug>(coc-codeaction-selected)
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <C-F> <NOP>
 
 if has('nvim')
     "set completeopt-=noselect
@@ -1078,7 +1089,6 @@ nnoremap <Leader>g :call _get_github_link()<CR>
 
 nnoremap <Leader>x :vsp <C-R>=expand('%:h')<CR>/
 nnoremap <Leader>t :sp <C-R>=expand('%:h')<CR>/
-nnoremap <Leader>f :e <C-R>=expand('%:h')<CR>/
 
 func! _sys_read(cmdline)
     let l:result = system(a:cmdline)

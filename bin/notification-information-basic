@@ -20,7 +20,7 @@ colorscheme=1
     fi
 
     content="$(sed '2,$s/^/         /' <<< "$content")"
-    printf '%-8s %s\n' "$section" "$content"
+    #printf '%-8s %s\n' "$section" "$content"
 
     local token=(${section})
     local section=$(
@@ -87,7 +87,7 @@ colorscheme=1
 :get-section-memory() {
     ram=$(free -h -w \
         | awk '/^Mem:/ { print $4 "/" $2}' | sed 's/Gi/G/g')
-    arc=$(arcstat.py -f arcsz,c | tail -n1 | awk '{print $1 "/" $2}')
+    arc=$(arcstat-f arcsz,c | tail -n1 | awk '{print $1 "/" $2}')
     echo "$ram $arc"
 }
 
