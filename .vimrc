@@ -691,7 +691,7 @@ Plug 'tpope/vim-dispatch'
 
     func! _build_java()
         CocCommand java.action.organizeImports
-        silent execute "normal" "\<Plug>(coc-diagnostic-first-error)"
+        call CocAction('diagnosticFirst', 'error')
     endfunc!
 
     augroup _java_bindings
