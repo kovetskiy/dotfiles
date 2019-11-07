@@ -725,7 +725,6 @@ if has('nvim')
 endif
 
 "Plug 'wakatime/vim-wakatime'
-
 "Plug 'ap/vim-buftabline'
 
 Plug 'dansomething/vim-eclim'
@@ -733,10 +732,6 @@ Plug 'dansomething/vim-eclim'
 "Plug 'kana/vim-smartinput'
 
 Plug 'majutsushi/tagbar'
-
-Plug 'kovetskiy/kb-train'
-
-Plug 'udalov/kotlin-vim'
 
 augroup end
 
