@@ -1,0 +1,9 @@
+#!/bin/bash
+
+mirrors=$(cat /etc/pacman.d/mirrorlist \
+    | sed -e 's/^#Server/Server/' -e '/^#/d' \
+    | rankmirrors -)
+
+if [[ "$mirrors" ]]; then
+    sudo tee <<< "$mirrors" /etc/pacman.d/mirrorlist
+fi
