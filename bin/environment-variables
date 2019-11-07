@@ -34,7 +34,7 @@ BIN=(
     "$HOME/bin/rewrite"
     "$HOME/.guts/bin/"
     "$HOME/sources/jewfiles/bin"
-    "$HOME/dotfiles/deadfiles/bin"
+    "$HOME/deadfiles/bin"
     "$HOME/.local/bin"
     "/usr/bin/"
     "$GOPATH/bin"
