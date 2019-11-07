@@ -8,8 +8,3 @@
 	url = git@github.com:reconquest/rex
 	branch = master
 	ignore = all
-[submodule "deadcrew/deadfiles"]
-	path = deadfiles
-	url = git@github.com:deadcrew/deadfiles
-	branch = master
-	ignore = all
