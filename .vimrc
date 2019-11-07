@@ -740,24 +740,6 @@ Plug 'udalov/kotlin-vim'
 
 augroup end
 
-func! _load_pythonx_modules()
-    python <<PYTHONX
-import re
-import os.path
-import vim
-
-import px
-for full_name, name in px.libs().items():
-	exec("import " + full_name)
-PYTHONX
-endfunc!
-
-augroup load_pythonx_modules
-    au!
-
-    au VimEnter * call _load_pythonx_modules()
-augroup end
-
 call plug#end()
 
 au VimEnter * au! plugvim

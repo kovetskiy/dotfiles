@@ -46,7 +46,7 @@ rust.vim d045677
 seagrey 847cdf9
 SearchParty 48dbaa9
 sideways.vim 17c03c5
-snippets c154158
+snippets 6a1d4ef
 sxhkd-vim b0abc9e
 synta c69f1de
 tabnine-vim f7be9252
