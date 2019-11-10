@@ -624,14 +624,16 @@ Plug 'kovetskiy/ale'
     \}
 
     let g:ale_fix_on_save = 1
+
     augroup _java_codestyle
         au!
         au BufRead,BufNewFile *.java
-            \ call ale#Set('google_java_format_executable',
+            \ call ale#Set('java_google_java_format_executable',
             \ 'palantir-java-format')
         au BufRead,BufNewFile *.java
-            \ call ale#Set('google_java_format_options',
+            \ call ale#Set('java_google_java_format_options',
             \ '--skip-removing-unused-imports --skip-sorting-imports')
+
     augroup end
 
 
