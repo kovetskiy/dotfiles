@@ -38,6 +38,7 @@ BIN=(
     "$HOME/.local/bin"
     "/usr/bin/"
     "$GOPATH/bin"
+    "$HOME/.cargo/bin"
     "$RUBYPATH"
     "$NPM_PACKAGES/bin:$PATH"
     "/opt/atlassian/plugin-sdk/bin/"

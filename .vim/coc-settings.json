@@ -4,7 +4,7 @@
     "diagnostic.errorSign": "\\ E",
     "diagnostic.warningSign": "\\ W",
     "diagnostic.infoSign": "\\ ∙",
-    "java.home": "/usr/lib/jvm/java-10-openjdk/",
+    "java.home": "/usr/lib/jvm/java-8-openjdk/",
     "java.import.gradle.enabled": false,
     "xml.validation.schema": false,
     "xml.validation.noGrammar": "ignore",
