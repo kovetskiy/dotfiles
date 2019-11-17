@@ -1,0 +1,40 @@
+#!/bin/bash
+
+get-status() {
+    status=$(baton status)
+    artist=$(grep -P "^Artist:" <<< "$status" | cut -d: -f2-)
+    track=$(grep -P "^Track" <<< "$status" | cut -d: -f2-)
+    echo 🎵 $artist — $track
+}
+
+icon=""
+case "$1" in
+    next)
+        icon="⏭️"
+        ;;
+
+    prev)
+        icon="⏮️"
+        ;;
+
+    pause)
+        icon="⏯️"
+        ;;
+
+    save)
+        icon="⭐"
+        ;;
+
+    *)
+        icon="${1}"
+        ;;
+esac
+
+if [[ "$1" == "status" ]]; then
+    notify "$(get-status)"
+    exit
+fi
+
+notify "${icon}"
+baton "${@}"
+notify "$(get-status)"

@@ -7,17 +7,20 @@
 "notify-run baton-vol +5"
     Mod3 + k
 
-"notify-run baton pause"
+"music pause"
     Mod3 + p
 
-"notify-run baton next"
+"music next"
     Mod3 + l
 
-"notify-run baton prev"
+"music prev"
     Mod3 + h
 
-"notify-run baton save"
+"music save"
     Mod3 + m
 
-"notify-run baton remove"
+"music remove"
     Mod3 + n
+
+"music status"
+    Mod3 + o
