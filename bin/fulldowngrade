@@ -1,0 +1,30 @@
+#!/bin/bash
+
+date="${1}"
+shift
+skip=${@}
+cat /var/log/pacman.log | grep upgraded | grep "${date}" \
+    | sed -r 's/.*upgraded ([^ ]+) \(([^ ]+).*/\1 \2/' \
+    | while read name ver; do
+    if ! pacman -Q "$name" &>/dev/null; then
+        continue
+    fi
+
+    next=false
+    for pkg in "${skip[@]}"; do
+        if [[ "$pkg" == "$name" ]]; then
+            echo "skipping $pkg"
+            next=true
+            break
+        fi
+    done
+    if $next; then
+        continue
+    fi
+
+    files=($(/bin/ls /var/cache/pacman/pkg/${name}-${ver}*))
+    if [[ "${#files[@]}" != "1" ]]; then
+        echo "pkg: $name ver: $ver"
+        echo "${#files[@]} ${files[@]}"
+    fi
+done

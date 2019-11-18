@@ -2,8 +2,6 @@
 
 [ -n "$_LOCK" ] || _LOCK=x exec flock -n $0 $0 "$@"
 
-set -euo pipefail
-
 PROFILE="mars"
 
 :notify() {
@@ -17,13 +15,8 @@ PROFILE="mars"
 
 
 :main() {
-    if sudo systemctl status openvpn@${PROFILE};
+    if sudo systemctl status openvpn@${PROFILE} | grep -q "inactive"
     then
-        :notify "openvpn: stopping service"
-        sudo systemctl stop openvpn@${PROFILE}
-        :notify "openvpn: stopped service $(:ping)"
-        pkill -f -9 openvpn-toggle
-    else
         :notify "openvpn: starting service"
         sudo systemctl start openvpn@${PROFILE}
         until ip l | grep -q 'tap'; do
@@ -31,6 +24,11 @@ PROFILE="mars"
             :notify "openvpn: initializing"
         done
         :notify "openvpn: ${PROFILE} $(:ping)"
+    else
+        :notify "openvpn: stopping service"
+        sudo systemctl stop openvpn@${PROFILE}
+        :notify "openvpn: stopped service $(:ping)"
+        pkill -f -9 openvpn-toggle
     fi
 }
 

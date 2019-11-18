@@ -1110,6 +1110,7 @@ git-commit-branch() {
 
 # :alias
 
+alias sd='ssh desk'
 alias dl='gradle'
 alias b='bat'
 alias rc='() { readlink -f "${1}" | cc }'
@@ -1184,7 +1185,6 @@ alias alq='alsamixer -D equal'
 alias al='alsamixer'
 alias p='vimpager'
 alias sf='sed-files'
-alias sd='sed-delete'
 alias pas='packages-sync && { cd ~/dotfiles; git diff -U0 packages; }'
 alias rx='sudo systemctl restart x@vt7.service xlogin@operator.service'
 alias zgr='zgen reset'
