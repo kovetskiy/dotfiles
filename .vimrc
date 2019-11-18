@@ -31,12 +31,12 @@ Plug 'junegunn/fzf.vim'
 
     func! _select_file()
         call _snippets_stop()
-        call fzf#run(fzf#wrap({'source': 'prols', 'options': '--sort --no-exact'}))
+        call fzf#run(fzf#wrap({'source': 'prols', 'options': '--no-sort --exact'}))
     endfunc!
 
     func! _select_buffer()
         call _snippets_stop()
-        call fzf#vim#buffers({'options': '--sort --no-exact'})
+        call fzf#vim#buffers({'options': '--sort --exact'})
     endfunc!
 
     nnoremap <C-G> :TagbarToggle<CR>
@@ -734,6 +734,10 @@ Plug 'dansomething/vim-eclim'
 "Plug 'kana/vim-smartinput'
 
 Plug 'majutsushi/tagbar'
+
+Plug 'vim-scripts/sherlock.vim'
+cnoremap <C-P> <C-\>esherlock#completeBackward()<CR>
+cnoremap <C-N> <C-\>esherlock#completeForward()<CR>
 
 augroup end
 

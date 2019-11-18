@@ -45,9 +45,10 @@ rufo-vim ba7d1dd
 rust.vim 97fdc4e
 seagrey 847cdf9
 SearchParty 48dbaa9
+sherlock.vim a24269b
 sideways.vim 1265cf6
 skim.vim 1ce77da
-snippets 6a1d4ef
+snippets 1e3f838
 sxhkd-vim b0abc9e
 synta 9623e3f
 tabular 339091a
