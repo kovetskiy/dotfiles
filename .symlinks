@@ -2,6 +2,7 @@
 .asoundrc
 bin
 .config/autorandr
+.config/bluelink.conf
 .config/dunst
 .config/fontconfig
 .config/kitty
