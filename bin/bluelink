@@ -1,0 +1,96 @@
+#!/bin/env python3
+
+import bluew
+import sys
+import os
+import os.path
+import yaml
+import subprocess
+import time
+
+def main():
+    config = load_config()
+
+    if len(sys.argv) > 1:
+        name = sys.argv[1]
+    else:
+        name = prompt_name(config)
+
+    mac = get_mac(config, name)
+    print("device:", mac, name)
+
+    print("starting bluetooth systemd service")
+    start_bluetooth_service()
+
+    for x in range(10):
+        try:
+            connect(mac)
+            print("sucessfully connected to", mac, name)
+            sys.exit(0)
+        except Exception as e:
+            print("connection failed")
+            print(e)
+            time.sleep(0.05)
+
+    sys.exit(1)
+
+def connect(mac):
+    print("marking device as trusted")
+    bluew.trust(mac)
+
+    print("pairing with device")
+    bluew.pair(mac)
+
+    print("making connection to device")
+    with bluew.Connection(mac) as con:
+        info = bluew.info(mac)
+        if not info.Trusted:
+            print("marking device as trusted")
+            bluew.trust(mac)
+        if not info.Paired:
+            print("pairing with device")
+            con.pair(mac)
+
+
+def start_bluetooth_service():
+    os.system("sudo systemctl start bluetooth.service")
+
+
+def load_config():
+    with open(os.path.expanduser('~/.config/bluelink.conf')) as file:
+        config = yaml.load(file, Loader=yaml.FullLoader)
+        return config
+
+
+def prompt_name(config):
+    names = []
+    for item in config:
+        names.append(item['name'])
+    cmd = subprocess.run(['modal'], stdout=subprocess.PIPE, input='\n'.join(names), encoding='ascii')
+    name = cmd.stdout.strip()
+    if name == "":
+        # call it again
+        return prompt_name()
+
+    # find full match
+    for item_name in names:
+        if item_name == name:
+            return item_name
+
+    # find partial match
+    for item_name in names:
+        if item_name.find(name):
+            return item_name
+
+    # otherwise repeat dialog
+    return prompt_name()
+
+
+def get_mac(config, name):
+    for item in config:
+        if item['name'] == name:
+            return item['mac']
+
+main()
+
+# vim: ft=python
