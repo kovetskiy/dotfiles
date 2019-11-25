@@ -1115,6 +1115,8 @@ git-commit-branch() {
 # :alias
 
 alias sd=:ssh-desk
+alias ap='atlas-package'
+alias am='atlas-mvn'
 alias dl='gradle'
 alias b='bat'
 alias rc='() { readlink -f "${1}" | cc }'
