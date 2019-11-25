@@ -7,7 +7,7 @@ gaps inner 3
 hide_edge_borders both
 font pango:Monaco 1
 new_window 1pixel
-focus_follows_mouse yes
+focus_follows_mouse no
 set $win Mod1
 set $alt Mod4
 

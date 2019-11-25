@@ -1108,9 +1108,13 @@ git-commit-branch() {
     popd
 }
 
+:ssh-desk() {
+    ssh -t desk "cd $PWD; $SHELL -l ${@}"
+}
+
 # :alias
 
-alias sd='ssh desk'
+alias sd=:ssh-desk
 alias dl='gradle'
 alias b='bat'
 alias rc='() { readlink -f "${1}" | cc }'

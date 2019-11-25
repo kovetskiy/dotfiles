@@ -20,7 +20,7 @@ PROFILE="mars"
         :notify "openvpn: starting service"
         sudo systemctl start openvpn@${PROFILE}
         until ip l | grep -q 'tap'; do
-            sleep 0.1
+            sleep 0.3
             :notify "openvpn: initializing"
         done
         :notify "openvpn: ${PROFILE} $(:ping)"
