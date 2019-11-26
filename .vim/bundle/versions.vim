@@ -10,6 +10,7 @@ deoplete-go 3269813
 deoplete.nvim 3fb71d7
 deoplete-ruby 7f6fb3a
 far.vim 3c6a6a1
+file-actions.vim 
 fzf dceb5d0
 fzf.vim bce6588
 gina.vim 666852d
@@ -45,10 +46,9 @@ rufo-vim ba7d1dd
 rust.vim 97fdc4e
 seagrey 847cdf9
 SearchParty 48dbaa9
-sherlock.vim a24269b
+sherlock.vim ecb140e
 sideways.vim 1265cf6
-skim.vim 1ce77da
-snippets 1e3f838
+snippets 2458e30
 sxhkd-vim b0abc9e
 synta 9623e3f
 tabnine-vim f7be9252
@@ -71,7 +71,6 @@ vim-cpp-enhanced-highlight da1d86a
 vim-crystal 2ba42bd
 vim-cucu 56234e1
 vim-dispatch 4bd1ecd
-vim-eclim 868b8eb
 vim-empty-lines b0ee3f8
 vim-extract-variable 81d7c92
 vim-fish 50b95cb

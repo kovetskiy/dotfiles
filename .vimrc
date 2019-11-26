@@ -733,7 +733,7 @@ endif
 
 Plug 'majutsushi/tagbar'
 
-Plug 'vim-scripts/sherlock.vim'
+Plug 'kovetskiy/sherlock.vim'
 cnoremap <C-P> <C-\>esherlock#completeBackward()<CR>
 cnoremap <C-N> <C-\>esherlock#completeForward()<CR>
 
