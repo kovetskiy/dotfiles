@@ -432,7 +432,7 @@ Plug 'kovetskiy/vim-plugvim-utils', {'on': 'NewPlugFromClipboard'}
     nnoremap <Leader><Leader>c :call NewPlugFromClipboard()<CR>
 
 Plug 'kovetskiy/vim-ski'
-    let g:skeletons_dir=$HOME . '/.vim/skeletons/'
+    let g:skeletons_dir=$HOME . '/.vim/bundle/snippets/skeletons/'
 
     augroup _sh_filetype
         au!
@@ -627,6 +627,7 @@ Plug 'kovetskiy/ale'
 
     augroup _java_codestyle
         au!
+        au BufRead,BufNewFile *.java setlocal tw=2 sw=2
         au BufRead,BufNewFile *.java
             \ call ale#Set('java_google_java_format_executable',
             \ 'palantir-java-format')
@@ -833,16 +834,6 @@ endif
 au FileType help setlocal number
 
 au BufWritePre * if !isdirectory(expand('%:h')) | call mkdir(expand('%:h'),'p') | endif
-
-
-func! _snapshot()
-   silent execute "!vim-bundle-save >/dev/null 2>&1 &"
-endfunc!
-
-augroup _snapshot
-    au!
-    au BufWritePost ~/.vimrc call _snapshot()
-augroup end
 
 set cc=80,100
 

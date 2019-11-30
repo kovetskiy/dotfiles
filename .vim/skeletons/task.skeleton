@@ -1,9 +1,0 @@
-`!p
-import datetime
-
-now = datetime.datetime.now()
-
-snip.rv=now.strftime("%Y-%m-%d %H:%M")
-`
-
-$0
