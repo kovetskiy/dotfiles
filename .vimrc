@@ -1059,8 +1059,43 @@ endfunc!
 
 nnoremap <Leader>g :call _get_github_link()<CR>
 
-nnoremap <Leader>x :vsp <C-R>=expand('%:h')<CR>/
-nnoremap <Leader>t :sp <C-R>=expand('%:h')<CR>/
+func! _split_set_content()
+    let l:dirname = expand('%:h')
+    let l:ext = expand('%:e')
+    return l:dirname . '/.' . l:ext
+endfunc!
+
+func! _split_move_cursor()
+    let l:ext = expand('%:e')
+    call setcmdpos(len(getcmdline()) - len(expand(l:ext)))
+    return ""
+endfunc!
+
+nnoremap <Leader>x :vsp <C-R>=_split_set_content()<CR><C-R>=_split_move_cursor()<CR>
+nnoremap <Leader>t :sp <C-R>=_split_set_content()<CR><C-R>=_split_move_cursor()<CR>
+
+func! _dir_up()
+    let l:cmd = getcmdline()
+    let l:pos = getcmdpos() - 1
+
+    let l:before = strpart(l:cmd, 0, l:pos)
+    let l:after = strpart(l:cmd, l:pos)
+
+    let l:separator = strridx(l:before, "/")
+    let l:before = strpart(l:before, 0, l:separator)
+
+    let l:separator = strridx(l:before, "/")
+    let l:before = strpart(l:before, 0, l:separator)
+
+    let l:before = l:before . "/"
+
+    call setcmdpos(len(l:before) + 1)
+
+    let l:cmdline = l:before . l:after
+    return l:cmdline
+endfunc!
+
+cnoremap <C-E> <C-\>e_dir_up()<CR>
 
 func! _sys_read(cmdline)
     let l:result = system(a:cmdline)
