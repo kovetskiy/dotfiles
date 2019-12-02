@@ -8,18 +8,18 @@ autorandr --change
 
 amixer -c 0 cset 'numid=10' 1 &>/dev/null
 
-killall -9 xcsyncd
+pkill -f -9 xcsyncd
 systemd-cat -t xcsyncd xcsyncd &
 
 pkill keynav
 
-killll -9 sxhkd
+sudo pkill -f -9 sxhkd
 SHELL=/bin/zsh sudo -E -u $USER sxhkd &
 
-killall -9 xkeybind
+pkill -f -9 xbindkeys
 xbindkeys
 
-pkill -f dunst
+pkill -f -9 dunst
 systemd-cat -t dunst bash -c 'while :; do dunst; done' &
 
 xset dpms 0 0 0
@@ -30,3 +30,7 @@ xset fp rehash
 
 xrdb -load ~/.Xresources
 background-switch $(cat ~/.config/background)
+
+dbus-update-activation-environment --systemd DISPLAY
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK

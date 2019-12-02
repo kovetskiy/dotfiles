@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source ~/bin/environment-variables
-~/bin/environment-setup &
+source ~/bin/environment-setup
 
 ( while :; do keynav; sleep 1; done ) &
 

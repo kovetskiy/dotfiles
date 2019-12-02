@@ -151,7 +151,6 @@ colorscheme=1
     local body=""
 
     :body-append "TIME MSK" "<u>$(:get-section-time Europe/Moscow)</u>"
-    :body-append "TIME ALM" "$(:get-section-time Asia/Almaty)"
     :body-append "TIME UTC" "$(:get-section-time UTC)"
     :body-append "MEMORY" "$(:get-section-memory)"
     :body-append "PROC" "$(:get-section-cpu)"
