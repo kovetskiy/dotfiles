@@ -845,7 +845,18 @@ vmap <C-F> ctx<TAB>
 
 imap <C-D> context.
 
-"nnoremap <C-E><C-D> :cd %:p:h<CR>:pwd<CR>
+let g:_pwd_startup = getcwd()
+func! _cd_root()
+    let l:root = system("git rev-parse --show-toplevel 2>/dev/null")
+    if l:root == ""
+        let l:root = g:_pwd_startup
+    endif
+
+    execute "cd" l:root
+endfunc!
+
+nnoremap <C-E><C-E> :cd %:p:h<CR>
+nnoremap <C-E><C-R> :call _cd_root()<CR>
 
 nnoremap <Leader>o o<ESC>
 nnoremap <Leader>O O<ESC>
@@ -923,7 +934,7 @@ nnoremap <Leader>] :tnext<CR>
 
 "nnoremap <C-T><C-T> :retab<CR>
 
-nnoremap <C-E><C-E><C-R> :silent !rm -rf ~/.vim/view/*<CR>:redraw!<CR>
+"nnoremap <C-E><C-E><C-R> :silent !rm -rf ~/.vim/view/*<CR>:redraw!<CR>
 
 imap <C-A> <C-O>A
 

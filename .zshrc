@@ -275,7 +275,7 @@ docompinit() {
     bindkey -v '^N' :favor
     zle -N :favor
     :favor() {
-        local favor_dir="$(favor 2>/dev/null)"
+        local favor_dir="$(favor --quiet)"
         if [[ ! "$favor_dir" ]]; then
             return
         fi
