@@ -627,7 +627,7 @@ Plug 'kovetskiy/ale'
 
     augroup _java_codestyle
         au!
-        au BufRead,BufNewFile *.java setlocal tw=2 sw=2
+        au BufRead,BufNewFile *.java setlocal ts=2 sts=2 sw=2 expandtab
         au BufRead,BufNewFile *.java
             \ call ale#Set('java_google_java_format_executable',
             \ 'palantir-java-format')
