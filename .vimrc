@@ -625,6 +625,12 @@ Plug 'kovetskiy/ale'
 
     let g:ale_fix_on_save = 1
 
+    augroup _go_codestyle
+        au FileType go
+            \ call ale#Set('go_goimports_executable',
+            \ 'gofumports')
+    augroup end
+
     augroup _java_codestyle
         au!
         au BufRead,BufNewFile *.java setlocal ts=2 sts=2 sw=2 expandtab

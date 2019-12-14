@@ -1,6 +1,7 @@
 super + Return
 	terminal
 
+# test
 shift + super + Return
 	terminal -e msh
 
