@@ -593,7 +593,7 @@ Plug 'brooth/far.vim'
     augroup end
 
 "Plug 'reconquest/vim-autosurround'
-Plug 'kovetskiy/vim-autoresize'
+"Plug 'kovetskiy/vim-autoresize'
 
 Plug 'ddrscott/vim-side-search'
     nnoremap <Leader>s :SideSearch<space>
@@ -643,6 +643,8 @@ Plug 'kovetskiy/ale'
 
     augroup end
 
+    let java_highlight_functions="style"
+    let java_highlight_debug=1
 
 Plug 'mg979/vim-visual-multi'
     let g:VM_custom_remaps = {'<c-p>': '[', '<c-s>': 'q'}
@@ -741,8 +743,16 @@ endif
 Plug 'majutsushi/tagbar'
 
 Plug 'kovetskiy/sherlock.vim'
-cnoremap <C-P> <C-\>esherlock#completeBackward()<CR>
-cnoremap <C-N> <C-\>esherlock#completeForward()<CR>
+    cnoremap <C-P> <C-\>esherlock#completeBackward()<CR>
+    cnoremap <C-N> <C-\>esherlock#completeForward()<CR>
+
+Plug 'ripxorip/aerojump.nvim', { 'do': ':UpdateRemotePlugins' }
+    nmap <Leader>as <Plug>(AerojumpSpace)
+    nmap <Leader>ab <Plug>(AerojumpBolt)
+    nmap <Leader>aa <Plug>(AerojumpFromCursorBolt)
+    nmap <Leader>ad <Plug>(AerojumpDefault)
+
+Plug 'uiiaoo/java-syntax.vim'
 
 augroup end
 
@@ -1063,10 +1073,10 @@ augroup setup_colorscheme
     au VimEnter * call _setup_colorscheme()
 augroup end
 
-augroup window_resize
-    au!
-    au VimResized * wincmd =
-augroup end
+"augroup window_resize
+"    au!
+"    au VimResized * wincmd =
+"augroup end
 
 nnoremap <silent> <Leader>/ :noh<CR>
 

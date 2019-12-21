@@ -17,7 +17,7 @@ set -euo pipefail
 :main() {
     :init
 
-    value=""
+    value="$1"
     case "$1" in
         up)
             value=$(:up)
@@ -29,6 +29,10 @@ set -euo pipefail
 
         toggle)
             value=$(:toggle)
+            ;;
+
+        *)
+            value=$(:from-percent "$1")
             ;;
     esac
 
@@ -84,6 +88,12 @@ _max=
         _max=$(cat $_SYSDIR/max_brightness)
     fi
     echo $_max
+}
+
+:from-percent() {
+    local max=$(:get_max)
+
+    bc <<< "($max/100)*$1"
 }
 
 :step() {
