@@ -729,6 +729,7 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
     xmap <leader>a  <Plug>(coc-codeaction-selected)
     nmap <leader>a  <Plug>(coc-codeaction-selected)
     nmap <silent> gd <Plug>(coc-definition)
+    nmap <leader>rn <Plug>(coc-rename)
     nmap <C-F> <NOP>
 
 if has('nvim')
@@ -985,6 +986,7 @@ augroup _filetypes
     au BufRead,BufNewFile *.snippets set noet ft=snippets.python
     au BufRead,BufNewFile *.skeleton set noet ft=snippets.python
     au BufRead,BufNewFile *.chart set noet ft=mermaid
+    au FileType python setlocal et ts=4 sw=4 sts=4
 augroup end
 
 "augroup _window_size

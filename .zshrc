@@ -375,17 +375,6 @@ docompinit() {
         fi
     }
 
-    sed-remove-all-before() {
-        local query="$1"
-        shift
-        sed-replace ".*$query" "" $@
-    }
-
-    sed-remove-all-after() {
-        local query="$1"
-        shift
-        sed-replace "$query.*" "" $@
-    }
 
     cut-d-t() {
         local d="$1"
@@ -1029,8 +1018,6 @@ docompinit() {
 }
 
 {
-    alias -g sb='| sed-remove-all-before'
-    alias -g sa='| sed-remove-all-after'
     alias -g I='<<<'
     alias -g '#pe'='| :pacman:filter-executable'
 
