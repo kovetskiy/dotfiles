@@ -70,7 +70,7 @@ def prompt_name(config):
     name = cmd.stdout.strip()
     if name == "":
         # call it again
-        return prompt_name()
+        return prompt_name(config)
 
     # find full match
     for item_name in names:
@@ -83,7 +83,7 @@ def prompt_name(config):
             return item_name
 
     # otherwise repeat dialog
-    return prompt_name()
+    return prompt_name(config)
 
 
 def get_mac(config, name):
