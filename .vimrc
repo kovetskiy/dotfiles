@@ -112,7 +112,7 @@ Plug 'scrooloose/nerdcommenter'
 "    let g:ycm_seed_identifiers_with_syntax = 1
 "    let g:ycm_use_ultisnips_completer = 0
 
-    let g:EclimCompletionMethod = 'omnifunc'
+    "let g:EclimCompletionMethod = 'omnifunc'
 
 Plug 'kovetskiy/synta'
     let g:synta_go_highlight_calls = 0
