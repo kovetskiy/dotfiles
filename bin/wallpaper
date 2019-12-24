@@ -1,6 +1,7 @@
 #!/bin/bash
 
 xsetroot -bg black
+exit
 
 #screens=$(xrandr -q | grep -c ' connected')
 #if [[ "$screens" == "1" ]]; then
