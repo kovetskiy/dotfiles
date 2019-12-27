@@ -1,8 +1,3 @@
-[submodule "monaco-font"]
-	path = .fonts
-	url = git@github.com:seletskiy/monaco-font
-	branch = master
-	ignore = all
 [submodule "reconquest/rex"]
 	path = .xkb
 	url = git@github.com:reconquest/rex
