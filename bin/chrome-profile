@@ -6,6 +6,7 @@ if [[ ! "$profile" ]]; then
     exit 1
 fi
 
-mkdir -p ~/.config/chrome-${profile}/
+dir=~/.config/chrome-${profile}/
+mkdir -p $dir
 
-exec google-chrome-stable --user-data-dir=~/.config/chrome-${profile}/
+exec google-chrome-stable --user-data-dir=$dir

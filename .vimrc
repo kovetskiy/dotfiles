@@ -718,7 +718,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'fvictorio/vim-extract-variable'
 
 
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
     nmap <silent> [g <Plug>(coc-diagnostic-prev)
     nmap <silent> ]g <Plug>(coc-diagnostic-next)
     nmap <silent> <C-F><C-R> <Plug>(coc-refactor)
