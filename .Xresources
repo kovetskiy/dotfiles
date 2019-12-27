@@ -26,7 +26,7 @@ URxvt.saveLines: 10000
 ;URxvt.boldItalicFont: xft:Iosevka:size=10,style=bold
 
 URxvt.font: xft:UbuntuMono-Regular:size=12,style=regular, xft:Iosevka:size=12,style=regular
-URxvt.boldFont: xft:UbuntuMono:size=12,style=bold, xft:Iosevka:size=12,style=bold
+URxvt.boldFont: xft:UbuntuMono-B:size=12,style=bold, xft:Iosevka:size=12,style=bold
 URxvt.italicFont: xft:UbuntuMono:size=12,style=italic, xft:Iosevka:size=12,style=italic
 URxvt.boldItalicFont: xft:UbuntuMono:size=12,style=bold, xft:Iosevka:size=12,style=bold
 

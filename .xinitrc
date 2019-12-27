@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exec >/tmp/x 2>&1
+set -x
 source ~/bin/environment-variables
 source ~/bin/environment-setup
 
@@ -18,5 +20,6 @@ systemctl --user import-environment GOPATH
 #eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 #export SSH_AUTH_SOCK
 
+echo "i3 started"
 exec i3
 #exec leftwm

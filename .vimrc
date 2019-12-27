@@ -31,7 +31,7 @@ Plug 'junegunn/fzf.vim'
 
     func! _select_file()
         call _snippets_stop()
-        call fzf#run(fzf#wrap({'source': 'prols', 'options': '--sort --no-exact'}))
+        call fzf#run(fzf#wrap({'source': 'prols', 'options': '--sort --no-exact --tiebreak=index'}))
     endfunc!
 
     func! _select_buffer()
@@ -75,7 +75,7 @@ Plug 'itchyny/lightline.vim'
 if $BACKGROUND == "dark"
     Plug 'reconquest/vim-colorscheme'
     func! _setup_colorscheme()
-        colorscheme reconquest
+        colorscheme reconquest_greenish
 
         hi! CursorLineNr ctermbg=1
         hi! GitDeleted ctermfg=88
@@ -123,6 +123,8 @@ Plug 'kovetskiy/synta'
 
 Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
     nnoremap <Leader><Leader>i :!go-install-deps<CR>
+
+    hi! link goCall Function
 
     func! _extend_yaml()
         if exists("b:yaml_extended")
@@ -593,7 +595,7 @@ Plug 'brooth/far.vim'
     augroup end
 
 "Plug 'reconquest/vim-autosurround'
-"Plug 'kovetskiy/vim-autoresize'
+Plug 'kovetskiy/vim-autoresize'
 
 Plug 'ddrscott/vim-side-search'
     nnoremap <Leader>s :SideSearch<space>
@@ -606,7 +608,6 @@ Plug 'ddrscott/vim-side-search'
     "noremap <silent> <Tab>   :bNext<CR>:call _random_line()<CR>
     "noremap <silent> <S-Tab> :bprev<CR>:call _random_line()<CR>
 
-Plug 'lambdalisue/gina.vim'
 
 Plug 'kovetskiy/ale'
     func! _ale_gotags()
@@ -691,8 +692,6 @@ Plug 'markonm/traces.vim'
     vnoremap H :s/\v
     nmap L VH
 
-Plug 'lambdalisue/gina.vim'
-    let g:gina#command#blame#formatter#format="%su%=%au on %ti %ma%in"
 
 Plug 'tpope/vim-dispatch'
 
@@ -718,7 +717,6 @@ Plug 'tpope/vim-dispatch'
 
 Plug 'fvictorio/vim-extract-variable'
 
-Plug 'lambdalisue/gina.vim'
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
     nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -754,6 +752,14 @@ Plug 'ripxorip/aerojump.nvim', { 'do': ':UpdateRemotePlugins' }
     nmap <Leader>ad <Plug>(AerojumpDefault)
 
 Plug 'uiiaoo/java-syntax.vim'
+
+Plug 'lambdalisue/gina.vim'
+    let g:gina#command#blame#formatter#format="%su%=%au on %ti %ma%in"
+
+Plug 'tpope/vim-fugitive'
+    nmap ,a :Gstatus<CR>
+    nmap ,c :Gcommit<CR>
+    nmap ,t :Gpush origin<CR>
 
 augroup end
 
@@ -902,7 +908,7 @@ nnoremap <Leader>vs :vsp<CR>
 
 nnoremap <Leader>e :e!<CR>
 
-nnoremap <silent> <Leader>q <ESC>:q<CR>
+nnoremap <silent> ,q <ESC>:q<CR>
 nnoremap <silent> <C-S> :w<CR>
 "inoremap <silent> <C-S> <Esc>:w<CR>
 
@@ -1075,10 +1081,10 @@ augroup setup_colorscheme
     au VimEnter * call _setup_colorscheme()
 augroup end
 
-"augroup window_resize
-"    au!
-"    au VimResized * wincmd =
-"augroup end
+augroup window_resize
+    au!
+    au VimResized,BufNewFile,BufRead * wincmd =
+augroup end
 
 nnoremap <silent> <Leader>/ :noh<CR>
 
@@ -1141,5 +1147,12 @@ if !has('nvim')
 else
     set signcolumn=yes
 endif
+
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 
 noh

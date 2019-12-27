@@ -1147,6 +1147,7 @@ alias a='cat'
 alias ax=':axel'
 alias vlc='/usr/bin/vlc --no-metadata-network-access' # fffuuu
 alias m='make'
+alias t='task'
 alias icv='() { iconv -f WINDOWS-1251 -t UTF-8 $1 | vim - }'
 alias sss='ssh -oStrictHostKeyChecking=no'
 alias awf='(){ audiowaveform -o "/tmp/$(basename "$1").png" -i "$1" -w 1920 -h 500 && catimg "/tmp/$(basename "$1").png" } '

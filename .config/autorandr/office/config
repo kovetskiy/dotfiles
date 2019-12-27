@@ -4,10 +4,6 @@ output HDMI-0
 off
 output DP-3
 off
-output VIRTUAL1
-off
-output eDP1
-off
 output DP-2
 crtc 1
 mode 2560x1440
