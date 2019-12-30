@@ -16,6 +16,7 @@ for path in "${symlinks[@]}"; do
     echo "$path" >&2
     if [[ "$path" == "" ]]; then
         echo "Wow!"
+        exit 3
     fi
 
     if [[ ! -L ~/"$path" ]]; then
@@ -25,6 +26,12 @@ for path in "${symlinks[@]}"; do
             continue
         fi
         rm -rf ~/"$path"
+
+        dir=$(dirname ~/"$path")
+        if [[ ! -d "$dir" ]]; then
+            mkdir -p "$dir"
+        fi
+
         ln -s ~/dotfiles/"$path" ~/"$path"
     fi
 done

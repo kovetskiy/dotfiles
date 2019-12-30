@@ -5,6 +5,8 @@ bin
 .config/bluelink.conf
 .config/dunst
 .config/fontconfig
+.config/i3gator/i3gator.conf
+.config/i3gator/layouts
 .config/kitty
 .config/pacman.d
 .config/prols/prols.conf
