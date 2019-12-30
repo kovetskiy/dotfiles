@@ -1421,6 +1421,7 @@ stty -ixon
 
 FZF_TMUX_HEIGHT=0
 FZF_ARGS=""
+FZF_CTRL_T_COMMAND=prols
 
 source ~/.zgen/fzf.zsh || {
     cat > ~/.zgen/fzf.zsh <<< "$(
