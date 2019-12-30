@@ -68,14 +68,13 @@ Plug 'itchyny/lightline.vim'
         let g:lightline.colorscheme = 'PaperColor'
     else
     endif
-
-        let g:lightline.colorscheme = 'wombat'
+    let g:lightline.colorscheme = 'wombat'
 
 
 if $BACKGROUND == "dark"
     Plug 'reconquest/vim-colorscheme'
     func! _setup_colorscheme()
-        colorscheme reconquest_greenish
+        colorscheme reconquest
 
         hi! CursorLineNr ctermbg=1
         hi! GitDeleted ctermfg=88
