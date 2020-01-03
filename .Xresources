@@ -25,13 +25,14 @@ URxvt.saveLines: 10000
 ;URxvt.italicFont: xft:Iosevka:size=10,style=italic
 ;URxvt.boldItalicFont: xft:Iosevka:size=10,style=bold
 
-URxvt.font: xft:UbuntuMono-Regular:size=12,style=regular, xft:Iosevka:size=12,style=regular
-URxvt.boldFont: xft:UbuntuMono-B:size=12,style=bold, xft:Iosevka:size=12,style=bold
-URxvt.italicFont: xft:UbuntuMono:size=12,style=italic, xft:Iosevka:size=12,style=italic
-URxvt.boldItalicFont: xft:UbuntuMono:size=12,style=bold, xft:Iosevka:size=12,style=bold
+URxvt.font:           xft:UbuntuMono-Regular:pixelsize=15,style=regular, xft:Dejavu Sans Mono:pixelsize=15,style=regular
+URxvt.boldFont:       xft:UbuntuMono-B:pixelsize=15,style=bold,          xft:Dejavu Sans Mono:pixelsize=15,style=bold
+URxvt.italicFont:     xft:UbuntuMono:pixelsize=15,style=italic,          xft:Dejavu Sans Mono:pixelsize=15,style=italic
+URxvt.boldItalicFont: xft:UbuntuMono:pixelsize=15,style=bold,            xft:Dejavu Sans Mono:pixelsize=15,style=bold
 
 
 URxvt.lineSpace: -1
+URxvt.letterSpace: 0
 
 URxvt.underlineColor: blue
 URxvt.cursorBlink: true

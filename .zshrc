@@ -1095,13 +1095,17 @@ git-commit-branch() {
     popd
 }
 
-:ssh-desk() {
-    ssh -t desk "cd $PWD; $SHELL -l ${@}"
+:ssh-cd() {
+    local host=${1}
+    shift
+    echo "⟶ $(colorhash $host) $PWD"
+    ssh -t $host "cd $PWD; $SHELL -l ${@}"
 }
 
 # :alias
 
-alias sd=:ssh-desk
+alias sd='() { :ssh-cd desk ${@} }'
+alias sv='() { :ssh-cd venus ${@} }'
 alias ap='atlas-package'
 alias am='atlas-mvn'
 alias dl='gradle'

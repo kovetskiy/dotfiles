@@ -24,6 +24,8 @@ let g:py_modules = []
 
 Plug 'kovetskiy/vim-hacks'
 
+Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
+
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'junegunn/fzf.vim'
     let g:fzf_prefer_tmux = 1
