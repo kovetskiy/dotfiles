@@ -33,7 +33,11 @@ Plug 'junegunn/fzf.vim'
 
     func! _select_file()
         call _snippets_stop()
-        call fzf#run(fzf#wrap({'source': 'prols', 'options': '--sort --no-exact --tiebreak=index'}))
+
+        call fzf#run(fzf#wrap({
+            \ 'source': 'prols',
+            \ 'options': '--sort --no-exact --tiebreak=index'
+        \ }))
     endfunc!
 
     func! _select_buffer()

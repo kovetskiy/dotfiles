@@ -81,7 +81,7 @@ super + grave
 	;kuake-bottom
 
 super + backslash
-	;kuake --focus --center --middle --height 90 --width 75
+	i3gator-ui
 
 super + equal
 	;kuake --terminal --class top --top --middle --height 30 --width 50

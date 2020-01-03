@@ -187,26 +187,24 @@ docompinit() {
     promptinit
     prompt lambda17
 
-    :prompt-pwd() {
-        if [[ "$PWD" == "$HOME" || "$PWD" == "$HOME/" ]]; then
-            lambda17:print ''
-            return
-        fi
+    #:prompt-pwd() {
+    #    if [[ "$PWD" == "$HOME" || "$PWD" == "$HOME/" ]]; then
+    #        lambda17:print ''
+    #        return
+    #    fi
 
-        local branch=$(basename "$PWD")
-        local tree=$(
-            dirname "$PWD" \
-                | sed "s|$HOME|~|" \
-                | sed -r 's#(/\w)[^/]+#\1#g'
-        )
-
-        lambda17:print "$tree/$branch"
-    }
+    #    local dir=$PWD
+    #    local basename=${dir/*\/}
+    #    local relative=$(realpath --relative-to=$HOME $dir/..)
+    #    echo "$relative/$basename" >> /tmp/y
+    #    lambda17:print "$relative/$basename"
+    #}
 
     zstyle -d 'lambda17:00-main' transform
     zstyle -d 'lambda17:25-head' when
     zstyle 'lambda17:05-sign' text "∞"
-    zstyle 'lambda17>00-root>00-main>00-status>10-dir' 15-pwd :prompt-pwd
+    #doesn't work
+    #zstyle 'lambda17>00-root>00-main>00-status>10-dir' 15-pwd :prompt-pwd
     zstyle "lambda17:20-git" left " "
 
     zstyle 'lambda17:00-banner' right " "
