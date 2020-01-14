@@ -2,6 +2,8 @@
 
 MODE=${1:+-$1}
 
+setcapslock off
+
 xkbcomp -w 0 -I$HOME/.xkb -R$HOME/.xkb $HOME/.xkbrc${MODE} $DISPLAY
 
 xset -b

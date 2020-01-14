@@ -34,3 +34,6 @@ background-switch $(cat ~/.config/background)
 dbus-update-activation-environment --systemd DISPLAY
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK
+
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_rsa

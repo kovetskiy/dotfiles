@@ -24,3 +24,6 @@
 
 "music status"
     Mod3 + o
+
+"with-lock kuake-bottom"
+    Mod3 + t

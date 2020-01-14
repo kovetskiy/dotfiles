@@ -1458,3 +1458,5 @@ preexec() {
 #unsetopt xtrace
 #exec 2>&3 3>&-
 #echo $$
+
+source /home/operator/.config/broot/launcher/bash/br

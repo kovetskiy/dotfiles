@@ -24,29 +24,59 @@ let g:py_modules = []
 
 Plug 'kovetskiy/vim-hacks'
 
-Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
+Plug 'lotabout/skim'
+Plug 'lotabout/skim.vim'
 
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'junegunn/fzf.vim'
-    let g:fzf_prefer_tmux = 1
-    let g:fzf_layout = { 'down': '~40%' }
+"    let $FZF_DEFAULT_COMMAND='sk'
+    let g:skim_prefer_tmux = 1
+    let g:skim_layout = { 'down': '~40%' }
 
     func! _select_file()
         call _snippets_stop()
 
-        call fzf#run(fzf#wrap({
+        call skim#run(skim#wrap({
             \ 'source': 'prols',
-            \ 'options': '--sort --no-exact --tiebreak=index'
+            \ 'options': '--tiebreak=index'
         \ }))
     endfunc!
 
     func! _select_buffer()
         call _snippets_stop()
-        call fzf#vim#buffers({'options': '--sort --exact'})
+        call skim#vim#buffers({'options': '--sort --exact'})
     endfunc!
 
     nnoremap <C-G> :TagbarToggle<CR>
     map <silent> <c-t> :call _select_file()<CR>
+
+    let g:grep_last_query = ""
+
+    func! _grep(query)
+        let g:grep_last_query = a:query
+
+        let @/ = a:query
+        call fzf#vim#ag(a:query, {'options': '--delimiter : --nth 4..'})
+    endfunc!
+
+    func! _grep_word()
+        let l:word = expand('<cword>')
+        call _grep(l:word)
+    endfunc!
+
+    func! _grep_slash()
+        let l:slash = strpart(@/, 2)
+        call _grep(l:slash)
+    endfunc!
+
+    func! _grep_recover()
+        call _grep(g:grep_last_query)
+    endfunc!
+
+    command! -nargs=* Grep call _grep(<q-args>)
+
+    nnoremap <C-F><C-F> :Grep<CR>
+    nnoremap <C-E><C-F> :call _grep_word()<CR>
 
 "Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
     augroup _js_settings
@@ -74,8 +104,8 @@ Plug 'itchyny/lightline.vim'
         let g:lightline.colorscheme = 'PaperColor'
     else
     endif
-    let g:lightline.colorscheme = 'wombat'
 
+    let g:lightline.colorscheme = 'wombat'
 
 if $BACKGROUND == "dark"
     Plug 'reconquest/vim-colorscheme'
@@ -512,37 +542,8 @@ Plug 'wellle/targets.vim'
 "Plug 'kovetskiy/ycm-sh', {'for': 'sh'}
 
 "Plug 'lokikl/vim-ctrlp-ag'
-    let g:grep_last_query = ""
-
-    func! _grep(query)
-        let g:grep_last_query = a:query
-
-        let @/ = a:query
-        call fzf#vim#ag(a:query, {'options': '--delimiter : --nth 4..'})
-    endfunc!
-
-    func! _grep_word()
-        let l:word = expand('<cword>')
-        call _grep(l:word)
-    endfunc!
-
-    func! _grep_slash()
-        let l:slash = strpart(@/, 2)
-        call _grep(l:slash)
-    endfunc!
-
-    func! _grep_recover()
-        call _grep(g:grep_last_query)
-    endfunc!
-
-    command! -nargs=* Grep call _grep(<q-args>)
-
-    nnoremap <C-F><C-F> :Grep<CR>
-    nnoremap <C-E><C-F> :call _grep_word()<CR>
 
 Plug 'kovetskiy/vim-bash'
-    nmap gd <C-]>
-
     "func! _tags_sh()
     "    if &ft != "sh"
     "        return
@@ -600,7 +601,7 @@ Plug 'brooth/far.vim'
     augroup end
 
 "Plug 'reconquest/vim-autosurround'
-Plug 'kovetskiy/vim-autoresize'
+"Plug 'kovetskiy/vim-autoresize'
 
 Plug 'ddrscott/vim-side-search'
     nnoremap <Leader>s :SideSearch<space>
@@ -699,9 +700,43 @@ Plug 'markonm/traces.vim'
 
 
 Plug 'tpope/vim-dispatch'
+    func! _cnext()
+        try
+            cnext
+        catch
+            try
+                cfirst
+            catch
+                echom "No errors"
+            endtry
+        endtry
+    endfunc!
 
-    func! _setup_java()
+    func! _cprev()
+        try
+            cprev
+        catch
+            try
+                clast
+            catch
+                echom "No errors"
+            endtry
+        endtry
+    endfunc!
+
+    nmap ,d :call _cprev()<CR>
+    nmap ,f :call _cnext()<CR>
+
+    func! _spotbugs()
+        setlocal errorformat=%f:%l:%m
+        setlocal makeprg=/bin/cat\ target/spotbugs
+        execute "make"
+    endfunc!
+
+    func! _atlas_compile()
         setlocal errorformat=[ERROR]\ %f:[%l\\,%v]\ %m
+        setlocal makeprg=atlas-mvn\ compile\ -q
+        execute "Dispatch"
     endfunc!
 
     func! _build_java()
@@ -711,13 +746,12 @@ Plug 'tpope/vim-dispatch'
 
     augroup _java_bindings
         au!
-        au FileType java call _setup_java()
-        au FileType java let b:dispatch = 'make'
-        "au FileType java nmap <silent><buffer> <c-p> :Dispatch<CR>
         au FileType java nmap <silent><buffer> <c-a> :ALEFix<CR>
         au FileType java nmap <silent><buffer> <c-p> :call _build_java()<CR>
-        au FileType java nmap <silent><buffer> ; <Plug>(coc-diagnostic-next-error)
+        au FileType java nmap <silent><buffer> ;n <Plug>(coc-diagnostic-next-error)
         au FileType java nmap <silent><buffer> <Leader>; <Plug>(coc-diagnostic-prev-error)
+        au FileType java nmap <silent><buffer> ,c :call _atlas_compile()<CR>
+        au FileType java nmap <silent><buffer> ,s :call _spotbugs()<CR>
     augroup end
 
 Plug 'fvictorio/vim-extract-variable'
@@ -750,11 +784,11 @@ Plug 'kovetskiy/sherlock.vim'
     cnoremap <C-P> <C-\>esherlock#completeBackward()<CR>
     cnoremap <C-N> <C-\>esherlock#completeForward()<CR>
 
-Plug 'ripxorip/aerojump.nvim', { 'do': ':UpdateRemotePlugins' }
-    nmap <Leader>as <Plug>(AerojumpSpace)
-    nmap <Leader>ab <Plug>(AerojumpBolt)
-    nmap <Leader>aa <Plug>(AerojumpFromCursorBolt)
-    nmap <Leader>ad <Plug>(AerojumpDefault)
+"Plug 'ripxorip/aerojump.nvim', { 'do': ':UpdateRemotePlugins' }
+"    nmap <Leader>as <Plug>(AerojumpSpace)
+"    nmap <Leader>ab <Plug>(AerojumpBolt)
+"    nmap <Leader>aa <Plug>(AerojumpFromCursorBolt)
+"    nmap <Leader>ad <Plug>(AerojumpDefault)
 
 Plug 'uiiaoo/java-syntax.vim'
 
@@ -766,8 +800,18 @@ Plug 'tpope/vim-fugitive'
     nmap ,c :Gcommit<CR>
     nmap ,t :Gpush origin<CR>
 
+Plug 'ggvgc/vim-fuzzysearch'
+    let g:fuzzysearch_prompt = '/'
+    let g:fuzzysearch_hlsearch = 1
+    let g:fuzzysearch_ignorecase = 1
+    let g:fuzzysearch_max_history = 30
+    let g:fuzzysearch_match_spaces = 0
+    nnoremap / :FuzzySearch<CR>
+
 augroup end
 
+
+let g:EclimJavaCompilerAutoDetect=0
 call plug#end()
 
 au VimEnter * au! plugvim
@@ -1145,8 +1189,6 @@ endfunc!
 
 command! -nargs=1 SysRead call _sys_read("<args>")
 
-set makeprg="make"
-
 if !has('nvim')
     set signcolumn=number
 else
@@ -1160,4 +1202,38 @@ function! SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
+let g:echo_command =
+\ '-command echo -p "<project>" -f "<file>" ' .
+\ '-o <offset> -e <encoding>'
+
+function! _generate_builder() " {{{
+  if !eclim#project#util#IsCurrentFileInProject(0)
+    return
+  endif
+
+  let project = eclim#project#util#GetCurrentProjectName()
+  let file = eclim#project#util#GetProjectRelativeFilePath()
+
+  let command = g:echo_command
+  let command = substitute(command, '<project>', project, '')
+  let command = substitute(command, '<file>', file, '')
+  let command = substitute(command, '<offset>', eclim#util#GetOffset(), '')
+  let command = substitute(command, '<encoding>', eclim#util#GetEncoding(), '')
+
+  echom command
+  let response = eclim#Execute(command)
+
+  " if we didn't get back a dict as expected, then there was probably a
+  " failure in the command, which eclim#Execute will handle alerting the user
+  " to.
+  if type(response) != g:DICT_TYPE
+    return
+  endif
+
+  " simply print the response for the user.
+  call eclim#util#Echo(string(response))
+endfunction " }}}
+
+
 noh
+
