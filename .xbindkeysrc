@@ -27,3 +27,6 @@
 
 "with-lock kuake-bottom"
     Mod3 + t
+
+"slock"
+    Mod3 + g

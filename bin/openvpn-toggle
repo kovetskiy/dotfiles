@@ -1,7 +1,5 @@
 #!/bin/bash
 
-[ -n "$_LOCK" ] || _LOCK=x exec flock -n $0 $0 "$@"
-
 PROFILE="mars"
 
 :notify() {
@@ -28,7 +26,7 @@ PROFILE="mars"
         :notify "openvpn: stopping service"
         sudo systemctl stop openvpn@${PROFILE}
         :notify "openvpn: stopped service $(:ping)"
-        pkill -f -9 openvpn-toggle
+        pkill -9 openvpn-toggle
     fi
 }
 

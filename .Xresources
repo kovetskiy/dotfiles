@@ -25,10 +25,10 @@ URxvt.saveLines: 10000
 ;URxvt.italicFont: xft:Iosevka:size=10,style=italic
 ;URxvt.boldItalicFont: xft:Iosevka:size=10,style=bold
 
-URxvt.font:           xft:UbuntuMono-Regular:pixelsize=15,style=regular, xft:Dejavu Sans Mono:pixelsize=15,style=regular
-URxvt.boldFont:       xft:UbuntuMono-B:pixelsize=15,style=bold,          xft:Dejavu Sans Mono:pixelsize=15,style=bold
-URxvt.italicFont:     xft:UbuntuMono:pixelsize=15,style=italic,          xft:Dejavu Sans Mono:pixelsize=15,style=italic
-URxvt.boldItalicFont: xft:UbuntuMono:pixelsize=15,style=bold,            xft:Dejavu Sans Mono:pixelsize=15,style=bold
+URxvt.font:           xft:UbuntuMono-Regular:pixelsize=16,style=regular, xft:Dejavu Sans Mono:pixelsize=16,style=regular
+URxvt.boldFont:       xft:UbuntuMono-B:pixelsize=16,style=bold,          xft:Dejavu Sans Mono:pixelsize=16,style=bold
+URxvt.italicFont:     xft:UbuntuMono:pixelsize=16,style=italic,          xft:Dejavu Sans Mono:pixelsize=16,style=italic
+URxvt.boldItalicFont: xft:UbuntuMono:pixelsize=16,style=bold,            xft:Dejavu Sans Mono:pixelsize=16,style=bold
 
 
 URxvt.lineSpace: -1

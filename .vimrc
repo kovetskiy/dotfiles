@@ -24,27 +24,24 @@ let g:py_modules = []
 
 Plug 'kovetskiy/vim-hacks'
 
-Plug 'lotabout/skim'
-Plug 'lotabout/skim.vim'
-
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 "    let $FZF_DEFAULT_COMMAND='sk'
-    let g:skim_prefer_tmux = 1
-    let g:skim_layout = { 'down': '~40%' }
+    let g:fzf_prefer_tmux = 1
+    let g:fzf_layout = { 'down': '~40%' }
 
     func! _select_file()
         call _snippets_stop()
 
-        call skim#run(skim#wrap({
+        call fzf#run(fzf#wrap({
             \ 'source': 'prols',
-            \ 'options': '--tiebreak=index'
+            \ 'options': '--no-sort --exact --tiebreak=index'
         \ }))
     endfunc!
 
     func! _select_buffer()
         call _snippets_stop()
-        call skim#vim#buffers({'options': '--sort --exact'})
+        call fzf#vim#buffers({'options': '--no-sort --no-exact --tiebreak=index'})
     endfunc!
 
     nnoremap <C-G> :TagbarToggle<CR>
@@ -121,34 +118,6 @@ endif
 
 Plug 'scrooloose/nerdcommenter'
 
-"func! LoadCompletion()
-"    if &ft == "java"
-"        return
-"    endif
-
-"    call plug#load('YouCompleteMe')
-"endfunc!
-
-"augroup Completion
-"    au!
-"    autocmd InsertEnter * call LoadCompletion() | autocmd! Completion
-"augroup end
-
-"Plug 'Valloric/YouCompleteMe', {'for': []}
-"    let g:ycm_server_python_interpreter = '/usr/bin/python3'
-"    let g:ycm_show_diagnostics_ui = 0
-"    let g:ycm_confirm_extra_conf = 0
-"    let g:ycm_key_list_previous_completion=['<UP>']
-"    let g:ycm_key_list_select_completion=['<DOWN>']
-
-"    let g:ycm_collect_identifiers_from_tags_files = 1
-"    let g:ycm_collect_identifiers_from_comments_and_strings = 1
-
-"    let g:ycm_seed_identifiers_with_syntax = 1
-"    let g:ycm_use_ultisnips_completer = 0
-
-    "let g:EclimCompletionMethod = 'omnifunc'
-
 Plug 'kovetskiy/synta'
     let g:synta_go_highlight_calls = 0
     let g:synta_go_highlight_calls_funcs = 1
@@ -199,6 +168,7 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
     augroup _template_go
         au!
         au BufEnter *.template call _extend_templatego()
+
     augroup end
 
     let g:go_template_autocreate = 0
@@ -248,7 +218,6 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
     augroup end
 
 
-"Plug 'elzr/vim-json', { 'for': 'json' }
     augroup _json_settings
         au!
         au BufNewFile,BufRead *.json set filetype=json
@@ -257,21 +226,6 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
     augroup end
 
 Plug 'vim-scripts/l9'
-
-"Plug 'kovetskiy/vim-cucu'
-"Plug 'seletskiy/vim-nunu'
-
-" disabled because causes snippet args[] work incorrectly
-"Plug 'seletskiy/matchem'
-    au User _overwrite_matchem
-        \ au VimEnter,BufEnter,FileType *
-        \ inoremap <expr> <DOWN>  pumvisible() ? "\<C-N>" : "\<DOWN>"
-
-    au User _overwrite_matchem
-        \ au VimEnter,BufEnter,FileType *
-        \ inoremap <expr> <UP>    pumvisible() ? "\<C-P>" : "\<UP>"
-
-    doau User _overwrite_matchem
 
 " need to press enter
 "Plug 'rstacruz/vim-closer'
@@ -357,7 +311,8 @@ Plug 'sirver/ultisnips', { 'frozen': 1 }
         let g:_expand_snippet = 0
 
         if g:ulti_expand_res == 0
-            if pumvisible() && !empty(v:completed_item)
+            if pumvisible()
+                "&& !empty(v:completed_item)
                 return coc#_select_confirm()
             else
                 call coc#refresh()
@@ -377,13 +332,15 @@ Plug 'sirver/ultisnips', { 'frozen': 1 }
     inoremap <silent> <Tab> <c-r>=_expand_snippet()<cr>
     xnoremap <silent> <Tab> <Esc>:call UltiSnips#SaveLastVisualSelection()<cr>gvs
 
+    inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<DOWN>"
+    inoremap <expr> <UP>   pumvisible() ? "\<C-P>" : "\<UP>"
+
 Plug 'tpope/vim-surround'
 
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
 
 Plug 'danro/rename.vim'
     nnoremap <Leader><Leader>r :noautocmd Rename<Space>
-
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     augroup _md_settings
@@ -516,17 +473,6 @@ Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
 
 Plug 'seletskiy/ashium'
 
-"Plug 'klen/python-mode', {'for': 'python'}
-"    let g:pymode_rope_complete_on_dot = 0
-"    let g:pymode_lint = 1
-"    let g:pymode_lint_on_write = 1
-"    let g:pymode_run = 0
-"    let g:pymode_rope_lookup_project = 0
-"    let g:pymode_rope_project_root = $HOME . '/ropeproject/'
-"    let g:pymode_folding = 0
-
-"Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
-
 Plug 'yssl/QFEnter'
 
 Plug 'kovetskiy/next-indentation'
@@ -539,28 +485,7 @@ Plug 'rhysd/vim-go-impl'
 
 Plug 'wellle/targets.vim'
 
-"Plug 'kovetskiy/ycm-sh', {'for': 'sh'}
-
-"Plug 'lokikl/vim-ctrlp-ag'
-
 Plug 'kovetskiy/vim-bash'
-    "func! _tags_sh()
-    "    if &ft != "sh"
-    "        return
-    "    endif
-
-    "    let tagfiles = tagfiles()
-    "    if len(tagfiles) > 0
-    "        let tagfile = tagfiles[0]
-    "        silent execute "!tags-sh " . tagfile . " >/dev/null 2>&1 &"
-    "    endif
-    "endfunc!
-
-    "augroup _sh_tags
-    "    au!
-    "    au BufWritePost * call _tags_sh()
-    "augroup end
-
 
 Plug 'FooSoft/vim-argwrap', {'on': 'ArgWrap'}
     augroup _go_argwarap
@@ -606,15 +531,6 @@ Plug 'brooth/far.vim'
 Plug 'ddrscott/vim-side-search'
     nnoremap <Leader>s :SideSearch<space>
 
-    "func! _random_line()
-    "    execute 'normal! '.(system('/bin/bash -c "echo -n $RANDOM"') % line('$')).'G'
-    "    normal zz
-    "endfunc!
-
-    "noremap <silent> <Tab>   :bNext<CR>:call _random_line()<CR>
-    "noremap <silent> <S-Tab> :bprev<CR>:call _random_line()<CR>
-
-
 Plug 'kovetskiy/ale'
     func! _ale_gotags()
 
@@ -647,7 +563,6 @@ Plug 'kovetskiy/ale'
         au BufRead,BufNewFile *.java
             \ call ale#Set('java_google_java_format_options',
             \ '--skip-removing-unused-imports --skip-sorting-imports')
-
     augroup end
 
     let java_highlight_functions="style"
@@ -769,26 +684,11 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
     nmap <leader>rn <Plug>(coc-rename)
     nmap <C-F> <NOP>
 
-if has('nvim')
-    "set completeopt-=noselect
-endif
-
-"Plug 'wakatime/vim-wakatime'
-"Plug 'ap/vim-buftabline'
-
-"Plug 'kana/vim-smartinput'
-
 Plug 'majutsushi/tagbar'
 
 Plug 'kovetskiy/sherlock.vim'
     cnoremap <C-P> <C-\>esherlock#completeBackward()<CR>
     cnoremap <C-N> <C-\>esherlock#completeForward()<CR>
-
-"Plug 'ripxorip/aerojump.nvim', { 'do': ':UpdateRemotePlugins' }
-"    nmap <Leader>as <Plug>(AerojumpSpace)
-"    nmap <Leader>ab <Plug>(AerojumpBolt)
-"    nmap <Leader>aa <Plug>(AerojumpFromCursorBolt)
-"    nmap <Leader>ad <Plug>(AerojumpDefault)
 
 Plug 'uiiaoo/java-syntax.vim'
 
@@ -801,6 +701,17 @@ Plug 'tpope/vim-fugitive'
     nmap ,t :Gpush origin<CR>
 
 Plug 'cespare/vim-toml'
+" too greedy and too stupid
+"Plug 'ggvgc/vim-fuzzysearch'
+"    let g:fuzzysearch_prompt = '/'
+"    let g:fuzzysearch_hlsearch = 1
+"    let g:fuzzysearch_ignorecase = 1
+"    let g:fuzzysearch_max_history = 30
+"    let g:fuzzysearch_match_spaces = 0
+"    nnoremap / :FuzzySearch<CR>
+
+Plug 'tpope/vim-abolish'
+
 augroup end
 
 
