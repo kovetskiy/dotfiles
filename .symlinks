@@ -1,8 +1,8 @@
-
 .asoundrc
 bin
 .config/autorandr
 .config/bluelink.conf
+.config/conky/conky.conf
 .config/dunst
 .config/fontconfig
 .config/i3gator/i3gator.conf
@@ -14,16 +14,12 @@ bin
 .config/sxhkd/sxhkdrc
 .dircolors.dark
 .dircolors.light
-.fonts
 .gitconfig
 .gitignore
 .gitignore_global
-.icons
 .keynavrc
 .mailcap
 .mcabber
-.mutt
-.muttrc
 .sift.conf
 .ssh/config
 .terminfo
@@ -36,7 +32,6 @@ bin
 .vimperator
 .vimperatorrc
 .vimrc
-.vimrc-economic
 .vim/ropeproject
 .vim/skeletons
 .vim/snippets
@@ -50,6 +45,4 @@ bin
 .Xresources.office
 .yaourtrc
 .zprezto/modules/prompt/functions
-.zpreztorc
-.zsh
 .zshrc

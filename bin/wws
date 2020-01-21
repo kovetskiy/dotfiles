@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -euo pipefail
+
+windows="Hard Drive"
+
+efibootmgr | grep -Po "\d+(?=\*\s+$windows)" | xargs -n1 sudo efibootmgr -n
+
+reboot

@@ -800,14 +800,7 @@ Plug 'tpope/vim-fugitive'
     nmap ,c :Gcommit<CR>
     nmap ,t :Gpush origin<CR>
 
-Plug 'ggvgc/vim-fuzzysearch'
-    let g:fuzzysearch_prompt = '/'
-    let g:fuzzysearch_hlsearch = 1
-    let g:fuzzysearch_ignorecase = 1
-    let g:fuzzysearch_max_history = 30
-    let g:fuzzysearch_match_spaces = 0
-    nnoremap / :FuzzySearch<CR>
-
+Plug 'cespare/vim-toml'
 augroup end
 
 

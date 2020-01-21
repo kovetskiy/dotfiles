@@ -1,11 +1,7 @@
 #!/bin/bash
 
-#PROFILE=$(cat ~/.config/profile)
-#if [[ "$PROFILE" == "laptop" ]]; then
-    marvex \
-        -b urxvt \
-        --terminal '@path --title "@title" -e @command' -r 0 "${@}" \
-        || urxvt
-#else
-#    urxvt || konsole
-#fi
+set -x
+marvex \
+    -b urxvt \
+    --terminal '@path --title "@title" -e @command' -r 0 "${@}" \
+    || urxvt

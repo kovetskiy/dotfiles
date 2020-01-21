@@ -1096,14 +1096,24 @@ git-commit-branch() {
 :ssh-cd() {
     local host=${1}
     shift
+    cmd="-l"
+    if [[ "$1" ]]; then
+        cmd="-c '${*}'"
+    fi
     echo "⟶ $(colorhash $host) $PWD"
-    ssh -t $host "cd $PWD; $SHELL -l ${@}"
+    ssh -t $host "cd $PWD; $SHELL $cmd"
+}
+
+:rsync-cd() {
+    echo ":: syncing from $1 $(pwd)/"
+    rsync -avp operator@$1:$(pwd)/ .
 }
 
 # :alias
 
-alias sd='() { :ssh-cd desk ${@} }'
-alias sv='() { :ssh-cd venus ${@} }'
+alias rv='() { :rsync-cd venus "${@}" }'
+alias sd='() { :ssh-cd desk "${@}" }'
+alias sv='() { :ssh-cd venus "${@}" }'
 alias ap='atlas-package'
 alias am='atlas-mvn'
 alias dl='gradle'
