@@ -1112,6 +1112,7 @@ git-commit-branch() {
 # :alias
 
 alias rv='() { :rsync-cd venus "${@}" }'
+alias rd='() { :rsync-cd desk "${@}" }'
 alias sd='() { :ssh-cd desk "${@}" }'
 alias sv='() { :ssh-cd venus "${@}" }'
 alias ap='atlas-package'

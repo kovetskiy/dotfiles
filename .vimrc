@@ -684,6 +684,20 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
     nmap <leader>rn <Plug>(coc-rename)
     nmap <C-F> <NOP>
 
+    func! _coc_timer_hold()
+        if exists('b:_coc_timer_moved') && b:_coc_timer_moved == 1
+            call CocActionAsync('showSignatureHelp')
+            let b:_coc_timer_moved = 0
+        endif
+    endfunc!
+
+    func! _coc_timer_moved()
+        let b:_coc_timer_moved = 1
+    endfunc!
+
+    autocmd CursorHold  * call _coc_timer_hold()
+    autocmd CursorMoved * call _coc_timer_moved()
+
 Plug 'majutsushi/tagbar'
 
 Plug 'kovetskiy/sherlock.vim'
@@ -714,9 +728,15 @@ Plug 'tpope/vim-abolish'
 
 augroup end
 
-
-let g:EclimJavaCompilerAutoDetect=0
 call plug#end()
+
+let g:EclimJavaCompilerAutoDetect = 0
+let g:EclimShowCurrentError = 0
+let g:EclimShowCurrentErrorBalloon = 0
+let g:EclimMakeQfFilter = 0
+let g:EclimSignLevel = 'off'
+let g:EclimBuffersTabTracking = 0
+let g:EclimMenus = 0
 
 au VimEnter * au! plugvim
 
@@ -777,7 +797,6 @@ set laststatus=2
 set gdefault
 set completeopt-=preview
 set nowrap
-let g:updatetime=150
 set updatetime=150
 
 set timeoutlen=400
@@ -883,7 +902,7 @@ for window in vim.windows:
 if found > 1:
     vim.command("wincmd q")
 else:
-    vim.command("bdelete")
+    vim.command("bdelete!")
 CODE
 endfunc!
 
@@ -965,7 +984,8 @@ endfunc!
 
 nmap @t :call _tab_space()<CR>
 
-imap <C-Y> <Down>
+imap <c-y> <C-O>:call CocActionAsync('showSignatureHelp')<CR>
+nmap <c-y> :call CocActionAsync('showSignatureHelp')<CR>
 cmap <C-F> <NOP>
 
 vmap <Leader> S<Space><Space>
@@ -1016,7 +1036,7 @@ func! ProfileToggle()
         profile file *
     else
         let g:profiling = 0
-        profile pause
+        profile stop
     endif
 endfunc!
 
@@ -1138,6 +1158,4 @@ function! _generate_builder() " {{{
   call eclim#util#Echo(string(response))
 endfunction " }}}
 
-
 noh
-
