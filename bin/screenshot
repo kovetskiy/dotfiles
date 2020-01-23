@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -euo pipefail
 filename="$HOME/screenshots/$(date +%F-%T | tr : T).png"
 
 if [ "$1" == "import" ]; then
@@ -26,6 +25,10 @@ else
 fi
 
 echo "$filename"
+if [[ ! -f $filename ]]; then
+    exit 1
+fi
+
 ln -sf "$filename" "$HOME/screenshots/last.png"
 echo  "uploading screenshot"
 notify-send " " "uploading screenshot"

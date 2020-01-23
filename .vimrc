@@ -696,7 +696,9 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
     endfunc!
 
     autocmd CursorHold  * call _coc_timer_hold()
+    autocmd CursorHoldI  * call _coc_timer_hold()
     autocmd CursorMoved * call _coc_timer_moved()
+    autocmd CursorMovedI * call _coc_timer_moved()
 
 Plug 'majutsushi/tagbar'
 
