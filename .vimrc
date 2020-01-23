@@ -44,7 +44,6 @@ Plug 'junegunn/fzf.vim'
         call fzf#vim#buffers({'options': '--no-sort --no-exact --tiebreak=index'})
     endfunc!
 
-    nnoremap <C-G> :TagbarToggle<CR>
     map <silent> <c-t> :call _select_file()<CR>
 
     let g:grep_last_query = ""
@@ -72,8 +71,14 @@ Plug 'junegunn/fzf.vim'
 
     command! -nargs=* Grep call _grep(<q-args>)
 
-    nnoremap <C-F><C-F> :Grep<CR>
-    nnoremap <C-E><C-F> :call _grep_word()<CR>
+    nnoremap <silent> <C-F><C-F> :Grep<CR>
+    nnoremap <silent> <C-E><C-F> :call _grep_word()<CR>
+
+    func! _lstags()
+        call fzf#vim#ag("", {'source':  'lstags', 'options': '--delimiter : --nth 4..'})
+    endfunc!
+
+    nnoremap <silent> <c-g> :call _lstags()<CR>
 
 "Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
     augroup _js_settings
