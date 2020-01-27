@@ -179,7 +179,7 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
     let g:go_template_autocreate = 0
 
     let g:go_fmt_fail_silently = 0
-    let g:go_fmt_command = "goimports"
+    let g:go_fmt_command = "gofumports"
     let g:go_fmt_autosave = 0
     let g:go_bin_path = $GOPATH . "/bin"
     let g:go_metalinter_command="golangci-lint run"
