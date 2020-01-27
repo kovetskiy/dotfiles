@@ -35,13 +35,13 @@ Plug 'junegunn/fzf.vim'
 
         call fzf#run(fzf#wrap({
             \ 'source': 'prols',
-            \ 'options': '--no-sort --exact --tiebreak=index'
+            \ 'options': '--sort --no-exact --tiebreak=index'
         \ }))
     endfunc!
 
     func! _select_buffer()
         call _snippets_stop()
-        call fzf#vim#buffers({'options': '--no-sort --no-exact --tiebreak=index'})
+        call fzf#vim#buffers({'options': '--sort --no-exact --tiebreak=index'})
     endfunc!
 
     map <silent> <c-t> :call _select_file()<CR>
@@ -482,7 +482,7 @@ Plug 'yssl/QFEnter'
 
 Plug 'kovetskiy/next-indentation'
     nnoremap <C-z> :IndentationSameUp<CR>
-    nnoremap <C-x> :IndentationSameDown<CR>
+    "nnoremap <C-x> :IndentationSameDown<CR>
 
 Plug 'rust-lang/rust.vim', {'for': 'rust' }
 
@@ -700,10 +700,10 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
         let b:_coc_timer_moved = 1
     endfunc!
 
-    autocmd CursorHold  * call _coc_timer_hold()
-    autocmd CursorHoldI  * call _coc_timer_hold()
-    autocmd CursorMoved * call _coc_timer_moved()
-    autocmd CursorMovedI * call _coc_timer_moved()
+    "autocmd CursorHold  * call _coc_timer_hold()
+    "autocmd CursorHoldI  * call _coc_timer_hold()
+    "autocmd CursorMoved * call _coc_timer_moved()
+    "autocmd CursorMovedI * call _coc_timer_moved()
 
 Plug 'majutsushi/tagbar'
 

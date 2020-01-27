@@ -130,13 +130,6 @@ docompinit() {
     fi
 }
 
-#function zle-line-init () {
-    #auto-fu-init
-#}
-#zle -N zle-line-init
-#zstyle ':completion:*' completer _oldlist _complete
-
-# :reset
 {
     unalias -a
     unsetopt cdablevars
@@ -187,55 +180,57 @@ docompinit() {
     promptinit
     prompt lambda17
 
-    #:prompt-pwd() {
-    #    if [[ "$PWD" == "$HOME" || "$PWD" == "$HOME/" ]]; then
-    #        lambda17:print ''
-    #        return
-    #    fi
+    :prompt-pwd() {
+        if [[ "$PWD" == "$HOME" || "$PWD" == "$HOME/" ]]; then
+            lambda17:print ''
+            return
+        fi
 
-    #    local dir=$PWD
-    #    local basename=${dir/*\/}
-    #    local relative=$(realpath --relative-to=$HOME $dir/..)
-    #    echo "$relative/$basename" >> /tmp/y
-    #    lambda17:print "$relative/$basename"
-    #}
+        local dir=$PWD
+        local basename=${dir/*\/}
+        local relative=$(realpath --relative-to=$HOME $dir/.. \
+            | sed -r 's@([^/]{1})[^/]{2,}@\1@g'
+        )
+        if [[ "$relative" =~ ^\\.\\. ]]; then
+            echo "$dir"
+        else
+            echo "~/$relative/$basename"
+        fi
+    }
 
-    zstyle -d 'lambda17:00-main' transform
-    zstyle -d 'lambda17:25-head' when
-    zstyle 'lambda17:05-sign' text "∞"
-    #doesn't work
-    #zstyle 'lambda17>00-root>00-main>00-status>10-dir' 15-pwd :prompt-pwd
-    zstyle "lambda17:20-git" left " "
-
-    zstyle 'lambda17:00-banner' right " "
-    zstyle 'lambda17:09-arrow' transition ""
-
-    zstyle -d 'lambda17:91-exit-code' text
-    zstyle -d 'lambda17:91-exit-code' when
-    zstyle -d 'lambda17:91-exit-code' fg
-
-    if [[ "${PROFILE}" == "laptop" ]]; then
-        zstyle 'lambda17:00-banner' bg 'black'
-        zstyle 'lambda17:05-sign' fg 'white'
-    else
-        zstyle 'lambda17:00-banner' bg 'white'
-        zstyle 'lambda17:05-sign' fg 'black'
-    fi
-
-    zstyle "lambda17:26-git-clean" fg "black"
-    zstyle "lambda17:25-head" fg-branch "black"
-    zstyle "lambda17:25-head" fg-tag "black"
-    zstyle "lambda17:25-head" fg-empty "black"
-    zstyle "lambda17:26-git-clean" fg "black"
+    zstyle -d "lambda17:00-main" transform
+    zstyle -d "lambda17>00-tty>00-root>00-main>00-status>00-banner" 01-git-stash
+    zstyle -d "lambda17:20-git" transform
+    zstyle -d "lambda17:25-head" when
+    zstyle -d "lambda17:91-exit-code" fg
+    zstyle -d "lambda17:91-exit-code" text
+    zstyle -d "lambda17:91-exit-code" when
+    zstyle -d "lambda17::async" pre-draw
+    zstyle "lambda17:00-banner" right " "
     zstyle "lambda17:01-git-stash" fg "black"
-    zstyle "lambda17:26-git-dirty" text " ↕"
+    zstyle "lambda17:05-sign" text "∞"
+    zstyle "lambda17:09-arrow" transition ""
+    zstyle "lambda17:15-pwd" text '$(:prompt-pwd)'
+    zstyle "lambda17:20-git" left " "
+    zstyle "lambda17:25-head" fg-branch "green"
+    zstyle "lambda17:25-head" fg-detached "red"
+    zstyle "lambda17:25-head" fg-empty "blue"
+    zstyle "lambda17:25-head" fg-tag "yellow"
+    zstyle "lambda17:26-git-clean" fg "green"
+    zstyle "lambda17:26-git-dirty" fg "red"
+    zstyle "lambda17:26-git-dirty" text "↕"
 
     :lambda17:read-terminal-background () {
         :
     }
 
-    # uncomment if got troubles with async
-    zstyle -d 'lambda17::async' pre-draw
+    if [[ "${PROFILE}" == "laptop" ]]; then
+        zstyle "lambda17:00-banner" bg 'black'
+        zstyle "lambda17:05-sign" fg 'white'
+    else
+        zstyle "lambda17:00-banner" bg 'white'
+        zstyle "lambda17:05-sign" fg 'black'
+    fi
 
     autoload -U colors
     colors
@@ -724,7 +719,11 @@ docompinit() {
             fi
         fi
 
+        stashed=$(git stash)
         git pull --stat --rebase $origin $branch
+        if [[ ! "$stashed" =~ "No local changes to save" ]]; then
+            git stash pop
+        fi
     }
 
     aur-get-sources() {
@@ -1152,7 +1151,7 @@ alias srcd='cd ~/sources/'
 alias ol=':mplayer:dir-audio'
 alias zl='zfs list'
 alias gia=':gitignore:add'
-alias pk=':process:kill'
+alias pk='pkill -9'
 alias wa=':watcher'
 alias pp=':process:info'
 alias xc='marvex-erase-reserves && crypt'
