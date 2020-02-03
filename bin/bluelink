@@ -29,12 +29,16 @@ def main():
             sys.exit(0)
         except Exception as e:
             print("connection failed")
-            print(e)
+            print(str(e))
+            raise
             time.sleep(0.05)
 
     sys.exit(1)
 
 def connect(mac):
+    # print("removing device")
+    # bluew.remove(mac)
+
     print("marking device as trusted")
     bluew.trust(mac)
 
@@ -54,6 +58,7 @@ def connect(mac):
 
 def start_bluetooth_service():
     os.system("sudo systemctl start bluetooth.service")
+    os.system("sudo hciconfig hci0 up")
 
 
 def load_config():

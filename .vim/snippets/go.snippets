@@ -366,3 +366,9 @@ var = px.util.convert_camelcase_to_snakecase(match.group(2))
 snip.rv = line + quote
 `yaml:"${1:`!p snip.rv=var`}" required:"${2:true}" env:"`!p snip.rv=var.upper()`" default:"$3"\`
 endsnippet
+
+snippet gof "" w
+go func() {
+	${1:${VISUAL}}
+}()
+endsnippet

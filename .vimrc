@@ -522,12 +522,12 @@ Plug 'kovetskiy/sxhkd-vim'
 
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
 
-Plug 'brooth/far.vim'
-    nmap <Leader>f :Farp<CR>
-    augroup _far_settings
-        au!
-        au FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
-    augroup end
+"Plug 'brooth/far.vim'
+"    "nmap <Leader>f :Farp<CR>
+"    augroup _far_settings
+"        au!
+"        au FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
+"    augroup end
 
 "Plug 'reconquest/vim-autosurround'
 "Plug 'kovetskiy/vim-autoresize'
@@ -682,11 +682,13 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
     nmap <silent> <C-F><C-R> <Plug>(coc-refactor)
     nmap <silent> <C-F><C-E> <Plug>(coc-rename)
     nmap <silent> gi <Plug>(coc-implementation)
-    xmap <leader>a  <Plug>(coc-codeaction-selected)
-    nmap <leader>a  <Plug>(coc-codeaction-selected)
+    xmap <leader>a  <Plug>(coc-codeaction-selected)l
     nmap <silent> gd <Plug>(coc-definition)
     nmap <leader>rn <Plug>(coc-rename)
     nmap <C-F> <NOP>
+
+    nmap <leader>f  <Plug>(coc-format)
+    vmap <leader>f  <Plug>(coc-format-selected)
 
     func! _coc_timer_hold()
         if exists('b:_coc_timer_moved') && b:_coc_timer_moved == 1
@@ -699,10 +701,10 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
         let b:_coc_timer_moved = 1
     endfunc!
 
-    "autocmd CursorHold  * call _coc_timer_hold()
-    "autocmd CursorHoldI  * call _coc_timer_hold()
-    "autocmd CursorMoved * call _coc_timer_moved()
-    "autocmd CursorMovedI * call _coc_timer_moved()
+    autocmd CursorHold  * call _coc_timer_hold()
+    autocmd CursorHoldI  * call _coc_timer_hold()
+    autocmd CursorMoved * call _coc_timer_moved()
+    autocmd CursorMovedI * call _coc_timer_moved()
 
 Plug 'majutsushi/tagbar'
 
@@ -731,6 +733,21 @@ Plug 'cespare/vim-toml'
 "    nnoremap / :FuzzySearch<CR>
 
 Plug 'tpope/vim-abolish'
+
+Plug 'whatyouhide/vim-lengthmatters'
+    augroup _vim_lengthmatters
+        au!
+        au VimEnter * hi! OverLength ctermbg=238
+    augroup end
+
+    augroup _textwidths
+        au!
+
+        autocmd FileType java set textwidth=120
+        autocmd bufreadpre *.xml set textwidth=0
+    augroup end
+    let g:lengthmatters_start_at_column = 120
+
 
 augroup end
 
@@ -761,7 +778,7 @@ set encoding=utf-8
 set printencoding=cp1251
 set fileformat=unix
 
-set textwidth=79
+set textwidth=80
 set timeoutlen=400
 set wildmenu
 
