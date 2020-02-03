@@ -54,7 +54,7 @@ super + control + 0
 	;pa-switch-profile -i webcam active output:hdmi-stereo output:analog-stereo
 
 alt + control + d
-	notification-information-basic
+	infobar
 
 super + control + e
 	translator
@@ -90,7 +90,7 @@ control + F6
 	VOLUME=30000 headset
 
 control + F7
-	openvpn-toggle
+	wg-toggle
 
 control + F8
 	brightness down

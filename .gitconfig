@@ -4,7 +4,7 @@
 ;[credential]
 ;	helper = cache --timeout=3600000
 [core]
-	editor = vim
+	;editor = vim
 	excludesfile = /home/operator/.gitignore_global
 [color]
 	ui = auto

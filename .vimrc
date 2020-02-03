@@ -173,7 +173,6 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
     augroup _template_go
         au!
         au BufEnter *.template call _extend_templatego()
-
     augroup end
 
     let g:go_template_autocreate = 0

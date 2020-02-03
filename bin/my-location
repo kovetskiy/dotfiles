@@ -1,5 +1,14 @@
 #!/bin/bash
 
-curl -s yandex.com/internet \
-        | grep -Po '(?<=region">).*(?=\<)' \
-        | grep -v 'not defined'
+json=$(curl -s https://ipinfo.io/)
+if [[ ! "$json" ]]; then
+    exit 1
+fi
+
+declare -A data
+while IFS="=" read -r key value
+do
+    data[$key]="$value"
+done < <(jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' <<< "$json")
+
+printf "%s: %s" "${data[country]}" "${data[org]}"

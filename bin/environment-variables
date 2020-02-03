@@ -24,7 +24,7 @@ export NPM_PACKAGES="${HOME}/.npm-packages"
 
 export ANSIBLE_NOCOWS=1
 
-export GO111MODULE=on
+export GO111MODULE=
 export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions'
 export ANDROID_HOME=/opt/android-sdk
 export ANDROID_SDK_HOME=/opt/android-sdk

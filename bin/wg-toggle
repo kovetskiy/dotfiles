@@ -1,0 +1,34 @@
+#!/bin/bash
+
+device="mars"
+
+:notify() {
+    notify-replace wg-toggle "" "wg: $@"
+}
+
+:location() {
+    json=$(curl -s https://ipinfo.io/)
+    if [[ ! "$json" ]]; then
+        exit 1
+    fi
+
+    declare -A data
+    while IFS="=" read -r key value
+    do
+        data[$key]="$value"
+    done < <(jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' <<< "$json")
+
+    latency=$(latency8)
+    printf "<b>%s</b>, %s, <b>%sms</b>" "${data[country]}" "${data[org]}" "$latency"
+}
+
+if systemctl is-active wg-quick@$device; then
+    :notify "<b>$device</b> stopping"
+    sudo systemctl stop wg-quick@$device
+    :notify "<b>$device</b> stopped"
+else
+    :notify "<b>$device</b> starting"
+    sudo systemctl start wg-quick@$device
+    :notify "<b>$device</b> started"
+    :notify "$(:location)"
+fi

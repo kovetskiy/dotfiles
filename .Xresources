@@ -25,10 +25,10 @@ URxvt.saveLines: 10000
 ;URxvt.italicFont: xft:Iosevka:size=10,style=italic
 ;URxvt.boldItalicFont: xft:Iosevka:size=10,style=bold
 
-URxvt.font:           xft:JetBrains Mono:pixelsize=14,style=Regular, xft:Dejavu Sans Mono:pixelsize=16,style=regular
-URxvt.boldFont:       xft:JetBrains Mono:pixelsize=14,style=Bold,    xft:Dejavu Sans Mono:pixelsize=16,style=bold
-URxvt.italicFont:     xft:JetBrains Mono:pixelsize=14,style=Italic,  xft:Dejavu Sans Mono:pixelsize=16,style=italic
-URxvt.boldItalicFont: xft:JetBrains Mono:pixelsize=14,style=Bold,    xft:Dejavu Sans Mono:pixelsize=16,style=bold
+URxvt.font:           xft:JetBrains Mono:pixelsize=13,style=Regular, xft:Dejavu Sans Mono:pixelsize=16,style=regular
+URxvt.boldFont:       xft:JetBrains Mono:pixelsize=13,style=Bold,    xft:Dejavu Sans Mono:pixelsize=16,style=bold
+URxvt.italicFont:     xft:JetBrains Mono:pixelsize=13,style=Italic,  xft:Dejavu Sans Mono:pixelsize=16,style=italic
+URxvt.boldItalicFont: xft:JetBrains Mono:pixelsize=13,style=Bold,    xft:Dejavu Sans Mono:pixelsize=16,style=bold
 
 
 URxvt.lineSpace: 0

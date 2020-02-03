@@ -87,7 +87,7 @@ colorscheme=1
 :get-section-memory() {
     ram=$(free -h -w \
         | awk '/^Mem:/ { print $4 "/" $2}' | sed 's/Gi/G/g')
-    arc=$(arcstat-f arcsz,c | tail -n1 | awk '{print $1 "/" $2}')
+    arc=$(arcstat -f arcsz,c | tail -n1 | awk '{print $1 "/" $2}')
     echo "$ram $arc"
 }
 
@@ -113,14 +113,19 @@ colorscheme=1
 }
 
 :get-section-vpn() {
-    if glod list | grep -Po 'vpn:\K[^ ]+'; then
-        return
+    if ! sudo wg show all peers | awk '{print $1}'; then
+        echo "<b>INSECURE</b>"
     fi
-    echo "<b>INSECURE</b>"
 }
 
 :get-section-ping() {
     ping -c 1 8.8.8.8 | grep -Po 'time=\K.*'
+}
+
+:get-section-location() {
+    if ! my-location; then
+        return
+    fi
 }
 
 :color() {
@@ -157,10 +162,12 @@ colorscheme=1
     :body-append "WIFI" "$(:get-section-wifi)"
     :body-append "BATTERY" "$(:get-section-battery)"
     :body-append "VPN" "$(:get-section-vpn)"
-
     :notify "$body"
 
-    :body-append "PING" "$(:get-section-ping)"
+    #:body-append "PING" "$(:get-section-ping)"
+    #:notify "$body"
+
+    :body-append "LOC" "$(:get-section-location)"
     :notify "$body"
 }
 
