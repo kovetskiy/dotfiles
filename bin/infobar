@@ -164,8 +164,8 @@ colorscheme=1
     :body-append "VPN" "$(:get-section-vpn)"
     :notify "$body"
 
-    #:body-append "PING" "$(:get-section-ping)"
-    #:notify "$body"
+    :body-append "PING" "$(:get-section-ping)"
+    :notify "$body"
 
     :body-append "LOC" "$(:get-section-location)"
     :notify "$body"

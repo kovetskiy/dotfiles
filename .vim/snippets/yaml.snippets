@@ -5,3 +5,18 @@ resources:
   requests:
     memory: 32Mi
 endsnippet
+
+snippet fp "" w
+`!p
+try:
+	once
+except:
+	once = True
+	import px
+	import px.buffer
+	filename = os.path.basename(px.buffer.get().name)
+	port = os.popen("ansible-freeport "+filename).read()
+
+snip.rv=port.strip()
+`
+endsnippet

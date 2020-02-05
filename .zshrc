@@ -1465,6 +1465,9 @@ preexec() {
     set_title "${1}"
 }
 
+eval $(ssh-agent -s) >/dev/null 2>&1
+ssh-add ~/.ssh/id_rsa >/dev/null 2>&1
+
 #unsetopt xtrace
 #exec 2>&3 3>&-
 #echo $$
