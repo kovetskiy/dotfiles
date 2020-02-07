@@ -718,9 +718,14 @@ Plug 'lambdalisue/gina.vim'
     let g:gina#command#blame#formatter#format="%su%=%au on %ti %ma%in"
 
 Plug 'tpope/vim-fugitive'
-    nmap ,a :Gstatus<CR>
+    nmap ,a :Git add .<CR>
+    nmap ,s :Gstatus<CR>
     nmap ,c :Gcommit<CR>
+    nmap ,q :Gcommit<CR>:w<CR>:call _close_it()<CR>
     nmap ,t :Gpush origin<CR>
+    nmap ,g :Dispatch lab ci trace<CR>
+
+Plug 'junegunn/vim-easy-align'
 
 Plug 'cespare/vim-toml'
 " too greedy and too stupid

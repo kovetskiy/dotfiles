@@ -11,3 +11,5 @@ workspace s output $primary
 workspace q output $secondary
 workspace w output $secondary
 workspace d output $secondary
+
+for_window [class="TelegramDesktop"] gaps vertical current set 500

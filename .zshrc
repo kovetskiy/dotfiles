@@ -992,7 +992,7 @@ docompinit() {
     }
 
     :search() {
-        sift -s "${@}"
+        ag "${@}"
     }
 
     :circleci:exec() {

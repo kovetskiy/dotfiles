@@ -9,6 +9,7 @@ crtc 1
 mode 2560x1440
 pos 0x0
 rate 59.95
+rotate left
 output DP-0
 crtc 0
 mode 2560x1440
