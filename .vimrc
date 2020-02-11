@@ -681,8 +681,9 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
     nmap <silent> ]g <Plug>(coc-diagnostic-next)
     nmap <silent> <C-F><C-R> <Plug>(coc-refactor)
     nmap <silent> <C-F><C-E> <Plug>(coc-rename)
+    nmap <C-F><C-A>  <Plug>(coc-codeaction-selected)l
+    nmap <silent> <C-F><C-F>  :CocRestart<CR>
     nmap <silent> gi <Plug>(coc-implementation)
-    xmap <leader>a  <Plug>(coc-codeaction-selected)l
     nmap <silent> gd <Plug>(coc-definition)
     nmap <leader>rn <Plug>(coc-rename)
     nmap <C-F> <NOP>
