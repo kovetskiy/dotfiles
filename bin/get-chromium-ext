@@ -15,6 +15,7 @@ curl -v -L -o "/tmp/$extension.crx" "https://clients2.google.com/service/update2
 rm -rf /tmp/$extension
 unzip -d /tmp/$extension /tmp/$extension.crx
 
+cd /tmp/$extension
 crx3 -p -o -x -z /tmp/$extension.zip /tmp/$extension
 
 echo "/tmp/$extension.crx"

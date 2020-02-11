@@ -727,6 +727,8 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'junegunn/vim-easy-align'
 
+    vmap A :EasyAlign<CR>*
+
 Plug 'cespare/vim-toml'
 " too greedy and too stupid
 "Plug 'ggvgc/vim-fuzzysearch'
@@ -738,20 +740,6 @@ Plug 'cespare/vim-toml'
 "    nnoremap / :FuzzySearch<CR>
 
 Plug 'tpope/vim-abolish'
-
-Plug 'whatyouhide/vim-lengthmatters'
-    augroup _vim_lengthmatters
-        au!
-        au VimEnter * hi! OverLength ctermbg=238
-    augroup end
-
-    augroup _textwidths
-        au!
-
-        autocmd FileType java set textwidth=120
-        autocmd bufreadpre *.xml set textwidth=0
-    augroup end
-    let g:lengthmatters_start_at_column = 120
 
 
 augroup end

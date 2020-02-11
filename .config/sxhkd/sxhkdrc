@@ -60,7 +60,7 @@ super + control + e
 	translator
 
 alt + Tab
-	i3re -w 600
+	i3re -w 600 || i3re -h 600
 
 super + Tab
 	timer

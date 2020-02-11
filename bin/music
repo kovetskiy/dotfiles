@@ -31,10 +31,10 @@ case "$1" in
 esac
 
 if [[ "$1" == "status" ]]; then
-    notify "$(get-status)"
+    notify music "" "$(get-status)"
     exit
 fi
 
-notify "${icon}"
+notify-replace music "" "${icon}"
 baton "${@}"
-notify "$(get-status)"
+notify-replace music "" "$(get-status)"
