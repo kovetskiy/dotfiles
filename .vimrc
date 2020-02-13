@@ -355,8 +355,11 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     let g:vim_markdown_folding_disabled=0
 
 Plug 'AndrewRadev/sideways.vim'
-    nnoremap <leader>h :SidewaysLeft<cr>
-    "nnoremap <leader>l :SidewaysRight<cr>
+    nnoremap <leader>sh :SidewaysLeft<cr>
+    nnoremap <leader>sl :SidewaysRight<cr>
+
+    nnoremap <leader>h :SidewaysJumpLeft<cr>
+    nnoremap <leader>l :SidewaysJumpRight<cr>
 
 
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
@@ -532,9 +535,6 @@ Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
 "Plug 'reconquest/vim-autosurround'
 "Plug 'kovetskiy/vim-autoresize'
 
-Plug 'ddrscott/vim-side-search'
-    nnoremap <Leader>s :SideSearch<space>
-
 Plug 'kovetskiy/ale'
     func! _ale_gotags()
 
@@ -545,6 +545,7 @@ Plug 'kovetskiy/ale'
     \   'go': [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")],
     \   'ruby': [function('ale#fixers#rufo#Fix')],
     \   'java': [function('ale#fixers#google_java_format#Fix')],
+    \   'javascript': ['prettier', 'eslint'],
     \}
     let g:ale_linters = {
     \   'go': ['gobuild'],
@@ -669,7 +670,7 @@ Plug 'tpope/vim-dispatch'
         au FileType java nmap <silent><buffer> <c-p> :call _build_java()<CR>
         au FileType java nmap <silent><buffer> ;n <Plug>(coc-diagnostic-next-error)
         au FileType java nmap <silent><buffer> <Leader>; <Plug>(coc-diagnostic-prev-error)
-        au FileType java nmap <silent><buffer> ,c :call _atlas_compile()<CR>
+        au FileType java nmap <silent><buffer> ,x :call _atlas_compile()<CR>
         au FileType java nmap <silent><buffer> ,s :call _spotbugs()<CR>
     augroup end
 
@@ -682,7 +683,7 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
     nmap <silent> <C-F><C-R> <Plug>(coc-refactor)
     nmap <silent> <C-F><C-E> <Plug>(coc-rename)
     nmap <C-F><C-A>  <Plug>(coc-codeaction-selected)l
-    nmap <silent> <C-F><C-F>  :CocRestart<CR>
+    nmap <silent> <C-F><C-O>  :CocRestart<CR>
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gd <Plug>(coc-definition)
     nmap <leader>rn <Plug>(coc-rename)
@@ -742,11 +743,13 @@ Plug 'cespare/vim-toml'
 
 Plug 'tpope/vim-abolish'
 
+Plug 'neoclide/coc-tslint-plugin', {'do': 'yarn install --frozen-lockfile'}
 
 augroup end
 
 call plug#end()
 
+let g:EclimLoggingDisabled = 1
 let g:EclimJavaCompilerAutoDetect = 0
 let g:EclimShowCurrentError = 0
 let g:EclimShowCurrentErrorBalloon = 0
@@ -754,6 +757,7 @@ let g:EclimMakeQfFilter = 0
 let g:EclimSignLevel = 'off'
 let g:EclimBuffersTabTracking = 0
 let g:EclimMenus = 0
+let g:EclimJavaCompilerAutoDetect = 0
 
 au VimEnter * au! plugvim
 

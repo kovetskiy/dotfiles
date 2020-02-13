@@ -1,10 +1,10 @@
 "REPO=~/reconquest/secrets carcosa-new-password"
     Mod3 + 6
 
-"baton-volume down 5"
+"baton-volume down 2"
     Mod3 + j
 
-"baton-volume up 5"
+"baton-volume up 2"
     Mod3 + k
 
 "music pause"
