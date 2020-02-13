@@ -62,7 +62,7 @@ colorscheme=1
 }
 
 :get-section-battery() {
-    battery=$(acpi \
+    battery=$(acpi 2>/dev/null \
         | sed -r \
         -e 's/Battery [0-9]:\s*//' \
         -e 's/ until charged//' \
@@ -150,6 +150,27 @@ colorscheme=1
     color-to-hex "$next"
 }
 
+_bg=""
+:body-save() {
+    echo "$body" > /var/run/user/$UID/infobar.body
+}
+
+:bg-body-append() {
+    if [[ ! "$_bg" ]]; then
+        _bg=x
+
+        :body-save
+    fi
+
+    (
+        flock 200
+        body="$(cat /var/run/user/$UID/infobar.body)"
+        :body-append "$1" "$2"
+        :notify "$body"
+        :body-save
+    ) 200>/var/run/user/$UID/infobar.lock &
+}
+
 :main() {
     local datetime=""
     local battery=""
@@ -164,11 +185,10 @@ colorscheme=1
     :body-append "VPN" "$(:get-section-vpn)"
     :notify "$body"
 
-    :body-append "PING" "$(:get-section-ping)"
-    :notify "$body"
+    :bg-body-append "LOC" "$(:get-section-location)"
+    :bg-body-append "PING" $(:get-section-ping)
 
-    :body-append "LOC" "$(:get-section-location)"
-    :notify "$body"
+    wait
 }
 
 :main "${@}"
