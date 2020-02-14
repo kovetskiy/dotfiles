@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -euo pipefail
+
+for ext in ~/.config/chromium/Default/Extensions/*; do
+    ext=$(basename "$ext")
+    names=$(
+        cat ~/.config/chromium/Default/Extensions/$ext/*/manifest.json \
+            | jq -r '.author + ", " + .name' \
+            | sort | uniq
+    )
+    echo "Updating extension $ext: ${names}"
+
+    get-chromium-ext "$ext"
+done
