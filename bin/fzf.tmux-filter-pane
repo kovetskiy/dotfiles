@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec /bin/fzf --color=fg:255,bg:234,bg+:236,fg+:220,hl:220,hl+:196,info:1,spinner:1,prompt:15,pointer:220,marker:207 --exact "${@}"
