@@ -144,6 +144,7 @@ docompinit() {
 {
     bindkey -a '^[' vi-insert
     bindkey -v "^R" fzf-history-widget
+    bindkey -v "^T" fzf-file-widget
     bindkey -v "^[[A" history-substring-search-up
     bindkey -v "^[[B" history-substring-search-down
     #bindkey -v "^A" beginning-of-line

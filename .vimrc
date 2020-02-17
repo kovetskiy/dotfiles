@@ -402,7 +402,7 @@ Plug 'reconquest/vim-pythonx'
     let g:pythonx_highlight_completion = 0
 
     vnoremap <C-x>v :python px.langs.go.transform.to_variable()<CR>
-
+    nmap <C-x> $T{i<tab>
 
 
 Plug 'reconquest/snippets'
@@ -536,9 +536,6 @@ Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
 "Plug 'kovetskiy/vim-autoresize'
 
 Plug 'kovetskiy/ale'
-    func! _ale_gotags()
-
-    endfunc!
     let g:ale_enabled = 0
 
     let g:ale_fixers = {
@@ -569,9 +566,6 @@ Plug 'kovetskiy/ale'
             \ call ale#Set('java_google_java_format_options',
             \ '--skip-removing-unused-imports --skip-sorting-imports')
     augroup end
-
-    let java_highlight_functions="style"
-    let java_highlight_debug=1
 
 Plug 'mg979/vim-visual-multi'
     let g:VM_custom_remaps = {'<c-p>': '[', '<c-s>': 'q'}
@@ -722,8 +716,7 @@ Plug 'lambdalisue/gina.vim'
 Plug 'tpope/vim-fugitive'
     nmap ,a :Git add .<CR>
     nmap ,s :Gstatus<CR>
-    nmap ,c :Gcommit<CR>
-    nmap ,q :Gcommit<CR>:w<CR>:call _close_it()<CR>
+    nmap ,c :Gcommit -v<CR>
     nmap ,t :Gpush origin<CR>
     nmap ,g :Dispatch lab ci trace<CR>
 
@@ -744,6 +737,14 @@ Plug 'cespare/vim-toml'
 Plug 'tpope/vim-abolish'
 
 Plug 'neoclide/coc-tslint-plugin', {'do': 'yarn install --frozen-lockfile'}
+
+Plug 'lfilho/cosco.vim'
+    "let g:cosco_filetype_whitelist = ['java']
+    "let g:auto_comma_or_semicolon = 1
+    "let g:auto_comma_or_semicolon_events = ["InsertLeave"]
+    "let g:cosco_ignore_comment_lines = 1
+
+Plug 'h1mesuke/vim-unittest'
 
 augroup end
 
