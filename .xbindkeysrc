@@ -28,5 +28,5 @@
 "with-lock kuake-bottom"
     Mod3 + t
 
-"xsecurelock"
+"screen-lock"
     Mod3 + g

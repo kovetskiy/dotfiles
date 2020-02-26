@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -x
-marvex \
-    -b urxvt \
-    --terminal '@path --title "@title" -e @command' -r 0 "${@}" \
-    || urxvt

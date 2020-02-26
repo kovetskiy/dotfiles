@@ -1,26 +1,5 @@
 #!/bin/bash
 
-mplayer_fifo=~/.mplayer/fifo
+export XSECURELOCK_DISCARD_FIRST_KEYPRESS=0
 
-mplayer_cmd(){
-    if pidof mplayer &>/dev/null; then
-        echo "$1" > $mplayer_fifo
-    fi
-}
-
-mplayer_cmd "pause"
-
-cmd=()
-if [[ "${1:-}" == "-dpms" ]]; then
-    cmd=("xset" "dpms" "force" "suspend")
-fi
-if [[ "${1:-}" == "-suspend" ]]; then
-    cmd=("systemctl" "suspend")
-fi
-
-"${cmd[@]}"
-i3lock -n
-
-mplayer_cmd "pause"
-
-xkb
+exec xsecurelock

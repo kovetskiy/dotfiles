@@ -346,6 +346,13 @@ Plug 'pangloss/vim-javascript', { 'for': 'js' }
 Plug 'danro/rename.vim'
     nnoremap <Leader><Leader>r :noautocmd Rename<Space>
 
+    func! _delete_file()
+        call system("rm " . expand("%"))
+        call _close_it()
+    endfunc!
+
+    nnoremap <Leader><Leader>x :call _delete_file()<CR>
+
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     augroup _md_settings
         au!
@@ -745,6 +752,9 @@ Plug 'lfilho/cosco.vim'
     "let g:cosco_ignore_comment_lines = 1
 
 Plug 'h1mesuke/vim-unittest'
+Plug 'camspiers/animate.vim'
+    let g:animate#duration = 100.0
+Plug 'camspiers/lens.vim'
 
 augroup end
 
@@ -969,6 +979,8 @@ imap <C-E> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 inoremap <C-H> <C-O>o
 
 imap <C-U> <ESC>ua
+
+nnoremap <c-b> :source ~/.vimrc<CR>:echom "vimrc sourced"<cr>
 
 nnoremap Q qq
 nnoremap @@ @q

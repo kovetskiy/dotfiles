@@ -1,8 +1,9 @@
 #!/bin/bash
 
 set -euo pipefail
-cd ~/.config/i3gator/layouts/
+pushd ~/.config/i3gator/layouts/
 confs=$(ls *.conf | sed 's/\.conf$//')
+popd
 out=$(modal <<< "$confs")
 if [[ "$out" ]]; then
     i3gator "$out"

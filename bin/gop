@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec glances -t 3
