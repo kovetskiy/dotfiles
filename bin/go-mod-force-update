@@ -1,0 +1,8 @@
+#!/bin/bash
+set -euo pipefail
+
+pkg="$1"
+
+commit=$(git -C "$GOPATH/src/$pkg" rev-parse HEAD)
+
+go get -v "$pkg@$commit"
