@@ -1,5 +1,5 @@
 #!/bin/bash
 
-export GO111MODULES=on
+export GO111MODULE=on
 
 exec "${@}"

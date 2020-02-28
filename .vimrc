@@ -756,6 +756,13 @@ Plug 'camspiers/animate.vim'
     let g:animate#duration = 100.0
 Plug 'camspiers/lens.vim'
 
+Plug 'digitaltoad/vim-pug'
+    augroup _amber_pug
+        au!
+        au BufEnter *.amber setlocal ft=pug
+        au FileType pug setlocal ts=2 sts=2 sw=2
+    augroup end
+
 augroup end
 
 call plug#end()
