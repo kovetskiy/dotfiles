@@ -44,7 +44,6 @@ bindsym $alt+a workspace a
 bindsym $alt+s workspace s
 bindsym $alt+d workspace d
 bindsym $alt+z workspace z
-bindsym $alt+c workspace c
 
 bindcode $alt+Shift+10 move container to workspace 1
 bindcode $alt+Shift+11 move container to workspace 2

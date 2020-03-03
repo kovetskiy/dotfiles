@@ -485,8 +485,6 @@ endif
 
 Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
 
-Plug 'seletskiy/ashium'
-
 Plug 'yssl/QFEnter'
 
 Plug 'kovetskiy/next-indentation'
@@ -752,7 +750,6 @@ Plug 'lfilho/cosco.vim'
     "let g:auto_comma_or_semicolon_events = ["InsertLeave"]
     "let g:cosco_ignore_comment_lines = 1
 
-Plug 'h1mesuke/vim-unittest'
 Plug 'camspiers/animate.vim'
     let g:animate#duration = 100.0
 Plug 'camspiers/lens.vim'
@@ -856,7 +853,7 @@ augroup end
 
 set noequalalways
 set winminheight=0
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 set tags=./.tags;/
 

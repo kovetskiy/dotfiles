@@ -29,6 +29,8 @@ export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions'
 export ANDROID_HOME=/opt/android-sdk
 export ANDROID_SDK_HOME=/opt/android-sdk
 
+export GOPRIVATE="gitlab.com/reconquest"
+
 BIN=(
     "$HOME/bin"
     "$HOME/bin/rewrite"
