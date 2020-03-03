@@ -194,6 +194,8 @@ docompinit() {
         )
         if [[ "$relative" =~ ^\\.\\. ]]; then
             echo "$dir"
+        elif [[ "$relative" == "." ]]; then
+            echo "~/$basename"
         else
             echo "~/$relative/$basename"
         fi
@@ -1026,7 +1028,9 @@ docompinit() {
 
 ssha() {
     if [[ ! "${_ssh_added}" ]]; then
-        eval "$(ssh-agent -s)"
+        if [[ ! "$_SSH_AUTH_SOCK" ]]; then
+            eval "$(ssh-agent -s)"
+        fi
         ssh-add ~/.ssh/id_rsa
         _ssh_added=true
     fi
@@ -1466,9 +1470,6 @@ set_title() {
 preexec() {
     set_title "${1}"
 }
-
-eval $(ssh-agent -s) >/dev/null 2>&1
-ssh-add ~/.ssh/id_rsa >/dev/null 2>&1
 
 #unsetopt xtrace
 #exec 2>&3 3>&-

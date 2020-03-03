@@ -1,0 +1,27 @@
+#!/usr/bin/python
+
+from urllib.parse import urlparse
+import sys
+import os.path
+import subprocess
+import re
+
+
+rawurl = sys.argv[1]
+
+matches = re.match('^(\w+@[^:]+):(\w+/?\w+)$', sys.argv[1])
+if matches:
+    rawurl = 'git+ssh://' + matches.group(1) + '/' + matches.group(2)
+
+url = urlparse(rawurl)
+if url.scheme == "":
+    rawurl = 'https://' + rawurl
+    url = urlparse(rawurl)
+
+path = url.hostname + url.path
+if path.endswith('.git'):
+    path = path[:-4]
+
+print(path)
+
+# vim: ft=python

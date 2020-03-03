@@ -549,6 +549,7 @@ Plug 'kovetskiy/ale'
     \   'go': [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")],
     \   'ruby': [function('ale#fixers#rufo#Fix')],
     \   'java': [function('ale#fixers#google_java_format#Fix')],
+    \   'rust': ['rustfmt'],
     \   'javascript': ['prettier', 'eslint'],
     \}
     let g:ale_linters = {

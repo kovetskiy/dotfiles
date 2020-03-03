@@ -1,0 +1,20 @@
+#!/bin/bash
+
+cd ~/sources/
+find . -type d -maxdepth 2 -exec test -e '{}/.git' ';' -printf '%P\n' -prune \
+    | while read dir; do
+        url=$(git -C $dir remote get-url origin 2>/dev/null)
+        if [[ ! "$url" ]]; then
+            echo "FAIL: ${dir}"
+            continue
+        fi
+
+        expected=$(sources-path "$url" 2>&1)
+        if [[ -e "$expected" ]]; then
+            echo "FAIL: ${dir} - ${expected} already exists"
+            continue
+        fi
+
+        echo "$dir $url $expected"
+        basedir=$(dirname "$expected")
+    done
