@@ -9,4 +9,4 @@ fi
 dir=~/.config/chrome-${profile}/
 mkdir -p $dir
 
-exec google-chrome-stable --user-data-dir=$dir
+exec chromium --user-data-dir=$dir

@@ -1,6 +1,9 @@
 "REPO=~/reconquest/secrets carcosa-new-password"
     Mod3 + 6
 
+"carcosa-new-password"
+    Mod3 + 5
+
 "baton-volume down 2"
     Mod3 + j
 

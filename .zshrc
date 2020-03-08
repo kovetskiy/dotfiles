@@ -1245,7 +1245,7 @@ alias hf='hub fork && grsm'
 alias hc='hub create'
 alias hr='hub pull-request -f'
 alias cc='copy-to-clipboard'
-alias co='xclip -o'
+alias co='xclip -o -selection clipboard'
 
 alias '/'=':search'
 alias '/g'=':search:go'
