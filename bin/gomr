@@ -1,0 +1,7 @@
+#!/bin/bash
+
+pkg=$1
+dst=$(realpath --relative-to=. $GOPATH/src/$pkg)
+
+echo go mod edit -replace $pkg=$dst
+go mod edit -replace $pkg=$dst
