@@ -103,11 +103,11 @@ Plug 'itchyny/lightline.vim'
         \ }
 
     if &background == "light"
-        let g:lightline.colorscheme = 'PaperColor'
+        let g:lightline.colorscheme = 'one'
     else
+        let g:lightline.colorscheme = 'wombat'
     endif
 
-    let g:lightline.colorscheme = 'wombat'
 
 if $BACKGROUND == "dark"
     Plug 'reconquest/vim-colorscheme'
@@ -473,8 +473,7 @@ if $BACKGROUND == "light"
 
     func! _setup_colorscheme()
         set background="light"
-        "colorscheme PaperColor
-        colorscheme onehalflight
+        colorscheme one
 
         hi! SpecialKey ctermfg=250
         hi! String ctermfg=33
@@ -761,7 +760,45 @@ Plug 'digitaltoad/vim-pug'
         au FileType pug setlocal ts=2 sts=2 sw=2
     augroup end
 
-augroup end
+
+Plug 'reedes/vim-lexical'
+    let g:lexical#spell_key = '<leader><leader>s'
+
+    if empty(glob('~/.vim/thesaurus/mthesaur.txt'))
+      silent !mkdir -p ~/.vim/thesaurus/
+      silent !curl -fLo ~/.vim/thesaurus/mthesaur.txt
+        \ https://raw.githubusercontent.com/zeke/moby/master/words.txt
+     autocmd VimEnter * PlugInstall
+    endif
+
+    func! _lexical_init()
+        call lexical#init()
+        let b:_lexical = '1'
+    endfunc!
+
+    func! _lexical_toggle()
+        if !exists('b:_lexical') || b:_lexical == '0'
+            :call _lexical_init()
+        else
+            setlocal spelllang=
+            setlocal spellfile=
+            setlocal nospell
+            setlocal thesaurus=
+            setlocal dictionary=
+            let b:_lexical = '0'
+        endif
+    endfunc!
+
+    nmap <leader>s :call _lexical_toggle()<CR>
+
+    augroup lexical
+      autocmd!
+      autocmd FileType markdown,md call _lexical_init()
+    augroup END
+
+augroup END
+
+Plug 'rakr/vim-one'
 
 call plug#end()
 
@@ -976,14 +1013,13 @@ nmap <C-J> <C-W>j
 nmap <C-K> <C-W>k
 nmap <C-L> <C-W>l
 
-imap <C-J> <esc>
-vmap <C-J> <esc>
-
 imap <C-E> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 
 inoremap <C-H> <C-O>o
 
 imap <C-U> <ESC>ua
+
+imap <c-j> <nop>
 
 nnoremap <c-b> :source ~/.vimrc<CR>:echom "vimrc sourced"<cr>
 
@@ -1144,6 +1180,7 @@ func! _dir_up()
 endfunc!
 
 cnoremap <C-E> <C-\>e_dir_up()<CR>
+
 
 func! _sys_read(cmdline)
     let l:result = system(a:cmdline)
