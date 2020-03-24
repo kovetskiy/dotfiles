@@ -1,6 +1,6 @@
 #!/bin/bash
 
-json=$(curl -s https://ipinfo.io/)
+json=$(curl --max-time 1 -s https://ipinfo.io/)
 if [[ ! "$json" ]]; then
     exit 1
 fi

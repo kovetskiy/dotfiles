@@ -7,10 +7,8 @@ set -euo pipefail
 :init() {
     if [ "$(cat ~/.config/profile)" == "laptop" ]; then
         _SYSDIR=/sys/class/backlight/intel_backlight
-        _STEP=$(:step)
     else
         _SYSDIR=/sys/class/backlight/acpi_video0
-        _STEP=$(:step)
     fi
 }
 
@@ -41,11 +39,13 @@ set -euo pipefail
 }
 
 :up() {
-    echo $(($(:get)+$_STEP))
+    local now=$(:get)
+    echo $(($now+$(:step $now)))
 }
 
 :down() {
-    echo $(($(:get)-$_STEP))
+    local now=$(:get)
+    echo $(($now-$(:step $now)))
 }
 
 :toggle() {
@@ -93,17 +93,25 @@ _max=
 :from-percent() {
     local max=$(:get_max)
 
-    bc <<< "($max/100)*$1"
+    bc <<< "($max/500)*$1"
 }
 
 :step() {
-    echo $(($(:get_max)/100))
+    local now=$1
+    local max=$(:get_max)
+    local percent="$((100*$now/$max))"
+    echo "$percent" >&2
+    if [[ "$percent" -gt 15 ]]; then
+        echo $(($(:get_max)/100))
+    else
+        echo $(($(:get_max)/500))
+    fi
 }
 
 :percent() {
     local actual=$1
     local max=$2
-    echo $((100*$actual/$max))
+    printf '%.2f' "$(calc -p "100*$actual/$max")"
 }
 
 :main "${@}"

@@ -723,6 +723,7 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'junegunn/vim-easy-align'
     vmap <c-t> :EasyAlign<CR>*
+    let g:easy_align_ignore_groups = []
 
 Plug 'cespare/vim-toml'
 " too greedy and too stupid
@@ -974,6 +975,7 @@ if found > 1:
 else:
     vim.command("bdelete!")
 CODE
+    call lens#run()
 endfunc!
 
 nnoremap <silent> <Leader>n <ESC>:call _close_it()<CR>
@@ -1008,6 +1010,9 @@ nmap <C-H> <C-W>h
 nmap <C-J> <C-W>j
 nmap <C-K> <C-W>k
 nmap <C-L> <C-W>l
+
+imap <C-J> <nop>
+vmap <C-J> <nop>
 
 imap <C-E> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 
