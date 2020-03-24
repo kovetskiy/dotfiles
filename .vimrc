@@ -911,6 +911,7 @@ map K <nop>
 
 imap <C-F> tx<TAB>
 vmap <C-F> ctx<TAB>
+vmap <C-O> <TAB>oo<TAB>
 
 imap <C-D> context.
 

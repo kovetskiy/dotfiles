@@ -1,13 +1,13 @@
 [user]
-	email = e.kovetskiy@gmail.com
-	name = Egor Kovetskiy
+    email = e.kovetskiy@gmail.com
+    name = Egor Kovetskiy
 ;[credential]
-;	helper = cache --timeout=3600000
+;   helper = cache --timeout=3600000
 [core]
-	;editor = vim
-	excludesfile = /home/operator/.gitignore_global
+    ;editor = vim
+    excludesfile = /home/operator/.gitignore_global
 [color]
-	ui = auto
+    ui = auto
 [pager]
     diff = diff-so-fancy | less --tabs=4 -RFX
     show = diff-so-fancy | less --tabs=4 -RFX
@@ -42,6 +42,6 @@
     insteadOf = ssh://git@bitbucket.org/
     insteadOf = https://bitbucket.org/
 [http]
-	cookiefile = /home/operator/.gitcookies
+    cookiefile = /home/operator/.gitcookies
 [push]
-	default = current
+    default = current

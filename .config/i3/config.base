@@ -1,8 +1,8 @@
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
-gaps inner 3
+gaps inner 5
 #gaps outer 2
-#smart_gaps on
+smart_gaps on
 
 hide_edge_borders both
 font pango:Monaco 1
@@ -92,9 +92,7 @@ for_window [title="^sxiv"]       floating disable
 for_window [title="Viewer"]      floating disable
 
 assign [class="TelegramDesktop"] q
-assign [class="Upwork"] d
-for_window [class="Upwork"] floating enable
 
 client.focused            #0008ff #0008ff #0008ff #0008ff
-client.focused_inactive   #000000   #000000   #000000   #000000
-client.unfocused          #000000   #000000   #000000   #000000
+client.focused_inactive   #424242   #424242   #424242   #424242
+client.unfocused          #424242   #424242   #424242   #424242
