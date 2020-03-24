@@ -1,13 +1,15 @@
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font pango:Monaco 1
 
 gaps inner 5
 #gaps outer 2
 smart_gaps on
-
 hide_edge_borders both
-font pango:Monaco 1
+
 new_window 1pixel
+
 focus_follows_mouse no
+
 set $win Mod1
 set $alt Mod4
 
@@ -16,7 +18,7 @@ floating_modifier $alt
 bindsym $alt+Shift+r restart
 
 bindsym Shift+BackSpace exec kill-focus
-bindsym $alt+Ctrl+q kill
+bindsym $alt+Ctrl+q     kill
 
 bindsym $alt+Escape floating toggle
 
@@ -63,20 +65,19 @@ bindsym $alt+b split vertical
 bindsym $alt+Ctrl+r mode "resize"
 
 mode "resize" {
-        bindsym h resize grow width 5 px or 2 ppt
-        bindsym j resize shrink height 5 px or 2 ppt
-        bindsym k resize grow height 5 px or 2 ppt
-        bindsym l resize shrink width 5 px or 2 ppt
+    bindsym h resize grow   width  5 px or 2 ppt
+    bindsym j resize shrink height 5 px or 2 ppt
+    bindsym k resize grow   height 5 px or 2 ppt
+    bindsym l resize shrink width  5 px or 2 ppt
 
-        bindsym Ctrl+h resize grow width 10 px or 10 ppt
-        bindsym Ctrl+j resize shrink height 10 px or 10 ppt
-        bindsym Ctrl+k resize grow height 10 px or 10 ppt
-        bindsym Ctrl+l resize shrink width 10 px or 10 ppt
+    bindsym Ctrl+h resize grow   width  10 px or 10 ppt
+    bindsym Ctrl+j resize shrink height 10 px or 10 ppt
+    bindsym Ctrl+k resize grow   height 10 px or 10 ppt
+    bindsym Ctrl+l resize shrink width  10 px or 10 ppt
 
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
-
 
 bindsym $alt+Ctrl+grave  [instance="^(?!kuake)"] scratchpad show
 bindsym $alt+Shift+grave move scratchpad
@@ -84,7 +85,7 @@ bindsym $alt+Shift+grave move scratchpad
 # dell poweroff button
 bindcode 124 exec poweroff
 
-for_window [title="Emulator"] floating enable
+for_window [title="Emulator"]    floating enable
 for_window [title="^screenkey$"] floating enable
 for_window [title="^kuake_"]     floating enable
 for_window [title="^feh "]       floating enable
@@ -93,6 +94,6 @@ for_window [title="Viewer"]      floating disable
 
 assign [class="TelegramDesktop"] q
 
-client.focused            #0008ff #0008ff #0008ff #0008ff
-client.focused_inactive   #424242   #424242   #424242   #424242
-client.unfocused          #424242   #424242   #424242   #424242
+client.focused          #0008ff #0008ff #0008ff #0008ff
+client.focused_inactive #424242 #424242 #424242 #424242
+client.unfocused        #424242 #424242 #424242 #424242

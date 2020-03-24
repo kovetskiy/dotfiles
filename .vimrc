@@ -401,10 +401,6 @@ Plug 'justinmk/vim-sneak'
     omap t <Plug>Sneak_t
     omap T <Plug>Sneak_T
 
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
-    vnoremap <C-T> :Tabularize /
-
-
 Plug 'reconquest/vim-pythonx'
     let g:pythonx_highlight_completion = 0
 
@@ -726,8 +722,7 @@ Plug 'tpope/vim-fugitive'
     nmap ,g :Dispatch lab ci trace<CR>
 
 Plug 'junegunn/vim-easy-align'
-
-    vmap A :EasyAlign<CR>*
+    vmap <c-t> :EasyAlign<CR>*
 
 Plug 'cespare/vim-toml'
 " too greedy and too stupid
