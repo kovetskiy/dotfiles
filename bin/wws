@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-windows="Hard Drive"
+windows="(Hard Drive|Windows)"
 
 efibootmgr | grep -Po "\d+(?=\*\s+$windows)" | xargs -n1 sudo efibootmgr -n
 
