@@ -1114,8 +1114,19 @@ git-commit-branch() {
     rsync -avp operator@$1:$(pwd)/ .
 }
 
+:git-fetch-prune() {
+    git fetch --prune
+    git branch --format='%(refname:short) %(upstream:track)' \
+                | awk '$2 == "[gone]" { print $1 }' \
+                | while read branch; do
+        echo "Branch: $branch"
+        git branch -D $branch
+    done
+}
+
 # :alias
 
+alias gfp=':git-fetch-prune'
 alias rv='() { :rsync-cd venus "${@}" }'
 alias rd='() { :rsync-cd desk "${@}" }'
 alias sd='() { :ssh-cd desk "${@}" }'
@@ -1137,18 +1148,13 @@ alias oxs=':orgalorg:exec-stdin'
 alias oxh=':orgalorg:exec-host'
 alias un=':until'
 alias ha=':hosts:add'
-alias se='ssha -l Egor.Kovetskiy '
 alias rs='rm -rf ~/.cache/ssh_*'
-alias mc='sudo machinectl'
 alias gg=':find-gem'
 alias ju='journalctl --user-unit'
 alias jl='journalctl -u'
 alias s='sift'
 alias e='less -i'
 alias 8='mtr 8.8.8.8'
-alias ccl=':circleci:exec recent-builds'
-alias ccr=':circleci:recent-build'
-alias giv='go install ./vendor/...'
 alias ml=':makefile:list'
 alias sl='rm -rf ~/.ssh/connections/*'
 alias pg='() { pwgen $1 1 }'
@@ -1160,7 +1166,6 @@ alias gia=':gitignore:add'
 alias pk='pkill -9'
 alias wa=':watcher'
 alias pp=':process:info'
-alias xc='marvex-erase-reserves && crypt'
 alias a='cat'
 alias ax=':axel'
 alias vlc='/usr/bin/vlc --no-metadata-network-access' # fffuuu

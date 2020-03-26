@@ -544,6 +544,7 @@ Plug 'kovetskiy/ale'
     \   'java': [function('ale#fixers#google_java_format#Fix')],
     \   'rust': ['rustfmt'],
     \   'javascript': ['prettier', 'eslint'],
+    \   'pug': [function('ale#fixers#prettier#Fix')],
     \}
     let g:ale_linters = {
     \   'go': ['gobuild'],
