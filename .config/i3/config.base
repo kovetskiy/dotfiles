@@ -85,14 +85,9 @@ bindsym $alt+Shift+grave move scratchpad
 # dell poweroff button
 bindcode 124 exec poweroff
 
-<<<<<<< HEAD
-for_window [title="^Zoom"]       floating enable
-for_window [title="^zoom"]       floating enable
-=======
 for_window [class="zoom"]        floating enable
 for_window [title="^zoom"]       floating enable
 for_window [title="^Zoom"]       floating enable
->>>>>>> 1e576a6... desktop: auto commit
 for_window [title="Emulator"]    floating enable
 for_window [title="^screenkey$"] floating enable
 for_window [title="^kuake_"]     floating enable

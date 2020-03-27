@@ -1111,7 +1111,7 @@ git-commit-branch() {
 
 :rsync-cd() {
     echo ":: syncing from $1 $(pwd)/"
-    rsync -avp operator@$1:$(pwd)/ .
+    rsync -avp operator@$1:$(pwd)/$2 .
 }
 
 :git-fetch-prune() {
