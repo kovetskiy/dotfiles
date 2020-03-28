@@ -804,6 +804,9 @@ augroup END
 
 Plug 'rakr/vim-one'
 
+Plug 'kovetskiy/vim-list-mappings'
+    nmap <c-f><leader>f :call FzfListMap()<CR>
+
 call plug#end()
 
 let g:EclimLoggingDisabled = 1

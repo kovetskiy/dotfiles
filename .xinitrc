@@ -1,7 +1,5 @@
 #!/bin/bash
 
-exec >/tmp/x 2>&1
-set -x
 source ~/bin/environment-variables
 source ~/bin/environment-setup
 
