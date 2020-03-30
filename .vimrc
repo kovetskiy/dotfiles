@@ -675,12 +675,18 @@ Plug 'fvictorio/vim-extract-variable'
 
 
 Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
+    func! _coc_restart()
+        redir @x
+        silent execute "CocRestart"
+        redir end
+        echom "[coc] restarted"
+    endfunc!
     nmap <silent> [g <Plug>(coc-diagnostic-prev)
     nmap <silent> ]g <Plug>(coc-diagnostic-next)
     nmap <silent> <C-F><C-R> <Plug>(coc-refactor)
     nmap <silent> <C-F><C-E> <Plug>(coc-rename)
     nmap <C-F><C-A>  <Plug>(coc-codeaction-selected)l
-    nmap <silent> <C-F><C-O>  :CocRestart<CR>
+    nmap <silent> <C-F><C-O>  :call _coc_restart()<CR>
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gd <Plug>(coc-definition)
     nmap <leader>rn <Plug>(coc-rename)

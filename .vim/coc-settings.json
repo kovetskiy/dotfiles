@@ -41,5 +41,7 @@
     "java.trace.server": "verbose",
     "java.configuration.updateBuildConfiguration": "disabled",
     "java.errors.incompleteClasspath.severity": "ignore",
-    "xml.format.splitAttributes": true
+    "xml.format.splitAttributes": true,
+    "coc.preferences.formatOnSaveFiletypes": ["xml"],
+    "pairs.enableCharacters": ["(", "[", "{",  "'", "\"", "`"]
 }
