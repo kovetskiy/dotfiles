@@ -2,7 +2,7 @@
 Description=netconsole receiver
 
 [Service]
-ExecStart=/bin/socat udp-recv:6666 -
+ExecStart=/bin/socat -u udp4-recv:6666 stdout
 Restart=always
 
 [Install]
