@@ -39,8 +39,6 @@ URxvt.cursorBlink: true
 URxvt.scrollBar: false
 URxvt.troughColor: #100000
 
-URxvt.transparent: false
-
 ;Xcursor.theme: DMZ-white
 
 Xft.dpi: 96

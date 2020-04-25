@@ -38,17 +38,15 @@
     context = ctrl+shift+period
 
 [urgency_low]
-    # vim text background
-    background = "#fcfcfc"
-     # vim text white
+    background = "#000000"
     foreground = "#262626"
     timeout = 0
 
 [urgency_normal]
     # vim secondary gray (airline right section)
-    background = "#fcfcfc"
+    background = "#000000"
     # vim text white
-    foreground = "#262626"
+    foreground = "#ffffff"
     timeout = 2
 
 [urgency_critical]

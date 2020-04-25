@@ -118,6 +118,7 @@ if $BACKGROUND == "dark"
         hi! GitDeleted ctermfg=88
         hi! GitAdded ctermfg=22
         hi! GitModified ctermfg=238
+        hi! MoreMsg ctermbg=none ctermfg=238
     endfunc!
 endif
 
@@ -226,8 +227,8 @@ Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
         au!
         au BufNewFile,BufRead *.dump set filetype=dump
         au BufNewFile,BufRead *.json set filetype=json
-        au BufNewFile,BufRead *.yaml,*.yml,*.ts setlocal ts=2 sts=2 sw=2 expandtab
-        au BufNewFile,BufRead *.js setlocal ts=4 sts=4 sw=4 expandtab
+        au BufNewFile,BufRead *.yaml,*.yml,*.ts,*.js setlocal ts=2 sts=2 sw=2 expandtab
+        "au BufNewFile,BufRead *.js setlocal ts=4 sts=4 sw=4 expandtab
     augroup end
 
 Plug 'vim-scripts/l9'
@@ -544,8 +545,11 @@ Plug 'kovetskiy/ale'
     \   'ruby': [function('ale#fixers#rufo#Fix')],
     \   'java': [function('ale#fixers#google_java_format#Fix')],
     \   'rust': ['rustfmt'],
+    \   'sh':   ['shfmt'],
+    \   'bash': ['shfmt'],
     \   'javascript': ['prettier', 'eslint'],
     \   'pug': [function('ale#fixers#prettier#Fix')],
+    \   'scss': [function('ale#fixers#prettier#Fix')],
     \}
     let g:ale_linters = {
     \   'go': ['gobuild'],
@@ -657,7 +661,7 @@ Plug 'tpope/vim-dispatch'
     endfunc!
 
     func! _build_java()
-        CocCommand java.action.organizeImports
+        call coc#rpc#request('runCommand', ['java.action.organizeImports'])
         call CocAction('diagnosticFirst', 'error')
     endfunc!
 
@@ -687,7 +691,7 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
     nmap <silent> <C-F><C-E> <Plug>(coc-rename)
     nmap <C-F><C-A>  <Plug>(coc-codeaction-selected)l
     nmap <silent> <C-F><C-O>  :call _coc_restart()<CR>
-    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gi :call CocActionAsync('doHover')<CR>
     nmap <silent> gd <Plug>(coc-definition)
     nmap <leader>rn <Plug>(coc-rename)
     nmap <C-F> <NOP>
@@ -710,6 +714,10 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
     autocmd CursorHoldI  * call _coc_timer_hold()
     autocmd CursorMoved * call _coc_timer_moved()
     autocmd CursorMovedI * call _coc_timer_moved()
+
+    func! ChooseTypeToImport(candidates)
+        echo string(a:candidates)
+    endfunc!
 
 Plug 'majutsushi/tagbar'
 
@@ -755,13 +763,15 @@ Plug 'lfilho/cosco.vim'
 
 Plug 'camspiers/animate.vim'
     let g:animate#duration = 100.0
+
 Plug 'camspiers/lens.vim'
+    let g:lens#disabled_filenames = ['coc:.*']
 
 Plug 'digitaltoad/vim-pug'
     augroup _amber_pug
         au!
         au BufEnter *.amber setlocal ft=pug
-        au FileType pug setlocal ts=2 sts=2 sw=2
+        au FileType pug setlocal ts=2 sts=2 sw=2 et
     augroup end
 
 
@@ -776,6 +786,10 @@ Plug 'reedes/vim-lexical'
     endif
 
     func! _lexical_init()
+        if expand('%:p') =~ 'coc:'
+            return
+        endif
+
         call lexical#init()
         let b:_lexical = '1'
     endfunc!
@@ -806,6 +820,8 @@ Plug 'rakr/vim-one'
 
 Plug 'kovetskiy/vim-list-mappings'
     nmap <c-f><leader>f :call FzfListMap()<CR>
+
+Plug 'ActivityWatch/aw-watcher-vim'
 
 call plug#end()
 
@@ -848,9 +864,7 @@ set writebackup
 set backup
 
 
-if !has('nvim')
-    set lazyredraw
-endif
+set lazyredraw
 
 set ttyfast
 

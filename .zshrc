@@ -837,7 +837,7 @@ docompinit() {
         git fetch && \
             git checkout origin/master && \
             git branch -D master && \
-            git checkout master
+            git checkout -b master
 
         if [[ "$1" ]]; then
             git checkout -b "$1"
@@ -1126,6 +1126,7 @@ git-commit-branch() {
 
 # :alias
 
+alias bw='bitbucket-wait-startup'
 alias gfp=':git-fetch-prune'
 alias rv='() { :rsync-cd venus "${@}" }'
 alias rd='() { :rsync-cd desk "${@}" }'
@@ -1467,15 +1468,3 @@ if [[ "$HISTFILE_OVERRIDE" ]]; then
 fi
 
 setopt share_history
-
-set_title() {
-    printf "\033]0;%s\007" "${1}"
-}
-
-preexec() {
-    set_title "${1}"
-}
-
-#unsetopt xtrace
-#exec 2>&3 3>&-
-#echo $$

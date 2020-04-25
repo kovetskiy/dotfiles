@@ -19,12 +19,12 @@ colorscheme=1
         body="${body}${endl}"
     fi
 
-    content="$(sed '2,$s/^/         /' <<< "$content")"
+    content="$(sed '2,$s/^/         /' <<<"$content")"
     #printf '%-8s %s\n' "$section" "$content"
 
     local token=(${section})
     local section=$(
-    :span "${token[0]}" "$(printf '<b>%-8s</b>' "$section")"
+        :span "${token[0]}" "$(printf '<b>%-8s</b>' "$section")"
     )
 
     append="$section $content"
@@ -62,15 +62,19 @@ colorscheme=1
 }
 
 :get-section-battery() {
-    battery=$(acpi 2>/dev/null \
-        | sed -r \
-        -e 's/Battery [0-9]:\s*//' \
-        -e 's/ until charged//' \
-        -e 's/ remaining//' \
-        -e 's/Discharging,/↓/' \
-        -e 's/Full,/✓/' \
-        -e 's/Charging,/↑/' \
-        -e 's/,//')
+    battery=$(acpi 2>/dev/null |
+        sed -r \
+            -e 's/Battery [0-9]:\s*//' \
+            -e 's/ until charged//' \
+            -e 's/ remaining//' \
+            -e 's/Discharging,/↓/' \
+            -e 's/Full,/✓/' \
+            -e 's/Charging,/↑/' \
+            -e 's/,//')
+    if [[ "$battery" =~ "rate information unavailable" ]]; then
+        return
+    fi
+
     if [[ "$battery" =~ "↓" ]]; then
         :span-colors 196 255 "$battery"
         return
@@ -85,19 +89,19 @@ colorscheme=1
 }
 
 :get-section-memory() {
-    ram=$(free -h -w \
-        | awk '/^Mem:/ { print $4 "/" $2}' | sed 's/Gi/G/g')
+    ram=$(free -h -w |
+        awk '/^Mem:/ { print $4 "/" $2}' | sed 's/Gi/G/g')
     arc=$(arcstat -f arcsz,c | tail -n1 | awk '{print $1 "/" $2}')
     echo "$ram $arc"
 }
 
 :get-section-cpu() {
-    numbers=($(grep -P 'cpu\d' /proc/stat \
-        | awk '{ usage=($2+$4)*100/($2+$4+$5); printf "%.0f%\n", usage }'))
+    numbers=($(grep -P 'cpu\d' /proc/stat |
+        awk '{ usage=($2+$4)*100/($2+$4+$5); printf "%.0f%\n", usage }'))
 
     len="${#numbers[@]}"
     if [[ $len -gt 8 ]]; then
-        half=$((len/2))
+        half=$((len / 2))
         echo "${numbers[@]:1:$half}"
         echo "${numbers[@]:$half:$len}"
     else
@@ -130,29 +134,28 @@ colorscheme=1
 
 :color() {
     local text="$1"
-    local query="$(md5sum <<< "$text" | awk '{print $1}')"
+    local query="$(md5sum <<<"$text" | awk '{print $1}')"
     local color="${2:-0}"
     local scheme="${3:-0}"
 
     # based upon http://jimlund.org/blog/pics/colortest_iTerm.png
-    local lookback=$(( ($color * 2) % (6 * 6) ))
-    local seed=$(( 0x${query:1:2} + $scheme ))
-    local base=$(( 16 + ($seed % (230 - 16)) ))
-    local block=$(( ($base - 16) / 6 ))
-    local index=$(( ($base - 16) % 6 ))
-    local next=$((
-    (($block >= $lookback)
-    ? ($block - $lookback)
-    : (6 * 6 - $lookback + $block)
-    ) * 6 + 16 + $index + 2
-    ))
+    local lookback=$((($color * 2) % (6 * 6)))
+    local seed=$((0x${query:1:2} + $scheme))
+    local base=$((16 + ($seed % (230 - 16))))
+    local block=$((($base - 16) / 6))
+    local index=$((($base - 16) % 6))
+    local next=$((((\
+        $block >= $lookback) ? (\
+        $block - $lookback) : (\
+        6 * 6 - $lookback + $block)) * \
+        6 + 16 + $index + 2))
 
     color-to-hex "$next"
 }
 
 _bg=""
 :body-save() {
-    echo "$body" > /var/run/user/$UID/infobar.body
+    echo "$body" >/var/run/user/$UID/infobar.body
 }
 
 :bg-body-append() {

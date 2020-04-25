@@ -1,0 +1,3 @@
+#!/bin/bash
+
+xdotool type --clearmodifiers --delay 1 "$*"

@@ -82,9 +82,6 @@ super + backslash
 super + equal
 	;kuake --terminal --class top --top --middle --height 30 --width 50
 
-control + F6
-	VOLUME=30000 headset
-
 control + F7
 	wg-toggle
 
@@ -105,3 +102,6 @@ super + 0
 
 super + minus
 	i3-msg 'gaps top current toggle 600'
+
+control + F6
+	bash -c 'x=$(xsel -o -c | darc); echo $x; xclip -selection clipboard <<< "$x"; notify "Uploaded to dard: $x"'
