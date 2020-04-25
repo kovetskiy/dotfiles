@@ -1,0 +1,9 @@
+[Unit]
+Description=netconsole receiver
+
+[Service]
+ExecStart=/bin/socat udp-recv:6666 -
+Restart=always
+
+[Install]
+WantedBy=basic.target

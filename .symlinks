@@ -1,4 +1,3 @@
-.asoundrc
 bin
 .config/autorandr
 .config/bluelink.conf
@@ -19,7 +18,6 @@ bin
 .gitignore_global
 .keynavrc
 .mailcap
-.mcabber
 .sift.conf
 .ssh/config
 .terminfo
@@ -44,5 +42,4 @@ bin
 .Xresources.light
 .Xresources.office
 .yaourtrc
-.zprezto/modules/prompt/functions
 .zshrc
