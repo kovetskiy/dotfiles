@@ -43,6 +43,12 @@ super + 8
 super + 9
 	;volume up
 
+super + Down
+	;volume down
+
+super + Up
+	;volume up
+
 super + control + 9
 	;pa-switch-sink && notify "$(pactl-get-default-sink)"
 
