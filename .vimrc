@@ -823,6 +823,10 @@ Plug 'kovetskiy/vim-list-mappings'
 
 Plug 'ActivityWatch/aw-watcher-vim'
 
+Plug 'hashivim/vim-terraform'
+    let g:terraform_align=1
+    let g:terraform_fmt_on_save=1
+
 call plug#end()
 
 let g:EclimLoggingDisabled = 1
@@ -1051,6 +1055,8 @@ nnoremap <c-b> :source ~/.vimrc<CR>:echom "vimrc sourced"<cr>
 
 nnoremap Q qq
 nnoremap @@ @q
+
+tnoremap <Esc> <C-\><C-n>
 
 augroup _zsh_filetype
     au!

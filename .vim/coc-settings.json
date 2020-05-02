@@ -1,7 +1,7 @@
 {
     "python.jediEnabled": false,
     "suggest.noselect": true,
-    "suggest.enablePreselect":false,
+    "suggest.enablePreselect": false,
     "diagnostic.errorSign": "\\ E",
     "diagnostic.warningSign": "\\ W",
     "diagnostic.infoSign": "\\ ∙",
@@ -21,16 +21,37 @@
     "git.changeRemovedSign.text": "\\ ┊",
     "git.changeRemovedSign.hlGroup": "GitModified",
     "languageserver": {
+        "terraform": {
+            "command": "terraform-lsp",
+            "filetypes": [
+                "terraform"
+            ],
+            "initializationOptions": {}
+        },
         "bash": {
             "command": "bash-language-server",
-            "args": ["start"],
-            "filetypes": ["sh", "bash"],
-            "ignoredRootPaths": ["~"]
+            "args": [
+                "start"
+            ],
+            "filetypes": [
+                "sh",
+                "bash"
+            ],
+            "ignoredRootPaths": [
+                "~"
+            ]
         },
         "ccls": {
             "command": "ccls",
-            "filetypes": ["c", "cpp", "objc", "objcpp"],
-            "rootPatterns": [".ccls"],
+            "filetypes": [
+                "c",
+                "cpp",
+                "objc",
+                "objcpp"
+            ],
+            "rootPatterns": [
+                ".ccls"
+            ],
             "initializationOptions": {
                 "cache": {
                     "directory": "/tmp/ccls"
@@ -43,7 +64,16 @@
     "java.errors.incompleteClasspath.severity": "ignore",
     "java.import.callback": "px#java#import#callback",
     "xml.format.splitAttributes": true,
-    "coc.preferences.formatOnSaveFiletypes": ["xml"],
-    "pairs.enableCharacters": ["(", "[", "{",  "'", "\"", "`"],
-    "coc.preferences.hoverTarget":"preview"
+    "coc.preferences.formatOnSaveFiletypes": [
+        "xml"
+    ],
+    "pairs.enableCharacters": [
+        "(",
+        "[",
+        "{",
+        "'",
+        "\"",
+        "`"
+    ],
+    "coc.preferences.hoverTarget": "preview"
 }

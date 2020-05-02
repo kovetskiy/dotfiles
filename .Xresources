@@ -42,3 +42,5 @@ URxvt.troughColor: #100000
 ;Xcursor.theme: DMZ-white
 
 Xft.dpi: 96
+
+URxvt.meta8: false
