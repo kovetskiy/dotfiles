@@ -807,14 +807,12 @@ Plug 'reedes/vim-lexical'
         endif
     endfunc!
 
-    nmap <leader>s :call _lexical_toggle()<CR>
+    nmap <leader>el :call _lexical_toggle()<CR>
 
     augroup lexical
       autocmd!
       autocmd FileType markdown,md call _lexical_init()
     augroup END
-
-augroup END
 
 Plug 'rakr/vim-one'
 
@@ -827,7 +825,23 @@ Plug 'hashivim/vim-terraform'
     let g:terraform_align=1
     let g:terraform_fmt_on_save=1
 
+Plug 'ddrscott/vim-side-search'
+
+    func! _sidesearch()
+        let word = expand('<cword>')
+        if word == ""
+            let word = input('search: ')
+        endif
+
+        call SideSearch(word)
+    endfunc!
+    nmap <leader>s :call _sidesearch()<CR>
+
+    nmap <leader>a :SideSearch<Space>
+
 call plug#end()
+
+augroup END
 
 let g:EclimLoggingDisabled = 1
 let g:EclimJavaCompilerAutoDetect = 0

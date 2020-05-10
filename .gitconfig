@@ -43,5 +43,3 @@
     insteadOf = https://bitbucket.org/
 [http]
     cookiefile = /home/operator/.gitcookies
-[push]
-    default = current

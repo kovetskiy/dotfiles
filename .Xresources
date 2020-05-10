@@ -20,10 +20,10 @@ URxvt.clipboard.pastecmd: xsel --output --clipboard
 URxvt.title: rxvt-unicode
 URxvt.saveLines: 10000
 
-;URxvt.font: xft:Iosevka:size=10,style=regular
-;URxvt.boldFont: xft:Iosevka:size=10,style=bold
-;URxvt.italicFont: xft:Iosevka:size=10,style=italic
-;URxvt.boldItalicFont: xft:Iosevka:size=10,style=bold
+!URxvt.font: xft:Iosevka:size=14,style=regular
+!URxvt.boldFont: xft:Iosevka:size=14,style=bold
+!URxvt.italicFont: xft:Iosevka:size=14,style=italic
+!URxvt.boldItalicFont: xft:Iosevka:size=14,style=bold
 
 URxvt.font:           xft:Ubuntu Mono:pixelsize=16,style=Regular, xft:Dejavu Sans Mono:pixelsize=15,style=regular
 URxvt.boldFont:       xft:Ubuntu Mono:pixelsize=16,style=Bold,    xft:Dejavu Sans Mono:pixelsize=15,style=bold

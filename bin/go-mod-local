@@ -1,0 +1,3 @@
+#!/bin/bash
+
+go mod edit -replace $1=$GOPATH/src/$1

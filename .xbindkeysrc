@@ -4,12 +4,6 @@
 "carcosa-new-password"
     Mod3 + 5
 
-"baton-volume down 2"
-    Mod3 + j
-
-"baton-volume up 2"
-    Mod3 + k
-
 "music pause"
     Mod3 + p
 
