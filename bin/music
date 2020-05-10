@@ -1,27 +1,35 @@
 #!/bin/bash
 
-get-status() {
-    for window in $(:windows); do
+get_status() {
+    for window in $(windows); do
         title=$(xdotool getwindowname $window)
-        if [[ "$title" == "youtube-music-desktop-app" ]]; then
-            continue
-        fi
         echo 🎵 $title
     done
 }
 
-:windows() {
+_get_windows() {
+    for window in $(xdotool search --class youtube-music-desktop-app); do
+        title=$(xdotool getwindowname $window)
+        if [[ "$title" == "youtube-music-desktop-app" ]]; then
+            continue
+        fi
+
+        echo $window
+    done
+}
+
+windows() {
     if [[ ! "$_windows" ]]; then
-        _windows=$(xdotool search --class youtube-music-desktop-app)
+        _windows=$(_get_windows)
     fi
     echo "$_windows"
 }
 
-:send() {
+send() {
     local key=$1
     active=$(xdotool getactivewindow)
-    for window in $(:windows); do
-        xdotool windowactivate $window
+    for window in $(windows); do
+        xdotool windowactivate --sync $window
         xdotool key --clearmodifiers --window $window $key
     done
     xdotool windowactivate $active
@@ -31,22 +39,22 @@ icon=""
 case "$1" in
 next)
     icon="⏭️"
-    :send j
+    send j
     ;;
 
 prev)
     icon="⏮️"
-    :send k
+    send k
     ;;
 
 pause)
     icon="⏯️"
-    :send space
+    send space
     ;;
 
 save)
     icon="⭐"
-    :send plus
+    send plus
     ;;
 
 *)
@@ -55,9 +63,9 @@ save)
 esac
 
 if [[ "$1" == "status" ]]; then
-    notify-replace music "" "$(get-status)"
+    notify-replace music "" "$(get_status)"
     exit
 fi
 
 notify-replace music "" "${icon}"
-notify-replace music "" "$(get-status)"
+notify-replace music "" "$(get_status)"
