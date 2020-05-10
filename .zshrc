@@ -72,7 +72,11 @@ docompinit() {
 
         zgen load mafredri/zsh-async
 
-        zgen load seletskiy/zsh-context-aliases
+        if [[ ! -e ~/.zgen/deadcrew/deadfiles-master ]]; then
+            mkdir -p ~/.zgen/deadcrew/
+            ln -s ~/deadfiles ~/.zgen/deadcrew/deadfiles-master
+        fi
+        zgen load deadcrew/deadfiles
 
         zgen save
     fi
@@ -87,8 +91,6 @@ docompinit() {
 
         #zgen load seletskiy/zsh-ssh-urxvt
         zgen load seletskiy/zsh-hash-aliases
-
-        zgen load deadcrew/deadfiles
 
         zgen load seletskiy/zsh-smart-kill-word
 
@@ -1126,6 +1128,7 @@ git-commit-branch() {
 
 # :alias
 
+alias lc='go-mod-local'
 alias bw='bitbucket-wait-startup'
 alias gfp=':git-fetch-prune'
 alias rv='() { :rsync-cd venus "${@}" }'
@@ -1156,7 +1159,6 @@ alias jl='journalctl -u'
 alias s='sift'
 alias e='less -i'
 alias 8='mtr 8.8.8.8'
-alias ml=':makefile:list'
 alias sl='rm -rf ~/.ssh/connections/*'
 alias pg='() { pwgen $1 1 }'
 alias sudo='sudo -E '
