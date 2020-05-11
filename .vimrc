@@ -133,6 +133,7 @@ Plug 'kovetskiy/synta'
 
 Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
     nnoremap <Leader><Leader>i :!go-install-deps<CR>
+    let g:go_rename_command = 'gopls'
 
     hi! link goCall Function
 

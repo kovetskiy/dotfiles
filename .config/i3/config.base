@@ -95,6 +95,8 @@ for_window [title="^feh "]       floating enable
 for_window [title="^sxiv"]       floating disable
 for_window [title="Viewer"]      floating disable
 for_window [title="Chat - Twitch - Chromium"] sticky enable
+for_window [title="webcam"] floating enable
+for_window [title="webcam"] sticky enable
 
 
 assign [class="TelegramDesktop"] q

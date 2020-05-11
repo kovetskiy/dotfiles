@@ -76,6 +76,7 @@ docompinit() {
             mkdir -p ~/.zgen/deadcrew/
             ln -s ~/deadfiles ~/.zgen/deadcrew/deadfiles-master
         fi
+
         zgen load deadcrew/deadfiles
 
         zgen save
