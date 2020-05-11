@@ -512,17 +512,25 @@ Plug 'FooSoft/vim-argwrap', {'on': 'ArgWrap'}
         call search(l:pattern, 'cs')
     endfunc!
     nnoremap <silent> @l :call _search_wrappable()<CR>ll:ArgWrap<CR>
-    func! _chain_wrap()
+
+    func! _chain_wrap(first)
         let match = search(').', 'cs', line('.'))
         if match == 0
             return
         endif
         call cursor(match, 0)
-        exec "normal" "lli\r"
-        call _chain_wrap()
+
+        let cmd = "lli\r"
+        if a:first == 1
+            let l:cmd = l:cmd . "\t"
+        endif
+
+        exec "normal" l:cmd
+
+        call _chain_wrap(0)
     endfunc!
 
-    nnoremap <silent> @h :call _chain_wrap()<CR>
+    nnoremap <silent> @h :call _chain_wrap(1)<CR>
 
 Plug 'kovetskiy/sxhkd-vim'
 
@@ -1086,6 +1094,7 @@ augroup _filetypes
     au BufRead,BufNewFile *.snippets set noet ft=snippets.python
     au BufRead,BufNewFile *.skeleton set noet ft=snippets.python
     au BufRead,BufNewFile *.chart set noet ft=mermaid
+    au BufRead,BufNewFile *.go set noet
     au FileType python setlocal et ts=4 sw=4 sts=4
 augroup end
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export QT_QPA_PLATFORMTHEME=""
 export QT_STYLE_OVERRIDE=""
+export QT_QPA_PLATFORMTHEME=gtk3
 
 /usr/bin/telegram-desktop
