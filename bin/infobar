@@ -182,14 +182,10 @@ _bg=""
     :body-append "TIME MSK" "<u>$(:get-section-time Europe/Moscow)</u>"
     :body-append "TIME UTC" "$(:get-section-time UTC)"
     :body-append "MEMORY" "$(:get-section-memory)"
-    :body-append "PROC" "$(:get-section-cpu)"
     :body-append "WIFI" "$(:get-section-wifi)"
     :body-append "BATTERY" "$(:get-section-battery)"
     :body-append "VPN" "$(:get-section-vpn)"
     :notify "$body"
-
-    :bg-body-append "LOC" "$(:get-section-location)"
-    :bg-body-append "PING" $(:get-section-ping)
 
     wait
 }

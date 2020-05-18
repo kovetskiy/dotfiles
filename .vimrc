@@ -130,6 +130,7 @@ Plug 'kovetskiy/synta'
     let g:synta_use_sbuffer = 0
     let g:synta_use_go_fast_build = 0
     let g:synta_go_build_recursive = 1
+    let g:synta_go_build_recursive_cwd = 1
 
 Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
     nnoremap <Leader><Leader>i :!go-install-deps<CR>
@@ -406,6 +407,7 @@ Plug 'justinmk/vim-sneak'
 
 Plug 'reconquest/vim-pythonx'
     let g:pythonx_highlight_completion = 0
+    let g:pythonx_go_info_mode = 'coc'
 
     vnoremap <C-x>v :python px.langs.go.transform.to_variable()<CR>
     nmap <C-x> $T{i<tab>

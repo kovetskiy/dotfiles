@@ -1,6 +1,7 @@
 #!/bin/bash
 
-xsetroot -bg black
+feh --bg-fill ~/wallpapers/city.png
+#xsetroot -bg black
 exit
 
 #screens=$(xrandr -q | grep -c ' connected')
