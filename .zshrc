@@ -339,7 +339,6 @@ docompinit() {
     }
 
     sed-replace() {
-    set -x
         local from=$(sed 's@/@\\/@g' <<< "$1")
         shift
 
