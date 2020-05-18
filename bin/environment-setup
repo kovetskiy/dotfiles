@@ -20,7 +20,8 @@ pkill -f -9 xbindkeys
 xbindkeys
 
 pkill -f -9 dunst
-systemd-cat -t dunst bash -c 'while :; do dunst; done' &
+dunst &
+#systemd-cat -t dunst bash -c 'while :; do dunst &>/dev/nul; done' &
 
 xset dpms 0 0 0
 xset s off
