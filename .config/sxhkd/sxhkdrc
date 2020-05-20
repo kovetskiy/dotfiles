@@ -97,10 +97,7 @@ control + F8
 control + F9
 	brightness up
 
-control + Pause
-	screen-lock -suspend
-
-control + super + Insert
+control + F4
 	screen-lock -suspend
 
 super + 0
