@@ -712,7 +712,9 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
 
     func! _coc_timer_hold()
         if exists('b:_coc_timer_moved') && b:_coc_timer_moved == 1
-            call CocActionAsync('showSignatureHelp')
+			redir @x
+            silent call CocAction('showSignatureHelp')
+			redir end
             let b:_coc_timer_moved = 0
         endif
     endfunc!
