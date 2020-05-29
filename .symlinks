@@ -1,6 +1,7 @@
 bin
 .config/autorandr
 .config/bluelink.conf
+.config/coc/extensions/package.json
 .config/conky/conky.conf
 .config/dunst
 .config/fontconfig

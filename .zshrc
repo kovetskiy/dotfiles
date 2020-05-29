@@ -85,8 +85,6 @@ docompinit() {
 
 {
     :plugins:load() {
-        [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
         zgen load kovetskiy/zsh-quotes
         zgen load kovetskiy/zsh-add-params
 
@@ -147,7 +145,7 @@ docompinit() {
 {
     bindkey -a '^[' vi-insert
     bindkey -v "^R" fzf-history-widget
-    bindkey -v "^T" fzf-file-widget
+    bindkey -v "^P" fzf-file-widget
     bindkey -v "^[[A" history-substring-search-up
     bindkey -v "^[[B" history-substring-search-down
     #bindkey -v "^A" beginning-of-line
@@ -288,25 +286,7 @@ docompinit() {
         zle reset-prompt
     }
 
-    bindkey -v '^Q' :fzf:git:file:cd
-    zle -N :fzf:git:file:cd
-    :fzf:git:file:cd() {
-        local favor_dir="$(fzf-git-file)"
-        if [[ ! "$__dir" ]]; then
-            return
-        fi
-
-        eval cd "$(dirname "$__dir")"
-
-        unset __dir
-
-        zle -R
-        lambda17:update
-        zle reset-prompt
-        ls -lah --color=always
-    }
-
-    bindkey -v '^P' :fzf:git:file:vim
+    bindkey -v '^Q' :fzf:git:file:vim
     zle -N :fzf:git:file:vim
     :fzf:git:file:vim() {
         local __target="$(fzf-git-file)"
@@ -1127,6 +1107,11 @@ git-commit-branch() {
 }
 
 # :alias
+
+alias bl='batrak -L -K -s -w'
+alias bb='batrak -L -K -s -m'
+
+alias bm='batrak -M'
 
 alias lc='go-mod-local'
 alias bw='bitbucket-wait-startup'

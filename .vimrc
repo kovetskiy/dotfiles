@@ -474,7 +474,7 @@ if $BACKGROUND == "light"
 
     func! _setup_colorscheme()
         set background="light"
-        colorscheme one
+        colorscheme papercolor
 
         hi! SpecialKey ctermfg=250
         hi! String ctermfg=33
@@ -671,15 +671,23 @@ Plug 'tpope/vim-dispatch'
         execute "Dispatch"
     endfunc!
 
-    func! _build_java()
+    func! _format_java()
         call coc#rpc#request('runCommand', ['java.action.organizeImports'])
+        call ale#fix#Fix(bufnr(''), '')
+    endfunc!
+
+    func! _save_java()
+        noautocmd w
+        call _format_java()
         call CocAction('diagnosticFirst', 'error')
     endfunc!
 
     augroup _java_bindings
         au!
         au FileType java nmap <silent><buffer> <c-a> :ALEFix<CR>
-        au FileType java nmap <silent><buffer> <c-p> :call _build_java()<CR>
+        au FileType java nmap <silent><buffer> <c-s> :call _save_java()<CR>
+        au FileType java inoremap <silent><buffer> <c-s> <C-\><C-O>:call _format_java()<CR>
+        au FileType java nmap <silent><buffer> <c-p> <nop>
         au FileType java nmap <silent><buffer> ;n <Plug>(coc-diagnostic-next-error)
         au FileType java nmap <silent><buffer> <Leader>; <Plug>(coc-diagnostic-prev-error)
         au FileType java nmap <silent><buffer> ,x :call _atlas_compile()<CR>
@@ -696,6 +704,12 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
         redir end
         echom "[coc] restarted"
     endfunc!
+
+    func! _coc_references()
+        call lens#disable()
+        call CocAction('jumpReferences')
+        call lens#enable()
+    endfunc!
     nmap <silent> [g <Plug>(coc-diagnostic-prev)
     nmap <silent> ]g <Plug>(coc-diagnostic-next)
     nmap <silent> <C-F><C-R> <Plug>(coc-refactor)
@@ -703,6 +717,7 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
     nmap <C-F><C-A>  <Plug>(coc-codeaction-selected)l
     nmap <silent> <C-F><C-O>  :call _coc_restart()<CR>
     nmap <silent> gi :call CocActionAsync('doHover')<CR>
+    nmap <silent> gr :call _coc_references()<CR>
     nmap <silent> gd <Plug>(coc-definition)
     nmap <leader>rn <Plug>(coc-rename)
     nmap <C-F> <NOP>
@@ -778,7 +793,7 @@ Plug 'camspiers/animate.vim'
     let g:animate#duration = 100.0
 
 Plug 'camspiers/lens.vim'
-    let g:lens#disabled_filenames = ['coc:.*']
+    let g:lens#disabled_filenames = ['coc:.*', 'list:.*']
 
 Plug 'digitaltoad/vim-pug'
     augroup _amber_pug
@@ -1008,7 +1023,7 @@ nnoremap <Leader>vs :vsp<CR>
 nnoremap <Leader>e :e!<CR>
 
 nnoremap <silent> ,q <ESC>:q<CR>
-nnoremap <silent> <C-S> :w<CR>
+nnoremap <silent> <C-S> :w!<CR>
 "inoremap <silent> <C-S> <Esc>:w<CR>
 
 " _close_it closes current window, but if current buffer is opened in two

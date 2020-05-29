@@ -35,6 +35,8 @@ send() {
     xdotool windowactivate $active
 }
 
+status=$(get_status)
+
 icon=""
 case "$1" in
 next)
@@ -63,9 +65,23 @@ save)
 esac
 
 if [[ "$1" == "status" ]]; then
-    notify-replace music "" "$(get_status)"
+    notify-replace music "" "$status"
     exit
 fi
 
+i=0
+while :; do
+    i=$((i+1))
+    if [[ "$i" == "10" ]]; then
+        break
+    fi
+
+    new_status=$(get_status)
+    if [[ "$status" != "$new_status" ]]; then
+        break
+    fi
+    sleep 0.05
+done
+
 notify-replace music "" "${icon}"
-notify-replace music "" "$(get_status)"
+notify-replace music "" "$status"
