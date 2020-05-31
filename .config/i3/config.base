@@ -101,6 +101,7 @@ for_window [title="webcam"] sticky enable
 
 assign [class="TelegramDesktop"] q
 for_window [class="skype"] floating enable
+for_window [class="Skype"] floating enable
 
 client.focused          #0008ff #0008ff #0008ff #0008ff
 client.focused_inactive #424242 #424242 #424242 #424242
