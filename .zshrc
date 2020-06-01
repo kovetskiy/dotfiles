@@ -1110,7 +1110,6 @@ git-commit-branch() {
 
 alias bl='batrak -L -K -s -w'
 alias bb='batrak -L -K -s -m'
-
 alias bm='batrak -M'
 
 alias lc='go-mod-local'

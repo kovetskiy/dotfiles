@@ -24,7 +24,7 @@ let g:py_modules = []
 
 Plug 'kovetskiy/vim-hacks'
 
-Plug 'junegunn/fzf', {'do': './install --all'}
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 "    let $FZF_DEFAULT_COMMAND='sk'
     let g:fzf_prefer_tmux = 1
@@ -548,19 +548,37 @@ Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
 "Plug 'reconquest/vim-autosurround'
 "Plug 'kovetskiy/vim-autoresize'
 
-Plug 'kovetskiy/ale'
+Plug 'w0rp/ale'
     let g:ale_enabled = 0
 
+    function! _ale_gts_fixer(buffer) abort
+        let l:options = ale#Var(a:buffer, 'typescript_gts_options')
+        let l:executable = ale#Var(a:buffer, 'typescript_gts_executable')
+
+
+        if !executable(l:executable)
+            return 0
+        endif
+
+        return {
+        \   'command': ale#Escape(l:executable)
+        \       . ' ' . (empty(l:options) ? '' : ' ' . l:options)
+        \       . ' %t',
+        \   'read_temporary_file': 1,
+        \}
+    endfunction
+
     let g:ale_fixers = {
-    \   'go': [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")],
-    \   'ruby': [function('ale#fixers#rufo#Fix')],
-    \   'java': [function('ale#fixers#google_java_format#Fix')],
-    \   'rust': ['rustfmt'],
-    \   'sh':   ['shfmt'],
-    \   'bash': ['shfmt'],
-    \   'javascript': ['prettier', 'eslint'],
-    \   'pug': [function('ale#fixers#prettier#Fix')],
-    \   'scss': [function('ale#fixers#prettier#Fix')],
+    \ 'go':         [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")],
+    \ 'ruby':       [function('ale#fixers#rufo#Fix')],
+    \ 'java':       [function('ale#fixers#google_java_format#Fix')],
+    \ 'rust':       ['rustfmt'],
+    \ 'sh':         ['shfmt'],
+    \ 'bash':       ['shfmt'],
+    \ 'javascript': ['prettier',                          'eslint'],
+    \ 'pug':        [function('ale#fixers#prettier#Fix')],
+    \ 'scss':       [function('ale#fixers#prettier#Fix')],
+    \ 'typescript': [function('_ale_gts_fixer')],
     \}
     let g:ale_linters = {
     \   'go': ['gobuild'],
@@ -568,13 +586,8 @@ Plug 'kovetskiy/ale'
 
     let g:ale_fix_on_save = 1
 
-    augroup _go_codestyle
-        au FileType go
-            \ call ale#Set('go_goimports_executable',
-            \ 'gofumports')
-    augroup end
 
-    augroup _java_codestyle
+    augroup _codestyle
         au!
         au BufRead,BufNewFile *.java setlocal ts=2 sts=2 sw=2 expandtab
         au BufRead,BufNewFile *.java
@@ -583,6 +596,15 @@ Plug 'kovetskiy/ale'
         au BufRead,BufNewFile *.java
             \ call ale#Set('java_google_java_format_options',
             \ '--skip-removing-unused-imports --skip-sorting-imports')
+        au FileType go
+            \ call ale#Set('go_goimports_executable',
+            \ 'gofumports')
+        au BufRead,BufNewFile *.ts
+            \ call ale#Set('typescript_gts_executable',
+            \ 'npx')
+        au BufRead,BufNewFile *.ts
+            \ call ale#Set('typescript_gts_options',
+            \ 'gts fix')
     augroup end
 
 Plug 'mg979/vim-visual-multi'
