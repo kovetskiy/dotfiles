@@ -362,6 +362,7 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
         au!
         au BufRead,BufNewFile *.md set filetype=markdown
         au BufRead,BufNewFile *.md set fo-=l
+        au BufRead,BufNewFile *.md setlocal tw=120
     augroup end
     let g:vim_markdown_folding_disabled=0
 
