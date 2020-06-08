@@ -75,5 +75,6 @@
         "\"",
         "`"
     ],
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
     "coc.preferences.hoverTarget": "preview"
 }

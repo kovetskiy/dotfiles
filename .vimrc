@@ -608,6 +608,11 @@ Plug 'w0rp/ale'
             \ 'gts fix')
     augroup end
 
+    augroup _ts
+        au!
+        au FileType typescript nmap <silent><buffer> <c-p> :call coc#rpc#request('runCommand', ['tsserver.organizeImports'])<CR>
+    augroup end
+
 Plug 'mg979/vim-visual-multi'
     let g:VM_custom_remaps = {'<c-p>': '[', '<c-s>': 'q'}
     let g:VM_no_meta_mappings = 1
@@ -761,14 +766,10 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
         let b:_coc_timer_moved = 1
     endfunc!
 
-    autocmd CursorHold  * call _coc_timer_hold()
-    autocmd CursorHoldI  * call _coc_timer_hold()
-    autocmd CursorMoved * call _coc_timer_moved()
-    autocmd CursorMovedI * call _coc_timer_moved()
-
-    func! ChooseTypeToImport(candidates)
-        echo string(a:candidates)
-    endfunc!
+    autocmd CursorHold *.java call _coc_timer_hold()
+    autocmd CursorHoldI *.java call _coc_timer_hold()
+    autocmd CursorMoved *.java call _coc_timer_moved()
+    autocmd CursorMovedI *.java call _coc_timer_moved()
 
 Plug 'majutsushi/tagbar'
 
