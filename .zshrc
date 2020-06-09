@@ -1106,6 +1106,11 @@ git-commit-branch() {
     done
 }
 
+:git-branches() {
+    local group=$(git remote | paste -sd'|')
+    git branch --remotes | sed -r -e "s@($group)/@\\1 @g" -e "s@^\s+@@"
+}
+
 # :alias
 
 alias bl='batrak -L -K -s -w'
@@ -1114,7 +1119,7 @@ alias bm='batrak -M'
 
 alias lc='go-mod-local'
 alias bw='bitbucket-wait-startup'
-alias gfp=':git-fetch-prune'
+alias gf=':git-fetch-prune && echo && :git-branches'
 alias rv='() { :rsync-cd venus "${@}" }'
 alias rd='() { :rsync-cd desk "${@}" }'
 alias sd='() { :ssh-cd desk "${@}" }'
@@ -1277,7 +1282,6 @@ alias gpo='git push origin'
 alias gpl='git pull'
 alias gpr='git pull --rebase'
 alias gur='git pull --rebase origin'
-alias gf='git fetch'
 alias gcn='git commit'
 alias gcn!='git commit --amend'
 alias gc='git-commit'

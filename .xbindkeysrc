@@ -13,10 +13,10 @@
 "music prev"
     Mod3 + h
 
-"music save"
+"music like"
     Mod3 + m
 
-"music remove"
+"music dislike"
     Mod3 + n
 
 "music status"

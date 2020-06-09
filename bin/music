@@ -54,9 +54,14 @@ pause)
     send space
     ;;
 
-save)
+like)
     icon="⭐"
     send plus
+    ;;
+
+dislike)
+    icon="⭐"
+    send underscore
     ;;
 
 *)
@@ -71,13 +76,14 @@ fi
 
 i=0
 while :; do
-    i=$((i+1))
+    i=$((i + 1))
     if [[ "$i" == "10" ]]; then
         break
     fi
 
     new_status=$(get_status)
     if [[ "$status" != "$new_status" ]]; then
+        status="$new_status"
         break
     fi
     sleep 0.05
