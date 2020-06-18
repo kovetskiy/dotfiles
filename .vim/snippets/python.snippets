@@ -22,7 +22,7 @@ with open("/tmp/debug", 'a+') as f:
 endsnippet
 
 
-snippet ld "" wA
+snippet lp "" wA
 `!p
 try:
 	once
@@ -36,8 +36,12 @@ snip.rv=filename + ":" + str(cursor[0])
 ` $1"$0)
 endsnippet
 
+snippet ld "" wA
+self.log.debug($0)
+endsnippet
+
 snippet lv "" wA
-log.debug("`!p snip.rv=t[1]`: %s", $1)$0
+self.log.debug("`!p snip.rv=t[1]`: %s", $1)$0
 endsnippet
 
 snippet tt "" w

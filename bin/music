@@ -86,7 +86,7 @@ while :; do
         status="$new_status"
         break
     fi
-    sleep 0.05
+    sleep 0.1
 done
 
 notify-replace music "" "${icon}"

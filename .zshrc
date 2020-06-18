@@ -1111,11 +1111,20 @@ git-commit-branch() {
     git branch --remotes | sed -r -e "s@($group)/@\\1 @g" -e "s@^\s+@@"
 }
 
+:git-push-delete() {
+    local remote=$(cut -d/ -f1 <<< "$1")
+    local branch=$(cut -d/ -f2 <<< "$1")
+
+    git push $remote --delete $branch
+}
+
 # :alias
 
 alias bl='batrak -L -K -s -w'
 alias bb='batrak -L -K -s -m'
 alias bm='batrak -M'
+alias gpd=:git-push-delete
+alias gpt='git push origin --tags'
 
 alias lc='go-mod-local'
 alias bw='bitbucket-wait-startup'

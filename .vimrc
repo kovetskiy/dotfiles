@@ -13,6 +13,8 @@ let g:plug_shallow = 0
 let g:mapleader="\<Space>"
 let mapleader=g:mapleader
 
+let g:python3_host_prog = '/usr/bin/python3'
+
 augroup plugvim
     au!
 call plug#begin('~/.vim/bundle')
@@ -26,7 +28,7 @@ Plug 'kovetskiy/vim-hacks'
 
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-"    let $FZF_DEFAULT_COMMAND='sk'
+"     let $FZF_DEFAULT_COMMAND='sk'
     let g:fzf_prefer_tmux = 1
     let g:fzf_layout = { 'down': '~40%' }
 
@@ -75,7 +77,7 @@ Plug 'junegunn/fzf.vim'
     nnoremap <silent> <C-E><C-F> :call _grep_word()<CR>
 
     func! _lstags()
-        call fzf#vim#ag("", {'source':  'lstags', 'options': '--delimiter : --nth 4..'})
+        call fzf#vim#ag("", {'source':    'lstags', 'options': '--delimiter : --nth 4..'})
     endfunc!
 
     nnoremap <silent> <c-g> :call _lstags()<CR>
@@ -268,8 +270,8 @@ Plug 'sirver/ultisnips', { 'frozen': 1 }
     let g:snippets_reconquest = $HOME . '/.vim/bundle/snippets/'
 
     let g:UltiSnipsSnippetDirectories = [
-    \      g:snippets_reconquest,
-	\      g:snippets_dotfiles,
+    \       g:snippets_reconquest,
+    \       g:snippets_dotfiles,
     \]
 
     let g:UltiSnipsEnableSnipMate = 0
@@ -418,18 +420,18 @@ Plug 'reconquest/snippets'
     augroup _snippets_reload
         au!
         au VimEnter * py
-            \   import vim;
-            \   import px;
-            \   import snippets;
-            \   [
-            \       vim.command("call add(g:py_modules, '%s')" % library)
-            \       for library in px.libs()
-            \   ]
-            \   and
-            \   [
-            \       vim.command("call add(g:py_modules, '%s')" % library)
-            \       for library in px.libs('snippets')
-            \   ]
+            \    import vim;
+            \    import px;
+            \    import snippets;
+            \    [
+            \        vim.command("call add(g:py_modules, '%s')" % library)
+            \        for library in px.libs()
+            \    ]
+            \    and
+            \    [
+            \        vim.command("call add(g:py_modules, '%s')" % library)
+            \        for library in px.libs('snippets')
+            \    ]
     augroup end
 
 Plug 'kovetskiy/vim-empty-lines'
@@ -454,15 +456,18 @@ Plug 'bronson/vim-trailing-whitespace'
         \ 'diff', 'markdown', 'go'
     \ ]
 
-    func! _whitespaces_fix()
+    func! _spaces_fix()
         if ShouldMatchWhitespace()
             FixWhitespace
+            if &expandtab
+                retab!
+            endif
         endif
     endfunc!
 
     augroup _whitespace_auto
         au!
-        au BufWritePre * call _whitespaces_fix()
+        au BufWritePre * call _spaces_fix()
     augroup end
 
 Plug 'sjl/gundo.vim', { 'on': 'GundoShow' }
@@ -487,10 +492,6 @@ endif
 Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
 
 Plug 'yssl/QFEnter'
-
-Plug 'kovetskiy/next-indentation'
-    nnoremap <C-z> :IndentationSameUp<CR>
-    "nnoremap <C-x> :IndentationSameDown<CR>
 
 Plug 'rust-lang/rust.vim', {'for': 'rust' }
 
@@ -540,11 +541,11 @@ Plug 'kovetskiy/sxhkd-vim'
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
 
 "Plug 'brooth/far.vim'
-"    "nmap <Leader>f :Farp<CR>
-"    augroup _far_settings
-"        au!
-"        au FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
-"    augroup end
+"     "nmap <Leader>f :Farp<CR>
+"     augroup _far_settings
+"         au!
+"         au FileType far_vim nmap <buffer> <Leader>d :Fardo<CR>
+"     augroup end
 
 "Plug 'reconquest/vim-autosurround'
 "Plug 'kovetskiy/vim-autoresize'
@@ -562,27 +563,27 @@ Plug 'w0rp/ale'
         endif
 
         return {
-        \   'command': ale#Escape(l:executable)
-        \       . ' ' . (empty(l:options) ? '' : ' ' . l:options)
-        \       . ' %t',
-        \   'read_temporary_file': 1,
+        \    'command': ale#Escape(l:executable)
+        \        . ' ' . (empty(l:options) ? '' : ' ' . l:options)
+        \        . ' %t',
+        \    'read_temporary_file': 1,
         \}
     endfunction
 
     let g:ale_fixers = {
-    \ 'go':         [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")],
-    \ 'ruby':       [function('ale#fixers#rufo#Fix')],
-    \ 'java':       [function('ale#fixers#google_java_format#Fix')],
-    \ 'rust':       ['rustfmt'],
-    \ 'sh':         ['shfmt'],
-    \ 'bash':       ['shfmt'],
+    \ 'go':            [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")],
+    \ 'ruby':        [function('ale#fixers#rufo#Fix')],
+    \ 'java':        [function('ale#fixers#google_java_format#Fix')],
+    \ 'rust':        ['rustfmt'],
+    \ 'sh':            ['shfmt'],
+    \ 'bash':        ['shfmt'],
     \ 'javascript': ['prettier',                          'eslint'],
     \ 'pug':        [function('ale#fixers#prettier#Fix')],
-    \ 'scss':       [function('ale#fixers#prettier#Fix')],
+    \ 'scss':        [function('ale#fixers#prettier#Fix')],
     \ 'typescript': [function('_ale_gts_fixer')],
     \}
     let g:ale_linters = {
-    \   'go': ['gobuild'],
+    \    'go': ['gobuild'],
     \}
 
     let g:ale_fix_on_save = 1
@@ -591,6 +592,8 @@ Plug 'w0rp/ale'
     augroup _codestyle
         au!
         au BufRead,BufNewFile *.java setlocal ts=2 sts=2 sw=2 expandtab
+        au BufRead,BufNewFile *.py setlocal ts=4 sts=4 sw=4 expandtab
+
         au BufRead,BufNewFile *.java
             \ call ale#Set('java_google_java_format_executable',
             \ 'palantir-java-format')
@@ -608,9 +611,16 @@ Plug 'w0rp/ale'
             \ 'gts fix')
     augroup end
 
+
+    func! _save_typescript()
+        execute "normal" "w"
+        call CocAction('diagnosticFirst', 'error')
+    endfunc!
+
     augroup _ts
         au!
-        au FileType typescript nmap <silent><buffer> <c-p> :call coc#rpc#request('runCommand', ['tsserver.organizeImports'])<CR>
+        au FileType typescript nnoremap <silent><buffer> <c-p> :call coc#rpc#request('runCommand', ['tsserver.organizeImports'])<CR>
+        au FileType typescript nnoremap <silent><buffer> <c-s> :call _save_typescript()<CR>
     augroup end
 
 Plug 'mg979/vim-visual-multi'
@@ -722,6 +732,7 @@ Plug 'tpope/vim-dispatch'
         au FileType java nmap <silent><buffer> ,s :call _spotbugs()<CR>
     augroup end
 
+
 Plug 'fvictorio/vim-extract-variable'
 
 
@@ -750,14 +761,14 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
     nmap <leader>rn <Plug>(coc-rename)
     nmap <C-F> <NOP>
 
-    nmap <leader>f  <Plug>(coc-format)
-    vmap <leader>f  <Plug>(coc-format-selected)
+    nmap <leader>f    <Plug>(coc-format)
+    vmap <leader>f    <Plug>(coc-format-selected)
 
     func! _coc_timer_hold()
         if exists('b:_coc_timer_moved') && b:_coc_timer_moved == 1
-			redir @x
+            redir @x
             silent call CocAction('showSignatureHelp')
-			redir end
+            redir end
             let b:_coc_timer_moved = 0
         endif
     endfunc!
@@ -796,12 +807,12 @@ Plug 'junegunn/vim-easy-align'
 Plug 'cespare/vim-toml'
 " too greedy and too stupid
 "Plug 'ggvgc/vim-fuzzysearch'
-"    let g:fuzzysearch_prompt = '/'
-"    let g:fuzzysearch_hlsearch = 1
-"    let g:fuzzysearch_ignorecase = 1
-"    let g:fuzzysearch_max_history = 30
-"    let g:fuzzysearch_match_spaces = 0
-"    nnoremap / :FuzzySearch<CR>
+"     let g:fuzzysearch_prompt = '/'
+"     let g:fuzzysearch_hlsearch = 1
+"     let g:fuzzysearch_ignorecase = 1
+"     let g:fuzzysearch_max_history = 30
+"     let g:fuzzysearch_match_spaces = 0
+"     nnoremap / :FuzzySearch<CR>
 
 Plug 'tpope/vim-abolish'
 
@@ -890,6 +901,15 @@ Plug 'ddrscott/vim-side-search'
     nmap <leader>s :call _sidesearch()<CR>
 
     nmap <leader>a :SideSearch<Space>
+
+"Plug 'paulkass/jira-vim', { 'do': 'pip install -r requirements.txt' }
+"    source ~/.config/jiravim.vim
+
+Plug 'junegunn/vader.vim'
+
+Plug 'matze/vim-move'
+
+Plug 'kovetskiy/neovim-move', { 'do' : ':UpdateRemotePlugins' }
 
 call plug#end()
 
@@ -1001,7 +1021,7 @@ map Q <nop>
 map K <nop>
 
 imap <C-F> tx<TAB>
-vmap <C-F> ctx<TAB>
+au FileType go vmap <C-F> ctx<TAB>
 vmap <C-O> <TAB>oo<TAB>
 
 imap <C-D> context.
@@ -1142,8 +1162,8 @@ augroup _filetypes
 augroup end
 
 "augroup _window_size
-"    au!
-"    au WinEnter * wincmd =
+"     au!
+"     au WinEnter * wincmd =
 "augroup end
 
 nmap K :s///g<CR><C-O>i
@@ -1182,19 +1202,19 @@ func! DiffEnable()
 endfunc!
 
 "func! QueryWrap()
-"    let l:line = line('.')
-"    call search(').\w', '', l:line+1)
+"     let l:line = line('.')
+"     call search(').\w', '', l:line+1)
 
-"    let l:line_data = getline('.')
-"    let l:col = col('.')
-"    echom l:col
+"     let l:line_data = getline('.')
+"     let l:col = col('.')
+"     echom l:col
 
-"    let l:first_line = l:line_data[0:l:col]
-"    let l:second_line = l:line_data[(l:col+1):-1]
+"     let l:first_line = l:line_data[0:l:col]
+"     let l:second_line = l:line_data[(l:col+1):-1]
 
-"    call setline(l:line, l:first_line)
-"    call append(l:line, l:second_line)
-"    call cursor(l:line+1, 1)
+"     call setline(l:line, l:first_line)
+"     call append(l:line, l:second_line)
+"     call cursor(l:line+1, 1)
 "endfunc!
 
 command!
@@ -1300,37 +1320,5 @@ function! SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
-
-let g:echo_command =
-\ '-command echo -p "<project>" -f "<file>" ' .
-\ '-o <offset> -e <encoding>'
-
-function! _generate_builder() " {{{
-  if !eclim#project#util#IsCurrentFileInProject(0)
-    return
-  endif
-
-  let project = eclim#project#util#GetCurrentProjectName()
-  let file = eclim#project#util#GetProjectRelativeFilePath()
-
-  let command = g:echo_command
-  let command = substitute(command, '<project>', project, '')
-  let command = substitute(command, '<file>', file, '')
-  let command = substitute(command, '<offset>', eclim#util#GetOffset(), '')
-  let command = substitute(command, '<encoding>', eclim#util#GetEncoding(), '')
-
-  echom command
-  let response = eclim#Execute(command)
-
-  " if we didn't get back a dict as expected, then there was probably a
-  " failure in the command, which eclim#Execute will handle alerting the user
-  " to.
-  if type(response) != g:DICT_TYPE
-    return
-  endif
-
-  " simply print the response for the user.
-  call eclim#util#Echo(string(response))
-endfunction " }}}
 
 noh
