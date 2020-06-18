@@ -1009,6 +1009,7 @@ docompinit() {
 }
 
 ssha() {
+    rs
     if [[ ! "${_ssh_added}" ]]; then
         if [[ ! "$_SSH_AUTH_SOCK" ]]; then
             eval "$(ssh-agent -s)"

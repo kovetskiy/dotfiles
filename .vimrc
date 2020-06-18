@@ -32,13 +32,22 @@ Plug 'junegunn/fzf.vim'
     let g:fzf_prefer_tmux = 1
     let g:fzf_layout = { 'down': '~40%' }
 
-    func! _select_file()
+    func! _select_file(...)
+        let dir = ""
+        if a:0 > 0
+            let dir = a:1
+        endif
+
         call _snippets_stop()
 
         call fzf#run(fzf#wrap({
-            \ 'source': 'prols',
+            \ 'source': 'prols ' . dir,
             \ 'options': '--sort --no-exact --tiebreak=index'
         \ }))
+    endfunc!
+
+    func! _select_file_cwd()
+        call _select_file(expand('%:h'))
     endfunc!
 
     func! _select_buffer()
@@ -47,6 +56,7 @@ Plug 'junegunn/fzf.vim'
     endfunc!
 
     map <silent> <c-t> :call _select_file()<CR>
+    map <silent> <c-e><c-t> :call _select_file_cwd()<CR>
 
     let g:grep_last_query = ""
 
@@ -782,6 +792,18 @@ Plug 'kovetskiy/coc.nvim', {'do': { -> coc#util#install()}}
     autocmd CursorMoved *.java call _coc_timer_moved()
     autocmd CursorMovedI *.java call _coc_timer_moved()
 
+
+    func! _expand_braces()
+        let l:pattern = '\v\{\}'
+
+        call search(l:pattern, 'cs')
+
+        call feedkeys("a")
+        call feedkeys("\<tab>")
+    endfunc!
+
+    nmap <leader><tab> :call _expand_braces()<CR>
+
 Plug 'majutsushi/tagbar'
 
 Plug 'kovetskiy/sherlock.vim'
@@ -880,7 +902,7 @@ Plug 'reedes/vim-lexical'
 Plug 'rakr/vim-one'
 
 Plug 'kovetskiy/vim-list-mappings'
-    nmap <c-f><leader>f :call FzfListMap()<CR>
+    nmap <c-f><c-l> :call FzfListMap()<CR>
 
 Plug 'ActivityWatch/aw-watcher-vim'
 
@@ -910,6 +932,7 @@ Plug 'junegunn/vader.vim'
 Plug 'matze/vim-move'
 
 Plug 'kovetskiy/neovim-move', { 'do' : ':UpdateRemotePlugins' }
+    nmap <leader>m :Move<space>
 
 call plug#end()
 
