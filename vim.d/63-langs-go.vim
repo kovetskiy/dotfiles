@@ -1,0 +1,126 @@
+augroup _code_go
+    au!
+
+    au FileType go nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
+
+    au FileType go let w:go_stack = 'fix that shit'
+    au FileType go let w:go_stack_level = 'fix that shit'
+    au FileType go nmap <silent><buffer> gt :call go#def#Jump('', 1)<CR>
+    au FileType go nmap <silent><buffer> gd :call go#def#Jump('', 0)<CR>
+    au FileType go nmap <silent><buffer> gl :call go#def#Jump('vsplit', 0)<CR>
+    au FileType go nmap <silent><buffer> gk :call go#def#Jump('split', 0)<CR>
+
+    au FileType go nmap <silent><buffer> <c-p> :w<CR>:call synta#go#build()<CR>
+    au FileType go imap <silent><buffer> <c-p> <ESC>:w<CR>:call synta#go#build()<CR>
+
+    au FileType go nnoremap <buffer> <Leader>r :GoRename<Space>
+    au FileType go nnoremap <buffer> <Leader><Leader>i :!go-install-deps<CR>
+
+    au FileType go vmap <C-F> ctx<TAB>
+
+    au BufRead,BufNewFile *.go let b:argwrap_tail_comma = 1
+
+    au BufEnter *.template call _extend_templatego()
+    au BufEnter *.yaml call _extend_yaml()
+augroup end
+
+func! _goto_prev_func()
+    call search('^func ', 'b')
+    nohlsearch
+    normal zt
+endfunc!
+
+func! _goto_next_func()
+    call search('^func ', '')
+    nohlsearch
+    normal zt
+endfunc!
+
+func! _extend_yaml()
+    if exists("b:yaml_extended")
+        return
+    endif
+
+    runtime! syntax/yaml.vim
+    if exists("b:current_syntax")
+        unlet b:current_syntax
+    endif
+    runtime! syntax/gotexttmpl.vim
+
+    let b:current_syntax = 'yaml'
+
+    let b:yaml_extended = 1
+endfunc!
+
+func! _extend_templatego()
+    if exists("b:templatego_extended")
+        return
+    endif
+
+    call plug#load('vim-go')
+    if exists("b:current_syntax")
+        unlet b:current_syntax
+    endif
+    runtime! syntax/gotexttmpl.vim
+
+    let b:templatego_extended = 1
+endfunc!
+
+func! _search_wrappable()
+    let l:bracket = '\([^\)]'
+    let l:squares = '\[[^\]]'
+    let l:braces  = '\{[^\}]'
+    let l:pattern = '\v[^ ](' . l:bracket . '|' . l:squares . '|' . l:braces . ')'
+
+    call search(l:pattern, 'cs')
+endfunc!
+nnoremap <silent> @l :call _search_wrappable()<CR>ll:ArgWrap<CR>
+
+func! _chain_wrap(first)
+    let match = search(').', 'cs', line('.'))
+    if match == 0
+        return
+    endif
+    call cursor(match, 0)
+
+    let cmd = "lli\r"
+    if a:first == 1
+        let l:cmd = l:cmd . "\t"
+    endif
+
+    exec "normal" l:cmd
+
+    call _chain_wrap(0)
+endfunc!
+
+let g:ale_fixers['go'] = [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")]
+let g:ale_linters = {'go': ['gobuild']}
+
+let g:go_template_autocreate = 0
+
+let g:go_fmt_fail_silently = 0
+let g:go_fmt_command = "gofumports"
+let g:go_fmt_autosave = 0
+let g:go_bin_path = $GOPATH . "/bin"
+let g:go_metalinter_command="golangci-lint run"
+let g:go_list_type = "quickfix"
+let g:go_auto_type_info = 0
+let g:go_gocode_autobuild = 1
+
+let g:go_doc_keywordprg_enabled = 0
+let g:go_def_mapping_enabled = 0
+let g:go_def_mode = 'godef'
+let g:go_info_mode = 'gopls'
+let g:go_rename_command = 'gopls'
+
+let g:synta_go_highlight_calls = 0
+let g:synta_go_highlight_calls_funcs = 1
+let g:synta_use_sbuffer = 0
+let g:synta_use_go_fast_build = 0
+let g:synta_go_build_recursive = 1
+let g:synta_go_build_recursive_cwd = 1
+
+
+hi! link goCall Function
+
+nnoremap <silent> @h :call _chain_wrap(1)<CR>

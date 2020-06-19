@@ -1121,8 +1121,10 @@ git-commit-branch() {
 
 # :alias
 
-alias bl='batrak -L -K -s -w'
-alias bb='batrak -L -K -s -m'
+alias bl='batrak -L'
+alias blm='batrak -L -m'
+alias bk='batrak -L -K -s -w'
+alias bkm='batrak -L -K -s -m'
 alias bm='batrak -M'
 alias gpd=:git-push-delete
 alias gpt='git push origin --tags'
@@ -1272,6 +1274,7 @@ alias pf=pkgfile
 
 alias pl='packages-local'
 alias pla='packages-local -a'
+alias vd='cd ~/dotfiles/vim.d/; vim'
 alias viz='vim ~/.zshrc'
 alias tiz='terminal-vim ~/.zshrc'
 alias zr='source ~/.zshrc && print "zsh config has been reloaded"'
