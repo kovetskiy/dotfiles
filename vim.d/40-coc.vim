@@ -19,6 +19,8 @@ nmap <silent> <C-F><C-O>  :call _coc_restart()<CR>
 nmap <silent> gi :call CocActionAsync('doHover')<CR>
 nmap <silent> gr :call _coc_references()<CR>
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gl :call CocActionAsync('jumpDefinition', 'vsplit')<CR>
+nmap <silent> gk :call CocActionAsync('jumpDefinition', 'split')<CR>
 nmap <leader>rn <Plug>(coc-rename)
 nmap <C-F> <NOP>
 
