@@ -92,7 +92,6 @@ func! _dir_up()
     let l:pos = getcmdpos() - 1
 
     let l:before = strpart(l:cmd, 0, l:pos)
-    let l:after = strpart(l:cmd, l:pos)
 
     let l:separator = strridx(l:before, "/")
     let l:before = strpart(l:before, 0, l:separator)
@@ -104,7 +103,7 @@ func! _dir_up()
 
     call setcmdpos(len(l:before) + 1)
 
-    let l:cmdline = l:before . l:after
+    let l:cmdline = l:before
     return l:cmdline
 endfunc!
 
@@ -155,4 +154,14 @@ func! _sidesearch()
     endif
 
     call SideSearch(word)
+endfunc!
+
+func! _goto_file()
+    let file = expand("<cfile>")
+    if file[:1] == "./"
+        let dir = expand("%:h")
+        let file = dir . file[1:]
+    endif
+
+    execute "edit" file
 endfunc!

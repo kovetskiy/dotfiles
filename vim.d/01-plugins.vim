@@ -65,7 +65,7 @@ Plug 'tpope/vim-fugitive'
     nmap ,t :Gpush origin<CR>
     nmap ,g :Dispatch lab ci trace<CR>
 Plug 'junegunn/vim-easy-align'
-    vmap <c-t> :EasyAlign<CR>*
+    vnoremap <c-t> :EasyAlign<CR>*
     let g:easy_align_ignore_groups = []
 Plug 'cespare/vim-toml'
 Plug 'tpope/vim-abolish'

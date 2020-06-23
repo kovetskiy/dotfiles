@@ -18,7 +18,7 @@ vnoremap $ g_
 nnoremap > >>
 nnoremap < <<
 
-nnoremap <Leader>` :tabedit ~/.vimrc<CR>
+nnoremap <Leader>` :call _select_file('~/dotfiles/vim.d')<CR>
 
 vnoremap <silent> > >gv
 vnoremap <silent> < <gv
@@ -139,3 +139,5 @@ nmap <leader>m :Move<space>
 
 nmap <leader>s :call _sidesearch()<CR>
 nmap <leader>a :SideSearch<Space>
+
+nnoremap gf :call _goto_file()<CR>

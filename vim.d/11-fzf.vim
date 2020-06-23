@@ -24,8 +24,8 @@ func! _select_buffer()
     call fzf#vim#buffers({'options': '--sort --no-exact --tiebreak=index'})
 endfunc!
 
-map <silent> <c-t> :call _select_file()<CR>
-map <silent> <c-e><c-t> :call _select_file_cwd()<CR>
+nnoremap <silent> <c-t> :call _select_file()<CR>
+nnoremap <silent> <c-e><c-t> :call _select_file_cwd()<CR>
 
 let g:grep_last_query = ""
 

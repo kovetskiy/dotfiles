@@ -9,7 +9,7 @@ augroup _codestyle
     au!
     au BufRead,BufNewFile *.py setlocal ts=4 sts=4 sw=4 expandtab
     au BufEnter *.amber setlocal ft=pug
-    au FileType pug setlocal ts=2 sts=2 sw=2 et
+    au FileType pug,scss setlocal ts=2 sts=2 sw=2 et
     au BufNewFile,BufRead *.dump set filetype=dump
     au BufNewFile,BufRead *.yaml,*.yml setlocal ts=2 sts=2 sw=2 expandtab
 
