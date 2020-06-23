@@ -55,8 +55,8 @@ command! -nargs=* Grep call _grep(<q-args>)
 nnoremap <silent> <C-F><C-F> :Grep<CR>
 nnoremap <silent> <C-E><C-F> :call _grep_word()<CR>
 
-func! _lstags()
-    call fzf#vim#ag("", {'source':    'lstags', 'options': '--delimiter : --nth 4..'})
-endfunc!
-
-nnoremap <silent> <c-g> :call _lstags()<CR>
+"func! _lstags()
+"    call fzf#vim#ag("", {'source':    'lstags', 'options': '--delimiter : --nth 4..'})
+"endfunc!
+"
+"nnoremap <silent> <c-g> :call _lstags()<CR>

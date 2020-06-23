@@ -117,4 +117,9 @@ Plug 'kovetskiy/neovim-move', { 'do' : ':UpdateRemotePlugins' }
             hi! CursorLineNr ctermbg=1
         endfunc!
     endif
+
+Plug 'preservim/nerdtree'
+
+Plug 'albfan/nerdtree-git-plugin'
+
 call plug#end()

@@ -7,6 +7,8 @@
     "coc-java": ">=1.4.11",
     "coc-json": ">=1.2.6",
     "coc-pairs": ">=1.2.21",
-    "coc-tsserver": ">=1.5.1"
+    "coc-python": ">=1.2.12",
+    "coc-tsserver": ">=1.5.1",
+    "coc-xml": ">=1.11.1"
   }
 }
