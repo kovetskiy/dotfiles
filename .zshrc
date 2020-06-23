@@ -1119,13 +1119,33 @@ git-commit-branch() {
     git push $remote --delete $branch
 }
 
+:batrak:list() {
+    batrak -L -q 'team = dev'
+}
+
+:batrak:move() {
+    local issue=$1
+    echo ":: recieving list of issue transitions for $issue"
+    local list=$(batrak -M "$1")
+    local dst=$(fzf-tmux <<< "$list")
+    if [[ ! "$dst" ]]; then
+        return
+    fi
+
+    dst=$(awk '{print $1}' <<< "$dst")
+
+    batrak -M "$1" "$dst"
+}
+
 # :alias
 
-alias bl='batrak -L'
-alias blm='batrak -L -m'
-alias bk='batrak -L -K -s -w'
-alias bkm='batrak -L -K -s -m'
-alias bm='batrak -M'
+alias bl=':batrak:list -w'
+alias bla='batrak -L -w'
+alias blm=':batrak:list -w -m'
+alias bk=':batrak:list -K -s -w'
+alias bkm=':batrak:list -K -s -w -m'
+alias bm=':batrak:move'
+alias ba='batrak -A'
 alias gpd=:git-push-delete
 alias gpt='git push origin --tags'
 
