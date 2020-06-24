@@ -1,8 +1,18 @@
 let g:lightline = {
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'filename', 'readonly', 'cocstatus',  'modified' ] ]
+    \ },
     \ 'component_function': {
-    \   'filename': '_relative_filename'
+        \   'filename': '_relative_filename',
+        \   'cocstatus': '_coc_status_cut',
     \ }
 \ }
+
+func! _coc_status_cut()
+    let l:status = coc#status()
+    return l:status[:33]
+endfunc!
 
 function! _relative_filename()
   return expand('%')

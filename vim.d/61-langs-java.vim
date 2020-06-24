@@ -18,7 +18,6 @@ augroup _code_java
     au FileType java nmap <silent><buffer> <c-p> :call _diagnostic_java()<CR>
     au FileType java nmap <silent><buffer> ;n <Plug>(coc-diagnostic-next-error)
     au FileType java nmap <silent><buffer> <Leader>; <Plug>(coc-diagnostic-prev-error)
-    au FileType java nmap <silent><buffer> ,x :call _atlas_compile()<CR>
     au FileType java nmap <silent><buffer> ,s :call _spotbugs()<CR>
 
     au CursorHold *.java call __java_timer_hold()
@@ -26,6 +25,8 @@ augroup _code_java
     au CursorMoved *.java call __java_timer_moved()
     au CursorMovedI *.java call __java_timer_moved()
 augroup end
+
+nmap <silent> ,x :call PythonxCocDiagnosticNext()<CR>
 
 func! __java_timer_hold()
     if exists('b:__java_timer_moved') && b:__java_timer_moved == 1
