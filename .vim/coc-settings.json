@@ -129,7 +129,7 @@
     "java.trace.server": "verbose",
     "java.configuration.updateBuildConfiguration": "disabled",
     "java.errors.incompleteClasspath.severity": "ignore",
-    "java.import.callback": "px#java#import#callback",
+    "java.import.callback": "PythonxJavaChooseImport",
     "xml.format.splitAttributes": true,
     "coc.preferences.formatOnSaveFiletypes": [
         "xml"

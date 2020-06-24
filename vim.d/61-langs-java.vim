@@ -15,8 +15,7 @@ augroup _code_java
 
     au FileType java nmap <silent><buffer> <c-a> :ALEFix<CR>
     au FileType java nmap <silent><buffer> <c-s> :call _save_java()<CR>
-    au FileType java inoremap <silent><buffer> <c-s> <C-\><C-O>:call _format_java()<CR>
-    au FileType java nmap <silent><buffer> <c-p> :call _format_java()<CR>
+    au FileType java nmap <silent><buffer> <c-p> :call _diagnostic_java()<CR>
     au FileType java nmap <silent><buffer> ;n <Plug>(coc-diagnostic-next-error)
     au FileType java nmap <silent><buffer> <Leader>; <Plug>(coc-diagnostic-prev-error)
     au FileType java nmap <silent><buffer> ,x :call _atlas_compile()<CR>
@@ -53,12 +52,14 @@ func! _atlas_compile()
     execute "Dispatch"
 endfunc!
 
-func! _format_java()
+func! _diagnostic_java()
     call CocAction('diagnosticFirst', 'error')
 endfunc!
 
 func! _save_java()
     call coc#rpc#request('runCommand', ['java.action.organizeImports'])
+    call coc#rpc#request('runCommand', ['java.action.organizeImports'])
+
     call ale#fix#Fix(bufnr(''), '')
     write
 endfunc!
@@ -72,4 +73,4 @@ func! _expand_braces()
     call feedkeys("\<tab>")
 endfunc!
 
-nmap <leader><tab> :call _expand_braces()<CR>
+nmap <C-x> :call _expand_braces()<CR>

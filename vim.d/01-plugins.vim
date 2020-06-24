@@ -16,7 +16,7 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'AndrewRadev/sideways.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'justinmk/vim-sneak'
-Plug 'reconquest/vim-pythonx'
+Plug 'reconquest/vim-pythonx', { 'do' : ':UpdateRemotePlugins' }
     let g:pythonx_highlight_completion = 0
     let g:pythonx_go_info_mode = 'coc'
 Plug 'reconquest/snippets'
@@ -91,35 +91,37 @@ Plug 'hashivim/vim-terraform', {'for': 'terraform'}
 Plug 'ddrscott/vim-side-search'
 Plug 'matze/vim-move'
 Plug 'kovetskiy/neovim-move', { 'do' : ':UpdateRemotePlugins' }
-    if $BACKGROUND == "dark"
-        Plug 'reconquest/vim-colorscheme'
-        func! _setup_colorscheme()
-            colorscheme reconquest
-
-            hi! CursorLineNr ctermbg=1
-            hi! GitDeleted ctermfg=88
-            hi! GitAdded ctermfg=22
-            hi! GitModified ctermfg=238
-            hi! MoreMsg ctermbg=none ctermfg=238
-        endfunc!
-    endif
-    if $BACKGROUND == "light"
-        Plug 'NLKNguyen/papercolor-theme'
-        Plug 'sonph/onehalf', {'rtp': 'vim/'}
-
-        func! _setup_colorscheme()
-            set background="light"
-            colorscheme papercolor
-
-            hi! SpecialKey ctermfg=250
-            hi! String ctermfg=33
-            hi! PreProc ctermfg=19
-            hi! CursorLineNr ctermbg=1
-        endfunc!
-    endif
 
 Plug 'preservim/nerdtree'
 
 Plug 'albfan/nerdtree-git-plugin'
+
+
+if $BACKGROUND == "dark"
+    Plug 'reconquest/vim-colorscheme'
+    func! _setup_colorscheme()
+        colorscheme reconquest
+
+        hi! CursorLineNr ctermbg=1
+        hi! GitDeleted ctermfg=88
+        hi! GitAdded ctermfg=22
+        hi! GitModified ctermfg=238
+        hi! MoreMsg ctermbg=none ctermfg=238
+    endfunc!
+endif
+if $BACKGROUND == "light"
+    Plug 'NLKNguyen/papercolor-theme'
+    Plug 'sonph/onehalf', {'rtp': 'vim/'}
+
+    func! _setup_colorscheme()
+        set background="light"
+        colorscheme papercolor
+
+        hi! SpecialKey ctermfg=250
+        hi! String ctermfg=33
+        hi! PreProc ctermfg=19
+        hi! CursorLineNr ctermbg=1
+    endfunc!
+endif
 
 call plug#end()
