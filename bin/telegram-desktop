@@ -3,4 +3,16 @@
 export QT_STYLE_OVERRIDE=""
 export QT_QPA_PLATFORMTHEME=gtk3
 
-/usr/bin/telegram-desktop
+xd_class="telegram-desktop"
+
+:kuake() {
+    kuake --focus --center --middle --width 30 --height 55 --class "$xd_class"
+}
+
+if  [[ ! "$(xdotool search --classname "$xd_class")" ]]; then
+    /usr/bin/telegram-desktop &
+    xdotool search --sync --classname "$xd_class" windowfocus
+    :kuake
+else
+    :kuake
+fi

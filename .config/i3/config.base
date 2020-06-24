@@ -79,9 +79,6 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 
-bindsym $alt+Ctrl+grave  [instance="^(?!kuake)"] scratchpad show
-bindsym $alt+Shift+grave move scratchpad
-
 # dell poweroff button
 bindcode 124 exec poweroff
 
@@ -99,7 +96,11 @@ for_window [title="webcam"] floating enable
 for_window [title="webcam"] sticky enable
 
 
-assign [class="TelegramDesktop"] q
+for_window [class="telegram-desktop"] floating enable
+for_window [class="TelegramDesktop"] floating enable
+for_window [class="telegram-desktop"] resize set 640 480
+for_window [class="TelegramDesktop"] resize set 640 480
+
 for_window [class="skype"] floating enable
 for_window [class="Skype"] floating enable
 

@@ -1139,6 +1139,9 @@ git-commit-branch() {
 
 # :alias
 
+alias mi='mvn install'
+alias me='mvn eclipse:eclipse'
+alias md='mvn dependency:resolve && me'
 alias bl=':batrak:list -w'
 alias bla='batrak -L -w'
 alias blm=':batrak:list -w -m'
@@ -1237,7 +1240,6 @@ alias str='strace -ff -s 100'
 alias bx='chmod +x ~/bin/* ~/deadfiles/bin/* ~/.guts/bin/*'
 alias ck='create-and-change-directory'
 alias mf='man-find'
-alias md='man-directive'
 alias c='cd-and-ls'
 alias ss='sed-replace'
 
