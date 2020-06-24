@@ -54,13 +54,13 @@ func! _atlas_compile()
 endfunc!
 
 func! _format_java()
-    call coc#rpc#request('runCommand', ['java.action.organizeImports'])
     call CocAction('diagnosticFirst', 'error')
 endfunc!
 
 func! _save_java()
-    write
+    call coc#rpc#request('runCommand', ['java.action.organizeImports'])
     call ale#fix#Fix(bufnr(''), '')
+    write
 endfunc!
 
 func! _expand_braces()
