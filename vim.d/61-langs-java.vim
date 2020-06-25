@@ -24,6 +24,9 @@ augroup _code_java
     au CursorHoldI *.java call __java_timer_hold()
     au CursorMoved *.java call __java_timer_moved()
     au CursorMovedI *.java call __java_timer_moved()
+
+    au FileType java imap <buffer> <c-y> <C-O>:call CocActionAsync('doHover')<CR>
+    au FileType java nmap <buffer> <c-y> :call CocActionAsync('doHover')<CR>
 augroup end
 
 nmap <silent> ,x :call PythonxCocDiagnosticNext()<CR>

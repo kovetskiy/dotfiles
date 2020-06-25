@@ -1,3 +1,4 @@
+let g:EclimDisabled = 1
 let g:EclimLoggingDisabled = 1
 let g:EclimJavaCompilerAutoDetect = 0
 let g:EclimShowCurrentError = 0
