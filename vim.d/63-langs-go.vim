@@ -97,8 +97,8 @@ func! _chain_wrap(first)
     call _chain_wrap(0)
 endfunc!
 
-"let g:ale_fixers['go'] = [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")]
-let g:ale_fixers['go'] = ['gofmt']
+let g:ale_fixers['go'] = [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")]
+"let g:ale_fixers['go'] = ['gofmt']
 let g:ale_linters = {'go': ['gobuild']}
 
 let g:go_template_autocreate = 0
