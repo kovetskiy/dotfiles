@@ -26,3 +26,8 @@ nmap <C-F> <NOP>
 
 nmap <leader>f    <Plug>(coc-format)
 vmap <leader>f    <Plug>(coc-format-selected)
+
+augroup _coc_highlight
+    au!
+    au VimEnter * hi! CocErrorHighlight ctermbg=232 ctermfg=256 cterm=none
+augroup end
