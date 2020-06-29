@@ -43,10 +43,16 @@ super + 8
 super + 9
 	;volume up
 
+super + Left
+	;volume down
+
 super + Down
 	;volume down
 
 super + Up
+	;volume up
+
+super + Right
 	;volume up
 
 super + control + 9
@@ -88,13 +94,13 @@ super + backslash
 super + equal
 	;kuake --terminal --class top --top --middle --height 30 --width 50
 
-control + F7
+control + F3
 	wg-toggle
 
-control + F8
+F8
 	brightness down
 
-control + F9
+F9
 	brightness up
 
 control + F4
