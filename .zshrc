@@ -1,8 +1,3 @@
-#zmodload zsh/zprof
-#PS4=$'\\\011%D{%s%6.}\011%x\011%I\011%N\011%e\011'
-#exec 3>&2 2>/tmp/zsh.$$
-#setopt xtrace prompt_subst
-
 . ~/bin/environment-variables
 
 export TERM=screen-256color
