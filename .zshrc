@@ -1496,7 +1496,3 @@ if [[ "$HISTFILE_OVERRIDE" ]]; then
 fi
 
 setopt share_history
-
-#bindkey -e '^I' fzf-completion
-
-#for f in ~/dotfiles/zsh/*; do source $f; done
