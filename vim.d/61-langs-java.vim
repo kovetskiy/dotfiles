@@ -19,6 +19,7 @@ augroup _code_java
     au FileType java nmap <silent><buffer> <c-g> :call _diagnostic_java_project()<CR>
     au FileType java nmap <silent><buffer> ;n <Plug>(coc-diagnostic-next-error)
     au FileType java nmap <silent><buffer> <Leader>; <Plug>(coc-diagnostic-prev-error)
+    au FileType java nnoremap <buffer> <Leader>r :call CocActionAsync('rename')<CR>
     au FileType java nmap <silent><buffer> ,s :call _spotbugs()<CR>
 
     au CursorHold *.java call __java_timer_hold()
@@ -58,10 +59,7 @@ func! _atlas_compile()
 endfunc!
 
 func! _diagnostic_java()
-    call CocAction(
-        'diagnosticFirst',
-        'error'
-    )
+    call CocAction('diagnosticFirst', 'error')
 endfunc!
 
 func! _diagnostic_java_project()

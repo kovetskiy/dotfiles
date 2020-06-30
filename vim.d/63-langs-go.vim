@@ -17,7 +17,7 @@ augroup _code_go
     au FileType go nmap <silent><buffer> <c-p> :w<CR>:call synta#go#build()<CR>
     au FileType go imap <silent><buffer> <c-p> <ESC>:w<CR>:call synta#go#build()<CR>
 
-    au FileType go nnoremap <buffer> <Leader>r :GoRename<Space>
+    au FileType go nnoremap <buffer> <Leader>r :call CocActionAsync('rename')<CR>
     au FileType go nnoremap <buffer> <Leader><Leader>i :!go-install-deps<CR>
 
     au FileType go vmap <C-F> ctx<TAB>
