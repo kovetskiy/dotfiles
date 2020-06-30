@@ -43,6 +43,7 @@ Plug 'w0rp/ale'
         \ 'bash':       ['shfmt'],
         \ 'pug':        [function('ale#fixers#prettier#Fix')],
         \ 'scss':       [function('ale#fixers#prettier#Fix')],
+        \ '*': ['remove_trailing_lines', 'trim_whitespace']
     \}
     let g:ale_fix_on_save = 1
 Plug 'mg979/vim-visual-multi'

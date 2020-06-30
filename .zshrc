@@ -1137,11 +1137,18 @@ git-commit-branch() {
     batrak -M "$1" "$dst"
 }
 
+:unzip() {
+    local name=$(sed -r 's/\.(zip|jar)$//' <<< "$1")
+    unzip $1 -d "$name"
+}
+
 # :alias
 
+alias uz=':unzip'
 alias mi='mvn install'
 alias me='mvn eclipse:eclipse'
-alias md='mvn dependency:resolve && me'
+alias mr='mvn dependency:resolve && me'
+alias md='mvn deploy'
 alias bl=':batrak:list -w'
 alias bla='batrak -L -w'
 alias blm=':batrak:list -w -m'
@@ -1150,6 +1157,7 @@ alias bkm=':batrak:list -K -s -w -m'
 alias bm=':batrak:move'
 alias ba='batrak -A'
 alias gpd=:git-push-delete
+alias gbd='git branch -D'
 alias gpt='git push origin --tags'
 
 alias lc='go-mod-local'
@@ -1377,7 +1385,7 @@ alias gic='git add . ; git commit -m "initial commit"'
 alias gig='touch .gitignore; git add .gitignore ; git commit -m "gitignore"'
 alias bhc='BROWSER=/bin/echo bitbucket browse commits/$(git rev-parse --short HEAD) 2>/dev/null | sed "s@//projects/@/projects/@" '
 
-alias cr='carcosa -p ~/sources/gitlab.com/reconquest/secrets'
+alias cr='carcosa -p ~/reconquest/secrets'
 alias sc='sudo systemctl'
 alias scr='sudo systemctl restart'
 alias scs='sudo systemctl start'

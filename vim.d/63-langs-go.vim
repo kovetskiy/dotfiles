@@ -46,12 +46,14 @@ func! _extend_yaml()
     endif
 
     runtime! syntax/yaml.vim
+
     if exists("b:current_syntax")
         unlet b:current_syntax
     endif
     runtime! syntax/gotexttmpl.vim
 
     let b:current_syntax = 'yaml'
+
 
     let b:yaml_extended = 1
 endfunc!
