@@ -100,6 +100,7 @@ endfunc!
 let g:ale_fixers['go'] = [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")]
 let g:ale_fixers['go2'] = ['gofmt']
 let g:ale_linters = {'go': ['gobuild']}
+"let g:ale_linters = {'go2': ['']}
 
 let g:go_template_autocreate = 0
 
