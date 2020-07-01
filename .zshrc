@@ -1405,7 +1405,7 @@ alias jxf='sudo journalctl -xef'
 alias jxg='sudo journalctl -xe | grep '
 alias jxfg='sudo journalctl -xef | grep '
 
-alias wh='() { while :; do eval "${@}"; done }'
+alias wh='() { while :; do eval "${@}"; sleep 0.5; done }'
 export TUBEKIT_DEBUG=1
 alias krun='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
 
@@ -1464,9 +1464,6 @@ alias goi='go install'
 
 alias -g -- '-ya'='-o yaml'
 alias -g -- '-ow'='-o wide'
-
-#context-aliases:match '[[ "$PWD" = ~/go/src/ ]]'
-#context-aliases:commit
 
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
