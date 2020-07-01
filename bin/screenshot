@@ -33,7 +33,7 @@ ln -sf "$filename" "$HOME/s.png"
 #echo "uploading screenshot"
 #notify-send " " "uploading screenshot"
 url="$filename"
-url=$(darc $filename)
+#url=$(darc $filename)
 #echo "$url"
 echo -n $url | xclip -selection primary
 echo -n $url | xclip -selection clipboard

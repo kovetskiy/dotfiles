@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if findmnt /media/sony >&-; then
+    sudo umount /media/sony
+    echo Unmounted
+else
+    device=$(
+        sudo lsblk -O --json |
+            jq -r '.blockdevices | .[] | select(.vendor | startswith("Sony")) | select(.size != "2M") | .children[] | .path'
+    )
+
+    sudo mkdir -p /media/sony
+    sudo chown $USER /media/sony
+    uid=$(id -u)
+    gid=$(id -g)
+    sudo mount -o umask=0022,gid=$gid,uid=$uid $device /media/sony
+
+    sxiv /media/sony/DCIM/100MSDCF/
+fi

@@ -1,28 +1,26 @@
 augroup _go2
     au!
-    au BufNewFile,BufRead *.go2 setlocal filetype=go
+    au BufNewFile,BufRead *.go2 setlocal filetype=go2
+    au BufNewFile,BufRead *.go2 runtime! syntax/go.vim
+    au BufNewFile,BufRead *.go2 runtime! indent/go.vim
 augroup end
 augroup _code_go
     au!
 
-    au FileType go nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
+    au FileType go,go2 nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
+    au FileType go,go2 let w:go_stack = 'fix that shit'
+    au FileType go,go2 let w:go_stack_level = 'fix that shit'
+    au FileType go,go2 nmap <silent><buffer> gt :call go#def#Jump('', 1)<CR>
+    au FileType go,go2 nmap <silent><buffer> gd :call go#def#Jump('', 0)<CR>
+    au FileType go,go2 nmap <silent><buffer> gl :call go#def#Jump('vsplit', 0)<CR>
+    au FileType go,go2 nmap <silent><buffer> gk :call go#def#Jump('split', 0)<CR>
+    au FileType go,go2 nmap <silent><buffer> <c-p> :w<CR>:call synta#go#build()<CR>
+    au FileType go,go2 imap <silent><buffer> <c-p> <ESC>:w<CR>:call synta#go#build()<CR>
+    au FileType go,go2 nnoremap <buffer> <Leader>r :call CocActionAsync('rename')<CR>
+    au FileType go,go2 nnoremap <buffer> <Leader><Leader>i :!go-install-deps<CR>
+    au FileType go,go2 vmap <C-F> ctx<TAB>
 
-    au FileType go let w:go_stack = 'fix that shit'
-    au FileType go let w:go_stack_level = 'fix that shit'
-    au FileType go nmap <silent><buffer> gt :call go#def#Jump('', 1)<CR>
-    au FileType go nmap <silent><buffer> gd :call go#def#Jump('', 0)<CR>
-    au FileType go nmap <silent><buffer> gl :call go#def#Jump('vsplit', 0)<CR>
-    au FileType go nmap <silent><buffer> gk :call go#def#Jump('split', 0)<CR>
-
-    au FileType go nmap <silent><buffer> <c-p> :w<CR>:call synta#go#build()<CR>
-    au FileType go imap <silent><buffer> <c-p> <ESC>:w<CR>:call synta#go#build()<CR>
-
-    au FileType go nnoremap <buffer> <Leader>r :call CocActionAsync('rename')<CR>
-    au FileType go nnoremap <buffer> <Leader><Leader>i :!go-install-deps<CR>
-
-    au FileType go vmap <C-F> ctx<TAB>
-
-    au BufRead,BufNewFile *.go let b:argwrap_tail_comma = 1
+    au BufRead,BufNewFile *.go,*.go2 let b:argwrap_tail_comma = 1
 
     au BufEnter *.template call _extend_templatego()
     au BufEnter *.yaml call _extend_yaml()
@@ -100,7 +98,7 @@ func! _chain_wrap(first)
 endfunc!
 
 let g:ale_fixers['go'] = [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")]
-"let g:ale_fixers['go'] = ['gofmt']
+let g:ale_fixers['go2'] = ['gofmt']
 let g:ale_linters = {'go': ['gobuild']}
 
 let g:go_template_autocreate = 0
