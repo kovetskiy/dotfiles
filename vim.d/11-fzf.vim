@@ -7,7 +7,7 @@ func! _select_file(...)
         let dir = a:1
     endif
 
-    call _snippets_stop()
+    "call _snippets_stop()
 
     call fzf#run(fzf#wrap({
         \ 'source': 'prols ' . dir,
@@ -29,31 +29,45 @@ nnoremap <silent> <c-e><c-t> :call _select_file_cwd()<CR>
 
 let g:grep_last_query = ""
 
-func! _grep(query)
-    let g:grep_last_query = a:query
+func! _grep(query, dir)
+    let query = a:query
+    let dir = a:dir
 
-    let @/ = a:query
-    call fzf#vim#ag(a:query, {'options': '--delimiter : --nth 4..'})
+    let g:grep_last_query = query
+    let @/ = query
+
+    if query == ''
+        let query = '^(?=.)'
+    endif
+
+    if dir == ''
+        let dir = '.'
+    endif
+
+    call fzf#vim#grep(
+        \ "ag --nogroup --column --color  -- " . fzf#shellescape(query) . ' ' . fzf#shellescape(dir),
+        \ 1,
+        \ {'options': '--delimiter : --nth 4..'}
+    \ )
 endfunc!
 
-func! _grep_word()
-    let l:word = expand('<cword>')
-    call _grep(l:word)
-endfunc!
 
 func! _grep_slash()
     let l:slash = strpart(@/, 2)
-    call _grep(l:slash)
+    call _grep(l:slash, "")
+endfunc!
+
+func! _grep_cwd()
+    call _grep('', expand('%:h'))
 endfunc!
 
 func! _grep_recover()
-    call _grep(g:grep_last_query)
+    call _grep(g:grep_last_query, '')
 endfunc!
 
-command! -nargs=* Grep call _grep(<q-args>)
-
-nnoremap <silent> <C-F><C-F> :Grep<CR>
-nnoremap <silent> <C-E><C-F> :call _grep_word()<CR>
+nnoremap <silent> <C-F><C-F> :call _grep('', '')<CR>
+nnoremap <silent> <C-E><C-F> :call _grep_cwd()<CR>
+nnoremap <silent> <C-F>/ :call _grep_slash()<CR>
 
 "func! _lstags()
 "    call fzf#vim#ag("", {'source':    'lstags', 'options': '--delimiter : --nth 4..'})
