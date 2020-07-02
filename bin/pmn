@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd /var/cache/pacman/pkg/
+
+pacman "${@}" --print --print-format "%l" \
+    | grep -E -o -e "(ht|f)tp[s]?://[^\']+" \
+    | aria2c --human-readable=true -c -s16 -k1M -x16 -j16 -t10 --connect-timeout=10 --file-allocation=none -i /dev/stdin
+
+pacman "${@}"

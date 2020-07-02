@@ -11,7 +11,7 @@ xd_class="telegram-desktop"
 
 if  [[ ! "$(xdotool search --classname "$xd_class")" ]]; then
     /usr/bin/telegram-desktop &
-    xdotool search --sync --classname "$xd_class" windowfocus
+    xdotool search --onlyvisible --sync --classname "$xd_class" windowfocus
     :kuake
 else
     :kuake

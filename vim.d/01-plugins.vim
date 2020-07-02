@@ -39,8 +39,6 @@ Plug 'w0rp/ale'
         \ 'ruby':       [function('ale#fixers#rufo#Fix')],
         \ 'java':       [function('ale#fixers#google_java_format#Fix')],
         \ 'rust':       ['rustfmt'],
-        \ 'sh':         ['shfmt'],
-        \ 'bash':       ['shfmt'],
         \ 'pug':        [function('ale#fixers#prettier#Fix')],
         \ 'scss':       [function('ale#fixers#prettier#Fix')],
         \ '*': ['remove_trailing_lines', 'trim_whitespace']
