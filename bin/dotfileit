@@ -30,7 +30,7 @@ set -euo pipefail
         fi
 
         if [[ "$action" == "mv" ]]; then
-            install -DT "$target" "$dotfile"
+            rsync -av "$target" "$dotfile"
             ask_rm=true
         fi
 
@@ -39,7 +39,7 @@ set -euo pipefail
         fi
     else
         echo ":: copying to dotfiles: $relative"
-        install -DT "$target" "$dotfile"
+        rsync -av "$target" "$dotfile"
 
         ask_rm=true
     fi

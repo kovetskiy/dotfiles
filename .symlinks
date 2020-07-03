@@ -44,3 +44,4 @@ bin
 .Xresources.office
 .yaourtrc
 .zshrc
+.themes/op/xfce-notify-4.0
