@@ -71,7 +71,7 @@ func! _save_java()
     call coc#rpc#request('runCommand', ['java.action.organizeImports'])
 
     call ale#fix#Fix(bufnr(''), '')
-    write
+    write!
 endfunc!
 
 func! _expand_braces()

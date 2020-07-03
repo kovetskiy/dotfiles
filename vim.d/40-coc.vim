@@ -29,5 +29,5 @@ vmap <leader>f    <Plug>(coc-format-selected)
 
 augroup _coc_highlight
     au!
-    au VimEnter * hi! CocErrorHighlight ctermbg=232 ctermfg=256 cterm=none
+    au VimEnter * hi! CocErrorHighlight ctermbg=52 ctermfg=none cterm=none
 augroup end
