@@ -15,5 +15,5 @@ else
     gid=$(id -g)
     sudo mount -o umask=0022,gid=$gid,uid=$uid $device /media/sony
 
-    sxiv /media/sony/DCIM/100MSDCF/
+    sxiv -o /media/sony/DCIM/100MSDCF/ | xargs -n1 -I{} rsync -avp {} ~/Photos/
 fi

@@ -29,6 +29,7 @@ augroup _code_java
 
     au FileType java imap <buffer> <c-y> <C-O>:call CocActionAsync('doHover')<CR>
     au FileType java nmap <buffer> <c-y> :call CocActionAsync('doHover')<CR>
+    "au InsertLeave *.java call _diagnostic_java()
 augroup end
 
 nmap <silent> ,x :call PythonxCocDiagnosticNext()<CR>
@@ -66,10 +67,13 @@ func! _diagnostic_java_project()
     call PythonxCocDiagnosticFirst()
 endfunc!
 
-func! _save_java()
+func! _autoimports_java()
     call coc#rpc#request('runCommand', ['java.action.organizeImports'])
     call coc#rpc#request('runCommand', ['java.action.organizeImports'])
+endfunc!
 
+func! _save_java()
+    call _autoimports_java()
     call ale#fix#Fix(bufnr(''), '')
     write!
 endfunc!

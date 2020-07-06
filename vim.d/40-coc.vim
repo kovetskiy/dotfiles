@@ -2,6 +2,7 @@ func! _coc_restart()
     redir @x
     silent execute "CocRestart"
     redir end
+    call system("rm -rf ~/.config/coc/extensions/coc-java-data/jdt_ws_*")
     echom "[coc] restarted"
 endfunc!
 
@@ -29,5 +30,6 @@ vmap <leader>f    <Plug>(coc-format-selected)
 
 augroup _coc_highlight
     au!
-    au VimEnter * hi! CocErrorHighlight ctermbg=52 ctermfg=none cterm=none
+    au VimEnter,BufRead * hi! CocErrorHighlight ctermbg=52 ctermfg=none cterm=none
+    au VimEnter,BufRead * hi! CocListBgRed ctermbg=52 ctermfg=none cterm=none
 augroup end

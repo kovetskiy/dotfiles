@@ -1142,7 +1142,7 @@ git-commit-branch() {
 alias uz=':unzip'
 alias mi='mvn install'
 alias me='mvn eclipse:eclipse'
-alias mr='mvn dependency:resolve && me'
+alias mr='mvn dependency:resolve -U && me'
 alias md='mvn deploy'
 alias bl=':batrak:list -w'
 alias bla='batrak -L -w'

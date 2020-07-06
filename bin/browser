@@ -18,23 +18,14 @@ if [[ -e "${url}" ]]; then
     url="$(readlink -f "${url}")"
 fi
 
-#browser="google-chrome-stable --disk-cache-size=268435456"
-#browser="firefox"
-browser="chromium"
-#browser="qutebrowser"
+if [[ "$PROFILE" == "desktop" ]]; then
+    browser="firefox"
+else
+    browser="chromium"
+fi
+
 if [[ "$url" ]]; then
     i3-msg "exec \"$browser \\\"$url\\\""
 else
     i3-msg "exec $browser"
 fi
-
-#if [[ ! "${BROWSER_PROFILE:-}" ]]; then
-#    if [[ "$DISPLAY" != ":0" ]]; then
-#        BROWSER_PROFILE=mgx
-#    else
-#        BROWSER_PROFILE=default
-#    fi
-#fi
-
-#set -x
-#exec firefox-beta -P ${BROWSER_PROFILE:-default} "$url"

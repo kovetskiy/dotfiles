@@ -69,11 +69,11 @@ Plug 'junegunn/vim-easy-align'
 Plug 'cespare/vim-toml'
 Plug 'tpope/vim-abolish'
 Plug 'neoclide/coc-tslint-plugin', {'do': 'yarn install --frozen-lockfile'}
-Plug 'lfilho/cosco.vim'
-    "let g:cosco_filetype_whitelist = ['java']
-    "let g:auto_comma_or_semicolon = 1
-    "let g:auto_comma_or_semicolon_events = ["InsertLeave"]
-    "let g:cosco_ignore_comment_lines = 1
+"Plug 'lfilho/cosco.vim'
+"    "let g:cosco_filetype_whitelist = ['java']
+"    let g:auto_comma_or_semicolon = 1
+"    let g:auto_comma_or_semicolon_events = ["InsertLeave"]
+"    let g:cosco_ignore_comment_lines = 1
 Plug 'camspiers/animate.vim'
     let g:animate#duration = 100.0
 Plug 'camspiers/lens.vim'
@@ -90,10 +90,6 @@ Plug 'hashivim/vim-terraform', {'for': 'terraform'}
 Plug 'ddrscott/vim-side-search'
 Plug 'matze/vim-move'
 Plug 'kovetskiy/neovim-move', { 'do' : ':UpdateRemotePlugins' }
-
-Plug 'preservim/nerdtree'
-
-Plug 'albfan/nerdtree-git-plugin'
 
 
 if $BACKGROUND == "dark"
