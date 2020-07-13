@@ -106,6 +106,7 @@ if $BACKGROUND == "dark"
 endif
 
 if $BACKGROUND == "light"
+    set termguicolors
     Plug 'altercation/vim-colors-solarized'
     Plug 'lifepillar/vim-solarized8'
     func! _setup_colorscheme()

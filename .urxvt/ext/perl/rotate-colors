@@ -1,0 +1,104 @@
+#! /usr/bin/env perl -w
+# Author:  John Tyree
+# Website: http://github.com/johntyree/urxvt-perls/blob/master/rotate-colors
+# License: CCBYNC
+
+# Use keyboard shortcuts to load colors of the form *.colorN:XXXXXX from a file
+# This gives us "on demand" theme switching.
+
+# Usage: put the following lines in your .Xdefaults/.Xresources:
+#   URxvt.perl-ext-common: ...,rotate-colors
+#   URxvt.rotate-colors.files: ~/.Xresources,~/light.txt,~/dark.txt
+#   URxvt.keysym.M-C-n:   perl:rotate-colors:next
+#   URxvt.keysym.M-C-p:   perl:rotate-colors:prev
+
+use strict;
+
+our @terms = ();
+
+sub on_start {
+    my ($self) = @_;
+    $self->{current_index} = -1;
+    my @arr = split(/,/, $self->x_resource('files') || '');
+    $self->{color_files} = \@arr;
+
+    push @terms, $TERM;
+
+    ()
+}
+
+sub read_colors {
+    my $fn = shift;
+    open my $fin, $fn or die "Unable to open $fn for reading";
+    my %colors;
+
+    while (my $line = <$fin>) {
+        if ($line =~ /(\w+)\s*:\s*(#[0-9a-fA-F]+)/) {
+            $colors{$1} = $2;
+        }
+    }
+
+    return %colors
+}
+
+sub seq {
+    my ($self, $k, $v) = @_;
+    my $cmd = "";
+    my $n = "";
+    if ($k =~ /^color(\d+)$/) {
+        $n = $1;
+        $cmd = "4;$1;#ffffff";
+    #} elsif ($k =~ /^colorBD$/) {
+    #    $cmd = "5;0;$v";
+    #} elsif ($k =~ /^colorUL$/) {
+    #    $cmd = "5;1;$v";
+    #} elsif ($k =~ /^colorBL$/) {
+    #    $cmd = "5;2;$v";
+    #} elsif ($k =~ /^colorRV$/) {
+    #    $cmd = "5;3;$v";
+    #} elsif ($k =~ /^foreground$/) {
+    #    $cmd = "10;$v";
+    #} elsif ($k =~ /^background$/) {
+    #    $cmd = "11;$v";
+    #} elsif ($k =~ /^cursorColor$/) {
+    #    $cmd = "12;$v";
+    #} elsif ($k =~ /^pointerColor$/) {
+        #$cmd = "13;$v";
+    } else {
+        print STDERR "unknown: " . $k . ":" . $v."\n";
+        return '';
+    }
+
+    $cmd = '\e]'.$cmd.'\007';
+
+    print STDERR $cmd . "\n";
+
+    $self->resource("color+".$n, $v);
+
+    $self->cmd_parse($cmd);
+}
+
+sub build_cmd {
+    my ($self, $fn) = @_;
+    my %colors = read_colors($fn);
+
+    map {$self->seq($_, $colors{$_})} keys %colors;
+}
+
+sub on_user_command {
+    my ($self, $cmd) = @_;
+    my @fs = @{$self->{color_files}};
+    my $len = @fs;
+
+    if ($cmd eq "rotate-colors:next") {
+        my $idx = $self->{current_index}++;
+        my $fn = $fs[$idx % scalar(@fs)];
+        $self->build_cmd($fn);
+    } elsif ($cmd eq "rotate-colors:prev") {
+        my $idx = $self->{current_index}--;
+        my $fn = $fs[$idx % scalar(@fs)];
+        $self->cmd_parse(build_cmd($fn));
+    }
+
+    ()
+}
