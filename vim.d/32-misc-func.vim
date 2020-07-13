@@ -76,11 +76,13 @@ func! _profile_toggle()
 endfunc!
 
 function! _syn_stack()
-  if !exists("*synstack")
-    return
-  endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+function! _syn_group()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
 
 func! _sys_read(cmdline)
     let l:result = system(a:cmdline)
@@ -111,16 +113,12 @@ func! _get_github_link()
     silent call system("github-link " . expand('%:p') . " " . line('.'))
 endfunc!
 
-func! _split_set_content()
+func! _dir_cwd()
     let l:dirname = expand('%:h')
-    let l:ext = expand('%:e')
-    return l:dirname . '/.' . l:ext
-endfunc!
-
-func! _split_move_cursor()
-    let l:ext = expand('%:e')
-    call setcmdpos(len(getcmdline()) - len(expand(l:ext)))
-    return ""
+    if l:dirname == ''
+        return ""
+    endif
+    return l:dirname . "/"
 endfunc!
 
 func! _cnext()

@@ -7,10 +7,15 @@ func! _select_file(...)
         let dir = a:1
     endif
 
-    "call _snippets_stop()
+    let cmd = 'prols'
+
+    let rule = 'suffix:.' . expand('%:e') . ',score:50'
+    let cmd = cmd . ' -r ' . fzf#shellescape(rule)
+
+    let cmd = cmd . ' ' . dir
 
     call fzf#run(fzf#wrap({
-        \ 'source': 'prols ' . dir,
+        \ 'source': cmd,
         \ 'options': '--sort --no-exact --tiebreak=index'
     \ }))
 endfunc!
@@ -52,6 +57,25 @@ func! _grep(query, dir)
 endfunc!
 
 
+func! _select_dir()
+    func! s:select_dir_sink(lines)
+        " do nothing
+    endfunc!
+
+    let lines = fzf#run(fzf#wrap({
+        \ 'source': 'prols -o',
+        \ 'sink': function('s:select_dir_sink'),
+        \ 'options': '--no-expect --sort --no-exact --tiebreak=index'
+    \ }))
+
+    if len(lines) == 0
+        return ""
+    endif
+
+    return lines[0]
+endfunc!
+
+
 func! _grep_slash()
     let l:slash = strpart(@/, 2)
     call _grep(l:slash, "")
@@ -64,10 +88,6 @@ endfunc!
 func! _grep_recover()
     call _grep(g:grep_last_query, '')
 endfunc!
-
-nnoremap <silent> <C-F><C-F> :call _grep('', '')<CR>
-nnoremap <silent> <C-E><C-F> :call _grep_cwd()<CR>
-nnoremap <silent> <C-F>/ :call _grep_slash()<CR>
 
 "func! _lstags()
 "    call fzf#vim#ag("", {'source':    'lstags', 'options': '--delimiter : --nth 4..'})

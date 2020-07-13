@@ -32,4 +32,5 @@ augroup _coc_highlight
     au!
     au VimEnter,BufRead * hi! CocErrorHighlight ctermbg=52 ctermfg=none cterm=none
     au VimEnter,BufRead * hi! CocListBgRed ctermbg=52 ctermfg=none cterm=none
+    au VimEnter,BufRead * hi! SpellBad ctermbg=52 ctermfg=none cterm=none
 augroup end

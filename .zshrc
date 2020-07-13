@@ -1115,7 +1115,21 @@ git-commit-branch() {
 }
 
 :batrak:list() {
-    batrak -L -q 'team = dev'
+    batrak -L -q 'team = dev' "${@}"
+}
+
+:batrak:query() {
+    flags=()
+    query=()
+    while [[ "$1" ]]; do
+        if [[ "$1" =~ ^- ]]; then
+            flags+=("$1")
+        else
+            query+=("$1")
+        fi
+        shift
+    done
+    batrak -L -q "${query[*]}" ${flags[@]}
 }
 
 :batrak:move() {
@@ -1144,9 +1158,10 @@ alias mi='mvn install'
 alias me='mvn eclipse:eclipse'
 alias mr='mvn dependency:resolve -U && me'
 alias md='mvn deploy'
+alias bq=':batrak:query'
 alias bl=':batrak:list -w'
 alias bla='batrak -L -w'
-alias blm=':batrak:list -w -m'
+alias blm=':batrak:list -m'
 alias bk=':batrak:list -K -s -w'
 alias bkm=':batrak:list -K -s -w -m'
 alias bm=':batrak:move'
@@ -1311,7 +1326,7 @@ alias gd='git diff'
 alias gdo='git diff origin/master'
 alias gs='git status --short'
 alias ga='git add --no-ignore-removal'
-alias gb='git branch --sort=-committerdate'
+alias gb='git branch --sort=-committerdate -vv'
 alias gbr='git branch'
 alias gn='git-clean-powered'
 alias gi='git add -pi'

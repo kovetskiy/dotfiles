@@ -103,11 +103,17 @@ nmap Y yy
 map <leader>y "0y
 map <leader>p "0p
 
-nnoremap <Leader>w :e <C-R>=_split_set_content()<CR><C-R>=_split_move_cursor()<CR>
-nnoremap <Leader>x :vsp <C-R>=_split_set_content()<CR><C-R>=_split_move_cursor()<CR>
-nnoremap <Leader>t :sp <C-R>=_split_set_content()<CR><C-R>=_split_move_cursor()<CR>
+nnoremap <silent> <C-F><C-F> :call _grep('', '')<CR>
+nnoremap <silent> <C-E><C-F> :call _grep_cwd()<CR>
+nnoremap <silent> <C-F>/ :call _grep_slash()<CR>
+cnoremap <C-T> <C-R>=_select_dir()<CR>
 
-cnoremap <C-E> <C-\>e_dir_up()<CR>
+nnoremap <Leader>w :e<space>
+nnoremap <Leader>x :vsp<space>
+nnoremap <Leader>t :sp<space>
+
+cnoremap <C-X> <C-R>=_dir_cwd()<CR>
+cnoremap <C-D> <C-\>e_dir_up()<CR>
 
 nnoremap <silent> <Leader>/ :noh<CR>
 
