@@ -91,11 +91,11 @@ Plug 'ddrscott/vim-side-search'
 Plug 'matze/vim-move'
 Plug 'kovetskiy/neovim-move', { 'do' : ':UpdateRemotePlugins' }
 
-
 if $BACKGROUND == "dark"
     Plug 'reconquest/vim-colorscheme'
     func! _setup_colorscheme()
         colorscheme reconquest
+        set background="dark"
 
         hi! CursorLineNr ctermbg=1
         hi! GitDeleted ctermfg=88
@@ -104,18 +104,24 @@ if $BACKGROUND == "dark"
         hi! MoreMsg ctermbg=none ctermfg=238
     endfunc!
 endif
+
 if $BACKGROUND == "light"
-    Plug 'NLKNguyen/papercolor-theme'
-    Plug 'sonph/onehalf', {'rtp': 'vim/'}
-
+    Plug 'altercation/vim-colors-solarized'
+    Plug 'lifepillar/vim-solarized8'
     func! _setup_colorscheme()
-        set background="light"
-        colorscheme papercolor
+        colorscheme solarized8
+        set background=light
 
-        hi! SpecialKey ctermfg=250
-        hi! String ctermfg=33
-        hi! PreProc ctermfg=19
-        hi! CursorLineNr ctermbg=1
+        hi! Normal ctermfg=none ctermbg=none guibg=none guifg=#657b83
+        hi! GitDeleted ctermfg=none ctermbg=none guibg=none guifg=#dc322f gui=bold
+        hi! GitAdded ctermfg=none ctermbg=none guibg=none guifg=#2aa198 gui=bold
+        hi! GitModified ctermfg=none ctermbg=none guibg=none guifg=#6c71c4 gui=bold
+        "hi! String guifg=#859900
+        "hi! SpecialKey ctermfg=250
+        "hi! String ctermfg=33
+        "hi! PreProc ctermfg=19
+        hi! LineNr guibg=none
+        hi! CursorLineNr guibg=none guifg=#cb4b16
     endfunc!
 endif
 

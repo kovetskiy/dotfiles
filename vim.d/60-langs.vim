@@ -19,6 +19,5 @@ augroup _codestyle
 
     au BufRead,BufNewFile *.md set filetype=markdown
     au BufRead,BufNewFile *.md set fo-=l
-    au BufRead,BufNewFile *.md setlocal tw=120
+    au BufRead,BufNewFile *.md setlocal tw=100
 augroup end
-

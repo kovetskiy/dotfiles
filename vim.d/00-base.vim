@@ -53,6 +53,7 @@ set winminheight=0
 set clipboard=unnamedplus
 set tags=./.tags;/
 set cc=80,100
+set termguicolors
 
 set rtp-=~/.vim
 set rtp^=~/.vim

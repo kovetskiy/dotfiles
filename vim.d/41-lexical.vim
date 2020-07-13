@@ -1,6 +1,6 @@
 augroup lexical
   autocmd!
-  autocmd FileType markdown,md call _lexical_init()
+  "autocmd FileType markdown,md call _lexical_init()
 augroup END
 
 if empty(glob('~/.vim/thesaurus/mthesaur.txt'))

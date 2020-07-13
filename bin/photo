@@ -15,5 +15,21 @@ else
     gid=$(id -g)
     sudo mount -o umask=0022,gid=$gid,uid=$uid $device /media/sony
 
-    sxiv -o /media/sony/DCIM/100MSDCF/ | xargs -n1 -I{} rsync -avp {} ~/Photos/
+    sxiv -o /media/sony/DCIM/100MSDCF/ | xargs -n1 -I{} rsync -avp {} ~/Dropbox/Photos/
+    systemctl --user start dropbox
+    started=false
+    while :; do
+        s=$(dropbox-cli status)
+        echo "---------------------------------------------"
+        date '+%T'
+        echo "$s"
+        if [[ "$s" =~ "Up to date" ]]; then
+            if $started; then
+                exit 0
+            fi
+        else
+            started=true
+        fi
+        sleep 1
+    done
 fi

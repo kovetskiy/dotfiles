@@ -1,0 +1,4 @@
+#!/bin/bash
+
+exec /bin/fzf \
+    --color=bg+:#eee8d5,spinner:#859900,hl:#cb4b16,fg:#657b83,pointer:#859900,info:#cb4b16,fg+:#657b83,marker:#859900,header:#93a1a1,prompt:#859900,hl+:#cb4b16 "${@}"
