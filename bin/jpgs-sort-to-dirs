@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#07.14
+#01.17
+for x in *.JPG; do
+    date=$(identify -format '%[EXIF:DateTime]' $x);
+    day=$(cut -d' ' -f1 <<< "$date" | sed 's@:@-@g')
+    if [[ "$day" =~ ^2019 ]]; then
+        hm=$(cut -d' ' -f2 <<< "$date")
+        from_iso=$(date --iso-8601=n -d "$day $hm")
+        to_iso=$(date --iso-8601=n -d "$from_iso + 544 days + 20 hours")
+        day="$(date '+%Y-%m-%d' -d "$to_iso")"
+    fi
+    mkdir -p "$day"
+    mv -v "$x" "$day/"
+done

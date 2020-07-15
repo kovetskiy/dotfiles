@@ -1,0 +1,24 @@
+#!/bin/bash
+
+systemctl --user start dropbox
+echo "service: started"
+
+echo -n "syncing..."
+syncing=false
+while :; do
+    s=$(dropbox-cli status)
+    if [[ "$s" =~ "Up to date" ]]; then
+        if $syncing; then
+            echo "OK"
+            exit 0
+        fi
+    else
+        syncing=true
+    fi
+
+    echo -n "."
+    sleep 0.2
+done
+
+systemctl --user stop dropbox
+echo "service: stopped"
