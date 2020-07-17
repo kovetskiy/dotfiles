@@ -2,7 +2,8 @@ let g:VM_custom_remaps = {'<c-p>': '[', '<c-s>': 'q'}
 let g:VM_no_meta_mappings = 1
 let g:VM_maps = {
     \ 'Select All': '<C-A>',
-\ }
+    \ "Add Cursor At Pos": '<C-Z>'
+    \ }
 
 let g:VM_leader = "\\"
 

@@ -6,8 +6,9 @@
 [core]
     ;editor = vim
     excludesfile = /home/operator/.gitignore_global
+	attributesfile = ~/.gitattributes
 [color]
-    ui = auto
+	ui = true
 [pager]
     diff = diff-so-fancy | less --tabs=4 -RFX
     show = diff-so-fancy | less --tabs=4 -RFX
@@ -43,3 +44,19 @@
     insteadOf = https://bitbucket.org/
 [http]
     cookiefile = /home/operator/.gitcookies
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = white bold 52
+	newNormal = green bold
+	newHighlight = red bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = white bold 22
+	whitespace = red reverse
+[alias]
+	diff-image = "!f() { cd -- \"${GIT_PREFIX:-.}\"; GIT_DIFF_IMAGE_ENABLED=1 git diff \"$@\"; }; f"
+[diff "image"]
+	command = /home/operator/dotfiles/git-diff-image/git_diff_image

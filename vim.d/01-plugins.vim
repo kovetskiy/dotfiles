@@ -91,6 +91,8 @@ Plug 'ddrscott/vim-side-search'
 Plug 'matze/vim-move'
 Plug 'kovetskiy/neovim-move', { 'do' : ':UpdateRemotePlugins' }
 
+Plug 'rhysd/vim-grammarous'
+
 if $BACKGROUND == "dark"
     Plug 'reconquest/vim-colorscheme'
     func! _setup_colorscheme()
@@ -125,5 +127,6 @@ if $BACKGROUND == "light"
         hi! CursorLineNr guibg=none guifg=#cb4b16
     endfunc!
 endif
+
 
 call plug#end()

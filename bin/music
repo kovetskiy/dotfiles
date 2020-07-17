@@ -1,93 +1,40 @@
 #!/bin/bash
 
-get_status() {
-    for window in $(windows); do
-        title=$(xdotool getwindowname $window)
-        echo 🎵 $title
-    done
+get-status() {
+    status=$(baton status)
+    artist=$(grep -P "^Artist:" <<< "$status" | cut -d: -f2-)
+    track=$(grep -P "^Track" <<< "$status" | cut -d: -f2-)
+    echo 🎵 $artist — $track
 }
-
-_get_windows() {
-    for window in $(xdotool search --class youtube-music-desktop-app); do
-        title=$(xdotool getwindowname $window)
-        if [[ "$title" == "youtube-music-desktop-app" ]]; then
-            continue
-        fi
-
-        echo $window
-    done
-}
-
-windows() {
-    if [[ ! "$_windows" ]]; then
-        _windows=$(_get_windows)
-    fi
-    echo "$_windows"
-}
-
-send() {
-    local key=$1
-    active=$(xdotool getactivewindow)
-    for window in $(windows); do
-        xdotool windowactivate --sync $window
-        xdotool key --clearmodifiers --window $window $key
-    done
-    xdotool windowactivate $active
-}
-
-status=$(get_status)
 
 icon=""
 case "$1" in
-next)
-    icon="⏭️"
-    send j
-    ;;
+    next)
+        icon="⏭️"
+        ;;
 
-prev)
-    icon="⏮️"
-    send k
-    ;;
+    prev)
+        icon="⏮️"
+        ;;
 
-pause)
-    icon="⏯️"
-    send space
-    ;;
+    pause)
+        icon="⏯️"
+        ;;
 
-like)
-    icon="⭐"
-    send plus
-    ;;
+    save)
+        icon="⭐"
+        ;;
 
-dislike)
-    icon="⭐"
-    send underscore
-    ;;
-
-*)
-    icon="${1}"
-    ;;
+    *)
+        icon="${1}"
+        ;;
 esac
 
 if [[ "$1" == "status" ]]; then
-    notify-replace music "" "$status"
+    notify music "" "$(get-status)"
     exit
 fi
 
-i=0
-while :; do
-    i=$((i + 1))
-    if [[ "$i" == "10" ]]; then
-        break
-    fi
-
-    new_status=$(get_status)
-    if [[ "$status" != "$new_status" ]]; then
-        status="$new_status"
-        break
-    fi
-    sleep 0.1
-done
-
 notify-replace music "" "${icon}"
-notify-replace music "" "$status"
+baton "${@}"
+notify-replace music "" "$(get-status)"

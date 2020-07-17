@@ -1,8 +1,11 @@
 "REPO=~/reconquest/secrets carcosa-new-password"
     Mod3 + 6
 
-"carcosa-new-password"
-    Mod3 + 5
+"baton-volume down 5"
+    Mod3 + j
+
+"baton-volume up 5"
+    Mod3 + k
 
 "music pause"
     Mod3 + p
@@ -13,10 +16,10 @@
 "music prev"
     Mod3 + h
 
-"music like"
+"music save"
     Mod3 + m
 
-"music dislike"
+"music remove"
     Mod3 + n
 
 "music status"
@@ -25,5 +28,5 @@
 "with-lock kuake-bottom"
     Mod3 + t
 
-"screen-lock"
+"xsecurelock"
     Mod3 + g

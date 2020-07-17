@@ -3,3 +3,6 @@
 	url = git@github.com:reconquest/rex
 	branch = master
 	ignore = all
+[submodule "git-diff-image"]
+	path = git-diff-image
+	url = https://github.com/ewanmellor/git-diff-image
