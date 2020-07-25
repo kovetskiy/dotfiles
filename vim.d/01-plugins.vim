@@ -93,6 +93,10 @@ Plug 'kovetskiy/neovim-move', { 'do' : ':UpdateRemotePlugins' }
 
 Plug 'rhysd/vim-grammarous'
 
+Plug 'duganchen/vim-soy'
+
+Plug 'mustache/vim-mustache-handlebars'
+
 if $BACKGROUND == "dark"
     Plug 'reconquest/vim-colorscheme'
     func! _setup_colorscheme()
@@ -103,7 +107,7 @@ if $BACKGROUND == "dark"
         hi! GitDeleted ctermfg=88
         hi! GitAdded ctermfg=22
         hi! GitModified ctermfg=238
-        hi! MoreMsg ctermbg=none ctermfg=238
+        hi! MoreMsg ctermfg=238
     endfunc!
 endif
 
@@ -115,16 +119,16 @@ if $BACKGROUND == "light"
         colorscheme solarized8
         set background=light
 
-        hi! Normal ctermfg=none ctermbg=none guibg=none guifg=#657b83
-        hi! GitDeleted ctermfg=none ctermbg=none guibg=none guifg=#dc322f gui=bold
-        hi! GitAdded ctermfg=none ctermbg=none guibg=none guifg=#2aa198 gui=bold
-        hi! GitModified ctermfg=none ctermbg=none guibg=none guifg=#6c71c4 gui=bold
+        hi! Normal ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#657b83
+        hi! GitDeleted ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#dc322f gui=bold
+        hi! GitAdded ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#2aa198 gui=bold
+        hi! GitModified ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#6c71c4 gui=bold
         "hi! String guifg=#859900
         "hi! SpecialKey ctermfg=250
         "hi! String ctermfg=33
         "hi! PreProc ctermfg=19
-        hi! LineNr guibg=none
-        hi! CursorLineNr guibg=none guifg=#cb4b16
+        hi! LineNr guibg=NONE
+        hi! CursorLineNr guibg=NONE guifg=#cb4b16
     endfunc!
 endif
 

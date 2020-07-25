@@ -22,6 +22,8 @@
     "git.changedSign.hlGroup": "GitModified",
     "git.changeRemovedSign.text": "\\ ⋆",
     "git.changeRemovedSign.hlGroup": "GitModified",
+	"typescript.preferences.importModuleSpecifier": "non-relative",
+    "javascript.preferences.importModuleSpecifier": "non-relative",
     "languageserver": {
         "terraform": {
             "command": "terraform-lsp",

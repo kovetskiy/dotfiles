@@ -116,6 +116,7 @@ docompinit() {
         compdef vim-which=which
         compdef smash=ssh
         compdef guess=which
+        compdef _git gdd=git-checkout
     }
 }
 
@@ -1149,6 +1150,14 @@ git-commit-branch() {
 :unzip() {
     local name=$(sed -r 's/\.(zip|jar)$//' <<< "$1")
     unzip $1 -d "$name"
+}
+
+gdd() {
+    local branch="$1"
+
+    parent=$(git branch --contains $1 \
+        | awk '{if ($1 == "*") print $2; else print $1;}')
+    git diff "$parent"..."$branch"
 }
 
 # :alias

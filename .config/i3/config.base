@@ -103,7 +103,8 @@ for_window [class="TelegramDesktop"] resize set 640 480
 
 for_window [class="skype"] floating enable
 for_window [class="Skype"] floating enable
+for_window [title=".*"] border pixel 2
 
-client.focused          #0008ff #0008ff #0008ff #0008ff
+client.focused          #FF6347 #FF6347 #FF6347 #FF6347
 client.focused_inactive #424242 #424242 #424242 #424242
 client.unfocused        #424242 #424242 #424242 #424242

@@ -11,7 +11,7 @@ augroup _code_typescript
     au BufNewFile,BufRead *.json set filetype=json
     au BufNewFile,BufRead *.ts,*.js setlocal ts=2 sts=2 sw=2 expandtab
 
-    au FileType typescript nnoremap <silent><buffer> <c-p> :call coc#rpc#request('runCommand', ['tsserver.organizeImports'])<CR>
+    au FileType typescript nnoremap <silent><buffer> <c-p> <nop>
     au FileType typescript nnoremap <silent><buffer> <c-s> :w<CR>:call _save_typescript()<CR>
 augroup end
 
