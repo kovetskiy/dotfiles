@@ -18,11 +18,7 @@ if [[ -e "${url}" ]]; then
     url="$(readlink -f "${url}")"
 fi
 
-if [[ "$PROFILE" == "desktop" ]]; then
-    browser="firefox"
-else
-    browser="chromium"
-fi
+browser="chromium"
 
 if [[ "$url" ]]; then
     i3-msg "exec \"$browser \\\"$url\\\""
