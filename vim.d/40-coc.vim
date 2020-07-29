@@ -2,7 +2,9 @@ func! _coc_restart()
     redir @x
     silent execute "CocRestart"
     redir end
-    call system("rm -rf ~/.config/coc/extensions/coc-java-data/jdt_ws_*")
+    if &ft == "java"
+        call system("rm -rf ~/.config/coc/extensions/coc-java-data/jdt_ws_*")
+    endif
     echom "[coc] restarted"
 endfunc!
 

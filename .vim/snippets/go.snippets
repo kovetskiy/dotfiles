@@ -141,19 +141,19 @@ snippet he "" wb
 ser.Errorf(err, "$1"${2/(.+)/, /}$2)
 endsnippet
 
-snippet kkd "" wAb
+snippet kkd "" wb
 debugf(context, "$1", $0)
 endsnippet
 
-snippet kki "" wAb
+snippet kki "" wb
 infof(context, "$1", $0)
 endsnippet
 
-snippet kke "" wAb
+snippet kke "" wb
 errorf(err, "$1", $0)
 endsnippet
 
-snippet kkf "" wAb
+snippet kkf "" wb
 fatalf(err, "$1", $0)
 endsnippet
 
@@ -213,12 +213,12 @@ snip.rv = left`required:"true"`!p snip.rv=right`
 endsnippet
 
 priority 200
-snippet "^(func.*)\(cgc" "" Air
+snippet "^(func.*)\(cgc" "" ir
 `!p snip.rv=match.group(1)`(context *gin.Context
 endsnippet
 
 priority 100
-snippet (cgc "" Ai
+snippet (cgc "" i
 (context
 endsnippet
 

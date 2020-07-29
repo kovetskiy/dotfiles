@@ -78,7 +78,7 @@ imap <C-U> <ESC>ua
 
 imap <c-j> <nop>
 
-nnoremap <c-b> :source ~/.vimrc<CR>:echom "vimrc sourced"<cr>
+nnoremap <c-b> :source ~/.vimrc<CR>:echom "vimrc sourced"<cr>:doau VimEnter<CR>
 
 nnoremap Q qq
 nnoremap @@ @q
@@ -147,3 +147,5 @@ nmap <leader>s :call _sidesearch()<CR>
 nmap <leader>a :SideSearch<Space>
 
 nnoremap gf :call _goto_file()<CR>
+
+cnoremap <c-_> .*

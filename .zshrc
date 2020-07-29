@@ -726,6 +726,15 @@ docompinit() {
         git rebase -i $@
     }
 
+    git-reset-soft() {
+        if [[ "$1" =~ ^[0-9]+$ ]]; then
+            git reset --soft "HEAD~$1"
+            return $?
+        fi
+
+        git reset --soft $@
+    }
+
     git-clean-powered() {
         git clean -ffdx
     }
@@ -1090,7 +1099,7 @@ git-commit-branch() {
 
 :rsync-cd() {
     echo ":: syncing from $1 $(pwd)/"
-    rsync -avp operator@$1:$(pwd)/$2 .
+    rsync --filter=':- .gitignore' -avp operator@$1:$(pwd)/$2 .
 }
 
 :git-fetch-prune() {
@@ -1242,7 +1251,6 @@ alias ver='sudo vim /etc/resolv.conf'
 alias gm=':git:master'
 alias ge=':git:merge'
 alias q=':nodes:query'
-alias grr='gri --root'
 alias g='guess'
 alias cs=':cd-sources'
 alias pmp='sudo pacman -U $(/bin/ls -t *.pkg.*)'
@@ -1377,6 +1385,7 @@ alias grts='git reset --soft'
 alias gr='git rebase'
 alias grc='git rebase --continue'
 alias gri='git-rebase-interactive'
+alias grr='git-reset-soft'
 alias gcom='git checkout master'
 alias glo='git log --oneline --graph --decorate --all'
 alias gl='PAGER=cat git log --oneline --graph --decorate --all --max-count=30'
