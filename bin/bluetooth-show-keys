@@ -1,0 +1,11 @@
+#!/bin/bash
+
+dev=$(sudo btmgmt info | awk '/addr/{print $2}')
+
+for x in $(sudo find /var/lib/bluetooth/$dev/ -type d -name '*:*:*' -maxdepth 1 2>/dev/null); do
+    if sudo test -f $x/info; then
+        key=$(sudo cat $x/info | awk '/Key=/' | cut -d'=' -f2 \
+            | sed -r 's/(.{2})/\1,/g; s/,$//' | tr '[[:upper:]]' '[[:lower:]]')
+        echo $(basename "$x" | tr '[[:upper:]]' '[[:lower:]]' | tr -d ':') "$key"
+    fi
+done
