@@ -1,3 +1,15 @@
 #!/bin/bash
 
-exec chromium --kiosk --app=https://en.todoist.com/
+xd_class="en.todoist.com"
+
+:kuake() {
+    kuake --focus --padding 15 --bottom --right --width 35 --height 55 --class "$xd_class"
+}
+
+if  [[ ! "$(xdotool search --classname "$xd_class")" ]]; then
+    chromium --kiosk --app=https://en.todoist.com/
+    xdotool search --onlyvisible --sync --classname "$xd_class" windowfocus
+    :kuake
+else
+    :kuake
+fi

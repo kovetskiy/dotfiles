@@ -1169,6 +1169,10 @@ gdd() {
     git diff "$parent"..."$branch"
 }
 
+rc() {
+    readlink -f "${1}" | sed 's/$//' | copy-to-clipboard
+}
+
 # :alias
 
 alias uz=':unzip'
@@ -1199,7 +1203,6 @@ alias ap='atlas-package'
 alias am='atlas-mvn'
 alias dl='gradle'
 alias b='bat'
-alias rc='() { readlink -f "${1}" | cc }'
 alias snips='{ cd ~/.vim/bundle/snippets/ && gu; cd ~/.vim/bundle/vim-pythonx/ && gu; }'
 alias os='docker start'
 alias ot='docker stop'

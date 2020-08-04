@@ -6,7 +6,7 @@ export QT_QPA_PLATFORMTHEME=gtk3
 xd_class="telegram-desktop"
 
 :kuake() {
-    kuake --focus --bottom --left --width 35 --height 55 --class "$xd_class"
+    kuake --focus --padding 15 --bottom --left --width 35 --height 55 --class "$xd_class"
 }
 
 if  [[ ! "$(xdotool search --classname "$xd_class")" ]]; then
