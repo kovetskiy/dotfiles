@@ -1298,7 +1298,7 @@ alias tim=terminal-vim
 
 alias history='fc -ln 0'
 alias rf='rm -rf'
-alias ls='ls -lah --group-directories-first -v --color=always'
+alias ls='exa -lH -F --group-directories-first --all --git'
 alias l='ls'
 alias v='vim'
 alias vi='vim'

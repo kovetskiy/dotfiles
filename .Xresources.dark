@@ -1,22 +1,21 @@
-*color0: #424242
-*color1: #ba3b38
-*color2: #5d865f
-*color3: #a8814a
-*color4: #88afd4
-*color5: #cc5985
-*color6: #376360
-*color7: #d0cfca
-*color8: #5d5d5d
-*color9: #e9605f
-*color10: #79ab87
-*color11: #f7d58a
-*color12: #98c6ef
-*color13: #e499b2
-*color14: #579e9a
-*color15: #f4f2eb
-*background: #000000
-*foreground: #ffffff
-*cursorColor: #ffffff
+*.foreground: #F8F8F2
+*.background: #282A36
+*.color0:     #000000
+*.color8:     #4D4D4D
+*.color1:     #FF5555
+*.color9:     #FF6E67
+*.color2:     #50FA7B
+*.color10:    #5AF78E
+*.color3:     #F1FA8C
+*.color11:    #F4F99D
+*.color4:     #BD93F9
+*.color12:    #CAA9FA
+*.color5:     #FF79C6
+*.color13:    #FF92D0
+*.color6:     #8BE9FD
+*.color14:    #9AEDFE
+*.color7:     #BFBFBF
+*.color15:    #E6E6E6
 
 rofi.color-normal: #1c1c1c, #d8d8d8, #1c1c1c, #af8700, #ffffff
 rofi.color-active: #1c1c1c, #d8d8d8, #1c1c1c, #af8700, #ffffff

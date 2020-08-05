@@ -62,7 +62,7 @@ inoremap <expr> <UP>   pumvisible() ? "\<C-P>" : "\<UP>"
 let g:UltiSnipsJumpForwardTrigger="<C-J>"
 let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 
-let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsUsePythonVersion = 3
 
 let g:snippets_dotfiles = $HOME . '/.vim/snippets/'
 let g:snippets_reconquest = $HOME . '/.vim/bundle/snippets/'

@@ -20,6 +20,8 @@ augroup _code_go
     au FileType go,go2 nnoremap <buffer> <Leader><Leader>i :!go-install-deps<CR>
     au FileType go,go2 vmap <C-F> ctx<TAB>
 
+    au FileType go,go2 setlocal cc=80,100
+
     au BufRead,BufNewFile *.go,*.go2 let b:argwrap_tail_comma = 1
 
     au BufEnter *.template call _extend_templatego()

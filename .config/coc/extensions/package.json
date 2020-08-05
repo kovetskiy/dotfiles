@@ -3,6 +3,7 @@
     "coc-css": ">=1.2.4",
     "coc-git": ">=1.7.13",
     "coc-go": ">=0.7.0",
+    "coc-highlight": ">=1.2.5",
     "coc-java": ">=1.4.11",
     "coc-java-lombok": ">=1.0.0",
     "coc-json": ">=1.2.6",

@@ -98,16 +98,18 @@ Plug 'duganchen/vim-soy'
 Plug 'mustache/vim-mustache-handlebars'
 
 if $BACKGROUND == "dark"
-    Plug 'reconquest/vim-colorscheme'
+    set termguicolors
+    "Plug 'reconquest/vim-colorscheme'
+    Plug 'dracula/vim'
     func! _setup_colorscheme()
-        colorscheme reconquest
-        set background="dark"
+        colorscheme dracula
+        "set background="dark"
 
-        hi! CursorLineNr ctermbg=1
-        hi! GitDeleted ctermfg=88
-        hi! GitAdded ctermfg=22
-        hi! GitModified ctermfg=238
-        hi! MoreMsg ctermfg=238
+        hi! Normal guibg=NONE
+        hi! GitDeleted ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#dc322f gui=bold
+        hi! GitAdded ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#2aa198 gui=bold
+        hi! GitModified ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#6c71c4 gui=bold
+        "hi! ColorColumn ctermbg=NONE guibg=#e6e6e6 guifg=NONE ctermfg=NONE
     endfunc!
 endif
 

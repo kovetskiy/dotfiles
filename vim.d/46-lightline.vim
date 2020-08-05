@@ -26,5 +26,5 @@ let g:lightline.enable = {
 if &background == "light"
     let g:lightline.colorscheme = 'one'
 else
-    let g:lightline.colorscheme = 'wombat'
+    let g:lightline.colorscheme = 'dracula'
 endif
