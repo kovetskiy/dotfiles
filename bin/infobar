@@ -119,7 +119,7 @@ notify_id=""
 }
 
 :get-section-location() {
-    if ! my-location; then
+    if ! my-location | head -c 23; then
         return
     fi
 }

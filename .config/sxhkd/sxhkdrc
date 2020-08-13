@@ -116,4 +116,4 @@ super + minus
 	i3-msg 'gaps top current toggle 600'
 
 control + F6
-	bluelink sony
+	bluetooth-autoconnect -v | while read x; do notify $x; done
