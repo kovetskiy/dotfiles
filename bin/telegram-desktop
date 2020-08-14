@@ -2,6 +2,7 @@
 
 export QT_STYLE_OVERRIDE=""
 export QT_QPA_PLATFORMTHEME=gtk3
+export TDESKTOP_I_KNOW_ABOUT_GTK_INCOMPATIBILITY=1
 
 xd_class="telegram-desktop"
 
@@ -10,7 +11,7 @@ xd_class="telegram-desktop"
 }
 
 if  [[ ! "$(xdotool search --classname "$xd_class")" ]]; then
-    /usr/bin/telegram-desktop &
+    /usr/bin/telegram-desktop -scale 75 -externalupdater -noupdate &
     xdotool search --onlyvisible --sync --classname "$xd_class" windowfocus
     :kuake
 else
