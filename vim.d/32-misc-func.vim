@@ -17,7 +17,7 @@ endfunc!
 " _close_it closes current window, but if current buffer is opened in two
 " windows then only current window will be closed, desu
 func! _close_it()
-    py <<CODE
+    py3 <<CODE
 import vim
 
 buffer = vim.current.buffer

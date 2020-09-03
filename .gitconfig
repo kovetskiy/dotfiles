@@ -61,4 +61,4 @@
 [diff "image"]
 	command = /home/operator/dotfiles/git-diff-image/git_diff_image
 [diff]
-	tool = vimdiff2
+	tool = vimdiff

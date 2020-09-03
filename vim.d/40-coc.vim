@@ -25,6 +25,15 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gl :call CocActionAsync('jumpDefinition', 'vsplit')<CR>
 nmap <silent> gk :call CocActionAsync('jumpDefinition', 'split')<CR>
 nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>ca  <Plug>(coc-codeaction)
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 nmap <C-F> <NOP>
 
 nmap <leader>f    <Plug>(coc-format)
@@ -32,7 +41,7 @@ vmap <leader>f    <Plug>(coc-format-selected)
 
 augroup _coc_highlight
     au!
-    au VimEnter,BufRead * hi! CocErrorHighlight ctermbg=52 ctermfg=none cterm=none
-    au VimEnter,BufRead * hi! CocListBgRed ctermbg=52 ctermfg=none cterm=none
-    au VimEnter,BufRead * hi! SpellBad ctermbg=52 ctermfg=none cterm=none
+    au VimEnter,BufRead * hi! CocErrorHighlight ctermbg=52 ctermfg=NONE cterm=NONE
+    au VimEnter,BufRead * hi! CocListBgRed ctermbg=52 ctermfg=NONE cterm=NONE
+    au VimEnter,BufRead * hi! SpellBad ctermbg=52 ctermfg=NONE cterm=NONE
 augroup end

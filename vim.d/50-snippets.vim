@@ -2,6 +2,15 @@ func! _snippets_stop()
     python "UltiSnips_Manager._leave_buffer()"
 endfunc!
 
+func! _snippets_fix()
+    py3 import importlib; import UltiSnips.snippet_manager; importlib.reload(UltiSnips.snippet_manager); from UltiSnips.snippet_manager import UltiSnips_Manager;
+endfunc!
+
+augroup _ultisnips_fix_expand
+    au!
+    au WinEnter * call _snippets_fix()
+augroup end
+
 func! _snippets_get_filetype()
     let l:dot = strridx(&filetype, ".")
     if l:dot != -1

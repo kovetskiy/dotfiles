@@ -8,12 +8,6 @@ augroup _code_go
     au!
 
     au FileType go,go2 nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
-    au FileType go,go2 let w:go_stack = 'fix that shit'
-    au FileType go,go2 let w:go_stack_level = 'fix that shit'
-    au FileType go,go2 nmap <silent><buffer> gt :call go#def#Jump('', 1)<CR>
-    au FileType go,go2 nmap <silent><buffer> gd :call go#def#Jump('', 0)<CR>
-    au FileType go,go2 nmap <silent><buffer> gl :call go#def#Jump('vsplit', 0)<CR>
-    au FileType go,go2 nmap <silent><buffer> gk :call go#def#Jump('split', 0)<CR>
     au FileType go,go2 nmap <silent><buffer> <c-p> :w<CR>:call synta#go#build()<CR>
     au FileType go,go2 imap <silent><buffer> <c-p> <ESC>:w<CR>:call synta#go#build()<CR>
     au FileType go,go2 nnoremap <buffer> <Leader>r :call CocActionAsync('rename')<CR>
@@ -26,6 +20,10 @@ augroup _code_go
 
     au BufEnter *.template call _extend_templatego()
     au BufEnter *.yaml call _extend_yaml()
+
+    au FileType go
+        \ call ale#Set('go_goimports_executable',
+        \ 'gofumports')
 augroup end
 
 func! _goto_prev_func()
@@ -102,24 +100,24 @@ endfunc!
 let g:ale_fixers['go'] = [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")]
 let g:ale_fixers['go2'] = ['gofmt']
 let g:ale_linters = {'go': ['gobuild']}
+
 "let g:ale_linters = {'go2': ['']}
 
-let g:go_template_autocreate = 0
+"let g:go_template_autocreate = 0
 
-let g:go_fmt_fail_silently = 0
-let g:go_fmt_command = "gofumports"
-let g:go_fmt_autosave = 0
-let g:go_bin_path = $GOPATH . "/bin"
-let g:go_metalinter_command="golangci-lint run"
-let g:go_list_type = "quickfix"
-let g:go_auto_type_info = 0
-let g:go_gocode_autobuild = 1
+"let g:go_fmt_fail_silently = 0
+"let g:go_fmt_command = "gofumports"
+"let g:go_fmt_autosave = 0
+"let g:go_bin_path = $GOPATH . "/bin"
+"let g:go_metalinter_command="golangci-lint run"
+"let g:go_list_type = "quickfix"
+"let g:go_auto_type_info = 0
+"let g:go_gocode_autobuild = 1
 
-let g:go_doc_keywordprg_enabled = 0
-let g:go_def_mapping_enabled = 0
-let g:go_def_mode = 'godef'
-let g:go_info_mode = 'gopls'
-let g:go_rename_command = 'gopls'
+"let g:go_doc_keywordprg_enabled = 0
+"let g:go_def_mapping_enabled = 0
+"let g:go_def_mode = 'godef'
+"let g:go_rename_command = 'gopls'
 
 let g:synta_go_highlight_calls = 0
 let g:synta_go_highlight_calls_funcs = 1

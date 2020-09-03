@@ -81,3 +81,5 @@ if has('nvim')
 else
     set viminfo+=n~/.vim/runtime/viminfo
 endif
+
+let @/ = ''

@@ -9,9 +9,6 @@ augroup _code_java
     au BufRead,BufNewFile *.java
         \ call ale#Set('java_google_java_format_options',
         \ '--skip-removing-unused-imports --skip-sorting-imports')
-    au FileType go
-        \ call ale#Set('go_goimports_executable',
-        \ 'gofumports')
 
     au FileType java nmap <silent><buffer> <c-a> :ALEFix<CR>
     au FileType java nmap <silent><buffer> <c-s> :call _save_java()<CR>

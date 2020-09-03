@@ -9,9 +9,6 @@ imap <C-D> context.
 nnoremap <C-E><C-E> :cd %:p:h<CR>
 nnoremap <C-E><C-R> :call _cd_root()<CR>
 
-nnoremap <Leader>o o<ESC>
-nnoremap <Leader>O O<ESC>
-
 nnoremap X S<ESC>
 vnoremap $ g_
 
@@ -144,8 +141,9 @@ nnoremap <silent> <Leader>k :call AddEmptyLineAbove()<CR>
 nmap <leader>m :Move<space>
 
 nmap <leader>s :call _sidesearch()<CR>
-nmap <leader>a :SideSearch<Space>
 
 nnoremap gf :call _goto_file()<CR>
 
 cnoremap <c-_> .*
+
+vmap ) S)i

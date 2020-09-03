@@ -8,6 +8,7 @@
     local status="$(:change "$action")"
 
     :notify "$status"
+    echo "$status"
 }
 
 :notify() {

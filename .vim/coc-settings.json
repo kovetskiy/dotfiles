@@ -7,6 +7,7 @@
     "diagnostic.infoSign": "\\ ∙",
     "java.home": "/usr/lib/jvm/java-8-openjdk/",
     "java.import.gradle.enabled": false,
+    "java.autobuild.enabled": true,
     "xml.validation.enabled": false,
     "xml.validation.schema": false,
     "xml.validation.noGrammar": "ignore",
@@ -22,7 +23,7 @@
     "git.changedSign.hlGroup": "GitModified",
     "git.changeRemovedSign.text": "\\ ⋆",
     "git.changeRemovedSign.hlGroup": "GitModified",
-	"typescript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.preferences.importModuleSpecifier": "non-relative",
     "javascript.preferences.importModuleSpecifier": "non-relative",
     "languageserver": {
         "terraform": {
@@ -147,5 +148,24 @@
         "`"
     ],
     "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-    "coc.preferences.hoverTarget": "preview"
+    "coc.preferences.hoverTarget": "preview",
+    "go.trace.server": "verbose",
+    "go.goplsOptions": {
+        "codelens": {
+            "generate": true,
+            "test": true,
+            "gc_details": true,
+            "upgrade.dependency": true
+        },
+        "usePlaceholders": true,
+        "analyses": {
+            "fillreturns": true,
+            "nonewvars": true,
+            "unusedparams": true,
+            "undeclaredname": true
+        },
+        "hoverKind": "FullDocumentation"
+    },
+    "go.goplsPath": "/home/operator/go/bin/gopls",
+    "java.jdt.ls.vmargs": "-noverify -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:\"/home/operator/.config/coc/extensions/node_modules/coc-java-lombok/jar/lombok.jar\""
 }

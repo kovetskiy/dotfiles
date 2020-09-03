@@ -1,10 +1,10 @@
 augroup _code_typescript
     au!
 
-    au BufRead,BufNewFile *.ts
+    au BufRead,BufNewFile *.ts,*.js
         \ call ale#Set('typescript_gts_executable',
         \ 'npx')
-    au BufRead,BufNewFile *.ts
+    au BufRead,BufNewFile *.ts,*.js
         \ call ale#Set('typescript_gts_options',
         \ 'gts fix')
 
@@ -37,3 +37,5 @@ function! _ale_gts_fixer(buffer) abort
 endfunction
 
 let g:ale_fixers['typescript'] = [function('_ale_gts_fixer')]
+let g:ale_fixers['javascript'] = ['prettier', 'eslint']
+let g:ale_fixers['json'] = ['fixjson']

@@ -5,7 +5,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'kovetskiy/vim-hacks'
 Plug 'kovetskiy/synta'
-Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
+"Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
 Plug 'vim-scripts/l9'
 Plug 'sirver/ultisnips', { 'frozen': 1 }
 Plug 'tpope/vim-surround'
@@ -88,7 +88,6 @@ Plug 'hashivim/vim-terraform', {'for': 'terraform'}
     let g:terraform_align=1
     let g:terraform_fmt_on_save=1
 Plug 'ddrscott/vim-side-search'
-Plug 'matze/vim-move'
 Plug 'kovetskiy/neovim-move', { 'do' : ':UpdateRemotePlugins' }
 
 Plug 'rhysd/vim-grammarous'

@@ -12,6 +12,8 @@ if $BACKGROUND == "dark"
         hi! GitAdded ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#2aa198 gui=bold
         hi! GitModified ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#6c71c4 gui=bold
         "hi! ColorColumn ctermbg=NONE guibg=#e6e6e6 guifg=NONE ctermfg=NONE
+
+        hi! CocCursorRange guibg=#b16286 guifg=#ebdbb2 ctermbg=5 ctermfg=3
     endfunc!
 endif
 
