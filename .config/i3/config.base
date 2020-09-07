@@ -96,11 +96,6 @@ for_window [title="webcam"] floating enable
 for_window [title="webcam"] sticky enable
 
 
-for_window [class="telegram-desktop"] floating enable
-for_window [class="TelegramDesktop"] floating enable
-for_window [class="telegram-desktop"] resize set 640 480
-for_window [class="TelegramDesktop"] resize set 640 480
-
 for_window [class="skype"] floating enable
 for_window [class="Skype"] floating enable
 for_window [title=".*"] border pixel 2

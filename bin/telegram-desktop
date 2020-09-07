@@ -1,19 +1,39 @@
 #!/bin/bash
 
-export QT_STYLE_OVERRIDE=""
-export QT_QPA_PLATFORMTHEME=gtk3
-export TDESKTOP_I_KNOW_ABOUT_GTK_INCOMPATIBILITY=1
-
 xd_class="telegram-desktop"
+ws=q
 
-:kuake() {
-    kuake --focus --padding 15 --bottom --left --width 35 --height 55 --class "$xd_class"
+:current() {
+    i3-msg -t get_workspaces \
+      | jq '.[] | select(.focused==true).name' \
+      | cut -d"\"" -f2
 }
 
-if  [[ ! "$(xdotool search --classname "$xd_class")" ]]; then
-    /usr/bin/telegram-desktop -scale 75 -externalupdater -noupdate &
-    xdotool search --onlyvisible --sync --classname "$xd_class" windowfocus
-    :kuake
+current=$(:current)
+
+cache=/var/run/user/$UID/alttab.tg
+
+if ! pidof telegram-desktop; then
+    if [[ "$current" != "$ws" ]]; then
+        i3-msg "workspace $ws"
+        echo -n "$current" > $cache
+    fi
+
+    export QT_STYLE_OVERRIDE=""
+    export QT_QPA_PLATFORMTHEME=gtk3
+    export TDESKTOP_I_KNOW_ABOUT_GTK_INCOMPATIBILITY=1
+    /bin/telegram-desktop &
+    exit 0
+fi
+
+
+if [[ "$current" == "$ws" ]]; then
+    if [[ -f $cache ]]; then
+        prev=$(cat $cache)
+        i3-msg "workspace $prev"
+    fi
 else
-    :kuake
+    echo -n "$current" > $cache
+    i3-msg "workspace $ws"
+    xdotool search --onlyvisible --classname "$xd_class" windowfocus
 fi

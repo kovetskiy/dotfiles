@@ -8,8 +8,8 @@ augroup _code_go
     au!
 
     au FileType go,go2 nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
-    au FileType go,go2 nmap <silent><buffer> <c-p> :w<CR>:call synta#go#build()<CR>
-    au FileType go,go2 imap <silent><buffer> <c-p> <ESC>:w<CR>:call synta#go#build()<CR>
+    au FileType go,go2 nmap <silent><buffer> <c-p> :call PythonxCocDiagnosticFirst()<CR>
+    au FileType go,go2 nmap <silent><buffer> <c-p><c-n> :call PythonxCocDiagnosticNext()<CR>
     au FileType go,go2 nnoremap <buffer> <Leader>r :call CocActionAsync('rename')<CR>
     au FileType go,go2 nnoremap <buffer> <Leader><Leader>i :!go-install-deps<CR>
     au FileType go,go2 vmap <C-F> ctx<TAB>
@@ -97,7 +97,7 @@ func! _chain_wrap(first)
     call _chain_wrap(0)
 endfunc!
 
-let g:ale_fixers['go'] = [function("synta#ale#goimports#Fix"), function("synta#ale#goinstall#Fix")]
+let g:ale_fixers['go'] = [function("synta#ale#goimports#Fix")]
 let g:ale_fixers['go2'] = ['gofmt']
 let g:ale_linters = {'go': ['gobuild']}
 
