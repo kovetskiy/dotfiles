@@ -1,11 +1,12 @@
 let g:lightline = {
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'filename', 'readonly', 'cocstatus',  'modified' ] ]
+    \             [ 'filename', 'readonly', 'cocstatus', 'method', 'modified' ] ]
     \ },
     \ 'component_function': {
         \   'filename': '_relative_filename',
         \   'cocstatus': '_coc_status_cut',
+        \   'method': '_nearest_method_or_func',
     \ }
 \ }
 
@@ -16,6 +17,10 @@ endfunc!
 
 function! _relative_filename()
   return expand('%')
+endfunction
+
+function! _nearest_method_or_func() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
 
 let g:lightline.enable = {
