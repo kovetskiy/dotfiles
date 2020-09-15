@@ -1156,6 +1156,14 @@ git-commit-branch() {
     batrak -M "$1" "$dst"
 }
 
+jm() {
+    local issue=$1
+    local v=$2
+    jira issue -v "$v" "$issue"
+
+    batrak -M "$issue" 71
+}
+
 :unzip() {
     local name=$(sed -r 's/\.(zip|jar)$//' <<< "$1")
     unzip $1 -d "$name"

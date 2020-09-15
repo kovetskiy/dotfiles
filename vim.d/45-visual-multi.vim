@@ -19,7 +19,9 @@ fun! VM_Start()
     unmap ,
     unmap ;
 
-    call pythonx#unmap_autoimport()
+    if &filetype == "go"
+        call pythonx#unmap_autoimport()
+    endif
 endfun
 
 fun! VM_Exit()
@@ -30,7 +32,9 @@ fun! VM_Exit()
     map , <Plug>Sneak_,
     map ; <Plug>Sneak_;
 
-    call pythonx#map_autoimport()
+    if &filetype == "go"
+        call pythonx#map_autoimport()
+    endif
 endfun
 
 function! s:SelectAllMark()
