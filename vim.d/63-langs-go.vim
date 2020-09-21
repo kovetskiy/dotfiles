@@ -9,6 +9,7 @@ augroup _code_go
 
     au FileType go,go2 nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
     au FileType go,go2 nmap <silent><buffer> <c-p> :call PythonxCocDiagnosticFirst()<CR>
+    au FileType go,go2 nmap <silent><buffer> <c-b> :call synta#go#build()<CR>
     au FileType go,go2 nmap <silent><buffer> <c-p><c-n> :call PythonxCocDiagnosticNext()<CR>
     au FileType go,go2 nnoremap <buffer> <Leader>r :call CocActionAsync('rename')<CR>
     au FileType go,go2 nnoremap <buffer> <Leader><Leader>i :!go-install-deps<CR>

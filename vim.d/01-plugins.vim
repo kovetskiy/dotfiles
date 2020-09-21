@@ -78,6 +78,8 @@ Plug 'camspiers/animate.vim'
     let g:animate#duration = 100.0
 Plug 'camspiers/lens.vim'
     let g:lens#disabled_filenames = ['coc:.*', 'list:.*']
+    let g:lens#width_resize_min = 100
+    let g:lens#width_resize_max = 120
 Plug 'digitaltoad/vim-pug'
 Plug 'reedes/vim-lexical'
 Plug 'rakr/vim-one'

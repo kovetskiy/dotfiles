@@ -60,5 +60,5 @@
 	diff-image = "!f() { cd -- \"${GIT_PREFIX:-.}\"; GIT_DIFF_IMAGE_ENABLED=1 git diff \"$@\"; }; f"
 [diff "image"]
 	command = /home/operator/dotfiles/git-diff-image/git_diff_image
-[diff]
-	tool = vimdiff
+;[diff]
+;    tool = /home/operator/bin/mydiff

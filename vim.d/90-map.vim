@@ -75,7 +75,7 @@ imap <C-U> <ESC>ua
 
 imap <c-j> <nop>
 
-nnoremap <c-b> :source ~/.vimrc<CR>:echom "vimrc sourced"<cr>:doau VimEnter<CR>
+command! V source ~/.vimrc|echom "vimrc sourced"|doau VimEnter
 
 nnoremap Q qq
 nnoremap @@ @q
