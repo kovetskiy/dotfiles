@@ -1120,6 +1120,10 @@ git-commit-branch() {
 :git-push-delete() {
     local remote=$(cut -d/ -f1 <<< "$1")
     local branch=$(cut -d/ -f2 <<< "$1")
+    if [[ "$branch" == "$remote" && "$branch" == "$1" ]]; then
+        branch=$remote
+        remote="origin"
+    fi
 
     git push $remote --delete $branch
 }
