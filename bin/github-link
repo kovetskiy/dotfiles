@@ -16,7 +16,7 @@ set -euo pipefail
     origin=$(git -C $root remote get-url origin)
 
     local repo
-    repo=$(grep -Po '[:/]\K[^/]+/[^/]+$' <<< "$origin")
+    repo=$(grep -Po '[:/]\K[^/]+/[^/]+$' <<< "$origin" | sed 's|\.git$||')
 
     local branch
     branch=$(git -C $root rev-parse --abbrev-ref HEAD)

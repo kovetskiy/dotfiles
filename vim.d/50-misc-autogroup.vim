@@ -21,3 +21,8 @@ augroup _misc
 
     au VimResized,BufNewFile,BufRead * wincmd =
 augroup end
+
+augroup _batrak
+    au!
+    au BufRead,BufNewFile *.batrak set noet ft=gitcommit tw=80
+augroup end

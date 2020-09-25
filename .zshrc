@@ -1099,7 +1099,7 @@ git-commit-branch() {
 
 :rsync-cd() {
     echo ":: syncing from $1 $(pwd)/"
-    rsync --filter=':- .gitignore' -avp operator@$1:$(pwd)/$2 .
+    rsync --filter=':- .gitignore' -a -v --progress operator@$1:$(pwd)/$2 .
 }
 
 :git-fetch-prune() {
@@ -1206,7 +1206,8 @@ alias gpt='git push origin --tags'
 
 alias lc='go-mod-local'
 alias bw='bitbucket-wait-startup'
-alias gf=':git-fetch-prune && echo && :git-branches'
+alias gf=':git-fetch-prune && :git-branches'
+alias gft='git fetch --tags --prune'
 alias rv='() { :rsync-cd venus "${@}" }'
 alias rd='() { :rsync-cd desk "${@}" }'
 alias sd='() { :ssh-cd desk "${@}" }'
@@ -1221,7 +1222,6 @@ alias os='docker start'
 alias ot='docker stop'
 alias ors='docker restart'
 alias orm='docker rm -f'
-alias ma='() { ACCOUNT=$1 mutt }'
 alias cb=':clipboard-files'
 alias pb=':paste-clipboard-files'
 alias ox=':orgalorg:exec'

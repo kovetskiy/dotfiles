@@ -13,6 +13,7 @@ func! _coc_references()
     call CocAction('jumpReferences')
     call lens#enable()
 endfunc!
+
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> <C-F><C-R> <Plug>(coc-refactor)

@@ -80,6 +80,9 @@ Plug 'camspiers/lens.vim'
     let g:lens#disabled_filenames = ['coc:.*', 'list:.*']
     let g:lens#width_resize_min = 100
     let g:lens#width_resize_max = 120
+    if &diff == 1
+        let g:lens#disabled = 1
+    endif
 Plug 'digitaltoad/vim-pug'
 Plug 'reedes/vim-lexical'
 Plug 'rakr/vim-one'
@@ -103,5 +106,6 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'lifepillar/vim-solarized8'
 
 Plug 'liuchengxu/vista.vim'
+Plug 'sebdah/vim-delve'
 
 call plug#end()
