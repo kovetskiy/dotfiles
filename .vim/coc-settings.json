@@ -166,7 +166,7 @@
         },
         "hoverKind": "FullDocumentation"
     },
-    "go.goplsPath": "/usr/bin/gopls",
+    "go.goplsPath": "/home/operator/bin/gopls",
     "java.jdt.ls.vmargs": "-noverify -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:\"/home/operator/.config/coc/extensions/node_modules/coc-java-lombok/jar/lombok.jar\"",
     "java.format.settings.url": "/home/operator/sources/github.com/neoclide/redhat.java/eclipse-formatter.xml"
 }

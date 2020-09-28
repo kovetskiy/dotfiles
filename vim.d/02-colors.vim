@@ -14,6 +14,9 @@ if $BACKGROUND == "dark"
         "hi! ColorColumn ctermbg=NONE guibg=#e6e6e6 guifg=NONE ctermfg=NONE
 
         hi! CocCursorRange guibg=#b16286 guifg=#ebdbb2 ctermbg=5 ctermfg=3
+        hi! Pmenu guibg=#262626 guifg=#ffffff
+        hi! CocErrorHighlight guibg=NONE guifg=#dc322f
+        hi! CocErrorSign guifg=#dc322f guibg=#262626
     endfunc!
 endif
 
