@@ -38,7 +38,7 @@ BIN=(
     "$HOME/sources/jewfiles/bin"
     "$HOME/deadfiles/bin"
     "$HOME/.local/bin"
-    "/usr/bin/"
+    "/usr/bin"
     "$GOPATH/bin"
     "$HOME/.cargo/bin"
     "$RUBYPATH"
