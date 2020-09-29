@@ -107,5 +107,9 @@ Plug 'lifepillar/vim-solarized8'
 
 Plug 'liuchengxu/vista.vim'
 Plug 'sebdah/vim-delve'
+Plug 'puremourning/vimspector'
+    let g:vimspector_enable_mappings = 'HUMAN'
+    let g:vimspector_install_gadgets = ['vscode-go']
+    let g:vimspector_base_dir = expand('$HOME/.config/vimspector')
 
 call plug#end()

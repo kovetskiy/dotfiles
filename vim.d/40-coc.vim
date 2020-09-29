@@ -9,9 +9,9 @@ func! _coc_restart()
 endfunc!
 
 func! _coc_references()
-    call lens#disable()
+    let g:lens#disabled = 1
     call CocAction('jumpReferences')
-    call lens#enable()
+    let g:lens#disabled = 0
 endfunc!
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)

@@ -58,3 +58,4 @@ systemctl --user import-environment PATH
 systemctl --user import-environment GOPATH
 
 unset BIN
+unset SUDO_COMMAND
