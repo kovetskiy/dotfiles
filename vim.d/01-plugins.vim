@@ -33,7 +33,7 @@ Plug 'kovetskiy/vim-bash'
 Plug 'FooSoft/vim-argwrap', {'on': 'ArgWrap'}
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}
-Plug 'w0rp/ale'
+Plug 'kovetskiy/ale'
     let g:ale_enabled = 0
     let g:ale_fixers = {
         \ 'ruby':       [function('ale#fixers#rufo#Fix')],
@@ -92,7 +92,7 @@ Plug 'ActivityWatch/aw-watcher-vim'
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
     let g:terraform_align=1
     let g:terraform_fmt_on_save=1
-Plug 'ddrscott/vim-side-search'
+Plug 'kovetskiy/vim-side-search'
 Plug 'kovetskiy/neovim-move', { 'do' : ':UpdateRemotePlugins' }
 
 Plug 'rhysd/vim-grammarous'

@@ -1,10 +1,12 @@
 #!/bin/bash
 
+set -x
+
 interval_disconnected=10
 interval_connected=120
 
 while :; do
-    if ! bluetooth-info; then
+    if ! $HOME/bin/bluetooth-info; then
         pid=$(pgrep -f 'bluetooth-autoconnect -d')
         sudo kill -HUP "$pid"
         echo "Sending SIGHUP to bluetooth-autoconnect $pid"
