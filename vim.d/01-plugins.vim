@@ -41,6 +41,7 @@ Plug 'kovetskiy/ale'
         \ 'rust':       ['rustfmt'],
         \ 'pug':        [function('ale#fixers#prettier#Fix')],
         \ 'scss':       [function('ale#fixers#prettier#Fix')],
+        \ 'sql':        ['sqlfmt'],
         \ '*': ['remove_trailing_lines', 'trim_whitespace']
     \}
     let g:ale_fix_on_save = 1
@@ -111,5 +112,7 @@ Plug 'puremourning/vimspector'
     let g:vimspector_enable_mappings = 'HUMAN'
     let g:vimspector_install_gadgets = ['vscode-go']
     let g:vimspector_base_dir = expand('$HOME/.config/vimspector')
+
+Plug 'styled-components/vim-styled-components'
 
 call plug#end()

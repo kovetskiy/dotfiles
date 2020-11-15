@@ -1,4 +1,4 @@
 #!/bin/bash
 
 info=$(bluetoothctl <<< "info")
-exec grep -q "Connected: yes" <<< "$info"
+exec grep "Connected: yes" <<< "$info"

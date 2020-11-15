@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -euo pipefail
-
 :log() {
     printf "$(highlight bold)» zfs: %s$(highlight reset)\n" "$*"
 }

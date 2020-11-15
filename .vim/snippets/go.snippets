@@ -1,6 +1,23 @@
 global !p
 from snippets import *
 from snippets.go import *
+
+def get_indent_levels(snip, base_line):
+	if snip.context is None:
+		snip.context = {}
+
+	if len(snip.buffer) <= base_line+1:
+		return
+
+	snip.context['upper_indent'] = px.whitespaces.get_indentation(
+		snip.buffer[base_line]
+	)[1]
+
+	snip.context['inner_indent'] = px.whitespaces.get_indentation(
+		snip.buffer[base_line+1]
+	)[1]
+
+	return snip.context
 endglobal
 
 context "snip.context=snip"
@@ -377,4 +394,26 @@ snippet forr "" w
 for ${3:_}, ${2:value} := range $1 {
 	$0
 }
+endsnippet
+
+priority 1000
+context "get_indent_levels(snip, snip.line)"
+post_expand "get_indent_levels(snip, snip.snippet_start[0])"
+snippet "(return)?(.*\W)([kc])" "return karma/context" bwr
+`!p
+quote = '"'
+
+if '"' in t[1]:
+    quote = '\`'
+
+subject = "karma"
+if match.group(3) == "c":
+	subject = "context"
+
+prefix=match.group(2)
+if match.group(1):
+    prefix=match.group(1) + prefix
+
+snip.rv=prefix
+``!p snip.rv=subject`.Format(err, "$0")
 endsnippet

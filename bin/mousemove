@@ -1,10 +1,12 @@
 #!/bin/bash
 
-query="$1"
-x="$2"
-y="$3"
+move_x="$1"
+move_y="$2"
 
-window=$(xdotool search --name "$query")
-xdotool mousemove --window "$window" "$x" "$y"
+eval $(xdotool getmouselocation --shell)
 
-getcolor "$query" "$x" "$y"
+X=$((X+move_x))
+Y=$((Y+move_y))
+xdotool mousemove "$X" "$Y"
+
+echo "$X $Y"

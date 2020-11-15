@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec xdotool search --sync --onlyvisible --class "$1" windowfocus

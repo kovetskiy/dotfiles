@@ -208,7 +208,7 @@ docompinit() {
     zstyle -d "lambda17::async" pre-draw
     zstyle "lambda17:00-banner" right " "
     zstyle "lambda17:01-git-stash" fg "black"
-    zstyle "lambda17:05-sign" text "∞"
+    zstyle "lambda17:05-sign" text "$"
     zstyle "lambda17:09-arrow" transition ""
     zstyle "lambda17:15-pwd" text '$(:prompt-pwd)'
     zstyle "lambda17:20-git" left " "
