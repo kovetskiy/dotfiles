@@ -7,7 +7,7 @@ xd_class="en.todoist.com"
 }
 
 if  [[ ! "$(xdotool search --classname "$xd_class")" ]]; then
-    chromium --kiosk --app=https://en.todoist.com/
+    chromium --user-data-dir ~/.config/chrome-todoist --kiosk --app=https://en.todoist.com/
     xdotool search --onlyvisible --sync --classname "$xd_class" windowfocus
     :kuake
 else

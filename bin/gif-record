@@ -10,8 +10,12 @@ else
     rm -rf $OUTPUT
 fi
 
-echo "choose window"
-XWININFO=$(xwininfo)
+if [[ "$WINDOW_ID" ]]; then
+    XWININFO=$(xwininfo -id "$WINDOW_ID")
+else
+    echo "choose window"
+    XWININFO=$(xwininfo)
+fi
 
 ID=$(awk '/Window id/{print $4}' <<< "$XWININFO")
 
@@ -20,23 +24,30 @@ Y=$(awk '/Absolute upper-left Y/{print $4}' <<< "$XWININFO")
 W=$(awk '/Width/{print $2}' <<< "$XWININFO")
 H=$(awk '/Height/{print $2}' <<< "$XWININFO")
 
-echo "press ENTER to start recording"
-read
+if [[ ! "$WINDOW_ID" ]]; then
+    echo "press ENTER to start recording"
+    read
+fi
+
 xdotool mousemove 99999 99999
 xdotool windowfocus $ID
 
 echo "recording..."
 
+rm /tmp/gif-record.fifo
+mkfifo /tmp/gif-record.fifo
+
 byzanz-record --verbose --delay=0 --x=$X --y=$Y --width=$W --height=$H \
-    --exec="bash -c 'ping 8.8.8.8 > /dev/null'" $OUTPUT &
+    --exec="bash -c 'cat /tmp/gif-record.fifo'" $OUTPUT &
 PID=$!
 
-echo "press ENTER to stop recording"
-read
+if [[ ! "$WINDOW_ID" ]]; then
+    echo "press ENTER to stop recording"
+    read
+    echo > /tmp/gif-record.fifo
+fi
 
-pkill ping
-
-while kill -0 "$PID"; do
+while kill -0 "$PID" &>/dev/null; do
     sleep 0.1
 done
 

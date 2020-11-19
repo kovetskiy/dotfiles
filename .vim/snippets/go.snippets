@@ -295,25 +295,6 @@ if traceMode {
 
 endsnippet
 
-snippet at "" w
-Attribute("$1", $0)
-endsnippet
-
-snippet re "" w
-Required("$0")
-endsnippet
-
-snippet de "" w
-Description(
-	"$0",
-)
-endsnippet
-
-snippet ty "" w
-$1 = Type("$1", func() {
-	$0
-})
-endsnippet
 
 snippet lt "" wb
 log.Tracef(context, "$2", $0)
