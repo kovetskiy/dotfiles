@@ -52,7 +52,7 @@ notify_id=""
 }
 
 :get-section-time() {
-    TZ=${1:-} date +'%T %d-%m-%Y %a'
+    TZ=${1:-} date +'%T %a %d-%m-%Y'
 }
 
 :get-section-battery() {
@@ -152,7 +152,9 @@ _bg=""
     local body=""
 
     :body-append "TIME MSK" "<u>$(:get-section-time Europe/Moscow)</u>"
+    :body-append "TIME NSK" "$(:get-section-time Asia/Novosibirsk)"
     :body-append "TIME UTC" "$(:get-section-time UTC)"
+    :body-append "TIME CET" "$(:get-section-time CET)"
     :body-append "MEMORY" "$(:get-section-memory)"
     :body-append "WIFI" "$(:get-section-wifi)"
     :body-append "BATTERY" "$(:get-section-battery)"

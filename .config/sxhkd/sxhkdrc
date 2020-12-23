@@ -25,9 +25,6 @@ super + control + s
 super + control + w
 	mrun spotify
 
-super + control + f
-	telegram-desktop
-
 super + F1
 	screenshot
 
@@ -117,3 +114,6 @@ super + minus
 
 control + F6
 	bluetooth-autoconnect -v | while read x; do notify $x; done
+
+control + super + f
+	zet

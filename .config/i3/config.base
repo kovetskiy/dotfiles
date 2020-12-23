@@ -96,6 +96,7 @@ for_window [title="webcam"] floating enable
 for_window [title="webcam"] sticky enable
 
 
+for_window [class="obsidian"] floating enable
 for_window [class="skype"] floating enable
 for_window [class="Skype"] floating enable
 for_window [title=".*"] border pixel 2

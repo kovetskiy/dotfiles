@@ -9,8 +9,8 @@
     "coc-json": ">=1.2.6",
     "coc-pairs": ">=1.2.21",
     "coc-python": ">=1.2.12",
-    "coc-sql": ">=0.3.3",
+    "coc-sql": ">=0.4.0",
     "coc-tsserver": ">=1.5.4",
-    "coc-xml": ">=1.12.0"
+    "coc-xml": ">=1.14.0"
   }
 }

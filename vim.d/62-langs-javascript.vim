@@ -11,9 +11,36 @@ augroup _code_typescript
     au BufNewFile,BufRead *.json set filetype=json
     au BufNewFile,BufRead *.ts,*.js,*.tsx setlocal ts=2 sts=2 sw=2 expandtab
 
-    au FileType typescript,typescriptreact nnoremap <silent><buffer> <c-p> :call CocAction('runCommand', 'tsserver.organizeImports')<CR>
+    au FileType typescript,typescriptreact nnoremap <silent><buffer> <c-p> :call _format_typescript()<CR>
     au FileType typescript,typescriptreact nnoremap <silent><buffer> <c-s> :w<CR>:call _save_typescript()<CR>
 augroup end
+
+func! _filter_typescript_codeactions(titles)
+    if len(a:titles) == 0
+        return []
+    endif
+
+    let ids = []
+    for i in range(0, len(a:titles)-1)
+        let title = a:titles[i]
+        if match(title, '^Import') != -1
+            call add(ids, i)
+        endif
+    endfor
+
+    return ids
+endfunc!
+
+func! _format_typescript()
+    mark e
+
+    let l:lastline = line('$')
+    execute '1,' . l:lastline . "call CocAction('applyCodeActions', '_filter_typescript_codeactions')"
+
+    normal `e
+
+    call CocAction('runCommand', 'tsserver.organizeImports')
+endfunc!
 
 func! _save_typescript()
     call CocAction('diagnosticFirst', 'error')
