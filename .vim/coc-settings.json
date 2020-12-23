@@ -12,7 +12,7 @@
     "xml.validation.schema": false,
     "xml.validation.noGrammar": "ignore",
     "xml.codeLens.enabled": false,
-    "javascript.suggestionActions.enabled": false,
+    "javascript.suggestionActions.enabled": true,
     "git.topRemovedSign.text": "\\ ↩",
     "git.topRemovedSign.hlGroup": "GitDeleted",
     "git.removedSign.text": "\\ ↩",
@@ -25,6 +25,7 @@
     "git.changeRemovedSign.hlGroup": "GitModified",
     "typescript.preferences.importModuleSpecifier": "non-relative",
     "javascript.preferences.importModuleSpecifier": "non-relative",
+    "tsserver.log": "verbose",
     "languageserver": {
         "terraform": {
             "command": "terraform-lsp",
@@ -148,6 +149,7 @@
         "`"
     ],
     "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
     "coc.preferences.hoverTarget": "preview",
     "go.trace.server": "verbose",
     "go.goplsOptions": {

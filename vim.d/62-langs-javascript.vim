@@ -11,8 +11,8 @@ augroup _code_typescript
     au BufNewFile,BufRead *.json set filetype=json
     au BufNewFile,BufRead *.ts,*.js,*.tsx setlocal ts=2 sts=2 sw=2 expandtab
 
-    au FileType typescript,typescriptreact nnoremap <silent><buffer> <c-p> :call _format_typescript()<CR>
-    au FileType typescript,typescriptreact nnoremap <silent><buffer> <c-s> :w<CR>:call _save_typescript()<CR>
+    au FileType javascript,typescript,typescriptreact nnoremap <silent><buffer> <c-p> :call _format_typescript()<CR>
+    au FileType javascript,typescript,typescriptreact nnoremap <silent><buffer> <c-s> :w<CR>:call _save_typescript()<CR>
 augroup end
 
 func! _filter_typescript_codeactions(titles)
@@ -64,7 +64,7 @@ function! _ale_gts_fixer(buffer) abort
 endfunction
 
 let g:ale_fixers['typescript'] = [function('_ale_gts_fixer')]
-let g:ale_fixers['typescriptreact'] = ['eslint', 'prettier']
+let g:ale_fixers['typescriptreact'] = ['prettier']
 let g:ale_fixers['javascript'] = ['prettier', 'eslint']
 let g:ale_fixers['json'] = ['fixjson']
 let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
