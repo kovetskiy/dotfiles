@@ -1,18 +1,19 @@
 augroup _code_typescript
     au!
 
-    au BufRead,BufNewFile *.ts,*.js,*.tsx
+    au BufRead,BufNewFile *.ts,*.js,*.tsx,*.jsx
         \ call ale#Set('typescript_gts_executable',
         \ 'npx')
-    au BufRead,BufNewFile *.ts,*.js,*.tsx
+    au BufRead,BufNewFile *.ts,*.js,*.tsx,*.jsx
         \ call ale#Set('typescript_gts_options',
         \ 'gts fix')
 
     au BufNewFile,BufRead *.json set filetype=json
-    au BufNewFile,BufRead *.ts,*.js,*.tsx setlocal ts=2 sts=2 sw=2 expandtab
+    au BufNewFile,BufRead *.ts,*.jsx,*.js,*.tsx setlocal ts=2 sts=2 sw=2 expandtab
 
-    au FileType javascript,typescript,typescriptreact nnoremap <silent><buffer> <c-p> :call _format_typescript()<CR>
-    au FileType javascript,typescript,typescriptreact nnoremap <silent><buffer> <c-s> :w<CR>:call _save_typescript()<CR>
+    au FileType javascript,javascriptreact,typescript,typescriptreact nnoremap <silent><buffer> <c-p> :call _format_typescript()<CR>
+    au FileType javascript,javascriptreact,typescript,typescriptreact nnoremap <silent><buffer> <c-s> :w<CR>:call _save_typescript()<CR>
+    au FileType javascript,javascriptreact,typescript,typescriptreact nnoremap <silent><buffer> <c-a> :CocAction<CR>
 augroup end
 
 func! _filter_typescript_codeactions(titles)
@@ -23,8 +24,9 @@ func! _filter_typescript_codeactions(titles)
     let ids = []
     for i in range(0, len(a:titles)-1)
         let title = a:titles[i]
-        if match(title, '^Import') != -1
+        if match(title, '^Import') != -1 || match(title, '^Add ') != -1
             call add(ids, i)
+            break
         endif
     endfor
 
@@ -66,5 +68,7 @@ endfunction
 let g:ale_fixers['typescript'] = [function('_ale_gts_fixer')]
 let g:ale_fixers['typescriptreact'] = ['prettier']
 let g:ale_fixers['javascript'] = ['prettier', 'eslint']
+let g:ale_fixers['javascriptreact'] = ['prettier', 'eslint']
 let g:ale_fixers['json'] = ['fixjson']
 let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
+let g:ale_linter_aliases = {'javascriptreact': 'javascript'}

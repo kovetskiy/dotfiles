@@ -26,6 +26,7 @@
     "typescript.preferences.importModuleSpecifier": "non-relative",
     "javascript.preferences.importModuleSpecifier": "non-relative",
     "tsserver.log": "verbose",
+    "tsserver.trace.server": "verbose",
     "languageserver": {
         "terraform": {
             "command": "terraform-lsp",
