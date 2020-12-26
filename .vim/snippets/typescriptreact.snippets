@@ -1,7 +1,80 @@
+global !p
+import px
+import re
+import px.whitespaces
+import px.cursor
+endglobal
+
 snippet ex "" w
 export default function $1() {
     return (
         $0
     )
 }
+endsnippet
+
+snippet c "" w
+const $1 = $0;
+endsnippet
+
+snippet cf "" w
+const $1 = ($2) => {
+  $0
+}
+endsnippet
+
+snippet i "" w
+if ($1) {
+  $0
+}
+endsnippet
+
+snippet a "" w
+(${1:props: any}) => $0
+endsnippet
+
+snippet p "console.log" b
+console.log("`!p
+try:
+	once
+except:
+	once = True
+	cursor = px.cursor.get()
+	filename = os.path.basename(px.buffer.get().name)
+
+snip.rv = filename + ":" + str(cursor[0])
+` $0")
+endsnippet
+
+snippet pr "console.log" b
+console.log("`!p
+try:
+	once
+except:
+	once = True
+	cursor = px.cursor.get()
+	filename = os.path.basename(px.buffer.get().name)
+
+snip.rv = filename + ":" + str(cursor[0])
+` `!p snip.rv=t[1]`", $1)
+endsnippet
+
+snippet tt "" w
+{tt('$0')}
+endsnippet
+
+snippet sc "" w
+const styles = StyleSheet.create({
+  $0
+});
+endsnippet
+
+snippet o "" w
+$1: {
+  $0
+},
+endsnippet
+
+snippet "^e" "export" rA
+export $0
 endsnippet

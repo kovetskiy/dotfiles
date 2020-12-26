@@ -80,7 +80,7 @@ func! _search_wrappable()
 
     call search(l:pattern, 'cs')
 endfunc!
-nnoremap <silent> @l :call _search_wrappable()<CR>ll:ArgWrap<CR>
+nnoremap <silent> @l :call _search_wrappable()<CR>l:ArgWrap<CR>
 
 func! _chain_wrap(first)
     let match = search(').', 'cs', line('.'))

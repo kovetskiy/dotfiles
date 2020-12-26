@@ -24,7 +24,12 @@ func! _filter_typescript_codeactions(titles)
     let ids = []
     for i in range(0, len(a:titles)-1)
         let title = a:titles[i]
-        if match(title, '^Import') != -1 || match(title, '^Add ') != -1
+
+        if match(title, "Import default 'React'") != -1
+            continue
+        endif
+
+        if match(title, '^Import') != -1 || match(title, '^Add ') != -1 || match(title, '^Remove import ') != -1
             call add(ids, i)
             break
         endif
@@ -35,17 +40,14 @@ endfunc!
 
 func! _format_typescript()
     mark e
-
-    let l:lastline = line('$')
-    execute '1,' . l:lastline . "call CocAction('applyCodeActions', '_filter_typescript_codeactions')"
-
+    silent! call CocAction('applyCodeActions', '_filter_typescript_codeactions')
     normal `e
-
-    call CocAction('runCommand', 'tsserver.organizeImports')
+    "call CocAction('runCommand', 'tsserver.organizeImports')
+    "call CocAction('diagnosticFirst', 'error')
 endfunc!
 
 func! _save_typescript()
-    call CocAction('diagnosticFirst', 'error')
+    return 0
 endfunc!
 
 function! _ale_gts_fixer(buffer) abort
