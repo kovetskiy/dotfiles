@@ -3,6 +3,11 @@ import px
 import re
 import px.whitespaces
 import px.cursor
+import random
+
+def guess_component_name():
+	path = os.path.basename(px.buffer.get().name)
+	return path.replace('.tsx', '').replace('.ts', '')
 endglobal
 
 snippet ex "" w
@@ -77,4 +82,47 @@ endsnippet
 
 snippet "^e" "export" rA
 export $0
+endsnippet
+
+snippet rr "" w
+import React from 'react';
+
+export const ${1:`!p snip.rv=guess_component_name()`} = ($2) => {
+  $0
+}
+endsnippet
+
+snippet rc "" w
+return (
+  $0
+)
+endsnippet
+
+snippet r "" w
+return $0
+endsnippet
+
+snippet t "" w
+<Text>$0</Text>
+endsnippet
+
+snippet v "" w
+<View $1>
+  $0
+</View>
+endsnippet
+
+snippet s "" w
+style={{$0}}
+endsnippet
+
+snippet br "" w
+backgroundColor: '`!p
+r = lambda: random.randint(0,255)
+try:
+	once
+except:
+	once = True
+	snip.rv = '#%02X%02X%02X' % (r(),r(),r())
+`'
 endsnippet
