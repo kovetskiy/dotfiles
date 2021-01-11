@@ -126,3 +126,37 @@ except:
 	snip.rv = '#%02X%02X%02X' % (r(),r(),r())
 `'
 endsnippet
+
+snippet an "" w
+($1) => {
+	$0
+}
+endsnippet
+
+snippet us "" w
+const [$1, set`!p 
+name = t[1]
+if not name:
+	snip.rv = ''
+else:
+	snip.rv = name[0].upper() + name[1:]
+`] = React.useState($2);
+endsnippet
+
+snippet nav "" w
+type $1NavigationProp = StackNavigationProp<
+  $2,
+  '$1'
+>;
+
+type $1RouteProp = RouteProp<$2, '$1'>;
+
+type Props = {
+  navigation: $1NavigationProp;
+  route: $1RouteProp;
+};
+endsnippet
+
+snippet hh "" w
+this.$1 = $1;
+endsnippet

@@ -82,6 +82,7 @@ mode "resize" {
 # dell poweroff button
 bindcode 124 exec poweroff
 
+for_window [title="tudu"]        floating enable
 for_window [class="zoom"]        floating enable
 for_window [title="^zoom"]       floating enable
 for_window [title="^Zoom"]       floating enable

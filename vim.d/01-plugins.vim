@@ -3,6 +3,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdcommenter'
+    let g:NERDCustomDelimiters = { 'typescriptreact': { 'left': '//', 'leftAlt': '{/*', 'rightAlt': '*/}' } }
 Plug 'kovetskiy/vim-hacks'
 Plug 'kovetskiy/synta'
 "Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
@@ -44,7 +45,7 @@ Plug 'kovetskiy/ale'
         \ 'sql':        ['sqlfmt'],
         \ '*': ['remove_trailing_lines', 'trim_whitespace']
     \}
-    let g:ale_fix_on_save = 1
+    let g:ale_fix_on_save = 0
 Plug 'mg979/vim-visual-multi'
 Plug 'tmhedberg/matchit'
 Plug 'markonm/traces.vim'

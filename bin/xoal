@@ -1,0 +1,15 @@
+#!/bin/bash
+
+xd_class="xoal"
+
+:kuake() {
+    kuake --focus --width 20 --class "$xd_class"
+}
+
+if  [[ ! "$(xdotool search --classname "$xd_class")" ]]; then
+    /home/operator/go/src/github.com/kovetskiy/xoal/packages/xoal-*.AppImage "${@}" &
+    xdotool search --onlyvisible --sync --classname "$xd_class" windowfocus
+    :kuake
+else
+    :kuake
+fi
