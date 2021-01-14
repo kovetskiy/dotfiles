@@ -16,46 +16,50 @@ augroup _code_typescript
     au FileType javascript,javascriptreact,typescript,typescriptreact nnoremap <silent><buffer> <c-a> :CocCommand tsserver.organizeImports<CR>
 augroup end
 
-let g:_prev_titles = []
 func! _filter_typescript_codeactions(titles)
     if len(a:titles) == 0
         return []
     endif
 
-    let ids = []
-    let current_titles = []
-    "echom 'before'
-    "echom a:titles
-    for i in range(0, len(a:titles)-1)
-        let title = a:titles[i]
+    pythonx <<PYTHON
+import vim
+import re
 
-        if index(g:_prev_titles, title) != -1
-            continue
-        endif
+titles = vim.eval('a:titles')
+result = []
 
-        if match(title, "Import default 'React'") != -1
-            continue
-        endif
+excludes = ["Import default 'React'", "Add import ", "Add all missing imports" ]
+includes = ["Import '(.*)'", "Add '(.*)'", "Import default '(.*)'"]
+seen = []
+for t in range(len(titles)):
+    title = titles[t]
 
-        if match(title, "Add import ") != -1
-            continue
-        endif
-
-        if match(title, "Add all missing imports") != -1
-            continue
-        endif
-
-        if match(title, '^Import') != -1 || match(title, '^Add ') != -1 || match(title, '^Remove import ') != -1
-            call add(ids, i)
-            call add (current_titles, title)
+    skip = False
+    for exclude in excludes:
+        if re.search(exclude, title):
+            skip = True
             break
-        endif
-    endfor
 
-    let g:_prev_titles = current_titles
-    "echom 'after'
-    "echom tbd
-    return ids
+    if skip:
+        continue
+
+    lib = None
+    for pattern in includes:
+        matches = re.match(pattern, title)
+        if matches:
+            lib = matches.group(1)
+            break
+
+    if not lib:
+        continue
+
+    if lib not in seen:
+        seen.append(lib)
+        result.append(t)
+
+PYTHON
+
+    return pyxeval('result')
 endfunc!
 
 func! _apply_typescript_actions()
@@ -67,7 +71,7 @@ func! _format_typescript()
 endfunc!
 
 func! _save_typescript()
-    exec "CocCommand" "prettier.formatFile"
+    call CocAction('runCommand', 'prettier.formatFile')
     return 0
 endfunc!
 

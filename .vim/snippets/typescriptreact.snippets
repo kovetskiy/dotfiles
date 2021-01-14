@@ -160,3 +160,30 @@ endsnippet
 snippet hh "" w
 this.$1 = $1;
 endsnippet
+
+snippet ud "" w
+$1()${2} {
+  $3
+}
+endsnippet
+
+snippet ac "" w
+action(() => {
+  $0
+})
+endsnippet
+
+priority 2
+snippet .t "" i
+.then($0)
+endsnippet
+
+snippet pro "" w
+new Promise((resolve, reject) => {
+   $0
+})
+endsnippet
+
+snippet ob "" w
+<Observer>{() => ${VISUAL}}</Observer>
+endsnippet

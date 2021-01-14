@@ -19,6 +19,7 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> <C-F><C-R> <Plug>(coc-refactor)
 nmap <silent> <C-F><C-E> <Plug>(coc-rename)
 nmap <C-F><C-A>  <Plug>(coc-codeaction-selected)l
+nmap <C-F><C-D>  <Plug>(coc-codeaction)
 nmap <silent> <C-F><C-O>  :call _coc_restart()<CR>
 nmap <silent> gi :call CocActionAsync('doHover')<CR>
 nmap <silent> gr :call _coc_references()<CR>

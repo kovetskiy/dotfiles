@@ -116,4 +116,8 @@ Plug 'puremourning/vimspector'
 
 Plug 'styled-components/vim-styled-components'
 
+Plug 'yuezk/vim-js'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'MaxMEllon/vim-jsx-pretty'
+
 call plug#end()
