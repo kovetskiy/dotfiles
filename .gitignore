@@ -10,3 +10,4 @@
 /.vimperator/style.vim
 /.config/kitty/cached.json
 /.config/redshift.conf
+/*.pyc

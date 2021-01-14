@@ -43,6 +43,7 @@ func! _format_typescript()
 endfunc!
 
 func! _save_typescript()
+    call _format_typescript()
     call CocAction('runCommand', 'prettier.formatFile')
     return 0
 endfunc!
