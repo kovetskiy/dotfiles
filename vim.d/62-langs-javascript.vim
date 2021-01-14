@@ -1,3 +1,5 @@
+let g:_python_plugins = expand('<sfile>:p:h') . '/pythonx/'
+
 augroup _code_typescript
     au!
 
@@ -22,41 +24,11 @@ func! _filter_typescript_codeactions(titles)
     endif
 
     pythonx <<PYTHON
-import vim
-import re
-
-titles = vim.eval('a:titles')
-result = []
-
-excludes = ["Import default 'React'", "Add import ", "Add all missing imports" ]
-includes = ["Import '(.*)'", "Add '(.*)'", "Import default '(.*)'"]
-seen = []
-for t in range(len(titles)):
-    title = titles[t]
-
-    skip = False
-    for exclude in excludes:
-        if re.search(exclude, title):
-            skip = True
-            break
-
-    if skip:
-        continue
-
-    lib = None
-    for pattern in includes:
-        matches = re.match(pattern, title)
-        if matches:
-            lib = matches.group(1)
-            break
-
-    if not lib:
-        continue
-
-    if lib not in seen:
-        seen.append(lib)
-        result.append(t)
-
+_python_plugins = vim.eval("g:_python_plugins")
+if _python_plugins not in sys.path:
+    sys.path.append(vim.eval("g:_python_plugins"))
+import cocx
+result = cocx.coc_filter_typescript_actions(vim.eval('a:titles'))
 PYTHON
 
     return pyxeval('result')
