@@ -11,3 +11,4 @@
 /.config/kitty/cached.json
 /.config/redshift.conf
 /*.pyc
+__pycache__

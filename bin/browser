@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[ -n "$_LOCK" ] || _LOCK=x exec flock -n $0 $0 "$@"
+
 url=$(sed -r 's#^(git+ssh|ssh|git)://(\w+@)?##' <<< "$1")
 params="${@:2}"
 

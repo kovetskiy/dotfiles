@@ -66,6 +66,7 @@ nmap <C-L> <C-W>l
 
 imap <C-J> <nop>
 vmap <C-J> <nop>
+smap <C-J> <nop>
 
 imap <C-E> <C-R>=strpart(search("[)}\"'`\\]]", "c"), -1, 0)<CR><Right>
 

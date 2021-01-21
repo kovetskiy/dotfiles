@@ -108,6 +108,9 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'lifepillar/vim-solarized8'
 
 Plug 'liuchengxu/vista.vim'
+    let g:vista_executive_for = {
+      \ 'typescriptreact': 'coc',
+      \ }
 Plug 'sebdah/vim-delve'
 Plug 'puremourning/vimspector'
     let g:vimspector_enable_mappings = 'HUMAN'
