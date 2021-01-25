@@ -37,7 +37,7 @@ if ($1) {
 endsnippet
 
 snippet a "" w
-(${1:props: any}) => $0
+() => $0
 endsnippet
 
 snippet p "console.log" b
@@ -145,6 +145,10 @@ else:
 `] = React.useState($2);
 endsnippet
 
+snippet uv "" w
+const [$1] = React.useState(() => ${2:${VISUAL}});
+endsnippet
+
 snippet nav "" w
 type $1NavigationProp = StackNavigationProp<
   $2,
@@ -201,6 +205,12 @@ export interface $1 {
 }
 endsnippet
 
+snippet "export\s+t" "" r
+export type $1 = {
+  $0
+}
+endsnippet
+
 snippet uid "" w
 `!p
 try:
@@ -221,4 +231,24 @@ endsnippet
 
 snippet q "" w
 $1 ? ${2:$1} : ${3:''}
+endsnippet
+
+snippet uc "" w
+const `!p 
+name = t[1]
+if not name:
+	snip.rv = ''
+else:
+	snip.rv = name[0].lower() + name[1:].replace('Context', '')
+` = React.useContext($1)
+endsnippet
+
+snippet uf "" w
+React.useEffect(() => {
+	$0
+}, [])
+endsnippet
+
+snippet "^\s+f" "" wr
+  $1: ($2) => ${3:void};$0
 endsnippet
