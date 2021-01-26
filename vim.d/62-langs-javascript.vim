@@ -2,21 +2,21 @@ let g:_python_plugins = expand('<sfile>:p:h') . '/pythonx/'
 
 augroup _code_typescript
     au!
-
-    au BufRead,BufNewFile *.ts,*.js,*.tsx,*.jsx
-        \ call ale#Set('typescript_gts_executable',
-        \ 'npx')
-    au BufRead,BufNewFile *.ts,*.js,*.tsx,*.jsx
-        \ call ale#Set('typescript_gts_options',
-        \ 'gts fix')
-
+    au BufRead,BufNewFile *.ts,*.js,*.tsx,*.jsx call _setup_local_js()
     au BufNewFile,BufRead *.json set filetype=json
-    au BufNewFile,BufRead *.ts,*.jsx,*.js,*.tsx setlocal ts=2 sts=2 sw=2 expandtab
-
-    au FileType javascript,javascriptreact,typescript,typescriptreact nnoremap <silent><buffer> <c-p> :call _format_typescript()<CR>
-    au FileType javascript,javascriptreact,typescript,typescriptreact nnoremap <silent><buffer> <c-s> :call _save_typescript()<CR>:w<CR>
-    au FileType javascript,javascriptreact,typescript,typescriptreact nnoremap <silent><buffer> <c-a> :CocCommand tsserver.organizeImports<CR>
 augroup end
+
+func! _setup_local_js()
+    nnoremap <buffer> <silent> @l :call _search_wrappable()<CR>l:ArgWrap<CR>
+    nnoremap <silent><buffer> <c-p> :call _format_typescript()<CR>
+    nnoremap <silent><buffer> <c-s> :call _save_typescript()<CR>:w<CR>
+    nnoremap <silent><buffer> <c-a> :CocCommand tsserver.organizeImports<CR>
+
+    call ale#Set('typescript_gts_executable', 'npx')
+    call ale#Set('typescript_gts_options', 'gts fix')
+
+    setlocal ts=2 sts=2 sw=2 expandtab
+endfunc!
 
 func! _filter_typescript_codeactions(titles)
     if len(a:titles) == 0
