@@ -10,6 +10,7 @@ augroup _code_go
     au FileType go,go2 nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
     au FileType go,go2 nmap <silent><buffer> <c-b> <ESC>
     au FileType go,go2 nmap <silent><buffer> <c-p> :call synta#go#build()<CR>
+    au FileType go,go2 nmap <silent><buffer> <c-s> :call _save_go()<CR>:w<CR>
     au FileType go,go2 nmap <silent><buffer> <leader><c-p> :call synta#quickfix#next()<CR>
     au FileType go,go2 nmap <silent><buffer> <c-p><c-n> :call PythonxCocDiagnosticNext()<CR>
     au FileType go,go2 nnoremap <buffer> <Leader>r :call CocActionAsync('rename')<CR>
@@ -19,6 +20,7 @@ augroup _code_go
     au FileType go,go2 setlocal cc=80,100
 
     au BufRead,BufNewFile *.go,*.go2 let b:argwrap_tail_comma = 1
+    "au BufRead,BufNewFile *.go,*.go2 let b:ale_fix_on_save = 1
 
     au BufEnter *.template call _extend_templatego()
     au BufEnter *.yaml call _extend_yaml()
@@ -27,6 +29,11 @@ augroup _code_go
         \ call ale#Set('go_goimports_executable',
         \ 'gofumports')
 augroup end
+
+func! _save_go()
+    call CocAction('runCommand', 'editor.action.organizeImport')
+    call CocAction('format')
+endfunc!
 
 func! _goto_prev_func()
     call search('^func ', 'b')

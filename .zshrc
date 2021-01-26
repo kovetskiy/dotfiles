@@ -1188,7 +1188,9 @@ rc() {
 # :alias
 
 alias nis='npm install -S'
+alias nid='npm install -D'
 alias nus='npm uninstall -S'
+alias nud='npm uninstall -D'
 alias uz=':unzip'
 alias mi='mvn install'
 alias me='mvn eclipse:eclipse'

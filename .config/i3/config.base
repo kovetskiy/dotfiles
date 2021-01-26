@@ -26,6 +26,7 @@ bindsym Ctrl+Home  focus left
 bindsym Ctrl+Next  focus down
 bindsym Ctrl+Prior focus up
 bindsym Ctrl+End   focus right
+bindsym Ctrl+$alt+t focus mode_toggle
 
 bindsym Ctrl+Shift+Home  move left
 bindsym Ctrl+Shift+Next  move down

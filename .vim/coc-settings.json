@@ -5,7 +5,7 @@
     "diagnostic.errorSign": "\\ E",
     "diagnostic.warningSign": "\\ W",
     "diagnostic.infoSign": "\\ ∙",
-    "java.home": "/usr/lib/jvm/java-8-openjdk/",
+    "java.home": "/usr/lib/jvm/java-11-openjdk/",
     "java.import.gradle.enabled": false,
     "java.autobuild.enabled": true,
     "xml.validation.enabled": false,
@@ -154,11 +154,9 @@
     "coc.preferences.hoverTarget": "preview",
     "go.trace.server": "verbose",
     "go.goplsOptions": {
-        "codelens": {
+        "codelenses": {
             "generate": true,
-            "test": true,
             "gc_details": true,
-            "upgrade.dependency": true
         },
         "usePlaceholders": true,
         "analyses": {
