@@ -165,6 +165,11 @@ docompinit() {
 
     bindkey "^S" sudo-command-line
     bindkey "^F" alias-search
+    bindkey "^F" alias-search
+
+    exit_zsh() { exit }
+    zle -N exit_zsh
+    bindkey '^D' exit_zsh
 }
 
 # :setup

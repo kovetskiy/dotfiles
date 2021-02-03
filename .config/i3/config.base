@@ -83,6 +83,10 @@ mode "resize" {
 # dell poweroff button
 bindcode 124 exec poweroff
 
+bindcode 171 exec playerctl next
+bindcode 172 exec playerctl play-pause
+bindcode 173 exec playerctl previous
+
 for_window [title="tudu"]        floating enable
 for_window [class="zoom"]        floating enable
 for_window [title="^zoom"]       floating enable

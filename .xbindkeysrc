@@ -7,13 +7,13 @@
 "baton-volume up 5"
     Mod3 + k
 
-"music pause"
+"playerctl play-pause"
     Mod3 + p
 
-"music next"
+"playerctl next"
     Mod3 + l
 
-"music prev"
+"playerctl previous"
     Mod3 + h
 
 "music save"

@@ -111,6 +111,7 @@ Plug 'liuchengxu/vista.vim'
     let g:vista_executive_for = {
       \ 'typescriptreact': 'coc',
       \ }
+    let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 Plug 'sebdah/vim-delve'
 Plug 'puremourning/vimspector'
     let g:vimspector_enable_mappings = 'HUMAN'

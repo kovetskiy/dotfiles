@@ -53,7 +53,7 @@ snippet a "" w
 endsnippet
 
 snippet p "console.log" b
-console.log("`!p
+debug('`!p
 try:
 	once
 except:
@@ -62,11 +62,11 @@ except:
 	filename = os.path.basename(px.buffer.get().name)
 
 snip.rv = filename + ":" + str(cursor[0])
-` $0")
+` $0')
 endsnippet
 
 snippet pr "console.log" b
-console.log("`!p
+debug('`!p
 try:
 	once
 except:
@@ -75,7 +75,7 @@ except:
 	filename = os.path.basename(px.buffer.get().name)
 
 snip.rv = filename + ":" + str(cursor[0])
-` `!p snip.rv=t[1]`", $1)
+` `!p snip.rv=t[1]`', $1)
 endsnippet
 
 snippet tt "" w
@@ -263,4 +263,10 @@ endsnippet
 
 snippet "^\s+f" "" wr
   $1: ($2) => ${3:void};$0
+endsnippet
+
+snippet fo "" w
+for (const $1 of $2) {
+  $0
+}
 endsnippet
