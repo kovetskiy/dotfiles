@@ -399,6 +399,52 @@ snip.rv=prefix
 ``!p snip.rv=subject`.Format(err, "$0")
 endsnippet
 
+
+
+snippet ge "" w
+`!p
+
+try:
+	once
+except:
+	once = True
+	prev_binding = px.langs.go.extract_prev_method_binding(
+		px.buffer.get(), px.cursor.get()
+	)
+
+	if not prev_binding:
+		binding = ''
+	else:
+		name, binding_type = prev_binding
+		binding = str(binding_type)
+
+`//go:generate gonstructor --type=${1:`!p snip.rv=binding`}
+endsnippet
+
+snippet "(`.*)?\s+gn" "" wr
+`!p
+tag="gonstructor:\"-\""
+if match.group(1):
+	matched = match.group(1)
+	if matched.endswith("\`"):
+		snip.rv = matched[:-1] + " " + tag + "\`"
+	else:
+		snip.rv = matched + " " + tag
+else:
+	snip.rv = "\`"+tag+"\`"
+`
+endsnippet
+
 snippet "`\s*gq" "" wr
- goqu:"omitempty"`
+`!p
+tag="goqu:\"omitempty\"`"
+if match.group(1):
+	matched = match.group(1)
+	if matched.endswith("\`"):
+		snip.rv = matched[:-1] + " " + tag + "\`"
+	else:
+		snip.rv = matched + " " + tag
+else:
+	snip.rv = "\`"+tag+"\`"
+`
 endsnippet

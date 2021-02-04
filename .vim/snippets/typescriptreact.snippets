@@ -270,3 +270,19 @@ for (const $1 of $2) {
   $0
 }
 endsnippet
+
+snippet pp "" w
+{$1}: {${2:`!p
+props = t[1].split(',')
+result = []
+for prop in props:
+	if prop:
+		varType = prop[0].upper() + prop[1:]
+		result.append(prop+': '+varType)
+snip.rv = '; '.join(result)
+`}}
+endsnippet
+
+snippet vv "" w
+$1={${2:$1}}
+endsnippet
