@@ -51,7 +51,12 @@ def coc_filter_typescript_actions(titles):
     result = []
 
     excludes = ["Add import ", "Add all missing imports", "Import default 'React'"]
-    includes = ["Import '(.*)'", "Add '(.*)'", "Import default '(.*)'"]
+    includes = [
+        "(Fix all auto-fixable problems)",
+        "Import '(.*)'",
+        "Add '(.*)'",
+        "Import default '(.*)'"
+    ]
     seen = []
     for item in items:
         title = item['title']

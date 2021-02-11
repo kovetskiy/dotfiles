@@ -435,9 +435,9 @@ else:
 `
 endsnippet
 
-snippet "`\s*gq" "" wr
+snippet "(`.*)?\s+gq" "" wr
 `!p
-tag="goqu:\"omitempty\"`"
+tag="goqu:\"omitempty\"\`"
 if match.group(1):
 	matched = match.group(1)
 	if matched.endswith("\`"):

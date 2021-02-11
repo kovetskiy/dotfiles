@@ -49,11 +49,11 @@ if ($1) {
 endsnippet
 
 snippet a "" w
-() => $0
+($1) => $0
 endsnippet
 
 snippet p "console.log" b
-debug('`!p
+debug('XXXXXX `!p
 try:
 	once
 except:
@@ -66,7 +66,7 @@ snip.rv = filename + ":" + str(cursor[0])
 endsnippet
 
 snippet pr "console.log" b
-debug('`!p
+debug('XXXXXX `!p
 try:
 	once
 except:
@@ -261,6 +261,14 @@ React.useEffect(() => {
 }, [])
 endsnippet
 
+snippet ufe "" w
+useFocusEffect(
+  useCallback(() => {
+    $0
+  }, []),
+);
+endsnippet
+
 snippet "^\s+f" "" wr
   $1: ($2) => ${3:void};$0
 endsnippet
@@ -285,4 +293,16 @@ endsnippet
 
 snippet vv "" w
 $1={${2:$1}}
+endsnippet
+
+snippet cn "" w
+catch(notify)
+endsnippet
+
+snippet ttr "" w
+try {
+	${1:${VISUAL}}
+} catch (err) {
+	throw new TranslatedError(tt('$0'))
+}
 endsnippet
