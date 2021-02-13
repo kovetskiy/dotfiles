@@ -2,6 +2,25 @@ import vim
 import re
 import subprocess
 import yaml
+import logging
+import sys
+
+debug = False
+
+logger = logging.getLogger('cocxpy')
+if debug:
+    logger.setLevel(logging.DEBUG)
+
+    formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
+    stderr_handler = logging.StreamHandler(sys.stdout)
+    stderr_handler.setLevel(logging.DEBUG)
+    stderr_handler.setFormatter(formatter)
+
+    file_handler = logging.FileHandler('/tmp/cocxpy.log')
+    file_handler.setLevel(logging.DEBUG)
+
+    logger.addHandler(stderr_handler)
+    logger.addHandler(file_handler)
 
 def _get_git_root():
     return subprocess.Popen(
@@ -52,36 +71,41 @@ def coc_filter_typescript_actions(titles):
 
     excludes = ["Add import ", "Add all missing imports", "Import default 'React'"]
     includes = [
-        "(Fix all auto-fixable problems)",
         "Import '(.*)'",
         "Add '(.*)'",
-        "Import default '(.*)'"
+        "Import default '(.*)'",
+        "(Fix all auto-fixable problems)",
     ]
     seen = []
-    for item in items:
-        title = item['title']
 
-        skip = False
-        for exclude in excludes:
+    for exclude in excludes:
+        for item in items:
+            title = item['title']
             if re.search(exclude, title):
-                skip = True
+                items.remove(item)
                 break
 
-        if skip:
-            continue
-
-        lib = None
-        for pattern in includes:
+    for pattern in includes:
+        logger.debug('pattern: %s', pattern)
+        for item in items:
+            title = item['title']
+            logger.debug('title: %s id: %d', title, item['id'])
             matches = re.match(pattern, title)
-            if matches:
-                lib = matches.group(1)
-                break
+            if not matches:
+                logger.debug('not matched')
+                continue
 
-        if not lib:
-            continue
+            lib = matches.group(1)
+            if not lib:
+                logger.debug('not matched')
+                continue
 
-        if lib not in seen:
-            seen.append(lib)
-            result.append(item['id'])
+            logger.debug('matched: %s', lib)
+
+            if lib not in seen:
+                seen.append(lib)
+                result.append(item['id'])
+            else:
+                logger.debug('already seen this lib: %s', lib)
 
     return result
