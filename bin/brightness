@@ -75,7 +75,7 @@ set -euo pipefail
     local level=$1
     local max=$(:get_max)
     local percent=$(:percent $level $max)
-    notify-send.sh -r 2000 "brightness" "<b>BRIGHTNESS</b>: $percent%"
+    notify-replace "brightness" "" "<b>BRIGHTNESS</b>: ${percent}%"
 }
 
 :set() {

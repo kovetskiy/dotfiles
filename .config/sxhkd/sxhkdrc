@@ -97,6 +97,12 @@ super + equal
 control + F3
 	wg-toggle
 
+F1
+	volume down
+
+F2
+	volume up
+
 F8
 	brightness down
 
