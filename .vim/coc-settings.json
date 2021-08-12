@@ -1,175 +1,176 @@
 {
-    "python.jediEnabled": false,
-    "suggest.noselect": true,
-    "suggest.enablePreselect": false,
-    "diagnostic.errorSign": "\\ E",
-    "diagnostic.warningSign": "\\ W",
-    "diagnostic.infoSign": "\\ ∙",
-    "java.home": "/usr/lib/jvm/java-11-openjdk/",
-    "java.import.gradle.enabled": false,
-    "java.autobuild.enabled": true,
-    "xml.validation.enabled": false,
-    "xml.validation.schema": false,
-    "xml.validation.noGrammar": "ignore",
-    "xml.codeLens.enabled": false,
-    "javascript.suggestionActions.enabled": true,
-    "git.topRemovedSign.text": "\\ ↩",
-    "git.topRemovedSign.hlGroup": "GitDeleted",
-    "git.removedSign.text": "\\ ↩",
-    "git.removedSign.hlGroup": "GitDeleted",
-    "git.addedSign.text": "\\ ↪",
-    "git.addedSign.hlGroup": "GitAdded",
-    "git.changedSign.text": "\\ ƛ",
-    "git.changedSign.hlGroup": "GitModified",
-    "git.changeRemovedSign.text": "\\ ⋆",
-    "git.changeRemovedSign.hlGroup": "GitModified",
-    "typescript.preferences.importModuleSpecifier": "non-relative",
-    "javascript.preferences.importModuleSpecifier": "non-relative",
-    "tsserver.log": "verbose",
-    "tsserver.trace.server": "verbose",
-    "languageserver": {
-        "terraform": {
-            "command": "terraform-lsp",
-            "filetypes": [
-                "terraform"
-            ],
-            "initializationOptions": {}
-        },
-        "bash": {
-            "command": "bash-language-server",
-            "args": [
-                "start"
-            ],
-            "filetypes": [
-                "sh",
-                "bash"
-            ],
-            "ignoredRootPaths": [
-                "~"
-            ]
-        },
-        "ccls": {
-            "command": "ccls",
-            "filetypes": [
-                "c",
-                "cpp",
-                "objc",
-                "objcpp"
-            ],
-            "rootPatterns": [
-                ".ccls"
-            ],
-            "initializationOptions": {
-                "cache": {
-                    "directory": "/tmp/ccls"
-                }
-            }
-        },
-        "python": {
-            "command": "python",
-            "args": [
-                "-mpyls",
-                "-vv",
-                "--log-file",
-                "/tmp/lsp_python.log"
-            ],
-            "trace.server": "verbose",
-            "filetypes": [
-                "python"
-            ],
-            "settings": {
-                "pyls": {
-                    "enable": true,
-                    "trace": {
-                        "server": "verbose"
-                    },
-                    "commandPath": "",
-                    "configurationSources": [
-                        "pycodestyle"
-                    ],
-                    "plugins": {
-                        "jedi_completion": {
-                            "enabled": true
-                        },
-                        "jedi_hover": {
-                            "enabled": true
-                        },
-                        "jedi_references": {
-                            "enabled": true
-                        },
-                        "jedi_signature_help": {
-                            "enabled": true
-                        },
-                        "jedi_symbols": {
-                            "enabled": true,
-                            "all_scopes": true
-                        },
-                        "mccabe": {
-                            "enabled": true,
-                            "threshold": 15
-                        },
-                        "preload": {
-                            "enabled": true
-                        },
-                        "pycodestyle": {
-                            "enabled": true
-                        },
-                        "pydocstyle": {
-                            "enabled": false,
-                            "match": "(?!test_).*\\.py",
-                            "matchDir": "[^\\.].*"
-                        },
-                        "pyflakes": {
-                            "enabled": true
-                        },
-                        "rope_completion": {
-                            "enabled": true
-                        },
-                        "yapf": {
-                            "enabled": true
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "java.trace.server": "verbose",
-    "java.configuration.updateBuildConfiguration": "disabled",
-    "java.errors.incompleteClasspath.severity": "ignore",
-    "java.import.callback": "PythonxJavaChooseImport",
-    "xml.format.splitAttributes": true,
-    "coc.preferences.formatOnSaveFiletypes": [
-        "xml"
-    ],
-    "pairs.enableCharacters": [
-        "(",
-        "[",
-        "{",
-        "'",
-        "\"",
-        "`"
-    ],
-    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-    "coc.preferences.hoverTarget": "preview",
-    "go.trace.server": "verbose",
-    "go.goplsOptions": {
-        "codelenses": {
-            "generate": true,
-            "gc_details": true,
-        },
-        "usePlaceholders": true,
-        "analyses": {
-            "fillreturns": true,
-            "nonewvars": true,
-            "unusedparams": true,
-            "undeclaredname": true
-        },
-        "hoverKind": "FullDocumentation"
-    },
-    "go.goplsPath": "/home/operator/bin/gopls",
-    "java.jdt.ls.vmargs": "-noverify -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:\"/home/operator/.config/coc/extensions/node_modules/coc-java-lombok/jar/lombok.jar\"",
-    "java.format.settings.url": "/home/operator/sources/github.com/neoclide/redhat.java/eclipse-formatter.xml",
-    "typescript.validate.enable": true,
-    "prettier.onlyUseLocalVersion": true
+	"python.jediEnabled": false,
+	"suggest.noselect": true,
+	"suggest.enablePreselect": false,
+	"diagnostic.errorSign": "\\ E",
+	"diagnostic.warningSign": "\\ W",
+	"diagnostic.infoSign": "\\ ∙",
+	"java.home": "/usr/lib/jvm/java-11-openjdk/",
+	"java.import.gradle.enabled": false,
+	"java.autobuild.enabled": true,
+	"xml.validation.enabled": false,
+	"xml.validation.schema": false,
+	"xml.validation.noGrammar": "ignore",
+	"xml.codeLens.enabled": false,
+	"javascript.suggestionActions.enabled": true,
+	"git.topRemovedSign.text": "\\ ↩",
+	"git.topRemovedSign.hlGroup": "GitDeleted",
+	"git.removedSign.text": "\\ ↩",
+	"git.removedSign.hlGroup": "GitDeleted",
+	"git.addedSign.text": "\\ ↪",
+	"git.addedSign.hlGroup": "GitAdded",
+	"git.changedSign.text": "\\ ƛ",
+	"git.changedSign.hlGroup": "GitModified",
+	"git.changeRemovedSign.text": "\\ ⋆",
+	"git.changeRemovedSign.hlGroup": "GitModified",
+	"typescript.preferences.importModuleSpecifier": "non-relative",
+	"javascript.preferences.importModuleSpecifier": "non-relative",
+	"typescript.autoClosingTags": true,
+	"tsserver.log": "verbose",
+	"tsserver.trace.server": "verbose",
+	"languageserver": {
+		"terraform": {
+			"command": "terraform-lsp",
+			"filetypes": [
+				"terraform"
+			],
+			"initializationOptions": {}
+		},
+		"bash": {
+			"command": "bash-language-server",
+			"args": [
+				"start"
+			],
+			"filetypes": [
+				"sh",
+				"bash"
+			],
+			"ignoredRootPaths": [
+				"~"
+			]
+		},
+		"ccls": {
+			"command": "ccls",
+			"filetypes": [
+				"c",
+				"cpp",
+				"objc",
+				"objcpp"
+			],
+			"rootPatterns": [
+				".ccls"
+			],
+			"initializationOptions": {
+				"cache": {
+					"directory": "/tmp/ccls"
+				}
+			}
+		},
+		"python": {
+			"command": "python",
+			"args": [
+				"-mpyls",
+				"-vv",
+				"--log-file",
+				"/tmp/lsp_python.log"
+			],
+			"trace.server": "verbose",
+			"filetypes": [
+				"python"
+			],
+			"settings": {
+				"pyls": {
+					"enable": true,
+					"trace": {
+						"server": "verbose"
+					},
+					"commandPath": "",
+					"configurationSources": [
+						"pycodestyle"
+					],
+					"plugins": {
+						"jedi_completion": {
+							"enabled": true
+						},
+						"jedi_hover": {
+							"enabled": true
+						},
+						"jedi_references": {
+							"enabled": true
+						},
+						"jedi_signature_help": {
+							"enabled": true
+						},
+						"jedi_symbols": {
+							"enabled": true,
+							"all_scopes": true
+						},
+						"mccabe": {
+							"enabled": true,
+							"threshold": 15
+						},
+						"preload": {
+							"enabled": true
+						},
+						"pycodestyle": {
+							"enabled": true
+						},
+						"pydocstyle": {
+							"enabled": false,
+							"match": "(?!test_).*\\.py",
+							"matchDir": "[^\\.].*"
+						},
+						"pyflakes": {
+							"enabled": true
+						},
+						"rope_completion": {
+							"enabled": true
+						},
+						"yapf": {
+							"enabled": true
+						}
+					}
+				}
+			}
+		}
+	},
+	"java.trace.server": "verbose",
+	"java.configuration.updateBuildConfiguration": "disabled",
+	"java.errors.incompleteClasspath.severity": "ignore",
+	"java.import.callback": "PythonxJavaChooseImport",
+	"xml.format.splitAttributes": true,
+	"coc.preferences.formatOnSaveFiletypes": [
+		"xml",
+		"go"
+	],
+	"pairs.enableCharacters": [
+		"(",
+		"[",
+		"{",
+		"'",
+		"\"",
+		"`"
+	],
+	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+	"javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+	"go.trace.server": "verbose",
+	"go.goplsOptions": {
+		"codelenses": {
+			"generate": true,
+			"gc_details": true
+		},
+		"usePlaceholders": true,
+		"analyses": {
+			"fillreturns": true,
+			"nonewvars": true,
+			"unusedparams": true,
+			"undeclaredname": true
+		},
+		"hoverKind": "FullDocumentation"
+	},
+	"go.goplsPath": "/home/operator/go/bin/gopls",
+	"java.jdt.ls.vmargs": "-noverify -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:\"/home/operator/.config/coc/extensions/node_modules/coc-java-lombok/jar/lombok.jar\"",
+	"java.format.settings.url": "/home/operator/sources/github.com/neoclide/redhat.java/eclipse-formatter.xml",
+	"typescript.validate.enable": true,
+	"prettier.onlyUseLocalVersion": true
 }

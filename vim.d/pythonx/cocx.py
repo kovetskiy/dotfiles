@@ -56,7 +56,7 @@ def _filter_item(item):
     return item['score'] >= 0
 
 
-def coc_filter_typescript_actions(titles):
+def cocx_filter_typescript_actions(titles):
     rules = _read_codeaction_rules()
 
     items = list(map(lambda item: {'id': item[0], 'title': item[1], 'score': 0}, enumerate(titles)))
@@ -107,5 +107,7 @@ def coc_filter_typescript_actions(titles):
                 result.append(item['id'])
             else:
                 logger.debug('already seen this lib: %s', lib)
+
+    vim.command('let g:cocx_filter_typescript_actions = ' + str(int(len(result) > 0)))
 
     return result

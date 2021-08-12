@@ -1,0 +1,14 @@
+#!/bin/bash
+
+list=($(curl -s https://public-dns.info/nameservers.txt | grep -v ':'))
+
+i=0
+total=${#list[@]}
+for x in "${list[@]}"; do
+    i=$((i+1))
+    ip=${list[$i]}
+    echo "[$i/$total] $ip"
+    if ! dig A "${1}" @$ip +short +tries=1 +time=1; then
+        echo "$ip FAILURE"
+    fi
+done

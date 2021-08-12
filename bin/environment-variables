@@ -38,14 +38,15 @@ BIN=(
     "$HOME/sources/jewfiles/bin"
     "$HOME/deadfiles/bin"
     "$HOME/.local/bin"
+    "$NPM_PACKAGES/bin"
     "/usr/bin"
     "$GOPATH/bin"
     "$HOME/.cargo/bin"
     "$RUBYPATH"
-    "$NPM_PACKAGES/bin:$PATH"
     "/opt/atlassian/plugin-sdk/bin/"
     "/opt/android-sdk/platform-tools"
     "/opt/android-ndk/toolchains/llvm/prebuilt/linux-x86_64/bin"
+    "$PATH"
 )
 
 export PROFILE=$(/bin/cat "$HOME/.config/profile")

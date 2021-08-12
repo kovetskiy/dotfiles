@@ -30,7 +30,7 @@ export const $1 = (props: $1Props) => {
 }
 endsnippet
 
-snippet cl "" w
+snippet ip "" w
 export interface `!p snip.rv=t[1]`Props {
   $2
 }
@@ -65,8 +65,34 @@ snip.rv = filename + ":" + str(cursor[0])
 ` $0')
 endsnippet
 
+snippet cl "console.log" b
+console.log('XXXXXX `!p
+try:
+	once
+except:
+	once = True
+	cursor = px.cursor.get()
+	filename = os.path.basename(px.buffer.get().name)
+
+snip.rv = filename + ":" + str(cursor[0])
+` $0')
+endsnippet
+
 snippet pr "console.log" b
 debug('XXXXXX `!p
+try:
+	once
+except:
+	once = True
+	cursor = px.cursor.get()
+	filename = os.path.basename(px.buffer.get().name)
+
+snip.rv = filename + ":" + str(cursor[0])
+` `!p snip.rv=t[1]`', $1)
+endsnippet
+
+snippet cp "console.log" b
+console.log('XXXXXX `!p
 try:
 	once
 except:
@@ -211,6 +237,12 @@ snippet ob "" w
 <Observer>{() => ${VISUAL}}</Observer>
 endsnippet
 
+snippet pf "" w
+<Profiler id="$0">
+  ${VISUAL}
+</Profiler>
+endsnippet
+
 snippet "export\s+i" "" r
 export interface $1 {
   $0
@@ -305,4 +337,11 @@ try {
 } catch (err) {
 	throw new TranslatedError(tt('$0'))
 }
+endsnippet
+
+snippet tk "" w
+React.useEffect(() => {
+  track('$1: mount');
+}, []);
+track('$1: render');
 endsnippet

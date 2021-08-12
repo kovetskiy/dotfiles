@@ -2,7 +2,7 @@ let g:_python_plugins = expand('<sfile>:p:h') . '/pythonx/'
 
 augroup _code_typescript
     au!
-    au BufRead,BufNewFile *.ts,*.js,*.tsx,*.jsx call _setup_local_js()
+    au BufRead,BufNewFile *.ts,*.tsx,*.jsx call _setup_local_js()
     au BufNewFile,BufRead *.json set filetype=json
 augroup end
 
@@ -28,7 +28,7 @@ _python_plugins = vim.eval("g:_python_plugins")
 if _python_plugins not in sys.path:
     sys.path.append(vim.eval("g:_python_plugins"))
 import cocx
-result = cocx.coc_filter_typescript_actions(vim.eval('a:titles'))
+result = cocx.cocx_filter_typescript_actions(vim.eval('a:titles'))
 PYTHON
 
     return pyxeval('result')
@@ -36,6 +36,9 @@ endfunc!
 
 func! _apply_typescript_actions()
     return CocAction('applyCodeActions', '_filter_typescript_codeactions')
+    if get(g:, 'cocx_filter_typescript_actions', 0) == 1
+        call _apply_typescript_actions()
+    endif
 endfunc!
 
 func! _format_typescript()

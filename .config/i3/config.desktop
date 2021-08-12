@@ -8,7 +8,7 @@ workspace 4 output $primary
 workspace e output $primary
 
 workspace s output $primary
-workspace q output $secondary
+workspace q output $primary
 workspace w output $secondary
 workspace d output $secondary
 workspace a output $secondary

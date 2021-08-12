@@ -1,7 +1,7 @@
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 font pango:Monaco 1
 
-gaps inner 5
+gaps inner 2
 #gaps outer 2
 smart_gaps on
 hide_edge_borders both
@@ -87,6 +87,7 @@ bindcode 171 exec playerctl next
 bindcode 172 exec playerctl play-pause
 bindcode 173 exec playerctl previous
 
+
 for_window [title="tudu"]        floating enable
 for_window [class="zoom"]        floating enable
 for_window [title="^zoom"]       floating enable
@@ -105,8 +106,9 @@ for_window [title="webcam"] sticky enable
 for_window [class="obsidian"] floating enable
 for_window [class="skype"] floating enable
 for_window [class="Skype"] floating enable
-for_window [title=".*"] border pixel 2
+for_window [class=".*"] border pixel 3
 
-client.focused          #FF6347 #FF6347 #FF6347 #FF6347
-client.focused_inactive #424242 #424242 #424242 #424242
-client.unfocused        #424242 #424242 #424242 #424242
+#client.focused          #bd93f9 #bd93f9 #bd93f9 #bd93f9 
+##client.focused         #424242 #424242 #424242 #424242
+#client.focused_inactive #424242 #424242 #424242 #424242
+#client.unfocused        #424242 #424242 #424242 #424242

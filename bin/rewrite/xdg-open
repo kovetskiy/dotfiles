@@ -1,13 +1,3 @@
 #!/bin/bash
 
-link="$*"
-
-if grep -qE "^magnet:" <<< "$link"; then
-    notify-send " " "magnet: converting to .torrent"
-    file=~/Downloads/magnet.$(md5sum <<< "$link" | awk '{print $1}').torrent
-    magnet2torrent -m "$link" -o "$file"
-    notify-send " " "$(basename "$file")"
-    exit 0
-fi
-
-exec browser "$link"
+echo "${@}" > /tmp/xxd

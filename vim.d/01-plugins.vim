@@ -90,7 +90,7 @@ Plug 'reedes/vim-lexical'
 Plug 'rakr/vim-one'
 Plug 'kovetskiy/vim-list-mappings'
     nmap <c-f><c-l> :call FzfListMap()<CR>
-Plug 'ActivityWatch/aw-watcher-vim'
+"Plug 'ActivityWatch/aw-watcher-vim'
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
     let g:terraform_align=1
     let g:terraform_fmt_on_save=1

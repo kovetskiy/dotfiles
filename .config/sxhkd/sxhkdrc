@@ -86,7 +86,7 @@ super + grave
 	;kuake-bottom
 
 super + backslash
-	i3gator-ui
+	quickaction
 
 super + BackSpace
 	chrome-todoist
@@ -117,3 +117,9 @@ control + F6
 
 control + super + f
 	zet
+
+control + 6
+	adb shell input text $(pwgen 10 1) 
+
+control + 7
+	adb shell input text 111111111

@@ -7,6 +7,7 @@ augroup end
 augroup _code_go
     au!
     au BufRead,BufNewFile *.go,*.go2 call _setup_local_go()
+    "au BufWritePre *.go 
 
     au BufEnter *.template call _extend_templatego()
     au BufEnter *.yaml call _extend_yaml()
@@ -22,8 +23,8 @@ func! _setup_local_go()
 
     nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
     nmap <silent><buffer> <c-b> <ESC>
-    nmap <silent><buffer> <c-p> :call synta#go#build()<CR>
-    nmap <silent><buffer> <c-s> :call _save_go()<CR>:w<CR>
+    nmap <silent><buffer> <c-p> :silent call CocAction('runCommand', 'editor.action.organizeImport')<CR>:call synta#go#build()<CR>
+    nmap <silent><buffer> <c-s> :w<CR>
     nmap <silent><buffer> <leader><c-p> :call synta#quickfix#next()<CR>
     nmap <silent><buffer> <c-p><c-n> :call PythonxCocDiagnosticNext()<CR>
 
@@ -34,13 +35,9 @@ func! _setup_local_go()
     vmap <buffer> <C-F> ctx<TAB>
 
     let b:argwrap_tail_comma = 1
+    let b:ale_fix_on_save = 1
 
     setlocal cc=80,100
-endfunc!
-
-func! _save_go()
-    call CocAction('runCommand', 'editor.action.organizeImport')
-    call CocAction('format')
 endfunc!
 
 func! _goto_prev_func()
@@ -114,7 +111,7 @@ func! _chain_wrap(first)
     call _chain_wrap(0)
 endfunc!
 
-let g:ale_fixers['go'] = [function("synta#ale#goimports#Fix")]
+let g:ale_fixers['go'] = [function("synta#ale#goimports#Fix"), function("synta#ale#golines#Fix")]
 let g:ale_fixers['go2'] = ['gofmt']
 let g:ale_linters = {'go': ['gobuild']}
 

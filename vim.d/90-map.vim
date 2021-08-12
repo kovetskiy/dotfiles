@@ -148,3 +148,6 @@ nnoremap gf :call _goto_file()<CR>
 cnoremap <c-_> .*
 
 vmap ) S)i
+
+nnoremap <Leader>i i<space><left>
+nnoremap <Leader>I I<space><left>

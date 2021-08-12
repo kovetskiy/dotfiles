@@ -1192,6 +1192,8 @@ rc() {
 
 # :alias
 
+alias todo="blocksearch '(\/\/|#\/\*)\s*@?TODO' ."
+alias kg='karma-grep'
 alias nis='npm install -S'
 alias nid='npm install -D'
 alias nus='npm uninstall -S'
@@ -1464,64 +1466,64 @@ alias jxg='sudo journalctl -xe | grep '
 alias jxfg='sudo journalctl -xef | grep '
 
 alias wh='() { while :; do eval "${@}"; sleep 0.5; done }'
-export TUBEKIT_DEBUG=1
-alias krun='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
+#export TUBEKIT_DEBUG=1
+#alias krun='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
 
-alias k='tubectl'
+#alias k='tubectl'
 
-:helm-context() {
-    helm --kube-context "${@}"
-}
+#:helm-context() {
+#    helm --kube-context "${@}"
+#}
 
-:kail-context() {
-    local context="$1"
-    shift
-    kail --since 5m --context "${context}" "${@}"
-}
+#:kail-context() {
+#    local context="$1"
+#    shift
+#    kail --since 5m --context "${context}" "${@}"
+#}
 
-alias he=':helm-context'
-alias ka=':kail-context'
-alias kap=':kail-app'
+#alias he=':helm-context'
+#alias ka=':kail-context'
+#alias kap=':kail-app'
 
-alias kg='tubectl get'
-alias kgd='kg deployments'
-alias kgc='kg configmap'
-alias kgi='kg ingress'
-alias kgp='kg pods'
-alias kgn='() { kg pods "${@}" | grep -v Running }'
-alias kgs='kg sts'
-alias kp='kgp'
+#alias kg='tubectl get'
+#alias kgd='kg deployments'
+#alias kgc='kg configmap'
+#alias kgi='kg ingress'
+#alias kgp='kg pods'
+#alias kgn='() { kg pods "${@}" | grep -v Running }'
+#alias kgs='kg sts'
+#alias kp='kgp'
 
-alias kt='tubectl edit'
-alias ktd='tubectl edit deployment'
-alias ktc='tubectl edit configmap'
-alias kti='tubectl edit ingress'
+#alias kt='tubectl edit'
+#alias ktd='tubectl edit deployment'
+#alias ktc='tubectl edit configmap'
+#alias kti='tubectl edit ingress'
 
-alias kd='tubectl describe'
-alias kdp='kd pods'
-alias kdd='kd deployment'
-alias kds='kd sts'
+#alias kd='tubectl describe'
+#alias kdp='kd pods'
+#alias kdd='kd deployment'
+#alias kds='kd sts'
 
-alias kx='tubectl delete'
-alias kxp='kx pods'
-alias kxd='kx deployment'
-alias kxs='kx sts'
+#alias kx='tubectl delete'
+#alias kxp='kx pods'
+#alias kxd='kx deployment'
+#alias kxs='kx sts'
 
-alias ks='() { tubectl scale "${@}" }'
-alias ksd='ks deployment'
-alias kss='ks statefulset'
+#alias ks='() { tubectl scale "${@}" }'
+#alias ksd='ks deployment'
+#alias kss='ks statefulset'
 
-alias kl='tubectl logs'
-alias klf='() { kl "${@}" -f --tail 1 }'
-alias ke='tubectl exec'
-alias ki='() { tubectl exec "${@}" -it -- sh -c "bash -i || sh -i" }'
-alias kv='tubectl get events'
+#alias kl='tubectl logs'
+#alias klf='() { kl "${@}" -f --tail 1 }'
+#alias ke='tubectl exec'
+#alias ki='() { tubectl exec "${@}" -it -- sh -c "bash -i || sh -i" }'
+#alias kv='tubectl get events'
 
 alias gob='go build'
 alias goi='go install'
 
-alias -g -- '-ya'='-o yaml'
-alias -g -- '-ow'='-o wide'
+#alias -g -- '-ya'='-o yaml'
+#alias -g -- '-ow'='-o wide'
 
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon

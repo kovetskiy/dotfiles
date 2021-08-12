@@ -2,19 +2,21 @@
 
 set -euo pipefail
 if [[ $# -eq 0 ]]; then
-    echo "$0 <video.avi> <start-00:00:00.00> <n-seconds> <scale-height> <output.gif>"
+    echo "$0 <video.avi> <output.gif> <start-00:00:00.00> <n-seconds> <scale-height>"
     exit 1
 fi
 
 input="$1"
-since="$2"
-seconds="$3"
-scale="$4"
-output="$5"
+output=${2:-}
+since=${3:-}
+seconds=${4:-}
+scale=${5:-}
 
 rm -f "$output"
-ffmpeg -y -ss "$since" -t "$seconds" -i "$input" \
--vf "fps=10,scale=$scale:-1:flags=lanczos,palettegen" /tmp/palette.png
 
-ffmpeg -ss "$since" -t "$seconds" -i "$input" -i /tmp/palette.png -filter_complex \
-"fps=10,scale=$scale:-1:flags=lanczos[x];[x][1:v]paletteuse" "$output"
+set -x
+ffmpeg -y ${since:+-ss "$since"} ${seconds:+-t "$seconds"} -i "$input" \
+-vf "${scale:+scale=$scale:-1:flags=lanczos,palettegen}" /tmp/palette.png
+
+ffmpeg ${since:+-ss "$since"} ${seconds:+-t "$seconds"} -i "$input" -i /tmp/palette.png -filter_complex \
+"${scale:+scale=$scale:-1:flags=lanczos[x];[x][1:v]paletteuse}" "$output"

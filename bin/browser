@@ -11,8 +11,7 @@ if [[ "$scheme" != "http://"
    && "$scheme" != "ftp://"
    && "$scheme" != "file://"
    && "$scheme" != "" ]]; then
-    /usr/bin/xdg-open "$url"
-
+    notify "Unexpected scheme: '$scheme'"
     exit 1
 fi
 

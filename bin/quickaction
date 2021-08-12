@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -euo pipefail
+
+:modal() {
+    modal-template --no-description -- -lines 5
+}
+
+:main() {
+    local mode="${1:-}"
+
+    local db_file=${DB:-$HOME/.guts/quickactions.json}
+    if [[ ! -f $db_file ]]; then
+        echo "db file does not exist:"
+        echo "  $db_file"
+        exit 1
+    fi
+
+    command="$(jq -r . < "$db_file" | :modal)"
+    eval "$command"
+    exit 0
+}
+
+:main "${@}"
