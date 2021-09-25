@@ -20,5 +20,6 @@ systemctl --user import-environment GOPATH
 #export SSH_AUTH_SOCK
 
 echo "i3 started"
+
 exec i3
 #exec leftwm

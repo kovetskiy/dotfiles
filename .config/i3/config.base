@@ -8,6 +8,8 @@ hide_edge_borders both
 
 new_window 1pixel
 
+exec --no-startup-id slock
+
 focus_follows_mouse no
 
 set $win Mod1

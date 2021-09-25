@@ -12,6 +12,7 @@ augroup _code_java
 
     au FileType java nmap <silent><buffer> <c-a> :ALEFix<CR>
     au FileType java nmap <silent><buffer> <c-s> :call _save_java()<CR>
+    au BufWritePre *.java :silent call CocAction('runCommand', 'editor.action.organizeImport')
     au FileType java nmap <silent><buffer> <c-p> :call _diagnostic_java()<CR>
     au FileType java nmap <silent><buffer> <c-g> :call _diagnostic_java_project()<CR>
     au FileType java nmap <silent><buffer> ;n <Plug>(coc-diagnostic-next-error)
@@ -57,7 +58,7 @@ func! _atlas_compile()
 endfunc!
 
 func! _diagnostic_java()
-    call CocAction('diagnosticFirst', 'error')
+    call CocAction('diagnosticFirst', ['warning', 'error'])
 endfunc!
 
 func! _diagnostic_java_project()
@@ -65,12 +66,13 @@ func! _diagnostic_java_project()
 endfunc!
 
 func! _autoimports_java()
-    call coc#rpc#request('runCommand', ['java.action.organizeImports'])
-    call coc#rpc#request('runCommand', ['java.action.organizeImports'])
+    let result = coc#rpc#request('runCommand', ['java.action.organizeImports'])
+    "echom "result: [" . result . "]"
+    "call coc#rpc#request('runCommand', ['java.action.organizeImports'])
 endfunc!
 
 func! _save_java()
-    call _autoimports_java()
+    "call _autoimports_java()
     call ale#fix#Fix(bufnr(''), '')
     write!
 endfunc!

@@ -101,6 +101,7 @@ nmap Y yy
 map <leader>y "0y
 map <leader>p "0p
 
+nnoremap <silent> <C-F><C-X> :call _grep('XXXXX', '')<CR>
 nnoremap <silent> <C-F><C-F> :call _grep('', '')<CR>
 nnoremap <silent> <C-E><C-F> :call _grep_cwd()<CR>
 nnoremap <silent> <C-F>/ :call _grep_slash()<CR>

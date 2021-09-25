@@ -23,8 +23,8 @@ func! _setup_local_go()
 
     nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
     nmap <silent><buffer> <c-b> <ESC>
-    nmap <silent><buffer> <c-p> :silent call CocAction('runCommand', 'editor.action.organizeImport')<CR>:call synta#go#build()<CR>
     nmap <silent><buffer> <c-s> :w<CR>
+    nmap <silent><buffer> <c-p> :silent call synta#go#build()<CR>
     nmap <silent><buffer> <leader><c-p> :call synta#quickfix#next()<CR>
     nmap <silent><buffer> <c-p><c-n> :call PythonxCocDiagnosticNext()<CR>
 
@@ -111,7 +111,7 @@ func! _chain_wrap(first)
     call _chain_wrap(0)
 endfunc!
 
-let g:ale_fixers['go'] = [function("synta#ale#goimports#Fix"), function("synta#ale#golines#Fix")]
+let g:ale_fixers['go'] = [function("synta#ale#golines#Fix"), function("synta#ale#goimports#Fix")]
 let g:ale_fixers['go2'] = ['gofmt']
 let g:ale_linters = {'go': ['gobuild']}
 

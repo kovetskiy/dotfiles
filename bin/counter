@@ -1,0 +1,15 @@
+#!/bin/bash
+
+rand=$(uuidgen)
+
+cat > /tmp/counter-$rand <<SCRIPT
+file=/tmp/counter-$rand.n
+n=\$(cat \$file 2>/dev/null)
+new=\$((n+1))
+echo \$new > \$file
+echo \$new
+SCRIPT
+
+chmod +x /tmp/counter-$rand
+
+echo /tmp/counter-$rand

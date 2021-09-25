@@ -76,10 +76,15 @@ Plug 'neoclide/coc-tslint-plugin', {'do': 'yarn install --frozen-lockfile'}
 "    let g:auto_comma_or_semicolon = 1
 "    let g:auto_comma_or_semicolon_events = ["InsertLeave"]
 "    let g:cosco_ignore_comment_lines = 1
-Plug 'camspiers/animate.vim'
-    let g:animate#duration = 100.0
+
+
+" often resizes windows in a wrong way
+"Plug 'camspiers/animate.vim'
+"    let g:animate#duration = 100.0
+
 Plug 'camspiers/lens.vim'
     let g:lens#disabled_filenames = ['coc:.*', 'list:.*']
+    let g:lens#disabled_filetypes = ['']
     let g:lens#width_resize_min = 100
     let g:lens#width_resize_max = 120
     if &diff == 1
