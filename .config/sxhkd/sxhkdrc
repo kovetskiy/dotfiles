@@ -59,7 +59,7 @@ super + control + 0
 	;pa-switch-profile -i webcam active output:hdmi-stereo output:analog-stereo
 
 alt + control + d
-	infobar
+	;infobar
 
 super + control + e
 	translator

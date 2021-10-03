@@ -57,8 +57,9 @@ notify_id=""
 }
 
 :get-section-battery() {
-    battery=$(acpi 2>/dev/null |
-        sed -r \
+    battery=$(acpi -b 2>/dev/null \
+        | grep -v 'rate information unavailable' \
+        | sed -r \
             -e 's/Battery [0-9]:\s*//' \
             -e 's/ until charged//' \
             -e 's/ remaining//' \

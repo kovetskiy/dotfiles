@@ -809,7 +809,7 @@ docompinit() {
     }
 
     :aur:spawn() {
-        yes | EDITOR=cat pacaur "$@"
+        yes | EDITOR=cat yay "$@"
     }
 
     :aur:search() {
@@ -1192,7 +1192,8 @@ rc() {
 
 # :alias
 
-alias todo="blocksearch '(\/\/|#\/\*)\s*@?TODO' ."
+alias bs='blocksearch'
+alias todo="bs '(\/\/|#\/\*)\s*@?TODO' ."
 alias kg='karma-grep'
 alias nis='npm install -S'
 alias nid='npm install -D'

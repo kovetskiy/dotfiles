@@ -1,6 +1,12 @@
 #!/bin/bash
 
 query="$1"
+if [[ ! "$query" ]]; then
+    xinput list
+    echo
+    echo "$0 <query>"
+    exit 1
+fi
 xinput --list --name-only | grep -i "$query" | while read name; do
     if xinput --list-props "$name" | grep "Enabled" | grep -q "1$"; then
         xinput --disable "$name"
