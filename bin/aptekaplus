@@ -1,0 +1,52 @@
+#!/bin/bash
+
+query="$1"
+
+:page() {
+    local page=$1
+    curl -G -s \
+        --data-urlencode "q=$query" \
+        --data-urlencode "s=" \
+        --data-urlencode "PAGEN_3=$page" \
+        "https://aptekaplus.kz/search/index.php"
+}
+
+:trim() {
+    local var="$(cat)"
+    # remove leading whitespace characters
+    var="${var#"${var%%[![:space:]]*}"}"
+    # remove trailing whitespace characters
+    var="${var%"${var##*[![:space:]]}"}"   
+    printf '%s' "$var"
+}
+
+contents=$(:page 1)
+
+while :; do
+    json=$(pup '.search-title json{}' <<< "$contents" | jq -c '.[]')
+
+    while read line; do
+        text=$(jq -r .text <<< "$line" | :trim)
+        children=$(jq -r '.children | map(.text) | join(" ")' <<< "$line" | :trim)
+        href=$(jq -r '.href' <<< "$line")
+
+        echo -n "$children $text"
+
+        href="https://aptekaplus.kz$href"
+        item=$(curl -s "$href")
+        price=$(pup <<< "$item" ".current-price__value text{}" | :trim)
+        quantity=$(pup <<< "$item" ".quantity-limit__value text{}" | :trim)
+        if [[ ! "$quantity" ]]; then
+            quantity="---"
+        fi
+
+        printf " | $price | $quantity | $href\n"
+    done <<< "$json"
+
+    next=$(pup '.bx-pag-next a attr{href}' <<< "$contents" | sed 's/\&amp;/\&/g')
+    if [[ ! "$next" ]]; then
+        break
+    fi
+
+    contents="$(curl -s "https://aptekaplus.kz${next}")"
+done

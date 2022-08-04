@@ -42,6 +42,7 @@ BIN=(
     "/usr/bin"
     "$GOPATH/bin"
     "$HOME/.cargo/bin"
+    "$HOME/.krew/bin"
     "$RUBYPATH"
     "/opt/atlassian/plugin-sdk/bin/"
     "/opt/android-sdk/platform-tools"

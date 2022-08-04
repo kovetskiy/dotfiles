@@ -22,11 +22,11 @@ URxvt.clipboard.pastecmd: xsel --output --clipboard
 URxvt.title: rxvt-unicode
 URxvt.saveLines: 10000
 
-URxvt.font:     xft:Iosevka Nerd Font:style=Regular:size=14:antialias=true:hinting=true
-URxvt.boldFont: xft:Iosevka Nerd Font:style=Regular:size=14:antialias=true:hinting=true
+URxvt.font:     xft:Iosevka Nerd Font:style=Regular:size=12:antialias=true:hinting=true
+URxvt.boldFont: xft:Iosevka Nerd Font:style=Regular:size=12:antialias=true:hinting=true
 
-URxvt.lineSpace: -5
-!URxvt.letterSpace: 1
+URxvt.lineSpace: 0
+URxvt.letterSpace: 0
 
 URxvt.underlineColor: blue
 URxvt.cursorBlink: true

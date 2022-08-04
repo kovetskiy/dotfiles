@@ -36,5 +36,9 @@ dbus-update-activation-environment --systemd DISPLAY
 #eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 #export SSH_AUTH_SOCK
 
+autoxrandr
+
 eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_rsa
+
+(until pidof i3; do sleep 1; done; i3-polybar) &

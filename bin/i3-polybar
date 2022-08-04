@@ -1,0 +1,13 @@
+#!/bin/bash
+
+config=~/.config/polybar/config.ini
+
+killall -9 -q polybar
+
+while pgrep -x polybar >/dev/null; do sleep 1; done
+
+#polybar --config=$config general &
+
+for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+    MONITOR=$m polybar --config=$config --reload general &
+done

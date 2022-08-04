@@ -12,11 +12,11 @@
 	"xml.validation.noGrammar": "ignore",
 	"xml.codeLens.enabled": false,
 	"javascript.suggestionActions.enabled": true,
-	"git.topRemovedSign.text": "\\ ↩",
+	"git.topRemovedSign.text": "\\ -",
 	"git.topRemovedSign.hlGroup": "GitDeleted",
-	"git.removedSign.text": "\\ ↩",
+	"git.removedSign.text": "\\ -",
 	"git.removedSign.hlGroup": "GitDeleted",
-	"git.addedSign.text": "\\ ↪",
+	"git.addedSign.text": "\\ +",
 	"git.addedSign.hlGroup": "GitAdded",
 	"git.changedSign.text": "\\ ƛ",
 	"git.changedSign.hlGroup": "GitModified",
@@ -24,17 +24,10 @@
 	"git.changeRemovedSign.hlGroup": "GitModified",
 	"typescript.preferences.importModuleSpecifier": "non-relative",
 	"javascript.preferences.importModuleSpecifier": "non-relative",
-	"typescript.autoClosingTags": true,
+	"typescript.autoClosingTags": false,
 	"tsserver.log": "verbose",
 	"tsserver.trace.server": "verbose",
 	"languageserver": {
-		"terraform": {
-			"command": "terraform-lsp",
-			"filetypes": [
-				"terraform"
-			],
-			"initializationOptions": {}
-		},
 		"bash": {
 			"command": "bash-language-server",
 			"args": [
@@ -48,24 +41,19 @@
 				"~"
 			]
 		},
-		"ccls": {
-			"command": "ccls",
-			"filetypes": [
-				"c",
-				"cpp",
-				"objc",
-				"objcpp"
-			],
-			"rootPatterns": [
-				".ccls"
-			],
-			"initializationOptions": {
-				"cache": {
-					"directory": "/tmp/ccls"
-				}
-			}
-		}
-	},
+        "golang": {
+          "command": "gopls",
+          "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+          "filetypes": ["go"],
+          "initializationOptions": {
+            "usePlaceholders": true
+          }
+        },
+        "zls": {
+            "command": "/usr/bin/zls",
+            "filetypes": ["zig"]
+        }
+    },
 	"java.trace.server": "verbose",
 	"java.configuration.updateBuildConfiguration": "disabled",
 	"java.errors.incompleteClasspath.severity": "ignore",
@@ -87,6 +75,7 @@
 	"javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
 	"go.trace.server": "verbose",
 	"go.goplsOptions": {
+        "gofumpt": false,
 		"codelenses": {
 			"generate": true,
 			"gc_details": true
@@ -104,5 +93,9 @@
 	"java.jdt.ls.vmargs": "-noverify -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:\"/home/operator/.config/coc/extensions/node_modules/coc-java-lombok/jar/lombok.jar\"",
 	"java.format.settings.url": "/home/operator/sources/github.com/neoclide/redhat.java/eclipse-formatter.xml",
 	"typescript.validate.enable": true,
-	"prettier.onlyUseLocalVersion": true
+    "prettier.onlyUseLocalVersion": true,
+    "zig.enabled": true,
+    "zig.startUpMessage": true,
+    "zig.path": "zls",
+    "zig.debugLog": false
 }

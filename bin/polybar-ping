@@ -1,0 +1,10 @@
+#!/bin/bash
+
+[ -p /tmp/.polybar_ping ] || {
+    rm -f /tmp/.polybar_ping
+    mkfifo /tmp/.polybar_ping
+}
+
+ping 8.8.8.8 | stdbuf -i0 -e0 -o0 grep -Po 'time=\K\d+' | while read latency; do
+    echo "${latency}ms" > /tmp/.polybar_ping
+done

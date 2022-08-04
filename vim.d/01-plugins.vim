@@ -6,7 +6,7 @@ Plug 'scrooloose/nerdcommenter'
     let g:NERDCustomDelimiters = { 'typescriptreact': { 'left': '//', 'leftAlt': '{/*', 'rightAlt': '*/}' } }
 Plug 'kovetskiy/vim-hacks'
 Plug 'kovetskiy/synta'
-"Plug 'fatih/vim-go', {'for': ['go', 'yaml', 'template']}
+Plug 'fatih/vim-go', {'for': ['template']}
 Plug 'vim-scripts/l9'
 Plug 'sirver/ultisnips', { 'frozen': 1 }
 Plug 'tpope/vim-surround'
@@ -128,5 +128,14 @@ Plug 'styled-components/vim-styled-components'
 Plug 'yuezk/vim-js'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
+
+Plug 'github/copilot.vim'
+
+Plug 'mogelbrod/vim-jsonpath'
+    noremap <buffer> <silent> <C-J><C-D> :call jsonpath#echo()<CR>
+    noremap <buffer> <silent> <C-J><C-G> :call jsonpath#goto()<CR>
+
+Plug 'ziglang/zig.vim'
+Plug 'mfussenegger/nvim-dap'
 
 call plug#end()

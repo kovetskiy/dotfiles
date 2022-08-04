@@ -1,6 +1,6 @@
 #!/bin/bash
 
-profile=$(autorandr --detected | head -n1 | cut -d- -f1)
+profile=$PROFILE
 
 echo :: loading ~/.config/i3/config.base >&2
 config="$(cat ~/.config/i3/config.base)"
@@ -17,4 +17,5 @@ $nagbar"
 
 echo "$config" > ~/.i3/config
 
-i3-msg reload
+i3-msg restart
+wallpaper

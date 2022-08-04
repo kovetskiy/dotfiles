@@ -8,8 +8,6 @@ hide_edge_borders both
 
 new_window 1pixel
 
-exec --no-startup-id slock
-
 focus_follows_mouse no
 
 set $win Mod1
@@ -53,6 +51,7 @@ bindsym $alt+z workspace z
 bindcode $alt+Shift+10 move container to workspace 1
 bindcode $alt+Shift+11 move container to workspace 2
 bindcode $alt+Shift+12 move container to workspace 3
+bindcode $alt+Shift+13 move container to workspace 4
 bindcode $alt+Shift+24 move container to workspace q
 bindcode $alt+Shift+25 move container to workspace w
 bindcode $alt+Shift+26 move container to workspace e
@@ -108,9 +107,9 @@ for_window [title="webcam"] sticky enable
 for_window [class="obsidian"] floating enable
 for_window [class="skype"] floating enable
 for_window [class="Skype"] floating enable
-for_window [class=".*"] border pixel 3
+for_window [class="Upwork"] floating enable
+for_window [class=".*"] border pixel 4
 
-#client.focused          #bd93f9 #bd93f9 #bd93f9 #bd93f9 
-##client.focused         #424242 #424242 #424242 #424242
-#client.focused_inactive #424242 #424242 #424242 #424242
-#client.unfocused        #424242 #424242 #424242 #424242
+client.focused          #D22B2B #D22B2B #D22B2B #D22B2B 
+client.focused_inactive #424242 #424242 #424242 #424242
+client.unfocused        #424242 #424242 #424242 #424242

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+xrandr -q | grep -Pc ' connected .* \d+x\d+\+\d+\+\d+'

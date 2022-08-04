@@ -14,7 +14,7 @@ augroup _code_go
 
     au FileType go
         \ call ale#Set('go_goimports_executable',
-        \ 'gofumports')
+        \ 'goimports')
 augroup end
 
 func! _setup_local_go()
@@ -36,6 +36,7 @@ func! _setup_local_go()
 
     let b:argwrap_tail_comma = 1
     let b:ale_fix_on_save = 1
+    call ale#Set('go_golines_max_length', '120')
 
     setlocal cc=80,100
 endfunc!

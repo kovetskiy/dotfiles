@@ -2,4 +2,6 @@
 
 export XSECURELOCK_DISCARD_FIRST_KEYPRESS=0
 
-exec xsecurelock
+xsecurelock
+
+(sleep 5 && pidof polybar && i3-polybar) &

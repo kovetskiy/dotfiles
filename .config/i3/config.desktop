@@ -1,14 +1,17 @@
-set $primary DP-4
-set $secondary DP-2
+set $left DP-4
+set $center DP-0
+set $right DP-2
 
-workspace 1 output $primary
-workspace 2 output $primary
-workspace 3 output $primary
-workspace 4 output $primary
-workspace e output $secondary
+workspace 1 output $center
+workspace 2 output $center
+workspace 3 output $center
+workspace 4 output $center
+workspace s output $center
 
-workspace s output $primary
-workspace q output $primary
-workspace w output $secondary
-workspace d output $secondary
-workspace a output $secondary
+workspace w output $left
+workspace a output $left
+workspace z output $left
+workspace d output $left
+
+workspace q output $right
+workspace e output $right

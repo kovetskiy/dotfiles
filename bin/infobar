@@ -155,9 +155,7 @@ _bg=""
 
     timezone=$(cat /etc/timezone)
     :body-append "TIME LOC" "<u>$(:get-section-time "$timezone")</u>"
-    :body-append "TIME MSK" "<u>$(:get-section-time Europe/Moscow)</u>"
-    :body-append "TIME NSK" "$(:get-section-time Asia/Novosibirsk)"
-    :body-append "TIME UTC" "$(:get-section-time UTC)"
+    :body-append "TIME UTC" "<b>$(:get-section-time UTC)</b>"
     :body-append "MEMORY" "$(:get-section-memory)"
     :body-append "WIFI" "$(:get-section-wifi)"
     :body-append "BATTERY" "$(:get-section-battery)"

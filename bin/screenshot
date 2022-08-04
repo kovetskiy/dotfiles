@@ -5,7 +5,7 @@ filename="$HOME/screenshots/$(date +%F-%T | tr : T).png"
 if [[ "${1:-}" == "-f" ]]; then
     import "$filename"
 else
-    maim -s -u > $filename
+    deepin-screen-recorder "${@}" -n -s "$filename"
     if [[ ! -f "$filename" ]]; then
         exit 1
     fi

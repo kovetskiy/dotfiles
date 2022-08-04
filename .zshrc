@@ -213,7 +213,7 @@ docompinit() {
     zstyle -d "lambda17::async" pre-draw
     zstyle "lambda17:00-banner" right " "
     zstyle "lambda17:01-git-stash" fg "black"
-    zstyle "lambda17:05-sign" text "$"
+    zstyle "lambda17:05-sign" text "ƛ"
     zstyle "lambda17:09-arrow" transition ""
     zstyle "lambda17:15-pwd" text '$(:prompt-pwd)'
     zstyle "lambda17:20-git" left " "
@@ -1192,6 +1192,51 @@ rc() {
 
 # :alias
 
+git-pr() {
+    git fetch origin pull/$1/head:pr-$1 || git fetch upstream pull/$1/head:pr-$1
+    git checkout pr-$1
+}
+
+git-commit-smart() {
+    local args=()
+    local message=()
+    local amend=false
+
+    while [[ "$1" ]]; do
+        case "$1" in
+            \-*)
+                if [[ "$1" == "--amend" ]]; then
+                    amend=true
+                fi
+
+                args+=("$1")
+                ;;
+
+            !)
+                amend=true
+                args+=("--amend")
+                ;;
+
+            *)
+                message+=("$1")
+                ;;
+        esac
+
+        shift
+    done
+
+    if [[ "${#message}" > 0 ]]; then
+        args+=("-m" "${message[*]}")
+    elif $amend; then
+        args+=("-C" "HEAD")
+    fi
+
+    git commit -s "${args[@]}"
+}
+
+alias wu='wg-quick up'
+alias wd='wg-quick down'
+alias air='ssh air'
 alias bs='blocksearch'
 alias todo="bs '(\/\/|#\/\*)\s*@?TODO' ."
 alias kg='karma-grep'
@@ -1261,7 +1306,7 @@ alias pp=':process:info'
 alias a='cat'
 alias ax=':axel'
 alias vlc='/usr/bin/vlc --no-metadata-network-access' # fffuuu
-alias m='make'
+alias m='() { test -f Makefile && make "${@}" || task "${@}" }'
 alias t='task'
 alias icv='() { iconv -f WINDOWS-1251 -t UTF-8 $1 | vim - }'
 alias sss='ssh -oStrictHostKeyChecking=no'
@@ -1282,7 +1327,7 @@ alias q=':nodes:query'
 alias g='guess'
 alias cs=':cd-sources'
 alias pmp='sudo pacman -U $(/bin/ls -t *.pkg.*)'
-alias psyuz='psyu --ignore linux,zfs-linux-git,zfs-utils-linux-git,spl-linux-git,spl-utils-linux-git'
+alias psyuz='psyu --ignore linux,zfs-linux,zfs-utils,linux-headers,nvidia,nvidia-utils'
 alias mkl='sudo mkinitcpio -p linux'
 alias x=':launch-binary'
 alias wh='which'
@@ -1382,7 +1427,7 @@ alias gpr='git pull --rebase'
 alias gur='git pull --rebase origin'
 alias gcn='git commit'
 alias gcn!='git commit --amend'
-alias gc='git-commit'
+alias gc='git-commit-smart'
 alias gck='git commit --amend -C HEAD'
 alias gco='git checkout'
 
@@ -1467,58 +1512,58 @@ alias jxg='sudo journalctl -xe | grep '
 alias jxfg='sudo journalctl -xef | grep '
 
 alias wh='() { while :; do eval "${@}"; sleep 0.5; done }'
-#export TUBEKIT_DEBUG=1
-#alias krun='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
+export TUBEKIT_DEBUG=1
+alias krun='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
 
-#alias k='tubectl'
+alias k='tubectl'
 
-#:helm-context() {
-#    helm --kube-context "${@}"
-#}
+:helm-context() {
+    helm --kube-context "${@}"
+}
 
-#:kail-context() {
-#    local context="$1"
-#    shift
-#    kail --since 5m --context "${context}" "${@}"
-#}
+:kail-context() {
+    local context="$1"
+    shift
+    kail --since 5m --context "${context}" "${@}"
+}
 
-#alias he=':helm-context'
-#alias ka=':kail-context'
-#alias kap=':kail-app'
+alias he=':helm-context'
+alias ka=':kail-context'
+alias kap=':kail-app'
 
-#alias kg='tubectl get'
-#alias kgd='kg deployments'
-#alias kgc='kg configmap'
-#alias kgi='kg ingress'
-#alias kgp='kg pods'
-#alias kgn='() { kg pods "${@}" | grep -v Running }'
-#alias kgs='kg sts'
-#alias kp='kgp'
+alias kg='tubectl get'
+alias kgd='kg deployments'
+alias kgc='kg configmap'
+alias kgi='kg ingress'
+alias kgp='kg pods'
+alias kgn='() { kg pods "${@}" | grep -v Running }'
+alias kgs='kg sts'
+alias kp='kgp'
 
-#alias kt='tubectl edit'
-#alias ktd='tubectl edit deployment'
-#alias ktc='tubectl edit configmap'
-#alias kti='tubectl edit ingress'
+alias kt='tubectl edit'
+alias ktd='tubectl edit deployment'
+alias ktc='tubectl edit configmap'
+alias kti='tubectl edit ingress'
 
-#alias kd='tubectl describe'
-#alias kdp='kd pods'
-#alias kdd='kd deployment'
-#alias kds='kd sts'
+alias kd='tubectl describe'
+alias kdp='kd pods'
+alias kdd='kd deployment'
+alias kds='kd sts'
 
-#alias kx='tubectl delete'
-#alias kxp='kx pods'
-#alias kxd='kx deployment'
-#alias kxs='kx sts'
+alias kx='tubectl delete'
+alias kxp='kx pods'
+alias kxd='kx deployment'
+alias kxs='kx sts'
 
-#alias ks='() { tubectl scale "${@}" }'
-#alias ksd='ks deployment'
-#alias kss='ks statefulset'
+alias ks='() { tubectl scale "${@}" }'
+alias ksd='ks deployment'
+alias kss='ks statefulset'
 
-#alias kl='tubectl logs'
-#alias klf='() { kl "${@}" -f --tail 1 }'
-#alias ke='tubectl exec'
-#alias ki='() { tubectl exec "${@}" -it -- sh -c "bash -i || sh -i" }'
-#alias kv='tubectl get events'
+alias kl='tubectl logs'
+alias klf='() { kl "${@}" -f --tail 1 }'
+alias ke='tubectl exec'
+alias ki='() { tubectl exec "${@}" -it -- sh -c "bash -i || sh -i" }'
+alias kv='tubectl get events'
 
 alias gob='go build'
 alias goi='go install'
@@ -1554,3 +1599,7 @@ if [[ "$HISTFILE_OVERRIDE" ]]; then
 fi
 
 setopt share_history
+
+fuck() {
+    sudo !!
+}

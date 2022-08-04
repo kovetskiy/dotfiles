@@ -9,7 +9,7 @@ augroup end
 func! _setup_local_js()
     nnoremap <buffer> <silent> @l :call _search_wrappable()<CR>l:ArgWrap<CR>
     nnoremap <silent><buffer> <c-p> :call _format_typescript()<CR>
-    nnoremap <silent><buffer> <c-s> :call _save_typescript()<CR>:w<CR>
+    nnoremap <silent><buffer> <c-s> :w<CR>:call _save_typescript()<CR>:w<CR>
     nnoremap <silent><buffer> <c-a> :CocCommand tsserver.organizeImports<CR>
 
     call ale#Set('typescript_gts_executable', 'npx')
@@ -69,7 +69,7 @@ function! _ale_gts_fixer(buffer) abort
 endfunction
 
 let g:ale_fixers['typescript'] = [function('_ale_gts_fixer')]
-let g:ale_fixers['typescriptreact'] = ['prettier']
+"let g:ale_fixers['typescriptreact'] = ['prettier']
 let g:ale_fixers['javascript'] = ['prettier', 'eslint']
 let g:ale_fixers['javascriptreact'] = ['prettier', 'eslint']
 let g:ale_fixers['json'] = ['fixjson']

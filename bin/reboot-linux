@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -euo pipefail
+
+tag="(Linux)"
+
+efibootmgr | grep -Po "\d+(?=\*\s+$tag)" | head -n1 | xargs -n1 sudo efibootmgr -n
+
+reboot

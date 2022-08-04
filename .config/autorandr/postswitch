@@ -19,3 +19,5 @@ echo "$profile" > ~/.config/autorandr_profile
 pkill dunst
 
 wallpaper
+
+i3-polybar

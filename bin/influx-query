@@ -1,0 +1,5 @@
+#!/bin/bash
+
+curl --get http://localhost:8086/query \
+  --header "Authorization: Token $INFLUX_TOKEN" \
+  --data-urlencode "q=$1"

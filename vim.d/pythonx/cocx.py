@@ -5,7 +5,7 @@ import yaml
 import logging
 import sys
 
-debug = False
+debug = True
 
 logger = logging.getLogger('cocxpy')
 if debug:
@@ -19,7 +19,7 @@ if debug:
     file_handler = logging.FileHandler('/tmp/cocxpy.log')
     file_handler.setLevel(logging.DEBUG)
 
-    logger.addHandler(stderr_handler)
+    # logger.addHandler(stderr_handler)
     logger.addHandler(file_handler)
 
 def _get_git_root():
@@ -71,7 +71,7 @@ def cocx_filter_typescript_actions(titles):
 
     excludes = ["Add import ", "Add all missing imports", "Import default 'React'"]
     includes = [
-        "Import '(.*)'",
+        "Import '(.*)' from module",
         "Add '(.*)'",
         "Import default '(.*)'",
         "(Fix all auto-fixable problems)",
@@ -85,28 +85,31 @@ def cocx_filter_typescript_actions(titles):
                 items.remove(item)
                 break
 
-    for pattern in includes:
-        logger.debug('pattern: %s', pattern)
+    if debug:
         for item in items:
             title = item['title']
             logger.debug('title: %s id: %d', title, item['id'])
+
+    for pattern in includes:
+        for item in items:
+            title = item['title']
             matches = re.match(pattern, title)
             if not matches:
-                logger.debug('not matched')
                 continue
 
             lib = matches.group(1)
             if not lib:
-                logger.debug('not matched')
                 continue
-
-            logger.debug('matched: %s', lib)
 
             if lib not in seen:
                 seen.append(lib)
                 result.append(item['id'])
-            else:
-                logger.debug('already seen this lib: %s', lib)
+
+    if debug:
+        for item in result:
+           logger.debug('cocx_filter_typescript_actions: %s', str(item))
+    #logger.debug('cocx_filter_typescript_actions start')
+    #logger.debug('cocx_filter_typescript_actions finish')
 
     vim.command('let g:cocx_filter_typescript_actions = ' + str(int(len(result) > 0)))
 

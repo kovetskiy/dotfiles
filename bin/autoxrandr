@@ -1,0 +1,36 @@
+#!/bin/bash
+
+has() {
+    xrandr -q | grep "^$1 connected"
+}
+
+profile=$(cat ~/.config/profile)
+if [[ "$profile" == "desktop" ]]; then
+    CENTER=DP-0
+    LEFT=DP-4
+    RIGHT=DP-2
+    TV=HDMI-0
+
+    cmd=()
+
+    if has $CENTER; then
+        cmd+=(--output $CENTER --mode 2560x1440 --rate 144 --pos 1440x1120)
+    fi
+
+    if has $RIGHT; then
+        cmd+=(--output $RIGHT --mode 2560x1440 --rotate right --right-of $CENTER --pos 4000x0)
+    fi
+
+    if has $LEFT; then
+        cmd+=(--output $LEFT --mode 2560x1440 --left-of $CENTER --rotate left --pos 0x0)
+    fi
+
+    if has $TV; then
+        cmd+=(--output $TV --mode 1920x1080 --above $CENTER)
+    fi
+
+    xrandr "${cmd[@]}"
+fi
+
+i3-polybar
+wallpaper

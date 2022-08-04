@@ -34,6 +34,9 @@ super + F2
 control + F10
 	brightness toggle
 
+control + F12
+	bluetooth-toggle
+
 super + 8
 	;volume down
 
@@ -103,14 +106,18 @@ F1
 F2
 	volume up
 
+F4
+	linux-mac-sync-clipboard
+
 F8
 	brightness down
 
 F9
 	brightness up
 
-control + F4
+Print
 	screen-lock -suspend
+
 
 super + 0
 	i3-msg 'gaps horizontal current toggle 400'

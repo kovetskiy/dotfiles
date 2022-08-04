@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -x
+clipboard="$(xclip -o)"
+echo -n "$clipboard" | ssh air pbcopy
+
+d=$(wc -l <<< "$clipboard")
+
+notify "linux-mac/clipboard: $d lines"
