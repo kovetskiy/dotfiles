@@ -52,8 +52,7 @@ augroup _coc_highlight
     au VimEnter,BufRead * hi! SpellBad ctermbg=52 ctermfg=NONE cterm=NONE
 augroup end
 
-
-nnoremap <expr><down> coc#float#has_scroll() ? coc#float#scroll(1) : "\<down>"
-nnoremap <expr><up> coc#float#has_scroll() ? coc#float#scroll(0) : "\<up>"
-inoremap <expr><down> coc#float#has_scroll() ? coc#float#scroll(1) : "\<down>"
-inoremap <expr><up> coc#float#has_scroll() ? coc#float#scroll(0) : "\<up>"
+nnoremap <expr><down> coc#pum#visible() ? coc#pum#next(1) : "\<down>"
+nnoremap <expr><up> coc#pum#visible() ? coc#pum#prev(1) : "\<up>"
+inoremap <expr><down> coc#pum#visible() ? coc#pum#next(1) : "\<down>"
+inoremap <expr><up> coc#pum#visible() ? coc#pum#prev(1) : "\<up>"

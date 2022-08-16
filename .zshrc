@@ -1192,6 +1192,50 @@ rc() {
 
 # :alias
 
+:git-reset() {
+    remote=""
+    branch=""
+
+    while [[ "$1" ]]; do
+        case "$1" in
+            u|upstream)
+                remote="upstream"
+                ;;
+            o|origin)
+                remote="origin"
+                ;;
+            s)
+                branch="staging"
+                ;;
+            m)
+                if git branch -l | grep -P "\s+main$"; then
+                    branch="main"
+                else
+                    branch="master"
+                fi
+                ;;
+            *)
+                if [[ "$remote" == "" ]]; then
+                    remote="$1"
+                else
+                    branch="$1"
+                fi
+                ;;
+        esac
+
+        shift
+    done
+
+    if [[ ! "$branch" ]]; then
+        echo "Not enough params: <remote> <branch>"
+        return 1
+    fi
+
+    echo "[exec] git reset --hard $remote/$branch" >&2
+
+    git reset --hard $remote/$branch
+}
+
 git-pr() {
     git fetch origin pull/$1/head:pr-$1 || git fetch upstream pull/$1/head:pr-$1
     git checkout pr-$1
@@ -1234,6 +1278,7 @@ git-commit-smart() {
     git commit -s "${args[@]}"
 }
 
+alias gtc='go clean -testcache'
 alias wu='wg-quick up'
 alias wd='wg-quick down'
 alias air='ssh air'
@@ -1452,10 +1497,8 @@ alias ggc='git gc --prune --aggressive'
 alias gor='git pull --rebase origin master'
 alias gsh='git stash'
 alias gshp='git stash pop'
-alias grt='git reset'
-alias grh='git reset --hard'
-alias grts='git reset --soft'
-alias gr='git rebase'
+alias grh='echo use gr instead;'
+alias gr=':git-reset'
 alias grc='git rebase --continue'
 alias gri='git-rebase-interactive'
 alias grr='git-reset-soft'

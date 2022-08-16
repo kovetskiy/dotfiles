@@ -7,6 +7,7 @@ augroup end
 augroup _code_go
     au!
     au BufRead,BufNewFile *.go,*.go2 call _setup_local_go()
+    au BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
     "au BufWritePre *.go 
 
     au BufEnter *.template call _extend_templatego()

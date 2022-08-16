@@ -65,9 +65,6 @@ smap <C-B> <C-V>o<ESC>i
 inoremap <silent> <Tab> <c-r>=_expand_snippet()<cr>
 xnoremap <silent> <Tab> <Esc>:call UltiSnips#SaveLastVisualSelection()<cr>gvs
 
-inoremap <expr> <DOWN> pumvisible() ? "\<C-N>" : "\<DOWN>"
-inoremap <expr> <UP>   pumvisible() ? "\<C-P>" : "\<UP>"
-
 let g:UltiSnipsJumpForwardTrigger="<C-J>"
 let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 
