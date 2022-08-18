@@ -152,3 +152,6 @@ vmap ) S)i
 
 nnoremap <Leader>i i<space><left>
 nnoremap <Leader>I I<space><left>
+
+nmap <tab> :bnext<CR>
+nmap <s-tab> :bNext<CR>

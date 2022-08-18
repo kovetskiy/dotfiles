@@ -1,9 +1,16 @@
 #!/bin/bash
 
 filename="$HOME/screenshots/$(date +%F-%T | tr : T).png"
+mode="$1"
+shift
 
-if [[ "${1:-}" == "-f" ]]; then
+if [[ "$mode" == "-f" ]]; then
     import "$filename"
+elif [[ "$mode" == "deepin" ]]; then
+    deepin-screen-recorder "${@}" -n -s "$filename"
+    if [[ ! -f "$filename" ]]; then
+        exit 1
+    fi
 else
     deepin-screen-recorder "${@}" -n -s "$filename"
     if [[ ! -f "$filename" ]]; then

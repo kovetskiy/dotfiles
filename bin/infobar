@@ -162,8 +162,8 @@ _bg=""
     :body-append "VPN" "$(:get-section-vpn)"
     :notify "$body"
 
-    :bg-body-append "LOC" "$(:get-section-location)"
-    :bg-body-append "PING" $(:get-section-ping)
+    #:bg-body-append "LOC" "$(:get-section-location)"
+    #:bg-body-append "PING" $(:get-section-ping)
 
     wait
 }

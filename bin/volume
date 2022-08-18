@@ -27,12 +27,12 @@
     case $action in
         up)
             volumectl -f '%.0f' up $step
-            #amixer set Master '2+'
+            #amixer set Master '2+' >/dev/null
         ;;
 
         down)
             volumectl -f '%.0f' down $step
-            #amixer set Master '2-'
+            #amixer set Master '2-' >/dev/null
         ;;
     esac
 }

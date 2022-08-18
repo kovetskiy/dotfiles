@@ -8,7 +8,7 @@ xkbcomp -w 0 -I$HOME/.xkb -R$HOME/.xkb $HOME/.xkbrc${MODE} $DISPLAY
 
 xset -b
 
-repeat_delay=130
+repeat_delay=150
 repeat_rate=170
 
 # That chinese keyboard somehow has decreased repeat delay with comparison to

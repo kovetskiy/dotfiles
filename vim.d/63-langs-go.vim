@@ -37,7 +37,6 @@ func! _setup_local_go()
     nnoremap <buffer> <Leader>r :call CocActionAsync('rename')<CR>
     nnoremap <buffer> <Leader><Leader>i :!go-install-deps<CR>
 
-
     vmap <buffer> <C-F> ctx<TAB>
 
     let b:argwrap_tail_comma = 1
