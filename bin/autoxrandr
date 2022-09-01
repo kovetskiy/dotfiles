@@ -29,6 +29,11 @@ if [[ "$profile" == "desktop" ]]; then
         cmd+=(--output $TV --mode 1920x1080 --above $CENTER)
     fi
 
+    if [[ "${1:-}" == "-p" ]]; then
+        echo "xrandr ${cmd[@]}"
+        exit 0
+    fi
+
     xrandr "${cmd[@]}"
 fi
 

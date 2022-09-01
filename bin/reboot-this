@@ -1,0 +1,6 @@
+#!/bin/bash
+
+current=$(efibootmgr | awk '/BootCurrent: /{print $2}')
+
+sudo efibootmgr -n "${current}"
+sudo reboot

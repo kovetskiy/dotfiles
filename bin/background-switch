@@ -7,6 +7,7 @@ files = [
 commands = [
     "xrdb -load ~/.Xresources",
     "xrdb -merge ~/.Xresources.theme",
+    "i3-polybar",
 ]
 
 background = ARGV[0]
@@ -16,11 +17,11 @@ if !background
     exit(0)
 end
 
-files.each do|file|
-    link = file + "." + background
-    cmd = "ln -sf " + link + " " + file + ".theme"
-    system(cmd)
-end
+cmd = "ln -sf ~/.Xresources." + background + " ~/.Xresources.theme"
+system(cmd)
+
+cmd = "ln -sf ~/.config/polybar/theme." + background + " ~/.config/polybar/theme.ini"
+system(cmd)
 
 commands.each do|command|
     puts command

@@ -29,7 +29,7 @@ let g:lightline.enable = {
     \ }
 
 if &background == "light"
-    let g:lightline.colorscheme = 'one'
+    let g:lightline.colorscheme = 'onehalflight'
 else
     let g:lightline.colorscheme = 'dracula'
 endif

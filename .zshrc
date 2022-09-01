@@ -123,7 +123,7 @@ docompinit() {
 
 {
     if [[ "$BACKGROUND" == "light" ]]; then
-        #export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=9"
+        export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=9"
     fi
 }
 
@@ -189,18 +189,7 @@ docompinit() {
             return
         fi
 
-        local dir=$PWD
-        local basename=${dir/*\/}
-        local relative=$(realpath --relative-to=$HOME $dir/.. \
-            | sed -r 's@([^/]{1})[^/]{2,}@\1@g'
-        )
-        if [[ "$relative" =~ ^\\.\\. ]]; then
-            echo "$dir"
-        elif [[ "$relative" == "." ]]; then
-            echo "~/$basename"
-        else
-            echo "~/$relative/$basename"
-        fi
+        zsh-prompt
     }
 
     zstyle -d "lambda17:00-main" transform
@@ -1555,25 +1544,25 @@ alias jxg='sudo journalctl -xe | grep '
 alias jxfg='sudo journalctl -xef | grep '
 
 alias wh='() { while :; do eval "${@}"; sleep 0.5; done }'
-export TUBEKIT_DEBUG=1
-alias krun='() { :kubectl $1 run -i --tty --image radial/busyboxplus busybox-$RANDOM --restart=Never --rm }'
-
-alias k='tubectl'
 
 :helm-context() {
     helm --kube-context "${@}"
 }
+alias he=':helm-context'
 
 :kail-context() {
     local context="$1"
     shift
     kail --since 5m --context "${context}" "${@}"
 }
-
-alias he=':helm-context'
 alias ka=':kail-context'
 alias kap=':kail-app'
 
+
+# kubectl 
+export TUBEKIT_DEBUG=1
+
+alias k='tubectl'
 alias kg='tubectl get'
 alias kgd='kg deployments'
 alias kgc='kg configmap'
@@ -1584,12 +1573,13 @@ alias kgs='kg sts'
 alias kp='kgp'
 
 alias kt='tubectl edit'
-alias ktd='tubectl edit deployment'
-alias ktc='tubectl edit configmap'
-alias kti='tubectl edit ingress'
+alias ktd='kt deployment'
+alias ktc='kt configmap'
+alias kts='kt statefulset'
+alias kti='kt ingress'
 
 alias kd='tubectl describe'
-alias kdp='kd pods'
+alias kdp='kd pod'
 alias kdd='kd deployment'
 alias kds='kd sts'
 
@@ -1604,6 +1594,7 @@ alias kss='ks statefulset'
 
 alias kl='tubectl logs'
 alias klf='() { kl "${@}" -f --tail 1 }'
+
 alias ke='tubectl exec'
 alias ki='() { tubectl exec "${@}" -it -- sh -c "bash -i || sh -i" }'
 alias kv='tubectl get events'
@@ -1611,8 +1602,10 @@ alias kv='tubectl get events'
 alias gob='go build'
 alias goi='go install'
 
-#alias -g -- '-ya'='-o yaml'
-#alias -g -- '-ow'='-o wide'
+alias -g -- '\kya'='-o yaml'
+alias -g -- '\kow'='-o wide'
+
+# ssh settings
 
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
@@ -1629,6 +1622,11 @@ source ~/.zgen/fzf.zsh || {
     source ~/.zgen/fzf.zsh
 }
 
+source ~/.zgen/kafkactl.zsh || {
+    kafkactl completion zsh > ~/.zgen/kafkactl.zsh 
+    source ~/.zgen/kafkactl.zsh
+}
+
 eval $(dircolors ~/.dircolors.$BACKGROUND)
 
 unset -f colors
@@ -1642,7 +1640,3 @@ if [[ "$HISTFILE_OVERRIDE" ]]; then
 fi
 
 setopt share_history
-
-fuck() {
-    sudo !!
-}

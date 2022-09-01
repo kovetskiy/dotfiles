@@ -137,5 +137,6 @@ Plug 'mogelbrod/vim-jsonpath'
 
 Plug 'ziglang/zig.vim'
 Plug 'mfussenegger/nvim-dap'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
 
 call plug#end()

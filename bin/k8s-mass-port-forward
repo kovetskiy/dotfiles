@@ -1,0 +1,12 @@
+#!/bin/bash
+
+files=()
+while [[ "${1:-}" ]]; do
+    if [[ "$1" =~ .*=.* ]]; then
+        eval "export $1"
+    else
+        files+=("$1")
+    fi
+
+    shift
+done

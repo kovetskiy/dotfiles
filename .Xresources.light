@@ -1,41 +1,41 @@
-*background:            #fdf6e3
-*foreground:            #657b83
-*fadeColor:             #fdf6e3
-*cursorColor:           #586e75
-*pointerColorBackground:#93a1a1
-*pointerColorForeground:#586e75
-
-!! black dark/light
-*color0:                #073642
-*color8:                #002b36
-
-!! red dark/light
-*color1:                #dc322f
-*color9:                #cb4b16
-
-!! green dark/light
-*color2:                #859900
-*color10:               #586e75
-
-!! yellow dark/light
-*color3:                #b58900
-*color11:               #657b83
-
-!! blue dark/light
-*color4:                #268bd2
-*color12:               #839496
-
-!! magenta dark/light
-*color5:                #d33682
-*color13:               #6c71c4
-
-!! cyan dark/light
-*color6:                #2aa198
-*color14:               #93a1a1
-
-!! white dark/light
-*color7:                #eee8d5
-*color15:               #fdf6e3
+*.foreground:  #141518
+*.background:  #fafafa
+*.cursorColor: #bfceff
+!
+! Black
+*.color0:      #383a42
+*.color8:      #4f525e
+!
+! Red
+*.color1:      #e45649
+*.color9:      #e06c75
+!
+! Green
+*.color2:      #50a14f
+*.color10:     #98c379
+!
+! Yellow
+*.color3:      #c18401
+*.color11:     #e5c07b
+!
+! Blue
+*.color4:      #0184bc
+*.color12:     #61afef
+!
+! Magenta
+*.color5:      #a626a4
+*.color13:     #c678dd
+!
+! Cyan
+*.color6:      #0997b3
+*.color14:     #56b6c2
+!
+! White
+*.color7:      #fafafa
+*.color15:     #ffffff
+!
+! Bold, Italic, Underline
+*.colorBD:     #1d1e22
 
 rofi.color-normal: #eeeeee, #444444, #eeeeee, #af8700, #ffffff
 rofi.color-active: #eeeeee, #444444, #eeeeee, #af8700, #ffffff

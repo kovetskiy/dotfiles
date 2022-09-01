@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for container in $(docker ps -q); do
+    json=$(docker inspect "$container")
+    name=$(jq <<< "$json" -r '.[0] | .Name')
+    ip=$(jq <<< "$json" -r '.[0] | .NetworkSettings.Networks | .[] | .IPAddress' \
+        | sort | uniq | paste -sd' ')
+    echo "${name}: ${ip}"
+done

@@ -1,6 +1,7 @@
 global !p
 from snippets import *
 from snippets.go import *
+import time
 
 def get_indent_levels(snip, base_line):
 	if snip.context is None:
@@ -447,4 +448,16 @@ if match.group(1):
 else:
 	snip.rv = "\`"+tag+"\`"
 `
+endsnippet
+
+snippet ms "" w
+`!p
+try:
+	once
+except:
+	now = str(int(time.time()))
+	once = True
+`at`!p snip.rv=now` := time.Now()
+${VISUAL}
+fmt.Fprintf(os.Stderr, "XXXXXX $1 took: %v\n", time.Since(at`!p snip.rv=now`).Nanoseconds())
 endsnippet

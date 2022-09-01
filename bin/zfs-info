@@ -1,0 +1,11 @@
+#!/bin/bash
+
+alloc=$(zpool list -o alloc -H zroot)
+size=$(zpool list -o size -H zroot)
+
+alloc=${alloc//G/}
+size=${size//G/}
+
+free_percent=$(echo "scale=2; 100*${alloc}/${size}" | bc)
+
+echo "  ${free_percent}% ${size}G"

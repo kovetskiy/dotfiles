@@ -1,0 +1,36 @@
+#!/bin/env python3
+# vim: ft=python
+
+import os
+import os.path
+import sys
+from pathlib import Path
+
+def get_prompt():
+    cwd = os.getcwd()
+    if len(sys.argv) > 1:
+        cwd = sys.argv[1]
+
+    home = Path.home()
+
+    relative = os.path.relpath(cwd, home)
+    if '../' in relative:
+        print(cwd)
+        return
+
+    chunks = relative.split('/')
+    for i in range(len(chunks) - 1):
+        chunk = chunks[i]
+        if chunk.startswith('.'):
+            continue
+
+        if len(chunk) > 3:
+            chunk = chunk[:1]
+
+        chunks[i] = chunk
+
+    print('~/' + '/'.join(chunks))
+    return
+
+if __name__ == "__main__":
+    get_prompt()

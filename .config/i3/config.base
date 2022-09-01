@@ -108,7 +108,7 @@ for_window [class="obsidian"] floating enable
 for_window [class="skype"] floating enable
 for_window [class="Skype"] floating enable
 for_window [class="Upwork"] floating enable
-for_window [class=".*"] border pixel 4
+for_window [class=".*"] border pixel 1
 
 client.focused          #D22B2B #D22B2B #D22B2B #D22B2B 
 client.focused_inactive #424242 #424242 #424242 #424242

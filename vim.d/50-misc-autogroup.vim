@@ -1,12 +1,24 @@
 augroup _filetypes
     au!
-    au BufRead,BufNewFile *.service set noet ft=systemd
-    au BufRead,BufNewFile PKGBUILD set et ft=pkgbuild.sh
-    au BufRead,BufNewFile *.snippets set noet ft=snippets.python
-    au BufRead,BufNewFile *.skeleton set noet ft=snippets.python
-    au BufRead,BufNewFile *.chart set noet ft=mermaid
-    au BufRead,BufNewFile *.go set noet
+    au BufRead,BufNewFile *.service setlocal noet ft=systemd
+    au BufRead,BufNewFile PKGBUILD setlocal et ft=pkgbuild.sh
+    au BufRead,BufNewFile *.snippets setlocal noet ft=snippets.python
+    au BufRead,BufNewFile *.skeleton setlocal noet ft=snippets.python
+    au BufRead,BufNewFile *.chart setlocal noet ft=mermaid
+    au BufRead,BufNewFile *.go setlocal noet
+    au BufRead,BufNewFile *.config setlocal et ft=json ts=2 sw=2 sts=2
     au FileType python setlocal et ts=4 sw=4 sts=4
+augroup end
+
+fun! _trim_whitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
+augroup _whitespaces
+    au!
+    au BufWritePre *.yml,*.yaml,*.config call _trim_whitespace()
 augroup end
 
 

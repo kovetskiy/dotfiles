@@ -1,4 +1,5 @@
 set termguicolors
+set cursorline
 
 if $BACKGROUND == "dark"
     func! _setup_colorscheme()
@@ -22,7 +23,7 @@ endif
 
 if $BACKGROUND == "light"
     func! _setup_colorscheme()
-        colorscheme solarized8
+        colorscheme onehalflight
         set background=light
 
         hi! Normal ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#657b83
@@ -35,5 +36,10 @@ if $BACKGROUND == "light"
         "hi! PreProc ctermfg=19
         hi! LineNr guibg=NONE
         hi! CursorLineNr guibg=NONE guifg=#cb4b16
+
+        hi! CocCursorRange guibg=#b16286 guifg=#ebdbb2 ctermbg=5 ctermfg=3
+        hi! Pmenu guibg=#ffffff guifg=#141518
+        hi! CocErrorHighlight guibg=NONE guifg=#e45649
+        hi! CocErrorSign guifg=#e45649 guibg=NONE
     endfunc!
 endif

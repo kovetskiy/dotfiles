@@ -1,0 +1,20 @@
+#!/bin/bash
+
+hosts=()
+while [[ "${1:-}" ]]; do
+    hosts+=("$1")
+    shift
+done
+
+while :; do
+    success=true
+    for host in "${hosts[@]}"; do
+        if ! host "${host}"; then
+            success=false
+        fi
+    done
+
+    if $success; then
+        break
+    fi
+done

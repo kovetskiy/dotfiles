@@ -18,7 +18,13 @@ augroup _code_go
         \ 'goimports')
 augroup end
 
+let g:_setup_local_go_finished = 0
 func! _setup_local_go()
+    if g:_setup_local_go_finished == 0
+        let g:_job_go_mod_watch = jobstart(['go-mod-watch'])
+        let g:_setup_local_go_finished = 1
+    endif
+
     nnoremap <buffer><silent> @l :call _search_wrappable()<CR>ll:ArgWrap<CR>
     nnoremap <buffer><silent> @h :call _chain_wrap(1)<CR>
 
@@ -37,7 +43,7 @@ func! _setup_local_go()
 
     let b:argwrap_tail_comma = 1
     let b:ale_fix_on_save = 1
-    call ale#Set('go_golines_max_length', '120')
+    call ale#Set('go_golines_max_length', '200')
 
     setlocal cc=80,100
 endfunc!
