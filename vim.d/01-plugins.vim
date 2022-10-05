@@ -7,6 +7,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'kovetskiy/vim-hacks'
 Plug 'kovetskiy/synta'
 Plug 'fatih/vim-go', {'for': ['template']}
+    "let g:go_def_mapping_enabled = 0
 Plug 'vim-scripts/l9'
 Plug 'sirver/ultisnips', { 'frozen': 1 }
 Plug 'tpope/vim-surround'
@@ -130,6 +131,8 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
 
 Plug 'github/copilot.vim'
+    imap <silent><script><expr> <C-Q> copilot#Accept("\<CR>")
+    let g:copilot_no_tab_map = v:true
 
 Plug 'mogelbrod/vim-jsonpath'
     noremap <buffer> <silent> <C-J><C-D> :call jsonpath#echo()<CR>
@@ -138,5 +141,8 @@ Plug 'mogelbrod/vim-jsonpath'
 Plug 'ziglang/zig.vim'
 Plug 'mfussenegger/nvim-dap'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
+
+Plug 'sebdah/vim-delve'
+
 
 call plug#end()

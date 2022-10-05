@@ -4,6 +4,8 @@ has() {
     xrandr -q | grep "^$1 connected"
 }
 
+exclusive="$1"
+
 profile=$(cat ~/.config/profile)
 if [[ "$profile" == "desktop" ]]; then
     CENTER=DP-0

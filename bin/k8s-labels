@@ -1,0 +1,15 @@
+#!/bin/env python3
+# vim: ft=python ts=4 sw=4 et ai
+
+import sys
+import re
+
+header_index = -1
+for line in sys.stdin:
+    chunks = re.split(r'\s+', line.strip())
+    chunks = filter(lambda x: x.count(',') > 2, chunks)
+    if len(list(chunks)) == 0:
+        print(line, end='')
+        continue
+
+    print(line, end='')

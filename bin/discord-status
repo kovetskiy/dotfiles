@@ -1,0 +1,34 @@
+#!/bin/bash
+
+token=$(cat ~/.config/discord.token)
+
+:set-status() {
+    curl -X PATCH \
+        -H 'Content-Type: application/json' \
+        -H "authorization: $token" \
+        --data '{"status": "'$1'"}' \
+        https://discord.com/api/v9/users/@me/settings
+}
+
+:custom-status() {
+    local status=$1
+    local text=$2
+    local emoji=$3
+
+    curl -X PATCH \
+        -H 'Content-Type: application/json' \
+        -H "authorization: $token" \
+        --data '{"status": "'$status'", "custom_status": {"text": "'"$text"'", "emoji_name": "'"$emoji"'"}}' \
+        https://discord.com/api/v9/users/@me/settings
+}
+
+status="${1:-online}"
+text="${2:-}"
+emoji="${3:-}"
+
+if [[ ! "$text" ]]; then
+    :set-status "${status}"
+    exit 0
+fi
+
+:custom-status "${status}" "${text}" "${emoji}"

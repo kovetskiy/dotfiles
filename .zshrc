@@ -1267,6 +1267,7 @@ git-commit-smart() {
     git commit -s "${args[@]}"
 }
 
+alias grt='git reset'
 alias gtc='go clean -testcache'
 alias wu='wg-quick up'
 alias wd='wg-quick down'

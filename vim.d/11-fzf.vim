@@ -1,5 +1,5 @@
 let g:fzf_prefer_tmux = 1
-let g:fzf_layout = { 'down': '~40%' }
+let g:fzf_layout = { 'down': '~50%' }
 
 func! _select_file(...)
     let dir = ""
@@ -88,9 +88,3 @@ endfunc!
 func! _grep_recover()
     call _grep(g:grep_last_query, '')
 endfunc!
-
-"func! _lstags()
-"    call fzf#vim#ag("", {'source':    'lstags', 'options': '--delimiter : --nth 4..'})
-"endfunc!
-"
-"nnoremap <silent> <c-g> :call _lstags()<CR>

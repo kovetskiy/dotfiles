@@ -6,3 +6,6 @@
 [submodule "git-diff-image"]
 	path = git-diff-image
 	url = https://github.com/ewanmellor/git-diff-image
+[submodule "alacritty-themes/dracula"]
+	path = alacritty-themes/dracula
+	url = https://github.com/dracula/alacritty

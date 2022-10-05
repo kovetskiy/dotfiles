@@ -1,6 +1,6 @@
 #!/bin/bash
 
-peer=$(sudo wg show all peers | awk '{print $1}')
+peer=$(sudo wg show all peers | awk '{print $1}' | paste -sd' ')
 if [[ ! "$peer" ]]; then
     echo ' insecure'
 else

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+peer="${1}"
+
+if sudo wg show all peers | grep -q "$peer"; then
+    echo " ${peer}"
+else
+    echo " ${peer}"
+fi

@@ -19,16 +19,6 @@ if [[ -e "${url}" ]]; then
     url="$(readlink -f "${url}")"
 fi
 
-if [[ "$url" =~ "open.spotify.com" ]]; then
-    spotify_uri=$(grep -Po 'open.spotify.com/\K\w+/[^?]+' <<< "$url" | sed 's@/@:@')
-    exec dbus-send \
-        --type=method_call \
-        --dest=org.mpris.MediaPlayer2.spotify\
-        /org/mpris/MediaPlayer2 \
-        org.mpris.MediaPlayer2.Player.OpenUri \
-        string:"spotify:$spotify_uri"
-fi
-
 browser="chromium"
 
 if [[ "$url" ]]; then
