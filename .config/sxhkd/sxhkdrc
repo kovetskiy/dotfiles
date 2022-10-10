@@ -70,6 +70,9 @@ super + control + e
 alt + Tab
 	i3re -w 20 || i3re -h 20
 
+alt + l
+	modal-tabs
+
 super + Tab
 	xoal
 

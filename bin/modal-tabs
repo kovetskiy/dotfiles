@@ -1,0 +1,17 @@
+#!/bin/bash
+
+tabs=$(curl -s "http://localhost:3451/rpc?command=list_tabs")
+
+pick=$(
+    echo "$tabs" \
+        | jq '.[] | {item: .url, title: .title}' \
+        | jq -s . \
+        | modal-template --no-description
+)
+
+id=$(jq <<< "$tabs" --arg "URL" "$pick" -r '.[] | select(.url == $URL) | .id')
+
+if [[ "$id" ]]; then
+    i3-msg workspace s
+    curl -s "http://localhost:3451/rpc?command=switch_tab&args=$id"
+fi
