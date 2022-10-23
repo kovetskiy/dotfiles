@@ -29,7 +29,15 @@ func! _select_buffer()
     call fzf#vim#buffers({'options': '--sort --no-exact --tiebreak=index'})
 endfunc!
 
+func! _select_window()
+    call _snippets_stop()
+    call fzf#vim#windows({'options': '--sort --no-exact --tiebreak=index'})
+endfunc!
+
 nnoremap <silent> <c-t> :call _select_file()<CR>
+"nnoremap <silent> <c-b> :call _select_buffer()<CR>
+nnoremap <silent> <c-b> :call _select_window()<CR>
+
 nnoremap <silent> <c-e><c-t> :call _select_file_cwd()<CR>
 
 let g:grep_last_query = ""

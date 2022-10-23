@@ -143,6 +143,7 @@ Plug 'mfussenegger/nvim-dap'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 
 Plug 'sebdah/vim-delve'
+Plug 'towolf/vim-helm'
 
 
 call plug#end()

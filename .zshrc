@@ -1641,3 +1641,5 @@ if [[ "$HISTFILE_OVERRIDE" ]]; then
 fi
 
 setopt share_history
+
+source /usr/share/nvm/init-nvm.sh

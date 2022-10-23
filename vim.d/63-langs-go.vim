@@ -29,7 +29,6 @@ func! _setup_local_go()
     nnoremap <buffer><silent> @h :call _chain_wrap(1)<CR>
 
     nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
-    nmap <silent><buffer> <c-b> <ESC>
     nmap <silent><buffer> <c-s> :w<CR>
     nmap <silent><buffer> <c-p> :silent call synta#go#build()<CR>
     nmap <silent><buffer> <leader><c-p> :call synta#quickfix#next()<CR>

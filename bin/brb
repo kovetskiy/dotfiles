@@ -1,3 +1,4 @@
 #!/bin/bash
 
-exec discord-status idle "brb lunch" "🍕"
+text="${1:-lunch}"
+exec discord-status idle "brb $text" "🍕"

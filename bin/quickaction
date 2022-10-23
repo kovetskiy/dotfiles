@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -euo pipefail
-
 :modal() {
     modal-template --no-description -- -lines 5
 }
@@ -17,6 +15,7 @@ set -euo pipefail
     fi
 
     command="$(jq -r . < "$db_file" | :modal)"
+    echo "$command"
     eval "$command"
     exit 0
 }

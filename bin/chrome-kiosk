@@ -1,7 +1,9 @@
 #!/bin/bash
 
-xd_class="en.todoist.com"
-ws=d
+name="${1}"
+window_class="${2}"
+url="${3}"
+ws="${4}"
 
 :current() {
     i3-msg -t get_workspaces \
@@ -13,26 +15,27 @@ current=$(:current)
 
 cache=/var/run/user/$UID/alttab.todoist
 
-window=$(xdotool search --classname "$xd_class")
+window=$(xdotool search --classname "$window_class")
 if [[ ! "$window" ]]; then
     if [[ "$current" != "$ws" ]]; then
         i3-msg "workspace $ws"
         echo -n "$current" > $cache
     fi
 
-    chromium --user-data-dir ~/.config/chrome-todoist --kiosk --app=https://en.todoist.com/ &
-    echo $! > $pidfile
+    chromium --kiosk --app="${url}" &
+    #pid=$!
+    #echo "$pid" > "$pidfile"
     exit 0
 fi
 
 
 if [[ "$current" == "$ws" ]]; then
-    if [[ -f $cache ]]; then
-        prev=$(cat $cache)
+    if [[ -f "$cache" ]]; then
+        prev=$(cat "$cache")
         i3-msg "workspace $prev"
     fi
 else
     echo -n "$current" > $cache
     i3-msg "workspace $ws"
-    xdotool search --onlyvisible --classname "$xd_class" windowfocus
+    xdotool search --onlyvisible --classname "$window_class" windowfocus
 fi

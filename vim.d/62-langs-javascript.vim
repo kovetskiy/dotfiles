@@ -2,11 +2,17 @@ let g:_python_plugins = expand('<sfile>:p:h') . '/pythonx/'
 
 augroup _code_typescript
     au!
-    au BufRead,BufNewFile *.ts,*.tsx,*.jsx call _setup_local_js()
+    au BufRead,BufNewFile *.ts,*.tsx,*.jsx call _setup_local_ts()
+    au BufRead,BufNewFile *.js call _setup_local_js()
     au BufNewFile,BufRead *.json set filetype=json
 augroup end
 
 func! _setup_local_js()
+    nnoremap <silent><buffer> <c-s> :w<CR>:call _save_typescript()<CR>:w<CR>
+    nnoremap <silent><buffer> <c-p> :call CocAction('diagnosticFirst', ['warning', 'error'])<cr>
+endfunc!
+
+func! _setup_local_ts()
     nnoremap <buffer> <silent> @l :call _search_wrappable()<CR>l:ArgWrap<CR>
     nnoremap <silent><buffer> <c-p> :call _format_typescript()<CR>
     nnoremap <silent><buffer> <c-s> :w<CR>:call _save_typescript()<CR>:w<CR>

@@ -21,3 +21,4 @@ rofi.color-normal: #1c1c1c, #d8d8d8, #1c1c1c, #af8700, #ffffff
 rofi.color-active: #1c1c1c, #d8d8d8, #1c1c1c, #af8700, #ffffff
 rofi.color-urgent: #1c1c1c, #d8d8d8, #1c1c1c, #af8700, #ffffff
 rofi.color-window: #1c1c1c, #d8d8d8
+rify.font: Iosevka Nerd Font 12

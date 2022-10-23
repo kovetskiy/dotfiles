@@ -1,0 +1,29 @@
+#!/bin/bash
+
+:peers() {
+    sudo wg show all peers | awk '{print $1}'
+}
+
+:join() {
+    local glue="$1"
+    shift
+
+    cat | paste -sd "@" - | sed "s#@#$glue#g"
+}
+
+:main() {
+    local mode="$1"
+    if [[ "$1" == "status" ]]; then
+        peers="$(:peers)"
+        if [[ ! "$peers" ]]; then
+            echo " insecure"
+        else
+            echo " $(:join ' ' <<< "$peers")"
+        fi
+    else
+        shift
+        :ui "${@}"
+    fi
+}
+
+:main "${@}"

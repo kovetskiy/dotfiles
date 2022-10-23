@@ -1,6 +1,6 @@
 #!/bin/bash
 
 if [[ "$1" == "-d" ]]; then
-    exec date +'%d-%m-%Y'
+    exec date +'%Y-%m-%d'
 fi
-exec date +'%d-%m-%Y_%T'
+exec date +'%Y-%m-%dT%TZ'

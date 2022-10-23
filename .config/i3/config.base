@@ -1,10 +1,12 @@
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font pango:Monaco 1
+font pango:Monaco 12
 
-gaps inner 2
-#gaps outer 2
+for_window [class="^.*"] title_format "<span font='Iosevka 11' color='white'>%title</span>"
+
 smart_gaps on
-hide_edge_borders both
+hide_edge_borders smart_no_gaps
+
+gaps inner 10
 
 new_window 1pixel
 
@@ -64,6 +66,7 @@ bindcode $alt+Shift+40 move container to workspace d
 bindsym $alt+t split horizontal
 bindsym $alt+b split vertical
 
+bindsym $win+k layout stacked
 bindsym $alt+Ctrl+r mode "resize"
 
 mode "resize" {
@@ -110,6 +113,13 @@ for_window [class="Skype"] floating enable
 for_window [class="Upwork"] floating enable
 for_window [class=".*"] border pixel 1
 
-client.focused          #D22B2B #D22B2B #D22B2B #D22B2B 
-client.focused_inactive #424242 #424242 #424242 #424242
-client.unfocused        #424242 #424242 #424242 #424242
+#client.focused          #D22B2B #D22B2B #D22B2B #D22B2B 
+#client.focused_inactive #424242 #424242 #424242 #424242
+#client.unfocused        #424242 #424242 #424242 #424242
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #424242 #424242 #BFBFBF #424242   #424242
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+
+client.background       #F8F8F2
