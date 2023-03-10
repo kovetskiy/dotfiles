@@ -7,5 +7,6 @@ alloc=${alloc//G/}
 size=${size//G/}
 
 free_percent=$(echo "scale=2; 100*${alloc}/${size}" | bc)
+free_size=$(echo "scale=2; ${size}-${alloc}" | bc)
 
-echo "  ${free_percent}% ${size}G"
+echo "  ${free_percent}% ${free_size}G"

@@ -8,19 +8,19 @@ exclusive="$1"
 
 profile=$(cat ~/.config/profile)
 if [[ "$profile" == "desktop" ]]; then
-    CENTER=DP-0
-    LEFT=DP-4
-    RIGHT=DP-2
+    CENTER=DP-2
+    LEFT=DP-0
+    RIGHT=DP-4
     TV=HDMI-0
 
     cmd=()
 
     if has $CENTER; then
-        cmd+=(--output $CENTER --mode 2560x1440 --rate 144 --pos 1440x1120)
+        cmd+=(--output $CENTER --mode 2560x1440 --rate 144 --pos 1440x1120 --rotate normal)
     fi
 
     if has $RIGHT; then
-        cmd+=(--output $RIGHT --mode 2560x1440 --rotate right --right-of $CENTER --pos 4000x0)
+        cmd+=(--output $RIGHT --mode 2560x1440 --rotate normal --right-of $CENTER --pos 4000x0)
     fi
 
     if has $LEFT; then

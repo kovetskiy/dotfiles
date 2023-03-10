@@ -1,6 +1,6 @@
-set $left DP-4
-set $center DP-0
-set $right DP-2
+set $left DP-0
+set $center DP-2
+set $right DP-4
 
 workspace 1 output $center
 workspace 2 output $center
@@ -8,10 +8,10 @@ workspace 3 output $center
 workspace 4 output $center
 workspace s output $center
 
-workspace w output $left
 workspace a output $left
 workspace z output $left
 workspace d output $left
 
 workspace q output $right
+workspace w output $right
 workspace e output $right

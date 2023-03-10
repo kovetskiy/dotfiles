@@ -13,13 +13,16 @@
 }
 
 if [[ ! "$1" ]]; then
-    exec watcher '\.go$' -- "$0" "%s"
+    exec watcher -x vendor '\.go$' -- "$0" "%s"
 fi
+
+:blue ":: go build because of $1"
 
 output=$(go build -v ./... 2>&1)
 if grep -q "no required module provides package" <<< "$output"; then
+    :blue ":: go get -v"
     go get -v
-    :blue "GO GET OK"
+    :green "GO GET OK"
 else
     if [[ "$output" ]]; then
         :red "BUILD FAIL"
@@ -29,6 +32,7 @@ else
     fi
 fi
 
+:blue ":: go mod tidy"
 go mod tidy
 
 sleep 1

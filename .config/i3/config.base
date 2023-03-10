@@ -94,6 +94,7 @@ bindcode 173 exec playerctl previous
 
 for_window [title="tudu"]        floating enable
 for_window [class="zoom"]        floating enable
+for_window [class="kuake"]        floating enable
 for_window [title="^zoom"]       floating enable
 for_window [title="^Zoom"]       floating enable
 for_window [title="Emulator"]    floating enable

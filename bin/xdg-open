@@ -4,8 +4,8 @@
 
 url="$1"
 
-if [[ "$url" =~ "open.spotify.com" ]]; then
-    spotify_uri=$(grep -Po 'open.spotify.com/\K\w+/[^?]+' <<< "$url" | sed 's@/@:@')
+if [[ "$url" =~ "open.spotify.com" ]] || [[ "$url" =~ "spotify://" ]]; then
+    spotify_uri=$(grep -Po '(open.spotify.com/|spotify://)\K\w+/[^?]+' <<< "$url" | sed 's@/@:@')
     exec dbus-send \
         --type=method_call \
         --dest=org.mpris.MediaPlayer2.spotify\
@@ -14,4 +14,4 @@ if [[ "$url" =~ "open.spotify.com" ]]; then
         string:"spotify:$spotify_uri"
 fi
 
-/bin/xdg-open "$url"
+exec mimeo "$url"

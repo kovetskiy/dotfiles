@@ -1,3 +1,0 @@
-#!/bin/bash
-
-exec kuake --terminal --bottom --middle --height 30 --width 50

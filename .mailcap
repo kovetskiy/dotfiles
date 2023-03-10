@@ -1,8 +1,0 @@
-image/gif;ffplay %s;
-image/png;feh %s;
-image/jpg;feh %s;
-image/jpeg;feh %s;
-
-text/plain; mailcap-plain %{charset} %s; copiousoutput;
-
-text/html; mailcap-html %{charset} %s; copiousoutput;

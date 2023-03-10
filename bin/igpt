@@ -1,0 +1,10 @@
+#!/bin/env python3
+
+from chatgpt_wrapper import ChatGPT
+import sys
+
+bot = ChatGPT()
+data = sys.stdin.readlines()
+contents = '\n'.join(data)
+
+print(bot.ask(contents))

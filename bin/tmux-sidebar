@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -euo pipefail
+
+:main() {
+    local target_pane="${1:-}"
+
+    if [[ "$target_pane" ]]; then
+        :run "${target_pane}"
+    else
+        :split
+    fi
+}
+
+:split() {
+    tmux split-window -h -l 50 -b tmux-sidebar "${TMUX_PANE}"
+}
+
+:run() {
+    while :; do
+        date;
+        sleep 1;
+    done
+}
+
+:main "$@"

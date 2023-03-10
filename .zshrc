@@ -103,6 +103,9 @@ docompinit() {
         ZSH_AUTOSUGGEST_STRATEGY=("history")
         zgen load zsh-users/zsh-autosuggestions && _zsh_autosuggest_start
 
+        export NVM_LAZY_LOAD=true
+        zgen load lukechilds/zsh-nvm
+
         hash-aliases:install
         autopair-init
     }
@@ -814,11 +817,20 @@ docompinit() {
         fi
     }
 
+    :git:get-master() {
+        if git rev-parse master >&-; then
+            echo "master"
+        else
+            echo "main"
+        fi
+    }
+
     :git:master() {
+        master=$(:git:get-master)
         git fetch && \
-            git checkout origin/master && \
-            git branch -D master && \
-            git checkout -b master
+            git checkout origin/$master && \
+            git branch -D $master && \
+            git checkout -b $master
 
         if [[ "$1" ]]; then
             git checkout -b "$1"
@@ -1500,7 +1512,7 @@ alias gnt='git init'
 alias gdh='git diff HEAD'
 alias psx='ps fuxa | grep'
 alias grp='git remote update'
-alias gra='git remote add origin '
+alias gra='git remote add '
 alias gro='git remote show'
 alias gru='git remote get-url origin'
 alias grg='git remote show origin -n'
@@ -1547,7 +1559,18 @@ alias jxfg='sudo journalctl -xef | grep '
 alias wh='() { while :; do eval "${@}"; sleep 0.5; done }'
 
 :helm-context() {
-    helm --kube-context "${@}"
+    local context="$1"
+    shift
+
+    local match=$(kubectl config get-contexts --no-headers -o name | grep -P "${context}")
+    if [[ ! "$match" ]]; then
+        echo "no context found for ${context}" >&2
+        return 1
+    fi
+
+    echo "[helm-context] helm --kube-context ${match} ${@}" >&2
+
+    helm --kube-context "$match" "${@}"
 }
 alias he=':helm-context'
 
@@ -1642,4 +1665,4 @@ fi
 
 setopt share_history
 
-source /usr/share/nvm/init-nvm.sh
+#source /usr/share/nvm/init-nvm.sh

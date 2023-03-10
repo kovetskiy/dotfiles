@@ -15,7 +15,6 @@ URxvt.perl-ext-common: clipboard,default,rotate-colors
 
 URxvt.keysym.C-Mod4-a: perl:rotate-colors:next
 URxvt.keysym.Mod4-c: perl:clipboard:copy
-URxvt.keysym.Mod4-v: perl:clipboard:paste
 URxvt.clipboard.copycmd:  clipboard-copy
 URxvt.clipboard.pastecmd: xsel --output --clipboard
 

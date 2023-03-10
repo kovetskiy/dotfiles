@@ -59,9 +59,9 @@ export PATH=${BIN//$'\n'/:}
 systemctl --user import-environment PATH
 systemctl --user import-environment GOPATH
 
-#for env in ~/.guts/env/*; do
-#    source "$env"
-#done
+for env in ~/.guts/env/*; do
+    source "$env"
+done
 
 unset BIN
 unset SUDO_COMMAND

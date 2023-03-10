@@ -30,3 +30,6 @@
 
 "xsecurelock"
     Mod3 + g
+
+"infobar"
+    Control_R

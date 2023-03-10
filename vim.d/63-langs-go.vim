@@ -11,6 +11,7 @@ augroup _code_go
     "au BufWritePre *.go 
 
     au BufEnter *.template call _extend_templatego()
+    au BufEnter *.sql.template call _extend_templatesql()
     au BufEnter *.yaml call _extend_yaml()
 
     au FileType go
@@ -31,6 +32,7 @@ func! _setup_local_go()
     nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
     nmap <silent><buffer> <c-s> :w<CR>
     nmap <silent><buffer> <c-p> :silent call synta#go#build()<CR>
+    nmap <silent><buffer> <c-f><c-q> :call _go_mod_vendor()<CR>
     nmap <silent><buffer> <leader><c-p> :call synta#quickfix#next()<CR>
     nmap <silent><buffer> <c-p><c-n> :call PythonxCocDiagnosticNext()<CR>
 
@@ -44,6 +46,12 @@ func! _setup_local_go()
     call ale#Set('go_golines_max_length', '200')
 
     setlocal cc=80,100
+endfunc!
+
+func! _go_mod_vendor()
+    call system('rm -rf vendor')
+    call system('go mod vendor')
+    call _coc_restart()
 endfunc!
 
 func! _goto_prev_func()
@@ -88,6 +96,11 @@ func! _extend_templatego()
     runtime! syntax/gotexttmpl.vim
 
     let b:templatego_extended = 1
+endfunc!
+
+func! _extend_templatesql()
+    call _extend_templatego()
+    set filetype=sql
 endfunc!
 
 func! _search_wrappable()

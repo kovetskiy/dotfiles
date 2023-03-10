@@ -61,9 +61,6 @@ super + control + 9
 super + control + 0
 	;pa-switch-profile -i webcam active output:hdmi-stereo output:analog-stereo
 
-alt + control + d
-	;infobar
-
 super + control + e
 	translator
 
@@ -89,7 +86,7 @@ super + 7
 	secrets_repository=~/.secrets carcosa-qr
 
 super + grave
-	;kuake-bottom
+	tdrop -a -m -w 50% -x 25% -y 60% -h 40% alacritty --class kuake -e tmux
 
 super + backslash
 	quickaction
@@ -98,7 +95,7 @@ super + BackSpace
 	chrome-todoist
 
 super + equal
-	;kuake --terminal --class top --top --middle --height 30 --width 50
+	tdrop -a -m -w 50% -x 25% -h 40% alacritty --class kuake -e tmux
 
 control + F3
 	wg-toggle
@@ -120,7 +117,6 @@ F9
 
 Print
 	screen-lock -suspend
-
 
 super + 0
 	i3-msg 'gaps horizontal current toggle 400'

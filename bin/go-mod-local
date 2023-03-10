@@ -2,4 +2,8 @@
 
 set -euo pipefail
 
-go mod edit -replace $1=$GOPATH/src/$1
+rel=$(realpath --relative-to=. $GOPATH/src/$1)
+
+echo ":: $1 →  $rel"
+
+go mod edit -replace $1=$rel
