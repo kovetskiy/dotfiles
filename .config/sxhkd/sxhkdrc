@@ -115,6 +115,9 @@ F8
 F9
 	brightness up
 
+super + F3
+	autoxrandr
+
 Print
 	screen-lock -suspend
 

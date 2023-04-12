@@ -4,12 +4,20 @@
 import sys
 import re
 
-header_index = -1
-for line in sys.stdin:
-    chunks = re.split(r'\s+', line.strip())
-    chunks = filter(lambda x: x.count(',') > 2, chunks)
-    if len(list(chunks)) == 0:
-        print(line, end='')
-        continue
+labels_filter = sys.argv[1:]
 
-    print(line, end='')
+for line in sys.stdin:
+    pattern = r'(?<=\s)([^\s,=]+=[^\s,]+(?:,[^\s,=]+=[^\s,]+)*)(?=\s|$)'
+    matches = re.findall(pattern, line)
+    if matches:
+        match = matches[0]
+        labels = match.split(',')
+        filtered_labels = []
+        for label in labels:
+            if label.split('=')[0] in labels_filter:
+                filtered_labels.append(label)
+
+        if len(filtered_labels) > 0:
+            print(line.replace(match, ','.join(filtered_labels)), end='')
+        else:
+            print(line, end='')

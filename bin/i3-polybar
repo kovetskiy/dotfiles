@@ -9,5 +9,5 @@ while pgrep -x polybar >/dev/null; do sleep 1; done
 #polybar --config=$config general &
 
 for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    MONITOR=$m polybar --config=$config --reload general &
+    MONITOR=$m polybar --config=$config --reload general 2>"/var/run/user/$UID/polybar.$m.log" &
 done

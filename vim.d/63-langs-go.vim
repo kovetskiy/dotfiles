@@ -132,7 +132,10 @@ endfunc!
 
 let g:ale_fixers['go'] = [function("synta#ale#golines#Fix"), function("synta#ale#goimports#Fix")]
 let g:ale_fixers['go2'] = ['gofmt']
-let g:ale_linters = {'go': ['gobuild']}
+let g:ale_linters = {'go': ['gobuild', 'golangci-lint']}
+
+let g:ale_go_golangci_lint_options = ''
+let g:ale_go_golangci_lint_package = 1
 
 let g:synta_go_highlight_calls = 0
 let g:synta_go_highlight_calls_funcs = 1
