@@ -10,7 +10,6 @@ let g:vim_indent_cont = shiftwidth()
 
 set shortmess+=sAIc
 set encoding=utf-8
-set printencoding=cp1251
 set fileformat=unix
 set textwidth=80
 set timeoutlen=400

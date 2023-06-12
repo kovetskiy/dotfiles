@@ -1,0 +1,33 @@
+#!/bin/bash
+
+TMUX_HISTORY_DIR=~/.guts/tmux-history
+
+if [[ ! "$TMUX_HISTORY_DIR" ]]; then
+    exit 0
+fi
+
+set -euo pipefail
+
+pane_id="${1:-}"
+
+context=$(tmux display-message -p ${pane_id:+-t $pane_id} '#{session_id} #S')
+
+# get session_id from context (first part before ' '), without first symbol ($)
+session_id=${context%% *}
+session_id=${session_id:1}
+
+pane=${context#* }
+
+daydir="$TMUX_HISTORY_DIR/$(date +%Y-%m-%d)"
+
+if [[ ! -d "$daydir" ]]; then
+    mkdir -p "$daydir"
+fi
+
+name="${session_id}-$pane.log"
+
+tmux capture-pane ${pane_id:+-t $pane_id} -e -C -b bhistory
+tmux save-buffer -b bhistory "$daydir/$name"
+tmux delete-buffer -b bhistory
+
+echo "$daydir/$name"

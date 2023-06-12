@@ -1191,11 +1191,16 @@ rc() {
     readlink -f "${1}" | sed 's/$//' | copy-to-clipboard
 }
 
-# :alias
+:exec() {
+    echo "[exec] $@" >&2
+    "$@"
+}
 
 :git-reset() {
     remote=""
     branch=""
+
+    :exec git remote update
 
     while [[ "$1" ]]; do
         case "$1" in
@@ -1227,14 +1232,23 @@ rc() {
         shift
     done
 
-    if [[ ! "$branch" ]]; then
-        echo "Not enough params: <remote> <branch>"
-        return 1
+    if [[ ! "$remote" ]]; then
+        if git remote -v | grep -Pq "upstream\s+"; then
+            remote="upstream"
+        else
+            remote="origin"
+        fi
     fi
 
-    echo "[exec] git reset --hard $remote/$branch" >&2
+    if [[ ! "$branch" ]]; then
+        if git branch -l | grep -Pq "\s+main$"; then
+            branch="main"
+        else
+            branch="master"
+        fi
+    fi
 
-    git reset --hard $remote/$branch
+    :exec git reset --hard $remote/$branch
 }
 
 git-pr() {
@@ -1278,6 +1292,8 @@ git-commit-smart() {
 
     git commit -s "${args[@]}"
 }
+
+# :alias
 
 alias grt='git reset'
 alias gtc='go clean -testcache'

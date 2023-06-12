@@ -33,3 +33,15 @@
 
 "infobar"
     Control_R
+
+"volume down"
+    m:0x0 + c:122
+    XF86AudioLowerVolume
+
+"volume up"
+    m:0x0 + c:123
+    XF86AudioRaiseVolume
+
+"with-lock infobar"
+    m:0x0 + c:121
+    XF86AudioMuteVolume
