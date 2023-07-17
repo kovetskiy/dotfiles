@@ -3,4 +3,5 @@
 if [[ "$1" == "-d" ]]; then
     exec date +'%Y-%m-%d'
 fi
+
 exec date +'%Y-%m-%dT%TZ'

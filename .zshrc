@@ -1350,7 +1350,6 @@ alias oxh=':orgalorg:exec-host'
 alias un=':until'
 alias ha=':hosts:add'
 alias rs='rm -rf ~/.cache/ssh_*'
-alias gg=':find-gem'
 alias ju='journalctl --user-unit'
 alias jl='journalctl -u'
 alias s='sift'
@@ -1680,5 +1679,7 @@ if [[ "$HISTFILE_OVERRIDE" ]]; then
 fi
 
 setopt share_history
+
+source ~/.guts/zsh/*.zsh
 
 #source /usr/share/nvm/init-nvm.sh

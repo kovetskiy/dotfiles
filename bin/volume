@@ -1,6 +1,8 @@
 #!/bin/bash
 
-#[ -n "$_LOCK" ] || _LOCK=x exec flock -n $0 $0 "$@"
+[ -n "$_LOCK" ] || _LOCK=x exec flock -n $0 $0 "$@"
+
+max_volume=100
 
 :main() {
     local action=$1

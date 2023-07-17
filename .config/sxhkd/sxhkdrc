@@ -13,9 +13,6 @@ super + g
 control + super + g
 	DB=~/.guts/.config/bookmarks.yaml bookmarks add
 
-super + shift + r
-	modal-run --terminal
-
 shift + Delete
 	kill-focus
 
@@ -33,9 +30,6 @@ super + F2
 
 control + F10
 	brightness toggle
-
-control + F12
-	bluetooth-toggle
 
 super + 8
 	;volume down
@@ -91,14 +85,8 @@ super + grave
 super + backslash
 	quickaction
 
-super + BackSpace
-	chrome-todoist
-
 super + equal
 	tdrop -a -m -w 50% -x 25% -h 40% alacritty --class kuake -e tmux
-
-control + F3
-	wg-toggle
 
 F1
 	volume down
@@ -107,7 +95,7 @@ F2
 	volume up
 
 F4
-	linux-mac-sync-clipboard
+	modal-otp
 
 F8
 	brightness down
@@ -121,20 +109,5 @@ super + F3
 Print
 	screen-lock -suspend
 
-super + 0
-	i3-msg 'gaps horizontal current toggle 400'
-
-super + minus
-	i3-msg 'gaps top current toggle 600'
-
-control + F6
-	bluetooth-autoconnect -v | while read x; do notify $x; done
-
 control + super + f
 	zet
-
-control + 6
-	adb shell input text $(pwgen 10 1) 
-
-control + 7
-	adb shell input text 111111111

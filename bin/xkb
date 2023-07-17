@@ -18,6 +18,4 @@ if [[ -e /dev/input/by-id/usb-STMicroelectronics_USB_KB-event-kbd ]]; then
     repeat_delay=140
 fi
 
-sudo systemctl restart keychron-fn.service
-
 xset r rate $repeat_delay $repeat_rate
