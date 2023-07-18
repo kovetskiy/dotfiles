@@ -12,3 +12,5 @@
 /.config/redshift.conf
 /*.pyc
 __pycache__
+.gitconfig
+.nvimlog
