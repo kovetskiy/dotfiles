@@ -1,0 +1,23 @@
+#!/bin/bash
+
+addresses=($(host "$1" | awk '/has address /{print $4}'))
+shift
+
+params=("${@}")
+
+not_working=()
+for address in "${addresses[@]}"; do
+    echo -n "nc ${address} ${params[@]} "
+    if nc "$address" "${params[@]}" -w 3 &>/dev/null; then
+        printf "OK\n"
+    else
+        printf "FAIL\n"
+        not_working+=("$address")
+    fi
+done
+
+if [[ ${#not_working} -gt 0 ]]; then
+    echo
+    echo "not working: ${not_working[@]}"
+fi
+

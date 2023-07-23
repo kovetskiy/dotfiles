@@ -1,0 +1,109 @@
+#!/bin/env python
+# vim: set ft=python sw=4 ts=4:
+
+import os
+import sys
+import re
+import datetime
+import yaml
+
+def write_file(target_dir, block):
+    filepath = os.path.join(target_dir, block['date'] + '.md')
+    if os.path.exists(filepath):
+        print('File exists', filepath)
+        print(block)
+        sys.exit(1)
+
+    with open(filepath, 'w') as f:
+        if len(block['meta']) > 0:
+            f.write('---\n')
+            f.write(yaml.dump(block['meta'], allow_unicode=True))
+            f.write('---\n\n')
+        f.write(block['text'])
+
+    print('complete:', filepath)
+
+def parse_block(chunk):
+    chunk = chunk.strip()
+    lines = chunk.split('\n')
+    date = lines[0]
+
+    text = []
+    meta = {}
+    found_meta = False
+    for i in range(1, len(lines)):
+        line = lines[i]
+
+        if line == '' and found_meta:
+            continue
+
+        matches = re.match(r'^([A-Za-z]+): (.*)', line)
+        if matches:
+            key = matches.group(1).lower()
+            value = matches.group(2)
+            if key == 'mood' or key == 'folder' or key == 'tags':
+                value = value.lower()
+            if key == 'tags':
+                value = value.split(',')
+                value = [tag.strip() for tag in value]
+
+            meta[key] = value
+            found_meta = True
+            continue
+
+        text.append(line)
+
+    datename = str(
+        datetime.datetime.strptime(date, '%d %B %Y, %A %I:%M %p').date())
+
+    return {'date': datename, 'text': '\n'.join(text).strip(), 'meta': meta}
+
+
+def main():
+    filename = sys.argv[1]
+    target_dir = sys.argv[2]
+
+    blocks = []
+    with open(filename, 'r') as f:
+        chunks = f.read().split(
+            '------------------------------------------------------------------------------------------------\n\n'
+        )
+        for chunk in chunks:
+            block = parse_block(chunk)
+            blocks.append(block)
+
+    blocks.reverse()
+
+    for i in range(1, len(blocks)):
+        block = blocks[i]
+        prev_block = blocks[i - 1]
+
+        if block['date'] == prev_block['date']:
+            print('join blocks', block['date'])
+
+            block['text'] = prev_block['text'] + '\n\n' + block['text']
+            # concat meta, if key exists in both blocks, then create array
+            # and add both values
+            # but handle case if prev_block['meta'][key] 
+            for key in prev_block['meta']:
+                if key in block['meta']:
+                    if isinstance(block['meta'][key], list):
+                        block['meta'][key].append(prev_block['meta'][key])
+                    else:
+                        block['meta'][key] = [
+                            block['meta'][key], prev_block['meta'][key]
+                        ]
+
+            blocks[i - 1] = None
+            blocks[i] = block
+
+            continue
+
+    # remove None blocks
+    dailies = [block for block in blocks if block is not None]
+
+    for block in dailies:
+        write_file(target_dir, block)
+
+if __name__ == '__main__':
+    main()

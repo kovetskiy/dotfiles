@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -euo pipefail
+
+session=terminal-$(pwgen -0A 10 1)
+
+tmux new -s "$session" -d "${@}"
+
+alacritty -e tmux \
+    wait-for -S "$session" \; \
+    attach -t "$session" &
+pid=$!
+disown $pid
+
+tmux wait-for "$session"
+
+echo "$session"
