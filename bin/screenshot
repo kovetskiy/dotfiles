@@ -6,6 +6,9 @@ shift
 
 if [[ "$mode" == "-f" ]]; then
     import "$filename"
+elif [[ "$mode" == "-fs" ]]; then
+    # full screen, just save to file entire screen
+    import -window root "$filename"
 elif [[ "$mode" == "deepin" ]]; then
     deepin-screen-recorder "${@}" -n -s "$filename"
     if [[ ! -f "$filename" ]]; then
