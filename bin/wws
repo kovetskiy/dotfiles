@@ -6,4 +6,4 @@ windows="(Windows)"
 
 efibootmgr | grep -Po "\d+(?=\*\s+$windows)" | xargs -n1 sudo efibootmgr -n
 
-reboot
+sudo reboot
