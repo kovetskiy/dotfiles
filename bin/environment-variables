@@ -51,6 +51,17 @@ BIN=(
 )
 
 export PROFILE=$(/bin/cat "$HOME/.config/profile")
+
+case "$PROFILE" in
+    "laptop")
+        export LAPTOP=1
+        ;;
+
+    "desktop")
+        export DESKTOP=1
+        ;;
+esac
+
 export BACKGROUND=$(/bin/cat "$HOME/.config/background")
 
 BIN=$(/bin/tr ' :' '\n' <<< "${BIN[*]}:$PATH" | /bin/awk '!seen[$0]++')
