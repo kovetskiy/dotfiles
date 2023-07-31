@@ -1671,9 +1671,9 @@ eval $(dircolors ~/.dircolors.$BACKGROUND)
 unset -f colors
 
 export HISTSIZE=100000
-export SAVEHIST=100000
+export SAVEHIST=1000000000000
 
-export HISTFILE=~/.guts/.history
+export HISTFILE=~/history/zsh_history
 if [[ "$HISTFILE_OVERRIDE" ]]; then
     export HISTFILE=$HISTFILE_OVERRIDE
 fi
