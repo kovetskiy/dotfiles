@@ -106,6 +106,9 @@ F9
 super + F3
 	autoxrandr
 
+super + F12
+	laptop-switch-card
+
 Print
 	screen-lock -suspend
 
