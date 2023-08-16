@@ -819,7 +819,7 @@ docompinit() {
     }
 
     :git:get-master() {
-        if git rev-parse master >&-; then
+        if git rev-parse master > /dev/null 2>&1; then
             echo "master"
         else
             echo "main"
@@ -828,6 +828,7 @@ docompinit() {
 
     :git:master() {
         master=$(:git:get-master)
+        echo "[!] switching to origin/$master"
         git fetch && \
             git checkout origin/$master && \
             git branch -D $master && \
