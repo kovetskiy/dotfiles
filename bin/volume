@@ -14,6 +14,7 @@ max_volume=100
 }
 
 :notify() {
+    return
     local value=$1
     if [[  $value -lt 1 ]]; then
         value=0

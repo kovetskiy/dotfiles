@@ -12,7 +12,7 @@ set -euo pipefail
 }
 
 :get-pool() {
-    zfs list -pH -o name,mountpoint | awk '$2 == "/" { print $1 }'
+    sudo zfs list -pH -o name,mountpoint | awk '$2 == "/" { print $1 }'
 }
 
 :main() {

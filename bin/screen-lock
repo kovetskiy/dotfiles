@@ -4,6 +4,21 @@ export XSECURELOCK_DISCARD_FIRST_KEYPRESS=0
 export XSECURELOCK_SHOW_DATETIME=1
 export XSECURELOCK_PASSWORD_PROMPT=kaomoji
 
+volume=$(volumectl get)
+
+volumectl down $volume
+
+song=$(spotify_status -q)
+if [[ "$song" ]]; then
+    playerctl play-pause
+fi
+
 xsecurelock
+
+if [[ "$song" ]]; then
+    playerctl play-pause
+fi
+
+volumectl up $volume
 
 (sleep 5 && pidof polybar && i3-polybar) &

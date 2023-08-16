@@ -242,12 +242,12 @@ docompinit() {
     setopt rmstarsilent
     setopt append_history
     setopt extended_history
-    setopt hist_expire_dups_first
-    setopt hist_ignore_dups
     setopt hist_ignore_space
     setopt hist_verify
     setopt inc_append_history
+    setopt inc_append_history_time
     setopt share_history
+    setopt hist_save_by_copy
 
     zstyle ':zle:smart-kill-word' precise always
     zstyle ':zle:smart-kill-word' keep-slash true
@@ -641,14 +641,15 @@ docompinit() {
         if [ $# -ne 0 ]; then
             if [ -e "$1" ]; then
                 xclip -selection clipboard < "$1"
+                xclip -selection primary < "$1"
             else
                 xclip -selection clipboard <<< "$@"
+                xclip -selection primary <<< "$@"
             fi
         else
             xclip -selection clipboard
+            xclip -selection primary
         fi
-
-        xclip -o -selection clipboard | xclip -selection primary
     }
 
     restore-pkgver-pkgrel() {
@@ -1293,8 +1294,24 @@ git-commit-smart() {
     git commit -s "${args[@]}"
 }
 
+:go-vendor() {
+    if [[ ! -f go.mod ]]; then
+        echo "go.mod not found"
+        return
+    fi
+
+    go mod tidy
+
+    if [[ -d vendor ]]; then
+        rm -rf vendor
+        go mod vendor
+    fi
+}
+
 # :alias
 
+alias gv=':go-vendor'
+alias ccs='() { xclip -t image/png -selection clipboard -i ${1:-~/s.png}; }'
 alias grt='git reset'
 alias gtc='go clean -testcache'
 alias wu='wg-quick up'

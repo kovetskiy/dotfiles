@@ -20,7 +20,8 @@ nmap <silent> ]c :cfirst<CR>
 nmap <silent> [c :cnext<CR>
 nmap <silent> <tab> :next<CR>
 nmap <silent> <s-tab> :Next<CR>
-nmap <silent> <C-F><C-R> <Plug>(coc-refactor)
+nmap <silent> <C-F><C-R> <Plug>(coc-codeaction-refactor)
+vmap <silent> <C-F><C-R> <Plug>(coc-codeaction-refactor-selected)
 nmap <silent> <C-F><C-E> <Plug>(coc-rename)
 nmap <C-F><C-A>  <Plug>(coc-codeaction-selected)l
 nmap <C-F><C-D>  <Plug>(coc-codeaction)
