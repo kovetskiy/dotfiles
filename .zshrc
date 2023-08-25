@@ -1254,7 +1254,15 @@ rc() {
 }
 
 git-pr() {
-    git fetch origin pull/$1/head:pr-$1 || git fetch upstream pull/$1/head:pr-$1
+    local branch=$(:git:branch)
+    if [[ "$branch" == "pr-$1" ]]; then
+        :git:master
+    fi
+    git branch -D pr-$1 2>/dev/null
+    for remote in origin upstrea; do
+        git fetch $remote pull/$1/head:pr-$1 2>/dev/null
+    done
+
     git checkout pr-$1
 }
 
@@ -1658,6 +1666,10 @@ alias kv='tubectl get events'
 
 alias gob='go build'
 alias goi='go install'
+
+alias ain='() { dir=$(ai-new "${@}") && cd "${dir}" }'
+alias viq='vim question.md'
+alias ask='ai-ask'
 
 alias -g -- '\kya'='-o yaml'
 alias -g -- '\kow'='-o wide'
