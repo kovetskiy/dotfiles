@@ -1,0 +1,22 @@
+#!/bin/bash
+
+pa-switch-sink
+
+sink=$(pactl-get-default-sink)
+
+if [[ $sink =~ hdmi ]]; then
+    sink="HDMI"
+fi
+
+sink=$(sed -r \
+    -e 's/\s+(\w+) stereo//I' \
+    -e 's/\s+\(.*\)//I' \
+    <<< "$sink"
+)
+
+
+level=$(volumectl get)
+
+text=$(printf "%d%% 🔊 %s " $level "$sink" 2>/dev/null)
+
+notify-replace pa-switch-sink "$text"

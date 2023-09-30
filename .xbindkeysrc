@@ -42,6 +42,12 @@
     m:0x0 + c:123
     XF86AudioRaiseVolume
 
-"with-lock infobar"
+"pa-switch-output"
+    m:0x4 + c:122
+
+"pa-switch-output"
+    m:0x4 + c:123
+
+"flock -n /tmp/infobar.lock infobar"
     m:0x0 + c:121
     XF86AudioMuteVolume

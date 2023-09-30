@@ -21,9 +21,9 @@ export WORDCHARS=-
     zstyle ':completion:*' rehash true
 }
 
-docompinit() {
-    compinit -C
-}
+#docompinit() {
+#    compinit -C
+#}
 
 # :zle
 {
@@ -31,7 +31,7 @@ docompinit() {
         if [[ "$1" == "-R" || "$1" == "-U" ]]; then
             unset -f zle
 
-            docompinit
+            #docompinit
 
             :plugins:load
             :compdef:load
@@ -43,71 +43,78 @@ docompinit() {
 
 # :zgen
 {
-    if [ ! -d ~/.zgen ]; then
-        git clone https://github.com/tarjoilija/zgen ~/.zgen
+    if [ ! -d ~/.zgenom ]; then
+        git clone https://github.com/jandamm/zgenom ~/.zgenom
     fi
 
     if [ ! -d ~/.zpezto ]; then
-        ln -sfT ~/.zgen/sorin-ionescu/prezto-master ~/.zprezto
+        ln -sfT ~/.zgenom/sorin-ionescu/prezto-master ~/.zprezto
     fi
 
 
     AUTOPAIR_INHIBIT_INIT=1
 
-    source ~/.zgen/zgen.zsh
+    source ~/.zgenom/zgenom.zsh
 
-    docompinit
+    #docompinit
 
-    if ! zgen saved; then
-        zgen load seletskiy/zsh-zgen-compinit-tweak
+    if ! zgenom saved; then
+        zgenom load seletskiy/zsh-zgen-compinit-tweak
 
-        zgen load sorin-ionescu/prezto
+        zgenom load sorin-ionescu/prezto
 
-        zgen load seletskiy/zsh-prompt-lambda17
+        zgenom load seletskiy/zsh-prompt-lambda17
 
-        zgen load mafredri/zsh-async
+        zgenom load mafredri/zsh-async
 
         if [[ ! -e ~/.zgen/deadcrew/deadfiles-master ]]; then
             mkdir -p ~/.zgen/deadcrew/
             ln -s ~/deadfiles ~/.zgen/deadcrew/deadfiles-master
         fi
 
-        zgen load deadcrew/deadfiles
+        zgenom load deadcrew/deadfiles
 
-        zgen save
+        zgenom compile ~/.zshrc
+
+        zgenom save
     fi
 }
 
 {
     :plugins:load() {
-        zgen load kovetskiy/zsh-quotes
-        zgen load kovetskiy/zsh-add-params
+        zgenom load kovetskiy/zsh-quotes
+        zgenom load kovetskiy/zsh-add-params
 
-        #zgen load seletskiy/zsh-ssh-urxvt
-        zgen load seletskiy/zsh-hash-aliases
+        zgenom load zsh-users/zsh-completions
 
-        zgen load seletskiy/zsh-smart-kill-word
+        #zgenom load seletskiy/zsh-ssh-urxvt
+        zgenom load seletskiy/zsh-hash-aliases
 
-        zgen load hlissner/zsh-autopair autopair.zsh
-        zgen load seletskiy/zsh-fuzzy-search-and-edit
+        zgenom load seletskiy/zsh-smart-kill-word
 
-        zgen load kovetskiy/zsh-alias-search
+        zgenom load hlissner/zsh-autopair autopair.zsh
+        zgenom load seletskiy/zsh-fuzzy-search-and-edit
 
-        zgen oh-my-zsh plugins/sudo
-        zgen load zsh-users/zsh-history-substring-search
+        zgenom load kovetskiy/zsh-alias-search
 
-        zgen load zdharma/fast-syntax-highlighting
+        zgenom oh-my-zsh plugins/sudo
 
-        zgen load seletskiy/zsh-hijack
+        zgenom load zdharma/fast-syntax-highlighting
+        zgenom load zsh-users/zsh-history-substring-search
+
+        zgenom load seletskiy/zsh-hijack
 
         ZSH_AUTOSUGGEST_STRATEGY=("history")
-        zgen load zsh-users/zsh-autosuggestions && _zsh_autosuggest_start
+        zgenom load zsh-users/zsh-autosuggestions && _zsh_autosuggest_start
+
 
         export NVM_LAZY_LOAD=true
-        zgen load lukechilds/zsh-nvm
+        zgenom load lukechilds/zsh-nvm
 
         hash-aliases:install
         autopair-init
+
+        :bind-history
     }
 }
 
@@ -141,11 +148,15 @@ docompinit() {
 
 # :binds
 {
+    # https://github.com/zsh-users/zsh-syntax-highlighting/issues/411
+    :bind-history() {
+        bindkey -v "^R" fzf-history-widget
+        bindkey -v "^P" fzf-file-widget
+        bindkey -v "^[[A" history-substring-search-up
+        bindkey -v "^[[B" history-substring-search-down
+    }
+
     bindkey -a '^[' vi-insert
-    bindkey -v "^R" fzf-history-widget
-    bindkey -v "^P" fzf-file-widget
-    bindkey -v "^[[A" history-substring-search-up
-    bindkey -v "^[[B" history-substring-search-down
     #bindkey -v "^A" beginning-of-line
     bindkey "^[[1~" beginning-of-line
     bindkey "^[[7~" beginning-of-line
@@ -762,7 +773,7 @@ docompinit() {
     }
 
     :git:get-master() {
-        if git rev-parse master > /dev/null 2>&1; then
+        if git rev-parse --verify master 2>/dev/null; then
             echo "master"
         else
             echo "main"
@@ -771,7 +782,6 @@ docompinit() {
 
     :git:master() {
         master=$(:git:get-master)
-        echo "[!] switching to origin/$master"
         git fetch && \
             git checkout origin/$master && \
             git branch -D $master && \
@@ -999,16 +1009,6 @@ git-commit-branch() {
     done
 }
 
-:orgalorg:exec() {
-    zparseopts -D -E -- u:=username
-    orgalorg -y ${username:--uEgor.Kovetskiy} -x -C "${@}"
-}
-
-:orgalorg:exec-stdin() {
-    zparseopts -D -E -- u:=username
-    orgalorg -y ${username:--uEgor.Kovetskiy} -x -s -C "${@}"
-}
-
 :orgalorg:exec-host() {
     local host="$1"
     shift
@@ -1199,11 +1199,17 @@ rc() {
 git-pr() {
     local branch=$(:git:branch)
     if [[ "$branch" == "pr-$1" ]]; then
-        :git:master
+        if ! git checkout $(:git:get-master); then
+            echo "[!] dirty git?" >&2
+            return 1
+        fi
     fi
     git branch -D pr-$1 2>/dev/null
-    for remote in origin upstrea; do
-        git fetch $remote pull/$1/head:pr-$1 2>/dev/null
+    for remote in origin upstream; do
+        echo "[!] fetching $remote pull/$1/head" >&2
+        if git fetch $remote pull/$1/head:pr-$1 2>/dev/null; then
+            break
+        fi
     done
 
     git checkout pr-$1
@@ -1254,7 +1260,20 @@ git-commit-smart() {
 
     go mod tidy
 
+    found_vendor=false
     if [[ -d vendor ]]; then
+        found_vendor=true
+    fi
+
+    if ! $found_vendor; then
+        if [[ -f .gitignore ]]; then
+            if grep -q vendor .gitignore; then
+                found_vendor=true
+            fi
+        fi
+    fi
+
+    if $found_vendor; then
         rm -rf vendor
         go mod vendor
     fi
@@ -1318,7 +1337,7 @@ alias oxs=':orgalorg:exec-stdin'
 alias oxh=':orgalorg:exec-host'
 alias un=':until'
 alias ha=':hosts:add'
-alias rs='rm -f ~/.cache/ssh_* 2>/dev/null'
+alias rs='rm -rf ~/.cache/ssh_*'
 alias ju='journalctl --user-unit'
 alias jl='journalctl -u'
 alias s='sift'
@@ -1368,7 +1387,6 @@ alias p='vimpager'
 alias sf='sed-files'
 alias pas='packages-sync && { cd ~/dotfiles; git diff -U0 packages; }'
 alias rx='sudo systemctl restart x@vt7.service xlogin@operator.service'
-alias zgr='zgen reset'
 alias mpk='makepkg-clean'
 alias il='ip l'
 alias td='touch  /tmp/debug; tail -f /tmp/debug'
@@ -1398,7 +1416,7 @@ alias tim=terminal-vim
 
 alias history='fc -ln 0'
 alias rf='rm -rf'
-alias ls='exa -lH -F --group-directories-first --all'
+alias ls='eza -lH -F --group-directories-first --all'
 alias l='ls'
 alias v='vim'
 alias vi='vim'
@@ -1479,7 +1497,7 @@ alias gu='git-pull'
 alias guu='git-pull upstream'
 alias gus='git stash && gu && git stash pop'
 alias ggc='git gc --prune --aggressive'
-alias gor='git pull --rebase origin master'
+alias gor='git pull --rebase origin $(:git:get-master)'
 alias gsh='git stash'
 alias gshp='git stash pop'
 alias grh='echo use gr instead;'
@@ -1641,11 +1659,8 @@ eval $(dircolors ~/.dircolors.$BACKGROUND)
 
 unset -f colors
 
-export HISTSIZE=100000000
-export SAVEHIST=100000000
-# HIST_IGNORE_DUPS
-#HIST_SAVE_BY_COPY
-#HIST_IGNORE_ALL_DUPS
+export HISTSIZE=1000000000000
+export SAVEHIST=1000000000000
 
 export HISTFILE=~/history/zsh_history
 if [[ "$HISTFILE_OVERRIDE" ]]; then

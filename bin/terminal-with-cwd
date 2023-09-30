@@ -4,5 +4,10 @@ cwd=$(tmux list-clients -F '#{client_pid} #{pane_current_path}' \
     | grep -P "^$(pgrep -P $(xdotool getwindowfocus getwindowpid) tmux)" \
     | cut -f2- -d' ' | tail -n1)
 
-cd "$cwd"
-exec terminal
+if [[ "$cwd" == "$HOME" ]]; then
+    exec terminal
+fi
+
+relpath=$(realpath --relative-to="$HOME" "$cwd")
+
+exec terminal -e "$(printf 'cd %q' "$relpath")"

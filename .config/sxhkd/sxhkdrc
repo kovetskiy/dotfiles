@@ -50,10 +50,10 @@ super + Right
 	;volume up
 
 super + control + 9
-	;pa-switch-sink && notify "$(pactl-get-default-sink)"
+	pa-switch-output
 
 super + control + 0
-	;pa-switch-profile -i webcam active output:hdmi-stereo output:analog-stereo
+	pa-switch-profile -i webcam active output:hdmi-stereo output:analog-stereo
 
 super + control + e
 	translator

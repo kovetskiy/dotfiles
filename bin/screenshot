@@ -24,5 +24,11 @@ fi
 ln -sf "$filename" "$HOME/screenshots/last.png"
 ln -sf "$filename" "$HOME/s.png"
 
-#xclip -selection primary -t image/png < "$filename"
-#xclip -selection clipboard -t image/png < "$filename"
+# make sure there is no deepin process lurking around
+while pgrep -x deepin-screen-recorder > /dev/null; do
+    sleep 0.1
+done
+
+sleep 1 # i have no idea why some apps get stuck at xclip
+
+xclip -selection clipboard -t image/png -i "$filename"

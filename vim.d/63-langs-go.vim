@@ -114,21 +114,23 @@ endfunc!
 
 
 func! _chain_wrap(first)
-    let match = search(').', 'cs', line('.'))
+    let match = search('\(karma\|)\)\.', 'ces', line('.'))
     if match == 0
         return
     endif
-    call cursor(match, 0)
 
-    let cmd = "lli\r"
+    let col = col('.')
+    call cursor(line('.'), col)
+
+    let cmd = "li\r"
     if a:first == 1
-        let l:cmd = l:cmd . "\t"
+        let cmd = cmd . "\t"
     endif
 
-    exec "normal" l:cmd
+    exec "normal" cmd
 
     call _chain_wrap(0)
-endfunc!
+endfunc
 
 let g:ale_fixers['go'] = [function("synta#ale#golines#Fix"), function("synta#ale#goimports#Fix")]
 let g:ale_fixers['go2'] = ['gofmt']

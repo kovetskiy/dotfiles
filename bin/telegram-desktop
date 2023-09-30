@@ -27,11 +27,7 @@ if ! pidof telegram-desktop; then
         echo -n "$current" > $cache
     fi
 
-    export QT_STYLE_OVERRIDE=""
-    export QT_QPA_PLATFORMTHEME=gtk3
-    export DESKTOP_APP_I_KNOW_ABOUT_GTK_INCOMPATIBILITY=1
-    export DESKTOP_APP_DISABLE_GTK_INTEGRATION=1
-    export DESKTOPINTEGRATION=1
+    export QT_QPA_PLATFORMTHEME=xdgdesktopportal
     /bin/telegram-desktop &
     exit 0
 fi
