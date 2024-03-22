@@ -35,4 +35,9 @@ fi
 :blue ":: go mod tidy"
 go mod tidy
 
+if [[ -d "vendor" ]]; then
+    :blue ":: go mod vendor"
+    go mod vendor
+fi
+
 sleep 1

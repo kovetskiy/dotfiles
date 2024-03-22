@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tabs=$(curl -s "http://localhost:3451/rpc?command=list_tabs")
+tabs=$(curl -m 1 -s "http://localhost:3451/rpc?command=list_tabs")
 
 pick=$(
     echo "$tabs" \

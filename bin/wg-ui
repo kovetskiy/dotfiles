@@ -1,7 +1,7 @@
 #!/bin/bash
 
 :peers() {
-     systemctl list-units --no-legend --no-pager | grep -Po 'wg-quick@\K.*(?=.service)'
+     sudo wg show all peers | awk '{print $1}'
 }
 
 :join() {
@@ -14,19 +14,25 @@
 :is-active() {
     local id="$1"
 
-    [[ "$(systemctl is-active "wg-quick@$id.service")" == "active" ]]
+    if :peers | grep -q "$id"; then
+        return 0
+    fi
+
+    return 1
 }
 
 :down() {
     local id="$1"
 
-    sudo systemctl stop "wg-quick@$id.service"
+    sudo systemctl stop "wg-quick@$id.service" 2>/dev/null
+    wg-quick down "$id" 2>/dev/null
 }
 
 :up() {
     local id="$1"
 
-    sudo systemctl start "wg-quick@$id.service"
+    #sudo systemctl start "wg-quick@$id.service" 2>/dev/null
+    wg-quick up "$id" 2>/dev/null
 }
 
 :main() {
@@ -73,23 +79,74 @@
     fi
 
     if [[ "$mode" == "switch" ]]; then
-        # support only two id
-        id1="$2"
-        id2="$3"
+        set -x
+        ## support only two id
+        #id1="$2"
+        #id2="$3"
 
-        if :is-active "$id1"; then
-            :down "$id1"
-            echo "[!] $id1 is down"
-            :up "$id2"
-            echo "[!] $id2 is up"
-        else
-            if :is-active "$id2"; then
-                :down "$id2"
-                echo "[!] $id2 is down"
+        #if :is-active "$id1"; then
+        #    :down "$id1"
+        #    echo "[!] $id1 is down"
+        #    :up "$id2"
+        #    echo "[!] $id2 is up"
+        #else
+        #    if :is-active "$id2"; then
+        #        :down "$id2"
+        #        echo "[!] $id2 is down"
+        #    fi
+        #    :up "$id1"
+        #    echo "[!] $id1 is up"
+        #fi
+        list=(${@:2})
+        total="${#list[@]}"
+        last="${list[-1]}"
+
+        for ((i=0; i<total; i++)); do
+            id="${list[$i]}"
+            if :is-active "$id"; then
+                :down "$id"
+                echo "[!] $id is down"
+
+                if [[ "$id" == "$last" ]]; then
+                    :up "${list[0]}"
+                    echo "[!] ${list[0]} is up"
+                else
+                    :up "${list[$((i+1))]}"
+                    echo "[!] ${list[$((i+1))]} is up"
+                fi
+
+                exit 0
             fi
-            :up "$id1"
-            echo "[!] $id1 is up"
+        done
+
+        :up "${list[0]}"
+    fi
+
+    if [[ "$mode" == "ks" ]]; then
+        peers="$(:peers)"
+        id="$2"
+        if ! :is-active "$id"; then
+            :up "$id"
+            echo "[!] $id is up"
         fi
+
+        shift 2
+
+        if [[ "${1:-}" == "-" ]]; then
+            for peer in $peers; do
+                :down "$peer"
+                echo "[!] $peer is down"
+            done
+
+            return
+        fi
+
+        for id in "$@"; do
+            if :is-active "$id"; then
+                :down "$id"
+                echo "[!] $id is down"
+            fi
+        done
     fi
 }
 

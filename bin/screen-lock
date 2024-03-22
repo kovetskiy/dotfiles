@@ -1,24 +1,28 @@
 #!/bin/bash
 
-export XSECURELOCK_DISCARD_FIRST_KEYPRESS=0
-export XSECURELOCK_SHOW_DATETIME=1
-export XSECURELOCK_PASSWORD_PROMPT=kaomoji
+import -window root /tmp/s.png
+convert /tmp/s.png /tmp/s_blurred.png
+exec i3lock -i /tmp/s_blurred.png 
 
-volume=$(volumectl get)
+#export XSECURELOCK_DISCARD_FIRST_KEYPRESS=0
+#export XSECURELOCK_SHOW_DATETIME=1
+#export XSECURELOCK_PASSWORD_PROMPT=kaomoji
 
-volumectl down $volume
+#volume=$(volumectl get)
 
-song=$(spotify_status -q)
-if [[ "$song" ]]; then
-    playerctl play-pause
-fi
+#volumectl down $volume
 
-xsecurelock
+#song=$(spotify_status -q)
+#if [[ "$song" ]]; then
+#    playerctl play-pause
+#fi
 
-if [[ "$song" ]]; then
-    playerctl play-pause
-fi
+#xsecurelock
 
-volumectl up $volume
+#if [[ "$song" ]]; then
+#    playerctl play-pause
+#fi
 
-(sleep 5 && pidof polybar && i3-polybar) &
+#volumectl up $volume
+
+#(sleep 5 && pidof polybar && i3-polybar) &

@@ -18,6 +18,8 @@ if $BACKGROUND == "dark"
         hi! Pmenu guibg=#262626 guifg=#ffffff
         hi! CocErrorHighlight guibg=NONE guifg=#dc322f
         hi! CocErrorSign guifg=#dc322f guibg=#262626
+ 
+        hi Comment ctermfg=11 guifg=#f1fa8c
     endfunc!
 endif
 

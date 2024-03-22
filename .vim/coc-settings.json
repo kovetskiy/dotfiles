@@ -1,4 +1,5 @@
 {
+  "workspace.ignoredFolders": ["$HOME", "$HOME/.cargo/**", "$HOME/.rustup/**"],
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
   "diagnostic.errorSign": "\\ E",
@@ -28,6 +29,13 @@
   "tsserver.log": "verbose",
   "tsserver.trace.server": "verbose",
   "languageserver": {
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": ["terraform", "tf"],
+      "initializationOptions": {},
+      "settings": {}
+    },
     "golangci-lint-languageserver": {
       "command": "golangci-lint-langserver",
       "filetypes": ["go"],
@@ -71,6 +79,8 @@
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "go.trace.server": "verbose",
   "go.goplsOptions": {
+    "allowModfileModifications": true,
+    "allowImplicitNetworkAccess":true,
     "gofumpt": false,
     "codelenses": {
       "generate": true,
@@ -86,7 +96,6 @@
     "hoverKind": "FullDocumentation",
     "verboseOutput": true
   },
-  "go.goplsPath": "/home/operator/go/bin/gopls",
   "java.jdt.ls.vmargs": "-noverify -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:\"/home/operator/.config/coc/extensions/node_modules/coc-java-lombok/jar/lombok.jar\"",
   "java.format.settings.url": "/home/operator/sources/github.com/neoclide/redhat.java/eclipse-formatter.xml",
   "typescript.validate.enable": true,

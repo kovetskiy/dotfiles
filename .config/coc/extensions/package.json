@@ -15,10 +15,11 @@
     "coc-xml": ">=1.14.1",
     "coc-yaml": ">=1.8.0",
     "coc-zig": ">=0.6.1",
-    "coc-clangd": ">=0.28.0",
-    "coc-prettier": ">=9.3.1"
+    "coc-clangd": ">=0.29.3",
+    "coc-prettier": ">=9.3.1",
+    "coc-rust-analyzer": ">=0.75.0"
   },
   "disabled": [],
   "locked": [],
-  "lastUpdate": 1683017894840
+  "lastUpdate": 1709112918684
 }

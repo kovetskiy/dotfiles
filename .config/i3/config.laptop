@@ -1,0 +1,17 @@
+set $left DVI-I-4-4
+set $center eDP1
+set $right DVI-I-1-1
+
+workspace 1 output $center
+workspace 2 output $center
+workspace 3 output $center
+workspace 4 output $center
+workspace s output $center
+
+workspace a output $left
+workspace z output $left
+workspace d output $left
+
+workspace q output $right
+workspace w output $right
+workspace e output $right

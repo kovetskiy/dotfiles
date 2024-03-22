@@ -1,28 +1,60 @@
-#!/bin/bash
+#!/bin/env python3
+# vim: ft=python
 
-[ -n "$_LOCK" ] || _LOCK=x exec flock -n $0 $0 "$@"
+import sys
+import os
+import os.path
+import subprocess
+from urllib.parse import urlparse, urlunparse
 
-url=$(sed -r 's#^(git+ssh|ssh|git)://(\w+@)?##' <<< "$1")
-params="${@:2}"
+url = sys.argv[1] if len(sys.argv) > 1 else ''
+parsed_url = urlparse(url)
 
-scheme=$(grep -Po '^\w+://' <<< "$url")
-if [[ "$scheme" != "http://"
-   && "$scheme" != "https://"
-   && "$scheme" != "ftp://"
-   && "$scheme" != "file://"
-   && "$scheme" != "" ]]; then
-    notify "Unexpected scheme: '$scheme'"
-    exit 1
-fi
+if parsed_url.scheme in ['tc']:
+    subprocess.run(['i3-msg', 'exec mtw ' + url])
+    exit(0)
 
-if [[ -e "${url}" ]]; then
-    url="$(readlink -f "${url}")"
-fi
+if parsed_url.scheme in ['git+ssh', 'ssh', 'git']:
+    scheme = 'https'
+    netloc = parsed_url.netloc.replace('git@', '')
+    path = parsed_url.path
+    if path.endswith('.git'):
+        path = path[:-4]
+    url = urlunparse((scheme, netloc, path, '', '', ''))
 
-browser="chromium"
+if parsed_url.scheme == '' and url.startswith('git@'):
+    scheme = 'https'
+    if ':' in parsed_url.path.split('/')[0]:
+        chunks = parsed_url.path.split(':', 2)
+        netloc = chunks[0].replace('git@', '')
+        path = chunks[1]
+    else:
+        netloc = parsed_url.netloc
+        path = parsed_url.path
 
-if [[ "$url" ]]; then
-    i3-msg "exec \"$browser \\\"$url\\\""
-else
-    i3-msg "exec $browser"
-fi
+    if path.endswith('.git'):
+        path = path[:-4]
+
+    url = urlunparse((scheme, netloc, path, '', '', ''))
+
+if parsed_url.scheme == '' and url != '':
+    file_path = parsed_url.path
+    if os.path.exists(file_path):
+        scheme = 'file'
+        url = urlunparse((scheme, '', file_path, '', '', ''))
+    else:
+        raise Exception(f'File {file_path} does not exist')
+
+browser = 'chromium'
+
+cmd = [browser]
+if url:
+    cmd.append(url)
+    if len(sys.argv) > 2:
+        cmd.extend(sys.argv[2:])
+    i3_cmd = f"exec {' '.join(map(subprocess.list2cmdline, [cmd]))}"
+else:
+    i3_cmd = f"exec {browser}"
+
+print(i3_cmd)
+subprocess.run(['i3-msg', i3_cmd])

@@ -1,6 +1,6 @@
 . ~/bin/environment-variables
 
-export TERM=screen-256color
+export TERM=alacritty
 
 export KEYTIMEOUT=100
 export WORDCHARS=-
@@ -117,7 +117,6 @@ docompinit() {
         compdef github-browse=ls
         compdef man-directive=man
         compdef vim-which=which
-        compdef smash=ssh
         compdef guess=which
         compdef _git gdd=git-checkout
     }
@@ -245,9 +244,34 @@ docompinit() {
     setopt hist_ignore_space
     setopt hist_verify
     setopt inc_append_history
-    setopt inc_append_history_time
     setopt share_history
     setopt hist_save_by_copy
+
+
+    # If the internal history needs to be trimmed to add the current command line,
+    # setting this option will cause the oldest history event that has a duplicate
+    # to be lost before losing a unique event from the list. You should be sure to
+    # set the value of HISTSIZE to a larger number than SAVEHIST in order to give
+    # you some room for the duplicated events, otherwise this option will behave
+    # just like HIST_IGNORE_ALL_DUPS once the history fills up with unique events.
+    # 
+    # ^disabled
+    unsetopt histexpiredupsfirst
+
+    # If a new command line being added to the history list duplicates an older
+    # one, the older command is removed from the list (even if it is not the
+    # previous event).
+    # 
+    # ^disabled
+    unsetopt histignorealldups
+
+    # Do not enter command lines into the history list if they are duplicates of the
+    # previous event.
+    #
+    # ^ enabled
+    setopt hist_ignore_dups
+
+    unsetopt hist_save_no_dups
 
     zstyle ':zle:smart-kill-word' precise always
     zstyle ':zle:smart-kill-word' keep-slash true
@@ -335,15 +359,15 @@ docompinit() {
             for file in "${files[@]}"; do
                 if $diff; then
                     after=$(mktemp -u)
-                    sed -r "s/$from/$to/g" $file > $after
-                    git diff --color $file $after | diff-so-fancy
+                    sed -r "s/$from/$to/" $file > $after
+                    git diff $file $after
                 else
-                    sed -ri "s/$from/$to/g" $file
+                    sed -ri "s/$from/$to/" $file
                 fi
             done
 
         else
-            sed -r "s/$from/$to/g"
+            sed -r "s/$from/$to/"
         fi
     }
 
@@ -443,80 +467,6 @@ docompinit() {
         git remote rm origin
         echo "$new_url"
         git remote add origin "$new_url"
-    }
-
-    go-get-enhanced() {
-        if [ $# -eq 0 ]; then
-            go get
-            return
-        fi
-
-        local url=""
-        local dir=""
-        local flags=("-v")
-        local update=false
-        if [ "$1" = "u" -o "$1" = "-u" -o "$1" = "-" ]; then
-            flags+=("-u")
-            update=true
-            shift
-        fi
-
-        if [ $# -eq 0 ]; then
-            go get ${flags[@]}
-            return
-        fi
-
-        import=$(sed 's/.*:\/\///' <<< "$1")
-        shift
-
-        flags+=("$@")
-        local slashes=$(grep -o '/'  <<< "$import" | wc -l)
-        if [ $slashes = 1 ]; then
-            user=$(cut -d/ -f1 <<< "$import")
-            repo=$(cut -d/ -f2 <<< "$import")
-            case "$user" in
-                s)
-                    import="seletskiy/$repo"
-                    ;;
-
-                r)
-                    import="reconquest/$repo"
-                    ;;
-
-                d)
-                    import="deadcrew/$repo"
-                    ;;
-            esac
-
-            import="github.com/$import"
-        fi
-
-        if $update && [ $slashes = 0 ]; then
-            dependency_import=$(
-                go list -f \
-                    '{{ range $dep := .Deps }}{{ $dep }}{{ "\n" }}{{ end }}' . \
-                    | awk "/\/$import\$/ { print }"
-            )
-            if [ "$dependency_import" ]; then
-                import=$dependency_import
-            fi
-        fi
-
-        if [ ! "$dependency_import" ] && [ $slashes = 0 ]; then
-            import="github.com/kovetskiy/$import"
-        fi
-
-        go get ${flags[@]} $import
-
-        dir=$GOPATH/src/$import
-        if [[ "$dir" == *.git ]]; then
-            dir=$(sed 's/\.git//' <<< "$dir")
-        fi
-
-        if [ -d $dir ]; then
-            cd $dir
-            git submodule update --init
-        fi
     }
 
     create-and-change-directory() {
@@ -737,13 +687,6 @@ docompinit() {
         git clean -ffdx
     }
 
-    ssh-enhanced() {
-        local hostname="$1"
-        tmux set status on
-        tmux set status-left "# $hostname"
-        smash -z "$@"
-        tmux set status off
-    }
     makepkg-clean() {
         local branch="$1"
         rm -rf *.xz
@@ -1446,7 +1389,6 @@ alias f=':find'
 alias si='ssh-copy-id'
 
 alias cdp='cd-pkgbuild'
-alias gog='go-get-enhanced'
 alias gme='go-makepkg-enhanced'
 alias gmev='FLAGS="-p version" go-makepkg-enhanced'
 alias gmevs='FLAGS="-p version -s" go-makepkg-enhanced'
@@ -1674,9 +1616,8 @@ alias ask='ai-ask'
 alias -g -- '\kya'='-o yaml'
 alias -g -- '\kow'='-o wide'
 
-# ssh settings
+alias gmf='sed -i "/replace/d" go.mod; go mod tidy'
 
-ssh-add ~/.ssh/id_rsa 2>/dev/null
 stty -ixon
 
 FZF_TMUX_HEIGHT=0
@@ -1700,16 +1641,16 @@ eval $(dircolors ~/.dircolors.$BACKGROUND)
 
 unset -f colors
 
-export HISTSIZE=100000
-export SAVEHIST=1000000000000
+export HISTSIZE=100000000
+export SAVEHIST=100000000
+# HIST_IGNORE_DUPS
+#HIST_SAVE_BY_COPY
+#HIST_IGNORE_ALL_DUPS
 
 export HISTFILE=~/history/zsh_history
 if [[ "$HISTFILE_OVERRIDE" ]]; then
     export HISTFILE=$HISTFILE_OVERRIDE
 fi
 
-setopt share_history
-
 source ~/.guts/zsh/*.zsh
-
 #source /usr/share/nvm/init-nvm.sh

@@ -1,7 +1,15 @@
 #!/bin/bash
 
+# if args passed, then just run i3-msg 'workspace $1; exec telegram-desktop "$@"'
+
+set -x
 xd_class="telegram-desktop"
 ws=q
+
+if [[ $# -gt 0 ]]; then
+    /bin/telegram-desktop "${@}" &
+    exit 0
+fi
 
 :current() {
     i3-msg -t get_workspaces \

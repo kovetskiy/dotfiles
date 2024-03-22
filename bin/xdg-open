@@ -1,6 +1,5 @@
 #!/bin/bash
 
-[ -n "$_LOCK" ] || _LOCK=x exec flock -n $0 $0 "$@"
 
 url="$1"
 
