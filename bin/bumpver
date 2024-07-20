@@ -1,0 +1,57 @@
+#!/bin/env python3
+
+import os
+import re
+import sys
+
+def update_version(file_path, version_type):
+    with open(file_path, 'r') as file:
+        content = file.read()
+
+    version_pattern = r'(version\s*=\s*")(\d+\.\d+\.\d+)(")'
+    match = re.search(version_pattern, content)
+
+    if match:
+        current_version = match.group(2)
+        major, minor, patch = map(int, current_version.split('.'))
+
+        if version_type == 'major':
+            major += 1
+            minor = 0
+            patch = 0
+        elif version_type == 'minor':
+            minor += 1
+            patch = 0
+        elif version_type == 'patch':
+            patch += 1
+        else:
+            print(f"Invalid version type: {version_type}")
+            return
+
+        new_version = f"{major}.{minor}.{patch}"
+        new_content = re.sub(version_pattern, r'\g<1>' + new_version + r'\g<3>', content)
+
+        with open(file_path, 'w') as file:
+            file.write(new_content)
+
+        print(f"Updated {file_path}: {current_version} -> {new_version}")
+    else:
+        print(f"No version found in {file_path}")
+
+def update_versions_in_directory(directory, version_type):
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            if file.endswith('.go'):
+                file_path = os.path.join(root, file)
+                update_version(file_path, version_type)
+
+if __name__ == '__main__':
+    if len(sys.argv) != 3:
+        print("Usage: python script.py <directory> <version_type>")
+        print("version_type can be 'major', 'minor', or 'patch'")
+        sys.exit(1)
+
+    directory = sys.argv[1]
+    version_type = sys.argv[2]
+
+    update_versions_in_directory(directory, version_type)

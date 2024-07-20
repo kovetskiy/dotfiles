@@ -41,6 +41,7 @@ if parsed_url.scheme == '' and url != '':
     file_path = parsed_url.path
     if os.path.exists(file_path):
         scheme = 'file'
+        file_path = os.path.abspath(file_path)
         url = urlunparse((scheme, '', file_path, '', '', ''))
     else:
         raise Exception(f'File {file_path} does not exist')
@@ -55,6 +56,9 @@ if url:
     i3_cmd = f"exec {' '.join(map(subprocess.list2cmdline, [cmd]))}"
 else:
     i3_cmd = f"exec {browser}"
+
+with open('/tmp/browser.log', 'w') as f:
+    f.write(i3_cmd)
 
 print(i3_cmd)
 subprocess.run(['i3-msg', i3_cmd])

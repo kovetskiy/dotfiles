@@ -130,10 +130,18 @@ Plug 'yuezk/vim-js'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
 
-Plug 'github/copilot.vim'
-    imap <silent><script><expr> <C-Q> copilot#Accept("\<CR>")
-    let g:copilot_no_tab_map = v:true
-    let g:copilot_filetypes = { '*': v:true }
+Plug 'Exafunction/codeium.vim'
+    let g:codeium_no_map_tab = v:true
+    let g:codeium_log_file = "~/.codeium/codeium.log"
+
+    imap <script><silent><nowait><expr> <C-q> codeium#Accept()
+    imap <C-;>   <Cmd>call codeium#CycleCompletions(1)<CR>
+    imap <C-,>   <Cmd>call codeium#CycleCompletions(-1)<CR>
+    imap <C-x>   <Cmd>call codeium#Clear()<CR>
+"Plug 'github/copilot.vim'
+"    imap <silent><script><expr> <C-Q> copilot#Accept("\<CR>")
+"    let g:copilot_no_tab_map = v:true
+"    let g:copilot_filetypes = { '*': v:true }
 
 Plug 'mogelbrod/vim-jsonpath'
     noremap <buffer> <silent> <C-J><C-D> :call jsonpath#echo()<CR>
@@ -146,6 +154,13 @@ Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'sebdah/vim-delve'
 Plug 'towolf/vim-helm'
 Plug 'terrastruct/d2-vim'
+Plug 'CoderCookE/vim-chatgpt'
+    let g:chat_gpt_max_tokens = 2000
+    let g:chat_gpt_model = 'gpt-4'
+    let g:chat_gpt_session_mode = 0
+    let g:chat_gpt_temperature = 0.7
+    let g:chat_gpt_split_direction = 'vertical'
+    let g:split_ratio = 4
 
 
 call plug#end()

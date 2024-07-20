@@ -1,7 +1,8 @@
 #!/bin/bash
 
-
 url="$1"
+
+echo "$*" >> /tmp/xdg-open.log
 
 if [[ "$url" =~ "open.spotify.com" ]] || [[ "$url" =~ "spotify://" ]]; then
     spotify_uri=$(grep -Po '(open.spotify.com/|spotify://)\K\w+/[^?]+' <<< "$url" | sed 's@/@:@')

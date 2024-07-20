@@ -7,7 +7,7 @@ augroup end
 augroup _code_go
     au!
     au BufRead,BufNewFile *.go,*.go2 call _setup_local_go()
-    au BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+    "au BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
     "au BufWritePre *.go 
 
     au BufEnter *.template call _extend_templatego()
@@ -31,7 +31,7 @@ func! _setup_local_go()
 
     nmap <buffer><silent> <C-Q> :call _goto_prev_func()<CR>
     nmap <silent><buffer> <c-s> :w<CR>
-    nmap <silent><buffer> <c-p> :silent call synta#go#build()<CR>
+    nmap <silent><buffer> <c-p> :silent call CocAction('runCommand', 'editor.action.organizeImport')<CR>:silent call synta#go#build()<CR>
     nmap <silent><buffer> <c-f><c-q> :call _go_mod_vendor()<CR>
     nmap <silent><buffer> <leader><c-p> :call synta#quickfix#next()<CR>
     nmap <silent><buffer> <c-p><c-n> :call PythonxCocDiagnosticNext()<CR>

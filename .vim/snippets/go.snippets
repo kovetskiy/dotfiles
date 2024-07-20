@@ -208,7 +208,7 @@ endsnippet
 global !p
 def is_inside_var(snip):
     return px.whitespaces.match_higher_indent(
-        snip.buffer, snip.cursor, 'var \($'
+        snip.buffer, snip.cursor, r'var \($'
     )
 endglobal
 

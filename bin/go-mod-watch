@@ -13,7 +13,7 @@
 }
 
 if [[ ! "$1" ]]; then
-    exec watcher -x vendor '\.go$' -- "$0" "%s"
+    exec with-lock watcher -x vendor '\.go$' -- "$0" "%s"
 fi
 
 :blue ":: go build because of $1"

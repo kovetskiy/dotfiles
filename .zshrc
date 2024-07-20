@@ -1,6 +1,7 @@
 . ~/bin/environment-variables
 
 export TERM=alacritty
+export DISABLE_MAGIC_FUNCTIONS=true
 
 export KEYTIMEOUT=100
 export WORDCHARS=-
@@ -1215,6 +1216,25 @@ git-pr() {
     git checkout pr-$1
 }
 
+git-mr() {
+    local branch=$(:git:branch)
+    if [[ "$branch" == "mr-$1" ]]; then
+        if ! git checkout $(:git:get-master); then
+            echo "[!] dirty git?" >&2
+            return 1
+        fi
+    fi
+    git branch -D mr-$1 2>/dev/null
+    for remote in origin upstream; do
+        echo "[!] fetching $remote merge-requests/$1/head" >&2
+        if git fetch $remote merge-requests/$1/head:mr-$1 2>/dev/null; then
+            break
+        fi
+    done
+
+    git checkout mr-$1
+}
+
 git-commit-smart() {
     local args=()
     local message=()
@@ -1635,6 +1655,14 @@ alias -g -- '\kya'='-o yaml'
 alias -g -- '\kow'='-o wide'
 
 alias gmf='sed -i "/replace/d" go.mod; go mod tidy'
+
+go-get-but-move-to-gopath() {
+    if result=$(gogetsrc "${@}"); then
+        cd $result
+    fi
+}
+
+alias gog=go-get-but-move-to-gopath
 
 stty -ixon
 

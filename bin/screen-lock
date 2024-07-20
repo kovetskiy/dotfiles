@@ -1,8 +1,13 @@
 #!/bin/bash
 
-import -window root /tmp/s.png
-convert /tmp/s.png /tmp/s_blurred.png
-exec i3lock -i /tmp/s_blurred.png 
+#ffmpeg -y -f x11grab -i :0.0 -vframes 1 -vf "curves=all='0/0 0.7/0.7 1/0.5'" -vf "boxblur=5:1" /tmp/ffmpeg.png
+ffmpeg -y -f x11grab -i :0.0 -vframes 1 -vf "boxblur=40:1,curves=all='0/0 0.7/0.7 1/0.5'" /tmp/ffmpeg.png
+#import -window root /tmp/s.png
+##convert /tmp/s.png /tmp/s_blurred.png
+##blur
+#convert /tmp/s.png -blur 0x5 /tmp/s_blurred.png
+exec i3lock -k -i /tmp/ffmpeg.png
+#i3lock -B 10 -k
 
 #export XSECURELOCK_DISCARD_FIRST_KEYPRESS=0
 #export XSECURELOCK_SHOW_DATETIME=1

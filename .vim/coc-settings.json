@@ -56,7 +56,7 @@
       "ignoredRootPaths": ["~"]
     },
     "golang": {
-      "command": "gopls",
+      "command": "/usr/bin/gopls",
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"],
       "initializationOptions": {
@@ -78,9 +78,8 @@
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "go.trace.server": "verbose",
+  "go.goplsUseDaemon": true,
   "go.goplsOptions": {
-    "allowModfileModifications": true,
-    "allowImplicitNetworkAccess":true,
     "gofumpt": false,
     "codelenses": {
       "generate": true,

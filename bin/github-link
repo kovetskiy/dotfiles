@@ -15,23 +15,30 @@ set -euo pipefail
     local origin
     origin=$(git -C $root remote get-url origin)
 
+    local hostname
+    hostname=$(sed -E 's#^(https?://|git@)([^:/]+).*#\2#' <<< "$origin")
+
     local repo
-    repo=$(grep -Po '[:/]\K[^/]+/[^/]+$' <<< "$origin" | sed 's|\.git$||')
+    repo=$(sed -E 's#^(https?://|git@)[^:/]+[:/]([^/]+/[^/]+)(\.git)?#\2#' <<< "$origin")
 
     local branch
     branch=$(git -C $root rev-parse --abbrev-ref HEAD)
 
     local link
-    link="https://github.com/$repo/blob/$branch/$filename"
+    if [[ "$hostname" == *"gitlab"* ]]; then
+        link="https://$hostname/$repo/-/blob/$branch/$filename"
+    else
+        link="https://$hostname/$repo/blob/$branch/$filename"
+    fi
 
     if [[ "$line" ]]; then
         link="$link#L$line"
     fi
 
-    notify-send 1 $link
+    notify-send 1 "$link"
 
-    echo -n $link | xclip -selection primary
-    echo -n $link | xclip -selection clipboard
+    echo -n "$link" | xclip -selection primary
+    echo -n "$link" | xclip -selection clipboard
 }
 
 :log() {

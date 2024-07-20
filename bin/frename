@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+"""frename - File and Directory Renaming Tool
+
+This script recursively renames files and directories using sed.
+
+Usage:
+  frename [options] <regexp> [<dir>]
+
+Options:
+  -h --help     Show this help message and exit.
+  -v --verbose  Increase verbosity of output.
+
+Arguments:
+  <regexp>      Regular expression for renaming (sed-style substitution).
+  <dir>         Directory to start from [default: current directory].
+"""
+
+from docopt import docopt
+import os
+import sys
+import subprocess
+
+def rename_with_sed(old_path, regexp, verbose=False):
+    try:
+        new_name = subprocess.check_output(['sed', '-r', regexp], input=os.path.basename(old_path), universal_newlines=True).strip()
+        new_path = os.path.join(os.path.dirname(old_path), new_name)
+        
+        if old_path != new_path:
+            os.rename(old_path, new_path)
+            if verbose:
+                print(f"Renamed: {old_path} -> {new_path}")
+
+        return new_path
+    except subprocess.CalledProcessError as e:
+        print(f"Error applying sed to {old_path}: {e}", file=sys.stderr)
+        sys.exit(1)
+    except OSError as e:
+        print(f"Error renaming {old_path}: {e}", file=sys.stderr)
+    
+    return old_path
+
+def rename_recursive(start_dir, regexp, verbose=False):
+    for root, dirs, files in os.walk(start_dir, topdown=False):
+        # Rename directories first (bottom-up)
+        for i, name in enumerate(dirs):
+            old_path = os.path.join(root, name)
+            new_path = rename_with_sed(old_path, regexp, verbose)
+            dirs[i] = os.path.basename(new_path)
+
+        # Then rename files
+        for name in files:
+            old_path = os.path.join(root, name)
+            rename_with_sed(old_path, regexp, verbose)
+
+    # Rename the start directory if needed
+    if start_dir != '.':
+        rename_with_sed(start_dir, regexp, verbose)
+
+if __name__ == '__main__':
+    arguments = docopt(__doc__)
+    regexp = arguments['<regexp>']
+    start_dir = arguments['<dir>'] or '.'
+    verbose = arguments['--verbose']
+
+    if not os.path.exists(start_dir):
+        print(f"Error: Directory '{start_dir}' does not exist.", file=sys.stderr)
+        sys.exit(1)
+
+    rename_recursive(start_dir, regexp, verbose)

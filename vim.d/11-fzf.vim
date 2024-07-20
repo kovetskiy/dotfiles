@@ -1,5 +1,5 @@
 let g:fzf_prefer_tmux = 1
-let g:fzf_layout = { 'down': '~50%' }
+let g:fzf_layout = { 'down': '50%' }
 
 func! _select_file(...)
     let dir = ""
@@ -9,14 +9,17 @@ func! _select_file(...)
 
     let cmd = 'prols'
 
-    let rule = 'suffix:.' . expand('%:e') . ',score:50'
-    let cmd = cmd . ' -r ' . fzf#shellescape(rule)
+    let suffix = expand('%:e')
+    if suffix != ""
+        let rule = 'suffix:.' . suffix . ',score:50'
+        let cmd = cmd . ' -r ' . fzf#shellescape(rule)
+    endif
 
     let cmd = cmd . ' ' . dir
 
     call fzf#run(fzf#wrap({
         \ 'source': cmd,
-        \ 'options': '--sort --no-exact --tiebreak=index'
+        \ 'options': '--no-exact --tiebreak=index'
     \ }))
 endfunc!
 

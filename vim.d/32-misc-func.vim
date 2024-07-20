@@ -151,6 +151,10 @@ func! _sidesearch()
         let word = input('search: ')
     endif
 
+    let g:side_search_prg = 'ag --word-regexp'
+      \. " --ignore='*.js.map'"
+      \. " --heading --stats"
+
     call SideSearch(word)
 endfunc!
 
