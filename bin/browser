@@ -50,7 +50,7 @@ browser = 'chromium'
 
 cmd = [browser]
 if url:
-    cmd.append(url)
+    cmd.append('"' + url + '"')
     if len(sys.argv) > 2:
         cmd.extend(sys.argv[2:])
     i3_cmd = f"exec {' '.join(map(subprocess.list2cmdline, [cmd]))}"

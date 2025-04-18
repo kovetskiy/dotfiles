@@ -142,6 +142,8 @@ Plug 'Exafunction/codeium.vim'
 "    imap <silent><script><expr> <C-Q> copilot#Accept("\<CR>")
 "    let g:copilot_no_tab_map = v:true
 "    let g:copilot_filetypes = { '*': v:true }
+"    let g:copilot_proxy = 'http://localhost:11435'
+"    let g:copilot_proxy_strict_ssl = v:false
 
 Plug 'mogelbrod/vim-jsonpath'
     noremap <buffer> <silent> <C-J><C-D> :call jsonpath#echo()<CR>

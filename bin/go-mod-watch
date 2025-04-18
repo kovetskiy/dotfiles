@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 :blue() {
     echo -e '\e[48;5;18m:: \e[1m'"${@}"' \e[0m'
 }
@@ -12,32 +13,53 @@
     echo -e '\e[48;5;28;38;5;83m:: \e[1m'"${@}"' \e[0m'
 }
 
-if [[ ! "$1" ]]; then
-    exec with-lock watcher -x vendor '\.go$' -- "$0" "%s"
-fi
+:flock() {
+    [ -n "$_LOCK" ] || _LOCK=x exec flock -n $0 $0 "$@"
+}
 
-:blue ":: go build because of $1"
-
-output=$(go build -v ./... 2>&1)
-if grep -q "no required module provides package" <<< "$output"; then
-    :blue ":: go get -v"
-    go get -v
-    :green "GO GET OK"
-else
-    if [[ "$output" ]]; then
-        :red "BUILD FAIL"
-        echo "$output"
+:main() {
+    if [[ ! "$1" ]]; then
+        :flock
+        :flush-vendor
+        :blue ":: watcher -x vendor '\.go$'"
+        exec watcher -x vendor '\.go$' -- "$0" "%s"
     else
-        :green "BUILD PASS"
+        :build "$@"
     fi
-fi
+}
 
-:blue ":: go mod tidy"
-go mod tidy
+:flush-vendor() {
+    if [[ -f go.mod ]] && [[ -d vendor ]]; then
+        :blue ":: rm -rf vendor"
+        rm -rf vendor
+    fi
+}
 
-if [[ -d "vendor" ]]; then
-    :blue ":: go mod vendor"
-    go mod vendor
-fi
+:build() {
+    :flush-vendor
+    :blue ":: go build because of $1"
 
-sleep 1
+    output=$(go build -v ./... 2>&1)
+    if grep -q "no required module provides package" <<< "$output"; then
+        :blue ":: go get -v"
+        go get -v
+        :green "GO GET OK"
+    else
+        if [[ "$output" ]]; then
+            :red "BUILD FAIL"
+            echo "$output"
+        else
+            :green "BUILD PASS"
+        fi
+    fi
+
+    :blue ":: go mod tidy"
+    go mod tidy
+
+    if [[ -d "vendor" ]]; then
+        :blue ":: go mod vendor"
+        go mod vendor
+    fi
+}
+
+:main "$@"
